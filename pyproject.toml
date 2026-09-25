@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "grasp-failure-recovery"
+version = "0.1.0"
+description = "Learning, anticipating, and recovering from robot grasp failures under hidden physical variation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Nila Karthikesan", email = "nilakarthikesan@gmail.com" }]
+keywords = [
+    "robot-learning",
+    "grasping",
+    "failure-prediction",
+    "failure-recovery",
+    "imitation-learning",
+    "mujoco",
+    "gymnasium-robotics",
+    "adroit",
+    "hug",
+]
+
+# Runnable Mac baseline: the Adroit inspection and later rollout collection only
+# need Gymnasium-Robotics and MuJoCo. The HUG integration path deliberately does
+# not add HUG's Ubuntu/CUDA runtime as a dependency here.
+dependencies = [
+    # Task definitions and the AdroitHandRelocate-v1 environment.
+    "gymnasium-robotics==1.4.2",
+    # MuJoCo is the physics engine underneath Gymnasium-Robotics. The inspection
+    # script also uses its model-introspection API directly.
+    "mujoco==3.14.0",
+    # Demonstration dataset access. We will not download data during inspection.
+    "minari==0.5.3",
+    "numpy",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+]
+
+[project.urls]
+Homepage = "https://github.com/nilakarthikesan/grasp-failure-recovery"
+Repository = "https://github.com/nilakarthikesan/grasp-failure-recovery"
+
+[project.scripts]
+inspect-adroit = "grasp_failure_prediction.environments.adroit:main"
+inspect-hug-prediction = "grasp_failure_prediction.integrations.hug:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
