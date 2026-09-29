@@ -30,13 +30,17 @@ short distance, and place it in a target region. The first policy will learn
 high-level action decisions while existing kinematics, planning, and low-level
 control execute them.
 
-The recommended starting point is imitation learning from synchronized
-demonstrations, with ACT as the first reproducible baseline. Reinforcement
-learning is a later comparison, not a prerequisite.
+The selected Part I platform is a simulated Panda arm with a two-finger
+gripper in **robosuite/MuJoCo**, trained by imitation learning with ACT as the
+first reproducible baseline (via LeRobot). ManiSkill is the documented backup.
+Reinforcement learning is a later comparison, not a prerequisite.
 
 **Deliverable:** a trained grasp-and-transport policy, a reproducible training
 pipeline, held-out closed-loop evaluations, and saved successful and failed
 executions.
+
+The detailed Part I contract is in
+[`docs/PART_I_TRAINING_SPEC.md`](docs/PART_I_TRAINING_SPEC.md).
 
 ### Part II — Anticipate future failure
 
@@ -114,15 +118,25 @@ but they are not exposed to a sensor-based predictor.
 
 ## Current repository status
 
-The repository is currently an early scaffold, not a completed learning system:
+Part I (the nominal grasp-and-transport skill) is implemented and validated in
+simulation; Parts II and III remain to be built:
 
+- **Part I pipeline (implemented):** a weighted-container pick/lift/transport/
+  place task on robosuite/Panda, with canonical synchronized logging, exact
+  MuJoCo state snapshots, a scripted privileged demonstrator, LeRobot export,
+  ACT training, and held-out closed-loop evaluation. See
+  [`docs/PART_I_TRAINING_SPEC.md`](docs/PART_I_TRAINING_SPEC.md) and the
+  `src/grasp_failure_prediction/part1/` package. All results are simulation-only
+  until reproduced on a physical robot (see
+  [`docs/HARDWARE_AUDIT.md`](docs/HARDWARE_AUDIT.md)).
 - `AdroitHandRelocate-v1` inspection exposes observations, actions, timing,
   object mass/friction, and MuJoCo contacts.
 - A validated adapter reads released
   [HUG](https://github.com/KevinyWu/hug) grasp predictions without depending on
   HUG's CUDA runtime.
-- Rollout collection, policy training, future-failure labels, intervention
-  branching, and recovery learning remain to be implemented.
+- Future-failure labels (Part II), intervention branching, and recovery learning
+  (Part III) remain to be implemented. The Part I logs already contain the
+  histories, physics metadata, and restorable snapshots those parts need.
 
 The default Adroit observation contains no tactile or contact measurements.
 MuJoCo does maintain contact information internally, so a first simulation
@@ -130,10 +144,30 @@ study can surface contact-derived features through a wrapper. Those features
 must not be described as realistic tactile sensing.
 
 Adroit is useful for physics and contact inspection, but its dexterous
-relocation task may not be the simplest Part I learning sandbox. The system
-design therefore treats a simpler MuJoCo pick-and-place environment, such as
-ManiSkill PickCube, as the leading initial policy-training candidate. The final
-simulated embodiment should be chosen with the available physical robot in mind.
+relocation task is not the Part I learning sandbox. Part I uses a simulated
+Panda arm with a two-finger gripper in **robosuite/MuJoCo**, adapted from the
+`PickPlace` task. MuJoCo is chosen over PhysX-based stacks because it uniquely
+documents a complete integration state that restores to identical forward
+dynamics, which the Part III recovery-branching study requires. ManiSkill is
+the documented backup. The final simulated embodiment should still be chosen
+with the available physical robot in mind.
+
+The physical robot is not required for Part I. Three hardware discovery tracks
+run in parallel while the simulation policy is built:
+
+- **Track A — simulation now:** build and train the robosuite/Panda policy
+  immediately; this is the critical path.
+- **Track B — friend-built robot:** evaluate a written specification (DOF,
+  payload, repeatability, control/telemetry rates, gripper force interface,
+  URDF/simulation model, API, emergency stop, BOM, and publishability) before
+  authorizing any build.
+- **Track C — lab or funded hardware:** investigate lab access requirements and
+  funding-dependent options (for example an xArm6 or FR3-class arm). No purchase
+  or custom build is authorized yet.
+
+At a single hardware gate the project selects one target embodiment. Large-scale
+scientific data collection waits until then; a portable Cartesian end-effector
+plus gripper interface keeps the policy transferable across these options.
 
 ## Data sources
 
@@ -144,10 +178,11 @@ simulated embodiment should be chosen with the available physical robot in mind.
   I provide Part II's future-outcome data.
 - **Matched intervention trials:** simulator state branching produces the
   counterfactual comparisons needed by Part III.
-- **Shivam's VR-collected data:** usable for the central experiments only after
-  auditing provenance, embodiment, synchronization, sensors, actions, outcomes,
-  licensing, and physical-property labels. Data without failures or measured
-  physical conditions may still support policy or representation pretraining.
+- **A collaborator's VR-collected dataset:** usable for the central experiments
+  only after auditing provenance, embodiment, synchronization, sensors, actions,
+  outcomes, licensing, and physical-property labels. Data without failures or
+  measured physical conditions may still support policy or representation
+  pretraining.
 - **HUG:** an optional later source of diverse static grasp hypotheses and
   benchmark objects, not a dependency for the first learned policy.
 
@@ -174,20 +209,25 @@ from simulator branching or closely matched physical trials.
 
 ## Installation
 
-Requires Python ≥ 3.10. Using [`uv`](https://github.com/astral-sh/uv):
-
-```bash
-uv venv
-uv pip install -e ".[dev]"
-```
-
-Or with standard tooling:
+Requires Python ≥ 3.10. The lightweight Adroit/HUG baseline needs only the
+default dependencies:
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
 ```
+
+The Part I robot-training stack (robosuite, robomimic, LeRobot, ACT, PyTorch) is
+an optional extra. Install it against the validated version set:
+
+```bash
+pip install -e ".[dev,robot]" -c constraints/part1-macos-arm64.txt
+pip install "lerobot[dataset]" -c constraints/part1-macos-arm64.txt
+```
+
+On macOS, offscreen rendering uses CGL, so prefix simulation commands with
+`MUJOCO_GL=cgl`. Validate the stack with `MUJOCO_GL=cgl validate-stack`.
 
 ---
 
@@ -221,7 +261,32 @@ inspect-hug-prediction /path/to/grasp_pred/example.pkl
 > Only run this on prediction files you generated or trust. The test suite uses
 > synthetic in-memory dictionaries only — never opaque downloaded pickles.
 
-### 3. Run the tests
+### 3. Part I: grasp-and-transport pipeline (robosuite, simulation-only)
+
+Requires the `robot` extra. Validate the stack, inspect the task, or run the
+whole collect → export → train → evaluate loop:
+
+```bash
+MUJOCO_GL=cgl validate-stack                       # versions + live sim + LeRobot round-trip
+MUJOCO_GL=cgl python scripts/inspect_container_task.py   # one demo, phases, HDF5, exact snapshot restore
+MUJOCO_GL=cgl python scripts/run_part1_pipeline.py --workdir runs/part1_smoke  # end-to-end smoke
+```
+
+Individual stages are also exposed as entry points:
+
+```bash
+MUJOCO_GL=cgl collect-demos runs/demos.hdf5 --split train
+MUJOCO_GL=cgl export-demos runs/demos.hdf5 runs/lerobot
+MUJOCO_GL=cgl train-act runs/lerobot runs/policy          # add --smoke for a fast check
+MUJOCO_GL=cgl eval-act runs/policy                        # held-out closed-loop metrics
+```
+
+The scripted demonstrator reliably solves the task; a short smoke-trained ACT
+policy will not, by design. Reaching a competent policy needs the full-scale run
+(more demonstrations, a larger model, and many optimizer steps). All Part I
+numbers are simulation-only.
+
+### 4. Run the tests
 
 ```bash
 pytest
@@ -253,11 +318,30 @@ pytest
 src/grasp_failure_prediction/
   environments/adroit.py      # Adroit/MuJoCo inspection (runnable baseline)
   integrations/hug.py         # HUG prediction-pickle adapter (optional path)
+  part1/                      # Part I grasp-and-transport pipeline (robot extra)
+    config.py                 #   frozen task/physics/split contract
+    environment.py            #   weighted-container task (robosuite/Panda wrapper)
+    snapshot.py               #   exact MuJoCo state capture/restore (Part III primitive)
+    record.py                 #   canonical episode schema + RoboMimic-style HDF5
+    scripted.py               #   privileged scripted demonstrator (teacher)
+    collect.py                #   demonstration collection
+    lerobot_export.py         #   HDF5 -> LeRobot dataset for ACT
+    train_act.py              #   ACT training loop
+    evaluate.py               #   held-out closed-loop evaluation
+    stack.py                  #   training-stack validator
 scripts/
   inspect_adroit.py           # entry point for the Adroit inspection
   inspect_hug_prediction.py   # entry point for the HUG-output inspection
+  validate_stack.py           # validate the Part I training stack
+  inspect_container_task.py   # inspect the weighted-container task end to end
+  run_part1_pipeline.py       # collect -> export -> train -> evaluate
+constraints/
+  part1-macos-arm64.txt       # validated Part I stack versions (macOS arm64)
 tests/
   test_hug_adapter.py         # synthetic-dictionary tests for the HUG adapter
+  test_part1_config.py        # observation contract, splits, phases
+  test_part1_record.py        # episode/HDF5/snapshot round-trips, leak detection
+  test_part1_pipeline.py      # export/eval pure-logic tests
 ```
 
 ---

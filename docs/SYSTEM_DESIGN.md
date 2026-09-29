@@ -358,7 +358,7 @@ would otherwise have happened.
 
 ### 6.5 External data and physical robot
 
-**Shivam's VR-collected data** enters only after a dataset audit covering:
+**A collaborator's VR-collected dataset** enters only after a dataset audit covering:
 provenance and licensing; physical versus simulated collection; robot
 embodiment; sensors and actions; coordinate frames and units; timestamps and
 synchronization; successes and failures; object identity; and measured physical
@@ -399,23 +399,40 @@ use contact-derived features as a simulation proxy. These features must not be
 described as realistic tactile sensing.
 
 The current Adroit environment is a useful physics and dexterous-contact
-inspection baseline, but it is not automatically the best Part I environment.
-Its Shadow Hand differs from the Panda-based ManiSkill PickCube sandbox and may
-differ from the available physical robot.
+inspection baseline, but it is not the Part I environment. Its Shadow Hand is
+far more complex than the two-finger gripper Part I requires.
 
-Before collecting a large dataset, the project must select the simulated
-embodiment using these criteria:
+**Selected Part I platform:** a simulated Panda arm with a two-finger gripper
+in robosuite/MuJoCo, with the task adapted from robosuite `PickPlace`. ACT is
+trained through LeRobot. ManiSkill is the documented backup.
 
-- similarity to the available physical arm and gripper;
+The selection criteria were:
+
+- similarity to a plausible physical arm and gripper (Panda + parallel jaw);
 - support for pick, transport, and place;
 - demonstrations or a reliable scripted controller;
 - complete state save and restore for Part III;
 - controllable mass, inertia, center of mass, and friction; and
 - access to contacts without exposing privileged values to learned models.
 
-ManiSkill PickCube is the leading simple Part I candidate. Adroit remains useful
-for dexterous experiments if the research and available hardware justify the
-additional complexity.
+The deciding factor was recovery branching. MuJoCo is the only examined engine
+that documents a complete integration state (`mjSTATE_INTEGRATION`) whose
+restoration reproduces identical forward dynamics; PhysX-based stacks expose
+scene-state restoration without an equivalent full-engine guarantee. A correct
+implementation must additionally snapshot environment counters, controller
+state, RNG, observation-delay buffers, changed model parameters (mass, inertia,
+friction), and the ACT action-history/temporal-ensemble state, since stock
+robosuite state helpers capture only time, `qpos`, and `qvel`.
+
+**Hardware tracks.** The physical robot is not required for Part I. Track A
+(simulation) is the critical path now. Track B evaluates a friend-built robot
+only against a written specification and acceptance tests. Track C investigates
+lab access and funding-dependent hardware (for example xArm6 or FR3-class arms).
+A single hardware gate selects one target embodiment before large-scale
+scientific data collection; a portable Cartesian-plus-gripper action interface
+keeps the policy transferable. A low-cost arm such as SO-101 may validate
+software plumbing but is not assumed sufficient for quantitative force/recovery
+claims. See [PART_I_TRAINING_SPEC.md](PART_I_TRAINING_SPEC.md).
 
 HUG may later provide diverse human-like grasp hypotheses, but it is not
 required for the first controlled experiment. Retargeting its MANO hand poses
@@ -475,7 +492,7 @@ Before collecting a large dataset:
 - define mass, inertia, center-of-mass, and friction interventions;
 - freeze episode-, object-, and physical-condition-level splits;
 - define prediction horizons and intervention delays; and
-- audit Shivam's sample data and the available physical robot.
+- audit the offered external dataset and the available physical robot.
 
 ### Phase 1 — Build the learned manipulation baseline
 

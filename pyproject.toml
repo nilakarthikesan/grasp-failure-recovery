@@ -29,8 +29,11 @@ dependencies = [
     # Task definitions and the AdroitHandRelocate-v1 environment.
     "gymnasium-robotics==1.4.2",
     # MuJoCo is the physics engine underneath Gymnasium-Robotics. The inspection
-    # script also uses its model-introspection API directly.
-    "mujoco==3.14.0",
+    # script also uses its model-introspection API directly. Pinned to the 3.3.x
+    # line: robosuite 1.5.2 (the Part I platform) targets the mujoco 3.3 API and
+    # breaks on 3.14 (the MjData.qM -> M rename and stricter pybind enums), while
+    # Gymnasium-Robotics/Adroit only requires >=2.2.0, so 3.3.x satisfies both.
+    "mujoco>=3.3.0,<3.4",
     # Demonstration dataset access. We will not download data during inspection.
     "minari==0.5.3",
     "numpy",
@@ -41,6 +44,23 @@ dev = [
     "pytest>=7.4",
 ]
 
+# Part I robot-training stack. Kept separate so the Adroit/HUG baseline and the
+# test suite never require the heavy simulation/learning dependencies. Install
+# with:  pip install -e ".[robot]"  (or the pinned constraints file once the
+# working version set is validated on this machine).
+robot = [
+    # Panda + parallel-jaw manipulation environments on MuJoCo.
+    "robosuite",
+    # Offline demonstration datasets (RoboMimic) and utilities.
+    "robomimic",
+    # Imitation-learning training (ACT) and LeRobot dataset format.
+    "lerobot",
+    # Learning backend. On this Intel macOS host there is no CUDA/MPS, so
+    # training runs on CPU; pin a CPU build when reproducibility matters.
+    "torch",
+    "torchvision",
+]
+
 [project.urls]
 Homepage = "https://github.com/nilakarthikesan/grasp-failure-recovery"
 Repository = "https://github.com/nilakarthikesan/grasp-failure-recovery"
@@ -48,6 +68,11 @@ Repository = "https://github.com/nilakarthikesan/grasp-failure-recovery"
 [project.scripts]
 inspect-adroit = "grasp_failure_prediction.environments.adroit:main"
 inspect-hug-prediction = "grasp_failure_prediction.integrations.hug:main"
+validate-stack = "grasp_failure_prediction.part1.stack:main"
+collect-demos = "grasp_failure_prediction.part1.collect:main"
+export-demos = "grasp_failure_prediction.part1.lerobot_export:main"
+train-act = "grasp_failure_prediction.part1.train_act:main"
+eval-act = "grasp_failure_prediction.part1.evaluate:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

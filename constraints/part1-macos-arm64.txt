@@ -1,0 +1,35 @@
+# Validated Part I training-stack versions (macOS arm64, Python 3.12).
+#
+# This is the working combination found while validating the robot-training
+# stack (to-do: validate-stack). Install the Part I extra against these pins:
+#
+#     python -m pip install -e ".[dev,robot]" -c constraints/part1-macos-arm64.txt
+#     python -m pip install "lerobot[dataset]" -c constraints/part1-macos-arm64.txt
+#
+# Notes on the deliberate choices captured here:
+#   * mujoco is pinned to 3.3.x. robosuite 1.5.2 targets the mujoco 3.3 API and
+#     breaks on mujoco 3.14 (the MjData.qM -> M rename, and stricter pybind
+#     enums that make `np_scalar in (enum, enum)` always False). Gymnasium-
+#     Robotics/Adroit only needs mujoco>=2.2.0, so 3.3.x satisfies both.
+#   * numpy is pinned to 2.2.6: lerobot declares numpy>=2.0,<2.3 and opencv
+#     wants >=2, while robosuite works fine on 2.2.6. (mink, robosuite's
+#     optional GR1 whole-body IK, prefers numpy<2 but is unused for the Panda +
+#     parallel-jaw task, so its resolver warning is expected and harmless.)
+#   * egl_probe (a robomimic dep) is intentionally omitted: it is a Linux-EGL
+#     headless-rendering helper that fails to build on macOS, which renders
+#     offscreen through CGL (MUJOCO_GL=cgl) instead.
+#   * torch has no CUDA/MPS wheel constraints here; on this Apple Silicon host
+#     torch reports MPS available.
+numpy==2.2.6
+mujoco==3.3.7
+torch==2.11.0
+torchvision==0.26.0
+robosuite==1.5.2
+robomimic==0.3.0
+lerobot==0.6.1
+gymnasium==1.3.0
+gymnasium-robotics==1.4.2
+minari==0.5.3
+h5py==3.16.0
+datasets==4.8.5
+numba==0.67.0
