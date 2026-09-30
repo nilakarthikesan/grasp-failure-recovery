@@ -236,10 +236,15 @@ Requires Python ≥ 3.10. The lightweight Adroit/HUG baseline needs only the
 default dependencies:
 
 ```bash
+git submodule update --init --recursive
 python -m venv .venv
 source .venv/bin/activate
-pip install -e ".[dev]"
+pip install -e ".[dev,eval]"
 ```
+
+The pinned `dex-urdf` submodule supplies the official Shadow Hand URDF required
+by Dex Retargeting. The repository does not copy those third-party assets into
+its own source tree.
 
 The Part I robot-training stack (robosuite, robomimic, LeRobot, ACT, PyTorch) is
 an optional extra. Install it against the validated version set:

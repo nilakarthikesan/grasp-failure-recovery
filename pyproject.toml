@@ -46,6 +46,11 @@ dev = [
     "pytest>=7.4",
 ]
 
+eval = [
+    "dex-retargeting>=0.5,<0.6",
+    "torch",
+]
+
 # Part I robot-training stack. Kept separate so the Adroit/HUG baseline and the
 # test suite never require the heavy simulation/learning dependencies. Install
 # with:  pip install -e ".[robot]"  (or the pinned constraints file once the
