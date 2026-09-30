@@ -1,0 +1,27 @@
+fixed_grasp_lift_v1:
+  schema_version: execution_protocol_v1
+  execution_protocol_id: fixed_grasp_lift_v1
+  states:
+    - reset
+    - load_object
+    - retarget
+    - move_to_pregrasp
+    - approach
+    - close_fingers
+    - lift
+    - hold
+    - score
+  parameters:
+    pregrasp_distance_m: 0.08
+    approach_duration_s: 1.0
+    grip_command: 0.6
+    grip_command_type: normalized_position
+    close_duration_s: 1.0
+    lift_height_m: 0.15
+    lift_duration_s: 1.5
+    hold_duration_s: 2.0
+    total_timeout_s: 10.0
+  success:
+    minimum_lift_m: 0.14
+    required_hold_s: 2.0
+    maximum_object_drop_m: 0.02

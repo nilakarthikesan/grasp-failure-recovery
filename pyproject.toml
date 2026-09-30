@@ -79,5 +79,8 @@ eval-act = "grasp_failure_prediction.part1.evaluate:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+"grasp_failure_prediction.evaluation" = ["configs/*.yaml"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
