@@ -6,6 +6,10 @@ success — all measured from closed-loop rollouts on held-out starting
 conditions (the validation seeds), not from training loss.
 
 Results here are simulation-only.
+
+This module evaluates the earlier Panda/ACT baseline only. It does not execute
+or score the proposed HUG/Shadow Hand fixed-protocol study. Its outcome
+definitions remain provisional; see docs/PART_I_TRAINING_SPEC.md.
 """
 
 from __future__ import annotations

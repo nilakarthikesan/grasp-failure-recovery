@@ -1,3 +1,131 @@
+# Part I: Grasp Execution and Failure-Data Collection — Proposed Revision
+
+Status: proposal for review, not a frozen contract or completed benchmark.
+
+## Research decision
+
+Use existing HUG grasp proposals and a fixed Shadow Hand execution controller
+as the primary data-collection approach. The scientific question is whether
+observation/action history predicts future object loss under held-out physical
+conditions. Learning a nominal manipulation policy is no longer a prerequisite.
+
+This is a better fit for that question because multiple grasp proposals can be
+compared under the same execution protocol. It reduces confounding from changes
+in policy training, while retaining variation in grasp geometry and physics.
+It does not eliminate controller or retargeting errors; these need separate labels.
+More proposals alone do not establish a better dataset or generalization.
+
+The existing Panda/ACT pipeline remains a separate learning baseline. Its scoring
+module does not implement the proposed Shadow Hand experiment.
+
+## 1. Proposed execution loop
+
+1. Obtain HUG proposals for an object and record model/checkpoint provenance.
+2. Retarget each proposal to the Shadow Hand; validate joint limits, reachability,
+   initial collision state, and coordinate/scale conventions.
+3. Reset the scene with the selected object, mass, friction profile, pose, and seed.
+4. Execute a fixed approach, finger closure, lift, and hold sequence.
+5. Record synchronized observations, commands, contacts, phase transitions, and outcomes.
+6. Repeat across proposals and controlled physical conditions.
+7. Train a temporal future-loss predictor on designated training conditions.
+8. Evaluate it on complete held-out episodes and physical/object/proposal groups.
+
+Initial protocol candidate: lift 0.15 m above the initial object reference height
+and hold for 2 s. These are provisional; validate reachability and sensitivity
+before freezing them. A normalized closure setting is not calibrated grip force.
+Friction is nominal in the first runnable pilot; mass/friction grids follow only
+after the pilot and labels are trustworthy.
+
+## 2. Outcome taxonomy
+
+Record distinct outcomes rather than one undifferentiated failure label:
+
+- Invalid proposal/retargeting: failed pre-execution validation.
+- Acquisition failure: no established hold before the acquisition deadline.
+- Lift failure: acquired but did not reach the required height.
+- Post-acquisition object loss: unintentional departure from an established grasp.
+- Success: acquired, reached the height, and retained the object through the hold.
+- Timeout/incomplete follow-up: insufficient time to determine the intended outcome.
+- Collision, excessive contact force, controller fault: separate safety/error flags.
+
+An object dropped onto the table still counts as object loss. Below-table position
+alone is insufficient. Define acquisition and loss using validated combinations
+of contact, hand-relative motion, support contact, and persistence thresholds.
+Slip is a possible precursor; it is not automatically object loss.
+All thresholds and the event timestamps need manual trajectory review and
+sensitivity checks. Report rejected proposals and acquisition failures separately
+so filtering cannot hide poor grasp proposals.
+
+## 3. Prediction target and information boundary
+
+Predict P(object loss within horizon | history so far, continue fixed protocol).
+Use windows after validated acquisition for the primary future-loss target.
+Evaluate acquisition prediction separately if added. Never label every frame of
+an eventually failed episode as imminent failure. Exclude windows with incomplete
+future follow-up or use an explicit censoring-aware method.
+
+Candidate inputs: available camera history, measured robot/hand state, issued
+actions, and protocol phase/intended motion. Contact-derived features are an
+explicit simulation-proxy ablation, not a claim of real tactile sensing.
+Mass, friction, ground-truth object pose, future frames, and outcome labels stay
+outside the sensor-based predictor. Log privileged values for labels/analysis.
+
+## 4. Dataset and held-out tests
+
+Collect successful and unsuccessful executions of a fixed versioned controller.
+Define train/validation/test condition grids before collection. Predictor training
+must contain controlled physical variation; tests reserve specified values or
+combinations. A fixed controller does not imply nominal-only predictor training.
+
+Separate tests for unseen proposals, mass values, friction values, mass/friction
+combinations, and objects. Distinguish interpolation from extrapolation. Split
+by complete episodes, group related proposal/condition repeats, and prevent
+neighboring windows or equivalent grasps from crossing a claimed holdout.
+
+Initially, "unseen environment" means held-out physical conditions in the same
+simulated embodiment. New robots, rooms, and real hardware require separate evidence.
+Record seeds, object/grasp identifiers, sampling method, condition allocation,
+controller/retargeting versions, camera/physics configuration, and code commit.
+Do not inflate statistical confidence by treating correlated windows as independent.
+
+## 5. Evaluation and prospective findings
+
+Execution metrics: proposal validity, acquisition success, lift success, retention,
+post-acquisition object-loss rate, timeouts, and separate safety events.
+Prediction metrics: event recall at a fixed false-alarm budget, warning lead-time
+distribution, probability calibration, and per-shift performance. Include simple
+state/motion and reactive-slip baselines; compare information sources fairly.
+Use episode/event-level counts and confidence intervals, with all denominators explicit.
+
+Possible findings: mass/friction sensitivity of proposals; signals that precede
+loss; predictor robustness or miscalibration on physical holdouts. These are
+questions, not observed results. Pre-drop warning is not evidence of recoverability;
+actionability requires later matched intervention/delay experiments.
+
+## 6. Implementation status and exit gate
+
+Implemented separately: Panda simulation, scripted demonstrations, dataset export,
+and an ACT smoke-training pipeline. This is not a competent trained policy claim.
+The evaluation-infrastructure branch adds schemas, registries, and retargeting
+utilities; the complete HUG/Shadow Hand execution runner remains to be built.
+
+Next gate: one valid proposal executes end to end with reviewed labels and saved
+trajectory/provenance. Then run a small mixed-outcome pilot before scaling.
+Replay validation must include controller/task state and repeated-action future
+trajectories; exact qpos restoration alone does not establish identical execution.
+
+## 7. Three-part roadmap
+
+Part I: establish fixed grasp execution and collect trustworthy trajectories.
+Part II: learn and evaluate future-loss prediction under held-out physics.
+Part III: compare delayed interventions from matched states and learn recovery selection.
+
+Existing Panda/ACT design retained below for historical comparison; it is not the
+primary proposed experiment and its claims are subject to review.
+
+<details>
+<summary>Earlier Panda/ACT proposal</summary>
+
 # Part I Training Specification
 
 **Learn the nominal grasp-and-transport policy.**
@@ -160,3 +288,5 @@ only closed-loop rollouts from held-out starting conditions are.
   restorable states that Parts II and III require.
 - The selected physical-hardware path is documented before large-scale
   scientific data collection.
+
+</details>

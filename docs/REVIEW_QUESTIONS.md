@@ -1,3 +1,45 @@
+# Updated Design Review: Fixed HUG Grasp Execution
+
+## Response to the earlier questions
+
+We propose using HUG proposals with a fixed Shadow Hand execution protocol for
+the first dataset. This better isolates grasp/physics variation for the failure
+predictor than making ACT competence a prerequisite. It is a scoped research
+choice, not evidence that HUG or Shadow Hand already outperforms Panda/ACT.
+
+- **Failure definitions:** separate invalid proposals, acquisition/lift failures,
+  and post-acquisition loss. Drops onto the table must count. Slip is a precursor.
+- **Training approach:** defer ACT versus Diffusion Policy comparisons. Train the
+  failure predictor on executions across a declared physical-condition grid,
+  retaining held-out values/combinations for testing.
+- **Metrics:** separate execution quality from future-loss prediction. Report
+  event-level warning times, calibration, recall/false alarms, and per-shift uncertainty.
+- **End-to-end design:** fixed execution → labeled histories → predictor → matched
+  recovery experiments. The learned-policy baseline remains a separate extension.
+
+## Questions we still need reviewers to challenge
+
+1. Does Shadow Hand retargeting add too much complexity compared with a simpler
+   gripper? What checks isolate retargeting/controller faults from grasp instability?
+2. What observable criteria and persistence thresholds establish acquisition and loss?
+   How should we handle table-supported objects and temporary contact loss?
+3. Are lift height, hold duration, closure commands, and motion profiles appropriate?
+   How should we calibrate contact force rather than assume a normalized command is force?
+4. Which object/proposal/physics groups must be held out to support each claim?
+5. What sampling grid yields enough successes and failures without cherry-picking?
+6. Which predictor inputs are realistically measurable? Is simulation contact truth
+   appropriately separated as a proxy ablation?
+7. Which baselines, false-alarm budgets, confidence intervals, and warning horizons
+   make prediction results useful and interpretable?
+8. What state and repeated-action replay checks are required for later recovery trials?
+
+See PART_I_TRAINING_SPEC.md for the revised proposal. The existing evaluate.py
+scores Panda/ACT executions only; it is not a HUG evaluator. No new benchmark
+results are claimed. Earlier questions are preserved below for comparison.
+
+<details>
+<summary>Earlier Panda/ACT review questions</summary>
+
 # Part I Design Review — Questions for Reviewers
 
 Thanks for taking a look. The **infrastructure** (simulator setup, the
@@ -100,3 +142,5 @@ Questions:
 Please leave inline comments on the specific lines/definitions above — concrete
 counter-proposals for thresholds, metrics, and definitions are exactly what I'm
 after.
+
+</details>
