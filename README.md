@@ -166,6 +166,12 @@ needs to be adapted to accept object assets and HUG grasp targets and to expose
 the project's grasp/lift/transport outcomes. MuJoCo remains the physics engine
 for controlled execution and later recovery branching.
 
+Integration testing found that the stock Gymnasium Adroit MJCF does not use the
+same Shadow joint names and axes as Dex Retargeting's official URDF. The runner
+must therefore embed the pinned `dex-urdf` Shadow model or use a separately
+validated kinematic conversion. Numeric suffix remapping is rejected because
+it produces incorrect finger and thumb poses.
+
 The physical robot is not required for Part I. Three hardware discovery tracks
 run in parallel while the simulation policy is built:
 
@@ -283,6 +289,15 @@ landmarks, mesh vertices, camera metadata).
 python scripts/inspect_hug_prediction.py /path/to/grasp_pred/example.pkl
 # or, after installation:
 inspect-hug-prediction /path/to/grasp_pred/example.pkl
+```
+
+Retarget and numerically validate the pose in the official Shadow model loaded
+by MuJoCo; add `--viewer` under `mjpython` for visual inspection:
+
+```bash
+view-retargeted-hand /path/to/grasp_pred/example.pkl
+MUJOCO_GL=glfw mjpython -m grasp_failure_prediction.evaluation.view_pose \
+  /path/to/grasp_pred/example.pkl --viewer
 ```
 
 > **Security note:** `*.pkl` files can execute arbitrary code when unpickled.

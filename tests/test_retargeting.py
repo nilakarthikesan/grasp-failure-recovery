@@ -4,6 +4,7 @@ import numpy as np
 import pytest
 
 from grasp_failure_prediction.evaluation.retargeting import (
+    RetargetingError,
     ShadowHandRetargeter,
     camera_landmarks_to_wrist,
     reorder_for_mujoco,
@@ -72,7 +73,7 @@ def test_real_dex_shadow_retargeting_is_finite_and_within_limits() -> None:
     assert np.all(pose.qpos <= limits[:, 1] + 1e-6)
 
 
-def test_real_adroit_joint_set_is_fully_covered_by_name_mapping() -> None:
+def test_stock_adroit_joint_convention_is_rejected() -> None:
     gym = pytest.importorskip("gymnasium")
     gymnasium_robotics = pytest.importorskip("gymnasium_robotics")
     mujoco = pytest.importorskip("mujoco")
@@ -86,10 +87,9 @@ def test_real_adroit_joint_set_is_fully_covered_by_name_mapping() -> None:
             for index in range(6, 30)
         ]
         retargeter = ShadowHandRetargeter()
-        mapped = reorder_for_mujoco(
-            retargeter.joint_names, np.arange(24, dtype=float), target_names
-        )
-        assert mapped.shape == (24,)
-        assert set(mapped) == set(np.arange(24, dtype=float))
+        with pytest.raises(RetargetingError, match="MuJoCo joints missing"):
+            reorder_for_mujoco(
+                retargeter.joint_names, np.arange(24, dtype=float), target_names
+            )
     finally:
         env.close()

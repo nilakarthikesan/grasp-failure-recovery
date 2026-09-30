@@ -7,12 +7,12 @@ adroit_shadow_tabletop_v1:
     physics_timestep_s: 0.002
     control_timestep_s: 0.04
   scene:
-    model_path: gymnasium_robotics/envs/assets/adroit_hand/adroit_relocate.xml
+    model_path: third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf
     table_size_m: [0.8, 0.8, 0.05]
   robot:
     arm_model: adroit_arm
     hand_model: shadow_hand_right
-    joint_order_path: configs/shadow_hand_joint_order.yaml
+    joint_order_path: dex-retargeting:shadow_hand_right.yml
     controller_id: shadow_joint_position_v1
   contracts:
     observation: shadow_tabletop_observation_v1

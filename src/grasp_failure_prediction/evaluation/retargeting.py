@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-import re
 from typing import Sequence
 
 import numpy as np
@@ -74,39 +73,20 @@ def reference_vectors(
     return landmarks_wrist_m[indices[1]] - landmarks_wrist_m[indices[0]]
 
 
-_DEX_SHADOW_NAME = re.compile(r"^(WR|FF|MF|RF|LF|TH)J([1-5])$")
-
-
-def dex_to_adroit_joint_name(name: str) -> str:
-    """Translate official Shadow URDF names to Gymnasium Adroit names.
-
-    Both models use the same Shadow kinematic joints, but Gymnasium's MJCF uses
-    zero-based numeric suffixes while the official Shadow URDF uses one-based
-    suffixes (for example ``FFJ4`` maps to ``FFJ3``).
-    """
-
-    match = _DEX_SHADOW_NAME.fullmatch(name)
-    if match is None:
-        raise RetargetingError(f"unsupported Dex Shadow joint name: {name}")
-    return f"{match.group(1)}J{int(match.group(2)) - 1}"
-
-
 def reorder_for_mujoco(
     dex_joint_names: Sequence[str],
     dex_qpos: np.ndarray,
     mujoco_joint_names: Sequence[str],
 ) -> np.ndarray:
-    """Reorder a Dex result using explicit names, including Adroit aliases."""
+    """Reorder a Dex result using exact, explicit MuJoCo joint names."""
 
     values = np.asarray(dex_qpos, dtype=np.float64)
     if values.shape != (len(dex_joint_names),):
         raise RetargetingError("Dex qpos length does not match its joint-name list")
-    by_mujoco_name: dict[str, float] = {}
-    for name, value in zip(dex_joint_names, values, strict=True):
-        mapped = dex_to_adroit_joint_name(name)
-        if mapped in by_mujoco_name:
-            raise RetargetingError(f"duplicate mapped MuJoCo joint name: {mapped}")
-        by_mujoco_name[mapped] = float(value)
+    by_mujoco_name = {
+        name: float(value)
+        for name, value in zip(dex_joint_names, values, strict=True)
+    }
     missing = [name for name in mujoco_joint_names if name not in by_mujoco_name]
     if missing:
         raise RetargetingError(f"MuJoCo joints missing from Dex result: {missing}")

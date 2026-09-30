@@ -412,6 +412,12 @@ logging, snapshot, and policy infrastructure. A two-finger gripper cannot
 execute the finger configuration expressed by a MANO grasp, so Panda results
 are not the primary HUG experiment.
 
+Integration testing found that Gymnasium's stock Adroit MJCF and the official
+Shadow URDF used by Dex Retargeting differ in joint naming and axis conventions.
+The evaluation runner must use the pinned official Shadow kinematics or a
+separately validated conversion. It must not infer a mapping by decrementing
+joint-number suffixes.
+
 The selection criteria were:
 
 - an articulated multi-finger hand capable of representing a retargeted MANO
