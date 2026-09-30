@@ -1,7 +1,7 @@
 # Part I Hardware Audit and Decision Gate
 
-Part I runs in simulation now (robosuite/Panda). A physical robot is **not**
-required to produce the first result. This document audits the parallel
+Part I runs in simulation now (Adroit/Shadow Hand in MuJoCo). A physical robot
+is **not** required to produce the first result. This document audits the parallel
 hardware-discovery tracks and defines a single decision gate that must pass
 before any purchase, custom build, or large-scale physical data collection.
 
@@ -17,10 +17,11 @@ physical target; the others become fallbacks.
 
 ## Track A — Simulation now (critical path)
 
-* Status: **active**. robosuite Panda + two-finger gripper on MuJoCo, validated
-  on this machine (see `constraints/part1-macos-arm64.txt`).
-* Deliverable: the trained ACT policy, closed-loop evaluations, and the logged
-  demonstrations/snapshots that Parts II and III consume.
+* Status: **active**. Adroit inspection and HUG prediction validation run on
+  this machine; the Dex Retargeting coordinate/joint adapter and execution
+  sequence remain to be built.
+* Deliverable: HUG-conditioned dexterous grasp executions, closed-loop
+  evaluations, and the logs/snapshots that Parts II and III consume.
 * Blocking on physical hardware: **no**. Simulation results are labeled
   simulation-only until reproduced on a real robot.
 
@@ -33,11 +34,12 @@ Specification to request:
 
 - degrees of freedom, reach, and payload (must comfortably exceed container mass);
 - repeatability / positional accuracy;
-- control interface and rate (target: Cartesian end-effector + gripper command
-  at the Part I control rate, matching `docs/PART_I_TRAINING_SPEC.md` §5);
-- telemetry: joint position/velocity, end-effector pose, gripper opening, and —
-  ideally — a force/torque or gripper-force signal for Parts II/III;
-- gripper type and whether it exposes position, effort, or calibrated force;
+- control interface and rate for arm, wrist, and individual dexterous-hand
+  joints at the Part I control rate;
+- telemetry: joint position/velocity, wrist pose, per-finger state, and —
+  ideally — force/torque or tactile signals for Parts II/III;
+- hand type, degrees of freedom, joint limits, and whether it exposes position,
+  effort, calibrated force, or tactile feedback;
 - a URDF / MJCF or other simulation model for sim-to-real alignment;
 - a documented software API (Python preferred) and emergency-stop behavior;
 - bill of materials, build time, and total cost;
@@ -45,7 +47,7 @@ Specification to request:
 
 Acceptance criteria (all must hold):
 
-1. exposes the portable Cartesian + gripper action interface;
+1. can execute a documented retargeting from HUG/MANO grasps;
 2. streams the observations in the Part I contract at a usable rate;
 3. has a usable simulation model for alignment;
 4. repeatability is sufficient for a tabletop grasp-and-place task;
@@ -62,8 +64,8 @@ Actions:
 - enumerate reachable labs/contacts and, for each, what robot is available,
   access rules, supervision requirements, and scheduling;
 - clarify whether results collected there are publishable by the author;
-- for the funded option, scope one concrete arm + parallel-jaw gripper, its API,
-  its simulation model, and total cost; treat purchase as **funding-dependent**
+- for the funded option, scope one concrete arm + dexterous hand, its API, its
+  simulation model, and total cost; treat purchase as **funding-dependent**
   (pursued only if a grant / lab budget / sponsor is obtained).
 
 Acceptance criteria:
@@ -102,13 +104,13 @@ Outcome tiers:
 
 Choose exactly one physical target when, and only when:
 
-1. Track A has produced a competent simulated policy with logged demonstrations,
+1. Track A has executed retargeted HUG grasps with logged trajectories,
    snapshots, and closed-loop evaluations; and
 2. at least one of Tracks B/C meets all its acceptance criteria at acceptable
    cost and risk; and
-3. the chosen platform exposes the portable Cartesian + gripper interface and
-   the observation contract, so the simulated policy and pipeline transfer with
-   minimal changes.
+3. the chosen platform exposes the required arm, wrist, dexterous-hand, and
+   observation interfaces so the retargeting and evaluation pipeline can be
+   transferred with documented changes.
 
 Until the gate passes, work stays in simulation and all quantitative results are
 reported as simulation-only.
