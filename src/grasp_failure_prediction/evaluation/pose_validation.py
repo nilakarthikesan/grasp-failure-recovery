@@ -49,11 +49,19 @@ def _shadow_urdf_path(urdf_root: str | Path) -> Path:
     return path.resolve()
 
 
-def _mujoco_compatible_urdf(source: Path) -> Path:
+def _mujoco_compatible_urdf(source: Path, floating_root: bool = False) -> Path:
     """Write a temporary URDF whose mesh paths survive MuJoCo compilation."""
 
     tree = ET.parse(source)
     root = tree.getroot()
+    if floating_root:
+        world_joint = next(
+            (joint for joint in root.findall("joint") if joint.get("name") == "world_joint"),
+            None,
+        )
+        if world_joint is None:
+            raise RetargetingError("Shadow URDF has no world_joint")
+        world_joint.set("type", "floating")
     mujoco_extension = ET.Element("mujoco")
     ET.SubElement(mujoco_extension, "compiler", {"strippath": "false"})
     root.insert(0, mujoco_extension)
@@ -68,10 +76,14 @@ def _mujoco_compatible_urdf(source: Path) -> Path:
     return output
 
 
-def load_shadow_model(urdf_root: str | Path) -> mujoco.MjModel:
+def load_shadow_model(
+    urdf_root: str | Path, *, floating_root: bool = False
+) -> mujoco.MjModel:
     """Compile the same official Shadow URDF used by Dex into MuJoCo."""
 
-    temporary = _mujoco_compatible_urdf(_shadow_urdf_path(urdf_root))
+    temporary = _mujoco_compatible_urdf(
+        _shadow_urdf_path(urdf_root), floating_root=floating_root
+    )
     try:
         return mujoco.MjModel.from_xml_path(str(temporary))
     finally:
