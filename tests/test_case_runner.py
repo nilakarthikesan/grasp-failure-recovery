@@ -9,7 +9,10 @@ import numpy as np
 import pytest
 import yaml
 
-from grasp_failure_prediction.evaluation.case_runner import run_case
+from grasp_failure_prediction.evaluation.case_runner import (
+    _table_parallel_world_wrist,
+    run_case,
+)
 from grasp_failure_prediction.evaluation.registry import RegistryError
 from test_evaluation_schema import valid_case
 from test_retargeting import synthetic_hug_prediction
@@ -59,6 +62,19 @@ def test_repeated_case_produces_identical_trajectory(tmp_path) -> None:
     assert set(first.files) == set(second.files)
     for key in first.files:
         np.testing.assert_array_equal(first[key], second[key])
+
+
+def test_wrist_is_horizontal_and_centered_above_object() -> None:
+    position, quaternion = _table_parallel_world_wrist(
+        np.array([0.2, 0.1, 0.03]), 0.04
+    )
+
+    # The Shadow body origin is 4.5 cm behind its visible palm center. With the
+    # hand facing down, shifting the origin +y puts the mesh center over object.
+    np.testing.assert_allclose(position, [0.2, 0.145, 0.07], atol=1e-8)
+    np.testing.assert_allclose(
+        quaternion, [np.sqrt(0.5), np.sqrt(0.5), 0.0, 0.0], atol=1e-8
+    )
 
 
 @pytest.mark.skipif(sys.platform != "darwin", reason="macOS-specific viewer launch")

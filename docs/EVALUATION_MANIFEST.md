@@ -45,6 +45,7 @@ The initial registry entry is:
 ```yaml
 fixed_grasp_lift_v1:
   pregrasp_distance_m: 0.08
+  palm_height_above_object_m: 0.04
   approach_duration_s: 1.0
   grip_force: 0.6
   lift_height_m: 0.15
@@ -112,6 +113,7 @@ The resolved run record must add:
   "execution_protocol_config_hash": "sha256:...",
   "execution_protocol_parameters": {
     "pregrasp_distance_m": 0.08,
+    "palm_height_above_object_m": 0.04,
     "approach_duration_s": 1.0,
     "grip_force": 0.6,
     "lift_height_m": 0.15,

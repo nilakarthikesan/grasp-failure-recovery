@@ -60,6 +60,7 @@ class EnvironmentSpec(StrictModel):
 
 class ProtocolParameters(StrictModel):
     pregrasp_distance_m: float = Field(gt=0.0)
+    palm_height_above_object_m: float = Field(gt=0.0)
     approach_duration_s: float = Field(gt=0.0)
     grip_command: float = Field(ge=-1.0, le=1.0)
     grip_command_type: Literal["normalized_position"]

@@ -26,6 +26,7 @@ from .scoring import score_trace
 SUPPORTED_OBJECTS = {"object01"}
 SUPPORTED_FRICTION_PROFILES = {"nominal_v1"}
 SUPPORTED_MOTION_PROFILES = {"nominal_lift_v1"}
+SHADOW_PALM_CENTER_OFFSET_LOCAL_M = np.array([0.0, 0.0, 0.045])
 
 
 def load_case(path: str | Path) -> EvaluationCase:
@@ -62,25 +63,24 @@ def _runner_class(resolved: ResolvedCase) -> type[AdroitShadowRunner]:
     return runner_class
 
 
-def _camera_to_world_wrist(
-    runner: AdroitShadowRunner, T_camera_wrist: np.ndarray
+def _table_parallel_world_wrist(
+    object_position_world_m: np.ndarray,
+    palm_height_above_object_m: float,
 ) -> tuple[np.ndarray, np.ndarray]:
-    camera_id = mujoco.mj_name2id(runner.model, mujoco.mjtObj.mjOBJ_CAMERA, "front")
-    if camera_id < 0:
-        raise RegistryError("registered environment has no front camera")
-    mujoco.mj_forward(runner.model, runner.data)
-    world_from_mujoco_camera = runner.data.cam_xmat[camera_id].reshape(3, 3)
-    # MuJoCo cameras use +x right, +y up, -z forward. HUG uses OpenCV camera
-    # coordinates: +x right, +y down, +z forward.
-    mujoco_camera_from_opencv = np.diag([1.0, -1.0, -1.0])
-    world_from_opencv = world_from_mujoco_camera @ mujoco_camera_from_opencv
-    world_from_camera = np.eye(4)
-    world_from_camera[:3, :3] = world_from_opencv
-    world_from_camera[:3, 3] = runner.data.cam_xpos[camera_id]
-    world_from_wrist = world_from_camera @ np.asarray(T_camera_wrist)
-    quaternion = np.empty(4, dtype=np.float64)
-    mujoco.mju_mat2Quat(quaternion, world_from_wrist[:3, :3].reshape(9))
-    return world_from_wrist[:3, 3].copy(), quaternion
+    """Place the Shadow palm horizontally and directly above the object."""
+
+    # The Shadow palm plane is local x-z. Rotating +90 degrees around local x
+    # maps that plane to world x-y with the grasping side facing the object.
+    half_sqrt_two = np.sqrt(0.5)
+    quaternion_wxyz = np.array([half_sqrt_two, half_sqrt_two, 0.0, 0.0])
+    rotation = np.empty(9, dtype=np.float64)
+    mujoco.mju_quat2Mat(rotation, quaternion_wxyz)
+    visual_palm_center = np.asarray(object_position_world_m, dtype=np.float64).copy()
+    visual_palm_center[2] += palm_height_above_object_m
+    palm_body_origin = visual_palm_center - (
+        rotation.reshape(3, 3) @ SHADOW_PALM_CENTER_OFFSET_LOCAL_M
+    )
+    return palm_body_origin, quaternion_wxyz
 
 
 def _ensure_empty_output(path: Path) -> None:
@@ -93,6 +93,7 @@ def _execute(
     pose,
     palm_position: np.ndarray,
     palm_quaternion: np.ndarray,
+    approach_direction: np.ndarray,
     viewer: bool,
 ):
     if not viewer:
@@ -100,6 +101,7 @@ def _execute(
             pose,
             grasp_palm_position_m=palm_position,
             grasp_palm_quaternion_wxyz=palm_quaternion,
+            approach_direction_world=approach_direction,
         )
 
     import mujoco.viewer
@@ -113,6 +115,7 @@ def _execute(
             pose,
             grasp_palm_position_m=palm_position,
             grasp_palm_quaternion_wxyz=palm_quaternion,
+            approach_direction_world=approach_direction,
             step_callback=sync,
         )
         window.sync()
@@ -156,11 +159,18 @@ def run_case(
         object_position_m=np.asarray(initial.object_position_m, dtype=np.float64),
         object_orientation_wxyz=object_quaternion_wxyz,
     )
-    palm_position, palm_quaternion = _camera_to_world_wrist(
-        runner, grasp.T_camera_wrist
+    palm_position, palm_quaternion = _table_parallel_world_wrist(
+        np.asarray(initial.object_position_m, dtype=np.float64),
+        resolved.execution_protocol.parameters.palm_height_above_object_m,
     )
+    approach_direction = np.array([0.0, 0.0, -1.0])
     trace = _execute(
-        runner, pose, palm_position, palm_quaternion, viewer=viewer
+        runner,
+        pose,
+        palm_position,
+        palm_quaternion,
+        approach_direction,
+        viewer=viewer,
     )
     outcome = score_trace(
         trace,
