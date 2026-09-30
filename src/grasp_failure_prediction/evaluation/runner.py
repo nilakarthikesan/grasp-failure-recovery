@@ -37,6 +37,9 @@ class RunnerStep:
     hand_qpos: np.ndarray
     object_position_m: np.ndarray
     contact_count: int
+    hand_object_contact: bool
+    hand_table_contact: bool
+    object_table_contact: bool
 
 
 @dataclass(frozen=True)
@@ -189,6 +192,18 @@ class AdroitShadowRunner:
         self._object_qpos_address = _joint_qpos_address(self.model, "object_free")
         self._palm_body_id = _body_id(self.model, "palm")
         self._object_body_id = _body_id(self.model, "object")
+        self._table_geom_id = mujoco.mj_name2id(
+            self.model, mujoco.mjtObj.mjOBJ_GEOM, "table"
+        )
+        self._object_geom_id = mujoco.mj_name2id(
+            self.model, mujoco.mjtObj.mjOBJ_GEOM, "object_geom"
+        )
+        forearm_body_id = _body_id(self.model, "forearm")
+        self._hand_body_ids = {
+            body_id
+            for body_id in range(self.model.nbody)
+            if self._is_descendant(body_id, forearm_body_id)
+        }
         self._hand_joint_names = tuple(
             str(mujoco.mj_id2name(self.model, mujoco.mjtObj.mjOBJ_JOINT, index))
             for index in range(1, 25)
@@ -220,8 +235,36 @@ class AdroitShadowRunner:
         self._step_index = 0
         self._trace = []
 
+    def _is_descendant(self, body_id: int, ancestor_id: int) -> bool:
+        current = body_id
+        while current > 0:
+            if current == ancestor_id:
+                return True
+            current = int(self.model.body_parentid[current])
+        return False
+
+    def _contact_flags(self) -> tuple[bool, bool, bool]:
+        hand_object = False
+        hand_table = False
+        object_table = False
+        for index in range(self.data.ncon):
+            contact = self.data.contact[index]
+            geom_pair = {int(contact.geom1), int(contact.geom2)}
+            body_pair = {
+                int(self.model.geom_bodyid[contact.geom1]),
+                int(self.model.geom_bodyid[contact.geom2]),
+            }
+            if self._object_geom_id in geom_pair and body_pair & self._hand_body_ids:
+                hand_object = True
+            if self._table_geom_id in geom_pair and body_pair & self._hand_body_ids:
+                hand_table = True
+            if geom_pair == {self._table_geom_id, self._object_geom_id}:
+                object_table = True
+        return hand_object, hand_table, object_table
+
     def _record(self, state: ExecutionState) -> None:
         object_address = self._object_qpos_address
+        hand_object, hand_table, object_table = self._contact_flags()
         self._trace.append(
             RunnerStep(
                 index=self._step_index,
@@ -233,6 +276,9 @@ class AdroitShadowRunner:
                     object_address : object_address + 3
                 ].copy(),
                 contact_count=int(self.data.ncon),
+                hand_object_contact=hand_object,
+                hand_table_contact=hand_table,
+                object_table_contact=object_table,
             )
         )
         self._step_index += 1
