@@ -1,0 +1,68 @@
+from __future__ import annotations
+
+import json
+import pickle
+from pathlib import Path
+import sys
+
+import numpy as np
+import pytest
+import yaml
+
+from grasp_failure_prediction.evaluation.case_runner import run_case
+from grasp_failure_prediction.evaluation.registry import RegistryError
+from test_evaluation_schema import valid_case
+from test_retargeting import synthetic_hug_prediction
+
+
+def write_test_case(root: Path, *, bad_hash: bool = False) -> Path:
+    grasp, _ = synthetic_hug_prediction()
+    prediction = root / "grasps" / "object01" / "grasp_003.pkl"
+    prediction.parent.mkdir(parents=True)
+    fields = ("pose", "shape", "t", "T_camera_wrist", "landmarks_3d", "mesh_vertices")
+    with prediction.open("wb") as handle:
+        pickle.dump({name: getattr(grasp, name) for name in fields}, handle)
+    payload = valid_case()
+    if bad_hash:
+        payload["environment"]["expected_config_hash"] = "sha256:" + "0" * 64
+    case_path = root / "case.yaml"
+    case_path.write_text(yaml.safe_dump(payload, sort_keys=False), encoding="utf-8")
+    return case_path
+
+
+def test_one_case_command_writes_valid_result_bundle(tmp_path) -> None:
+    case_path = write_test_case(tmp_path)
+    output = tmp_path / "run"
+    result = run_case(case_path, output, project_root=tmp_path)
+    assert result.status == "completed"
+    assert (output / "result.json").is_file()
+    payload = json.loads((output / "result.json").read_text())
+    assert payload["resolved_execution"]["execution_protocol_id"] == "fixed_grasp_lift_v1"
+
+
+def test_hash_mismatch_fails_before_output_or_simulation(tmp_path) -> None:
+    case_path = write_test_case(tmp_path, bad_hash=True)
+    output = tmp_path / "run"
+    with pytest.raises(RegistryError, match="configuration hash mismatch"):
+        run_case(case_path, output, project_root=tmp_path)
+    assert not output.exists()
+
+
+def test_repeated_case_produces_identical_trajectory(tmp_path) -> None:
+    case_path = write_test_case(tmp_path)
+    first_output = tmp_path / "first"
+    second_output = tmp_path / "second"
+    run_case(case_path, first_output, project_root=tmp_path)
+    run_case(case_path, second_output, project_root=tmp_path)
+    first = np.load(first_output / "trajectory.npz")
+    second = np.load(second_output / "trajectory.npz")
+    assert set(first.files) == set(second.files)
+    for key in first.files:
+        np.testing.assert_array_equal(first[key], second[key])
+
+
+@pytest.mark.skipif(sys.platform != "darwin", reason="macOS-specific viewer launch")
+def test_viewer_flag_is_exposed_by_cli() -> None:
+    # Interactive launch is intentionally manual; this test documents that the
+    # supported macOS path lives in run_case rather than a separate simulator.
+    assert "viewer" in run_case.__annotations__

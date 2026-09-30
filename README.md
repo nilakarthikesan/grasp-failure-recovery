@@ -345,6 +345,30 @@ initial HUG/Shadow-Hand evaluation protocol.
 pytest
 ```
 
+### 5. Run one HUG evaluation case
+
+Place the trusted HUG prediction at the repository-relative path referenced by
+the case, then run:
+
+```bash
+run-hug-eval-case \
+  eval_cases/hug_case_001/case.yaml \
+  --output runs/hug_case_001
+```
+
+For real-time playback on macOS:
+
+```bash
+MUJOCO_GL=glfw mjpython -m grasp_failure_prediction.evaluation.case_runner \
+  eval_cases/hug_case_001/case.yaml \
+  --output runs/hug_case_001_viewer \
+  --viewer
+```
+
+The command validates both registry references and hashes before simulation,
+then writes `resolved_case.json`, `trajectory.npz`, `final_state.npz`, and
+`result.json`.
+
 ---
 
 ## Implementation roadmap

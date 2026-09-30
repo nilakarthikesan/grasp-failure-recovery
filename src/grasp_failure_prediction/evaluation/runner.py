@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
 import tempfile
+from typing import Callable
 from xml.etree import ElementTree as ET
 
 import mujoco
@@ -337,6 +338,7 @@ class AdroitShadowRunner:
         grasp_palm_position_m: np.ndarray,
         grasp_palm_quaternion_wxyz: np.ndarray,
         approach_direction_world: np.ndarray = np.array([0.0, 0.0, -1.0]),
+        step_callback: Callable[[RunnerStep], None] | None = None,
     ) -> ExecutionTrace:
         params = self.protocol.parameters
         direction = np.asarray(approach_direction_world, dtype=np.float64)
@@ -371,6 +373,8 @@ class AdroitShadowRunner:
             ExecutionState.MOVE_TO_PREGRASP,
         ):
             self._advance(state, pre_root, root_quaternion, open_hand)
+            if step_callback is not None:
+                step_callback(self._trace[-1])
 
         for step in range(1, self._control_steps(params.approach_duration_s) + 1):
             alpha = step / self._control_steps(params.approach_duration_s)
@@ -378,6 +382,8 @@ class AdroitShadowRunner:
             self._advance(
                 ExecutionState.APPROACH, root_position, root_quaternion, open_hand
             )
+            if step_callback is not None:
+                step_callback(self._trace[-1])
 
         for step in range(1, self._control_steps(params.close_duration_s) + 1):
             alpha = step / self._control_steps(params.close_duration_s)
@@ -385,6 +391,8 @@ class AdroitShadowRunner:
             self._advance(
                 ExecutionState.CLOSE_FINGERS, grasp_root, root_quaternion, hand
             )
+            if step_callback is not None:
+                step_callback(self._trace[-1])
 
         for step in range(1, self._control_steps(params.lift_duration_s) + 1):
             alpha = step / self._control_steps(params.lift_duration_s)
@@ -392,10 +400,16 @@ class AdroitShadowRunner:
             self._advance(
                 ExecutionState.LIFT, root_position, root_quaternion, closed_hand
             )
+            if step_callback is not None:
+                step_callback(self._trace[-1])
 
         for _ in range(self._control_steps(params.hold_duration_s)):
             self._advance(
                 ExecutionState.HOLD, lift_root, root_quaternion, closed_hand
             )
+            if step_callback is not None:
+                step_callback(self._trace[-1])
         self._advance(ExecutionState.SCORE, lift_root, root_quaternion, closed_hand)
+        if step_callback is not None:
+            step_callback(self._trace[-1])
         return ExecutionTrace(tuple(self._trace))
