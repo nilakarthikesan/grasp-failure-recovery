@@ -18,7 +18,7 @@ The expected fields mirror HUG's ``Grasp`` and ``CameraIntrinsics`` data classes
     shape           MANO shape (betas)              (10,)
     R_6d            global orientation, 6D           (6,)     optional
     t               global translation              (3,)
-    T_camera_wrist  camera-to-wrist transform       (4, 4)
+    T_camera_wrist  wrist-to-camera transform       (4, 4)
     landmarks_3d    3D hand keypoints                (21, 3)
     landmarks_2d    2D hand keypoints                (21, 2)  optional
     mesh_vertices   MANO mesh vertices               (778, 3)
