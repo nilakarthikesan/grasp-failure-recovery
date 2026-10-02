@@ -13,6 +13,7 @@ import torch
 
 from grasp_failure_prediction.integrations.hug import normalize_hug_prediction
 from grasp_failure_prediction.integrations.hug_preprocessing import seeded_point_cloud, tensor_content_hash
+from grasp_failure_prediction.integrations.hug_rng import seed_cpu_generation
 from grasp_failure_prediction.integrations.observations import check_manifest, validate_depth_encoding
 
 
@@ -72,7 +73,13 @@ def main():
     start = time.perf_counter()
     model = load_model(args.checkpoint, use_ema=True, device="cpu").float().eval()
     checkpoint = load_raw_checkpoint(args.checkpoint, "cpu")
-    incompatible = model.load_state_dict(checkpoint["model"], strict=False)
+    state = checkpoint.get("ema")
+    if state is not None:
+        state = {key.removeprefix("module."): value for key, value in state.items()
+                 if not key.startswith("n_averaged")}
+    else:
+        state = checkpoint["model"]
+    incompatible = model.load_state_dict(state, strict=False)
     # Frozen DINO parameters may be excluded from released weights; they were
     # loaded by AutoModel. Any other missing weights invalidate this test.
     unexpected = list(incompatible.unexpected_keys)
@@ -81,6 +88,7 @@ def main():
     if missing or unexpected:
         raise ValueError(f"Checkpoint mismatch: missing={missing}, unexpected={unexpected}")
     print("Model loaded; generating one actual HUG proposal", flush=True)
+    seed_cpu_generation(args.seed, torch_module=torch)
     with torch.inference_mode():
         prediction = model.sample(
             batch["point_uv"][None], batch["camera_K"][None], steps=args.steps,
@@ -96,6 +104,7 @@ def main():
     report = {
         "real_hug_inference_passed": True, "device": "cpu", "dtype": "float32",
         "seed": args.seed, "sampling_steps": args.steps,
+        "generation_rng": "PyTorch and libc srand reset immediately before CPU model.sample; batch size one",
         "elapsed_load_and_inference_s": time.perf_counter() - start,
         "proposal_sha256": hashlib.sha256(proposal.read_bytes()).hexdigest(),
         "checkpoint_sha256": hashlib.sha256(args.checkpoint.read_bytes()).hexdigest(),

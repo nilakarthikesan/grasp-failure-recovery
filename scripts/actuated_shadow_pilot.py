@@ -21,6 +21,25 @@ from grasp_failure_prediction.evaluation.retargeting import reorder_for_mujoco
 from grasp_failure_prediction.evaluation.scoring import score_trace
 
 
+# Positive flexion joints from the Shadow URDF. Abduction/circumduction and
+# wrist commands remain unchanged. This is an experimental execution rule,
+# not the authors' released per-joint force-close implementation.
+FLEXION_JOINTS = frozenset(
+    f"{finger}J{joint}" for finger in ("FF", "MF", "RF", "LF") for joint in (1, 2, 3)
+) | {"THJ1", "THJ2", "THJ4"}
+
+
+def force_close_targets(joint_names, target, limits, delta_rad):
+    """Apply one fixed, bounded closure rule without inspecting the object."""
+    if not np.isfinite(delta_rad) or not 0 <= delta_rad <= .3:
+        raise ValueError("Experimental force-close offset must be in [0, 0.3] radians")
+    command = np.asarray(target, dtype=float).copy()
+    for i, name in enumerate(joint_names):
+        if name in FLEXION_JOINTS:
+            command[i] += delta_rad
+    return np.clip(command, limits[:, 0], limits[:, 1])
+
+
 def add_actuation(model):
     with tempfile.TemporaryDirectory() as tmp:
         xml = Path(tmp) / "scene.xml"
@@ -59,8 +78,11 @@ def add_actuation(model):
 
 
 class ActuatedShadowRunner(AdroitShadowRunner):
-    def __init__(self, protocol, urdf_root):
+    def __init__(self, protocol, urdf_root, *, force_close_delta_rad=0.):
         super().__init__(protocol, urdf_root)
+        if not np.isfinite(force_close_delta_rad) or not 0 <= force_close_delta_rad <= .3:
+            raise ValueError("Experimental force-close offset must be in [0, 0.3] radians")
+        self.force_close_delta_rad = force_close_delta_rad
         self.model = add_actuation(self.model)
         self.data = mujoco.MjData(self.model)
         self._initialized = False
@@ -80,6 +102,8 @@ class ActuatedShadowRunner(AdroitShadowRunner):
     def execute(self, pose, *, grasp_palm_position_m, grasp_palm_quaternion_wxyz):
         params = self.protocol.parameters
         target = reorder_for_mujoco(pose.joint_names, pose.qpos, self._hand_joint_names)
+        closing = force_close_targets(self._hand_joint_names, target,
+                                      self.model.jnt_range[1:25], self.force_close_delta_rad)
         # Preserve wrist and abduction; open by a small bounded flexion change.
         near_open = target.copy()
         for i,name in enumerate(self._hand_joint_names):
@@ -98,14 +122,17 @@ class ActuatedShadowRunner(AdroitShadowRunner):
         for step in range(1,count+1):
             alpha=step/count
             self._advance(ExecutionState.CLOSE_FINGERS,root,quat,(1-alpha)*near_open+alpha*target)
-        for _ in range(self._control_steps(.8)):
-            self._advance(ExecutionState.CLOSE_FINGERS,root,quat,target)
+        settling_steps = self._control_steps(.8)
+        for step in range(1, settling_steps + 1):
+            # Build grip force only after reaching the original retargeted pose.
+            command = target + (closing - target) * step / settling_steps
+            self._advance(ExecutionState.CLOSE_FINGERS,root,quat,command)
         count=self._control_steps(params.lift_duration_s)
         for step in range(1,count+1):
-            self._advance(ExecutionState.LIFT,root+[0,0,params.lift_height_m*step/count],quat,target)
+            self._advance(ExecutionState.LIFT,root+[0,0,params.lift_height_m*step/count],quat,closing)
         for _ in range(self._control_steps(params.hold_duration_s)):
-            self._advance(ExecutionState.HOLD,root+[0,0,params.lift_height_m],quat,target)
-        self._advance(ExecutionState.SCORE,root+[0,0,params.lift_height_m],quat,target)
+            self._advance(ExecutionState.HOLD,root+[0,0,params.lift_height_m],quat,closing)
+        self._advance(ExecutionState.SCORE,root+[0,0,params.lift_height_m],quat,closing)
         from grasp_failure_prediction.evaluation.runner import ExecutionTrace
         return ExecutionTrace(tuple(self._trace))
 
@@ -168,6 +195,7 @@ def run_candidate(runner, pose, position, quaternion, snapshot):
     trace = runner.execute(pose, grasp_palm_position_m=position, grasp_palm_quaternion_wxyz=quaternion)
     result = score_trace(trace, runner.protocol, control_timestep_s=runner.control_timestep_s)
     report = {"score": asdict(result), "actuators": runner.model.nu,
+              "force_close_delta_rad": runner.force_close_delta_rad,
               "force_bearing_bodies": sorted({b for _,_,bs in runner.contact_samples for b in bs}),
               "opposition_time_s": {p: sum(opp for phase,opp,_ in runner.contact_samples if phase==p)*runner.physics_timestep_s
                                     for p in ["close_fingers","lift","hold"]},
@@ -182,12 +210,14 @@ def main():
     parser.add_argument("--observation", type=Path, required=True)
     parser.add_argument("--urdf-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--force-close-delta-rad", type=float, default=0.)
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
     pose, position, quaternion = setup(args.observation, args.urdf_root)
     protocol = load_protocol_registry().resolve("fixed_grasp_lift_v1")
     protocol = protocol.model_copy(update={"parameters": protocol.parameters.model_copy(update={"grip_command":1.})})
-    runner = ActuatedShadowRunner(protocol, args.urdf_root)
+    runner = ActuatedShadowRunner(protocol, args.urdf_root,
+                                  force_close_delta_rad=args.force_close_delta_rad)
     snapshot = np.load(args.observation / "scene_state.npz")
     report, trace = run_candidate(runner, pose, position, quaternion, snapshot)
     report.update({"proposal": "unchanged HUG with corrected retargeting", "hardware_calibrated": False,

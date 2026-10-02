@@ -5,13 +5,19 @@ official HUG preprocessing and CPU inference, Dex retargeting, and an
 execution/scoring protocol. It is a functioning integration experiment, not yet
 a validated HUG grasp-success benchmark.
 
-As of 2026-10-02, a separate actuated Shadow Hand positive control successfully
-lifts the cube 144.65 mm and holds it for two seconds. This uses an engineered
-contact fit derived from HUG, unchanged collision shapes, and finite joint
-torque limits. Three identical-start runs succeeded; opening the thumb failed.
-The unchanged corrected HUG grasp still fails acquisition. See
-[the debugging record](HUG_ALIGNMENT_DEBUG.md#actuated-shadow-baseline-successful-pickup-2026-10-02)
-for the fixes, limitations, and reproduction commands.
+As of 2026-10-02, the original saved HUG proposal lifts the cube 145.91 mm and
+holds it for two seconds using corrected retargeting and a fixed 0.1-radian
+force-closing execution rule. No object-specific contact fit or palm offset is
+used; the proposal file is unchanged. Three identical-start runs succeed, while
+disabling the thumb fails. The earlier engineered grasp remains a separate
+physics positive control. See
+[the debugging record](HUG_ALIGNMENT_DEBUG.md#actual-hug-proposals-with-a-fixed-closing-controller-2026-10-02)
+for the method and limits.
+
+A repeatable pilot generated ten new HUG proposals on the same observation. Six
+succeeded with the fixed closing rule versus one without it. This is a controller
+diagnostic on one object, not a HUG-Bench success-rate claim or a test of hidden
+mass/friction changes.
 
 ## Original integration result (before alignment/controller fixes)
 
@@ -78,10 +84,41 @@ portable installation guarantee.
 
 ## Current gate
 
-Coordinate conventions have been corrected and one feasible engineered Shadow
-grasp now succeeds with an actuated controller. The remaining gate is to apply
-a fixed, declared conversion/controller to fresh HUG proposals and test whether
-the results are reliable across conditions. Any geometry correction must remain
-traceable and must not be reported as an unchanged proposal. A connected
-pipeline and one successful positive control are distinct from a validated
-research evaluation.
+Coordinate conventions and an actuated execution rule now permit pickups from
+actual saved HUG proposals. Freeze and review that rule before testing new
+observations/objects and held-out mass/friction conditions. The engineered
+geometry correction remains a diagnostic only. Validate separate acquisition,
+height, hold, and drop labels before training a future-drop predictor.
+
+## Latest diagnostic commands
+
+The local combined runtime contains the partner's evaluation package plus the
+current observation/frame/RNG modules. It is not included by a base installation
+of this branch. Set its isolated dependency paths, including HUG's dependencies:
+
+```sh
+export PYTHONPATH="$PWD/runs/hug_integration_check/hug-deps:$PWD/runs/hug_integration_check/deps:$PWD/runs/hug_integration_check/deps/cmeel.prefix/lib/python3.12/site-packages:$PWD/runs/hug_integration_check/integrated_src"
+
+python scripts/audit_hug_execution.py \
+  --observation /path/to/cube_observation \
+  --urdf-root /path/to/dex-urdf/robots/hands \
+  --mano-model /path/to/models/MANO_RIGHT.pkl --output /path/to/execution_audit
+
+python scripts/sample_hug_sim_proposals.py \
+  --observation /path/to/cube_observation --hug-root /path/to/hug \
+  --checkpoint /path/to/hug_full.safetensors \
+  --urdf-root /path/to/dex-urdf/robots/hands --output /path/to/fresh_proposals \
+  --seeds 0 1 2 3 4 5 6 7 8 9 --force-close-delta-rad 0.1
+
+mjpython scripts/view_saved_rollout.py \
+  --scene /path/to/execution_audit/scene.xml \
+  --trace /path/to/execution_audit/closure_0.10_trace.npz
+```
+
+Use fresh output directories. HUG/MANO/URDF assets and generated proposals remain
+local and excluded from Git. On this machine, cached offline inference uses
+`HF_HOME` under `runs/hug_integration_check/hf_cache`; generation was tested with
+PyTorch 2.11.0, NumPy 2.5.3, and MuJoCo 3.3.7. CPU workers now seed PyTorch and
+libc for internal FPS, separately from the input point-cloud subset seed. This
+changes seed semantics compared with the historical proposal; it does not
+replace or alter any saved historical proposal.
