@@ -1,4 +1,24 @@
 import numpy as np
+import pytest
+from grasp_failure_prediction.integrations.observations import validate_depth_encoding
+
+
+def test_hug_depth_encoding_matches_metric_depth_with_quantization():
+    metric = np.array([[0., .50149, .72351]], dtype=np.float32)
+    encoded = np.rint(metric * 1000).astype(np.uint16)
+    result = validate_depth_encoding(metric, encoded)
+    assert result['depth_encoding_checked']
+    assert result['maximum_quantization_error_m'] < .000501
+
+
+def test_stale_or_wrong_unit_hug_depth_is_rejected():
+    with pytest.raises(ValueError, match='half a millimeter'):
+        validate_depth_encoding(np.array([[.5]], dtype=np.float32), np.array([[5]], dtype=np.uint16))
+
+
+def test_invalid_depth_is_not_replaced_with_a_valid_encoded_pixel():
+    with pytest.raises(ValueError):
+        validate_depth_encoding(np.array([[0.]], dtype=np.float32), np.array([[1]], dtype=np.uint16))
 from grasp_failure_prediction.integrations.observations import validate_arrays
 
 def example(**changes):
