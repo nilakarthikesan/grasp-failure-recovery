@@ -1,5 +1,14 @@
 # Alignment investigation
 
+**Current status (2026-10-02):** the original saved HUG proposal now succeeds
+without the object-specific contact fit when a fixed, bounded force-closing
+execution rule is added. In a repeatable ten-proposal pilot, this controller
+completed six tasks versus one without the extra closing pressure. The
+engineered grasp remains a separate simulator positive control. These are
+one-scene diagnostics, not a validated research dataset. The sections below
+preserve the chronological investigation; the final section supersedes the
+earlier statement that the unchanged saved proposal could not succeed.
+
 The original integration's no-contact result was reproduced. Controlled variants
 used the same saved observation, model prediction, initial cube state, and physics.
 These checks do not establish a successful grasp or validate a failure dataset.
@@ -14,7 +23,9 @@ camera-to-world transform was checked against the known cube surface.
 Independent CPU inference runs with the same seed produced identical input tensor
 hashes and proposal hashes. Checkpoint loading rejects missing learned weights;
 excluded frozen image-encoder and MANO buffers come from their separate assets.
-This establishes repeatability and basic loading, not grasp quality or robustness
+This established same-process-start repeatability and basic loading, not general
+request-level reproducibility: the later CPU RNG audit below found another
+generator inside FPS. It also does not establish grasp quality or robustness
 to synthetic images. Projecting a grasp onto an RGB image alone cannot validate
 its depth, contacts, or ability to resist gravity.
 
@@ -240,3 +251,93 @@ controls labeled separately. The next gate is evaluating fresh HUG proposals
 with a fixed, validated conversion/controller and deciding which geometry
 corrections belong in the declared execution protocol. One successful engineered
 grasp is a simulator positive control, not a failure-prediction training dataset.
+
+## Actual HUG proposals with a fixed closing controller (2026-10-02)
+
+The successful engineered grasp is useful as a physics positive control, but the
+evaluation should use saved HUG proposals and a declared robot conversion and
+execution protocol. An object-specific fit using known cube surfaces changes
+the grasp-generation method and cannot substitute for an unchanged-proposal
+evaluation.
+
+HUG outputs a static MANO pose. Its simulation uses a MANO hand; its real-world
+experiments retarget to Ability/WUJI hands and apply per-joint force-closing.
+Their reported success is not universal, and the paper does not supply a
+validated Shadow controller. See [the HUG paper, sections 5.2 and F.2](https://arxiv.org/html/2606.17054v1).
+
+The new audit separates three questions:
+
+- The raw HUG human mesh already has a 7.04 mm minimum thumb-region vertex gap
+  from this cube. The gap is not introduced entirely by retargeting. This is a
+  static vertex-distance diagnostic, not a proof that the grasp cannot close.
+- Pinocchio and MuJoCo link positions agree to 5.64e-17 m for this same robot
+  pose. Robot versus human fingertip error averages 4.20 mm; the thumb error is
+  8.87 mm. Morphology mismatch remains even with consistent coordinate frames.
+- The previous actuated executor reached the retargeted pose and then stopped
+  closing. A constant flexion bias, applied after reaching that pose, supplies
+  additional contact pressure through the force-limited servos.
+
+`force_close_targets` adds the same fixed delta to Shadow flexion joints,
+preserves wrist/abduction/circumduction commands, and clips against joint limits.
+The delta ramps in over the existing 0.8-second settling period. It does not
+query object surfaces, choose new contact points, move the target palm, or change
+the saved proposal. This is an experimental controller rule motivated by the
+paper, not a reproduction of the authors' per-joint controller.
+
+For the original saved proposal, zero bias lifts only 3.09 mm and fails. A
+0.05-radian bias briefly lifts 24.14 mm but fails. A 0.1-radian bias lifts
+145.91 mm and holds for two seconds. Larger tested biases of 0.2 and 0.3 radians
+also succeed but reach actuator limits; the 0.1-radian pilot uses at most 46.86%
+of the configured actuator-force bounds. Its three repeated rollouts have
+identical full-qpos traces. Disabling the thumb makes it fail with no opposing
+contacts. The original proposal SHA256 remains
+`a4807ce2d0b5013a9d76bcf8104c7f0b78f17cadb1b3da78efc0758e8162f830`.
+
+### CPU sampling reproducibility
+
+Repeating a generation seed inside a long-running process initially produced
+different model parameters. The pinned torch-cluster CPU FPS implementation
+uses C `rand()` for its random starting point, independent of PyTorch's RNG.
+See [torch-cluster 1.6.3 CPU FPS](https://github.com/rusty1s/pytorch_cluster/blob/1.6.3/csrc/cpu/fps_cpu.cpp#L38).
+The CPU generation worker now seeds PyTorch and libc immediately before sampling,
+with batch size one and sequential requests. The upstream FPS algorithm is
+unchanged. The input point-cloud subset has its own fixed PCG64 seed. Identical
+outputs across operating systems or versions are not promised; saved proposals
+remain the unit of replay.
+
+### Fresh-proposal pilot and limits
+
+With 0.1-radian closure fixed after the original-proposal diagnostic, ten fresh
+seeds (0 through 9) were generated on the same observation. The final run, with
+both CPU RNGs seeded, produced six task successes; the matched executions of
+those exact proposals without extra closure produced one success. Repeating
+the first generation seed reproduced all 99 model parameters exactly. All ten
+outcomes are retained. Earlier runs before the C RNG correction produced a
+different proposal set with seven successes versus zero; they are historical
+diagnostics, not the final repeatable set.
+
+This compares execution rules on one pilot object, not independent object or
+physical-condition holdouts. The controller is still an ideal arm carrier with
+experimental, independently actuated Shadow joints; hardware calibration,
+couplings, and broad reliability have not been established.
+
+One unsuccessful trial lifted 132.40 mm and held for two seconds but missed the
+protocol's 140 mm minimum lift. The existing scorer calls this
+`failed_acquisition`; that is not a demonstrated drop. Also, `acquired_object`
+still means any contact. Do not use these coarse task-failure labels as future-
+drop labels. Acquisition, height shortfall, and post-acquisition slip/drop need
+separate, validated definitions before failure-predictor training.
+
+`audit_hug_execution.py` checks the original proposal's geometry, cross-engine
+kinematics, hash preservation, and fixed-closure ablations. It requires the
+optional MANO model to label human-mesh regions. `sample_hug_sim_proposals.py`
+uses official inference, verifies prepared inputs against the source capture,
+saves all proposals and full traces, compares execution with and without closure,
+and checks repeat generation. Both require the isolated combined runtime. The
+saved JSON robot-target fixture tests the closing-controller effect without
+loading HUG or MANO. Additional regressions check named-joint closure limits and
+the actual CPU FPS/noise RNG behavior.
+
+The next research gate is to freeze a reviewed conversion/controller, test new
+observations and objects, then evaluate held-out mass/friction conditions. Keep
+the engineered surface-contact fit out of that unchanged-proposal baseline.
