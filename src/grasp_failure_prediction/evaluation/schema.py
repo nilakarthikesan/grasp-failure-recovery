@@ -38,13 +38,22 @@ class ObjectCase(StrictModel):
 class GraspCase(StrictModel):
     source: Literal["hug"] = "hug"
     id: str = Field(pattern=ID_PATTERN)
-    prediction_path: Path
+    prediction_path: Path | None = None
+    observation_path: Path | None = None
+    inference_seed: int = Field(default=42, ge=0, le=2**32 - 1)
 
     @field_validator("prediction_path")
     @classmethod
-    def require_relative_prediction_path(cls, value: Path) -> Path:
-        if value.is_absolute() or ".." in value.parts:
+    def require_relative_prediction_path(cls, value: Path | None) -> Path | None:
+        if value is not None and (value.is_absolute() or ".." in value.parts):
             raise ValueError("prediction_path must be a repository-relative path")
+        return value
+
+    @field_validator("observation_path")
+    @classmethod
+    def require_relative_observation_path(cls, value: Path | None) -> Path | None:
+        if value is not None and (value.is_absolute() or ".." in value.parts):
+            raise ValueError("observation_path must be repository-relative")
         return value
 
 
@@ -106,6 +115,8 @@ class ArtifactReferences(StrictModel):
     resolved_case: Path
     video: Path | None = None
     simulator_state: Path | None = None
+    hug_proposal: Path | None = None
+    inference_report: Path | None = None
 
 
 class EvaluationResult(StrictModel):

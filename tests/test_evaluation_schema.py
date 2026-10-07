@@ -42,6 +42,14 @@ def test_case_schema_accepts_reviewed_contract() -> None:
     assert case.execution_protocol.id == "fixed_grasp_lift_v1"
 
 
+def test_inference_case_does_not_require_saved_prediction() -> None:
+    payload = valid_case()
+    del payload["grasp"]["prediction_path"]
+    payload["grasp"]["observation_path"] = "observations/object01"
+    case = EvaluationCase.model_validate(payload)
+    assert case.grasp.prediction_path is None
+
+
 @pytest.mark.parametrize(
     ("path", "value"),
     [
@@ -49,6 +57,8 @@ def test_case_schema_accepts_reviewed_contract() -> None:
         (("seed",), -1),
         (("environment", "id"), "Unknown Environment"),
         (("grasp", "prediction_path"), "../outside.pkl"),
+        (("grasp", "observation_path"), "../outside"),
+        (("grasp", "inference_seed"), 2**32),
     ],
 )
 def test_case_schema_rejects_invalid_values(path: tuple[str, ...], value) -> None:

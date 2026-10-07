@@ -52,6 +52,8 @@ def write_evaluation_artifacts(
     outcome: ScoredOutcome,
     final_qpos: np.ndarray,
     final_qvel: np.ndarray,
+    hug_proposal: Path | None = None,
+    inference_report: Path | None = None,
 ) -> EvaluationResult:
     output = Path(output_dir)
     output.mkdir(parents=True, exist_ok=True)
@@ -124,6 +126,8 @@ def write_evaluation_artifacts(
             trajectory=Path("trajectory.npz"),
             resolved_case=Path("resolved_case.json"),
             simulator_state=Path("final_state.npz"),
+            hug_proposal=hug_proposal,
+            inference_report=inference_report,
         ),
     )
     _write_json(result_path, result.model_dump(mode="json"))

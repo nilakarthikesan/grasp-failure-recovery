@@ -6,6 +6,9 @@ import argparse
 import importlib
 import json
 from pathlib import Path
+import shutil
+import subprocess
+import sys
 import time
 
 import mujoco
@@ -38,7 +41,7 @@ def load_case(path: str | Path) -> EvaluationCase:
     return EvaluationCase.model_validate(payload)
 
 
-def _validate_case_assets(case: EvaluationCase, project_root: Path) -> Path:
+def _validate_case_configuration(case: EvaluationCase) -> None:
     if case.object.id not in SUPPORTED_OBJECTS:
         raise RegistryError(f"unknown object ID: {case.object.id}")
     if case.object.friction_profile_id not in SUPPORTED_FRICTION_PROFILES:
@@ -47,6 +50,13 @@ def _validate_case_assets(case: EvaluationCase, project_root: Path) -> Path:
         )
     if case.motion_profile_id not in SUPPORTED_MOTION_PROFILES:
         raise RegistryError(f"unknown motion profile ID: {case.motion_profile_id}")
+
+
+def _saved_prediction_path(case: EvaluationCase, project_root: Path) -> Path:
+    if case.grasp.prediction_path is None:
+        raise ValueError(
+            "saved-proposal mode requires grasp.prediction_path in the evaluation case"
+        )
     prediction = project_root / case.grasp.prediction_path
     if not prediction.is_file():
         raise FileNotFoundError(f"HUG prediction does not exist: {prediction}")
@@ -88,6 +98,54 @@ def _ensure_empty_output(path: Path) -> None:
         raise FileExistsError(f"output directory is not empty: {path}")
 
 
+def _run_case_inference(
+    case: EvaluationCase,
+    project: Path,
+    output: Path,
+    *,
+    hug_root: Path,
+    checkpoint: Path,
+) -> Path:
+    """Run HUG for one case in an isolated copy of its observation."""
+
+    if case.grasp.observation_path is None:
+        raise ValueError(
+            "--inference requires grasp.observation_path in the evaluation case"
+        )
+    observation = project / case.grasp.observation_path
+    if not observation.is_dir():
+        raise FileNotFoundError(f"HUG observation directory does not exist: {observation}")
+    if not hug_root.is_dir():
+        raise FileNotFoundError(f"HUG checkout does not exist: {hug_root}")
+    if not checkpoint.is_file():
+        raise FileNotFoundError(f"HUG checkpoint does not exist: {checkpoint}")
+
+    inference_dir = output / "hug_inference"
+    shutil.copytree(observation, inference_dir)
+    # A captured observation may also contain an older proposal from a prior
+    # run. The isolated case must always generate a fresh proposal for its seed.
+    stale_proposal = inference_dir / "proposal.pkl"
+    if stale_proposal.exists():
+        stale_proposal.unlink()
+    command = [
+        sys.executable,
+        str(project / "scripts" / "infer_sim_observation.py"),
+        "--hug-root",
+        str(hug_root),
+        "--observation",
+        str(inference_dir),
+        "--checkpoint",
+        str(checkpoint),
+        "--seed",
+        str(case.grasp.inference_seed),
+    ]
+    subprocess.run(command, cwd=project, check=True)
+    proposal = inference_dir / "proposal.pkl"
+    if not proposal.is_file():
+        raise RuntimeError(f"HUG inference did not produce a proposal: {proposal}")
+    return proposal
+
+
 def _execute(
     runner: AdroitShadowRunner,
     pose,
@@ -127,6 +185,9 @@ def run_case(
     output_dir: str | Path,
     *,
     viewer: bool = False,
+    inference: bool = True,
+    hug_root: str | Path | None = None,
+    checkpoint: str | Path | None = None,
     project_root: str | Path | None = None,
 ) -> EvaluationResult:
     project = Path(project_root) if project_root is not None else Path.cwd()
@@ -134,7 +195,19 @@ def run_case(
     _ensure_empty_output(output)
     case = load_case(case_path)
     resolved = resolve_case(case)
-    prediction_path = _validate_case_assets(case, project)
+    _validate_case_configuration(case)
+    if inference:
+        if hug_root is None or checkpoint is None:
+            raise ValueError("--inference requires --hug-root and --checkpoint")
+        prediction_path = _run_case_inference(
+            case,
+            project,
+            output,
+            hug_root=Path(hug_root).resolve(),
+            checkpoint=Path(checkpoint).resolve(),
+        )
+    else:
+        prediction_path = _saved_prediction_path(case, project)
 
     grasp = load_hug_prediction(prediction_path)
     urdf_root = default_dex_urdf_root()
@@ -185,6 +258,12 @@ def run_case(
         outcome=outcome,
         final_qpos=runner.data.qpos.copy(),
         final_qvel=runner.data.qvel.copy(),
+        hug_proposal=(Path("hug_inference/proposal.pkl") if inference else None),
+        inference_report=(
+            Path("hug_inference/inference_report.json")
+            if inference
+            else None
+        ),
     )
     print(format_validation(validation))
     print(
@@ -207,6 +286,15 @@ def main() -> None:
     parser.add_argument("--output", required=True, help="new or empty output directory")
     parser.add_argument("--viewer", action="store_true", help="play execution live")
     parser.add_argument(
+        "--no-inference",
+        dest="inference",
+        action="store_false",
+        help="skip HUG and execute the saved grasp.prediction_path",
+    )
+    parser.set_defaults(inference=True)
+    parser.add_argument("--hug-root", help="external pinned HUG checkout")
+    parser.add_argument("--checkpoint", help="external HUG checkpoint")
+    parser.add_argument(
         "--project-root",
         default=".",
         help="root used to resolve repository-relative grasp paths",
@@ -216,6 +304,9 @@ def main() -> None:
         args.case,
         args.output,
         viewer=args.viewer,
+        inference=args.inference,
+        hug_root=args.hug_root,
+        checkpoint=args.checkpoint,
         project_root=args.project_root,
     )
 

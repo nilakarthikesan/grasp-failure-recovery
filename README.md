@@ -347,13 +347,37 @@ pytest
 
 ### 5. Run one HUG evaluation case
 
-Place the trusted HUG prediction at the repository-relative path referenced by
-the case, then run:
+For a full evaluation, add the captured observation and inference seed to the
+case manifest:
+
+```yaml
+grasp:
+  source: hug
+  id: grasp_003
+  observation_path: observations/object01
+  inference_seed: 42
+```
+
+Then run HUG inference, retargeting, MuJoCo execution, and scoring with one
+command:
 
 ```bash
 run-hug-eval-case \
   eval_cases/hug_case_001/case.yaml \
-  --output runs/hug_case_001
+  --output runs/hug_case_001 \
+  --hug-root ../hug \
+  --checkpoint ../hug/checkpoints/hug_full.safetensors
+```
+
+The output includes the generated proposal and inference report under
+`hug_inference/`. To debug the simulator without running HUG, provide a trusted
+`prediction_path` in the case and pass `--no-inference`:
+
+```bash
+run-hug-eval-case \
+  eval_cases/hug_case_001/case.yaml \
+  --output runs/hug_case_001 \
+  --no-inference
 ```
 
 For real-time playback on macOS:
@@ -362,12 +386,15 @@ For real-time playback on macOS:
 MUJOCO_GL=glfw mjpython -m grasp_failure_prediction.evaluation.case_runner \
   eval_cases/hug_case_001/case.yaml \
   --output runs/hug_case_001_viewer \
+  --hug-root ../hug \
+  --checkpoint ../hug/checkpoints/hug_full.safetensors \
   --viewer
 ```
 
 The command validates both registry references and hashes before simulation,
 then writes `resolved_case.json`, `trajectory.npz`, `final_state.npz`, and
-`result.json`.
+`result.json`. In inference mode, `result.json` also references the generated
+proposal and inference report.
 
 ---
 

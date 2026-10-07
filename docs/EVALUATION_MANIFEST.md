@@ -160,17 +160,35 @@ trajectory artifact references.
 
 ## One-case command contract
 
-The first executable interface will be:
+The `grasp` section supports both the normal inference path and a saved-proposal
+debug path. `observation_path` identifies the validated RGB-D capture and
+`inference_seed` controls HUG generation. `prediction_path` is optional and is
+used only when inference is explicitly disabled.
+
+```yaml
+grasp:
+  source: hug
+  id: grasp_003
+  observation_path: observations/object01
+  inference_seed: 42
+```
+
+Normal evaluation uses `--hug-root ... --checkpoint ...` and runs inference by
+default. `--no-inference` skips model loading and executes `prediction_path`
+instead.
+
+The executable interface is:
 
 ```bash
 run-hug-eval-case \
   eval_cases/hug_case_001/case.yaml \
   --output runs/hug_case_001 \
+  --hug-root ../hug \
+  --checkpoint ../hug/checkpoints/hug_full.safetensors \
   --viewer
 ```
 
 Before opening the viewer or advancing simulation, this command must resolve
 and validate both `environment_id` and `execution_protocol_id`, verify both
 configuration hashes, and write the resolved environment and protocol records
-to the output directory. The command is an implementation target; it does not
-exist in the current repository yet.
+to the output directory.
