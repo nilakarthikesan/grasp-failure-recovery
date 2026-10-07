@@ -29,13 +29,13 @@ save it.
 
 ## Hand embodiment as an experiment parameter
 
-The experiment schema should include an explicit `embodiment_id` rather than
+The experiment schema records an explicit `embodiment_id` rather than
 assuming every episode uses the same hand:
 
 | `embodiment_id` | Role | Initial status |
 | --- | --- | --- |
 | `mano_human_reference` | HUG-predicted human grasp pose and geometry | Prediction adapter only |
-| `shadow_hand_right` | Initial articulated hand receiving a retargeted HUG grasp | Selected; Dex Retargeting integration pending |
+| `shadow_hand_right` | Initial articulated hand receiving a retargeted HUG grasp | Retargeting and one-case execution implemented; broader validation pending |
 | `panda_parallel_jaw` | Generic manipulation and logging infrastructure | Supporting only |
 
 `mano_human_reference` is not yet a simulated actuator. A MANO prediction is a
@@ -45,9 +45,8 @@ actuators, a controller, and a retargeting map from MANO joints to the chosen
 hand. Each executable embodiment also needs its own observation/action adapter
 and policy or controller.
 
-For that reason, embodiment will be a supported parameter in the batch
-experiment metadata, but it is held fixed to `shadow_hand_right` in the first
-batch. Results from different hands are stratified by embodiment rather than
+Embodiment is recorded in the current case schema and should remain explicit
+in batch metadata. The initial implementation fixes it to `shadow_hand_right`. Results from different hands are stratified by embodiment rather than
 pooled as if their action spaces and grasp mechanics were interchangeable.
 
 ## Retargeting implementation decision
@@ -106,17 +105,22 @@ The Panda parallel-jaw environment remains available for testing generic
 logging, policy, and evaluation infrastructure. It is not used to claim that a
 HUG MANO grasp has been executed.
 
-## First executable milestone
+## Current executable scope
 
-Take one saved HUG prediction, convert its 21 landmarks and wrist transform to
-the Shadow palm frame, run Dex Retargeting, display the resulting hand pose in
-MuJoCo, and report fingertip alignment error. Only after this single case is
-visually and numerically validated should the repository add the reusable eval
-command and expand it into a batch manifest. That command must resolve the
-versioned `adroit_shadow_tabletop_v1` registry entry and enforce the strict
-validation contract in [EVALUATION_MANIFEST.md](EVALUATION_MANIFEST.md). It
-must also resolve `fixed_grasp_lift_v1`; no learned manipulation policy is used
-in this initial evaluation.
+The repository retargets saved HUG predictions, displays the resulting Shadow
+Hand pose, and reports fingertip alignment error. The `run-hug-eval-case` command
+resolves the versioned `adroit_shadow_tabletop_v1` environment and
+`fixed_grasp_lift_v1` execution protocol. Its case contract is in
+[Evaluation manifest](EVALUATION_MANIFEST.md). No learned manipulation policy is
+used by this initial protocol.
+
+The registered runner currently supports one object ID with nominal friction
+and lift motion. Wrist placement is prescribed relative to the object and hand
+joints are advanced kinematically. This differs from executing the source HUG
+wrist pose with a calibrated robot controller. The separate actuated Shadow
+Hand diagnostics in [HUG simulation pilot](HUG_SIMULATION_PILOT.md) use another
+execution path. Review and freeze the chosen conversion/controller before
+expanding to new objects or interpreting failures as physical-condition effects.
 
 ### Tactile adaptation and recovery
 
