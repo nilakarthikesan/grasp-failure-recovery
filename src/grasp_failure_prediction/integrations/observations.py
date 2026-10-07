@@ -7,6 +7,24 @@ from pathlib import Path
 import numpy as np
 
 
+def validate_depth_encoding(depth_m, depth_mm):
+    """Check the actual HUG millimeter PNG against validated metric depth."""
+    metric, encoded = np.asarray(depth_m), np.asarray(depth_mm)
+    if metric.shape != encoded.shape or encoded.dtype != np.uint16:
+        raise ValueError('HUG depth PNG must be uint16 and match metric depth dimensions')
+    if not np.isfinite(metric).all() or np.any(metric < 0):
+        raise ValueError('Metric depth must be finite and nonnegative')
+    if np.any(encoded == 65535):
+        raise ValueError('Pilot depth uses zero for invalid pixels, not 65535')
+    error = np.abs(encoded.astype(np.float64) / 1000 - metric)
+    if np.any(error > .000501):
+        raise ValueError('HUG depth PNG differs from metric depth by more than half a millimeter')
+    if np.any(encoded[metric == 0] != 0):
+        raise ValueError('Invalid metric depth must remain invalid in HUG encoding')
+    return {'maximum_quantization_error_m': float(error.max()),
+            'depth_encoding_checked': True}
+
+
 def validate_arrays(rgb, depth, K, mask, point, *, registered, calibration_matches):
     errors, warnings = [], []
     if rgb.ndim != 3 or rgb.shape[2] != 3 or rgb.dtype != np.uint8:
