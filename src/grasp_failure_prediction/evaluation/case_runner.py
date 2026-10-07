@@ -20,7 +20,7 @@ from grasp_failure_prediction.integrations.hug import load_hug_prediction
 from .artifacts import write_evaluation_artifacts
 from .pose_validation import ShadowPoseValidator, format_validation
 from .registry import RegistryError, ResolvedCase, resolve_case
-from .retargeting import ShadowHandRetargeter, default_dex_urdf_root
+from .retargeting import RetargetingError, ShadowHandRetargeter, default_dex_urdf_root
 from .runner import AdroitShadowRunner, RunnerStep
 from .schema import EvaluationCase, EvaluationResult
 from .scoring import score_trace
@@ -215,6 +215,17 @@ def run_case(
     pose = retargeter.retarget(grasp)
     pose_validator = ShadowPoseValidator(urdf_root)
     validation = pose_validator.validate(pose)
+    maximum_error = (
+        resolved.execution_protocol.parameters.maximum_mean_fingertip_error_m
+    )
+    # Saved-proposal mode is an explicit simulator-debug escape hatch and may
+    # intentionally replay synthetic or malformed poses. Normal inference runs
+    # must pass the versioned alignment gate before MuJoCo advances.
+    if inference and validation.mean_fingertip_error_m > maximum_error:
+        raise RetargetingError(
+            "mean fingertip alignment error exceeds protocol limit: "
+            f"{validation.mean_fingertip_error_m:.6f} m > {maximum_error:.6f} m"
+        )
 
     runner_type = _runner_class(resolved)
     runner = runner_type(

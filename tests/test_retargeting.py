@@ -10,6 +10,7 @@ from grasp_failure_prediction.evaluation.retargeting import (
     reorder_for_mujoco,
 )
 from grasp_failure_prediction.integrations.hug import normalize_hug_prediction
+from grasp_failure_prediction.integrations.hug_frames import MANO_TO_OPERATOR_RIGHT
 
 
 def synthetic_landmarks() -> np.ndarray:
@@ -71,6 +72,18 @@ def test_real_dex_shadow_retargeting_is_finite_and_within_limits() -> None:
     limits = retargeter.joint_limits
     assert np.all(pose.qpos >= limits[:, 0] - 1e-6)
     assert np.all(pose.qpos <= limits[:, 1] + 1e-6)
+
+
+def test_offline_retargeting_converts_mano_axes_without_filter_or_scaling() -> None:
+    grasp, local_mano = synthetic_hug_prediction()
+    retargeter = ShadowHandRetargeter()
+    pose = retargeter.retarget(grasp)
+
+    expected_landmarks = local_mano @ MANO_TO_OPERATOR_RIGHT.T
+    np.testing.assert_allclose(pose.landmarks_wrist_m, expected_landmarks, atol=1e-8)
+    assert retargeter._retargeting.filter is None
+    assert retargeter._retargeting.optimizer.scaling == 1.0
+    assert retargeter.optimizer_iterations == 20
 
 
 def test_stock_adroit_joint_convention_is_rejected() -> None:
