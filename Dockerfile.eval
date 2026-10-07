@@ -1,0 +1,88 @@
+# syntax=docker/dockerfile:1.7
+
+ARG CUDA_IMAGE=nvidia/cuda:12.8.1-cudnn-runtime-ubuntu22.04
+FROM ${CUDA_IMAGE}
+
+ARG HUG_COMMIT=8d1c52d4c24bfae5a369e32e3f134f5601a02630
+ARG DEX_URDF_COMMIT=7304c7fb59214dab870eca02cf26f76e944e12df
+ARG CODE_COMMIT=unknown
+
+LABEL org.opencontainers.image.title="HUG Shadow Hand evaluation runtime" \
+      org.opencontainers.image.source="https://github.com/nilakarthikesan/grasp-failure-recovery" \
+      org.opencontainers.image.revision="${CODE_COMMIT}"
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    VIRTUAL_ENV=/opt/venv \
+    PATH=/opt/venv/bin:${PATH} \
+    HUG_ROOT=/opt/hug \
+    DEX_URDF_ROOT=/opt/dex-urdf/robots/hands \
+    HUG_CHECKPOINT=/models/hug_full.safetensors \
+    MANO_MODEL_ROOT=/opt/hug/assets/mano_models \
+    HF_HOME=/models/huggingface \
+    MUJOCO_GL=egl \
+    HUG_COMMIT=${HUG_COMMIT} \
+    DEX_URDF_COMMIT=${DEX_URDF_COMMIT} \
+    CODE_COMMIT=${CODE_COMMIT}
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        ca-certificates \
+        git \
+        libegl1 \
+        libgl1 \
+        libglib2.0-0 \
+        libglfw3 \
+        libosmesa6 \
+        python3.10 \
+        python3.10-dev \
+        python3.10-venv \
+    && rm -rf /var/lib/apt/lists/* \
+    && python3.10 -m venv "${VIRTUAL_ENV}"
+
+RUN python -m pip install --no-cache-dir --upgrade pip setuptools wheel \
+    && python -m pip install --no-cache-dir \
+        torch==2.9.1 torchvision==0.24.1 torchaudio==2.9.1 \
+        --index-url https://download.pytorch.org/whl/cu128 \
+    && python -m pip install --no-cache-dir \
+        torch-cluster \
+        -f https://data.pyg.org/whl/torch-2.9.1+cu128.html \
+    && python -m pip install --no-cache-dir \
+        "xformers<0.0.34" \
+        huggingface-hub \
+        nbformat \
+        omegaconf \
+        opencv-python-headless \
+        plotly \
+        rich \
+        roma \
+        safetensors \
+        transformers==4.57.1 \
+        tyro \
+        viser \
+    && python -m pip install --no-cache-dir --no-build-isolation \
+        git+https://github.com/mattloper/chumpy.git@580566e \
+    && python -m pip install --no-cache-dir \
+        git+https://github.com/lixiny/manotorch.git@a2a70c5
+
+RUN git clone https://github.com/KevinyWu/hug.git "${HUG_ROOT}" \
+    && git -C "${HUG_ROOT}" checkout --detach "${HUG_COMMIT}" \
+    && python -m pip install --no-cache-dir --no-deps -e "${HUG_ROOT}" \
+    && git clone https://github.com/dexsuite/dex-urdf.git /opt/dex-urdf \
+    && git -C /opt/dex-urdf checkout --detach "${DEX_URDF_COMMIT}"
+
+WORKDIR /workspace
+COPY . /workspace
+
+# Docker build contexts do not contain the contents of a Git submodule unless
+# the caller initializes it. Point the repository's expected path at the exact
+# Dex URDF checkout baked into this image.
+RUN rm -rf /workspace/third_party/dex-urdf \
+    && ln -s /opt/dex-urdf /workspace/third_party/dex-urdf \
+    && python -m pip install --no-cache-dir -e ".[eval,dev]"
+
+RUN mkdir -p /models/huggingface /workspace/runs \
+    && chmod +x /workspace/docker/entrypoint.sh
+
+ENTRYPOINT ["/workspace/docker/entrypoint.sh"]
+CMD ["python", "scripts/container_smoke_test.py"]

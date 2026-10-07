@@ -369,6 +369,19 @@ The command validates both registry references and hashes before simulation,
 then writes `resolved_case.json`, `trajectory.npz`, `final_state.npz`, and
 `result.json`.
 
+### 6. Build the Linux evaluation container
+
+The pinned CUDA, HUG, Dex Retargeting, and MuJoCo runtime is defined in
+`Dockerfile.eval`. Build it and run the saved-grasp MuJoCo smoke test with:
+
+```bash
+bash scripts/verify_container_image.sh grasp-eval:local
+```
+
+HUG weights and licensed MANO models are mounted at runtime and never copied
+into the image. See [Containerized evaluation runtime](docs/CONTAINERIZED_EVALUATION.md)
+for the asset gate, connected-inference command, and platform notes.
+
 ---
 
 ## Implementation roadmap
