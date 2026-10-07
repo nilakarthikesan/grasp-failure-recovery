@@ -150,20 +150,20 @@ initially control the robot.
 
 ### Physical condition
 
-The physical parameters under which a grasp is attempted. The first study will
-focus on object mass and contact friction while holding other factors as
-constant as possible.
+The physical and grasp parameters under which an attempt is executed. The first
+batch will vary HUG grasp sample, object identity and shape, object mass,
+initial pose, and lift/transport motion while holding the Adroit/Shadow Hand
+embodiment and nominal contact friction fixed.
 
 ### Unseen condition
 
 A physical value or combination intentionally excluded from training and used
 only for validation or testing. This must be divided into distinct cases:
 
-- unseen mass with familiar friction;
-- unseen friction with familiar mass;
-- an unseen mass--friction combination;
-- extrapolation beyond the training range; and
-- eventually, an unseen object combined with unseen physical conditions.
+- unseen mass under nominal friction;
+- unseen grasp placements and transport motions;
+- extrapolation beyond the training mass range; and
+- later, unseen object categories, friction values, and embodiments.
 
 ### Incipient slip
 
@@ -204,15 +204,15 @@ completion of the original task.
 
 ## 6. End-to-End System
 
-The system is trained and frozen in stages:
+The system is built and frozen in stages:
 
 ```text
-demonstrations
+HUG grasp samples
     |
     v
-Part I: train nominal grasp-and-transport policy
+Part I: execute fixed grasp/lift protocol with Shadow Hand
     |
-    +-- collect successful and failed closed-loop executions
+    +-- collect successful and failed executions
     v
 Part II: train future-failure predictor
     |
@@ -228,35 +228,29 @@ Changing all components simultaneously would make it difficult to determine
 why performance changed. Joint training is therefore deferred until the staged
 system is understood.
 
-### 6.1 Part I — Grasp learning
+### 6.1 Part I — Deterministic HUG-grasp execution
 
-The first learned policy answers:
+The first experiment answers:
 
-> What should the robot do to grasp, lift, transport, and place this object?
+> Does this HUG-generated grasp succeed under a fixed execution protocol?
 
-The learned policy does not need to replace every part of the manipulation
-stack. Existing inverse kinematics, motion planning, actuator interfaces, and
-feedback controllers may execute the commands selected by the learned model.
-
-The first baseline will use imitation learning. ACT is the leading candidate
-because it predicts short action chunks from camera observations and robot
-state, has a documented LeRobot training path, and gives the project a concrete
-baseline without inventing a new policy architecture.
+The initial experiment does not train a manipulation policy. It uses the
+versioned deterministic `fixed_grasp_lift_v1` protocol so grasp failures are
+not confounded with controller-learning failures. Existing inverse kinematics,
+motion planning, actuator interfaces, and feedback controllers execute its
+fixed sequence.
 
 Part I proceeds in this order:
 
-1. Validate the environment with a scripted or demonstration-driven controller.
+1. Validate the registered environment and fixed execution protocol.
 2. Verify coordinate frames, action scaling, gripper commands, contacts,
    success labels, and safety limits.
-3. Collect demonstrations using exactly the observations the learned policy
-   will receive.
-4. Train the policy and evaluate it in closed-loop execution from held-out
-   initial conditions and objects.
-5. Plot performance as demonstrations are added rather than assuming a fixed
-   dataset size is sufficient.
+3. Retarget one HUG grasp and visualize the resulting Shadow Hand pose.
+4. Run the fixed pre-grasp, approach, close, lift, and hold sequence.
+5. Expand the validated one-case command into a versioned evaluation manifest.
 
-An optional reinforcement-learning policy may later provide an educational and
-scientific comparison. It is not required before Part II.
+A learned execution policy may be studied later as a separately versioned
+protocol. It is not part of the initial grasp-quality evaluation.
 
 Part I reports acquisition, lift, transport, and placement success separately,
 along with object loss, collisions, and excessive-force events where those can
@@ -264,7 +258,8 @@ be measured.
 
 ### 6.2 Part II — Future-failure prediction
 
-A competent Part I policy is frozen and run across controlled variations in:
+A validated Part I environment, retargeter, and fixed execution protocol are
+frozen and run across controlled variations in:
 
 - object mass and surface friction;
 - grasp placement;
@@ -342,7 +337,7 @@ same limits.
 
 The evaluation isolates the value of each stage:
 
-1. Base Part I policy alone.
+1. Base Part I execution system alone.
 2. Current-slip or reactive detector plus a fixed recovery controller.
 3. Future-failure predictor plus the same fixed recovery controller.
 4. Future-failure predictor plus learned intervention selection or recovery.
@@ -398,17 +393,35 @@ does maintain contact information internally, so the first simulation study can
 use contact-derived features as a simulation proxy. These features must not be
 described as realistic tactile sensing.
 
-The current Adroit environment is a useful physics and dexterous-contact
-inspection baseline, but it is not the Part I environment. Its Shadow Hand is
-far more complex than the two-finger gripper Part I requires.
+The current Adroit environment is the starting point for Part I because its
+Shadow Hand exposes the articulated fingers needed for a retargeted MANO grasp.
+The stock relocation task is not yet the final evaluation environment.
 
-**Selected Part I platform:** a simulated Panda arm with a two-finger gripper
-in robosuite/MuJoCo, with the task adapted from robosuite `PickPlace`. ACT is
-trained through LeRobot. ManiSkill is the documented backup.
+**Selected initial experimental embodiment:** Adroit/Shadow Hand in MuJoCo.
+HUG produces the source MANO grasp; the existing
+[Dex Retargeting](https://github.com/dexsuite/dex-retargeting) library maps its
+21 landmarks to Shadow Hand joint targets before grasp, lift, and transport
+execution. The integration uses the library's supplied Shadow Hand
+configuration and explicitly maps its output to MuJoCo joints by name. The
+stock Adroit relocation environment is only a starting model and must be
+adapted for HUG grasp targets, benchmark objects, logging, and controlled
+outcomes.
+
+The existing Panda parallel-jaw pipeline is retained as generic manipulation,
+logging, snapshot, and policy infrastructure. A two-finger gripper cannot
+execute the finger configuration expressed by a MANO grasp, so Panda results
+are not the primary HUG experiment.
+
+Integration testing found that Gymnasium's stock Adroit MJCF and the official
+Shadow URDF used by Dex Retargeting differ in joint naming and axis conventions.
+The evaluation runner must use the pinned official Shadow kinematics or a
+separately validated conversion. It must not infer a mapping by decrementing
+joint-number suffixes.
 
 The selection criteria were:
 
-- similarity to a plausible physical arm and gripper (Panda + parallel jaw);
+- an articulated multi-finger hand capable of representing a retargeted MANO
+  grasp;
 - support for pick, transport, and place;
 - demonstrations or a reliable scripted controller;
 - complete state save and restore for Part III;
@@ -421,7 +434,7 @@ restoration reproduces identical forward dynamics; PhysX-based stacks expose
 scene-state restoration without an equivalent full-engine guarantee. A correct
 implementation must additionally snapshot environment counters, controller
 state, RNG, observation-delay buffers, changed model parameters (mass, inertia,
-friction), and the ACT action-history/temporal-ensemble state, since stock
+friction), and any controller or policy action-history state, since stock
 robosuite state helpers capture only time, `qpos`, and `qvel`.
 
 **Hardware tracks.** The physical robot is not required for Part I. Track A
@@ -434,16 +447,42 @@ keeps the policy transferable. A low-cost arm such as SO-101 may validate
 software plumbing but is not assumed sufficient for quantitative force/recovery
 claims. See [PART_I_TRAINING_SPEC.md](PART_I_TRAINING_SPEC.md).
 
-HUG may later provide diverse human-like grasp hypotheses, but it is not
-required for the first controlled experiment. Retargeting its MANO hand poses
-to any selected robot is a separate engineering problem.
+HUG is the source of grasp hypotheses for the primary experiment. Its RGB-D
+model predicts wrist translation, wrist rotation, and a MANO hand pose, and its
+grasp can be retargeted to robot hands. Retargeting a MANO pose does not by
+itself create a simulated human hand: execution requires an articulated hand
+model, collision geometry, actuators, a controller, and an embodiment adapter.
+The Adroit/Shadow Hand supplies the first executable target. See
+[RESEARCH_FOUNDATIONS.md](RESEARCH_FOUNDATIONS.md).
+
+The planned batch-evaluation schema therefore records an `embodiment_id`. The
+initial value is `shadow_hand_right`; `mano_human_reference` identifies the
+non-actuated source grasp. Metrics are stratified by embodiment.
+
+Every evaluation case also records a versioned `environment_id`. The initial
+entry, `adroit_shadow_tabletop_v1`, resolves through the evaluation platform's
+registry to the HUG/Shadow-Hand MuJoCo runner. It fixes the simulator scene,
+table, arm and hand, controller, timestep, observation/action contracts,
+cameras, and success/failure definitions. Objects, HUG grasps, mass, starting
+conditions, motion profiles, and seeds vary at the case level. Each resolved
+run records the environment configuration hash, MuJoCo version, and code
+commit. Unknown environment IDs and configuration-hash mismatches fail before
+execution. The complete contract is in
+[EVALUATION_MANIFEST.md](EVALUATION_MANIFEST.md).
+
+Each case also records `execution_protocol_id`. The initial
+`fixed_grasp_lift_v1` registry entry defines the deterministic reset, load,
+retarget, pre-grasp, approach, close, lift, hold, and scoring sequence plus its
+timing, distance, force, and height parameters. The resolved protocol parameters
+and hash are stored with every case and result. Unknown IDs or hash mismatches
+fail validation.
 
 ## 8. Foundational Resources
 
-- [ACT](https://arxiv.org/abs/2304.13705) provides the initial
-  action-chunking imitation-learning baseline for Part I.
-- [Diffusion Policy](https://arxiv.org/abs/2303.04137) is an established
-  receding-horizon action-sequence baseline to consider after ACT.
+- [ACT](https://arxiv.org/abs/2304.13705) is an optional later learned-execution
+  protocol after the deterministic HUG-grasp benchmark is established.
+- [Diffusion Policy](https://arxiv.org/abs/2303.04137) is another optional
+  learned action-sequence protocol for that later comparison.
 - [The Feeling of Success](https://arxiv.org/abs/1710.05512) studies whether
   vision and touch can predict grasp outcomes.
 - [Maintaining Grasps within Slipping Bound](https://arxiv.org/abs/1810.13381)
@@ -451,10 +490,14 @@ to any selected robot is a separate engineering problem.
 - [Tactile Sensors for Friction Estimation and Incipient Slip
   Detection](https://doi.org/10.3390/s20010221) reviews the connection between
   friction, tactile sensing, and grip security.
-- [See to Touch](https://see-to-touch.github.io/) demonstrates tactile-based
-  adaptation for dexterous manipulation.
-- [Human Universal Grasping](https://grasping.io/) provides human-like grasp
-  hypotheses and a benchmark of previously unseen objects.
+- [See to Touch](https://see-to-touch.github.io/) learns tactile dexterity from
+  vision-derived rewards and motivates a later tactile residual/recovery track.
+- [Human Universal Grasping](https://grasping.io/) predicts human grasps from
+  RGB-D in MANO form, retargets them to robot hands, and provides HUG-Bench
+  objects across five geometry categories and three size ranges.
+- [Dex Retargeting](https://github.com/dexsuite/dex-retargeting) supplies the
+  AnyTeleop-derived landmark-to-robot optimization, scaling, joint constraints,
+  and a ready-made Shadow Hand configuration used by Part I.
 - [SlipSense](https://arxiv.org/abs/2609.15910) predicts current tactile slip
   classes with measured detection latency; it is a reactive baseline, not the
   same target as future object-loss prediction.
@@ -494,22 +537,33 @@ Before collecting a large dataset:
 - define prediction horizons and intervention delays; and
 - audit the offered external dataset and the available physical robot.
 
-### Phase 1 — Build the learned manipulation baseline
+### Phase 1 — Build HUG-conditioned dexterous execution
 
-- Validate the task with a scripted or demonstration controller.
-- Collect a small end-to-end dataset with complete logging.
-- Train ACT on the project's own demonstrations.
-- Evaluate closed-loop behavior on held-out initial conditions and objects.
+- Generate and validate HUG MANO grasp samples from RGB-D inputs.
+- Integrate and validate Dex Retargeting with its supplied Shadow Hand
+  configuration; do not implement a new optimizer unless a documented test
+  shows that the library fails this use case.
+- Convert HUG camera coordinates and units to the Shadow palm frame, map output
+  by MuJoCo joint name, and validate fingertip alignment, joint limits, and
+  collisions.
+- Execute one grasp, lift, and transport attempt end to end in MuJoCo.
+- Register `adroit_shadow_tabletop_v1` and implement strict manifest validation
+  before expanding beyond the one-case command.
+- Register `fixed_grasp_lift_v1`, save its resolved parameters and hash, and
+  reject unknown or mismatched protocol configurations.
+- Collect a small HUG-conditioned rollout set with complete logging.
+- Evaluate behavior across held-out grasp samples, objects, and initial poses.
 - Save successes and naturally occurring failures in the canonical format.
 - Confirm that simulator states can be restored for future intervention trials.
 
-**Exit criterion:** a reproducible trained policy can complete the simple task
-often enough to be meaningful while still producing failures in controlled,
-increasingly difficult conditions.
+**Exit criterion:** a reproducible HUG-conditioned dexterous-hand pipeline can
+execute grasps often enough to produce meaningful successes and controlled
+failure cases.
 
 ### Phase 2 — Build the future-failure benchmark
 
-- Freeze a Part I checkpoint.
+- Freeze the HUG version, retargeting method, dexterous-hand controller, and
+  execution protocol.
 - Collect balanced rollouts across controlled physical and motion conditions.
 - Generate leakage-safe fixed-horizon windows and censored-window metadata.
 - Train heuristic, static, compact temporal, and calibrated ensemble baselines.
@@ -532,7 +586,8 @@ over reactive and fixed-controller baselines under matched limits.
 ### Phase 4 — Validate on physical hardware
 
 - Map only supported observations and actions onto the physical robot.
-- Reproduce a small controlled mass/friction matrix.
+- Reproduce the initial controlled mass sweep at nominal friction, then add a
+  small friction robustness sweep if the hardware supports it.
 - Use repeated matched trials rather than claiming exact counterfactual replay.
 - Report sensing, actuation, calibration, synchronization, and safety limits.
 
@@ -555,12 +610,14 @@ well-controlled finding.
 
 ## 11. Immediate Next Deliverable
 
-The first concrete deliverable is a complete learned grasp-and-transport
+The first concrete deliverable is a complete HUG-conditioned grasp execution
 baseline with excellent logging:
 
-- a validated simulation environment;
-- a demonstration collection pipeline;
-- one policy trained by this project;
+- a validated Adroit/Shadow Hand simulation environment;
+- a thin HUG-to-Dex-Retargeting integration using the supplied Shadow config;
+- one saved HUG grasp displayed in MuJoCo with fingertip alignment error;
+- that grasp executed through pre-grasp, close, lift, and transport;
+- a portable evaluation manifest;
 - held-out closed-loop evaluation;
 - stored successful and failed executions; and
 - logs that already preserve the histories needed by Part II and the simulator

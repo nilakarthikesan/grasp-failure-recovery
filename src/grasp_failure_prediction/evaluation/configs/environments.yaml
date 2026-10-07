@@ -1,0 +1,29 @@
+adroit_shadow_tabletop_v1:
+  schema_version: environment_spec_v1
+  environment_id: adroit_shadow_tabletop_v1
+  runner: grasp_failure_prediction.evaluation.runner:AdroitShadowRunner
+  simulator:
+    type: mujoco
+    physics_timestep_s: 0.002
+    control_timestep_s: 0.04
+  scene:
+    model_path: third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf
+    table_size_m: [0.8, 0.8, 0.05]
+  robot:
+    arm_model: free_wrist_6d
+    hand_model: shadow_hand_right
+    joint_order_path: dex-retargeting:shadow_hand_right.yml
+    controller_id: shadow_joint_position_v1
+  contracts:
+    observation: shadow_tabletop_observation_v1
+    action: shadow_joint_target_v1
+    outcome: grasp_lift_outcome_v1
+  cameras:
+    - id: front
+      width: 640
+      height: 480
+      fps: 25
+    - id: wrist
+      width: 640
+      height: 480
+      fps: 25

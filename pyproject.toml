@@ -37,11 +37,18 @@ dependencies = [
     # Demonstration dataset access. We will not download data during inspection.
     "minari==0.5.3",
     "numpy",
+    "pydantic>=2.7,<3",
+    "PyYAML>=6,<7",
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest>=7.4",
+]
+
+eval = [
+    "dex-retargeting>=0.5,<0.6",
+    "torch",
 ]
 
 # Part I robot-training stack. Kept separate so the Adroit/HUG baseline and the
@@ -68,6 +75,8 @@ Repository = "https://github.com/nilakarthikesan/grasp-failure-recovery"
 [project.scripts]
 inspect-adroit = "grasp_failure_prediction.environments.adroit:main"
 inspect-hug-prediction = "grasp_failure_prediction.integrations.hug:main"
+view-retargeted-hand = "grasp_failure_prediction.evaluation.view_pose:main"
+run-hug-eval-case = "grasp_failure_prediction.evaluation.case_runner:main"
 validate-stack = "grasp_failure_prediction.part1.stack:main"
 collect-demos = "grasp_failure_prediction.part1.collect:main"
 export-demos = "grasp_failure_prediction.part1.lerobot_export:main"
@@ -76,6 +85,9 @@ eval-act = "grasp_failure_prediction.part1.evaluate:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+"grasp_failure_prediction.evaluation" = ["configs/*.yaml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

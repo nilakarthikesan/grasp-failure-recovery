@@ -44,6 +44,7 @@ class WeightedContainerTask:
         transport_distance: float = 0.15,
         render_images: bool = True,
         capture_snapshots: bool = True,
+        onscreen: bool = False,
     ) -> None:
         import robosuite as suite
         from robosuite.controllers import load_composite_controller_config
@@ -52,6 +53,7 @@ class WeightedContainerTask:
         self.contract = self.config.observation
         self.render_images = render_images
         self.capture_snapshots = capture_snapshots
+        self.onscreen = onscreen
         self.transport_distance = transport_distance
 
         # Physics metadata (labels, not policy inputs).
@@ -74,9 +76,10 @@ class WeightedContainerTask:
             env_name="Lift",
             robots=self.config.task.robot,
             controller_configs=controller,
-            has_renderer=False,
+            has_renderer=onscreen,
             has_offscreen_renderer=render_images,
             use_camera_obs=render_images,
+            render_camera="frontview",
             camera_names=list(self.config.task.camera_names) if render_images else None,
             camera_heights=self.config.task.camera_height,
             camera_widths=self.config.task.camera_width,

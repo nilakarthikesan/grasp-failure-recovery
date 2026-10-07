@@ -23,29 +23,31 @@ body of evidence.
 
 ## Research program
 
-### Part I — Learn the nominal manipulation skill
+### Part I — Execute HUG grasps with a dexterous hand
 
-Train a policy to grasp one rigid object from a table, lift it, transport it a
-short distance, and place it in a target region. The first policy will learn
-high-level action decisions while existing kinematics, planning, and low-level
-control execute them.
+Given an RGB-D observation and a selected object, use HUG to generate multiple
+MANO human-hand grasp samples. Retarget each sample to an articulated dexterous
+hand with [Dex Retargeting](https://github.com/dexsuite/dex-retargeting),
+execute the grasp in MuJoCo, then lift and transport the object under controlled
+conditions.
 
-The selected Part I platform is a simulated Panda arm with a two-finger
-gripper in **robosuite/MuJoCo**, trained by imitation learning with ACT as the
-first reproducible baseline (via LeRobot). ManiSkill is the documented backup.
-Reinforcement learning is a later comparison, not a prerequisite.
+The initial executable embodiment is the Adroit/Shadow Hand in MuJoCo. The
+repository's Panda parallel-jaw pipeline remains useful generic manipulation
+infrastructure, but it cannot execute a MANO dexterous grasp and is not the
+primary experimental embodiment. A Panda or another arm may later carry a
+dexterous hand.
 
-**Deliverable:** a trained grasp-and-transport policy, a reproducible training
-pipeline, held-out closed-loop evaluations, and saved successful and failed
-executions.
+**Deliverable:** a reproducible RGB-D → HUG → Dex Retargeting → Shadow Hand →
+grasp/lift/transport pipeline with saved successful and failed executions.
 
-The detailed Part I contract is in
-[`docs/PART_I_TRAINING_SPEC.md`](docs/PART_I_TRAINING_SPEC.md).
+The corrected HUG-centered scope is in
+[`docs/RESEARCH_FOUNDATIONS.md`](docs/RESEARCH_FOUNDATIONS.md); the executable
+Part I contract will be frozen after the retargeting prototype is validated.
 
 ### Part II — Anticipate future failure
 
-Freeze the Part I policy and execute it across controlled physical conditions.
-Train a separate temporal model to estimate:
+Freeze the HUG-conditioned grasp execution system and run it across controlled
+grasp, object, and motion conditions. Train a separate temporal model to estimate:
 
 > Given the observations and actions so far, how likely is the object to be
 > lost within a future horizon if the robot continues its current behavior?
@@ -55,8 +57,8 @@ slow movement and fail under a more aggressive motion. Data is split by complete
 episodes, objects, and physical conditions—not neighboring frames.
 
 **Deliverable:** a calibrated future-failure predictor with measured warning
-lead time and evaluation under held-out mass, friction, and mass–friction
-combinations.
+lead time and evaluation under held-out HUG grasp samples, objects, masses, and
+motion conditions.
 
 ### Part III — Estimate recoverability and intervene
 
@@ -82,10 +84,13 @@ completion, object-preserving aborts, and harmful interventions.
 ## End-to-end architecture
 
 ```
-demonstrations
+RGB-D object observation
     │
     ▼
-Part I: train grasp-and-transport policy
+HUG: generate MANO human-hand grasp samples
+    │
+    ▼
+Part I: Dex Retargeting → Shadow Hand → grasp/lift/transport
     │
     ├── successful and failed executions under controlled physics
     ▼
@@ -104,59 +109,75 @@ interpretable. Joint training may be studied later.
 
 ## Controlled physical variation
 
-The core evaluation varies object **mass**, surface **friction**, grasp
-placement, and transport motion. Training and testing distinguish:
+The initial controlled evaluation fixes one Adroit/Shadow Hand embodiment and
+one nominal friction value. It varies the **HUG grasp sample**, object identity
+and shape, object mass, initial object pose, and lift/transport motion. Friction
+remains supported and recorded but is not swept in the first batch.
 
-- unseen mass with familiar friction;
-- unseen friction with familiar mass;
-- unseen mass–friction combinations;
-- extrapolation beyond the training range; and
-- eventually, unseen objects under unseen physical conditions.
+The experiment schema includes a hand `embodiment_id`. The initial value is
+`shadow_hand_right`; `mano_human_reference` identifies the source HUG grasp
+rather than an actuated embodiment. See
+[`docs/RESEARCH_FOUNDATIONS.md`](docs/RESEARCH_FOUNDATIONS.md) for the staged
+embodiment and HUG integration plan.
+
+Every case also carries the versioned environment ID
+`adroit_shadow_tabletop_v1`. It resolves through an explicit registry to the
+HUG/Shadow-Hand MuJoCo runner and fixes the scene, robot model, controller,
+timestep, sensor/action contracts, cameras, and outcome definitions. Unknown
+IDs and environment configuration-hash mismatches are hard validation errors.
+See [`docs/EVALUATION_MANIFEST.md`](docs/EVALUATION_MANIFEST.md) for the portable
+case and provenance contract.
+
+The initial case also fixes `execution_protocol_id` to
+`fixed_grasp_lift_v1`: reset, load, retarget, pre-grasp, approach, close, lift,
+hold, and score. This is a deterministic scripted protocol. The initial HUG
+evaluation does not train or invoke a manipulation policy, which keeps learned
+controller failures out of the grasp-quality measurement. Results save the
+resolved protocol parameters and configuration hash.
 
 Hidden simulator parameters generate controlled trials and evaluation groups,
 but they are not exposed to a sensor-based predictor.
 
 ## Current repository status
 
-Part I (the nominal grasp-and-transport skill) is implemented and validated in
-simulation; Parts II and III remain to be built:
+The repository has useful components, but the HUG-centered execution pipeline
+and Parts II and III remain to be built:
 
-- **Part I pipeline (implemented):** a weighted-container pick/lift/transport/
-  place task on robosuite/Panda, with canonical synchronized logging, exact
-  MuJoCo state snapshots, a scripted privileged demonstrator, LeRobot export,
-  ACT training, and held-out closed-loop evaluation. See
-  [`docs/PART_I_TRAINING_SPEC.md`](docs/PART_I_TRAINING_SPEC.md) and the
-  `src/grasp_failure_prediction/part1/` package. All results are simulation-only
-  until reproduced on a physical robot (see
-  [`docs/HARDWARE_AUDIT.md`](docs/HARDWARE_AUDIT.md)).
-- `AdroitHandRelocate-v1` inspection exposes observations, actions, timing,
-  object mass/friction, and MuJoCo contacts.
+- `AdroitHandRelocate-v1` inspection exposes the articulated arm, wrist, and
+  Shadow Hand action space, object physics, and MuJoCo contacts.
 - A validated adapter reads released
   [HUG](https://github.com/KevinyWu/hug) grasp predictions without depending on
   HUG's CUDA runtime.
-- Future-failure labels (Part II), intervention branching, and recovery learning
-  (Part III) remain to be implemented. The Part I logs already contain the
-  histories, physics metadata, and restorable snapshots those parts need.
+- The robosuite/Panda package provides generic collection, logging, snapshot,
+  LeRobot export, ACT smoke training, and a visible MuJoCo example. It does not
+  meaningfully evaluate HUG MANO grasps.
+- The HUG-to-Dex-Retargeting coordinate adapter, MuJoCo joint-name mapping,
+  HUG-conditioned execution, batch evaluation, future-failure labels,
+  intervention branching, and recovery learning remain to be implemented.
 
 The default Adroit observation contains no tactile or contact measurements.
 MuJoCo does maintain contact information internally, so a first simulation
 study can surface contact-derived features through a wrapper. Those features
 must not be described as realistic tactile sensing.
 
-Adroit is useful for physics and contact inspection, but its dexterous
-relocation task is not the Part I learning sandbox. Part I uses a simulated
-Panda arm with a two-finger gripper in **robosuite/MuJoCo**, adapted from the
-`PickPlace` task. MuJoCo is chosen over PhysX-based stacks because it uniquely
-documents a complete integration state that restores to identical forward
-dynamics, which the Part III recovery-branching study requires. ManiSkill is
-the documented backup. The final simulated embodiment should still be chosen
-with the available physical robot in mind.
+Adroit/Shadow Hand is the initial executable embodiment because its articulated
+fingers can represent a retargeted HUG grasp. Its stock relocation task still
+needs to be adapted to accept object assets and HUG grasp targets and to expose
+the project's grasp/lift/transport outcomes. MuJoCo remains the physics engine
+for controlled execution and later recovery branching.
+
+Integration testing found that the stock Gymnasium Adroit MJCF does not use the
+same Shadow joint names and axes as Dex Retargeting's official URDF. The runner
+must therefore embed the pinned `dex-urdf` Shadow model or use a separately
+validated kinematic conversion. Numeric suffix remapping is rejected because
+it produces incorrect finger and thumb poses.
 
 The physical robot is not required for Part I. Three hardware discovery tracks
 run in parallel while the simulation policy is built:
 
-- **Track A — simulation now:** build and train the robosuite/Panda policy
-  immediately; this is the critical path.
+- **Track A — simulation now:** integrate Dex Retargeting with its supplied
+  Shadow Hand configuration and execute one HUG grasp in Adroit/MuJoCo; this is
+  the critical path.
 - **Track B — friend-built robot:** evaluate a written specification (DOF,
   payload, repeatability, control/telemetry rates, gripper force interface,
   URDF/simulation model, API, emergency stop, BOM, and publishability) before
@@ -171,11 +192,11 @@ plus gripper interface keeps the policy transferable across these options.
 
 ## Data sources
 
-- **Project demonstrations:** the primary source for training Part I. Every
-  episode must contain synchronized observations, robot state, actions, and
-  outcomes.
-- **Policy executions:** successful and unsuccessful closed-loop runs from Part
-  I provide Part II's future-outcome data.
+- **HUG predictions:** MANO grasp samples, wrist transforms, landmarks, and
+  object-conditioned grasp geometry provide the Part I starting hypotheses.
+- **Dexterous-hand executions:** successful and unsuccessful retargeted HUG
+  rollouts provide Part II's future-outcome data. Every episode must contain
+  synchronized observations, hand/arm state, actions, contacts, and outcomes.
 - **Matched intervention trials:** simulator state branching produces the
   counterfactual comparisons needed by Part III.
 - **A collaborator's VR-collected dataset:** usable for the central experiments
@@ -183,8 +204,16 @@ plus gripper interface keeps the policy transferable across these options.
   outcomes, licensing, and physical-property labels. Data without failures or
   measured physical conditions may still support policy or representation
   pretraining.
-- **HUG:** an optional later source of diverse static grasp hypotheses and
-  benchmark objects, not a dependency for the first learned policy.
+- **HUG:** the foundational source of human grasp hypotheses, MANO hand poses,
+  and the HUG-Bench object taxonomy. Predictions enter through the validated
+  adapter and pass through Dex Retargeting before Shadow Hand execution.
+- **Dex Retargeting:** the MIT-licensed, AnyTeleop-derived retargeting library
+  used to convert HUG's 21 hand landmarks into Shadow Hand joint targets. The
+  project integrates its supplied Shadow Hand configuration instead of building
+  a new retargeting optimizer.
+- **See to Touch:** a research precedent for combining visual demonstrations
+  with tactile policy adaptation. It motivates a later tactile recovery track,
+  not the first simulation batch.
 
 ## Evaluation
 
@@ -213,10 +242,15 @@ Requires Python ≥ 3.10. The lightweight Adroit/HUG baseline needs only the
 default dependencies:
 
 ```bash
+git submodule update --init --recursive
 python -m venv .venv
 source .venv/bin/activate
-pip install -e ".[dev]"
+pip install -e ".[dev,eval]"
 ```
+
+The pinned `dex-urdf` submodule supplies the official Shadow Hand URDF required
+by Dex Retargeting. The repository does not copy those third-party assets into
+its own source tree.
 
 The Part I robot-training stack (robosuite, robomimic, LeRobot, ACT, PyTorch) is
 an optional extra. Install it against the validated version set:
@@ -245,7 +279,7 @@ python scripts/inspect_adroit.py
 inspect-adroit
 ```
 
-### 2. Inspect a HUG prediction (optional, no HUG runtime needed)
+### 2. Inspect a HUG prediction (no HUG runtime needed)
 
 Reads a `grasp_pred/*.pkl` you already generated with HUG's released inference
 code and prints its usable grasp fields (MANO pose, wrist transform, translation,
@@ -255,6 +289,15 @@ landmarks, mesh vertices, camera metadata).
 python scripts/inspect_hug_prediction.py /path/to/grasp_pred/example.pkl
 # or, after installation:
 inspect-hug-prediction /path/to/grasp_pred/example.pkl
+```
+
+Retarget and numerically validate the pose in the official Shadow model loaded
+by MuJoCo; add `--viewer` under `mjpython` for visual inspection:
+
+```bash
+view-retargeted-hand /path/to/grasp_pred/example.pkl
+MUJOCO_GL=glfw mjpython -m grasp_failure_prediction.evaluation.view_pose \
+  /path/to/grasp_pred/example.pkl --viewer
 ```
 
 > **Security note:** `*.pkl` files can execute arbitrary code when unpickled.
@@ -272,6 +315,13 @@ MUJOCO_GL=cgl python scripts/inspect_container_task.py   # one demo, phases, HDF
 MUJOCO_GL=cgl python scripts/run_part1_pipeline.py --workdir runs/part1_smoke  # end-to-end smoke
 ```
 
+To watch the scripted Panda perform one successful episode in a native MuJoCo
+window on macOS:
+
+```bash
+MUJOCO_GL=glfw .venv-part1/bin/mjpython -u scripts/watch_container_task.py
+```
+
 Individual stages are also exposed as entry points:
 
 ```bash
@@ -286,11 +336,38 @@ policy will not, by design. Reaching a competent policy needs the full-scale run
 (more demonstrations, a larger model, and many optimizer steps). All Part I
 numbers are simulation-only.
 
+These commands exercise the supporting Panda pipeline. ACT is not part of the
+initial HUG/Shadow-Hand evaluation protocol.
+
 ### 4. Run the tests
 
 ```bash
 pytest
 ```
+
+### 5. Run one HUG evaluation case
+
+Place the trusted HUG prediction at the repository-relative path referenced by
+the case, then run:
+
+```bash
+run-hug-eval-case \
+  eval_cases/hug_case_001/case.yaml \
+  --output runs/hug_case_001
+```
+
+For real-time playback on macOS:
+
+```bash
+MUJOCO_GL=glfw mjpython -m grasp_failure_prediction.evaluation.case_runner \
+  eval_cases/hug_case_001/case.yaml \
+  --output runs/hug_case_001_viewer \
+  --viewer
+```
+
+The command validates both registry references and hashes before simulation,
+then writes `resolved_case.json`, `trajectory.npz`, `final_state.npz`, and
+`result.json`.
 
 ---
 
@@ -299,16 +376,19 @@ pytest
 1. **Research and data contract:** freeze the task, embodiment, observation and
    action interfaces, failure taxonomy, logging schema, physics ranges, and
    held-out splits.
-2. **Part I baseline:** validate the environment, collect demonstrations, train
-   ACT, and evaluate closed-loop grasp-and-transport behavior.
-3. **Part II benchmark:** freeze the policy, collect balanced future-failure
-   windows under controlled physics, and train calibrated temporal baselines.
+2. **Part I baseline:** retarget HUG MANO grasps to Shadow Hand, execute one
+   grasp end to end, implement the versioned environment registry and eval
+   command, then evaluate grasp/lift/transport behavior in batches.
+3. **Part II benchmark:** freeze HUG, retargeting, and execution versions;
+   collect balanced future-failure windows and train calibrated temporal
+   baselines.
 4. **Part III branching:** restore matched simulator states, test bounded
    interventions and delays, then train the intervention-outcome model.
 5. **Physical validation:** reproduce the important findings using the sensing
    and actuation available on the selected robot.
-6. **Optional extensions:** richer tactile sensing, HUG-generated grasps,
-   learned recovery control, reinforcement learning, and joint training.
+6. **Optional extensions:** richer tactile sensing, additional dexterous-hand
+   embodiments, learned recovery control, reinforcement learning, and joint
+   training.
 
 ---
 
@@ -317,8 +397,8 @@ pytest
 ```
 src/grasp_failure_prediction/
   environments/adroit.py      # Adroit/MuJoCo inspection (runnable baseline)
-  integrations/hug.py         # HUG prediction-pickle adapter (optional path)
-  part1/                      # Part I grasp-and-transport pipeline (robot extra)
+  integrations/hug.py         # validator for primary HUG grasp inputs
+  part1/                      # supporting Panda manipulation infrastructure
     config.py                 #   frozen task/physics/split contract
     environment.py            #   weighted-container task (robosuite/Panda wrapper)
     snapshot.py               #   exact MuJoCo state capture/restore (Part III primitive)
@@ -327,11 +407,11 @@ src/grasp_failure_prediction/
     collect.py                #   demonstration collection
     lerobot_export.py         #   HDF5 -> LeRobot dataset for ACT
     train_act.py              #   ACT training loop
-    evaluate.py               #   held-out closed-loop evaluation
     stack.py                  #   training-stack validator
 scripts/
   inspect_adroit.py           # entry point for the Adroit inspection
   inspect_hug_prediction.py   # entry point for the HUG-output inspection
+  watch_container_task.py     # visible supporting Panda simulation
   validate_stack.py           # validate the Part I training stack
   inspect_container_task.py   # inspect the weighted-container task end to end
   run_part1_pipeline.py       # collect -> export -> train -> evaluate
@@ -348,6 +428,8 @@ tests/
 
 The evolving end-to-end specification is in
 [`docs/SYSTEM_DESIGN.md`](docs/SYSTEM_DESIGN.md).
+The relationship to HUG, HUG-Bench, MANO hand poses, and See to Touch is in
+[`docs/RESEARCH_FOUNDATIONS.md`](docs/RESEARCH_FOUNDATIONS.md).
 
 ## Attribution
 
@@ -360,6 +442,10 @@ Universal Grasping)**:
 HUG's authors retain all rights to their work; this repository only consumes
 HUG's released prediction format and does not redistribute HUG code, weights, or
 the MANO assets it depends on.
+
+The recovery and tactile-adaptation direction is also informed by
+[See to Touch](https://see-to-touch.github.io/); no See to Touch code or data is
+redistributed here.
 
 ## License
 
