@@ -405,6 +405,20 @@ normal-force, and actuator-force diagnostics. Normal runs also render an H.264
 nonvisual simulator debugging. On macOS, the command invokes MuJoCo's bundled
 `mjpython` renderer after physics execution.
 
+### 6. Review evaluation results
+
+Launch the read-only local results viewer:
+
+```bash
+view-eval-results --runs-root runs
+```
+
+The command opens `http://127.0.0.1:8765/`. It recursively indexes result
+bundles, summarizes success and failure counts, filters by outcome or search
+text, shows the recorded metrics and resolved IDs, and streams attached rollout
+videos. Historical bundles without videos remain visible and are labeled as
+having no attached recording. Stop the viewer with `Ctrl-C`.
+
 ---
 
 ## Implementation roadmap
