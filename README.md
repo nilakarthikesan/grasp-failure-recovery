@@ -400,7 +400,10 @@ The command validates both registry references and hashes before simulation,
 then writes `resolved_case.json`, `trajectory.npz`, `final_state.npz`, and
 `result.json`. In inference mode, `result.json` also references the generated
 proposal and inference report. The result and trajectory include opposing-contact,
-normal-force, and actuator-force diagnostics.
+normal-force, and actuator-force diagnostics. Normal runs also render an H.264
+`rollout.mp4` and attach it through `artifacts.video`. Use `--no-video` only for
+nonvisual simulator debugging. On macOS, the command invokes MuJoCo's bundled
+`mjpython` renderer after physics execution.
 
 ---
 

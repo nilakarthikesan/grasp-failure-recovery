@@ -21,6 +21,7 @@ from grasp_failure_prediction.integrations.hug_frames import MANO_TO_OPERATOR_RI
 from .artifacts import write_evaluation_artifacts
 from .pose_validation import ShadowPoseValidator, _body_id, format_validation
 from .registry import RegistryError, ResolvedCase, resolve_case
+from .recording import EvaluationVideoRecorder
 from .retargeting import RetargetingError, ShadowHandRetargeter, default_dex_urdf_root
 from .runner import AdroitShadowRunner, RunnerStep
 from .schema import EvaluationCase, EvaluationResult
@@ -184,31 +185,52 @@ def _execute(
     palm_quaternion: np.ndarray,
     approach_direction: np.ndarray,
     viewer: bool,
+    video_path: Path | None,
 ):
+    recorder = (
+        EvaluationVideoRecorder(runner, video_path)
+        if video_path is not None
+        else None
+    )
+
+    def record(step: RunnerStep) -> None:
+        if recorder is not None:
+            recorder.capture(step)
+
     if not viewer:
-        return runner.execute(
-            pose,
-            grasp_palm_position_m=palm_position,
-            grasp_palm_quaternion_wxyz=palm_quaternion,
-            approach_direction_world=approach_direction,
-        )
+        try:
+            return runner.execute(
+                pose,
+                grasp_palm_position_m=palm_position,
+                grasp_palm_quaternion_wxyz=palm_quaternion,
+                approach_direction_world=approach_direction,
+                step_callback=record,
+            )
+        finally:
+            if recorder is not None:
+                recorder.close()
 
     import mujoco.viewer
 
     with mujoco.viewer.launch_passive(runner.model, runner.data) as window:
-        def sync(_: RunnerStep) -> None:
+        def sync(step: RunnerStep) -> None:
+            record(step)
             window.sync()
             time.sleep(runner.control_timestep_s)
 
-        trace = runner.execute(
-            pose,
-            grasp_palm_position_m=palm_position,
-            grasp_palm_quaternion_wxyz=palm_quaternion,
-            approach_direction_world=approach_direction,
-            step_callback=sync,
-        )
-        window.sync()
-        return trace
+        try:
+            trace = runner.execute(
+                pose,
+                grasp_palm_position_m=palm_position,
+                grasp_palm_quaternion_wxyz=palm_quaternion,
+                approach_direction_world=approach_direction,
+                step_callback=sync,
+            )
+            window.sync()
+            return trace
+        finally:
+            if recorder is not None:
+                recorder.close()
 
 
 def run_case(
@@ -216,6 +238,7 @@ def run_case(
     output_dir: str | Path,
     *,
     viewer: bool = False,
+    record_video: bool = True,
     inference: bool = True,
     hug_root: str | Path | None = None,
     checkpoint: str | Path | None = None,
@@ -239,6 +262,7 @@ def run_case(
         )
     else:
         prediction_path = _saved_prediction_path(case, project)
+        output.mkdir(parents=True, exist_ok=True)
 
     grasp = load_hug_prediction(prediction_path)
     urdf_root = default_dex_urdf_root()
@@ -293,6 +317,7 @@ def run_case(
         palm_quaternion,
         approach_direction,
         viewer=viewer,
+        video_path=(output / "rollout.mp4" if record_video else None),
     )
     outcome = score_trace(
         trace,
@@ -307,6 +332,7 @@ def run_case(
         outcome=outcome,
         final_qpos=runner.data.qpos.copy(),
         final_qvel=runner.data.qvel.copy(),
+        video=(Path("rollout.mp4") if record_video else None),
         hug_proposal=(Path("hug_inference/proposal.pkl") if inference else None),
         inference_report=(
             Path("hug_inference/inference_report.json")
@@ -335,6 +361,13 @@ def main() -> None:
     parser.add_argument("--output", required=True, help="new or empty output directory")
     parser.add_argument("--viewer", action="store_true", help="play execution live")
     parser.add_argument(
+        "--no-video",
+        dest="record_video",
+        action="store_false",
+        help="disable rollout.mp4 recording for simulator debugging",
+    )
+    parser.set_defaults(record_video=True)
+    parser.add_argument(
         "--no-inference",
         dest="inference",
         action="store_false",
@@ -353,6 +386,7 @@ def main() -> None:
         args.case,
         args.output,
         viewer=args.viewer,
+        record_video=args.record_video,
         inference=args.inference,
         hug_root=args.hug_root,
         checkpoint=args.checkpoint,

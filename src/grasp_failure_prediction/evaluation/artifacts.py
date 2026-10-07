@@ -52,6 +52,7 @@ def write_evaluation_artifacts(
     outcome: ScoredOutcome,
     final_qpos: np.ndarray,
     final_qvel: np.ndarray,
+    video: Path | None = None,
     hug_proposal: Path | None = None,
     inference_report: Path | None = None,
 ) -> EvaluationResult:
@@ -147,6 +148,7 @@ def write_evaluation_artifacts(
             trajectory=Path("trajectory.npz"),
             resolved_case=Path("resolved_case.json"),
             simulator_state=Path("final_state.npz"),
+            video=video,
             hug_proposal=hug_proposal,
             inference_report=inference_report,
         ),
