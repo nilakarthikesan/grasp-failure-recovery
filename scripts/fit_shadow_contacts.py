@@ -35,7 +35,7 @@ def main():
                    qpos=reorder_for_mujoco(pose.joint_names, pose.qpos, runner._hand_joint_names))
     snapshot = np.load(args.observation / "scene_state.npz")
     center = snapshot["qpos"][runner._object_qpos_address:runner._object_qpos_address+3]
-    # Opposing cube faces, 0.5mm inside the desired surfaces. These markers are
+    # Opposing cube faces, 3 mm inside the 25 mm half-width. These markers are
     # non-colliding query geometry and never appear in the rollout model.
     targets = ({"thdistal": center + [.022, -.008, 0],
                 "mfdistal": center + [-.022, .008, 0],
