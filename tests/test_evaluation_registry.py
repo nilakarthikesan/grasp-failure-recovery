@@ -15,13 +15,19 @@ from test_evaluation_schema import valid_case
 def test_versioned_registries_load_reviewed_entries() -> None:
     environments = load_environment_registry()
     protocols = load_protocol_registry()
-    assert environments.ids == ("adroit_shadow_tabletop_v1",)
-    assert protocols.ids == ("fixed_grasp_lift_v1",)
+    assert environments.ids == (
+        "adroit_shadow_tabletop_v1",
+        "adroit_shadow_tabletop_v2",
+    )
+    assert protocols.ids == ("fixed_grasp_lift_v1", "fixed_grasp_lift_v2")
     assert (
         protocols.resolve("fixed_grasp_lift_v1")
         .parameters.maximum_mean_fingertip_error_m
         == 0.01
     )
+    environment = environments.resolve("adroit_shadow_tabletop_v2")
+    assert environment.runner.endswith(":ActuatedShadowRunner")
+    assert environment.robot.controller_id == "force_limited_shadow_position_v1"
 
 
 def test_case_resolution_adds_reproducible_hashes() -> None:

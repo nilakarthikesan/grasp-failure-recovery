@@ -8,8 +8,10 @@ from grasp_failure_prediction.evaluation.retargeting import (
     default_dex_urdf_root,
 )
 from grasp_failure_prediction.evaluation.runner import (
+    ActuatedShadowRunner,
     AdroitShadowRunner,
     ExecutionState,
+    force_close_targets,
 )
 from test_retargeting import synthetic_hug_prediction
 
@@ -58,3 +60,21 @@ def test_fixed_protocol_is_deterministic() -> None:
     second_object = np.stack([step.object_position_m for step in second.steps])
     np.testing.assert_allclose(first_object, second_object, atol=0.0, rtol=0.0)
     np.testing.assert_allclose(first.steps[-1].hand_qpos, second.steps[-1].hand_qpos)
+
+
+def test_force_close_is_bounded_and_only_changes_flexion() -> None:
+    names = ("WRJ1", "THJ5", "FFJ2", "THJ1")
+    target = np.array([0.1, 0.2, 0.9, 0.3])
+    limits = np.array([[-1, 1], [-1, 1], [0, 1], [0, 1]])
+    actual = force_close_targets(names, target, limits, 0.2)
+    np.testing.assert_allclose(actual, [0.1, 0.2, 1.0, 0.5])
+    np.testing.assert_array_equal(target, [0.1, 0.2, 0.9, 0.3])
+
+
+def test_registered_actuated_runner_uses_force_limited_servos() -> None:
+    protocol = load_protocol_registry().resolve("fixed_grasp_lift_v2")
+    runner = ActuatedShadowRunner(protocol, default_dex_urdf_root())
+    assert runner.model.nu == 24
+    assert runner.model.neq == 1
+    assert np.all(runner.model.actuator_forcelimited)
+    assert np.all(np.isfinite(runner.model.actuator_forcerange))

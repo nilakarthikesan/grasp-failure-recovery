@@ -5,11 +5,11 @@ versioned `environment_id`. The environment implementation creates and runs the
 world; the ID tells an evaluation platform which registered implementation and
 contract to load.
 
-The initial registry entry is:
+The active registry entry is:
 
 ```text
-adroit_shadow_tabletop_v1
-    → HUG/Shadow-Hand MuJoCo runner
+adroit_shadow_tabletop_v2
+    → force-limited HUG/Shadow-Hand MuJoCo runner
 ```
 
 ## Case record
@@ -17,9 +17,9 @@ adroit_shadow_tabletop_v1
 ```json
 {
   "case_id": "object01_grasp003_mass018_seed9000",
-  "environment_id": "adroit_shadow_tabletop_v1",
+  "environment_id": "adroit_shadow_tabletop_v2",
   "embodiment_id": "shadow_hand_right",
-  "execution_protocol_id": "fixed_grasp_lift_v1",
+  "execution_protocol_id": "fixed_grasp_lift_v2",
   "object_id": "object01",
   "hug_grasp_id": "grasp_003",
   "mass_kg": 0.18,
@@ -40,14 +40,17 @@ The execution protocol is versioned independently from the environment. The
 environment fixes the controller implementation and its input/output contract;
 the protocol fixes the deterministic sequence and its resolved parameters.
 
-The initial registry entry is:
+The active registry entry is:
 
 ```yaml
-fixed_grasp_lift_v1:
+fixed_grasp_lift_v2:
   pregrasp_distance_m: 0.08
   palm_height_above_object_m: 0.04
   approach_duration_s: 1.0
-  grip_force: 0.6
+  grip_command: 1.0
+  settle_duration_s: 0.8
+  force_close_delta_rad: 0.2
+  maximum_mean_fingertip_error_m: 0.01
   lift_height_m: 0.15
   lift_duration_s: 1.5
   hold_duration_s: 2.0
@@ -109,7 +112,7 @@ The resolved run record must add:
 ```json
 {
   "environment_config_hash": "sha256:...",
-  "execution_protocol_id": "fixed_grasp_lift_v1",
+  "execution_protocol_id": "fixed_grasp_lift_v2",
   "execution_protocol_config_hash": "sha256:...",
   "execution_protocol_parameters": {
     "pregrasp_distance_m": 0.08,
@@ -176,6 +179,11 @@ grasp:
 Normal evaluation uses `--hug-root ... --checkpoint ...` and runs inference by
 default. `--no-inference` skips model loading and executes `prediction_path`
 instead.
+
+`fixed_grasp_lift_v2` also fixes the offline retargeting acceptance limit, the
+settling duration, and the bounded post-grasp closing increment. The environment
+registry fixes the force-limited controller and MuJoCo contact solver. Changing
+any of these values changes the recorded registry hash.
 
 The executable interface is:
 

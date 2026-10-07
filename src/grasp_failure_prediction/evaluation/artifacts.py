@@ -78,6 +78,15 @@ def write_evaluation_artifacts(
         object_table_contact=np.asarray(
             [step.object_table_contact for step in trace.steps]
         ),
+        opposing_hand_object_contact=np.asarray(
+            [step.opposing_hand_object_contact for step in trace.steps]
+        ),
+        maximum_contact_normal_force_n=np.asarray(
+            [step.maximum_contact_normal_force_n for step in trace.steps]
+        ),
+        maximum_actuator_force_fraction=np.asarray(
+            [step.maximum_actuator_force_fraction for step in trace.steps]
+        ),
     )
     np.savez_compressed(final_state_path, qpos=final_qpos, qvel=final_qvel)
 
@@ -121,6 +130,18 @@ def write_evaluation_artifacts(
             maximum_lift_m=outcome.maximum_lift_m,
             hold_duration_s=outcome.hold_duration_s,
             final_object_height_m=outcome.final_object_height_m,
+            opposing_contact_duration_s=sum(
+                step.opposing_hand_object_contact for step in trace.steps
+            )
+            * resolved.environment.simulator.control_timestep_s,
+            peak_contact_normal_force_n=max(
+                (step.maximum_contact_normal_force_n for step in trace.steps),
+                default=0.0,
+            ),
+            peak_actuator_force_fraction=max(
+                (step.maximum_actuator_force_fraction for step in trace.steps),
+                default=0.0,
+            ),
         ),
         artifacts=ArtifactReferences(
             trajectory=Path("trajectory.npz"),

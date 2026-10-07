@@ -65,6 +65,8 @@ class ProtocolParameters(StrictModel):
     grip_command: float = Field(ge=-1.0, le=1.0)
     grip_command_type: Literal["normalized_position"]
     close_duration_s: float = Field(gt=0.0)
+    settle_duration_s: float = Field(ge=0.0)
+    force_close_delta_rad: float = Field(ge=0.0, le=0.3)
     maximum_mean_fingertip_error_m: float = Field(gt=0.0)
     lift_height_m: float = Field(gt=0.0)
     lift_duration_s: float = Field(gt=0.0)

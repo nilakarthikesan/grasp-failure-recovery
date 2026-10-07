@@ -10,10 +10,20 @@ import pytest
 import yaml
 
 from grasp_failure_prediction.evaluation.case_runner import (
+    _hug_world_palm_pose,
     _run_case_inference,
     _table_parallel_world_wrist,
     run_case,
 )
+from grasp_failure_prediction.evaluation.pose_validation import (
+    ShadowPoseValidator,
+    _body_id,
+)
+from grasp_failure_prediction.evaluation.retargeting import (
+    ShadowHandRetargeter,
+    default_dex_urdf_root,
+)
+from grasp_failure_prediction.integrations.hug_frames import MANO_TO_OPERATOR_RIGHT
 from grasp_failure_prediction.evaluation.schema import EvaluationCase
 from grasp_failure_prediction.evaluation.registry import RegistryError
 from test_evaluation_schema import valid_case
@@ -42,7 +52,7 @@ def test_one_case_command_writes_valid_result_bundle(tmp_path) -> None:
     assert result.status == "completed"
     assert (output / "result.json").is_file()
     payload = json.loads((output / "result.json").read_text())
-    assert payload["resolved_execution"]["execution_protocol_id"] == "fixed_grasp_lift_v1"
+    assert payload["resolved_execution"]["execution_protocol_id"] == "fixed_grasp_lift_v2"
 
 
 def test_hash_mismatch_fails_before_output_or_simulation(tmp_path) -> None:
@@ -125,6 +135,33 @@ def test_wrist_is_horizontal_and_centered_above_object() -> None:
     np.testing.assert_allclose(
         quaternion, [np.sqrt(0.5), np.sqrt(0.5), 0.0, 0.0], atol=1e-8
     )
+
+
+def test_hug_world_pose_composes_corrected_operator_and_robot_palm_frames(
+    tmp_path,
+) -> None:
+    grasp, _ = synthetic_hug_prediction()
+    pose = ShadowHandRetargeter().retarget(grasp)
+    validator = ShadowPoseValidator(default_dex_urdf_root())
+    np.save(tmp_path / "T_world_camera.npy", np.eye(4))
+
+    position, quaternion = _hug_world_palm_pose(
+        grasp, pose, validator, tmp_path
+    )
+    actual_rotation = np.empty(9)
+    import mujoco
+
+    mujoco.mju_quat2Mat(actual_rotation, quaternion)
+    base_to_palm = validator.data.xmat[
+        _body_id(validator.model, "palm")
+    ].reshape(3, 3)
+    expected_rotation = (
+        grasp.T_camera_wrist[:3, :3]
+        @ MANO_TO_OPERATOR_RIGHT.T
+        @ base_to_palm
+    )
+    np.testing.assert_allclose(position, grasp.T_camera_wrist[:3, 3])
+    np.testing.assert_allclose(actual_rotation.reshape(3, 3), expected_rotation)
 
 
 @pytest.mark.skipif(sys.platform != "darwin", reason="macOS-specific viewer launch")

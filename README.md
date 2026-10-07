@@ -121,15 +121,16 @@ rather than an actuated embodiment. See
 embodiment and HUG integration plan.
 
 Every case also carries the versioned environment ID
-`adroit_shadow_tabletop_v1`. It resolves through an explicit registry to the
-HUG/Shadow-Hand MuJoCo runner and fixes the scene, robot model, controller,
+`adroit_shadow_tabletop_v2`. It resolves through an explicit registry to the
+force-limited HUG/Shadow-Hand MuJoCo runner and fixes the scene, robot model, controller,
 timestep, sensor/action contracts, cameras, and outcome definitions. Unknown
 IDs and environment configuration-hash mismatches are hard validation errors.
 See [`docs/EVALUATION_MANIFEST.md`](docs/EVALUATION_MANIFEST.md) for the portable
 case and provenance contract.
 
 The initial case also fixes `execution_protocol_id` to
-`fixed_grasp_lift_v1`: reset, load, retarget, pre-grasp, approach, close, lift,
+`fixed_grasp_lift_v2`: reset, load, retarget, pre-grasp, approach, close, settle,
+lift,
 hold, and score. This is a deterministic scripted protocol. The initial HUG
 evaluation does not train or invoke a manipulation policy, which keeps learned
 controller failures out of the grasp-quality measurement. Results save the
@@ -370,7 +371,11 @@ run-hug-eval-case \
 ```
 
 The output includes the generated proposal and inference report under
-`hug_inference/`. To debug the simulator without running HUG, provide a trusted
+`hug_inference/`. Offline retargeting converts MANO into Dex's right-hand frame,
+solves without teleoperation smoothing, and rejects mean fingertip error above
+10 mm. The registered environment executes the result with force-limited Shadow
+joint servos and a fixed 0.2-radian bounded closing increment. To debug the
+simulator without running HUG, provide a trusted
 `prediction_path` in the case and pass `--no-inference`:
 
 ```bash
@@ -394,7 +399,8 @@ MUJOCO_GL=glfw mjpython -m grasp_failure_prediction.evaluation.case_runner \
 The command validates both registry references and hashes before simulation,
 then writes `resolved_case.json`, `trajectory.npz`, `final_state.npz`, and
 `result.json`. In inference mode, `result.json` also references the generated
-proposal and inference report.
+proposal and inference report. The result and trajectory include opposing-contact,
+normal-force, and actuator-force diagnostics.
 
 ---
 

@@ -16,9 +16,10 @@ import numpy as np
 import yaml
 
 from grasp_failure_prediction.integrations.hug import load_hug_prediction
+from grasp_failure_prediction.integrations.hug_frames import MANO_TO_OPERATOR_RIGHT
 
 from .artifacts import write_evaluation_artifacts
-from .pose_validation import ShadowPoseValidator, format_validation
+from .pose_validation import ShadowPoseValidator, _body_id, format_validation
 from .registry import RegistryError, ResolvedCase, resolve_case
 from .retargeting import RetargetingError, ShadowHandRetargeter, default_dex_urdf_root
 from .runner import AdroitShadowRunner, RunnerStep
@@ -91,6 +92,36 @@ def _table_parallel_world_wrist(
         rotation.reshape(3, 3) @ SHADOW_PALM_CENTER_OFFSET_LOCAL_M
     )
     return palm_body_origin, quaternion_wxyz
+
+
+def _hug_world_palm_pose(
+    grasp,
+    pose,
+    validator: ShadowPoseValidator,
+    observation_dir: Path,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Compose HUG's world wrist pose with Dex's corrected hand frame."""
+
+    camera_path = observation_dir / "T_world_camera.npy"
+    if not camera_path.is_file():
+        raise FileNotFoundError(f"observation has no world camera transform: {camera_path}")
+    T_world_camera = np.asarray(np.load(camera_path), dtype=np.float64)
+    if T_world_camera.shape != (4, 4) or not np.all(np.isfinite(T_world_camera)):
+        raise ValueError("T_world_camera must be a finite 4x4 transform")
+    T_world_mano = T_world_camera @ grasp.T_camera_wrist
+    world_operator_rotation = T_world_mano[:3, :3] @ MANO_TO_OPERATOR_RIGHT.T
+
+    validator.set_pose(pose)
+    base_to_palm_rotation = validator.data.xmat[
+        _body_id(validator.model, "palm")
+    ].reshape(3, 3)
+    world_palm_rotation = world_operator_rotation @ base_to_palm_rotation
+    quaternion = np.empty(4, dtype=np.float64)
+    mujoco.mju_mat2Quat(quaternion, world_palm_rotation.reshape(9))
+    # HUG's wrist origin is used as the Shadow palm target. This fixed origin
+    # correspondence is versioned with the environment and can be calibrated
+    # independently without changing the predicted grasp.
+    return T_world_mano[:3, 3].copy(), quaternion
 
 
 def _ensure_empty_output(path: Path) -> None:
@@ -243,11 +274,18 @@ def run_case(
         object_position_m=np.asarray(initial.object_position_m, dtype=np.float64),
         object_orientation_wxyz=object_quaternion_wxyz,
     )
-    palm_position, palm_quaternion = _table_parallel_world_wrist(
-        np.asarray(initial.object_position_m, dtype=np.float64),
-        resolved.execution_protocol.parameters.palm_height_above_object_m,
-    )
-    approach_direction = np.array([0.0, 0.0, -1.0])
+    world_camera_path = prediction_path.parent / "T_world_camera.npy"
+    if world_camera_path.is_file():
+        palm_position, palm_quaternion = _hug_world_palm_pose(
+            grasp, pose, pose_validator, prediction_path.parent
+        )
+        approach_direction = np.array([0.0, 0.0, -1.0])
+    else:
+        palm_position, palm_quaternion = _table_parallel_world_wrist(
+            np.asarray(initial.object_position_m, dtype=np.float64),
+            resolved.execution_protocol.parameters.palm_height_above_object_m,
+        )
+        approach_direction = np.array([0.0, 0.0, -1.0])
     trace = _execute(
         runner,
         pose,

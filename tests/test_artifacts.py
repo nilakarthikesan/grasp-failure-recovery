@@ -58,3 +58,6 @@ def test_result_bundle_contains_replay_and_provenance_artifacts(tmp_path) -> Non
     assert loaded.resolved_execution.environment_config_hash == resolved.environment_config_hash
     trajectory = np.load(tmp_path / "trajectory.npz")
     assert len(trajectory["time_s"]) == len(trace.steps)
+    assert "opposing_hand_object_contact" in trajectory.files
+    assert "maximum_contact_normal_force_n" in trajectory.files
+    assert "maximum_actuator_force_fraction" in trajectory.files

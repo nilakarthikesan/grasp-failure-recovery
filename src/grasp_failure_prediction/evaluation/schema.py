@@ -108,6 +108,9 @@ class OutcomeMetrics(StrictModel):
     maximum_lift_m: float = Field(ge=0.0)
     hold_duration_s: float = Field(ge=0.0)
     final_object_height_m: float
+    opposing_contact_duration_s: float = Field(ge=0.0)
+    peak_contact_normal_force_n: float = Field(ge=0.0)
+    peak_actuator_force_fraction: float = Field(ge=0.0)
 
 
 class ArtifactReferences(StrictModel):
