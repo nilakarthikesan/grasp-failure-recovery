@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import deque
 import hashlib
 import json
 from pathlib import Path
@@ -23,6 +24,11 @@ from .observations import check_manifest, validate_depth_encoding
 
 INPUT_FILES = ('rgb.png', 'depth.png', 'depth_m.npy', 'intrinsics.npy',
                'object_mask.png', 'T_world_camera.npy')
+SETTLING_WINDOW_SAMPLES = 500
+SETTLING_MAX_PHYSICS_STEPS = 2000
+SETTLING_MAX_POSITION_DIAGONAL_M = .0001
+SETTLING_MAX_ORIENTATION_DIAMETER_RAD = .002
+SETTLING_WORKSPACE_HALF_WIDTH_M = .3
 
 
 def _json(path, payload):
@@ -62,6 +68,60 @@ def object_segmentation_mask(segmentation, object_geom_ids):
             & (segmentation[:, :, 1] == int(mujoco.mjtObj.mjOBJ_GEOM)))
 
 
+def evaluate_settling_window(poses_wxyz, velocities, object_table_contact, hand_object_contact):
+    """Measure the trailing 500 object states without changing their dynamics.
+
+    Poses are [x,y,z,qw,qx,qy,qz], velocities are linear/angular six-vectors,
+    and contacts are boolean vectors. Invalid states raise; short windows fail.
+    At the registered 2 ms timestep, 500 samples cover one second. Geometric
+    drift and continuous contact determine acceptance; speeds are recorded.
+    Quaternion signs are equivalent. Near-unit quaternions are normalized only
+    for measuring angles, never written to the simulator.
+    """
+    poses = np.asarray(poses_wxyz, dtype=np.float64)
+    velocity = np.asarray(velocities, dtype=np.float64)
+    table, hand = np.asarray(object_table_contact), np.asarray(hand_object_contact)
+    if (poses.ndim != 2 or poses.shape[1] != 7 or not len(poses)
+            or velocity.shape != (len(poses), 6)):
+        raise ValueError('settling poses and velocities must be nonempty Nx7 and Nx6 arrays')
+    if (table.shape != (len(poses),) or hand.shape != (len(poses),)
+            or table.dtype != np.bool_ or hand.dtype != np.bool_):
+        raise ValueError('settling contacts must be boolean vectors matching the states')
+    if not np.isfinite(poses).all() or not np.isfinite(velocity).all():
+        raise ValueError('settling states must be finite')
+    norms = np.linalg.norm(poses[:, 3:], axis=1)
+    if not np.isfinite(norms).all() or np.any(np.abs(norms - 1.) > 1e-6):
+        raise ValueError('settling orientations must be valid unit quaternions')
+    poses, velocity, norms, table, hand = (
+        value[-SETTLING_WINDOW_SAMPLES:] for value in (poses, velocity, norms, table, hand))
+    orientation = poses[:, 3:] / norms[:, None]
+    first = orientation[0].copy()
+    orientation *= np.where(orientation @ first < 0, -1., 1.)[:, None]
+    angles = 4 * np.arctan2(np.linalg.norm(orientation - first, axis=1),
+                           np.linalg.norm(orientation + first, axis=1))
+    maximum_angle = float(angles.max())
+    maxima = {
+        'sample_count': len(poses),
+        'maximum_linear_speed_m_s': float(np.linalg.norm(velocity[:, :3], axis=1).max()),
+        'maximum_angular_speed_rad_s': float(np.linalg.norm(velocity[:, 3:], axis=1).max()),
+        'position_box_diagonal_m': float(np.linalg.norm(np.ptp(poses[:, :3], axis=0))),
+        'maximum_quaternion_angle_from_first_rad': maximum_angle,
+        'quaternion_diameter_bound_rad': 2 * maximum_angle,
+        'maximum_abs_workspace_xy_m': float(np.abs(poses[:, :2]).max()),
+        'all_object_table_contact': bool(table.all()),
+        'any_hand_object_contact': bool(hand.any()),
+    }
+    if not all(np.isfinite(value) for value in maxima.values()):
+        raise ValueError('settling state measurements must be finite')
+    maxima['accepted'] = bool(
+        len(poses) == SETTLING_WINDOW_SAMPLES
+        and maxima['position_box_diagonal_m'] <= SETTLING_MAX_POSITION_DIAGONAL_M
+        and maxima['quaternion_diameter_bound_rad'] <= SETTLING_MAX_ORIENTATION_DIAMETER_RAD
+        and maxima['maximum_abs_workspace_xy_m'] < SETTLING_WORKSPACE_HALF_WIDTH_M
+        and maxima['all_object_table_contact'] and not maxima['any_hand_object_contact'])
+    return maxima
+
+
 def capture_scene(case_path, output_dir, *, project_root=None, urdf_root=None,
                   camera_position_m=(.25, -.35, .35)):
     project = Path(project_root or Path.cwd()).resolve()
@@ -85,25 +145,34 @@ def capture_scene(case_path, output_dir, *, project_root=None, urdf_root=None,
     root = runner._root_qpos_address
     runner.data.qpos[root:root+3] = [0., 0., 1.]
     runner.data.qpos[root+3:root+7] = [1., 0., 0., 0.]
-    runner.data.qvel[:] = 0.
     if runner.model.nmocap:
         runner.data.mocap_pos[0] = [0., 0., 1.]
         runner.data.mocap_quat[0] = [1., 0., 0., 0.]
     mujoco.mj_forward(runner.model, runner.data)
     joint = mujoco.mj_name2id(runner.model, mujoco.mjtObj.mjOBJ_JOINT, 'object_free')
     dof = int(runner.model.jnt_dofadr[joint])
-    stable = 0
-    for settle_step in range(2000):
+    address = runner._object_qpos_address
+    poses, velocities, table_contacts, hand_contacts = (
+        deque(maxlen=SETTLING_WINDOW_SAMPLES) for _ in range(4))
+    for settle_step in range(SETTLING_MAX_PHYSICS_STEPS):
         mujoco.mj_step(runner.model, runner.data)
-        velocity = runner.data.qvel[dof:dof+6]
-        stable = stable + 1 if (np.linalg.norm(velocity[:3]) < .001
-                                and np.linalg.norm(velocity[3:]) < .01) else 0
-        if settle_step >= 99 and stable >= 100:
+        if not all(np.isfinite(value).all() for value in (runner.data.qpos, runner.data.qvel, runner.data.qacc)):
+            raise ValueError('simulation produced nonfinite capture state while settling')
+        if any(runner.data.warning[warning].number for warning in (
+                mujoco.mjtWarning.mjWARN_BADQPOS, mujoco.mjtWarning.mjWARN_BADQVEL,
+                mujoco.mjtWarning.mjWARN_BADQACC)):
+            raise ValueError('simulation produced invalid capture state while settling')
+        hand_object, _, object_table, _, _ = runner._contact_metrics()
+        poses.append(runner.data.qpos[address:address+7].copy())
+        velocities.append(runner.data.qvel[dof:dof+6].copy())
+        table_contacts.append(object_table)
+        hand_contacts.append(hand_object)
+        settling_window = evaluate_settling_window(poses, velocities, table_contacts, hand_contacts)
+        if settling_window['accepted']:
             break
     else:
         raise ValueError('object did not settle to a sufficiently stationary capture pose')
     mujoco.mj_forward(runner.model, runner.data)
-    address = runner._object_qpos_address
     actual_pose = runner.data.qpos[address:address+7].copy()
     actual_mass = float(runner.model.body_mass[runner._object_body_id])
     camera_id = mujoco.mj_name2id(runner.model, mujoco.mjtObj.mjOBJ_CAMERA, 'front')
@@ -194,6 +263,21 @@ def capture_scene(case_path, output_dir, *, project_root=None, urdf_root=None,
               'actual_object_position_m':actual_pose[:3].tolist(),
               'actual_object_orientation_xyzw':actual_pose[[4,5,6,3]].tolist(),
               'actual_object_mass_kg':actual_mass, 'settling_physics_steps':settle_step+1,
+              'settling_criteria': {
+                  'window_samples':SETTLING_WINDOW_SAMPLES,
+                  'window_duration_s':SETTLING_WINDOW_SAMPLES*runner.physics_timestep_s,
+                  'window_sample_span_s':(SETTLING_WINDOW_SAMPLES-1)*runner.physics_timestep_s,
+                  'maximum_physics_steps':SETTLING_MAX_PHYSICS_STEPS,
+                  'maximum_settling_duration_s':SETTLING_MAX_PHYSICS_STEPS*runner.physics_timestep_s,
+                  'position_box_diagonal_at_most_m':SETTLING_MAX_POSITION_DIAGONAL_M,
+                  'quaternion_diameter_bound_at_most_rad':SETTLING_MAX_ORIENTATION_DIAMETER_RAD,
+                  'quaternion_bound_method':'2 * maximum sign-invariant angle from first sample',
+                  'workspace_abs_xy_strictly_below_m':SETTLING_WORKSPACE_HALF_WIDTH_M,
+                  'continuous_object_table_contact':True, 'no_hand_object_contact':True,
+                  'velocity_policy':'finite velocities are recorded without speed thresholds',
+                  'contact_diagnostic_lag_s':runner.physics_timestep_s,
+              },
+              'accepted_settling_window':settling_window,
               'object_velocity_at_capture':runner.data.qvel[dof:dof+6].tolist(),
               'camera_convention':'x right, y down, z forward',
               'scene_binary_sha256':_hash(output/'scene.mjb'),

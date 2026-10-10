@@ -79,6 +79,23 @@ and waits for sufficiently stationary object motion. Gravity may change the
 requested pose during settling. The recorded position and orientation are the
 actual settled pose, and prepared rollout cases start from that pose.
 
+Capture must finish within 2,000 physics steps (4 s in this environment). Its
+final one-second window must have a position-box diagonal at most 0.1 mm and a
+conservative orientation diameter at most 0.002 rad, continuous table contact,
+no hand contact, and object center inside the working table. Actual velocities
+are saved and checked for finite values. Rollout reset uses the captured pose
+and the protocol's standard zero initial velocities.
+
+The apple's original upright setup rolled off the table and was rejected before
+grasp generation. Inverted setups showed microscopic contact jitter that
+exceeded the original instantaneous angular-speed threshold, despite staying
+within the pose bounds. We therefore measure movement over a full second rather
+than require 100 consecutive near-zero speed samples. The upright setup still
+fails this check. No mesh, mass, friction, or in-run velocity edits were used.
+The fresh apple templates declare a 180-degree rotation about X and initial
+center height 0.04295394025198684 m, 0.1 mm above the rotated collision bounds;
+the observed settled pose, not this requested height, enters each rollout.
+
 The virtual camera renders registered 224-by-224 RGB, metric depth, and an object
 mask covering the object's geoms. The capture records intrinsics and
 `T_world_camera.npy` in the convention x right, y down, z forward. It checks
