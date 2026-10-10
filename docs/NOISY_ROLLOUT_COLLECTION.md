@@ -243,9 +243,44 @@ Refer to [the evaluation manifest](EVALUATION_MANIFEST.md) for the case schema.
 
 ## Fresh verification results
 
-Pending: fill this section after running the integrated collector. Record the
-source commit/hashes, effective dependency versions, manifest, output location,
-noise amplitudes, repetitions, seeds, completed success/failure/error counts,
-and checks of event annotations and grouping. Identify repeated source proposals
-as reproducibility checks rather than independent new data. Do not reuse old
-pilot counts as evidence that this implementation has been verified.
+Verified on 10 October 2026 using source commit
+`21d0fd4fad81a6bea351bdfe15f0e9ad20dadbe0` and the source-file hashes saved in
+`plan.json`. The local manifest is `runs/noisy_pilot_2026-10-09/cases.json`;
+the final output is `runs/noisy_pilot_2026-10-10/verification_v2/`.
+These raw files remain local and are not included in the PR.
+
+Ten saved proposals were each replayed with amplitudes `0` and `0.6` rad,
+one repetition and master seed `9000`:
+
+- Zero noise: 10 successes, 0 failures.
+- Strong noise: 3 successes, 7 failures.
+- Total: 20 completed attempts, 13 successes, 7 failures, 0 errors.
+
+All seven failures are `failed_acquisition`: they never met the 14 cm lift
+threshold. Thirteen attempts have lifted/retained proxies; there are no observed
+post-lift height-loss events in this check. This batch does not establish timed
+slip-prediction data. It contains ten proposal groups but one observation group
+and one cube.
+
+All 20 trajectories and the previously existing action fields match the earlier
+pilot bit for bit. This verifies reproducibility with the same proposals and
+seeds; it does not add independent research examples. A preliminary run at
+`runs/noisy_pilot_2026-10-10/verification/` was superseded because it logged
+installed `pin` metadata in place of the loaded Pinocchio version. Use
+`verification_v2` for the corrected provenance record.
+
+`verification_report.json` confirms index/result/event-label agreement,
+source hashes and commit, command/state timing, diagnostic offset, noise bounds,
+phase and wrist exclusions, proposal/observation groups, and binary-scene
+restoration of saved final integration states for every attempt.
+
+Effective runtime: Python 3.12.13, NumPy 2.5.3, MuJoCo 3.3.7,
+dex-retargeting 0.5.0 and loaded Pinocchio 3.8.0. Installed `pin` distribution
+metadata reports 4.1.0; it is recorded separately from the loaded runtime.
+The full local suite passed with 143 tests and 5 skips; after the final timing
+and version-record changes, the affected collector/event tests also passed.
+
+The next collection milestone is independent scene/object variation with valid
+HUG inputs and an audit of the resulting failure types. Future-prediction
+windows, dataset splits, and model training follow once that collection has
+enough supported successes and failures.
