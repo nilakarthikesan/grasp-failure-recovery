@@ -72,6 +72,53 @@ exploratory stress tests, not calibrated hardware-error distributions.
 These are different strengths of the same noise type. Additional noise types
 have not been selected or implemented in this collector.
 
+### Why we start with this noise type
+
+The meeting plan asks for bounded random changes to joint targets. Our fixed
+offsets meet that initial experiment: they test whether a slightly different
+finger configuration still grasps, lifts and holds the object. There is no
+requirement in these notes to add every kind of noise before starting trials.
+The 50 attempts verify a small collection example; they do not complete the
+planned thousands of trajectories or establish realistic hardware error ranges.
+
+More elaborate disturbances would answer additional questions:
+
+- **Smoothly changing command jitter:** an offset that changes during the
+  attempt, to test temporary control disturbances. We would specify and log its
+  amplitude and how quickly it changes.
+- **Observation noise:** changes to images, depth or measured state. Noise
+  before HUG inference could change the proposed grasp; noise on the future
+  predictor's inputs would test sensing robustness. Changing a saved observation
+  alone does not change a physical attempt under the current open-loop controller.
+- **Dynamics variation:** different object mass, friction or actuator response,
+  to test whether a grasp remains reliable under different physical conditions.
+
+These are possible later experiments, not implemented modes in this pilot.
+Action and observation noise are separate in [Dactyl's simulation setup,
+Section 3.2 and Appendix C.2](https://arxiv.org/pdf/1808.00177); changing physical
+properties is studied in [dynamics randomization, Section IV.C](https://arxiv.org/pdf/1710.06537).
+Those studies concern control robustness and do not validate our future failure
+predictor. Our next practical priority is verified object and proposal diversity,
+keeping zero-noise controls and testing each disturbance separately before
+combining them. More complicated noise is not automatically more realistic.
+
+### See the recorded noise
+
+The local interactive explanation is saved at
+`runs/noise_explainer_2026-10-10/index.html`. It embeds the five recorded seed-2
+attempts and both replay videos, so the HTML can be opened directly in a browser
+or shared as a file without the viewer server. It is a generated local artifact,
+not included in this PR. Choose a strength, select `FFJ1` or `THJ3`, and scrub
+the attempt to compare the nominal target, requested offset, clipped command
+and measured angle. Controls select existing data; they do not rerun physics.
+
+The plotted commands are endpoints of 40 ms control intervals; the controller
+interpolates between endpoints during each interval. Measured joint positions
+are logged at the interval end. In the first lift interval, the noisy thumb
+target `THJ3` requests approximately **−15.9°** and clips to its **−12.0°**
+lower limit. Commanded angles and measured motion remain distinct, as described
+in the [MuJoCo actuation model](https://mujoco.readthedocs.io/en/stable/computation/index.html#actuation-model).
+
 Here is the same HUG proposal, generated with seed 2, under two conditions:
 
 - **No noise:** `batch/episode_000006` lifted the cube 147.97 mm and held it for two qualifying seconds. Its label is **1**. Video (`runs/noisy_pilot_2026-10-09/batch/episode_000006/rollout.mp4`), result (`runs/noisy_pilot_2026-10-09/batch/episode_000006/result.json`).
