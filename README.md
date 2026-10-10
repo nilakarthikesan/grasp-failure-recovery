@@ -223,6 +223,8 @@ docs/                       # Design, contracts, and diagnostic records
 - [System design](docs/SYSTEM_DESIGN.md): research questions and staged metrics.
 - [Research foundations](docs/RESEARCH_FOUNDATIONS.md): HUG, Dex Retargeting,
   tactile adaptation, and embodiment choices.
+- [Noisy pilot literature review](docs/PILOT_LITERATURE_REVIEW.md): three relevant
+  papers and proposed refinements to collection, labels, splits, and evaluation.
 - [Evaluation manifest](docs/EVALUATION_MANIFEST.md): case schema and provenance.
 - [Hardware audit](docs/HARDWARE_AUDIT.md): requirements for physical validation.
 - [HUG observation preflight](docs/HUG_OBSERVATION_PREFLIGHT.md): RGB-D checks.
