@@ -50,6 +50,28 @@ The cube pilot already contains 50 completed attempts: 40 scored successes, 10 s
 
 **What does noise mean?** We start with a HUG grasp and use the same fixed approach, close, lift and hold controller. For each attempt, we draw one bounded random offset for each finger joint target and keep that offset through closing, lifting and holding. Joint limits clip the resulting command. Wrist joints are excluded. This is a fixed offset per attempt, not a fresh random change every frame.
 
+### Selected noise type and every tested strength
+
+So far we use **one noise type: a uniform random finger-command offset held
+constant for one episode** (`uniform_episode_bias`). We tested five strengths,
+with ten trials at each strength:
+
+- **0 rad:** baseline with no added noise; 10 successes, 0 failures.
+- **±0.05 rad (±2.9°):** 10 successes, 0 failures.
+- **±0.15 rad (±8.6°):** 10 successes, 0 failures.
+- **±0.3 rad (±17.2°):** 7 successes, 3 failures.
+- **±0.6 rad (±34.4°):** 3 successes, 7 failures.
+
+Each finger's requested offset is sampled uniformly inside that strength's
+bounds. The same ten proposals and sampled noise directions are paired across
+strengths. Wrist offsets stay zero; noise applies during closing, lifting,
+holding and final scoring. Joint-limit clipping determines the actual command
+offset. Every trial records the strength, random seed, requested offsets,
+applied offsets, nominal/final commands and outcome. The stronger levels are
+exploratory stress tests, not calibrated hardware-error distributions.
+These are different strengths of the same noise type. Additional noise types
+have not been selected or implemented in this collector.
+
 Here is the same HUG proposal, generated with seed 2, under two conditions:
 
 - **No noise:** `batch/episode_000006` lifted the cube 147.97 mm and held it for two qualifying seconds. Its label is **1**. Video (`runs/noisy_pilot_2026-10-09/batch/episode_000006/rollout.mp4`), result (`runs/noisy_pilot_2026-10-09/batch/episode_000006/result.json`).
