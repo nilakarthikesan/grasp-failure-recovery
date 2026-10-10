@@ -37,6 +37,9 @@ def render_rollout(
     camera.distance = 0.7
     camera.azimuth = 130.0
     camera.elevation = -25.0
+    option = mujoco.MjvOption()
+    # Match RGB-D capture: show the source visual mesh, hide collision-only hulls.
+    option.geomgroup[:] = [1, 1, 1, 0, 0, 0]
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     writer = cv2.VideoWriter(
@@ -53,7 +56,7 @@ def render_rollout(
                 data.qpos[:] = position
                 data.qvel[:] = 0.0
                 mujoco.mj_forward(model, data)
-                renderer.update_scene(data, camera=camera)
+                renderer.update_scene(data, camera=camera, scene_option=option)
                 frame = np.ascontiguousarray(renderer.render()[:, :, ::-1])
                 cv2.rectangle(frame, (0, 0), (width, 38), (12, 16, 24), -1)
                 cv2.putText(

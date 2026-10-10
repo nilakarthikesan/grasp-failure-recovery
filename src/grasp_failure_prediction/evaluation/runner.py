@@ -12,6 +12,7 @@ from xml.etree import ElementTree as ET
 import mujoco
 import numpy as np
 
+from .object_assets import ResolvedObjectGeometry, append_object_geometry
 from .pose_validation import _body_id, load_shadow_model
 from .registry import ExecutionProtocolSpec
 from .retargeting import RetargetedHandPose, RetargetingError, reorder_for_mujoco
@@ -71,6 +72,7 @@ def build_tabletop_model(
     urdf_root: str | Path,
     *,
     physics_timestep_s: float = 0.002,
+    object_geometry: ResolvedObjectGeometry | None = None,
 ) -> mujoco.MjModel:
     """Add a table, a free rigid object, lighting, and a camera to Shadow URDF."""
 
@@ -119,22 +121,25 @@ def build_tabletop_model(
                 "friction": "1.0 0.005 0.0001",
             },
         )
-        object_body = ET.SubElement(
-            worldbody, "body", {"name": "object", "pos": "0 0 0.03"}
-        )
-        ET.SubElement(object_body, "freejoint", {"name": "object_free"})
-        ET.SubElement(
-            object_body,
-            "geom",
-            {
-                "name": "object_geom",
-                "type": "box",
-                "size": "0.025 0.025 0.025",
-                "mass": "0.18",
-                "rgba": "0.15 0.45 0.8 1",
-                "friction": "1.0 0.005 0.0001",
-            },
-        )
+        if object_geometry is None:
+            object_body = ET.SubElement(
+                worldbody, "body", {"name": "object", "pos": "0 0 0.03"}
+            )
+            ET.SubElement(object_body, "freejoint", {"name": "object_free"})
+            ET.SubElement(
+                object_body,
+                "geom",
+                {
+                    "name": "object_geom",
+                    "type": "box",
+                    "size": "0.025 0.025 0.025",
+                    "mass": "0.18",
+                    "rgba": "0.15 0.45 0.8 1",
+                    "friction": "1.0 0.005 0.0001",
+                },
+            )
+        else:
+            append_object_geometry(root, worldbody, object_geometry)
         tree.write(temporary, encoding="utf-8", xml_declaration=True)
         return mujoco.MjModel.from_xml_path(str(temporary))
     finally:
@@ -275,6 +280,7 @@ class AdroitShadowRunner:
         *,
         physics_timestep_s: float = 0.002,
         control_timestep_s: float = 0.04,
+        object_geometry: ResolvedObjectGeometry | None = None,
     ) -> None:
         ratio = control_timestep_s / physics_timestep_s
         if not np.isclose(ratio, round(ratio)):
@@ -294,8 +300,9 @@ class AdroitShadowRunner:
         self.physics_timestep_s = physics_timestep_s
         self.control_timestep_s = control_timestep_s
         self.physics_steps_per_control = int(round(ratio))
+        self.object_geometry = object_geometry
         self.model = build_tabletop_model(
-            urdf_root, physics_timestep_s=physics_timestep_s
+            urdf_root, physics_timestep_s=physics_timestep_s, object_geometry=object_geometry
         )
         self.data = mujoco.MjData(self.model)
         self._root_qpos_address = _joint_qpos_address(self.model, "world_joint")
@@ -308,6 +315,16 @@ class AdroitShadowRunner:
         self._object_geom_id = mujoco.mj_name2id(
             self.model, mujoco.mjtObj.mjOBJ_GEOM, "object_geom"
         )
+        self.object_geom_ids = frozenset(
+            int(index) for index in np.flatnonzero(self.model.geom_bodyid == self._object_body_id)
+        )
+        self.object_collision_geom_ids = frozenset(
+            index for index in self.object_geom_ids
+            if self.model.geom_contype[index] or self.model.geom_conaffinity[index]
+        )
+        # Mask all object geoms which the chosen renderer makes visible, rather
+        # than assuming collision and visual geometry share one geom ID.
+        self.object_render_geom_ids = self.object_geom_ids
         forearm_body_id = _body_id(self.model, "forearm")
         self._hand_body_ids = {
             body_id
@@ -370,7 +387,7 @@ class AdroitShadowRunner:
                 int(self.model.geom_bodyid[contact.geom1]),
                 int(self.model.geom_bodyid[contact.geom2]),
             }
-            if self._object_geom_id in geom_pair and body_pair & self._hand_body_ids:
+            if geom_pair & self.object_collision_geom_ids and body_pair & self._hand_body_ids:
                 hand_object = True
                 force = np.zeros(6, dtype=np.float64)
                 mujoco.mj_contactForce(self.model, self.data, index, force)
@@ -378,13 +395,13 @@ class AdroitShadowRunner:
                 if force[0] > 0.01:
                     orientation = (
                         1.0
-                        if int(contact.geom2) == self._object_geom_id
+                        if int(contact.geom2) in self.object_collision_geom_ids
                         else -1.0
                     )
                     object_normals.append(contact.frame[:3].copy() * orientation)
             if self._table_geom_id in geom_pair and body_pair & self._hand_body_ids:
                 hand_table = True
-            if geom_pair == {self._table_geom_id, self._object_geom_id}:
+            if self._table_geom_id in geom_pair and geom_pair & self.object_collision_geom_ids:
                 object_table = True
         opposing = any(
             np.dot(first, second) < -0.5
