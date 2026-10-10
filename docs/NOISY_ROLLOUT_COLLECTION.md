@@ -128,7 +128,9 @@ Each completed `episode_XXXXXX/` bundle contains:
 - `result.json` and `resolved_case.json`: final outcome, metrics, and the exact
   resolved environment/protocol settings.
 - `collection_metadata.json`: collection settings, input references, grouping,
-  source hashes, and data-use limits.
+  source hashes, effective runtime versions, and data-use limits. Pinocchio's
+  loaded version and installed `pin` distribution metadata are recorded separately
+  because a dependency directory selected through `PYTHONPATH` can differ.
 - `scene.mjb`, `scene.xml`, and `final_state.npz`: scene and final state. The
   binary scene plus saved `mjSTATE_INTEGRATION` snapshots supports faithful
   state replay; the XML aids inspection.

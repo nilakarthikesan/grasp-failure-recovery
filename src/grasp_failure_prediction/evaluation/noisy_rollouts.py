@@ -16,6 +16,7 @@ import platform
 
 import mujoco
 import numpy as np
+import pinocchio
 
 from grasp_failure_prediction.integrations.hug import load_hug_prediction
 
@@ -152,12 +153,17 @@ def _source_hashes() -> dict[str, str]:
 
 def _runtime_versions() -> dict[str, str]:
     versions = {"python": platform.python_version(), "numpy": np.__version__,
-                "mujoco": mujoco.__version__}
-    for package in ("dex-retargeting", "pin"):
+                "mujoco": mujoco.__version__, "pinocchio": pinocchio.__version__}
+    for package in ("dex-retargeting",):
         try:
             versions[package] = importlib.metadata.version(package)
         except importlib.metadata.PackageNotFoundError:
             versions[package] = "unknown"
+    # A PYTHONPATH-selected Pinocchio module can differ from installed metadata.
+    try:
+        versions["pin_distribution_metadata"] = importlib.metadata.version("pin")
+    except importlib.metadata.PackageNotFoundError:
+        versions["pin_distribution_metadata"] = "unknown"
     return versions
 
 

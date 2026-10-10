@@ -9,6 +9,7 @@ from types import SimpleNamespace
 
 import mujoco
 import numpy as np
+import pinocchio
 import pytest
 import yaml
 
@@ -273,6 +274,7 @@ def test_trusted_case_collects_labeled_bundles_and_location_independent_groups(t
         assert events['binary_outcome']['label'] == metadata['label']
         assert metadata['event_annotations']['schema_version'] == events['schema_version']
         assert metadata['runtime_versions']['numpy'] == np.__version__
+        assert metadata['runtime_versions']['pinocchio'] == pinocchio.__version__
         assert metadata['diagnostic_timing'] == events['observations']['diagnostic_timing']
         assert metadata['diagnostic_timing']['diagnostic_lag_s'] == .002
         assert metadata['noise_application']['nonzero_requested_bias'] == bool(episode['noise_amplitude_rad'])
