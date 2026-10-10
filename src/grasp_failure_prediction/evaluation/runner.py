@@ -338,6 +338,10 @@ class AdroitShadowRunner:
         scale = object_mass_kg / base_mass
         self.model.body_mass[self._object_body_id] *= scale
         self.model.body_inertia[self._object_body_id] *= scale
+        if scale != 1.0:
+            # Mass edits also change cached inertial/constraint constants. Use
+            # scratch data so recomputing them cannot alter the reset state.
+            mujoco.mj_setConst(self.model, mujoco.MjData(self.model))
         address = self._object_qpos_address
         self.data.qpos[address : address + 3] = object_position_m
         self.data.qpos[address + 3 : address + 7] = object_orientation_wxyz
