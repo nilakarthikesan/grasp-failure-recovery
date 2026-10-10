@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import pickle
 import sys
+import subprocess
 import time
 import types
 
@@ -48,7 +49,8 @@ def main():
     depth_encoding = validate_depth_encoding(np.load(root / manifest["depth_m_path"]), depth_mm)
     K = np.load(root / manifest["intrinsics_path"])
     sample_dir = root / "inputs"
-    sample = prepare_pkl(rgb, depth_mm, K, "cube", sample_dir, object_name="simulated_cube")
+    object_name = manifest.get("source", {}).get("object", "simulated_object")
+    sample = prepare_pkl(rgb, depth_mm, K, "simulation", sample_dir, object_name=object_name)
     with sample.open("rb") as stream:
         entry = pickle.load(stream)
     entry["object_mask"] = (root / manifest["mask_path"]).read_bytes()
@@ -69,7 +71,7 @@ def main():
     torch.set_num_threads(4)
     dataset = SeededDataset(str(sample_dir), split="eval")
     batch = dataset[0]
-    print("Validated simulated cube prepared; loading HUG on CPU", flush=True)
+    print(f"Validated {object_name} observation prepared; loading HUG on CPU", flush=True)
     start = time.perf_counter()
     model = load_model(args.checkpoint, use_ema=True, device="cpu").float().eval()
     checkpoint = load_raw_checkpoint(args.checkpoint, "cpu")
@@ -103,6 +105,12 @@ def main():
     proposal.write_bytes(pickle.dumps(grasp))
     report = {
         "real_hug_inference_passed": True, "device": "cpu", "dtype": "float32",
+        "object_name": object_name,
+        "hug_code_commit": subprocess.check_output(
+            ["git", "-C", str(args.hug_root), "rev-parse", "HEAD"], text=True).strip(),
+        "inference_script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "scene_contract_sha256": (hashlib.sha256((root / "scene_contract.json").read_bytes()).hexdigest()
+                                   if (root / "scene_contract.json").is_file() else None),
         "seed": args.seed, "sampling_steps": args.steps,
         "generation_rng": "PyTorch and libc srand reset immediately before CPU model.sample; batch size one",
         "elapsed_load_and_inference_s": time.perf_counter() - start,

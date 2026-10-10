@@ -29,10 +29,36 @@ class EmbodimentReference(StrictModel):
     id: str = Field(pattern=ID_PATTERN)
 
 
+class ObjectGeometryReference(StrictModel):
+    """An explicit MJCF geometry asset with a pinned dependency-closure hash.
+
+    The content hash covers the MJCF and every referenced geometry asset, not
+    just the XML file. File existence, dependency closure, symlink containment,
+    and agreement with the captured scene are checked before execution.
+    """
+
+    schema_version: Literal["object_geometry_ref_v1"] = "object_geometry_ref_v1"
+    kind: Literal["mjcf_asset"] = "mjcf_asset"
+    mjcf_path: Path
+    expected_content_hash: str = Field(pattern=SHA256_PATTERN)
+
+    @field_validator("mjcf_path")
+    @classmethod
+    def require_relative_mjcf_path(cls, value: Path) -> Path:
+        if value.is_absolute() or ".." in value.parts or not value.name:
+            raise ValueError("mjcf_path must be a repository-relative file path")
+        if value.suffix.lower() not in {".xml", ".mjcf"}:
+            raise ValueError("mjcf_path must identify an XML/MJCF asset file")
+        return value
+
+
 class ObjectCase(StrictModel):
     id: str = Field(pattern=ID_PATTERN)
     mass_kg: float = Field(gt=0.0)
     friction_profile_id: str = Field(pattern=ID_PATTERN)
+    # None preserves historic case parsing. Execution must restrict that legacy
+    # default to the registered object01 cube; it is not a verified scene match.
+    geometry: ObjectGeometryReference | None = None
 
 
 class GraspCase(StrictModel):

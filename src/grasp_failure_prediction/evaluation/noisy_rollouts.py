@@ -22,7 +22,8 @@ from grasp_failure_prediction.integrations.hug import load_hug_prediction
 
 from .artifacts import write_evaluation_artifacts
 from .case_runner import (
-    _hug_world_palm_pose, _runner_class, _saved_prediction_path,
+    _geometry_content_hash, _hug_world_palm_pose, _resolve_object_geometry,
+    _runner_class, _saved_prediction_path, _source_scene_binding,
     _validate_case_configuration, load_case,
 )
 from .pose_validation import PoseValidation, ShadowPoseValidator
@@ -145,8 +146,10 @@ def _source_hashes() -> dict[str, str]:
     files = (
         "noisy_rollouts.py", "runner.py", "retargeting.py", "scoring.py",
         "registry.py", "case_runner.py", "artifacts.py", "schema.py", "pose_validation.py",
-        "rollout_events.py",
+        "rollout_events.py", "object_assets.py", "scene_contracts.py",
         "../integrations/hug.py", "../integrations/hug_frames.py",
+        "../integrations/sim_observations.py",
+        "../../../scripts/infer_sim_observation.py", "../../../scripts/prepare_scene_pilot.py",
     )
     return {name: _sha256(directory / name) for name in files}
 
@@ -186,6 +189,7 @@ class _PreparedCase:
     palm_position: np.ndarray
     palm_quaternion: np.ndarray
     source: dict
+    object_geometry: object = None
 
 
 def _relative_path(value: str) -> Path:
@@ -199,6 +203,7 @@ def _prepare_case(case_path: Path, project: Path) -> _PreparedCase:
     case = load_case(case_path)
     resolved = resolve_case(case)
     _validate_case_configuration(case)
+    geometry = _resolve_object_geometry(case, project)
     if not issubclass(_runner_class(resolved), ActuatedShadowRunner):
         raise ValueError("noisy collection requires the force-limited actuated runner")
     proposal = _saved_prediction_path(case, project)
@@ -210,6 +215,7 @@ def _prepare_case(case_path: Path, project: Path) -> _PreparedCase:
                    if case.grasp.observation_path is not None else None)
     if observation is not None and not observation.is_dir():
         raise FileNotFoundError(f"initial observation directory does not exist: {observation}")
+    binding = _source_scene_binding(case, resolved, project, proposal, geometry)
     root = default_dex_urdf_root()
     grasp = load_hug_prediction(proposal)
     pose = ShadowHandRetargeter(root).retarget(grasp)
@@ -223,22 +229,28 @@ def _prepare_case(case_path: Path, project: Path) -> _PreparedCase:
         grasp, pose, validator, proposal.parent
     )
     proposal_hash, camera_hash = _sha256(proposal), _sha256(camera)
-    observation_hashes = ({
-        str(path.relative_to(observation)): _sha256(path)
-        for path in sorted(observation.iterdir()) if path.is_file()
-        and path.name in {"rgb.png", "depth.png", "depth_m.npy", "depth.npy",
-                          "object_mask.png", "intrinsics.npy", "T_world_camera.npy"}
-    } if observation else {})
+    observation_hashes = binding["observation_files_sha256"]
+    captured = binding["scene_contract"] or {}
     group = {
         "object_id": case.object.id, "observation_files_sha256": observation_hashes,
         "proposal_sha256": proposal_hash, "camera_sha256": camera_hash,
+        "geometry_content_hash": _geometry_content_hash(geometry),
+        "object_position_m": captured.get("object_position_m", list(case.initial_condition.object_position_m)),
+        "object_orientation_xyzw": captured.get("object_orientation_xyzw", list(case.initial_condition.object_orientation_xyzw)),
     }
-    observation_group = {key: value for key, value in group.items() if key != "proposal_sha256"}
-    source = dict(group, group_id=canonical_sha256(group),
+    # Human-readable IDs do not create independent geometry/scene families.
+    geometry_group = canonical_sha256({"geometry_content_hash": _geometry_content_hash(geometry)})
+    identity_group = {key: value for key, value in group.items() if key != "object_id"}
+    observation_group = {key: value for key, value in identity_group.items() if key != "proposal_sha256"}
+    source = dict(group, group_id=canonical_sha256(identity_group),
                   observation_group_id=canonical_sha256(observation_group),
+                  geometry_group_id=geometry_group,
+                  scene_contract_status=binding["scene_contract_status"],
+                  scene_contract_sha256=binding["scene_contract_sha256"],
+                  geometry_asset_files_sha256=geometry.files_sha256 if geometry is not None else {},
                   proposal_path=str(case.grasp.prediction_path),
                   observation_path=str(case.grasp.observation_path) if observation else None)
-    return _PreparedCase(resolved, pose, validation, palm_position, palm_quaternion, source)
+    return _PreparedCase(resolved, pose, validation, palm_position, palm_quaternion, source, geometry)
 
 
 def _validate_execution(runner: NoisyShadowRunner, trace) -> None:
@@ -267,6 +279,7 @@ def _run_episode(prepared: _PreparedCase, output: Path, entry: dict) -> dict:
         physics_timestep_s=resolved.environment.simulator.physics_timestep_s,
         control_timestep_s=resolved.environment.simulator.control_timestep_s,
         noise_amplitude_rad=entry["noise_amplitude_rad"], noise_seed=entry["noise_seed"],
+        object_geometry=prepared.object_geometry,
     )
     case = resolved.case
     initial = case.initial_condition
@@ -310,7 +323,7 @@ def _run_episode(prepared: _PreparedCase, output: Path, entry: dict) -> dict:
                     failure_type=outcome.failure_type.value if outcome.failure_type else None,
                     source_file_sha256=_source_hashes(),
                     runtime_versions=_runtime_versions(),
-                    schema_version="noisy_rollout_pilot_v2",
+                    schema_version="noisy_rollout_pilot_v3",
                     noise_mode="uniform_episode_bias",
                     noise_application=noise_application,
                     diagnostic_timing=diagnostic_timing,
@@ -344,6 +357,7 @@ def collect_noisy_rollouts(
     manifest_path: str | Path, output_dir: str | Path, *,
     project_root: str | Path | None = None,
     noise_amplitudes_rad=(0.0, 0.05, 0.15), repetitions: int = 2, seed: int = 9000,
+    baseline_once: bool = False,
 ) -> dict:
     """Freeze a small collection plan, run it, and index completed and error episodes."""
     amplitudes = tuple(float(value) for value in noise_amplitudes_rad)
@@ -373,6 +387,8 @@ def collect_noisy_rollouts(
             noise_seed = int(np.random.SeedSequence([seed, case_index, repetition])
                              .generate_state(1)[0])
             for amplitude in amplitudes:
+                if baseline_once and amplitude == 0.0 and repetition > 0:
+                    continue
                 plan.append({"episode_id": f"episode_{len(plan):06d}",
                              "case_index": case_index, "case_path": str(path),
                              "repetition": repetition, "noise_seed": noise_seed,
@@ -382,17 +398,20 @@ def collect_noisy_rollouts(
                              "observation_group_id": (prepared[case_index].source["observation_group_id"]
                                                       if case_index in prepared else None),
                              "object_id": (prepared[case_index].source["object_id"]
-                                           if case_index in prepared else None)})
+                                           if case_index in prepared else None),
+                             "geometry_group_id": (prepared[case_index].source.get("geometry_group_id")
+                                                   if case_index in prepared else None)})
     output.mkdir(parents=True, exist_ok=True)
     _write_json(output / "plan.json", {
         "schema_version": "noisy_rollout_plan_v1", "manifest_sha256": _sha256(manifest),
         "project_root": str(project), "master_seed": int(seed), "episodes": plan,
+        "baseline_once": baseline_once,
         "source_file_sha256": _source_hashes(),
         "runtime_versions": _runtime_versions(),
         "preflight_errors": preflight_errors,
         "split_policy": "no splits generated; keep all proposal variants in group_id together; "
-        "use observation_group_id for scene holdouts and object_id for object holdouts",
-        "limitations": "pilot only; one cube does not measure generalization",
+        "use observation_group_id for scene holdouts and geometry_group_id for geometry holdouts",
+        "limitations": "small simulation collection; multiple poses/cameras are not independent real-world scenes",
     })
     summary = {"planned": len(plan), "completed": 0, "successes": 0, "failures": 0, "errors": 0}
     with (output / "index.jsonl").open("w", encoding="utf-8") as index:
@@ -431,10 +450,13 @@ def main() -> None:
     parser.add_argument("--noise-amplitudes", type=float, nargs="+", default=[0.0, 0.05, 0.15])
     parser.add_argument("--repetitions", type=int, default=2)
     parser.add_argument("--seed", type=int, default=9000)
+    parser.add_argument("--baseline-once", action="store_true",
+                        help="avoid repeating deterministic zero-noise trials across repetitions")
     args = parser.parse_args()
     summary = collect_noisy_rollouts(args.manifest, args.output, project_root=args.project_root,
                                     noise_amplitudes_rad=args.noise_amplitudes,
-                                    repetitions=args.repetitions, seed=args.seed)
+                                    repetitions=args.repetitions, seed=args.seed,
+                                    baseline_once=args.baseline_once)
     print(json.dumps(summary, indent=2))
     if summary["errors"]:
         raise SystemExit(1)

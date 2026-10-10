@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import importlib
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -19,13 +20,15 @@ from grasp_failure_prediction.integrations.hug import load_hug_prediction
 from grasp_failure_prediction.integrations.hug_frames import MANO_TO_OPERATOR_RIGHT
 
 from .artifacts import write_evaluation_artifacts
+from .object_assets import load_object_geometry
 from .pose_validation import ShadowPoseValidator, _body_id, format_validation
 from .registry import RegistryError, ResolvedCase, resolve_case
 from .recording import EvaluationVideoRecorder
 from .retargeting import RetargetingError, ShadowHandRetargeter, default_dex_urdf_root
 from .runner import AdroitShadowRunner, RunnerStep
-from .schema import EvaluationCase, EvaluationResult
+from .schema import EvaluationCase, EvaluationResult, canonical_sha256
 from .scoring import score_trace
+from .scene_contracts import validate_scene_contract
 
 
 SUPPORTED_OBJECTS = {"object01"}
@@ -44,7 +47,7 @@ def load_case(path: str | Path) -> EvaluationCase:
 
 
 def _validate_case_configuration(case: EvaluationCase) -> None:
-    if case.object.id not in SUPPORTED_OBJECTS:
+    if case.object.geometry is None and case.object.id not in SUPPORTED_OBJECTS:
         raise RegistryError(f"unknown object ID: {case.object.id}")
     if case.object.friction_profile_id not in SUPPORTED_FRICTION_PROFILES:
         raise RegistryError(
@@ -52,6 +55,73 @@ def _validate_case_configuration(case: EvaluationCase) -> None:
         )
     if case.motion_profile_id not in SUPPORTED_MOTION_PROFILES:
         raise RegistryError(f"unknown motion profile ID: {case.motion_profile_id}")
+
+
+def _resolve_object_geometry(case: EvaluationCase, project: Path):
+    reference = case.object.geometry
+    if reference is None:
+        return None
+    return load_object_geometry(project / reference.mjcf_path,
+                                expected_content_hash=reference.expected_content_hash)
+
+
+def _geometry_content_hash(geometry) -> str:
+    if geometry is not None:
+        return geometry.content_hash
+    return canonical_sha256({"kind": "legacy_cube_v1", "half_size_m": [.025, .025, .025],
+                             "base_mass_kg": .18, "friction": [1., .005, .0001]})
+
+
+def _source_scene_binding(case, resolved, project, proposal, geometry) -> dict:
+    """Verify captured inputs and fresh inference, preserving explicit legacy status."""
+    digest = lambda path: "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+    camera = proposal.parent / "T_world_camera.npy"
+    camera_hash = digest(camera) if camera.is_file() else None
+    observation = project / case.grasp.observation_path if case.grasp.observation_path is not None else None
+    hashes = ({path.name: digest(path) for path in sorted(observation.iterdir())
+               if path.is_file() and path.name in {
+                   "rgb.png", "depth.png", "depth_m.npy", "depth.npy", "object_mask.png",
+                   "intrinsics.npy", "T_world_camera.npy"}}
+              if observation is not None and observation.is_dir() else {})
+    sidecar = proposal.parent / "scene_contract.json"
+    result = {"camera_sha256": camera_hash, "observation_files_sha256": hashes,
+              "scene_contract_status": "legacy_unverified", "scene_contract_sha256": None,
+              "scene_contract": None}
+    if not sidecar.is_file():
+        if observation is not None and (observation / "scene_contract.json").is_file():
+            raise ValueError("captured observation requires its matching proposal scene contract")
+        if geometry is not None:
+            raise ValueError("explicit object geometry requires a captured scene contract")
+        return result
+    if observation is None or not observation.is_dir():
+        raise ValueError("verified scene requires referenced initial observation files")
+    contract = json.loads(sidecar.read_text())
+    validate_scene_contract(
+        contract, object_id=case.object.id, geometry_content_hash=_geometry_content_hash(geometry),
+        mass_kg=case.object.mass_kg, object_position_m=case.initial_condition.object_position_m,
+        object_orientation_xyzw=case.initial_condition.object_orientation_xyzw,
+        environment_config_hash=resolved.environment_config_hash, camera_sha256=camera_hash,
+        observation_files_sha256=hashes,
+    )
+    captured_sidecar = observation / "scene_contract.json"
+    if not captured_sidecar.is_file() or digest(captured_sidecar) != digest(sidecar):
+        raise ValueError("proposal scene contract must match the captured observation contract")
+    inference_path = proposal.parent / "inference_report.json"
+    if not inference_path.is_file():
+        raise ValueError("verified scene requires a fresh HUG inference report")
+    inference = json.loads(inference_path.read_text())
+    if (inference.get("real_hug_inference_passed") is not True
+            or inference.get("proposal_sha256") != digest(proposal).removeprefix("sha256:")
+            or inference.get("scene_contract_sha256") != digest(sidecar).removeprefix("sha256:")):
+        raise ValueError("HUG inference report does not bind this proposal to its captured scene")
+    names = {"rgb_path":"rgb.png", "depth_m_path":"depth_m.npy",
+             "intrinsics_path":"intrinsics.npy", "mask_path":"object_mask.png"}
+    if any(inference.get("observation_hashes",{}).get(key) != hashes[name].removeprefix("sha256:")
+           for key, name in names.items()):
+        raise ValueError("HUG inference inputs do not match the referenced observation")
+    result.update(scene_contract_status="verified", scene_contract_sha256=digest(sidecar),
+                  scene_contract=contract)
+    return result
 
 
 def _saved_prediction_path(case: EvaluationCase, project_root: Path) -> Path:
@@ -161,7 +231,7 @@ def _run_case_inference(
         stale_proposal.unlink()
     command = [
         sys.executable,
-        str(project / "scripts" / "infer_sim_observation.py"),
+        str(Path(__file__).resolve().parents[3] / "scripts" / "infer_sim_observation.py"),
         "--hug-root",
         str(hug_root),
         "--observation",
@@ -250,6 +320,7 @@ def run_case(
     case = load_case(case_path)
     resolved = resolve_case(case)
     _validate_case_configuration(case)
+    object_geometry = _resolve_object_geometry(case, project)
     if inference:
         if hug_root is None or checkpoint is None:
             raise ValueError("--inference requires --hug-root and --checkpoint")
@@ -263,6 +334,8 @@ def run_case(
     else:
         prediction_path = _saved_prediction_path(case, project)
         output.mkdir(parents=True, exist_ok=True)
+
+    _source_scene_binding(case, resolved, project, prediction_path, object_geometry)
 
     grasp = load_hug_prediction(prediction_path)
     urdf_root = default_dex_urdf_root()
@@ -288,6 +361,7 @@ def run_case(
         urdf_root,
         physics_timestep_s=resolved.environment.simulator.physics_timestep_s,
         control_timestep_s=resolved.environment.simulator.control_timestep_s,
+        object_geometry=object_geometry,
     )
     initial = case.initial_condition
     xyzw = np.asarray(initial.object_orientation_xyzw, dtype=np.float64)
