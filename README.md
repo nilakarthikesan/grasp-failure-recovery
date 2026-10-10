@@ -220,6 +220,7 @@ docs/                       # Design, contracts, and diagnostic records
 
 ## Documentation
 
+- [Step 1 walkthrough](docs/HUG_STEP_1_WALKTHROUGH.md): dataset choice, a worked noise/label example, local artifacts, and the completion checklist.
 - [System design](docs/SYSTEM_DESIGN.md): research questions and staged metrics.
 - [Research foundations](docs/RESEARCH_FOUNDATIONS.md): HUG, Dex Retargeting,
   tactile adaptation, and embodiment choices.
