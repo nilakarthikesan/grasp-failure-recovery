@@ -117,6 +117,7 @@ def main():
         "proposal_sha256": hashlib.sha256(proposal.read_bytes()).hexdigest(),
         "checkpoint_sha256": hashlib.sha256(args.checkpoint.read_bytes()).hexdigest(),
         "observation_hashes": checks["file_sha256"],
+        "manifest_sha256": checks["manifest_sha256"],
         "hug_depth_png_sha256": hashlib.sha256((root / "depth.png").read_bytes()).hexdigest(),
         "prepared_sample_sha256": hashlib.sha256(sample.read_bytes()).hexdigest(),
         "depth_encoding": depth_encoding,

@@ -435,6 +435,11 @@ collection pilot; no prediction model or train/validation/test split is created.
 See [`docs/NOISY_ROLLOUT_COLLECTION.md`](docs/NOISY_ROLLOUT_COLLECTION.md) for the
 manifest format, success definition, data locations, and current limitations.
 
+For fresh HUG proposals across the cube and a pinned HUG apple mesh, see
+[`docs/MULTI_SCENE_COLLECTION.md`](docs/MULTI_SCENE_COLLECTION.md). That guide
+explains scene capture, geometry and input hashes, paired noise collection,
+and grouping attempts by proposal, observation, or geometry for later splits.
+
 ---
 
 ## Implementation roadmap

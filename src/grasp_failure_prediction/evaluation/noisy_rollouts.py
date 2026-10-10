@@ -238,6 +238,9 @@ def _prepare_case(case_path: Path, project: Path) -> _PreparedCase:
         "object_position_m": captured.get("object_position_m", list(case.initial_condition.object_position_m)),
         "object_orientation_xyzw": captured.get("object_orientation_xyzw", list(case.initial_condition.object_orientation_xyzw)),
     }
+    if binding["observation_manifest_sha256"] is not None:
+        # Selection pixels and declared capture provenance also condition HUG.
+        group["observation_manifest_sha256"] = binding["observation_manifest_sha256"]
     # Human-readable IDs do not create independent geometry/scene families.
     geometry_group = canonical_sha256({"geometry_content_hash": _geometry_content_hash(geometry)})
     identity_group = {key: value for key, value in group.items() if key != "object_id"}
@@ -247,6 +250,10 @@ def _prepare_case(case_path: Path, project: Path) -> _PreparedCase:
                   geometry_group_id=geometry_group,
                   scene_contract_status=binding["scene_contract_status"],
                   scene_contract_sha256=binding["scene_contract_sha256"],
+                  observation_selection_uv=binding["observation_selection_uv"],
+                  observation_source=binding["observation_source"],
+                  inference_report_sha256=binding["inference_report_sha256"],
+                  hug_inference_provenance=binding["hug_inference_provenance"],
                   geometry_asset_files_sha256=geometry.files_sha256 if geometry is not None else {},
                   proposal_path=str(case.grasp.prediction_path),
                   observation_path=str(case.grasp.observation_path) if observation else None)

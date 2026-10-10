@@ -14,7 +14,8 @@ import yaml
 from grasp_failure_prediction.evaluation.case_runner import load_case
 
 
-def prepare_scenes(specs_path, output, *, project_root, hug_root, checkpoint, proposal_seeds):
+def prepare_scenes(specs_path, output, *, project_root, hug_root, checkpoint, proposal_seeds,
+                   renderer_python=None):
     project, output = Path(project_root).resolve(), Path(output).resolve()
     output.relative_to(project)
     if output.exists():
@@ -36,8 +37,7 @@ def prepare_scenes(specs_path, output, *, project_root, hug_root, checkpoint, pr
     cases_dir.mkdir()
     manifest = []
     source_root = Path(__file__).resolve().parents[1]
-    renderer_python = (str(Path(sys.executable).with_name('mjpython'))
-                       if sys.platform == 'darwin' else sys.executable)
+    renderer_python = renderer_python or sys.executable
     for index, (case, case_path, camera) in enumerate(parsed):
         observation = output / 'observations' / f'scene_{index:03d}'
         print(f'Capturing scene {index}: {case.object.id}', flush=True)
@@ -83,7 +83,8 @@ if __name__ == '__main__':
     parser.add_argument('--hug-root', type=Path, required=True)
     parser.add_argument('--checkpoint', type=Path, required=True)
     parser.add_argument('--proposal-seeds', type=int, nargs='+', default=[0,1])
+    parser.add_argument('--renderer-python', help='optional renderer interpreter, such as mjpython')
     args = parser.parse_args()
     prepare_scenes(args.scene_specs, args.output, project_root=args.project_root,
                    hug_root=args.hug_root.resolve(), checkpoint=args.checkpoint.resolve(),
-                   proposal_seeds=args.proposal_seeds)
+                   proposal_seeds=args.proposal_seeds, renderer_python=args.renderer_python)

@@ -86,7 +86,9 @@ def _source_scene_binding(case, resolved, project, proposal, geometry) -> dict:
     sidecar = proposal.parent / "scene_contract.json"
     result = {"camera_sha256": camera_hash, "observation_files_sha256": hashes,
               "scene_contract_status": "legacy_unverified", "scene_contract_sha256": None,
-              "scene_contract": None}
+              "scene_contract": None, "observation_manifest_sha256": None,
+              "observation_selection_uv": None, "observation_source": None,
+              "inference_report_sha256": None, "hug_inference_provenance": None}
     if not sidecar.is_file():
         if observation is not None and (observation / "scene_contract.json").is_file():
             raise ValueError("captured observation requires its matching proposal scene contract")
@@ -106,21 +108,46 @@ def _source_scene_binding(case, resolved, project, proposal, geometry) -> dict:
     captured_sidecar = observation / "scene_contract.json"
     if not captured_sidecar.is_file() or digest(captured_sidecar) != digest(sidecar):
         raise ValueError("proposal scene contract must match the captured observation contract")
+    captured_manifest = observation / "observation_manifest.json"
+    copied_manifest = proposal.parent / "observation_manifest.json"
+    if (not captured_manifest.is_file() or not copied_manifest.is_file()
+            or digest(captured_manifest) != digest(copied_manifest)):
+        raise ValueError("proposal observation manifest must match the captured observation manifest")
+    manifest_hash = digest(captured_manifest)
+    manifest = json.loads(captured_manifest.read_text())
+    if not isinstance(manifest, dict) or "selection_uv" not in manifest or not manifest.get("source"):
+        raise ValueError("captured observation manifest requires selection and source provenance")
     inference_path = proposal.parent / "inference_report.json"
     if not inference_path.is_file():
         raise ValueError("verified scene requires a fresh HUG inference report")
     inference = json.loads(inference_path.read_text())
-    if (inference.get("real_hug_inference_passed") is not True
+    if (not isinstance(inference, dict) or inference.get("real_hug_inference_passed") is not True
             or inference.get("proposal_sha256") != digest(proposal).removeprefix("sha256:")
             or inference.get("scene_contract_sha256") != digest(sidecar).removeprefix("sha256:")):
         raise ValueError("HUG inference report does not bind this proposal to its captured scene")
+    if type(inference.get("seed")) is not int or inference["seed"] != case.grasp.inference_seed:
+        raise ValueError("HUG inference seed must match the declared inference_seed as an integer")
+    if inference.get("manifest_sha256") != manifest_hash.removeprefix("sha256:"):
+        raise ValueError("HUG inference manifest does not match the referenced observation")
+    copied_depth = proposal.parent / "depth.png"
+    if (inference.get("hug_depth_png_sha256") != hashes["depth.png"].removeprefix("sha256:")
+            or not copied_depth.is_file() or digest(copied_depth) != hashes["depth.png"]):
+        raise ValueError("HUG inference depth PNG does not match the referenced observation")
     names = {"rgb_path":"rgb.png", "depth_m_path":"depth_m.npy",
              "intrinsics_path":"intrinsics.npy", "mask_path":"object_mask.png"}
     if any(inference.get("observation_hashes",{}).get(key) != hashes[name].removeprefix("sha256:")
            for key, name in names.items()):
         raise ValueError("HUG inference inputs do not match the referenced observation")
     result.update(scene_contract_status="verified", scene_contract_sha256=digest(sidecar),
-                  scene_contract=contract)
+                  scene_contract=contract, observation_manifest_sha256=manifest_hash,
+                  observation_selection_uv=manifest["selection_uv"], observation_source=manifest["source"],
+                  inference_report_sha256=digest(inference_path),
+                  hug_inference_provenance={key: inference.get(key) for key in (
+                      "seed", "sampling_steps", "device", "dtype", "generation_rng",
+                      "hug_code_commit", "checkpoint_sha256", "inference_script_sha256",
+                      "manifest_sha256", "hug_depth_png_sha256", "prepared_sample_sha256",
+                      "input_tensor_hash",
+                  )})
     return result
 
 
