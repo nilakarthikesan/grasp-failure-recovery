@@ -8,6 +8,34 @@ predictions, [Dex Retargeting](https://github.com/dexsuite/dex-retargeting), and
 a Shadow Hand model. The project separates grasp execution, future-failure
 prediction, and recovery evaluation so each stage can be assessed independently.
 
+## Interactive noise demo
+
+[![Recorded finger-angle noise: planned target, command and measured motion](docs/demos/grasp-noise/preview.jpg)](docs/demos/grasp-noise/index.html)
+
+The [complete demo website](docs/demos/grasp-noise/index.html) lets you choose
+five recorded noise strengths, scrub an attempt, inspect finger and thumb
+commands, see joint-limit clipping, and watch successful and failed grasp
+replays. It includes the 50-attempt pilot summary: **40 successes and 10
+failures**, from one cube and ten HUG proposals.
+
+Download the HTML file and open it in a browser, or launch the website from
+your repository checkout:
+
+```bash
+python3 -m http.server 8767 --bind 127.0.0.1 --directory docs/demos/grasp-noise
+```
+
+Then open the [local demo website](http://127.0.0.1:8767/). GitHub displays the
+HTML source; the localhost link works on the computer running this command.
+The HTML embeds all five illustrated trajectories and both videos, so it
+works offline without installing the simulation or downloading model weights.
+
+The controls select saved simulation data. The strongest offsets are exploratory
+stress tests; this pilot does not establish real-world reliability or train a
+failure predictor. See the [demo guide](docs/demos/grasp-noise/README.md) and
+[Step 1 walkthrough](docs/HUG_STEP_1_WALKTHROUGH.md) for the noise choices,
+label rules, provenance and next steps.
+
 ## Current status
 
 This is an active research prototype. The repository includes:
@@ -215,11 +243,13 @@ eval_cases/                 # Example case inputs; prediction assets are externa
 scripts/                    # Inspection and separate simulation diagnostics
 tests/                      # Unit tests and optional simulation regressions
 constraints/                # Local simulation/training dependency versions
-docs/                       # Design, contracts, and diagnostic records
+docs/                       # Design, contracts, diagnostic records, and demo website
 ```
 
 ## Documentation
 
+- [Interactive noise demo](docs/demos/grasp-noise/README.md): complete website, replay videos, launch instructions and recorded-data provenance.
+- [Step 1 walkthrough](docs/HUG_STEP_1_WALKTHROUGH.md): dataset choice, a worked noise/label example, local artifacts, and the completion checklist.
 - [System design](docs/SYSTEM_DESIGN.md): research questions and staged metrics.
 - [Research foundations](docs/RESEARCH_FOUNDATIONS.md): HUG, Dex Retargeting,
   tactile adaptation, and embodiment choices.
