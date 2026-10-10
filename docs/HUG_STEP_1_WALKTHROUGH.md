@@ -104,13 +104,13 @@ combining them. More complicated noise is not automatically more realistic.
 
 ### See the recorded noise
 
-The local interactive explanation is saved at
-`runs/noise_explainer_2026-10-10/index.html`. It embeds the five recorded seed-2
-attempts and both replay videos, so the HTML can be opened directly in a browser
-or shared as a file without the viewer server. It is a generated local artifact,
-not included in this PR. Choose a strength, select `FFJ1` or `THJ3`, and scrub
-the attempt to compare the nominal target, requested offset, clipped command
-and measured angle. Controls select existing data; they do not rerun physics.
+The [complete interactive website](demos/grasp-noise/index.html) is included
+in the repository, with a [demo guide](demos/grasp-noise/README.md) and preview.
+It embeds the five recorded seed-2 attempts and both replay videos, so the HTML
+can be opened directly in a browser or shared as a file without the viewer
+server. Choose a strength, select `FFJ1` or `THJ3`, and scrub the attempt to
+compare the nominal target, requested offset, clipped command and measured
+angle. Controls select existing data; they do not rerun physics.
 
 The plotted commands are endpoints of 40 ms control intervals; the controller
 interpolates between endpoints during each interval. Measured joint positions
@@ -173,7 +173,11 @@ Paths below are relative to the original collection checkout, not the documentat
 
 The pilot references the **initial RGB-D observation** in `runs/hug_integration_check/cube_observation/`. It does not record RGB-D at every timestep. Simulator-only state/contact information is useful for inspection and labeling; it is not automatically a sensor input for the future model. Final labels, future observations and noise seeds must not be predictor features.
 
-`runs/` is ignored by Git and currently stored locally. A Git clone or pull request will not include these samples. Partners need an explicit data transfer or the recorded download source; GitHub is not a backup of these generated files.
+`runs/` is ignored by Git and currently stored locally. A Git clone or pull request
+does not include the full raw collection. The small interactive website
+intentionally embeds five selected traces and two rendered videos for explanation;
+it is not a backup of the full collection. Partners need an explicit data transfer
+or the recorded download source for the remaining research artifacts.
 
 ## When Step 1 is complete
 
