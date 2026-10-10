@@ -27,6 +27,7 @@ def _code_commit() -> str:
     try:
         result = subprocess.run(
             ["git", "rev-parse", "HEAD"],
+            cwd=Path(__file__).resolve().parents[3],
             check=True,
             capture_output=True,
             text=True,

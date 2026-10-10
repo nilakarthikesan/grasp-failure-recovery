@@ -419,6 +419,22 @@ text, shows the recorded metrics and resolved IDs, and streams attached rollout
 videos. Historical bundles without videos remain visible and are labeled as
 having no attached recording. Stop the viewer with `Ctrl-C`.
 
+### 7. Collect a small noisy HUG rollout pilot
+
+Replay trusted saved HUG proposals with bounded changes to finger joint targets:
+
+```bash
+python -m grasp_failure_prediction.evaluation.noisy_rollouts cases.json \
+  --project-root . --output runs/noisy_pilot \
+  --noise-amplitudes 0 0.05 0.15 --repetitions 1 --seed 9000
+```
+
+Each attempt saves the requested and applied noise, robot states, commands,
+binary outcome, conservative event timing, and replay state. This is a
+collection pilot; no prediction model or train/validation/test split is created.
+See [`docs/NOISY_ROLLOUT_COLLECTION.md`](docs/NOISY_ROLLOUT_COLLECTION.md) for the
+manifest format, success definition, data locations, and current limitations.
+
 ---
 
 ## Implementation roadmap
