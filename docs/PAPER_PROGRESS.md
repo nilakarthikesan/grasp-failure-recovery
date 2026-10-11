@@ -229,8 +229,11 @@ suite reported above remains the historical collection check. Model reload/
 prediction consistency and causal input checks are separate from proof of
 physical generalization.
 
-**Delivery references pending confirmation:** Step 5 PR #14 and step 6 PR #15
-are expected; publication links will be added after their creation is confirmed.
+**Published sections:** [paper and evidence notes (#13)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/13),
+[Step 5 dataset and grouped splits (#14)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/14),
+and [Step 6 trained baselines and results (#15)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/15).
+These are stacked draft PRs, with the collection and execution dependencies
+listed in the README; publication does not mean they have merged into main.
 
 ## Literature findings → implementation decisions
 

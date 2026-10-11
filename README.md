@@ -48,7 +48,8 @@ The code is published in reviewable sections: [interactive noise demo (#8)](http
 [noisy collector (#10)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/10),
 [verified multi-scene collection (#11)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/11),
 [paper and evidence notes (#13)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/13),
-and [grouped prefix dataset (#14)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/14).
+[grouped prefix dataset (#14)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/14),
+and [trained task-outcome baseline (#15)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/15).
 The [collection guide](docs/MULTI_SCENE_COLLECTION.md) includes the local viewer,
 six replay examples, exact settings, data paths, and verification evidence.
 The [published closing histories](research_artifacts/object_scene_pilot_v1/)
