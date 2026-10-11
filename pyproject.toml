@@ -46,6 +46,10 @@ dev = [
     "pytest>=7.4",
 ]
 
+prediction = [
+    "scipy>=1.11,<2",
+]
+
 eval = [
     "dex-retargeting>=0.5,<0.6",
     "torch",
@@ -80,6 +84,7 @@ view-retargeted-hand = "grasp_failure_prediction.evaluation.view_pose:main"
 run-hug-eval-case = "grasp_failure_prediction.evaluation.case_runner:main"
 collect-noisy-rollouts = "grasp_failure_prediction.evaluation.noisy_rollouts:main"
 export-task-prefixes = "grasp_failure_prediction.prediction.dataset:main"
+train-outcome-baseline = "grasp_failure_prediction.prediction.model:main"
 capture-hug-scene = "grasp_failure_prediction.integrations.sim_observations:main"
 view-eval-results = "grasp_failure_prediction.evaluation.result_viewer:main"
 validate-stack = "grasp_failure_prediction.part1.stack:main"
