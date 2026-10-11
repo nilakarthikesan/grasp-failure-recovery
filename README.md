@@ -21,6 +21,10 @@ body of evidence.
 
 ## Completed work and working paper
 
+The [partner handoff](docs/PARTNER_HANDOFF.md) confirms the completed work,
+identifies the latest branch and data locations, and gives the next experiment
+in order.
+
 The [working paper draft](docs/paper/working_draft.tex) and
 [six-step evidence and literature notes](docs/PAPER_PROGRESS.md) describe the
 completed pilot and the decisions behind it. The paper is an editable research
