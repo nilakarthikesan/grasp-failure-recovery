@@ -64,6 +64,16 @@ scene, the state-and-command model has failure-ranking AUC 0.8523, compared
 with 0.6419 for commands alone. This is a retrospective development result
 from one test observation family; the paper explains the limits and errors.
 
+The subsequent [frozen model test on fresh objects and scenes](docs/FRESH_OBJECT_EVALUATION.md)
+collected **2,080 new attempts**: 659 successes, 1,421 failures and zero errors.
+The original model, normalization, controller, scorer and threshold stayed
+unchanged. Its failure ranking AUC is **0.9173 on fresh cube/apple scenes** and
+**0.5588 across new milk carton/mug attempts**. The new objects expose substantial
+false alarms and missed failures; all mug attempts fail, so a mug success false
+alarm rate cannot be estimated. The [portable evaluation bundle](research_artifacts/fresh_object_scene_eval_v1/)
+contains inputs, predictions and provenance. The [local walkthrough viewer](http://127.0.0.1:8770/)
+shows eight replays beside their saved predictions while the server is running.
+
 ---
 
 ## Research program

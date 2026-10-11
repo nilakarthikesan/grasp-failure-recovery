@@ -1,0 +1,33 @@
+schema_version: eval_case_v1
+case_id: fresh_capture_hug_mug_0
+environment:
+  id: adroit_shadow_tabletop_v2
+embodiment:
+  id: shadow_hand_right
+execution_protocol:
+  id: fixed_grasp_lift_v2
+object:
+  id: hug_mug
+  mass_kg: 0.4253
+  friction_profile_id: nominal_v1
+  geometry:
+    schema_version: object_geometry_ref_v1
+    kind: mjcf_asset
+    mjcf_path: runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/object.xml
+    expected_content_hash: sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657
+grasp:
+  source: hug
+  id: fresh_capture_hug_mug_0
+initial_condition:
+  id: fresh_scene_6
+  object_position_m:
+  - -0.03
+  - -0.015
+  - 0.0587650116887372
+  object_orientation_xyzw:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 1.0
+motion_profile_id: nominal_lift_v1
+seed: 10106

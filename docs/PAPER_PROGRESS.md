@@ -303,3 +303,49 @@ External VR failure data and synthetic human-video generation remain separate
 exploratory tracks. The former needs a source/sensor/outcome audit; the latter
 has no implemented method or measured benefit. Neither blocks expanding and
 testing the controlled simulation baseline on new observations.
+
+## Frozen evaluation on fresh objects and scenes, 11 October
+
+The next experiment is now complete. Before collection we froze the saved
+model, normalization, 2.96 second input cutoff, 0.5 failure alert, scorer and
+original executed environment/controller configuration. Two new position and
+camera scenes per familiar cube/apple and new HUG milk carton/mug supplied
+eight observation families and 32 proposals. The original noise schedule gave
+**2,080 completed attempts: 659 successes, 1,421 failures and zero errors**.
+No new data selected model weights, regularization, features or threshold.
+
+The unchanged full model has failure AUROC **0.9173 on fresh familiar geometry
+scenes** and **0.5588 across the new geometries**. The milk carton has AUROC
+0.8121 but 185 false alarms among 245 successes at the original threshold.
+Every mug attempt is an approach collision; the model misses 205 of those
+520 failures. With no mug successes, mug AUROC and success false alarm rate
+are undefined. These approach failures happen before the input cutoff and do
+not measure warning time before a future failure. The new object comparison
+changes native mass and geometry together and mixes two different conditions.
+
+Overall AUROC is 0.7737, log loss 0.6645 and Brier score 0.1865. The constant
+training prevalence has log loss 0.6584; improved ranking/Brier does not imply
+better log loss. Report both the aggregate and object breakdowns. These results
+support studying transfer and threshold reliability under new conditions,
+not claiming slip detection or reliable deployment.
+
+The initially selected salt shaker failed stationary capture in all six
+declared resting orientations. A recorded amendment replaced it with the milk
+carton before grasp outcomes, without changing physics or acceptance rules.
+That setup rejection is not a grasp label. The completed batch uses native HUG
+geometry/masses and fresh inference rather than downloaded failure trajectories.
+
+The [step by step guide](FRESH_OBJECT_EVALUATION.md) explains methods, examples,
+Enoch's questions and storage. The [portable evaluation bundle](../research_artifacts/fresh_object_scene_eval_v1/)
+contains the causal data, all 6,240 predictions, full/grouped results and frozen
+protocol/source records. Full rollouts remain local; eight small replay videos
+are included with the portable artifact.
+The [fresh viewer](http://127.0.0.1:8770/) shows predictions beside outcomes.
+
+Validation: all 77 focused model/data/evaluator/viewer checks passed, and the
+full suite passed 338 tests with 34 skipped and one upstream deprecation warning.
+An independent audit reconstructed every raw prefix and task label, reproduced
+all 6,240 predictions exactly and recomputed all 87 group metric records. It
+verified disjoint original source content and unchanged model/controller hashes.
+The standalone manuscript currently retains its earlier pilot scope; these
+separate evidence notes preserve the new experiment for a subsequent revision.

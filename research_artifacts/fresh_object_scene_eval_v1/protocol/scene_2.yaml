@@ -1,0 +1,33 @@
+schema_version: eval_case_v1
+case_id: fresh_capture_hug_apple_0
+environment:
+  id: adroit_shadow_tabletop_v2
+embodiment:
+  id: shadow_hand_right
+execution_protocol:
+  id: fixed_grasp_lift_v2
+object:
+  id: hug_apple
+  mass_kg: 0.2304
+  friction_profile_id: nominal_v1
+  geometry:
+    schema_version: object_geometry_ref_v1
+    kind: mjcf_asset
+    mjcf_path: runs/hug_benchmark_review_2026-10-09/apple/sim_assets/object.xml
+    expected_content_hash: sha256:744ec02132a20129defe59048d1c3c6474e528ec276f717a5009ece8004d8c81
+grasp:
+  source: hug
+  id: fresh_capture_hug_apple_0
+initial_condition:
+  id: fresh_scene_2
+  object_position_m:
+  - -0.035
+  - 0.03
+  - 0.04295394025198684
+  object_orientation_xyzw:
+  - 1.0
+  - 0.0
+  - 0.0
+  - 0.0
+motion_profile_id: nominal_lift_v1
+seed: 10102
