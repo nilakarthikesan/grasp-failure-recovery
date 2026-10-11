@@ -19,6 +19,35 @@ initial goal is one coherent, reproducible result. A component should become a
 separate paper only if it develops an independent question, contribution, and
 body of evidence.
 
+## Completed work and working paper
+
+The [working paper draft](docs/paper/working_draft.tex) and
+[six-step evidence and literature notes](docs/PAPER_PROGRESS.md) describe the
+completed pilot and the decisions behind it. The paper is an editable research
+draft; future-slip prediction, recovery, and physical transfer remain research
+goals.
+
+1. **Review inputs and assets:** selected HUG development assets and documented
+   geometry, licensing, camera, and retargeting requirements.
+2. **Run varied trials:** executed fresh HUG proposals with a fixed actuated
+   Shadow controller and logged bounded finger-target noise.
+3. **Save trajectories:** collected 1,040 attempts across two geometries and
+   four observation families: 444 successes, 596 failures, and zero runtime errors.
+4. **Audit task labels:** retained the frozen 14 cm lift/2 s hold task definition,
+   with explicit cutoff and failure-category limitations.
+5. **Freeze grouped splits:** the next implementation uses whole observation
+   families rather than individual frames or closely related noisy variants.
+6. **Train a causal baseline:** the first model will predict eventual task
+   outcome before lifting, using encoder and command history only.
+
+The code is published in reviewable sections: [interactive noise demo (#8)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/8),
+[literature notes (#9)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/9),
+[partner execution follow-up (#12)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/12),
+[noisy collector (#10)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/10),
+and [verified multi-scene collection (#11)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/11).
+The [collection guide](docs/MULTI_SCENE_COLLECTION.md) includes the local viewer,
+six replay examples, exact settings, data paths, and verification evidence.
+
 ---
 
 ## Research program
@@ -141,8 +170,8 @@ but they are not exposed to a sensor-based predictor.
 
 ## Current repository status
 
-The repository has useful components, but the HUG-centered execution pipeline
-and Parts II and III remain to be built:
+The HUG-centered execution and controlled collection pilot are implemented.
+The main future-loss and recovery experiments remain ahead:
 
 - `AdroitHandRelocate-v1` inspection exposes the articulated arm, wrist, and
   Shadow Hand action space, object physics, and MuJoCo contacts.
@@ -152,25 +181,27 @@ and Parts II and III remain to be built:
 - The robosuite/Panda package provides generic collection, logging, snapshot,
   LeRobot export, ACT smoke training, and a visible MuJoCo example. It does not
   meaningfully evaluate HUG MANO grasps.
-- The HUG-to-Dex-Retargeting coordinate adapter, MuJoCo joint-name mapping,
-  HUG-conditioned execution, batch evaluation, future-failure labels,
-  intervention branching, and recovery learning remain to be implemented.
+- The HUG-to-Dex-Retargeting coordinate adapter, explicit joint-name mapping,
+  force-limited Shadow execution, fresh calibrated scene capture, noisy batch
+  evaluation, task labels, conservative event annotations, and result viewer
+  are implemented and tested.
+- The first grouped task-outcome predictor is being built from the completed
+  collection. Validated fixed-horizon future-loss labels, intervention
+  comparisons, recovery learning, and hardware transfer are later milestones.
 
 The default Adroit observation contains no tactile or contact measurements.
 MuJoCo does maintain contact information internally, so a first simulation
 study can surface contact-derived features through a wrapper. Those features
 must not be described as realistic tactile sensing.
 
-Adroit/Shadow Hand is the initial executable embodiment because its articulated
-fingers can represent a retargeted HUG grasp. Its stock relocation task still
-needs to be adapted to accept object assets and HUG grasp targets and to expose
-the project's grasp/lift/transport outcomes. MuJoCo remains the physics engine
-for controlled execution and later recovery branching.
+The executable environment embeds the pinned `dex-urdf` Shadow model in the
+tabletop scene, accepts verified cube/apple geometry and HUG targets, and scores
+grasp/lift/hold. Transport and recovery are later protocol extensions. MuJoCo
+provides controlled execution and saved integration states for future branching.
 
 Integration testing found that the stock Gymnasium Adroit MJCF does not use the
 same Shadow joint names and axes as Dex Retargeting's official URDF. The runner
-must therefore embed the pinned `dex-urdf` Shadow model or use a separately
-validated kinematic conversion. Numeric suffix remapping is rejected because
+therefore embeds the pinned `dex-urdf` Shadow model. Numeric suffix remapping is rejected because
 it produces incorrect finger and thumb poses.
 
 The physical robot is not required for Part I. Three hardware discovery tracks
