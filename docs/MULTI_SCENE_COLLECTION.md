@@ -14,7 +14,8 @@ event annotations remain those documented in
 and the partner branch's actuated Shadow execution code. The subsequent
 [Step 5 export](DATA_SPLITS.md) retains this task cutoff and predicts eventual
 task outcome from a pre-lift closing history. Grouped splits are now complete
-for the development pilot; predictor training and recovery are subsequent steps.
+for the development pilot. [Step 6](PREDICTION_BASELINE.md) now reports the first
+trained task-outcome baseline; recovery remains subsequent work.
 
 ## Geometry source and what we use
 
@@ -351,5 +352,6 @@ public dataset. Each video contains 163 saved control frames played at 25 fps.
 
 This completes the controlled collection milestone. [Step 5](DATA_SPLITS.md)
 now publishes the derived pre-lift histories and grouped training, validation,
-and test assignments while retaining the audited task labels. Predictor training,
-recovery, real-world transfer and official benchmark evaluation follow this pilot.
+and test assignments while retaining the audited task labels.
+[Step 6](PREDICTION_BASELINE.md) completes the first trained task-outcome baseline.
+Recovery, real-world transfer and official benchmark evaluation follow this pilot.

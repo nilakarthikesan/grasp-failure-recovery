@@ -38,18 +38,26 @@ goals.
 5. **Freeze grouped splits:** exported a portable pre-lift dataset with 520
    training, 260 validation and 260 test attempts, grouped by observation family.
    See [the split contract](docs/DATA_SPLITS.md) for the retrospective pilot limits.
-6. **Train a causal baseline:** the first model will predict eventual task
-   outcome before lifting, using encoder and command history only.
+6. **Train a causal baseline:** trained and evaluated a first task-outcome
+   model using encoder and command history before lifting. See
+   [the model explanation and results](docs/PREDICTION_BASELINE.md).
 
 The code is published in reviewable sections: [interactive noise demo (#8)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/8),
 [literature notes (#9)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/9),
 [partner execution follow-up (#12)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/12),
 [noisy collector (#10)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/10),
-and [verified multi-scene collection (#11)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/11).
+[verified multi-scene collection (#11)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/11),
+[paper and evidence notes (#13)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/13),
+and [grouped prefix dataset (#14)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/14).
 The [collection guide](docs/MULTI_SCENE_COLLECTION.md) includes the local viewer,
 six replay examples, exact settings, data paths, and verification evidence.
 The [published closing histories](research_artifacts/object_scene_pilot_v1/)
-support the next training step without downloading HUG assets or raw simulator states.
+support reproducing training without downloading HUG assets or raw simulator states.
+The [trained baselines](research_artifacts/task_outcome_baseline_v1/) include
+coefficients, selection settings and all predictions. On the reserved apple
+scene, the state-and-command model has failure-ranking AUC 0.8523, compared
+with 0.6419 for commands alone. This is a retrospective development result
+from one test observation family; the paper explains the limits and errors.
 
 ---
 
@@ -188,8 +196,8 @@ The main future-loss and recovery experiments remain ahead:
   force-limited Shadow execution, fresh calibrated scene capture, noisy batch
   evaluation, task labels, conservative event annotations, and result viewer
   are implemented and tested.
-- The first grouped task-outcome predictor is being built from the completed
-  collection. Validated fixed-horizon future-loss labels, intervention
+- The first grouped task-outcome predictor is trained and evaluated on a
+  portable pre-lift dataset. Validated fixed-horizon future-loss labels, intervention
   comparisons, recovery learning, and hardware transfer are later milestones.
 
 The default Adroit observation contains no tactile or contact measurements.
@@ -476,6 +484,22 @@ and grouping attempts by proposal, observation, or geometry. The completed
 [Step 5 guide](docs/DATA_SPLITS.md) explains the frozen 2.96 s input window,
 portable dataset and observation-family holdouts.
 
+### 6. Train the first task-outcome baseline
+
+The compact dataset in the repository runs without HUG inference or rendering:
+
+```bash
+pip install -e '.[prediction]'
+python -m grasp_failure_prediction.prediction.model \
+  research_artifacts/object_scene_pilot_v1 \
+  --output runs/my_task_outcome_baseline
+```
+
+Use a new output directory. This trains on the declared training partition,
+selects regularization on validation, and reports the reserved test results.
+[Step 6](docs/PREDICTION_BASELINE.md) explains what the model sees, the three
+comparisons, saved coefficients, examples and remaining research work.
+
 ---
 
 ## Implementation roadmap
@@ -505,6 +529,8 @@ portable dataset and observation-family holdouts.
 src/grasp_failure_prediction/
   environments/adroit.py      # Adroit/MuJoCo inspection (runnable baseline)
   integrations/hug.py         # validator for primary HUG grasp inputs
+  prediction/dataset.py      # observable prefixes and grouped development splits
+  prediction/model.py        # pre-lift task-outcome baselines and inference
   part1/                      # supporting Panda manipulation infrastructure
     config.py                 #   frozen task/physics/split contract
     environment.py            #   weighted-container task (robosuite/Panda wrapper)
@@ -522,6 +548,10 @@ scripts/
   validate_stack.py           # validate the Part I training stack
   inspect_container_task.py   # inspect the weighted-container task end to end
   run_part1_pipeline.py       # collect -> export -> train -> evaluate
+  analyze_task_outcome.py     # descriptive audit of fixed outcome predictions
+research_artifacts/
+  object_scene_pilot_v1/      # compact derived inputs, labels, provenance and splits
+  task_outcome_baseline_v1/   # trained coefficients, report and saved predictions
 constraints/
   part1-macos-arm64.txt       # validated Part I stack versions (macOS arm64)
 tests/

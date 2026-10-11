@@ -27,10 +27,13 @@ proposals: 444 task successes, 596 task failures, and no validation or runtime
 errors. Requested disturbances frequently encounter joint limits, so requested
 noise, applied target offsets, and measured motion are saved separately. Task
 labels and conservative sampled event annotations are also separated: missing
-a lift cutoff is not evidence of a physical slip. This draft reports collection
-and label audits, a completed causal prefix export with grouped development
-splits, and the planned prefix-model baseline. It does not report a trained predictor, future-slip
-prediction performance, recovery, or real-world transfer.
+a lift cutoff is not evidence of a physical slip. A regularized logistic model
+using pre-lift joint-state and command summaries attains failure AUROC 0.8523,
+log loss 0.3771, and Brier score 0.1170 on the held-out apple observation. At a
+fixed threshold it flags 187 of 202 failures and 22 of 58 successes. These are
+retrospective development results from one test observation, not calibrated
+deployment rates. This draft does not establish slip-onset prediction, useful
+warning lead time, recovery, or real-world transfer.
 \end{abstract}
 
 \section{Introduction}
@@ -44,16 +47,18 @@ and label provenance can be checked.
 
 This pilot uses HUG to supply grasp hypotheses and a fixed controller to execute
 them. It varies finger targets while holding the execution protocol fixed.
-The current deliverable is an audited collection protocol, not a new grasp
-generator or a completed failure-prediction benchmark. Its practical research
-question is: can we collect a useful mixture of successful and failed attempts
-while preserving the exact source scene, applied commands, and label semantics?
+The current deliverable is an audited collection protocol and a first pre-lift
+task-outcome baseline. Its practical research questions are whether we can
+preserve source scenes, applied commands, and label semantics while collecting
+varied attempts, and whether measured closing response adds predictive
+information beyond the commanded target history.
 
 The completed work comprises fresh observation capture and proposal inference;
 geometry, camera, and scene-content validation; paired bounded disturbances;
 unchanged binary task scoring; conservative event annotations; replay and
-collection audits; and a validated causal-prefix export with observation-disjoint
-development splits. The resulting 1,040 attempts belong to only four observation
+collection audits; a validated causal-prefix export with observation-disjoint
+development splits; and a compact trained baseline with a command-only
+comparison. The resulting 1,040 attempts belong to only four observation
 families. This distinction is central to subsequent evaluation: repeating a
 proposal with new disturbances does not create an independent object or scene.
 
@@ -262,7 +267,7 @@ losses, and a near-cutoff label does not demonstrate grip insecurity. Any
 alternative target must receive a new explicit version while retaining these
 original outcomes.
 
-\section{Completed dataset export and planned prefix baseline}
+\section{Completed dataset export and pre-lift baseline}
 \subsection{Exploratory grouped splits}
 The collection records three content-derived identities. A proposal group keeps
 all noisy variants of one proposal together. An observation group keeps
@@ -290,17 +295,15 @@ attempts. The saved feature manifest and split record bind payload hashes,
 named column ordering, source-label/scorer agreement, provenance, and memberships.
 The actual export passed the validated loader, and 28 focused tests cover
 causal/privileged-data mutation, timestamps, groups, corrupt payloads, exclusions,
-and overwrite protection. This completes export and splitting for this pilot;
-model training and evaluation remain planned.
+and overwrite protection. This completes export and splitting for this pilot.
 
 Training fits parameters; validation selects regularization; test is scored
 after selection. Although assignments depend on declared scene identities
 without using outcomes, this split was chosen after collection and outcome
-inspection. It is not a preregistered or untouched final benchmark. No model
-result is reported here.
+inspection. It is not a preregistered or untouched final benchmark.
 
 \subsection{Causal first model, then a future-event target}
-The first proposed learning task predicts eventual frozen task success from a
+The first learning task predicts eventual frozen task success from a
 prefix ending at a declared time $t$:
 \begin{equation}
  \widehat p_t=P_{\theta}\!\left(y=1\mid
@@ -310,29 +313,72 @@ The chosen prefix comprises the last twenty CLOSE\_FINGERS samples, ending at
 2.96 s, before the first LIFT sample at 3.00 s. Each row whitelists 24 measured
 hand joint positions, 24 joint velocities, and 24 actual commanded targets,
 forming a $20\times72$ window. The baseline summarizes each column by its last
-value, mean, standard deviation, and end-minus-start change: 288 features.
+value, mean, population standard deviation, and end-minus-start change: 288 features.
 A command-only ablation uses the same summaries for 24 command columns, giving
-96 features; a constant baseline uses training-set failure prevalence.
+96 features; a constant baseline uses training-set outcome prevalence.
 
-The planned classifier is L2-regularized logistic regression, optimized with
-SciPy L-BFGS. Its objective is mean binary cross entropy plus
-$\lambda\|\mathbf w\|^2/2$, with an unpenalized intercept. Fit the scaler only
-on training data; choose $\lambda$ from a fixed grid by validation log loss.
-The decision threshold is fixed at $p_{\mathrm{failure}}\geq0.5$, and test is
-scored only after regularization selection. No final
+The classifier is L2-regularized logistic regression, optimized with
+SciPy L-BFGS-B. Its objective is mean binary cross entropy plus
+$\lambda\|\mathbf w\|^2/2$, with an unpenalized intercept. The scaler is fitted
+only on training data. Features with training standard deviation at most
+$10^{-8}$ are excluded, leaving 269 active features for the full model and 77
+for commands only. The fixed candidate grid is $\{0.001,0.01,0.1,1\}$;
+minimum validation log loss among converged fits selects $\lambda=0.1$ for both
+models. Both selected fits converge. The decision threshold is fixed at
+$p_{\mathrm{failure}}\geq0.5$, and test is scored only after regularization
+selection, without test tuning. No final
 outcome, event annotation, future sample, object ground truth, full integration
 state, injected amplitude, noise vector, seed, or identity/hash is an input.
-Commands may reveal applied target changes; a command-only ablation should test
-whether measured response adds information beyond the disturbance schedule.
+Commands may reveal applied target changes; the command-only ablation tests
+whether measured response adds information beyond these commands.
 
-Report held-out failure-class AUROC/AUPRC, calibration through Brier score and
-negative log likelihood, and performance at the fixed threshold. Outcomes and
-performance must be stratified by object, amplitude, and
-group where sample size permits. Eventual outcome prediction is not equivalent
+\subsection{Actual baseline comparison}
+\begin{table}[ht]
+\centering
+\small
+\caption{Apple-B development-test results (260 attempts: 202 failures and
+58 successes). AP is failure-class average precision. Lower log loss and
+Brier score are better; no calibration or transfer guarantee is implied.}
+\begin{tabular}{lrrrr}
+\toprule
+Model & Failure AUROC & AP & Log loss & Brier\\
+\midrule
+Joint state + commands & 0.8523 & 0.9478 & 0.3771 & 0.1170\\
+Commands only & 0.6419 & 0.8665 & 0.5244 & 0.1711\\
+Training prevalence & 0.5000 & 0.7769 & 0.6374 & 0.2222\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For the full model, training/validation/test log losses are
+0.2268/0.4065/0.3771 and failure AUROCs are 0.9806/0.8924/0.8523. At the
+fixed threshold, the apple-B test flags 187/202 failures (92.6\% recall) and
+22/58 successes (37.9\% false alarms among successful attempts), leaving 15
+missed failures and 36 correctly unflagged successes. Commands alone flag
+192/202 failures and 52/58 successes. The prevalence baseline uses
+$p_{\mathrm{success}}=231/520$ and flags every attempt.
+
+The measured-response model improves this comparison beyond command summaries.
+The substantial success false-alarm rate limits usefulness at the fixed
+threshold. Log loss and Brier score evaluate these probability forecasts;
+they do not establish calibrated deployment failure rates. Test consists of
+one previously inspected apple observation, both geometries appear in training,
+and validation is cube-only. Therefore these results are exploratory and cannot
+establish unseen-geometry transfer or population-level reliability.
+
+Eventual outcome prediction is not equivalent
 to forecasting loss within a future horizon. A later horizon-based task needs
 supported acquisition, a separately versioned loss event, strictly causal
-windows, and explicit handling of incomplete follow-up. Warning lead time and
-event recall at a fixed false-alarm budget belong to that later evaluation.
+windows, and explicit handling of incomplete follow-up. Only four task-scored
+drops occur in the entire collection. These metrics do not measure drop
+detection, slip onset, or warning lead time; event recall at a fixed false-alarm
+budget belongs to a later evaluation.
+
+An illustrative CLI prediction for cube-A \path{episode_000534} gives failure
+probability 0.4815 at 2.96 s, predicting success despite its recorded drop.
+This attempt belongs to a training observation family and is not an additional
+held-out result. It demonstrates a model error without implying a specialized
+drop detector.
 
 \section{Limitations and next work}
 Two rigid geometries and four input families limit diversity despite the number
@@ -345,8 +391,8 @@ automatically observable robot inputs. No online visual trajectory stream is
 present. Cross-runtime reproducibility and physical contact fidelity remain
 untested.
 
-With original labels retained and the grouped development split exported,
-we will next run the causal task-outcome baseline. More geometries and physically
+The first baseline is complete under the original task labels and grouped
+development split. More untouched observation families, geometries, and physically
 motivated conditions should follow before a broad generalization claim. Timed
 post-acquisition loss requires additional supported events and an event-label
 audit, rather than assigning every failed episode a slip time. External
@@ -365,7 +411,9 @@ Versioned source and documentation are in the
 \href{\projecturl}{project repository}. The collection audit identifies source
 commit \path{99f70a6}; the documented full suite at \path{301ca1f} passed
 292 tests with five skips. A subsequent renderer change was checked with the
-six replay videos. The effective collection runtime was Python 3.12.13,
+six replay videos. The final combined suite passed 332 tests with five skips
+and one upstream \path{hppfcl} deprecation warning; the 40 focused prediction
+tests also passed with runtime warnings treated as errors. The effective collection runtime was Python 3.12.13,
 MuJoCo 3.3.7, NumPy 2.5.3, Dex Retargeting 0.5.0, and loaded Pinocchio 3.8.0.
 HUG code was pinned to \path{8d1c52d4c24bfae5a369e32e3f134f5601a02630}; exact
 checkpoint, script, input, and report hashes are in collection metadata.
@@ -395,8 +443,15 @@ with \path{dataset.npz}, \path{manifest.json}, and \path{splits.json};
 and reproduction. The dataset payload SHA-256 is
 \path{29f773f7faf03cff5e1c694ef475d02adfd07c239314b349f2228f86db9d3aad}.
 This compact derived export is separate from the local raw collection.
-Baseline result records will be linked when generated; their absence is not
-a positive result.
+The completed baseline bundle is
+\href{../../research_artifacts/task_outcome_baseline_v1/}{\path{research_artifacts/task_outcome_baseline_v1/}},
+containing \href{../../research_artifacts/task_outcome_baseline_v1/report.json}{\path{report.json}},
+\path{proprioception_and_commands.npz}, \path{commands_only.npz}, and
+\href{../../research_artifacts/task_outcome_baseline_v1/predictions.csv}{\path{predictions.csv}}.
+\href{../PREDICTION_BASELINE.md}{\path{docs/PREDICTION_BASELINE.md}} records
+reproduction and the whitelist. The report binds input, split, model-source,
+model, and prediction hashes. Training used Python 3.12.13, NumPy 2.2.6, and
+SciPy 1.17.1, separately from the simulation runtime.
 
 \begin{thebibliography}{9}
 \bibitem{hug}

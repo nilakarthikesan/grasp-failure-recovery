@@ -331,7 +331,7 @@ def train_baselines(dataset_dir: str | Path, output_dir: str | Path) -> dict:
             predictions[role][name] = probability[index]
 
     with (output_dir / "predictions.csv").open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.writer(handle)
+        writer = csv.writer(handle, lineterminator="\n")
         writer.writerow(["episode_id", "partition", "label_success", "model", "p_success", "p_failure"])
         for role, index in indices.items():
             for model_name, probability in predictions[role].items():

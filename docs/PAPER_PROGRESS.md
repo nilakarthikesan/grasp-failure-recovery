@@ -2,8 +2,9 @@
 
 **Updated: 11 October 2026.** This is the evidence index for the
 [standalone working paper](paper/working_draft.tex). The draft's title and claims
-describe a collection protocol and pilot. Future-slip prediction, recovery, and
-real-world transfer are research goals, not completed results.
+describe a collection protocol and its first pre-lift task-outcome baseline.
+Future-slip prediction, recovery, and real-world transfer are research goals,
+not completed results.
 
 The authoritative completed collection is documented in
 [MULTI_SCENE_COLLECTION.md](MULTI_SCENE_COLLECTION.md). Earlier documents retain
@@ -155,33 +156,81 @@ the split hash is
 These records complete step 5 for this exploratory pilot. A larger untouched
 benchmark and unseen-geometry evaluation remain future work.
 
-## 6. Train and evaluate a prediction model — planned
+## 6. Train and evaluate a prediction model — first task-outcome baseline complete
 
 The frozen first protocol predicts the unchanged eventual task label from the
 **last 20 CLOSE_FINGERS samples, ending at 2.96 s**, before first LIFT at 3.00 s.
 Whitelist 24 measured hand joint positions, 24 joint velocities, and 24 actual
-commanded targets: a 20 × 72 window. Last/mean/standard-deviation/end-minus-start
-summaries give 288 features. Use L2 logistic regression with SciPy L-BFGS,
-training-only scaling, and a fixed regularization grid selected by validation
-log loss. The objective is mean binary cross entropy plus half lambda times
-the squared weight norm, with unpenalized intercept.
+commanded targets: a 20 × 72 window. Last/mean/population-standard-deviation/end-minus-start
+summaries give 288 features. L2 logistic regression uses SciPy L-BFGS-B,
+training-only scaling, and the fixed regularization grid **0.001, 0.01, 0.1, 1**,
+selected by minimum validation log loss among converged fits. Both the full
+model and command-only ablation selected **lambda = 0.1** and converged. Training
+standard deviation ≤ 1e-8 excludes a feature: 269 full-model and 77 command-only
+features remain active. The objective is mean binary cross entropy plus half
+lambda times the squared weight norm, with unpenalized intercept.
 
-Compare a command-only 96-feature ablation and a training-prevalence constant
-baseline. Keep the decision threshold fixed at failure probability ≥ 0.5; score
-test only after regularization selection. A larger temporal model remains a
-later comparison.
+We compared a command-only 96-feature ablation and a training-prevalence constant
+baseline (success probability 231/520). The decision threshold remained fixed
+at failure probability ≥ 0.5; test was scored only after validation-based
+regularization selection, with no test tuning. A larger temporal model remains
+a later comparison.
 
 Exclude future samples, final outcomes, event metadata, noise vectors/settings/
 seeds, source identities, simulator object truth, and full integration state from
 predictor features. This first task is eventual-outcome prediction. Fixed-horizon
 future loss and useful warning time require a separately validated event target
-and more supported loss cases. Planned measures include failure-class AUROC/
-AUPRC, Brier score, log loss, and fixed-threshold results, with
-group/object/noise breakdowns where feasible.
+and more supported loss cases.
 
-**Result record pending:** Add baseline source, feature whitelist, prefix cutoff,
-split hash, metrics, regularization/threshold choices, and limitations here after
-execution. No trained predictor or recovery result is currently reported.
+The unchanged split has **520 training attempts (231 success/289 failure)**,
+**260 cube-B validation attempts (155/105)**, and **260 apple-B test attempts
+(58/202)**. On the apple-B test partition:
+
+- **Measured joint state + commands:** failure AUROC **0.8523**, failure average
+  precision **0.9478**, log loss **0.3771**, Brier score **0.1170**. The fixed
+  threshold flagged **187/202 failures** and incorrectly flagged **22/58
+  successes**: 92.6% failure recall and 37.9% success false alarms.
+- **Commands only:** failure AUROC **0.6419**, average precision **0.8665**,
+  log loss **0.5244**, Brier score **0.1711**; flagged 192/202 failures and
+  52/58 successes.
+- **Training-prevalence constant:** failure AUROC **0.5000**, average precision
+  **0.7769**, log loss **0.6374**, Brier score **0.2222**; flags every attempt.
+
+Measured response improves this comparison beyond command summaries. These are
+empirical metrics on one held-out apple observation, not established calibrated
+deployment rates. The retrospective raw outcomes were previously inspected,
+both geometries occur in training, and validation is cube-only. This is not an
+untouched benchmark or evidence of unseen-geometry transfer, slip onset, warning
+lead time, or drop detection. Only four task-scored drops occur in the entire
+collection.
+
+An illustrative CLI prediction for cube-A `episode_000534` returns failure
+probability **0.4815** at 2.96 s and therefore predicts success, while the recorded
+outcome is `drop`. This belongs to a training observation family, not an
+additional held-out evaluation. The error helps demonstrate why this classifier
+must not be described as a specialized drop detector.
+
+The [baseline documentation](PREDICTION_BASELINE.md) records the method and
+reproduction command. The completed
+[artifact bundle](../research_artifacts/task_outcome_baseline_v1/) contains the
+[full report](../research_artifacts/task_outcome_baseline_v1/report.json),
+[state-and-command model](../research_artifacts/task_outcome_baseline_v1/proprioception_and_commands.npz),
+[command-only model](../research_artifacts/task_outcome_baseline_v1/commands_only.npz),
+and [per-attempt predictions](../research_artifacts/task_outcome_baseline_v1/predictions.csv).
+The report pins input dataset/manifest/split and training-source hashes, fitted
+models, all fixed-grid validation candidates, and prediction hashes. Its
+runtime is Python 3.12.13, NumPy 2.2.6, and SciPy 1.17.1, separately recorded
+from the simulation collection runtime.
+
+**Verification:** The final combined suite passed **332 tests, with five skips**
+and one upstream `hppfcl` deprecation warning. The **40 focused prediction tests**
+also passed with runtime warnings treated as errors. The older 292-pass/five-skip
+suite reported above remains the historical collection check. Model reload/
+prediction consistency and causal input checks are separate from proof of
+physical generalization.
+
+**Delivery references pending confirmation:** Step 5 PR #14 and step 6 PR #15
+are expected; publication links will be added after their creation is confirmed.
 
 ## Literature findings → implementation decisions
 
@@ -240,9 +289,14 @@ design inferences; they do not mean the papers evaluated our pipeline.
 - **11 October, step 5 update:** Exported the 1,040 causal closing prefixes and
   saved the observation-disjoint development split, source hashes, and strict
   loader checks. The retrospective limitation remains; step 6 training and
-  evaluation are still pending.
+  evaluation were still pending at that point.
+- **11 October, step 6 update:** Trained the regularized task-outcome model and
+  two comparisons using the frozen prefix/splits. Validation selected lambda
+  0.1 without test tuning. Recorded the actual apple-B metrics and its substantial
+  success false-alarm rate; future-slip, drop-timing, recovery, and real-robot
+  claims remain untested.
 
 External VR failure data and synthetic human-video generation remain separate
 exploratory tracks. The former needs a source/sensor/outcome audit; the latter
-has no implemented method or measured benefit. Neither blocks completing and
-evaluating this controlled simulation baseline.
+has no implemented method or measured benefit. Neither blocks expanding and
+testing the controlled simulation baseline on new observations.
