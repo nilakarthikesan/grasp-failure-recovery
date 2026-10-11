@@ -35,8 +35,9 @@ goals.
    four observation families: 444 successes, 596 failures, and zero runtime errors.
 4. **Audit task labels:** retained the frozen 14 cm lift/2 s hold task definition,
    with explicit cutoff and failure-category limitations.
-5. **Freeze grouped splits:** the next implementation uses whole observation
-   families rather than individual frames or closely related noisy variants.
+5. **Freeze grouped splits:** exported a portable pre-lift dataset with 520
+   training, 260 validation and 260 test attempts, grouped by observation family.
+   See [the split contract](docs/DATA_SPLITS.md) for the retrospective pilot limits.
 6. **Train a causal baseline:** the first model will predict eventual task
    outcome before lifting, using encoder and command history only.
 
@@ -47,6 +48,8 @@ The code is published in reviewable sections: [interactive noise demo (#8)](http
 and [verified multi-scene collection (#11)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/11).
 The [collection guide](docs/MULTI_SCENE_COLLECTION.md) includes the local viewer,
 six replay examples, exact settings, data paths, and verification evidence.
+The [published closing histories](research_artifacts/object_scene_pilot_v1/)
+support the next training step without downloading HUG assets or raw simulator states.
 
 ---
 
@@ -462,14 +465,16 @@ python -m grasp_failure_prediction.evaluation.noisy_rollouts cases.json \
 
 Each attempt saves the requested and applied noise, robot states, commands,
 binary outcome, conservative event timing, and replay state. This is a
-collection pilot; no prediction model or train/validation/test split is created.
+collection command; derived prediction data and splits are exported separately.
 See [`docs/NOISY_ROLLOUT_COLLECTION.md`](docs/NOISY_ROLLOUT_COLLECTION.md) for the
 manifest format, success definition, data locations, and current limitations.
 
 For fresh HUG proposals across the cube and a pinned HUG apple mesh, see
 [`docs/MULTI_SCENE_COLLECTION.md`](docs/MULTI_SCENE_COLLECTION.md). That guide
 explains scene capture, geometry and input hashes, paired noise collection,
-and grouping attempts by proposal, observation, or geometry for later splits.
+and grouping attempts by proposal, observation, or geometry. The completed
+[Step 5 guide](docs/DATA_SPLITS.md) explains the frozen 2.96 s input window,
+portable dataset and observation-family holdouts.
 
 ---
 

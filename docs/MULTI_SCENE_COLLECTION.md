@@ -11,9 +11,10 @@ The fixed controller, bounded finger-target noise, final scorer, and conservativ
 event annotations remain those documented in
 [Noisy rollout collection](NOISY_ROLLOUT_COLLECTION.md). This work depends on
 [collector PR #10](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/10)
-and the partner branch's actuated Shadow execution code. Before training, we
-need to review the task's lift cutoff and what we want the model to predict.
-Training splits, a predictor, and recovery remain future steps.
+and the partner branch's actuated Shadow execution code. The subsequent
+[Step 5 export](DATA_SPLITS.md) retains this task cutoff and predicts eventual
+task outcome from a pre-lift closing history. Grouped splits are now complete
+for the development pilot; predictor training and recovery are subsequent steps.
 
 ## Geometry source and what we use
 
@@ -245,7 +246,7 @@ The logged identities support later split decisions:
 - `geometry_group_id`: all scenes and proposals using the same geometry stay
   together for a geometry holdout, regardless of human-readable object IDs.
 
-No splits are generated now. Four input families provide distinct simulation
+The collection command does not generate splits. Four input families provide distinct simulation
 inputs; two geometries remain too small to establish broad object generalization. Final
 outcomes, event metadata, noise settings, and privileged simulator state remain
 excluded from a future observable-input predictor.
@@ -348,7 +349,7 @@ public dataset. Each video contains 163 saved control frames played at 25 fps.
 - `episode_000355`: apple missing qualifying acquisition contact.
 - `episode_000465`: apple held below the task lift cutoff described above.
 
-This completes the controlled collection milestone. The next decision is to
-review the task cutoff and prediction target, then choose grouped training,
-validation, and test sets. No splits, predictor training, recovery controller,
-real-world transfer evaluation, or official benchmark score are completed yet.
+This completes the controlled collection milestone. [Step 5](DATA_SPLITS.md)
+now publishes the derived pre-lift histories and grouped training, validation,
+and test assignments while retaining the audited task labels. Predictor training,
+recovery, real-world transfer and official benchmark evaluation follow this pilot.

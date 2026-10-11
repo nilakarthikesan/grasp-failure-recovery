@@ -113,14 +113,22 @@ diagnostic offset do not give exact slip onset. See
 Four task-scored drops do not establish a future-slip benchmark. Event labels
 are analysis/supervision, never model features.
 
-## 5. Separate training, validation, and test — planned
+## 5. Separate training, validation, and test — exploratory pilot complete
 
-Freeze a manifest before training with source hashes, split assignments, class
-counts, and overlap checks. Training fits the model; validation selects settings
-and thresholds; test measures performance after those choices are fixed. Keep
-every full episode and its windows in one split. Keep all variants of a proposal
-together; use observation or geometry groups when that stronger generalization
-claim is intended.
+The actual derived export is saved in
+[`research_artifacts/object_scene_pilot_v1/`](../research_artifacts/object_scene_pilot_v1/).
+It contains [`dataset.npz`](../research_artifacts/object_scene_pilot_v1/dataset.npz),
+the [feature/provenance manifest](../research_artifacts/object_scene_pilot_v1/manifest.json),
+and [split memberships](../research_artifacts/object_scene_pilot_v1/splits.json).
+See [DATA_SPLITS.md](DATA_SPLITS.md) for the input contract, checks, and
+reproduction command. It exports **1,040 × 1,440 float32 values**: the final
+20 closing samples × 72 whitelisted position/velocity/command columns, ending
+at 2.96 s before lifting. Outcomes and source identities are stored separately,
+outside the model matrix; no privileged or future features are included.
+
+Training fits model parameters; validation selects regularization; test measures
+performance after that choice is fixed. Complete trajectories, proposal groups,
+their noise variants, and observation groups remain in one partition.
 
 The selected protocol is a **retrospective observation-disjoint split**:
 scenes 0 + 2 train on 520 attempts (231 successes/289 failures); scene 1 validates
@@ -131,9 +139,21 @@ it does not establish unseen-geometry or broad object generalization. It was
 chosen after collection, not preregistered. All shared observation/proposal/noise
 variants stay together. Four observations and two geometries limit any claim.
 
-**Result record pending:** Add the generated split-manifest path/hash, group and
-class counts, overlap checks, and commit here when step 5 is executed. No split
-has been declared completed by this note.
+Training contains eight proposal/two observation families; validation and test
+each contain four proposal/one observation family. The export has zero excluded
+attempts and preserves all 444 success/596 failure labels. Its loader checks
+payload hashes, exact column order, source-label/scorer agreement, provenance,
+group consistency, and the declared assignments. **28 focused exporter/loader
+tests passed**, including causal/privileged-data mutation checks, group conflicts,
+corruption, exclusions, and overwrite protection; the actual export also passed
+the validated loader.
+
+The dataset payload hash is
+`sha256:29f773f7faf03cff5e1c694ef475d02adfd07c239314b349f2228f86db9d3aad`;
+the split hash is
+`sha256:27a9c894b0775a5a10e2ae83a18b6a70f78d4c504b80396086a80158b3b5aac7`.
+These records complete step 5 for this exploratory pilot. A larger untouched
+benchmark and unseen-geometry evaluation remain future work.
 
 ## 6. Train and evaluate a prediction model — planned
 
@@ -217,6 +237,10 @@ design inferences; they do not mean the papers evaluated our pipeline.
 - **11 October:** Added this progress index and the scoped working paper. Kept
   original task labels after the lift-boundary audit, and made target review,
   grouped splitting, and a causal baseline the next evidence-producing steps.
+- **11 October, step 5 update:** Exported the 1,040 causal closing prefixes and
+  saved the observation-disjoint development split, source hashes, and strict
+  loader checks. The retrospective limitation remains; step 6 training and
+  evaluation are still pending.
 
 External VR failure data and synthetic human-video generation remain separate
 exploratory tracks. The former needs a source/sensor/outcome audit; the latter

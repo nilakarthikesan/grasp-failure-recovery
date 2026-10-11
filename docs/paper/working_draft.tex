@@ -28,8 +28,8 @@ errors. Requested disturbances frequently encounter joint limits, so requested
 noise, applied target offsets, and measured motion are saved separately. Task
 labels and conservative sampled event annotations are also separated: missing
 a lift cutoff is not evidence of a physical slip. This draft reports collection
-and label audits, and specifies the next grouped evaluation and causal
-prefix-model baseline. It does not report a trained predictor, future-slip
+and label audits, a completed causal prefix export with grouped development
+splits, and the planned prefix-model baseline. It does not report a trained predictor, future-slip
 prediction performance, recovery, or real-world transfer.
 \end{abstract}
 
@@ -51,8 +51,9 @@ while preserving the exact source scene, applied commands, and label semantics?
 
 The completed work comprises fresh observation capture and proposal inference;
 geometry, camera, and scene-content validation; paired bounded disturbances;
-unchanged binary task scoring; conservative event annotations; and replay and
-collection audits. The resulting 1,040 attempts belong to only four observation
+unchanged binary task scoring; conservative event annotations; replay and
+collection audits; and a validated causal-prefix export with observation-disjoint
+development splits. The resulting 1,040 attempts belong to only four observation
 families. This distinction is central to subsequent evaluation: repeating a
 proposal with new disturbances does not create an independent object or scene.
 
@@ -261,8 +262,8 @@ losses, and a near-cutoff label does not demonstrate grip insecurity. Any
 alternative target must receive a new explicit version while retaining these
 original outcomes.
 
-\section{Planned grouped evaluation and prefix baseline}
-\subsection{Splits are an experimental decision}
+\section{Completed dataset export and planned prefix baseline}
+\subsection{Exploratory grouped splits}
 The collection records three content-derived identities. A proposal group keeps
 all noisy variants of one proposal together. An observation group keeps
 proposals sharing captured pose/camera/input bytes together. A geometry group
@@ -271,7 +272,7 @@ Repeated byte-identical captures across preparation batches count as the same
 observation. Complete trajectories and every derived window must remain in one
 split; frame-wise random splitting would leak shared attempts and sources.
 
-The selected next protocol is a retrospective observation-disjoint split:
+The saved protocol is a retrospective observation-disjoint split:
 scenes 0 and 2 train on 520 attempts (231 successes/289 failures), scene 1
 validates on 260 cube attempts (155/105), and scene 3 tests on 260 apple attempts
 (58/202). Training contains both geometries. Validation contains only cube and
@@ -280,10 +281,23 @@ performance on a held-out apple observation under the frozen task, not an unseen
 geometry or a broad unseen-object population. The four scene families provide
 limited evidence even when every attempt has a separate trajectory.
 
-The next deliverable is the saved manifest with hashes, memberships, counts,
-and overlap checks. Training fits parameters; validation selects regularization;
-test is scored after selection. This split was chosen after collection, not
-preregistered before observing the collection. No model result is reported here.
+The completed \path{task_prefix_dataset_v1} export stores 1,040 rows with
+1,440 float32 input columns, each a flattened $20\times72$ causal closing
+window. Outcomes and identities are stored separately, outside the model
+matrix. Training has eight proposal/two observation families; validation and
+test each have four proposal/one observation family. There are no excluded
+attempts. The saved feature manifest and split record bind payload hashes,
+named column ordering, source-label/scorer agreement, provenance, and memberships.
+The actual export passed the validated loader, and 28 focused tests cover
+causal/privileged-data mutation, timestamps, groups, corrupt payloads, exclusions,
+and overwrite protection. This completes export and splitting for this pilot;
+model training and evaluation remain planned.
+
+Training fits parameters; validation selects regularization; test is scored
+after selection. Although assignments depend on declared scene identities
+without using outcomes, this split was chosen after collection and outcome
+inspection. It is not a preregistered or untouched final benchmark. No model
+result is reported here.
 
 \subsection{Causal first model, then a future-event target}
 The first proposed learning task predicts eventual frozen task success from a
@@ -331,8 +345,8 @@ automatically observable robot inputs. No online visual trajectory stream is
 present. Cross-runtime reproducibility and physical contact fidelity remain
 untested.
 
-We will first retain and review the existing labels, freeze a grouped split,
-and run the causal task-outcome baseline. More geometries and physically
+With original labels retained and the grouped development split exported,
+we will next run the causal task-outcome baseline. More geometries and physically
 motivated conditions should follow before a broad generalization claim. Timed
 post-acquisition loss requires additional supported events and an event-label
 audit, rather than assigning every failed episode a slip time. External
@@ -370,12 +384,19 @@ benchmark grasp annotations were not used.
 The canonical local experiment is
 \path{runs/object_scene_pilot_2026-10-10/}, including
 \path{collection_1040/} and \path{collection_1040_audit.json}.
-Raw assets, observations, checkpoints, and rollouts are not committed and no
-public dataset release is claimed. The local collection viewer and preparation,
+Raw assets, observations, checkpoints, and full rollouts are not committed;
+the raw collection remains local. The local collection viewer and preparation,
 collection, and audit instructions are documented in
 \path{docs/MULTI_SCENE_COLLECTION.md}. Tracked progress is in
-\path{docs/PAPER_PROGRESS.md}. Grouped split and baseline result records will
-be linked there when generated; their absence is not a positive result.
+\path{docs/PAPER_PROGRESS.md}. The completed derived export is available in
+\href{../../research_artifacts/object_scene_pilot_v1/}{\path{research_artifacts/object_scene_pilot_v1/}},
+with \path{dataset.npz}, \path{manifest.json}, and \path{splits.json};
+\href{../DATA_SPLITS.md}{\path{docs/DATA_SPLITS.md}} documents its contract
+and reproduction. The dataset payload SHA-256 is
+\path{29f773f7faf03cff5e1c694ef475d02adfd07c239314b349f2228f86db9d3aad}.
+This compact derived export is separate from the local raw collection.
+Baseline result records will be linked when generated; their absence is not
+a positive result.
 
 \begin{thebibliography}{9}
 \bibitem{hug}
