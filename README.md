@@ -74,6 +74,15 @@ alarm rate cannot be estimated. The [portable evaluation bundle](research_artifa
 contains inputs, predictions and provenance. The [local walkthrough viewer](http://127.0.0.1:8770/)
 shows eight replays beside their saved predictions while the server is running.
 
+The [mug collision diagnosis and fix](docs/MUG_TABLE_CLEARANCE.md) explains why
+the original mug grasps struck the table: the Shadow forearm did not fit the
+human-hand pose. A new execution protocol adjusts the wrist while preserving
+the intended grasp and checks actual table clearance at every physics step.
+Its small regression completed 26 trials with zero table contacts and stopped
+one high-noise closure before contact. See the [before/after demo](research_artifacts/mug_table_clearance_v1/mug_before_after.mp4)
+and [local replay viewer](http://127.0.0.1:8771/). Larger collection remains the
+next step; these controller checks do not replace the original model evaluation.
+
 ---
 
 ## Research program

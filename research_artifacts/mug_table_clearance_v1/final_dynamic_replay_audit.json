@@ -1,0 +1,991 @@
+{
+  "mujoco_version": "3.3.7",
+  "run": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27",
+  "episodes_checked": 26,
+  "physics_substeps_checked": 84760,
+  "all_replays_bitwise": true,
+  "episodes_with_early_table_contact": 0,
+  "episodes_with_any_table_contact": 0,
+  "episodes": [
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/control_apple",
+      "case_id": "scene002_hug_seed0",
+      "object_id": "hug_apple",
+      "noise_amplitude_rad": 0.0,
+      "recorded_outcome": {
+        "success": false,
+        "failure_type": "failed_acquisition"
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {},
+      "original_reference": "runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_000520",
+      "original_comparison": {
+        "actions.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "episode_bias_rad",
+            "requested_noise_rad"
+          ],
+          "field_names_identical": true
+        },
+        "trajectory.npz": {
+          "file_bytes_identical": true,
+          "all_arrays_bitwise_identical": true,
+          "mismatched_arrays": [],
+          "field_names_identical": true
+        }
+      }
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/control_cube",
+      "case_id": "scene000_hug_seed0",
+      "object_id": "object01",
+      "noise_amplitude_rad": 0.0,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {},
+      "original_reference": "runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_000000",
+      "original_comparison": {
+        "actions.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "episode_bias_rad",
+            "requested_noise_rad"
+          ],
+          "field_names_identical": true
+        },
+        "trajectory.npz": {
+          "file_bytes_identical": true,
+          "all_arrays_bitwise_identical": true,
+          "mismatched_arrays": [],
+          "field_names_identical": true
+        }
+      }
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/control_milk_carton",
+      "case_id": "scene000_hug_seed0",
+      "object_id": "hug_milk_box",
+      "noise_amplitude_rad": 0.0,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {},
+      "original_reference": "runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001040",
+      "original_comparison": {
+        "actions.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "episode_bias_rad",
+            "requested_noise_rad"
+          ],
+          "field_names_identical": true
+        },
+        "trajectory.npz": {
+          "file_bytes_identical": true,
+          "all_arrays_bitwise_identical": true,
+          "mismatched_arrays": [],
+          "field_names_identical": true
+        }
+      }
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed0_noise0.00",
+      "case_id": "scene002_hug_seed0",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.0,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {},
+      "original_reference": "runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001560",
+      "original_comparison": {
+        "actions.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "commanded_target_rad",
+            "episode_bias_rad",
+            "full_qpos",
+            "full_qvel",
+            "hand_actuator_force",
+            "hand_qvel",
+            "integration_state",
+            "nominal_target_rad",
+            "previous_command_rad",
+            "requested_noise_rad",
+            "root_target_position_m",
+            "root_target_quaternion_wxyz"
+          ],
+          "field_names_identical": true
+        },
+        "trajectory.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "contact_count",
+            "hand_object_contact",
+            "hand_qpos",
+            "hand_table_contact",
+            "maximum_actuator_force_fraction",
+            "maximum_contact_normal_force_n",
+            "object_position_m",
+            "object_table_contact",
+            "opposing_hand_object_contact",
+            "palm_position_m"
+          ],
+          "field_names_identical": true
+        }
+      }
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed0_noise0.15",
+      "case_id": "scene002_hug_seed0",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.15,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {}
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed0_noise0.60",
+      "case_id": "scene002_hug_seed0",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.6,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {}
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed1_noise0.00",
+      "case_id": "scene002_hug_seed1",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.0,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {},
+      "original_reference": "runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001625",
+      "original_comparison": {
+        "actions.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "commanded_target_rad",
+            "episode_bias_rad",
+            "full_qpos",
+            "full_qvel",
+            "hand_actuator_force",
+            "hand_qvel",
+            "integration_state",
+            "nominal_target_rad",
+            "previous_command_rad",
+            "requested_noise_rad",
+            "root_target_position_m",
+            "root_target_quaternion_wxyz"
+          ],
+          "field_names_identical": true
+        },
+        "trajectory.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "contact_count",
+            "hand_object_contact",
+            "hand_qpos",
+            "hand_table_contact",
+            "maximum_actuator_force_fraction",
+            "maximum_contact_normal_force_n",
+            "object_position_m",
+            "object_table_contact",
+            "opposing_hand_object_contact",
+            "palm_position_m"
+          ],
+          "field_names_identical": true
+        }
+      }
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed1_noise0.15",
+      "case_id": "scene002_hug_seed1",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.15,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {}
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed1_noise0.60",
+      "case_id": "scene002_hug_seed1",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.6,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {}
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed2_noise0.00",
+      "case_id": "scene002_hug_seed2",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.0,
+      "recorded_outcome": {
+        "success": false,
+        "failure_type": "failed_acquisition"
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {},
+      "original_reference": "runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001690",
+      "original_comparison": {
+        "actions.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "commanded_target_rad",
+            "episode_bias_rad",
+            "full_qpos",
+            "full_qvel",
+            "hand_actuator_force",
+            "hand_qvel",
+            "integration_state",
+            "nominal_target_rad",
+            "previous_command_rad",
+            "requested_noise_rad",
+            "root_target_position_m",
+            "root_target_quaternion_wxyz"
+          ],
+          "field_names_identical": true
+        },
+        "trajectory.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "contact_count",
+            "hand_object_contact",
+            "hand_qpos",
+            "hand_table_contact",
+            "maximum_actuator_force_fraction",
+            "maximum_contact_normal_force_n",
+            "object_position_m",
+            "object_table_contact",
+            "opposing_hand_object_contact",
+            "palm_position_m"
+          ],
+          "field_names_identical": true
+        }
+      }
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed2_noise0.15",
+      "case_id": "scene002_hug_seed2",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.15,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {}
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed2_noise0.60",
+      "case_id": "scene002_hug_seed2",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.6,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {}
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed3_noise0.00",
+      "case_id": "scene002_hug_seed3",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.0,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {},
+      "original_reference": "runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001755",
+      "original_comparison": {
+        "actions.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "commanded_target_rad",
+            "episode_bias_rad",
+            "full_qpos",
+            "full_qvel",
+            "hand_actuator_force",
+            "hand_qvel",
+            "integration_state",
+            "nominal_target_rad",
+            "previous_command_rad",
+            "requested_noise_rad",
+            "root_target_position_m",
+            "root_target_quaternion_wxyz"
+          ],
+          "field_names_identical": true
+        },
+        "trajectory.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "contact_count",
+            "hand_object_contact",
+            "hand_qpos",
+            "hand_table_contact",
+            "maximum_actuator_force_fraction",
+            "maximum_contact_normal_force_n",
+            "object_position_m",
+            "object_table_contact",
+            "opposing_hand_object_contact",
+            "palm_position_m"
+          ],
+          "field_names_identical": true
+        }
+      }
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed3_noise0.15",
+      "case_id": "scene002_hug_seed3",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.15,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {}
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed3_noise0.60",
+      "case_id": "scene002_hug_seed3",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.6,
+      "recorded_outcome": {
+        "success": false,
+        "failure_type": "failed_acquisition"
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {}
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed0_noise0.00",
+      "case_id": "scene003_hug_seed0",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.0,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {},
+      "original_reference": "runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001820",
+      "original_comparison": {
+        "actions.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "commanded_target_rad",
+            "episode_bias_rad",
+            "full_qpos",
+            "full_qvel",
+            "hand_actuator_force",
+            "hand_qvel",
+            "integration_state",
+            "nominal_target_rad",
+            "previous_command_rad",
+            "requested_noise_rad",
+            "root_target_position_m",
+            "root_target_quaternion_wxyz"
+          ],
+          "field_names_identical": true
+        },
+        "trajectory.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "contact_count",
+            "hand_object_contact",
+            "hand_qpos",
+            "hand_table_contact",
+            "maximum_actuator_force_fraction",
+            "maximum_contact_normal_force_n",
+            "object_position_m",
+            "opposing_hand_object_contact",
+            "palm_position_m"
+          ],
+          "field_names_identical": true
+        }
+      }
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed0_noise0.15",
+      "case_id": "scene003_hug_seed0",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.15,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {}
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed0_noise0.60",
+      "case_id": "scene003_hug_seed0",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.6,
+      "recorded_outcome": {
+        "success": false,
+        "failure_type": "failed_acquisition"
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {}
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed1_noise0.00",
+      "case_id": "scene003_hug_seed1",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.0,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {},
+      "original_reference": "runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001885",
+      "original_comparison": {
+        "actions.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "commanded_target_rad",
+            "episode_bias_rad",
+            "full_qpos",
+            "full_qvel",
+            "hand_actuator_force",
+            "hand_qvel",
+            "integration_state",
+            "nominal_target_rad",
+            "previous_command_rad",
+            "requested_noise_rad",
+            "root_target_position_m",
+            "root_target_quaternion_wxyz"
+          ],
+          "field_names_identical": true
+        },
+        "trajectory.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "contact_count",
+            "hand_qpos",
+            "hand_table_contact",
+            "maximum_actuator_force_fraction",
+            "maximum_contact_normal_force_n",
+            "object_position_m",
+            "object_table_contact",
+            "opposing_hand_object_contact",
+            "palm_position_m"
+          ],
+          "field_names_identical": true
+        }
+      }
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed1_noise0.15",
+      "case_id": "scene003_hug_seed1",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.15,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {}
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed1_noise0.60",
+      "case_id": "scene003_hug_seed1",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.6,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {}
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed2_noise0.00",
+      "case_id": "scene003_hug_seed2",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.0,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {},
+      "original_reference": "runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001950",
+      "original_comparison": {
+        "actions.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "commanded_target_rad",
+            "episode_bias_rad",
+            "full_qpos",
+            "full_qvel",
+            "hand_actuator_force",
+            "hand_qvel",
+            "integration_state",
+            "nominal_target_rad",
+            "previous_command_rad",
+            "requested_noise_rad",
+            "root_target_position_m",
+            "root_target_quaternion_wxyz"
+          ],
+          "field_names_identical": true
+        },
+        "trajectory.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "contact_count",
+            "hand_object_contact",
+            "hand_qpos",
+            "hand_table_contact",
+            "maximum_actuator_force_fraction",
+            "maximum_contact_normal_force_n",
+            "object_position_m",
+            "object_table_contact",
+            "opposing_hand_object_contact",
+            "palm_position_m"
+          ],
+          "field_names_identical": true
+        }
+      }
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed2_noise0.15",
+      "case_id": "scene003_hug_seed2",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.15,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {}
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed2_noise0.60",
+      "case_id": "scene003_hug_seed2",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.6,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {}
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed3_noise0.00",
+      "case_id": "scene003_hug_seed3",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.0,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {},
+      "original_reference": "runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_002015",
+      "original_comparison": {
+        "actions.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "commanded_target_rad",
+            "episode_bias_rad",
+            "full_qpos",
+            "full_qvel",
+            "hand_actuator_force",
+            "hand_qvel",
+            "integration_state",
+            "nominal_target_rad",
+            "previous_command_rad",
+            "requested_noise_rad",
+            "root_target_position_m",
+            "root_target_quaternion_wxyz"
+          ],
+          "field_names_identical": true
+        },
+        "trajectory.npz": {
+          "file_bytes_identical": false,
+          "all_arrays_bitwise_identical": false,
+          "mismatched_arrays": [
+            "contact_count",
+            "hand_qpos",
+            "hand_table_contact",
+            "maximum_actuator_force_fraction",
+            "maximum_contact_normal_force_n",
+            "object_position_m",
+            "object_table_contact",
+            "opposing_hand_object_contact",
+            "palm_position_m"
+          ],
+          "field_names_identical": true
+        }
+      }
+    },
+    {
+      "episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed3_noise0.15",
+      "case_id": "scene003_hug_seed3",
+      "object_id": "hug_mug",
+      "noise_amplitude_rad": 0.15,
+      "recorded_outcome": {
+        "success": true,
+        "failure_type": null
+      },
+      "physics_substeps_checked": 3260,
+      "all_qpos_qvel_bitwise_identical": true,
+      "all_integration_states_bitwise_identical": true,
+      "max_qpos_error": 0,
+      "max_qvel_error": 0,
+      "state_mismatches": [],
+      "qpos_qvel_mismatches": [],
+      "first_any_hand_table_contact": null,
+      "first_early_hand_table_contact": null,
+      "table_contact_substeps_by_phase": {},
+      "table_contact_constraints_by_part": {},
+      "minimum_signed_contact_distance_m_by_part": {}
+    }
+  ],
+  "rejection_state_validation": [
+    {
+      "rejected_episode": "runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed3_noise0.60",
+      "geometry_model_reference": "runs/mug_table_clearance_validation_2026-10-11/checks_27/mug_scene003_seed3_noise0.60/scene.mjb",
+      "geometry_model_sha256": "3b36e1826b962cc229d3f822cdf13b9f0d37de66749faf68b955aa1ef652dc2d",
+      "matching_geometry_and_command_metadata": true,
+      "status": "runtime_clearance_rejected",
+      "label_is_null": true,
+      "result_json_absent": true,
+      "trajectory_npz_absent": true,
+      "physics_substeps_to_guard": 1429,
+      "hand_table_contact_constraints_through_guard": 0,
+      "first_margin_violation": {
+        "time_s": 2.857999999999907,
+        "clearance_m": 0.0009461335528215854,
+        "geom_id": 40,
+        "body": "lfdistal",
+        "phase": "close_fingers",
+        "qpos_bitwise_equal_to_rejection": true,
+        "qvel_bitwise_equal_to_rejection": true,
+        "time_equal_to_rejection": true,
+        "preceding_substep": {
+          "time_s": 2.855999999999907,
+          "clearance_m": 0.0010254980427161931
+        },
+        "minimum_prior_clearance_m": 0.0010254980427161931
+      },
+      "forward_geometry_clearance_m": 0.0009461335528215854,
+      "forward_geometry_clearance_matches_metadata": true,
+      "forward_geometry_geom_id": 40,
+      "forward_hand_table_contacts": [],
+      "guard_event": {
+        "actual_table_clearance_m": 0.0009461335528215854,
+        "body": "lfdistal",
+        "geom_id": 40,
+        "phase": "close_fingers",
+        "required_table_clearance_m": 0.001,
+        "scope": "actual active hand geometry above the infinite table top plane",
+        "time_s": 2.857999999999907
+      }
+    }
+  ],
+  "all_rejection_states_valid": true,
+  "completed_plus_rejection_physics_substeps_checked": 86189,
+  "planned_attempts_accounted_for": 27
+}
