@@ -185,6 +185,25 @@ tips as archive tags and a verified Git bundle before retiring their pointers.
 The [branch guide](WORKING_BRANCH.md) and [archive](BRANCH_ARCHIVE.json) provide
 the working location and recovery references. The open paper keeps its path.
 
+## 12 October 2026 Publishing the consolidated snapshot
+
+The user authorized merging PR 19 into `main` so the partner can read the
+simulation, model, evidence and paper in one shared location. This publication
+does not train a model or change an experimental protocol.
+
+The Linux container image built successfully, but its public smoke harness
+requested fresh inference by default without mounted model assets. A local
+reproduction identified `--inference requires --hug-root and --checkpoint`.
+The harness now explicitly uses the synthetic saved grasp with `--no-inference
+--no-video` and exposes child stdout/stderr on failure. The corrected command
+completed locally and produced all four required artifacts. The Linux rerun
+is the next check before merging; public CI does not validate licensed HUG
+inference or GPU rendering. Frozen simulation and model sources are unchanged.
+
+The next research milestone remains collecting valid corrected mug attempts
+and evaluating the fixed predictor by object. A better training score alone
+would not establish transfer, warning time or recovery benefit.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new

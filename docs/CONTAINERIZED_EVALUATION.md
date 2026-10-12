@@ -1,9 +1,10 @@
 # Containerized evaluation runtime
 
 **Optional runtime preserved during consolidation on 11 October 2026.** Docker
-is unavailable on the current host, so the image build and container smoke test
-have not been verified here. The connected inference script currently runs on
-CPU; a CUDA base image does not establish that inference uses the GPU.
+is unavailable on the current Mac. Linux image build and public smoke results
+are recorded in the [container workflow](https://github.com/nilakarthikesan/grasp-failure-recovery/actions/workflows/container-eval.yml).
+The connected inference script currently runs on CPU; a CUDA base image does
+not establish that inference uses the GPU.
 
 `Dockerfile.eval` creates the pinned Linux x86-64 runtime for HUG inference,
 Dex Retargeting, and MuJoCo evaluation. It pins HUG and Dex URDF revisions and
@@ -22,7 +23,11 @@ bash scripts/verify_container_image.sh grasp-eval:local
 
 The smoke test imports the native runtime dependencies, checks the pinned HUG
 source and Shadow Hand URDF, executes `hug_case_001` in MuJoCo, and requires a
-completed result plus all four portable evaluation artifacts. The case may
+completed result plus all four portable evaluation artifacts. It explicitly
+uses `--no-inference --no-video`: the synthetic saved grasp checks execution
+without licensed model assets or a GPU rendering context. This public check
+does not validate HUG inference or video rendering. Child failures include their
+stdout and stderr in the CI log. The case may
 score as a grasp failure; that is a valid model outcome. The smoke test fails
 only when the runtime, runner, or artifact contract fails.
 

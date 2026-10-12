@@ -153,14 +153,20 @@ def run_saved_grasp_case(project_root: Path) -> dict:
             str(portable_input_root),
             "--output",
             output,
+            "--no-inference",
+            "--no-video",
         ]
         completed = subprocess.run(
             command,
             cwd=project_root,
-            check=True,
             capture_output=True,
             text=True,
         )
+        if completed.returncode != 0:
+            raise RuntimeError(
+                f"saved-grasp runner exited with {completed.returncode}\n"
+                f"stdout:\n{completed.stdout}\nstderr:\n{completed.stderr}"
+            )
         output_root = Path(output)
         required = (
             "resolved_case.json",
