@@ -815,6 +815,56 @@ not a completed calibration or training experiment. Paper, current evidence
 index and handoff now report the full diagnostic while historical bound plans
 and first-pair notes keep their original bytes.
 
+## 12 October 2026 Prioritizing understandable training coverage
+
+**User priority:** understand the purpose of the experiment and address the
+limited variety in training before expanding the project. The practical goal
+remains useful grasp outcome warnings in unfamiliar conditions. The wrist versus
+finger noise question is a proposed way to measure which additional examples
+help; the existing diagnostic has not demonstrated a training remedy. More
+diversity improving performance is not, by itself, a new research contribution.
+
+**Evidence and interpretation:** the original training contains 520 episodes
+from cube and apple proposals with narrow wrist command ranges. Successful mug
+commands fall outside those ranges, and their wrist feature contributions move
+scores toward failure. This makes wrist coverage a supported candidate for the
+next training experiment, rather than proof that insufficient episode count is
+the cause. See the [input audit](../research_artifacts/mug_wrist_input_diagnostic_v1/README.md)
+and [completed wrist diagnostic](../research_artifacts/wrist_pair_remaining_v1/README.md).
+Zero noise was a temporary diagnostic control; controlled finger noise remains
+one source of outcome variety in the proposed training comparison.
+
+**Recommended next collection, not executed:** begin with a small, separately
+declared simulation batch using the same Shadow Hand, observable joint fields
+and task rule. Check safe wrist coverage and fresh grasp/scene proposals first,
+retain both successes and failures, and add bounded finger perturbations in
+declared conditions. Predeclare the common untouched test families and separate
+validation data before collection or fitting. Keep the training augmentations
+at matched selected counts, class mix and base object/proposal identities so
+the eventual comparison can attribute improvement. Broad object, material and
+mass changes should be staged as separate axes, with implementation and physics
+checks, rather than changed together and treated as wrist-only evidence.
+
+The current explicit v4 executor is bound to the eight inspected diagnostic
+pairs and rejects nonzero noise. It is not a general training collector. A new
+versioned collection protocol and wrapper are needed before those additional
+trials; preserve v4, its manifest and all frozen model/evaluation artifacts.
+Current mug cases remain development evidence and cannot become an untouched
+final test after training or choosing settings from them.
+
+**Outside data:** DROID is relevant to diverse manipulation, but its
+[documented platform](https://droid-dataset.github.io/) uses a Franka Panda arm.
+Our unchanged predictor expects Shadow Hand joint histories, so DROID joint
+trajectories are not direct replacement training inputs. Any outside source
+must be checked for compatible robot measurements, action definitions, timing
+and successful/failed grasp labels. Using different robot data could require a
+new feature representation and an additional transfer question; it is optional
+future work, not a prerequisite for the controlled simulation comparison.
+
+**Status:** this records the user's priority and a recommended next scope. No
+new trials, training, calibration, threshold or label changes were made in this
+discussion. The accepted formal question and completed results are preserved.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new
