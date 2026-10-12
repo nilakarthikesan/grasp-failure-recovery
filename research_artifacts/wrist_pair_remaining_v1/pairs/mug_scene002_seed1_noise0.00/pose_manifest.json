@@ -1,0 +1,3653 @@
+{
+  "schema_version": "explicit_wrist_pair_pose_manifest_v1",
+  "date": "2026-10-12",
+  "status": "frozen_before_new_rollouts_and_predictions",
+  "first_pair_id": "mug_scene002_seed0_noise0.00",
+  "execution_scope": "Run only the first eligible pair initially; review actual outcomes before any further collection, training or model change",
+  "model_contract": {
+    "model_file": "research_artifacts/task_outcome_baseline_v1/proprioception_and_commands.npz",
+    "model_sha256": "16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb",
+    "weights_normalization_features_unchanged": true,
+    "failure_alert_threshold": 0.5,
+    "decision_rule": "p_failure >= 0.5",
+    "prediction_time_s": 2.96,
+    "history_steps": 20,
+    "fields": [
+      "hand_qpos",
+      "hand_qvel",
+      "commanded_target_rad"
+    ],
+    "joint_names": [
+      "WRJ2",
+      "WRJ1",
+      "FFJ4",
+      "FFJ3",
+      "FFJ2",
+      "FFJ1",
+      "MFJ4",
+      "MFJ3",
+      "MFJ2",
+      "MFJ1",
+      "RFJ4",
+      "RFJ3",
+      "RFJ2",
+      "RFJ1",
+      "LFJ5",
+      "LFJ4",
+      "LFJ3",
+      "LFJ2",
+      "LFJ1",
+      "THJ5",
+      "THJ4",
+      "THJ3",
+      "THJ2",
+      "THJ1"
+    ],
+    "outcomes_not_inputs": true
+  },
+  "noise": {
+    "finger_command_bias_rad": 0.0,
+    "wrist_random_noise_rad": 0.0
+  },
+  "outcome_rule": {
+    "label_1": "Frozen grasp/lift/hold success",
+    "label_0": "Completed failed task",
+    "minimum_lift_m": 0.14,
+    "required_hold_s": 2.0,
+    "maximum_object_drop_m": 0.02,
+    "guard_stop_or_setup_rejection": "Null label and unscored; record reason and phase, exclude from task-outcome metrics."
+  },
+  "held_constant": [
+    "object geometry and native mass",
+    "scene, initial object state, random seed and reset-velocity policy",
+    "friction and simulator parameters",
+    "HUG proposal",
+    "intended world palm path",
+    "all 22 finger targets",
+    "controller durations and force limits",
+    "2 ms physics and 40 ms saved control interval",
+    "task scorer",
+    "model input contract and threshold"
+  ],
+  "gates": {
+    "nominal_table_clearance_m": 0.01,
+    "nominal_proximal_object_clearance_m": 0.001,
+    "runtime_table_margin_m": 0.001,
+    "runtime_check_interval_s": 0.002,
+    "check_closing_targets": false,
+    "invariance_absolute_tolerance": 1e-10,
+    "pose_reproduction_absolute_tolerance": 1e-12
+  },
+  "selection_rule": {
+    "objective": "Minimum Euclidean distance of the two last wrist commands to original training mean after original train-only scaling; static geometry gates and distinctness first",
+    "priority": "Passing actually observed training pairs are preferred; none passes in these declared cases. Otherwise rank all declared grid/refinement candidates by training distance.",
+    "tie_break": "Ascending WRJ2 then WRJ1 for exactly equal distance",
+    "physical_grid_points_per_joint": 13,
+    "observed_training_pairs_always_included": true,
+    "stored_B_always_included": true,
+    "refinement_rounds": 3,
+    "refinement_points_per_joint": 5,
+    "refinement_radius": "Initial physical grid spacing, then half and quarter; centered on nearest-training passing candidate including B as a center only, or B if none; physical limits truncate each axis",
+    "minimum_wrist_separation_from_B_rad": 0.02,
+    "separation_rationale": "Declared before new predictions/outcomes: about one degree in combined wrist command coordinates and comparable to the narrow original WRJ1 command range; avoids numerical near-copy contrasts, without claiming a minimum dynamic or prediction effect",
+    "first_pair_selection": "First eligible case in the previously declared eight-case order, independent of predictions and outcomes",
+    "original_training_rows": 520,
+    "command_feature_indices": [
+      48,
+      49
+    ],
+    "wrist_joint_names": [
+      "WRJ2",
+      "WRJ1"
+    ],
+    "training_mean_rad": [
+      -0.1909969337284565,
+      -0.029744565719738603
+    ],
+    "training_scale_rad": [
+      0.008920651301901984,
+      0.008954386265806242
+    ],
+    "training_command_min_rad": [
+      -0.20388315618038177,
+      -0.03943963348865509
+    ],
+    "training_command_max_rad": [
+      -0.1763840615749359,
+      -0.014604825526475906
+    ],
+    "no_model_weights_intercept_or_prediction_read": true,
+    "no_training_labels_read": true,
+    "no_new_or_old_outcome_based_selection": true
+  },
+  "cases": [
+    {
+      "pair_id": "mug_scene002_seed0_noise0.00",
+      "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_002_seed_0.yaml",
+      "case_sha256": "9391b4c3e03d68c3b67be9dfe4d4bd6225f0f93ce22a881c659ccc2b15c51a97",
+      "original_episode_id": "episode_001560",
+      "eligible": true,
+      "status": "frozen_eligible_static_pair",
+      "reason": null,
+      "comparison_qualification": "two_out_of_range_wrists_sensitivity_only",
+      "intended_world_palm_position_m": [
+        0.103979513839143,
+        -0.02888848653135806,
+        0.06952656250663058
+      ],
+      "intended_world_palm_quaternion_wxyz": [
+        0.6087106541159315,
+        -0.13196247809723544,
+        -0.6886262179468837,
+        -0.37128314787552974
+      ],
+      "intended_finger_joint_names": [
+        "FFJ4",
+        "FFJ3",
+        "FFJ2",
+        "FFJ1",
+        "MFJ4",
+        "MFJ3",
+        "MFJ2",
+        "MFJ1",
+        "RFJ4",
+        "RFJ3",
+        "RFJ2",
+        "RFJ1",
+        "LFJ5",
+        "LFJ4",
+        "LFJ3",
+        "LFJ2",
+        "LFJ1",
+        "THJ5",
+        "THJ4",
+        "THJ3",
+        "THJ2",
+        "THJ1"
+      ],
+      "intended_finger_target_rad": [
+        -0.349065850399,
+        0.07881619781255722,
+        0.5764071941375732,
+        0.8231756091117859,
+        -0.25262174010276794,
+        0.35514068603515625,
+        0.3958472013473511,
+        0.46693578362464905,
+        0.21212643384933472,
+        0.6358959674835205,
+        0.07016589492559433,
+        0.3728557527065277,
+        0.0,
+        0.1742500513792038,
+        0.7096893787384033,
+        0.0,
+        0.7479004859924316,
+        0.05207400396466255,
+        1.1565148830413818,
+        -0.053066615015268326,
+        -0.0011015001218765974,
+        0.22136463224887848
+      ],
+      "physical_wrist_limits_rad": [
+        [
+          -0.523599,
+          0.174533
+        ],
+        [
+          -0.698132,
+          0.488692
+        ]
+      ],
+      "resolved_environment": {
+        "schema_version": "environment_spec_v1",
+        "environment_id": "adroit_shadow_tabletop_v2",
+        "runner": "grasp_failure_prediction.evaluation.runner:ActuatedShadowRunner",
+        "simulator": {
+          "type": "mujoco",
+          "physics_timestep_s": 0.002,
+          "control_timestep_s": 0.04
+        },
+        "scene": {
+          "model_path": "third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf",
+          "table_size_m": [
+            0.8,
+            0.8,
+            0.05
+          ]
+        },
+        "robot": {
+          "arm_model": "ideal_arm_carrier_v1",
+          "hand_model": "shadow_hand_right",
+          "joint_order_path": "dex-retargeting:shadow_hand_right.yml",
+          "controller_id": "force_limited_shadow_position_v1"
+        },
+        "contracts": {
+          "observation": "shadow_tabletop_observation_v1",
+          "action": "shadow_force_limited_target_v1",
+          "outcome": "grasp_lift_outcome_v1"
+        },
+        "cameras": [
+          {
+            "id": "front",
+            "width": 640,
+            "height": 480,
+            "fps": 25
+          },
+          {
+            "id": "wrist",
+            "width": 640,
+            "height": 480,
+            "fps": 25
+          }
+        ]
+      },
+      "environment_config_hash": "sha256:954eb93c4a4cffbff9f5b4001823d47dba9c92109427eb97c538ca8532744717",
+      "resolved_base_execution_protocol": {
+        "schema_version": "execution_protocol_v1",
+        "execution_protocol_id": "fixed_grasp_lift_v2",
+        "states": [
+          "reset",
+          "load_object",
+          "retarget",
+          "move_to_pregrasp",
+          "approach",
+          "close_fingers",
+          "lift",
+          "hold",
+          "score"
+        ],
+        "parameters": {
+          "pregrasp_distance_m": 0.08,
+          "palm_height_above_object_m": 0.04,
+          "approach_duration_s": 1.0,
+          "grip_command": 1.0,
+          "grip_command_type": "normalized_position",
+          "close_duration_s": 1.0,
+          "settle_duration_s": 0.8,
+          "force_close_delta_rad": 0.2,
+          "maximum_mean_fingertip_error_m": 0.01,
+          "lift_height_m": 0.15,
+          "lift_duration_s": 1.5,
+          "hold_duration_s": 2.0,
+          "total_timeout_s": 10.0
+        },
+        "success": {
+          "minimum_lift_m": 0.14,
+          "required_hold_s": 2.0,
+          "maximum_object_drop_m": 0.02
+        }
+      },
+      "base_execution_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+      "stored_v3_execution_protocol": {
+        "base_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+        "base_protocol_id": "fixed_grasp_lift_v2",
+        "clearance_configuration": {
+          "check_closing_targets": false,
+          "clearance_m": 0.01,
+          "grid_points_per_joint": 13,
+          "proximal_object_clearance_m": 0.001,
+          "refinement_rounds": 3
+        },
+        "controller": "palm_preserving_wrist_clearance_v1",
+        "execution_protocol_id": "fixed_grasp_lift_v3_table_clearance",
+        "parameters": {
+          "approach_duration_s": 1.0,
+          "close_duration_s": 1.0,
+          "force_close_delta_rad": 0.2,
+          "grip_command": 1.0,
+          "grip_command_type": "normalized_position",
+          "hold_duration_s": 2.0,
+          "lift_duration_s": 1.5,
+          "lift_height_m": 0.15,
+          "maximum_mean_fingertip_error_m": 0.01,
+          "palm_height_above_object_m": 0.04,
+          "pregrasp_distance_m": 0.08,
+          "settle_duration_s": 0.8,
+          "total_timeout_s": 10.0
+        },
+        "runtime_table_margin_m": 0.001,
+        "schema_version": "execution_protocol_v1",
+        "states": [
+          "reset",
+          "load_object",
+          "retarget",
+          "move_to_pregrasp",
+          "approach",
+          "close_fingers",
+          "lift",
+          "hold",
+          "score"
+        ],
+        "success": {
+          "maximum_object_drop_m": 0.02,
+          "minimum_lift_m": 0.14,
+          "required_hold_s": 2.0
+        }
+      },
+      "stored_v3_execution_protocol_config_hash": "sha256:4a6f39458c413eafb06f93cbd24e8a4e13850acadd31bde76bec88d846b45608",
+      "source_binding": {
+        "object_id": "hug_mug",
+        "observation_files_sha256": {
+          "T_world_camera.npy": "sha256:7cf921d5850c26bfb5ee491763efb56a5fb097f1b1197a269ba4b0b080d8bbcf",
+          "depth.png": "sha256:1ae0d1c8001d0b7b5932ee21e976bf27645b4f06c403cbf2ff31a413753d8395",
+          "depth_m.npy": "sha256:6d84b8e27cb25c27cb44d47e8c58800b85dc2209469e1fcfe7a817e1da8c2f96",
+          "intrinsics.npy": "sha256:284e3ac36b9bf5038dc41030f30ef79e397f5e15414767f5730b0da1858a0f4f",
+          "object_mask.png": "sha256:03e5c6919148dd9b00383d9fd95e75adfee0402fcf31c2d052b698ce3ca564b3",
+          "rgb.png": "sha256:1918d526d8a96ad3cf211fb1bdfe661c5846f41213afbcd1ab604035c35349fa"
+        },
+        "proposal_sha256": "sha256:11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+        "camera_sha256": "sha256:7cf921d5850c26bfb5ee491763efb56a5fb097f1b1197a269ba4b0b080d8bbcf",
+        "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+        "object_position_m": [
+          -0.03081908323373589,
+          -0.013500259903564488,
+          0.05731972693903406
+        ],
+        "object_orientation_xyzw": [
+          -0.013427551995984773,
+          -0.006137545571129831,
+          -0.0012919682924076275,
+          0.9998901750690867
+        ],
+        "observation_manifest_sha256": "sha256:630242e4b79a884112209084853b31d25a01cc264ac536a67a43055da61aa9f1",
+        "group_id": "sha256:f7b2dd211275340f4c6e58c1bed7e9e3c29ca2b05cda6db3276fbe1fa4cd23ee",
+        "observation_group_id": "sha256:25ac5ecfb667d98aeabc060b069640a74805148a800669404d666c70c094bd98",
+        "geometry_group_id": "sha256:fbb290d9b70ffb20e0aaadab762d5c8e38e289ce7993894d4be5c1ae3f048bde",
+        "scene_contract_status": "verified",
+        "scene_contract_sha256": "sha256:31e90523b29c632662f600b3b01deffe624ea5ce0595f99f1a9570fe75013fdd",
+        "observation_selection_uv": [
+          112,
+          106
+        ],
+        "observation_source": {
+          "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+          "kind": "mujoco_render",
+          "mujoco_version": "3.3.7",
+          "object": "hug_mug",
+          "seed": 10106
+        },
+        "inference_report_sha256": "sha256:6a4241df32ae34cc2727d68548791b3db68fe407eb1ad3b3ccee603eb4810fa2",
+        "hug_inference_provenance": {
+          "seed": 0,
+          "sampling_steps": 50,
+          "device": "cpu",
+          "dtype": "float32",
+          "generation_rng": "PyTorch and libc srand reset immediately before CPU model.sample; batch size one",
+          "hug_code_commit": "8d1c52d4c24bfae5a369e32e3f134f5601a02630",
+          "checkpoint_sha256": "515b5c3bc7987739aec019e754c15df5fbf3eff9daefb93924da098ae4bd1eae",
+          "inference_script_sha256": "4b11f7ab5621bf7e104421f7bb2561adeda97485382504c37e7ef38644b19793",
+          "manifest_sha256": "630242e4b79a884112209084853b31d25a01cc264ac536a67a43055da61aa9f1",
+          "hug_depth_png_sha256": "1ae0d1c8001d0b7b5932ee21e976bf27645b4f06c403cbf2ff31a413753d8395",
+          "prepared_sample_sha256": "30afd1d03bd335b9c9ce75ad9eb53235a2f733d3da5677946bb139eb3b4424b3",
+          "input_tensor_hash": "sha256:26a32dfeb859c3414d60fb8f85c86cb939c949eafe33f1bbc4abbc99fa05f907"
+        },
+        "geometry_asset_files_sha256": {
+          "object.xml": "sha256:ced71ba19f6a40dc7634a729ca8ae24e78de1be0a8c8df1ddcac486661423e1d",
+          "visual.obj": "sha256:e9ee0f42bb25cd8e2149e8090bf3f062cf3d735f9738972b5d2d932c7e4179bb",
+          "collision/part_000.obj": "sha256:f050b714d7721bcfaf67391bbc375c42577b72838f80e96f73ace5bb0cb37416",
+          "collision/part_001.obj": "sha256:37b822ec21d2497030c57ff003adfdeee56c312a3d20cb0295bb670ec0b30ccb",
+          "collision/part_002.obj": "sha256:88da7546e7559e7f3d94c448ce30742408b44442c5d55b49de66c91f652db44c",
+          "collision/part_003.obj": "sha256:17890e11105b70874f2a4cf20f5e66387b9490a742e13ad0a804c5e237f8b568",
+          "collision/part_004.obj": "sha256:37b4575c623c914855c185aa12211919093d38bf164382e8a1e8366209ceb612",
+          "collision/part_005.obj": "sha256:d2977aeca19a41553e5a623974984e4d2f8264822ad77ce034d672fbc8d75a30",
+          "collision/part_006.obj": "sha256:83d7ff7ba8a6b8b56e3c09bbb38c39c94a4129ab83d281e0b96a2ef613a7e1eb",
+          "collision/part_007.obj": "sha256:d1c0e8e316ef6e24b63002fd9066012a73fbfe1d43832a082c6301c9f93e644c",
+          "collision/part_008.obj": "sha256:fb8fdcf8226d1d450f5073c79188c4271640ef967b5484a647b834cea4d15265",
+          "collision/part_009.obj": "sha256:6cde7933ad04711b65ab13c3454ef9ffd322d3d50ac4c39ed891e1e733cb9b86",
+          "collision/part_010.obj": "sha256:81fe2b968182947eeeafeabba6253803670a37f7f40b9b860c300220e84b8810",
+          "collision/part_011.obj": "sha256:aa4c74dec977942b89e0a62a6ea005a297ce3d64d9e3d5ffb593258f97aa0e1c",
+          "collision/part_012.obj": "sha256:f2c88a547b5757fb559b49bb8ba15d9465abed3e647a423eb13584ae2739519e",
+          "collision/part_013.obj": "sha256:e298ecbbb1dc4ce1b364216fbc626986fdafa82f13c41617b3171a6454dd1e5a",
+          "collision/part_014.obj": "sha256:7bd0bbd3ffac686db9033f5729e83954cd9b85071e3b98dfba2953d83d21f7f3"
+        },
+        "proposal_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_0/proposal.pkl",
+        "observation_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/observations/scene_002"
+      },
+      "poses": {
+        "A": {
+          "wrist_rad": [
+            0.11362825520833325,
+            -0.20207665625
+          ],
+          "nominal_table_clearance_m": 0.010062933423386336,
+          "nominal_proximal_object_distance_m": 0.06773319819769096,
+          "passes_geometry_gate": true,
+          "failed_gates": [],
+          "root_position_m": [
+            0.31269177849448376,
+            -0.15503159823810303,
+            0.10886659316150987
+          ],
+          "root_quaternion_wxyz": [
+            0.5768884141612605,
+            -0.08680929292531987,
+            -0.7565426912676171,
+            -0.29547768199622626
+          ],
+          "intended_22_finger_targets_unchanged": true,
+          "world_palm_invariance": {
+            "nominal_target": {
+              "maximum_world_palm_position_error_m": 8.326672684688674e-17,
+              "maximum_world_palm_rotation_matrix_error": 2.498001805406602e-16
+            },
+            "near_open_approach": {
+              "maximum_world_palm_position_error_m": 8.326672684688674e-17,
+              "maximum_world_palm_rotation_matrix_error": 2.498001805406602e-16
+            }
+          },
+          "finger_geometry_invariance": {
+            "nominal_target": {
+              "maximum_world_finger_geom_position_difference_m": 9.71445146547012e-17,
+              "maximum_world_finger_geom_rotation_matrix_difference": 3.3306690738754696e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            },
+            "near_open_approach": {
+              "maximum_world_finger_geom_position_difference_m": 9.71445146547012e-17,
+              "maximum_world_finger_geom_rotation_matrix_difference": 4.440892098500626e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            }
+          },
+          "training_wrist_scaled_distance": 39.19819452622502,
+          "training_distance_lower_than_B": true,
+          "in_training_command_range_per_joint": [
+            false,
+            false
+          ],
+          "is_observed_training_pair": false,
+          "wrist_distance_from_B_rad": 0.028686066416007797,
+          "eligible_as_A": true,
+          "candidate_origins": [
+            "nearest_training_geometry_refinement_2",
+            "nearest_training_geometry_refinement_3"
+          ]
+        },
+        "B": {
+          "wrist_rad": [
+            0.09908383854166658,
+            -0.22680215624999997
+          ],
+          "nominal_table_clearance_m": 0.010003214505024935,
+          "nominal_proximal_object_distance_m": 0.06773319829313498,
+          "passes_geometry_gate": true,
+          "failed_gates": [],
+          "root_position_m": [
+            0.31625809077778844,
+            -0.1492773592479093,
+            0.10809106565287957
+          ],
+          "root_quaternion_wxyz": [
+            0.5830096860388664,
+            -0.07656748093241693,
+            -0.7560160864745108,
+            -0.2875357435872821
+          ],
+          "intended_22_finger_targets_unchanged": true,
+          "world_palm_invariance": {
+            "nominal_target": {
+              "maximum_world_palm_position_error_m": 4.163336342344337e-17,
+              "maximum_world_palm_rotation_matrix_error": 2.220446049250313e-16
+            },
+            "near_open_approach": {
+              "maximum_world_palm_position_error_m": 4.163336342344337e-17,
+              "maximum_world_palm_rotation_matrix_error": 2.220446049250313e-16
+            }
+          },
+          "finger_geometry_invariance": {
+            "nominal_target": {
+              "maximum_world_finger_geom_position_difference_m": 1.3183898417423734e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 1.6653345369377348e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            },
+            "near_open_approach": {
+              "maximum_world_finger_geom_position_difference_m": 1.457167719820518e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 2.220446049250313e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            }
+          },
+          "training_wrist_scaled_distance": 39.26465992660678,
+          "training_distance_lower_than_B": false,
+          "in_training_command_range_per_joint": [
+            false,
+            false
+          ],
+          "is_observed_training_pair": false,
+          "wrist_distance_from_B_rad": 0.0,
+          "eligible_as_A": false,
+          "matches_stored_v3_plan": {
+            "table_clearance_matches_saved": true,
+            "proximal_distance_matches_saved": true,
+            "carrier_position_matches_saved": true,
+            "carrier_quaternion_matches_saved": true
+          }
+        }
+      },
+      "wrist_delta_A_minus_B_rad": [
+        0.01454441666666667,
+        0.024725499999999984
+      ],
+      "simulator_time_s": 0.0,
+      "generated_action_history_rows": 0
+    },
+    {
+      "pair_id": "mug_scene002_seed1_noise0.00",
+      "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_002_seed_1.yaml",
+      "case_sha256": "79e5ae165dc861dbfb8f69ab1f4289597abb8f332db7b8256842e94f428b316a",
+      "original_episode_id": "episode_001625",
+      "eligible": true,
+      "status": "frozen_eligible_static_pair",
+      "reason": null,
+      "comparison_qualification": "two_out_of_range_wrists_sensitivity_only",
+      "intended_world_palm_position_m": [
+        0.10674508098344951,
+        -0.038590086423060166,
+        0.07336476983234569
+      ],
+      "intended_world_palm_quaternion_wxyz": [
+        0.5824270087255359,
+        -0.13194066535104662,
+        -0.6948675157785873,
+        -0.4006614229613856
+      ],
+      "intended_finger_joint_names": [
+        "FFJ4",
+        "FFJ3",
+        "FFJ2",
+        "FFJ1",
+        "MFJ4",
+        "MFJ3",
+        "MFJ2",
+        "MFJ1",
+        "RFJ4",
+        "RFJ3",
+        "RFJ2",
+        "RFJ1",
+        "LFJ5",
+        "LFJ4",
+        "LFJ3",
+        "LFJ2",
+        "LFJ1",
+        "THJ5",
+        "THJ4",
+        "THJ3",
+        "THJ2",
+        "THJ1"
+      ],
+      "intended_finger_target_rad": [
+        -0.349065850399,
+        0.11082815378904343,
+        0.557204008102417,
+        0.7933791279792786,
+        -0.2611616551876068,
+        0.3558988571166992,
+        0.3625127971172333,
+        0.4430733025074005,
+        0.24773520231246948,
+        0.6400942206382751,
+        0.04716974496841431,
+        0.35887661576271057,
+        0.0,
+        0.2222142219543457,
+        0.723432719707489,
+        0.0,
+        0.7229181528091431,
+        0.08503185212612152,
+        1.1312503814697266,
+        -0.0637843906879425,
+        0.012730365619063377,
+        0.2314016968011856
+      ],
+      "physical_wrist_limits_rad": [
+        [
+          -0.523599,
+          0.174533
+        ],
+        [
+          -0.698132,
+          0.488692
+        ]
+      ],
+      "resolved_environment": {
+        "schema_version": "environment_spec_v1",
+        "environment_id": "adroit_shadow_tabletop_v2",
+        "runner": "grasp_failure_prediction.evaluation.runner:ActuatedShadowRunner",
+        "simulator": {
+          "type": "mujoco",
+          "physics_timestep_s": 0.002,
+          "control_timestep_s": 0.04
+        },
+        "scene": {
+          "model_path": "third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf",
+          "table_size_m": [
+            0.8,
+            0.8,
+            0.05
+          ]
+        },
+        "robot": {
+          "arm_model": "ideal_arm_carrier_v1",
+          "hand_model": "shadow_hand_right",
+          "joint_order_path": "dex-retargeting:shadow_hand_right.yml",
+          "controller_id": "force_limited_shadow_position_v1"
+        },
+        "contracts": {
+          "observation": "shadow_tabletop_observation_v1",
+          "action": "shadow_force_limited_target_v1",
+          "outcome": "grasp_lift_outcome_v1"
+        },
+        "cameras": [
+          {
+            "id": "front",
+            "width": 640,
+            "height": 480,
+            "fps": 25
+          },
+          {
+            "id": "wrist",
+            "width": 640,
+            "height": 480,
+            "fps": 25
+          }
+        ]
+      },
+      "environment_config_hash": "sha256:954eb93c4a4cffbff9f5b4001823d47dba9c92109427eb97c538ca8532744717",
+      "resolved_base_execution_protocol": {
+        "schema_version": "execution_protocol_v1",
+        "execution_protocol_id": "fixed_grasp_lift_v2",
+        "states": [
+          "reset",
+          "load_object",
+          "retarget",
+          "move_to_pregrasp",
+          "approach",
+          "close_fingers",
+          "lift",
+          "hold",
+          "score"
+        ],
+        "parameters": {
+          "pregrasp_distance_m": 0.08,
+          "palm_height_above_object_m": 0.04,
+          "approach_duration_s": 1.0,
+          "grip_command": 1.0,
+          "grip_command_type": "normalized_position",
+          "close_duration_s": 1.0,
+          "settle_duration_s": 0.8,
+          "force_close_delta_rad": 0.2,
+          "maximum_mean_fingertip_error_m": 0.01,
+          "lift_height_m": 0.15,
+          "lift_duration_s": 1.5,
+          "hold_duration_s": 2.0,
+          "total_timeout_s": 10.0
+        },
+        "success": {
+          "minimum_lift_m": 0.14,
+          "required_hold_s": 2.0,
+          "maximum_object_drop_m": 0.02
+        }
+      },
+      "base_execution_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+      "stored_v3_execution_protocol": {
+        "base_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+        "base_protocol_id": "fixed_grasp_lift_v2",
+        "clearance_configuration": {
+          "check_closing_targets": false,
+          "clearance_m": 0.01,
+          "grid_points_per_joint": 13,
+          "proximal_object_clearance_m": 0.001,
+          "refinement_rounds": 3
+        },
+        "controller": "palm_preserving_wrist_clearance_v1",
+        "execution_protocol_id": "fixed_grasp_lift_v3_table_clearance",
+        "parameters": {
+          "approach_duration_s": 1.0,
+          "close_duration_s": 1.0,
+          "force_close_delta_rad": 0.2,
+          "grip_command": 1.0,
+          "grip_command_type": "normalized_position",
+          "hold_duration_s": 2.0,
+          "lift_duration_s": 1.5,
+          "lift_height_m": 0.15,
+          "maximum_mean_fingertip_error_m": 0.01,
+          "palm_height_above_object_m": 0.04,
+          "pregrasp_distance_m": 0.08,
+          "settle_duration_s": 0.8,
+          "total_timeout_s": 10.0
+        },
+        "runtime_table_margin_m": 0.001,
+        "schema_version": "execution_protocol_v1",
+        "states": [
+          "reset",
+          "load_object",
+          "retarget",
+          "move_to_pregrasp",
+          "approach",
+          "close_fingers",
+          "lift",
+          "hold",
+          "score"
+        ],
+        "success": {
+          "maximum_object_drop_m": 0.02,
+          "minimum_lift_m": 0.14,
+          "required_hold_s": 2.0
+        }
+      },
+      "stored_v3_execution_protocol_config_hash": "sha256:4a6f39458c413eafb06f93cbd24e8a4e13850acadd31bde76bec88d846b45608",
+      "source_binding": {
+        "object_id": "hug_mug",
+        "observation_files_sha256": {
+          "T_world_camera.npy": "sha256:7cf921d5850c26bfb5ee491763efb56a5fb097f1b1197a269ba4b0b080d8bbcf",
+          "depth.png": "sha256:1ae0d1c8001d0b7b5932ee21e976bf27645b4f06c403cbf2ff31a413753d8395",
+          "depth_m.npy": "sha256:6d84b8e27cb25c27cb44d47e8c58800b85dc2209469e1fcfe7a817e1da8c2f96",
+          "intrinsics.npy": "sha256:284e3ac36b9bf5038dc41030f30ef79e397f5e15414767f5730b0da1858a0f4f",
+          "object_mask.png": "sha256:03e5c6919148dd9b00383d9fd95e75adfee0402fcf31c2d052b698ce3ca564b3",
+          "rgb.png": "sha256:1918d526d8a96ad3cf211fb1bdfe661c5846f41213afbcd1ab604035c35349fa"
+        },
+        "proposal_sha256": "sha256:6d6fff54a29762f036f82e263ce77bb4712a706f5776e0fddacd3c99b9d91abc",
+        "camera_sha256": "sha256:7cf921d5850c26bfb5ee491763efb56a5fb097f1b1197a269ba4b0b080d8bbcf",
+        "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+        "object_position_m": [
+          -0.03081908323373589,
+          -0.013500259903564488,
+          0.05731972693903406
+        ],
+        "object_orientation_xyzw": [
+          -0.013427551995984773,
+          -0.006137545571129831,
+          -0.0012919682924076275,
+          0.9998901750690867
+        ],
+        "observation_manifest_sha256": "sha256:630242e4b79a884112209084853b31d25a01cc264ac536a67a43055da61aa9f1",
+        "group_id": "sha256:595bde99c9c43a34a9de3f38a7d99a43af318e4989acd8d29799c2bd5959d2b7",
+        "observation_group_id": "sha256:25ac5ecfb667d98aeabc060b069640a74805148a800669404d666c70c094bd98",
+        "geometry_group_id": "sha256:fbb290d9b70ffb20e0aaadab762d5c8e38e289ce7993894d4be5c1ae3f048bde",
+        "scene_contract_status": "verified",
+        "scene_contract_sha256": "sha256:31e90523b29c632662f600b3b01deffe624ea5ce0595f99f1a9570fe75013fdd",
+        "observation_selection_uv": [
+          112,
+          106
+        ],
+        "observation_source": {
+          "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+          "kind": "mujoco_render",
+          "mujoco_version": "3.3.7",
+          "object": "hug_mug",
+          "seed": 10106
+        },
+        "inference_report_sha256": "sha256:206093de858bc7ec4e55f80a9082f61dc59471240e8bdb0b9453df847e11e8f9",
+        "hug_inference_provenance": {
+          "seed": 1,
+          "sampling_steps": 50,
+          "device": "cpu",
+          "dtype": "float32",
+          "generation_rng": "PyTorch and libc srand reset immediately before CPU model.sample; batch size one",
+          "hug_code_commit": "8d1c52d4c24bfae5a369e32e3f134f5601a02630",
+          "checkpoint_sha256": "515b5c3bc7987739aec019e754c15df5fbf3eff9daefb93924da098ae4bd1eae",
+          "inference_script_sha256": "4b11f7ab5621bf7e104421f7bb2561adeda97485382504c37e7ef38644b19793",
+          "manifest_sha256": "630242e4b79a884112209084853b31d25a01cc264ac536a67a43055da61aa9f1",
+          "hug_depth_png_sha256": "1ae0d1c8001d0b7b5932ee21e976bf27645b4f06c403cbf2ff31a413753d8395",
+          "prepared_sample_sha256": "30afd1d03bd335b9c9ce75ad9eb53235a2f733d3da5677946bb139eb3b4424b3",
+          "input_tensor_hash": "sha256:74371d2c61f9ef47e2967d8a1fa4f7411eb52b8eb87b476818cd4273ef169250"
+        },
+        "geometry_asset_files_sha256": {
+          "object.xml": "sha256:ced71ba19f6a40dc7634a729ca8ae24e78de1be0a8c8df1ddcac486661423e1d",
+          "visual.obj": "sha256:e9ee0f42bb25cd8e2149e8090bf3f062cf3d735f9738972b5d2d932c7e4179bb",
+          "collision/part_000.obj": "sha256:f050b714d7721bcfaf67391bbc375c42577b72838f80e96f73ace5bb0cb37416",
+          "collision/part_001.obj": "sha256:37b822ec21d2497030c57ff003adfdeee56c312a3d20cb0295bb670ec0b30ccb",
+          "collision/part_002.obj": "sha256:88da7546e7559e7f3d94c448ce30742408b44442c5d55b49de66c91f652db44c",
+          "collision/part_003.obj": "sha256:17890e11105b70874f2a4cf20f5e66387b9490a742e13ad0a804c5e237f8b568",
+          "collision/part_004.obj": "sha256:37b4575c623c914855c185aa12211919093d38bf164382e8a1e8366209ceb612",
+          "collision/part_005.obj": "sha256:d2977aeca19a41553e5a623974984e4d2f8264822ad77ce034d672fbc8d75a30",
+          "collision/part_006.obj": "sha256:83d7ff7ba8a6b8b56e3c09bbb38c39c94a4129ab83d281e0b96a2ef613a7e1eb",
+          "collision/part_007.obj": "sha256:d1c0e8e316ef6e24b63002fd9066012a73fbfe1d43832a082c6301c9f93e644c",
+          "collision/part_008.obj": "sha256:fb8fdcf8226d1d450f5073c79188c4271640ef967b5484a647b834cea4d15265",
+          "collision/part_009.obj": "sha256:6cde7933ad04711b65ab13c3454ef9ffd322d3d50ac4c39ed891e1e733cb9b86",
+          "collision/part_010.obj": "sha256:81fe2b968182947eeeafeabba6253803670a37f7f40b9b860c300220e84b8810",
+          "collision/part_011.obj": "sha256:aa4c74dec977942b89e0a62a6ea005a297ce3d64d9e3d5ffb593258f97aa0e1c",
+          "collision/part_012.obj": "sha256:f2c88a547b5757fb559b49bb8ba15d9465abed3e647a423eb13584ae2739519e",
+          "collision/part_013.obj": "sha256:e298ecbbb1dc4ce1b364216fbc626986fdafa82f13c41617b3171a6454dd1e5a",
+          "collision/part_014.obj": "sha256:7bd0bbd3ffac686db9033f5729e83954cd9b85071e3b98dfba2953d83d21f7f3"
+        },
+        "proposal_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_1/proposal.pkl",
+        "observation_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/observations/scene_002"
+      },
+      "poses": {
+        "A": {
+          "wrist_rad": [
+            -0.007272208333333448,
+            -0.20980337499999996
+          ],
+          "nominal_table_clearance_m": 0.010089258729479522,
+          "nominal_proximal_object_distance_m": 0.07093238067091885,
+          "passes_geometry_gate": true,
+          "failed_gates": [],
+          "root_position_m": [
+            0.3155272784154517,
+            -0.16888519562988505,
+            0.09674714872503687
+          ],
+          "root_quaternion_wxyz": [
+            0.5957020953484312,
+            -0.06904504828575257,
+            -0.7308395503244569,
+            -0.3259529821711286
+          ],
+          "intended_22_finger_targets_unchanged": true,
+          "world_palm_invariance": {
+            "nominal_target": {
+              "maximum_world_palm_position_error_m": 2.7755575615628914e-17,
+              "maximum_world_palm_rotation_matrix_error": 1.1102230246251565e-16
+            },
+            "near_open_approach": {
+              "maximum_world_palm_position_error_m": 2.7755575615628914e-17,
+              "maximum_world_palm_rotation_matrix_error": 1.1102230246251565e-16
+            }
+          },
+          "finger_geometry_invariance": {
+            "nominal_target": {
+              "maximum_world_finger_geom_position_difference_m": 1.1102230246251565e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 4.440892098500626e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            },
+            "near_open_approach": {
+              "maximum_world_finger_geom_position_difference_m": 1.249000902703301e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 4.440892098500626e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            }
+          },
+          "training_wrist_scaled_distance": 28.784053964720027,
+          "training_distance_lower_than_B": false,
+          "in_training_command_range_per_joint": [
+            false,
+            false
+          ],
+          "is_observed_training_pair": false,
+          "wrist_distance_from_B_rad": 0.02868606641600782,
+          "eligible_as_A": true,
+          "candidate_origins": [
+            "nearest_training_geometry_refinement_3"
+          ]
+        },
+        "B": {
+          "wrist_rad": [
+            0.00727220833333322,
+            -0.18507787499999995
+          ],
+          "nominal_table_clearance_m": 0.010004245970419934,
+          "nominal_proximal_object_distance_m": 0.0709323805889046,
+          "passes_geometry_gate": true,
+          "failed_gates": [],
+          "root_position_m": [
+            0.311791105693324,
+            -0.17461256169313147,
+            0.09718851979988273
+          ],
+          "root_quaternion_wxyz": [
+            0.5894728931020041,
+            -0.07877247088306218,
+            -0.7310665054215048,
+            -0.33445234455706724
+          ],
+          "intended_22_finger_targets_unchanged": true,
+          "world_palm_invariance": {
+            "nominal_target": {
+              "maximum_world_palm_position_error_m": 2.7755575615628914e-17,
+              "maximum_world_palm_rotation_matrix_error": 1.1102230246251565e-16
+            },
+            "near_open_approach": {
+              "maximum_world_palm_position_error_m": 2.7755575615628914e-17,
+              "maximum_world_palm_rotation_matrix_error": 1.1102230246251565e-16
+            }
+          },
+          "finger_geometry_invariance": {
+            "nominal_target": {
+              "maximum_world_finger_geom_position_difference_m": 1.3877787807814457e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 4.440892098500626e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            },
+            "near_open_approach": {
+              "maximum_world_finger_geom_position_difference_m": 1.457167719820518e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 4.440892098500626e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            }
+          },
+          "training_wrist_scaled_distance": 28.19420726428097,
+          "training_distance_lower_than_B": false,
+          "in_training_command_range_per_joint": [
+            false,
+            false
+          ],
+          "is_observed_training_pair": false,
+          "wrist_distance_from_B_rad": 0.0,
+          "eligible_as_A": false,
+          "matches_stored_v3_plan": {
+            "table_clearance_matches_saved": true,
+            "proximal_distance_matches_saved": true,
+            "carrier_position_matches_saved": true,
+            "carrier_quaternion_matches_saved": true
+          }
+        }
+      },
+      "wrist_delta_A_minus_B_rad": [
+        -0.014544416666666667,
+        -0.02472550000000001
+      ],
+      "simulator_time_s": 0.0,
+      "generated_action_history_rows": 0
+    },
+    {
+      "pair_id": "mug_scene002_seed2_noise0.00",
+      "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_002_seed_2.yaml",
+      "case_sha256": "a0bbdf11704a8fa21366f6a23c0801e0737bea2646e702860e4f0bed79e0cf84",
+      "original_episode_id": "episode_001690",
+      "eligible": true,
+      "status": "frozen_eligible_static_pair",
+      "reason": null,
+      "comparison_qualification": "two_out_of_range_wrists_sensitivity_only",
+      "intended_world_palm_position_m": [
+        0.10878531432424923,
+        -0.03427827263664357,
+        0.05966126455993542
+      ],
+      "intended_world_palm_quaternion_wxyz": [
+        0.6241296368761498,
+        -0.11120178853551793,
+        -0.6574941618423353,
+        -0.40718274244200475
+      ],
+      "intended_finger_joint_names": [
+        "FFJ4",
+        "FFJ3",
+        "FFJ2",
+        "FFJ1",
+        "MFJ4",
+        "MFJ3",
+        "MFJ2",
+        "MFJ1",
+        "RFJ4",
+        "RFJ3",
+        "RFJ2",
+        "RFJ1",
+        "LFJ5",
+        "LFJ4",
+        "LFJ3",
+        "LFJ2",
+        "LFJ1",
+        "THJ5",
+        "THJ4",
+        "THJ3",
+        "THJ2",
+        "THJ1"
+      ],
+      "intended_finger_target_rad": [
+        -0.349065850399,
+        0.1166778951883316,
+        0.5788988471031189,
+        0.8046466708183289,
+        -0.2301732897758484,
+        0.37250134348869324,
+        0.3923424780368805,
+        0.46008726954460144,
+        0.20597779750823975,
+        0.6595503687858582,
+        0.06546374410390854,
+        0.36258170008659363,
+        0.0,
+        0.17395749688148499,
+        0.7649822235107422,
+        0.0,
+        0.719545841217041,
+        0.060761284083127975,
+        1.1397331953048706,
+        -0.04862601310014725,
+        0.01837095618247986,
+        0.2292053997516632
+      ],
+      "physical_wrist_limits_rad": [
+        [
+          -0.523599,
+          0.174533
+        ],
+        [
+          -0.698132,
+          0.488692
+        ]
+      ],
+      "resolved_environment": {
+        "schema_version": "environment_spec_v1",
+        "environment_id": "adroit_shadow_tabletop_v2",
+        "runner": "grasp_failure_prediction.evaluation.runner:ActuatedShadowRunner",
+        "simulator": {
+          "type": "mujoco",
+          "physics_timestep_s": 0.002,
+          "control_timestep_s": 0.04
+        },
+        "scene": {
+          "model_path": "third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf",
+          "table_size_m": [
+            0.8,
+            0.8,
+            0.05
+          ]
+        },
+        "robot": {
+          "arm_model": "ideal_arm_carrier_v1",
+          "hand_model": "shadow_hand_right",
+          "joint_order_path": "dex-retargeting:shadow_hand_right.yml",
+          "controller_id": "force_limited_shadow_position_v1"
+        },
+        "contracts": {
+          "observation": "shadow_tabletop_observation_v1",
+          "action": "shadow_force_limited_target_v1",
+          "outcome": "grasp_lift_outcome_v1"
+        },
+        "cameras": [
+          {
+            "id": "front",
+            "width": 640,
+            "height": 480,
+            "fps": 25
+          },
+          {
+            "id": "wrist",
+            "width": 640,
+            "height": 480,
+            "fps": 25
+          }
+        ]
+      },
+      "environment_config_hash": "sha256:954eb93c4a4cffbff9f5b4001823d47dba9c92109427eb97c538ca8532744717",
+      "resolved_base_execution_protocol": {
+        "schema_version": "execution_protocol_v1",
+        "execution_protocol_id": "fixed_grasp_lift_v2",
+        "states": [
+          "reset",
+          "load_object",
+          "retarget",
+          "move_to_pregrasp",
+          "approach",
+          "close_fingers",
+          "lift",
+          "hold",
+          "score"
+        ],
+        "parameters": {
+          "pregrasp_distance_m": 0.08,
+          "palm_height_above_object_m": 0.04,
+          "approach_duration_s": 1.0,
+          "grip_command": 1.0,
+          "grip_command_type": "normalized_position",
+          "close_duration_s": 1.0,
+          "settle_duration_s": 0.8,
+          "force_close_delta_rad": 0.2,
+          "maximum_mean_fingertip_error_m": 0.01,
+          "lift_height_m": 0.15,
+          "lift_duration_s": 1.5,
+          "hold_duration_s": 2.0,
+          "total_timeout_s": 10.0
+        },
+        "success": {
+          "minimum_lift_m": 0.14,
+          "required_hold_s": 2.0,
+          "maximum_object_drop_m": 0.02
+        }
+      },
+      "base_execution_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+      "stored_v3_execution_protocol": {
+        "base_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+        "base_protocol_id": "fixed_grasp_lift_v2",
+        "clearance_configuration": {
+          "check_closing_targets": false,
+          "clearance_m": 0.01,
+          "grid_points_per_joint": 13,
+          "proximal_object_clearance_m": 0.001,
+          "refinement_rounds": 3
+        },
+        "controller": "palm_preserving_wrist_clearance_v1",
+        "execution_protocol_id": "fixed_grasp_lift_v3_table_clearance",
+        "parameters": {
+          "approach_duration_s": 1.0,
+          "close_duration_s": 1.0,
+          "force_close_delta_rad": 0.2,
+          "grip_command": 1.0,
+          "grip_command_type": "normalized_position",
+          "hold_duration_s": 2.0,
+          "lift_duration_s": 1.5,
+          "lift_height_m": 0.15,
+          "maximum_mean_fingertip_error_m": 0.01,
+          "palm_height_above_object_m": 0.04,
+          "pregrasp_distance_m": 0.08,
+          "settle_duration_s": 0.8,
+          "total_timeout_s": 10.0
+        },
+        "runtime_table_margin_m": 0.001,
+        "schema_version": "execution_protocol_v1",
+        "states": [
+          "reset",
+          "load_object",
+          "retarget",
+          "move_to_pregrasp",
+          "approach",
+          "close_fingers",
+          "lift",
+          "hold",
+          "score"
+        ],
+        "success": {
+          "maximum_object_drop_m": 0.02,
+          "minimum_lift_m": 0.14,
+          "required_hold_s": 2.0
+        }
+      },
+      "stored_v3_execution_protocol_config_hash": "sha256:4a6f39458c413eafb06f93cbd24e8a4e13850acadd31bde76bec88d846b45608",
+      "source_binding": {
+        "object_id": "hug_mug",
+        "observation_files_sha256": {
+          "T_world_camera.npy": "sha256:7cf921d5850c26bfb5ee491763efb56a5fb097f1b1197a269ba4b0b080d8bbcf",
+          "depth.png": "sha256:1ae0d1c8001d0b7b5932ee21e976bf27645b4f06c403cbf2ff31a413753d8395",
+          "depth_m.npy": "sha256:6d84b8e27cb25c27cb44d47e8c58800b85dc2209469e1fcfe7a817e1da8c2f96",
+          "intrinsics.npy": "sha256:284e3ac36b9bf5038dc41030f30ef79e397f5e15414767f5730b0da1858a0f4f",
+          "object_mask.png": "sha256:03e5c6919148dd9b00383d9fd95e75adfee0402fcf31c2d052b698ce3ca564b3",
+          "rgb.png": "sha256:1918d526d8a96ad3cf211fb1bdfe661c5846f41213afbcd1ab604035c35349fa"
+        },
+        "proposal_sha256": "sha256:46a2821224d3d36e833acd82354573b9db25c0d97641831dd82cfbf265761a67",
+        "camera_sha256": "sha256:7cf921d5850c26bfb5ee491763efb56a5fb097f1b1197a269ba4b0b080d8bbcf",
+        "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+        "object_position_m": [
+          -0.03081908323373589,
+          -0.013500259903564488,
+          0.05731972693903406
+        ],
+        "object_orientation_xyzw": [
+          -0.013427551995984773,
+          -0.006137545571129831,
+          -0.0012919682924076275,
+          0.9998901750690867
+        ],
+        "observation_manifest_sha256": "sha256:630242e4b79a884112209084853b31d25a01cc264ac536a67a43055da61aa9f1",
+        "group_id": "sha256:119bec85e0430989377fad454bfe42cc898725527f9dea7001935286454f622e",
+        "observation_group_id": "sha256:25ac5ecfb667d98aeabc060b069640a74805148a800669404d666c70c094bd98",
+        "geometry_group_id": "sha256:fbb290d9b70ffb20e0aaadab762d5c8e38e289ce7993894d4be5c1ae3f048bde",
+        "scene_contract_status": "verified",
+        "scene_contract_sha256": "sha256:31e90523b29c632662f600b3b01deffe624ea5ce0595f99f1a9570fe75013fdd",
+        "observation_selection_uv": [
+          112,
+          106
+        ],
+        "observation_source": {
+          "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+          "kind": "mujoco_render",
+          "mujoco_version": "3.3.7",
+          "object": "hug_mug",
+          "seed": 10106
+        },
+        "inference_report_sha256": "sha256:f836dd4549ec7e877485982a28ad954b52db315db549518e238479798291e11a",
+        "hug_inference_provenance": {
+          "seed": 2,
+          "sampling_steps": 50,
+          "device": "cpu",
+          "dtype": "float32",
+          "generation_rng": "PyTorch and libc srand reset immediately before CPU model.sample; batch size one",
+          "hug_code_commit": "8d1c52d4c24bfae5a369e32e3f134f5601a02630",
+          "checkpoint_sha256": "515b5c3bc7987739aec019e754c15df5fbf3eff9daefb93924da098ae4bd1eae",
+          "inference_script_sha256": "4b11f7ab5621bf7e104421f7bb2561adeda97485382504c37e7ef38644b19793",
+          "manifest_sha256": "630242e4b79a884112209084853b31d25a01cc264ac536a67a43055da61aa9f1",
+          "hug_depth_png_sha256": "1ae0d1c8001d0b7b5932ee21e976bf27645b4f06c403cbf2ff31a413753d8395",
+          "prepared_sample_sha256": "30afd1d03bd335b9c9ce75ad9eb53235a2f733d3da5677946bb139eb3b4424b3",
+          "input_tensor_hash": "sha256:30c5ad39d3722765e5764ff1bcba9202d7d5c58d99f24919b32935f36c193a76"
+        },
+        "geometry_asset_files_sha256": {
+          "object.xml": "sha256:ced71ba19f6a40dc7634a729ca8ae24e78de1be0a8c8df1ddcac486661423e1d",
+          "visual.obj": "sha256:e9ee0f42bb25cd8e2149e8090bf3f062cf3d735f9738972b5d2d932c7e4179bb",
+          "collision/part_000.obj": "sha256:f050b714d7721bcfaf67391bbc375c42577b72838f80e96f73ace5bb0cb37416",
+          "collision/part_001.obj": "sha256:37b822ec21d2497030c57ff003adfdeee56c312a3d20cb0295bb670ec0b30ccb",
+          "collision/part_002.obj": "sha256:88da7546e7559e7f3d94c448ce30742408b44442c5d55b49de66c91f652db44c",
+          "collision/part_003.obj": "sha256:17890e11105b70874f2a4cf20f5e66387b9490a742e13ad0a804c5e237f8b568",
+          "collision/part_004.obj": "sha256:37b4575c623c914855c185aa12211919093d38bf164382e8a1e8366209ceb612",
+          "collision/part_005.obj": "sha256:d2977aeca19a41553e5a623974984e4d2f8264822ad77ce034d672fbc8d75a30",
+          "collision/part_006.obj": "sha256:83d7ff7ba8a6b8b56e3c09bbb38c39c94a4129ab83d281e0b96a2ef613a7e1eb",
+          "collision/part_007.obj": "sha256:d1c0e8e316ef6e24b63002fd9066012a73fbfe1d43832a082c6301c9f93e644c",
+          "collision/part_008.obj": "sha256:fb8fdcf8226d1d450f5073c79188c4271640ef967b5484a647b834cea4d15265",
+          "collision/part_009.obj": "sha256:6cde7933ad04711b65ab13c3454ef9ffd322d3d50ac4c39ed891e1e733cb9b86",
+          "collision/part_010.obj": "sha256:81fe2b968182947eeeafeabba6253803670a37f7f40b9b860c300220e84b8810",
+          "collision/part_011.obj": "sha256:aa4c74dec977942b89e0a62a6ea005a297ce3d64d9e3d5ffb593258f97aa0e1c",
+          "collision/part_012.obj": "sha256:f2c88a547b5757fb559b49bb8ba15d9465abed3e647a423eb13584ae2739519e",
+          "collision/part_013.obj": "sha256:e298ecbbb1dc4ce1b364216fbc626986fdafa82f13c41617b3171a6454dd1e5a",
+          "collision/part_014.obj": "sha256:7bd0bbd3ffac686db9033f5729e83954cd9b85071e3b98dfba2953d83d21f7f3"
+        },
+        "proposal_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_2/proposal.pkl",
+        "observation_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/observations/scene_002"
+      },
+      "poses": {
+        "A": {
+          "wrist_rad": [
+            0.15998858333333332,
+            -0.555960375
+          ],
+          "nominal_table_clearance_m": 0.010059770901799409,
+          "nominal_proximal_object_distance_m": 0.07551105579562181,
+          "passes_geometry_gate": true,
+          "failed_gates": [],
+          "root_position_m": [
+            0.33972322781052433,
+            -0.09445725572359161,
+            0.12270987946300863
+          ],
+          "root_quaternion_wxyz": [
+            0.5692172751637191,
+            0.04726031570426692,
+            -0.7920089749830834,
+            -0.21559206794538818
+          ],
+          "intended_22_finger_targets_unchanged": true,
+          "world_palm_invariance": {
+            "nominal_target": {
+              "maximum_world_palm_position_error_m": 6.938893903907228e-17,
+              "maximum_world_palm_rotation_matrix_error": 3.885780586188048e-16
+            },
+            "near_open_approach": {
+              "maximum_world_palm_position_error_m": 6.938893903907228e-17,
+              "maximum_world_palm_rotation_matrix_error": 3.885780586188048e-16
+            }
+          },
+          "finger_geometry_invariance": {
+            "nominal_target": {
+              "maximum_world_finger_geom_position_difference_m": 1.457167719820518e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 5.828670879282072e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            },
+            "near_open_approach": {
+              "maximum_world_finger_geom_position_difference_m": 1.2836953722228372e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 5.828670879282072e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            }
+          },
+          "training_wrist_scaled_distance": 70.72145750927581,
+          "training_distance_lower_than_B": false,
+          "in_training_command_range_per_joint": [
+            false,
+            false
+          ],
+          "is_observed_training_pair": false,
+          "wrist_distance_from_B_rad": 0.02868606641600787,
+          "eligible_as_A": true,
+          "candidate_origins": [
+            "nearest_training_geometry_refinement_2"
+          ]
+        },
+        "B": {
+          "wrist_rad": [
+            0.174533,
+            -0.5312348749999999
+          ],
+          "nominal_table_clearance_m": 0.01000712652349628,
+          "nominal_proximal_object_distance_m": 0.07551105582095688,
+          "passes_geometry_gate": true,
+          "failed_gates": [],
+          "root_position_m": [
+            0.33776407597138025,
+            -0.10092570300375048,
+            0.123070505335768
+          ],
+          "root_quaternion_wxyz": [
+            0.5644193771492668,
+            0.037118998052169956,
+            -0.7935358435768196,
+            -0.22439654997539818
+          ],
+          "intended_22_finger_targets_unchanged": true,
+          "world_palm_invariance": {
+            "nominal_target": {
+              "maximum_world_palm_position_error_m": 1.1796119636642288e-16,
+              "maximum_world_palm_rotation_matrix_error": 4.440892098500626e-16
+            },
+            "near_open_approach": {
+              "maximum_world_palm_position_error_m": 1.1796119636642288e-16,
+              "maximum_world_palm_rotation_matrix_error": 4.440892098500626e-16
+            }
+          },
+          "finger_geometry_invariance": {
+            "nominal_target": {
+              "maximum_world_finger_geom_position_difference_m": 1.734723475976807e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 6.38378239159465e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            },
+            "near_open_approach": {
+              "maximum_world_finger_geom_position_difference_m": 1.6653345369377348e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 6.106226635438361e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            }
+          },
+          "training_wrist_scaled_distance": 69.39428553887137,
+          "training_distance_lower_than_B": false,
+          "in_training_command_range_per_joint": [
+            false,
+            false
+          ],
+          "is_observed_training_pair": false,
+          "wrist_distance_from_B_rad": 0.0,
+          "eligible_as_A": false,
+          "matches_stored_v3_plan": {
+            "table_clearance_matches_saved": true,
+            "proximal_distance_matches_saved": true,
+            "carrier_position_matches_saved": true,
+            "carrier_quaternion_matches_saved": true
+          }
+        }
+      },
+      "wrist_delta_A_minus_B_rad": [
+        -0.01454441666666667,
+        -0.024725500000000067
+      ],
+      "simulator_time_s": 0.0,
+      "generated_action_history_rows": 0
+    },
+    {
+      "pair_id": "mug_scene002_seed3_noise0.00",
+      "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_002_seed_3.yaml",
+      "case_sha256": "9aa731e66d02d3c33aeb4f20524f453be8f6228762774aa0a694a4d32b4f9b66",
+      "original_episode_id": "episode_001755",
+      "eligible": true,
+      "status": "frozen_eligible_static_pair",
+      "reason": null,
+      "comparison_qualification": "two_out_of_range_wrists_sensitivity_only",
+      "intended_world_palm_position_m": [
+        0.10897294742210639,
+        -0.034745016304630616,
+        0.062683128256866
+      ],
+      "intended_world_palm_quaternion_wxyz": [
+        0.6149338879118249,
+        -0.15221643390890852,
+        -0.6791938689663132,
+        -0.37065099366421866
+      ],
+      "intended_finger_joint_names": [
+        "FFJ4",
+        "FFJ3",
+        "FFJ2",
+        "FFJ1",
+        "MFJ4",
+        "MFJ3",
+        "MFJ2",
+        "MFJ1",
+        "RFJ4",
+        "RFJ3",
+        "RFJ2",
+        "RFJ1",
+        "LFJ5",
+        "LFJ4",
+        "LFJ3",
+        "LFJ2",
+        "LFJ1",
+        "THJ5",
+        "THJ4",
+        "THJ3",
+        "THJ2",
+        "THJ1"
+      ],
+      "intended_finger_target_rad": [
+        -0.349065850399,
+        0.09853944182395935,
+        0.5713157653808594,
+        0.8060428500175476,
+        -0.2451753318309784,
+        0.35703209042549133,
+        0.3902256190776825,
+        0.4640633761882782,
+        0.20962299406528473,
+        0.6369454264640808,
+        0.06863992661237717,
+        0.36935126781463623,
+        0.0,
+        0.15792712569236755,
+        0.7345100045204163,
+        0.0,
+        0.7302615642547607,
+        0.08766128122806549,
+        1.1500390768051147,
+        -0.049469489604234695,
+        0.012055185623466969,
+        0.23421087861061096
+      ],
+      "physical_wrist_limits_rad": [
+        [
+          -0.523599,
+          0.174533
+        ],
+        [
+          -0.698132,
+          0.488692
+        ]
+      ],
+      "resolved_environment": {
+        "schema_version": "environment_spec_v1",
+        "environment_id": "adroit_shadow_tabletop_v2",
+        "runner": "grasp_failure_prediction.evaluation.runner:ActuatedShadowRunner",
+        "simulator": {
+          "type": "mujoco",
+          "physics_timestep_s": 0.002,
+          "control_timestep_s": 0.04
+        },
+        "scene": {
+          "model_path": "third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf",
+          "table_size_m": [
+            0.8,
+            0.8,
+            0.05
+          ]
+        },
+        "robot": {
+          "arm_model": "ideal_arm_carrier_v1",
+          "hand_model": "shadow_hand_right",
+          "joint_order_path": "dex-retargeting:shadow_hand_right.yml",
+          "controller_id": "force_limited_shadow_position_v1"
+        },
+        "contracts": {
+          "observation": "shadow_tabletop_observation_v1",
+          "action": "shadow_force_limited_target_v1",
+          "outcome": "grasp_lift_outcome_v1"
+        },
+        "cameras": [
+          {
+            "id": "front",
+            "width": 640,
+            "height": 480,
+            "fps": 25
+          },
+          {
+            "id": "wrist",
+            "width": 640,
+            "height": 480,
+            "fps": 25
+          }
+        ]
+      },
+      "environment_config_hash": "sha256:954eb93c4a4cffbff9f5b4001823d47dba9c92109427eb97c538ca8532744717",
+      "resolved_base_execution_protocol": {
+        "schema_version": "execution_protocol_v1",
+        "execution_protocol_id": "fixed_grasp_lift_v2",
+        "states": [
+          "reset",
+          "load_object",
+          "retarget",
+          "move_to_pregrasp",
+          "approach",
+          "close_fingers",
+          "lift",
+          "hold",
+          "score"
+        ],
+        "parameters": {
+          "pregrasp_distance_m": 0.08,
+          "palm_height_above_object_m": 0.04,
+          "approach_duration_s": 1.0,
+          "grip_command": 1.0,
+          "grip_command_type": "normalized_position",
+          "close_duration_s": 1.0,
+          "settle_duration_s": 0.8,
+          "force_close_delta_rad": 0.2,
+          "maximum_mean_fingertip_error_m": 0.01,
+          "lift_height_m": 0.15,
+          "lift_duration_s": 1.5,
+          "hold_duration_s": 2.0,
+          "total_timeout_s": 10.0
+        },
+        "success": {
+          "minimum_lift_m": 0.14,
+          "required_hold_s": 2.0,
+          "maximum_object_drop_m": 0.02
+        }
+      },
+      "base_execution_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+      "stored_v3_execution_protocol": {
+        "base_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+        "base_protocol_id": "fixed_grasp_lift_v2",
+        "clearance_configuration": {
+          "check_closing_targets": false,
+          "clearance_m": 0.01,
+          "grid_points_per_joint": 13,
+          "proximal_object_clearance_m": 0.001,
+          "refinement_rounds": 3
+        },
+        "controller": "palm_preserving_wrist_clearance_v1",
+        "execution_protocol_id": "fixed_grasp_lift_v3_table_clearance",
+        "parameters": {
+          "approach_duration_s": 1.0,
+          "close_duration_s": 1.0,
+          "force_close_delta_rad": 0.2,
+          "grip_command": 1.0,
+          "grip_command_type": "normalized_position",
+          "hold_duration_s": 2.0,
+          "lift_duration_s": 1.5,
+          "lift_height_m": 0.15,
+          "maximum_mean_fingertip_error_m": 0.01,
+          "palm_height_above_object_m": 0.04,
+          "pregrasp_distance_m": 0.08,
+          "settle_duration_s": 0.8,
+          "total_timeout_s": 10.0
+        },
+        "runtime_table_margin_m": 0.001,
+        "schema_version": "execution_protocol_v1",
+        "states": [
+          "reset",
+          "load_object",
+          "retarget",
+          "move_to_pregrasp",
+          "approach",
+          "close_fingers",
+          "lift",
+          "hold",
+          "score"
+        ],
+        "success": {
+          "maximum_object_drop_m": 0.02,
+          "minimum_lift_m": 0.14,
+          "required_hold_s": 2.0
+        }
+      },
+      "stored_v3_execution_protocol_config_hash": "sha256:4a6f39458c413eafb06f93cbd24e8a4e13850acadd31bde76bec88d846b45608",
+      "source_binding": {
+        "object_id": "hug_mug",
+        "observation_files_sha256": {
+          "T_world_camera.npy": "sha256:7cf921d5850c26bfb5ee491763efb56a5fb097f1b1197a269ba4b0b080d8bbcf",
+          "depth.png": "sha256:1ae0d1c8001d0b7b5932ee21e976bf27645b4f06c403cbf2ff31a413753d8395",
+          "depth_m.npy": "sha256:6d84b8e27cb25c27cb44d47e8c58800b85dc2209469e1fcfe7a817e1da8c2f96",
+          "intrinsics.npy": "sha256:284e3ac36b9bf5038dc41030f30ef79e397f5e15414767f5730b0da1858a0f4f",
+          "object_mask.png": "sha256:03e5c6919148dd9b00383d9fd95e75adfee0402fcf31c2d052b698ce3ca564b3",
+          "rgb.png": "sha256:1918d526d8a96ad3cf211fb1bdfe661c5846f41213afbcd1ab604035c35349fa"
+        },
+        "proposal_sha256": "sha256:16aa0a790528ff3af2a64937fffefea98658fb1ab9f020ae5a430f501287125e",
+        "camera_sha256": "sha256:7cf921d5850c26bfb5ee491763efb56a5fb097f1b1197a269ba4b0b080d8bbcf",
+        "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+        "object_position_m": [
+          -0.03081908323373589,
+          -0.013500259903564488,
+          0.05731972693903406
+        ],
+        "object_orientation_xyzw": [
+          -0.013427551995984773,
+          -0.006137545571129831,
+          -0.0012919682924076275,
+          0.9998901750690867
+        ],
+        "observation_manifest_sha256": "sha256:630242e4b79a884112209084853b31d25a01cc264ac536a67a43055da61aa9f1",
+        "group_id": "sha256:0ab284cedf292ddb48a9b3b38d848c103f8d9bc008dbf060f04e7e686573e90b",
+        "observation_group_id": "sha256:25ac5ecfb667d98aeabc060b069640a74805148a800669404d666c70c094bd98",
+        "geometry_group_id": "sha256:fbb290d9b70ffb20e0aaadab762d5c8e38e289ce7993894d4be5c1ae3f048bde",
+        "scene_contract_status": "verified",
+        "scene_contract_sha256": "sha256:31e90523b29c632662f600b3b01deffe624ea5ce0595f99f1a9570fe75013fdd",
+        "observation_selection_uv": [
+          112,
+          106
+        ],
+        "observation_source": {
+          "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+          "kind": "mujoco_render",
+          "mujoco_version": "3.3.7",
+          "object": "hug_mug",
+          "seed": 10106
+        },
+        "inference_report_sha256": "sha256:149ac5125e4c17d9c1878430f1b2730d4d0d6ba52264b3d5e1c7a18e6aa74323",
+        "hug_inference_provenance": {
+          "seed": 3,
+          "sampling_steps": 50,
+          "device": "cpu",
+          "dtype": "float32",
+          "generation_rng": "PyTorch and libc srand reset immediately before CPU model.sample; batch size one",
+          "hug_code_commit": "8d1c52d4c24bfae5a369e32e3f134f5601a02630",
+          "checkpoint_sha256": "515b5c3bc7987739aec019e754c15df5fbf3eff9daefb93924da098ae4bd1eae",
+          "inference_script_sha256": "4b11f7ab5621bf7e104421f7bb2561adeda97485382504c37e7ef38644b19793",
+          "manifest_sha256": "630242e4b79a884112209084853b31d25a01cc264ac536a67a43055da61aa9f1",
+          "hug_depth_png_sha256": "1ae0d1c8001d0b7b5932ee21e976bf27645b4f06c403cbf2ff31a413753d8395",
+          "prepared_sample_sha256": "30afd1d03bd335b9c9ce75ad9eb53235a2f733d3da5677946bb139eb3b4424b3",
+          "input_tensor_hash": "sha256:31e003587ba53be1bd74f4d514cf029018fd0fa67b1a2ccc827bdc52d3cde38c"
+        },
+        "geometry_asset_files_sha256": {
+          "object.xml": "sha256:ced71ba19f6a40dc7634a729ca8ae24e78de1be0a8c8df1ddcac486661423e1d",
+          "visual.obj": "sha256:e9ee0f42bb25cd8e2149e8090bf3f062cf3d735f9738972b5d2d932c7e4179bb",
+          "collision/part_000.obj": "sha256:f050b714d7721bcfaf67391bbc375c42577b72838f80e96f73ace5bb0cb37416",
+          "collision/part_001.obj": "sha256:37b822ec21d2497030c57ff003adfdeee56c312a3d20cb0295bb670ec0b30ccb",
+          "collision/part_002.obj": "sha256:88da7546e7559e7f3d94c448ce30742408b44442c5d55b49de66c91f652db44c",
+          "collision/part_003.obj": "sha256:17890e11105b70874f2a4cf20f5e66387b9490a742e13ad0a804c5e237f8b568",
+          "collision/part_004.obj": "sha256:37b4575c623c914855c185aa12211919093d38bf164382e8a1e8366209ceb612",
+          "collision/part_005.obj": "sha256:d2977aeca19a41553e5a623974984e4d2f8264822ad77ce034d672fbc8d75a30",
+          "collision/part_006.obj": "sha256:83d7ff7ba8a6b8b56e3c09bbb38c39c94a4129ab83d281e0b96a2ef613a7e1eb",
+          "collision/part_007.obj": "sha256:d1c0e8e316ef6e24b63002fd9066012a73fbfe1d43832a082c6301c9f93e644c",
+          "collision/part_008.obj": "sha256:fb8fdcf8226d1d450f5073c79188c4271640ef967b5484a647b834cea4d15265",
+          "collision/part_009.obj": "sha256:6cde7933ad04711b65ab13c3454ef9ffd322d3d50ac4c39ed891e1e733cb9b86",
+          "collision/part_010.obj": "sha256:81fe2b968182947eeeafeabba6253803670a37f7f40b9b860c300220e84b8810",
+          "collision/part_011.obj": "sha256:aa4c74dec977942b89e0a62a6ea005a297ce3d64d9e3d5ffb593258f97aa0e1c",
+          "collision/part_012.obj": "sha256:f2c88a547b5757fb559b49bb8ba15d9465abed3e647a423eb13584ae2739519e",
+          "collision/part_013.obj": "sha256:e298ecbbb1dc4ce1b364216fbc626986fdafa82f13c41617b3171a6454dd1e5a",
+          "collision/part_014.obj": "sha256:7bd0bbd3ffac686db9033f5729e83954cd9b85071e3b98dfba2953d83d21f7f3"
+        },
+        "proposal_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_3/proposal.pkl",
+        "observation_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/observations/scene_002"
+      },
+      "poses": {
+        "A": {
+          "wrist_rad": [
+            0.16362468749999998,
+            -0.38442721874999997
+          ],
+          "nominal_table_clearance_m": 0.010092550656274582,
+          "nominal_proximal_object_distance_m": 0.07473175361655508,
+          "passes_geometry_gate": true,
+          "failed_gates": [],
+          "root_position_m": [
+            0.3297620066010719,
+            -0.12867288657623305,
+            0.12056420812784847
+          ],
+          "root_quaternion_wxyz": [
+            0.5703025146005024,
+            -0.05096320984040354,
+            -0.7867291315212628,
+            -0.23068391079333275
+          ],
+          "intended_22_finger_targets_unchanged": true,
+          "world_palm_invariance": {
+            "nominal_target": {
+              "maximum_world_palm_position_error_m": 4.163336342344337e-17,
+              "maximum_world_palm_rotation_matrix_error": 2.220446049250313e-16
+            },
+            "near_open_approach": {
+              "maximum_world_palm_position_error_m": 4.163336342344337e-17,
+              "maximum_world_palm_rotation_matrix_error": 2.220446049250313e-16
+            }
+          },
+          "finger_geometry_invariance": {
+            "nominal_target": {
+              "maximum_world_finger_geom_position_difference_m": 1.1796119636642288e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 6.661338147750939e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            },
+            "near_open_approach": {
+              "maximum_world_finger_geom_position_difference_m": 1.1102230246251565e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 5.551115123125783e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            }
+          },
+          "training_wrist_scaled_distance": 56.11807851681829,
+          "training_distance_lower_than_B": false,
+          "in_training_command_range_per_joint": [
+            false,
+            false
+          ],
+          "is_observed_training_pair": false,
+          "wrist_distance_from_B_rad": 0.027024833613690524,
+          "eligible_as_A": true,
+          "candidate_origins": [
+            "nearest_training_geometry_refinement_3"
+          ]
+        },
+        "B": {
+          "wrist_rad": [
+            0.174533,
+            -0.35970171874999995
+          ],
+          "nominal_table_clearance_m": 0.010042140046762946,
+          "nominal_proximal_object_distance_m": 0.07473175357309897,
+          "passes_geometry_gate": true,
+          "failed_gates": [],
+          "root_position_m": [
+            0.32703939975164953,
+            -0.13451600057923369,
+            0.12087812925388966
+          ],
+          "root_quaternion_wxyz": [
+            0.5658186990942625,
+            -0.06080305052130673,
+            -0.7868504101298665,
+            -0.2387857216858678
+          ],
+          "intended_22_finger_targets_unchanged": true,
+          "world_palm_invariance": {
+            "nominal_target": {
+              "maximum_world_palm_position_error_m": 5.551115123125783e-17,
+              "maximum_world_palm_rotation_matrix_error": 4.440892098500626e-16
+            },
+            "near_open_approach": {
+              "maximum_world_palm_position_error_m": 5.551115123125783e-17,
+              "maximum_world_palm_rotation_matrix_error": 4.440892098500626e-16
+            }
+          },
+          "finger_geometry_invariance": {
+            "nominal_target": {
+              "maximum_world_finger_geom_position_difference_m": 1.8735013540549517e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 9.992007221626409e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            },
+            "near_open_approach": {
+              "maximum_world_finger_geom_position_difference_m": 1.6653345369377348e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 8.881784197001252e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            }
+          },
+          "training_wrist_scaled_distance": 55.107457776037045,
+          "training_distance_lower_than_B": false,
+          "in_training_command_range_per_joint": [
+            false,
+            false
+          ],
+          "is_observed_training_pair": false,
+          "wrist_distance_from_B_rad": 0.0,
+          "eligible_as_A": false,
+          "matches_stored_v3_plan": {
+            "table_clearance_matches_saved": true,
+            "proximal_distance_matches_saved": true,
+            "carrier_position_matches_saved": true,
+            "carrier_quaternion_matches_saved": true
+          }
+        }
+      },
+      "wrist_delta_A_minus_B_rad": [
+        -0.010908312500000017,
+        -0.02472550000000001
+      ],
+      "simulator_time_s": 0.0,
+      "generated_action_history_rows": 0
+    },
+    {
+      "pair_id": "mug_scene003_seed0_noise0.00",
+      "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_003_seed_0.yaml",
+      "case_sha256": "87eafdc9e3a0594c9ae15d9596b043778ce8883a9841585485e049aa11e6e164",
+      "original_episode_id": "episode_001820",
+      "eligible": true,
+      "status": "frozen_eligible_static_pair",
+      "reason": null,
+      "comparison_qualification": "two_out_of_range_wrists_sensitivity_only",
+      "intended_world_palm_position_m": [
+        0.15731461784521933,
+        0.025530383644351118,
+        0.07504810685530222
+      ],
+      "intended_world_palm_quaternion_wxyz": [
+        0.6050248355603675,
+        -0.11829298642127115,
+        -0.7090623376569138,
+        -0.3423190310736464
+      ],
+      "intended_finger_joint_names": [
+        "FFJ4",
+        "FFJ3",
+        "FFJ2",
+        "FFJ1",
+        "MFJ4",
+        "MFJ3",
+        "MFJ2",
+        "MFJ1",
+        "RFJ4",
+        "RFJ3",
+        "RFJ2",
+        "RFJ1",
+        "LFJ5",
+        "LFJ4",
+        "LFJ3",
+        "LFJ2",
+        "LFJ1",
+        "THJ5",
+        "THJ4",
+        "THJ3",
+        "THJ2",
+        "THJ1"
+      ],
+      "intended_finger_target_rad": [
+        -0.349065850399,
+        0.09606418013572693,
+        0.5778234004974365,
+        0.8296473026275635,
+        -0.2516842782497406,
+        0.378273606300354,
+        0.40383782982826233,
+        0.46021246910095215,
+        0.20845872163772583,
+        0.6677410006523132,
+        0.06240691989660263,
+        0.3584100306034088,
+        0.0,
+        0.17038622498512268,
+        0.7374956607818604,
+        0.0,
+        0.7374698519706726,
+        0.039498087018728256,
+        1.1612308025360107,
+        -0.052375566214323044,
+        0.016431543976068497,
+        0.20965750515460968
+      ],
+      "physical_wrist_limits_rad": [
+        [
+          -0.523599,
+          0.174533
+        ],
+        [
+          -0.698132,
+          0.488692
+        ]
+      ],
+      "resolved_environment": {
+        "schema_version": "environment_spec_v1",
+        "environment_id": "adroit_shadow_tabletop_v2",
+        "runner": "grasp_failure_prediction.evaluation.runner:ActuatedShadowRunner",
+        "simulator": {
+          "type": "mujoco",
+          "physics_timestep_s": 0.002,
+          "control_timestep_s": 0.04
+        },
+        "scene": {
+          "model_path": "third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf",
+          "table_size_m": [
+            0.8,
+            0.8,
+            0.05
+          ]
+        },
+        "robot": {
+          "arm_model": "ideal_arm_carrier_v1",
+          "hand_model": "shadow_hand_right",
+          "joint_order_path": "dex-retargeting:shadow_hand_right.yml",
+          "controller_id": "force_limited_shadow_position_v1"
+        },
+        "contracts": {
+          "observation": "shadow_tabletop_observation_v1",
+          "action": "shadow_force_limited_target_v1",
+          "outcome": "grasp_lift_outcome_v1"
+        },
+        "cameras": [
+          {
+            "id": "front",
+            "width": 640,
+            "height": 480,
+            "fps": 25
+          },
+          {
+            "id": "wrist",
+            "width": 640,
+            "height": 480,
+            "fps": 25
+          }
+        ]
+      },
+      "environment_config_hash": "sha256:954eb93c4a4cffbff9f5b4001823d47dba9c92109427eb97c538ca8532744717",
+      "resolved_base_execution_protocol": {
+        "schema_version": "execution_protocol_v1",
+        "execution_protocol_id": "fixed_grasp_lift_v2",
+        "states": [
+          "reset",
+          "load_object",
+          "retarget",
+          "move_to_pregrasp",
+          "approach",
+          "close_fingers",
+          "lift",
+          "hold",
+          "score"
+        ],
+        "parameters": {
+          "pregrasp_distance_m": 0.08,
+          "palm_height_above_object_m": 0.04,
+          "approach_duration_s": 1.0,
+          "grip_command": 1.0,
+          "grip_command_type": "normalized_position",
+          "close_duration_s": 1.0,
+          "settle_duration_s": 0.8,
+          "force_close_delta_rad": 0.2,
+          "maximum_mean_fingertip_error_m": 0.01,
+          "lift_height_m": 0.15,
+          "lift_duration_s": 1.5,
+          "hold_duration_s": 2.0,
+          "total_timeout_s": 10.0
+        },
+        "success": {
+          "minimum_lift_m": 0.14,
+          "required_hold_s": 2.0,
+          "maximum_object_drop_m": 0.02
+        }
+      },
+      "base_execution_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+      "stored_v3_execution_protocol": {
+        "base_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+        "base_protocol_id": "fixed_grasp_lift_v2",
+        "clearance_configuration": {
+          "check_closing_targets": false,
+          "clearance_m": 0.01,
+          "grid_points_per_joint": 13,
+          "proximal_object_clearance_m": 0.001,
+          "refinement_rounds": 3
+        },
+        "controller": "palm_preserving_wrist_clearance_v1",
+        "execution_protocol_id": "fixed_grasp_lift_v3_table_clearance",
+        "parameters": {
+          "approach_duration_s": 1.0,
+          "close_duration_s": 1.0,
+          "force_close_delta_rad": 0.2,
+          "grip_command": 1.0,
+          "grip_command_type": "normalized_position",
+          "hold_duration_s": 2.0,
+          "lift_duration_s": 1.5,
+          "lift_height_m": 0.15,
+          "maximum_mean_fingertip_error_m": 0.01,
+          "palm_height_above_object_m": 0.04,
+          "pregrasp_distance_m": 0.08,
+          "settle_duration_s": 0.8,
+          "total_timeout_s": 10.0
+        },
+        "runtime_table_margin_m": 0.001,
+        "schema_version": "execution_protocol_v1",
+        "states": [
+          "reset",
+          "load_object",
+          "retarget",
+          "move_to_pregrasp",
+          "approach",
+          "close_fingers",
+          "lift",
+          "hold",
+          "score"
+        ],
+        "success": {
+          "maximum_object_drop_m": 0.02,
+          "minimum_lift_m": 0.14,
+          "required_hold_s": 2.0
+        }
+      },
+      "stored_v3_execution_protocol_config_hash": "sha256:4a6f39458c413eafb06f93cbd24e8a4e13850acadd31bde76bec88d846b45608",
+      "source_binding": {
+        "object_id": "hug_mug",
+        "observation_files_sha256": {
+          "T_world_camera.npy": "sha256:dfd0bf5db56e1b9806918f2de09164b966fa15376959c2cd6d6455ceb4389a09",
+          "depth.png": "sha256:a816968bac20b8c5658db6aed22c944b20e3a9a61f8a773faaffcdad41e489f4",
+          "depth_m.npy": "sha256:d972426c6a703a58bc9e37e707ff043ea39f32b86ab7e2419de1c7ff3a796b63",
+          "intrinsics.npy": "sha256:284e3ac36b9bf5038dc41030f30ef79e397f5e15414767f5730b0da1858a0f4f",
+          "object_mask.png": "sha256:430f9ea1ccfcd033a3e11a065fc5f4aeba4e64268e23d6ba8846a5a51595f2cf",
+          "rgb.png": "sha256:032116075fe34acf9ccf5304963ecf971ea845f5f07ecc1bd9e8efd97dd7cc2a"
+        },
+        "proposal_sha256": "sha256:a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+        "camera_sha256": "sha256:dfd0bf5db56e1b9806918f2de09164b966fa15376959c2cd6d6455ceb4389a09",
+        "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+        "object_position_m": [
+          0.01918091676627766,
+          0.03149974009638402,
+          0.05731972693903388
+        ],
+        "object_orientation_xyzw": [
+          -0.01342755199553721,
+          -0.00613754557101098,
+          -0.0012919682924089813,
+          0.9998901750690935
+        ],
+        "observation_manifest_sha256": "sha256:7c6aec66b7f352713649d6151a36e1871875551bce12da7a170f413833b80519",
+        "group_id": "sha256:d40062b1e83e6ceed558747345802940874dbca543fc143c37d5a5ba88222629",
+        "observation_group_id": "sha256:95ec9fd1d841d0aaa699c5fc9d5ee219f6a26a02dddaabc4e4ac3a43f0ef60a7",
+        "geometry_group_id": "sha256:fbb290d9b70ffb20e0aaadab762d5c8e38e289ce7993894d4be5c1ae3f048bde",
+        "scene_contract_status": "verified",
+        "scene_contract_sha256": "sha256:a81892de93d866e8cf75c5ff2ae437075ee101f114980efcd36624c8d2b157c3",
+        "observation_selection_uv": [
+          111,
+          106
+        ],
+        "observation_source": {
+          "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+          "kind": "mujoco_render",
+          "mujoco_version": "3.3.7",
+          "object": "hug_mug",
+          "seed": 10107
+        },
+        "inference_report_sha256": "sha256:63a26fa002622df0d8fa57776cad862d519dc07f6da5b1214ab841b871050017",
+        "hug_inference_provenance": {
+          "seed": 0,
+          "sampling_steps": 50,
+          "device": "cpu",
+          "dtype": "float32",
+          "generation_rng": "PyTorch and libc srand reset immediately before CPU model.sample; batch size one",
+          "hug_code_commit": "8d1c52d4c24bfae5a369e32e3f134f5601a02630",
+          "checkpoint_sha256": "515b5c3bc7987739aec019e754c15df5fbf3eff9daefb93924da098ae4bd1eae",
+          "inference_script_sha256": "4b11f7ab5621bf7e104421f7bb2561adeda97485382504c37e7ef38644b19793",
+          "manifest_sha256": "7c6aec66b7f352713649d6151a36e1871875551bce12da7a170f413833b80519",
+          "hug_depth_png_sha256": "a816968bac20b8c5658db6aed22c944b20e3a9a61f8a773faaffcdad41e489f4",
+          "prepared_sample_sha256": "04028cea3b505a3a8c7bf0ba83cc95f12978032b4f850cae96fa25f6c571fb92",
+          "input_tensor_hash": "sha256:0398b8454f334d86377256397aec74b4ada957de844d41fb150f5f20c3f93c52"
+        },
+        "geometry_asset_files_sha256": {
+          "object.xml": "sha256:ced71ba19f6a40dc7634a729ca8ae24e78de1be0a8c8df1ddcac486661423e1d",
+          "visual.obj": "sha256:e9ee0f42bb25cd8e2149e8090bf3f062cf3d735f9738972b5d2d932c7e4179bb",
+          "collision/part_000.obj": "sha256:f050b714d7721bcfaf67391bbc375c42577b72838f80e96f73ace5bb0cb37416",
+          "collision/part_001.obj": "sha256:37b822ec21d2497030c57ff003adfdeee56c312a3d20cb0295bb670ec0b30ccb",
+          "collision/part_002.obj": "sha256:88da7546e7559e7f3d94c448ce30742408b44442c5d55b49de66c91f652db44c",
+          "collision/part_003.obj": "sha256:17890e11105b70874f2a4cf20f5e66387b9490a742e13ad0a804c5e237f8b568",
+          "collision/part_004.obj": "sha256:37b4575c623c914855c185aa12211919093d38bf164382e8a1e8366209ceb612",
+          "collision/part_005.obj": "sha256:d2977aeca19a41553e5a623974984e4d2f8264822ad77ce034d672fbc8d75a30",
+          "collision/part_006.obj": "sha256:83d7ff7ba8a6b8b56e3c09bbb38c39c94a4129ab83d281e0b96a2ef613a7e1eb",
+          "collision/part_007.obj": "sha256:d1c0e8e316ef6e24b63002fd9066012a73fbfe1d43832a082c6301c9f93e644c",
+          "collision/part_008.obj": "sha256:fb8fdcf8226d1d450f5073c79188c4271640ef967b5484a647b834cea4d15265",
+          "collision/part_009.obj": "sha256:6cde7933ad04711b65ab13c3454ef9ffd322d3d50ac4c39ed891e1e733cb9b86",
+          "collision/part_010.obj": "sha256:81fe2b968182947eeeafeabba6253803670a37f7f40b9b860c300220e84b8810",
+          "collision/part_011.obj": "sha256:aa4c74dec977942b89e0a62a6ea005a297ce3d64d9e3d5ffb593258f97aa0e1c",
+          "collision/part_012.obj": "sha256:f2c88a547b5757fb559b49bb8ba15d9465abed3e647a423eb13584ae2739519e",
+          "collision/part_013.obj": "sha256:e298ecbbb1dc4ce1b364216fbc626986fdafa82f13c41617b3171a6454dd1e5a",
+          "collision/part_014.obj": "sha256:7bd0bbd3ffac686db9033f5729e83954cd9b85071e3b98dfba2953d83d21f7f3"
+        },
+        "proposal_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/proposal.pkl",
+        "observation_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/observations/scene_003"
+      },
+      "poses": {
+        "A": {
+          "wrist_rad": [
+            -0.011817338541666778,
+            -0.12480946874999994
+          ],
+          "nominal_table_clearance_m": 0.010065447411594305,
+          "nominal_proximal_object_distance_m": 0.06864679302462008,
+          "passes_geometry_gate": true,
+          "failed_gates": [],
+          "root_position_m": [
+            0.3710454982624987,
+            -0.09711817387956845,
+            0.09478058809911556
+          ],
+          "root_quaternion_wxyz": [
+            0.6155212862082857,
+            -0.07857198849542074,
+            -0.7254063546489251,
+            -0.29790201322470294
+          ],
+          "intended_22_finger_targets_unchanged": true,
+          "world_palm_invariance": {
+            "nominal_target": {
+              "maximum_world_palm_position_error_m": 2.7755575615628914e-17,
+              "maximum_world_palm_rotation_matrix_error": 2.220446049250313e-16
+            },
+            "near_open_approach": {
+              "maximum_world_palm_position_error_m": 2.7755575615628914e-17,
+              "maximum_world_palm_rotation_matrix_error": 2.220446049250313e-16
+            }
+          },
+          "finger_geometry_invariance": {
+            "nominal_target": {
+              "maximum_world_finger_geom_position_difference_m": 1.6306400674181987e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 6.661338147750939e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            },
+            "near_open_approach": {
+              "maximum_world_finger_geom_position_difference_m": 1.8735013540549517e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 8.881784197001252e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            }
+          },
+          "training_wrist_scaled_distance": 22.71907355847294,
+          "training_distance_lower_than_B": true,
+          "in_training_command_range_per_joint": [
+            false,
+            false
+          ],
+          "is_observed_training_pair": false,
+          "wrist_distance_from_B_rad": 0.028686066416007804,
+          "eligible_as_A": true,
+          "candidate_origins": [
+            "nearest_training_geometry_refinement_2",
+            "nearest_training_geometry_refinement_3"
+          ]
+        },
+        "B": {
+          "wrist_rad": [
+            -0.02636175520833344,
+            -0.14953496874999994
+          ],
+          "nominal_table_clearance_m": 0.010000794551100506,
+          "nominal_proximal_object_distance_m": 0.06864679313552938,
+          "passes_geometry_gate": true,
+          "failed_gates": [],
+          "root_position_m": [
+            0.3743998911586175,
+            -0.09120808345219826,
+            0.09389012889694572
+          ],
+          "root_quaternion_wxyz": [
+            0.6217742940527293,
+            -0.06896091097185285,
+            -0.7245195051100559,
+            -0.2893313096231409
+          ],
+          "intended_22_finger_targets_unchanged": true,
+          "world_palm_invariance": {
+            "nominal_target": {
+              "maximum_world_palm_position_error_m": 2.7755575615628914e-17,
+              "maximum_world_palm_rotation_matrix_error": 1.6653345369377348e-16
+            },
+            "near_open_approach": {
+              "maximum_world_palm_position_error_m": 2.7755575615628914e-17,
+              "maximum_world_palm_rotation_matrix_error": 1.6653345369377348e-16
+            }
+          },
+          "finger_geometry_invariance": {
+            "nominal_target": {
+              "maximum_world_finger_geom_position_difference_m": 7.28583859910259e-17,
+              "maximum_world_finger_geom_rotation_matrix_difference": 3.3306690738754696e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            },
+            "near_open_approach": {
+              "maximum_world_finger_geom_position_difference_m": 6.938893903907228e-17,
+              "maximum_world_finger_geom_rotation_matrix_difference": 4.996003610813204e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            }
+          },
+          "training_wrist_scaled_distance": 22.79413649754167,
+          "training_distance_lower_than_B": false,
+          "in_training_command_range_per_joint": [
+            false,
+            false
+          ],
+          "is_observed_training_pair": false,
+          "wrist_distance_from_B_rad": 0.0,
+          "eligible_as_A": false,
+          "matches_stored_v3_plan": {
+            "table_clearance_matches_saved": true,
+            "proximal_distance_matches_saved": true,
+            "carrier_position_matches_saved": true,
+            "carrier_quaternion_matches_saved": true
+          }
+        }
+      },
+      "wrist_delta_A_minus_B_rad": [
+        0.014544416666666664,
+        0.024725499999999997
+      ],
+      "simulator_time_s": 0.0,
+      "generated_action_history_rows": 0
+    },
+    {
+      "pair_id": "mug_scene003_seed1_noise0.00",
+      "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_003_seed_1.yaml",
+      "case_sha256": "8ff8c453add8ed8088de048229d696416e0076eb45e61f627e4949fdb9e97693",
+      "original_episode_id": "episode_001885",
+      "eligible": true,
+      "status": "frozen_eligible_static_pair",
+      "reason": null,
+      "comparison_qualification": "two_out_of_range_wrists_sensitivity_only",
+      "intended_world_palm_position_m": [
+        0.15944686369656833,
+        0.01899407591617741,
+        0.08045381866742424
+      ],
+      "intended_world_palm_quaternion_wxyz": [
+        0.5792751277905135,
+        -0.10239469189326296,
+        -0.7181473880421981,
+        -0.37177948093397545
+      ],
+      "intended_finger_joint_names": [
+        "FFJ4",
+        "FFJ3",
+        "FFJ2",
+        "FFJ1",
+        "MFJ4",
+        "MFJ3",
+        "MFJ2",
+        "MFJ1",
+        "RFJ4",
+        "RFJ3",
+        "RFJ2",
+        "RFJ1",
+        "LFJ5",
+        "LFJ4",
+        "LFJ3",
+        "LFJ2",
+        "LFJ1",
+        "THJ5",
+        "THJ4",
+        "THJ3",
+        "THJ2",
+        "THJ1"
+      ],
+      "intended_finger_target_rad": [
+        -0.349065850399,
+        0.10025380551815033,
+        0.5633240938186646,
+        0.8021366596221924,
+        -0.25474774837493896,
+        0.3547998368740082,
+        0.3711671829223633,
+        0.44971901178359985,
+        0.2342037856578827,
+        0.6428288221359253,
+        0.046986985951662064,
+        0.3586865961551666,
+        0.0,
+        0.20202653110027313,
+        0.7273815274238586,
+        0.0,
+        0.7183480858802795,
+        0.06853117048740387,
+        1.1263295412063599,
+        -0.059590358287096024,
+        0.010449687950313091,
+        0.23349709808826447
+      ],
+      "physical_wrist_limits_rad": [
+        [
+          -0.523599,
+          0.174533
+        ],
+        [
+          -0.698132,
+          0.488692
+        ]
+      ],
+      "resolved_environment": {
+        "schema_version": "environment_spec_v1",
+        "environment_id": "adroit_shadow_tabletop_v2",
+        "runner": "grasp_failure_prediction.evaluation.runner:ActuatedShadowRunner",
+        "simulator": {
+          "type": "mujoco",
+          "physics_timestep_s": 0.002,
+          "control_timestep_s": 0.04
+        },
+        "scene": {
+          "model_path": "third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf",
+          "table_size_m": [
+            0.8,
+            0.8,
+            0.05
+          ]
+        },
+        "robot": {
+          "arm_model": "ideal_arm_carrier_v1",
+          "hand_model": "shadow_hand_right",
+          "joint_order_path": "dex-retargeting:shadow_hand_right.yml",
+          "controller_id": "force_limited_shadow_position_v1"
+        },
+        "contracts": {
+          "observation": "shadow_tabletop_observation_v1",
+          "action": "shadow_force_limited_target_v1",
+          "outcome": "grasp_lift_outcome_v1"
+        },
+        "cameras": [
+          {
+            "id": "front",
+            "width": 640,
+            "height": 480,
+            "fps": 25
+          },
+          {
+            "id": "wrist",
+            "width": 640,
+            "height": 480,
+            "fps": 25
+          }
+        ]
+      },
+      "environment_config_hash": "sha256:954eb93c4a4cffbff9f5b4001823d47dba9c92109427eb97c538ca8532744717",
+      "resolved_base_execution_protocol": {
+        "schema_version": "execution_protocol_v1",
+        "execution_protocol_id": "fixed_grasp_lift_v2",
+        "states": [
+          "reset",
+          "load_object",
+          "retarget",
+          "move_to_pregrasp",
+          "approach",
+          "close_fingers",
+          "lift",
+          "hold",
+          "score"
+        ],
+        "parameters": {
+          "pregrasp_distance_m": 0.08,
+          "palm_height_above_object_m": 0.04,
+          "approach_duration_s": 1.0,
+          "grip_command": 1.0,
+          "grip_command_type": "normalized_position",
+          "close_duration_s": 1.0,
+          "settle_duration_s": 0.8,
+          "force_close_delta_rad": 0.2,
+          "maximum_mean_fingertip_error_m": 0.01,
+          "lift_height_m": 0.15,
+          "lift_duration_s": 1.5,
+          "hold_duration_s": 2.0,
+          "total_timeout_s": 10.0
+        },
+        "success": {
+          "minimum_lift_m": 0.14,
+          "required_hold_s": 2.0,
+          "maximum_object_drop_m": 0.02
+        }
+      },
+      "base_execution_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+      "stored_v3_execution_protocol": {
+        "base_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+        "base_protocol_id": "fixed_grasp_lift_v2",
+        "clearance_configuration": {
+          "check_closing_targets": false,
+          "clearance_m": 0.01,
+          "grid_points_per_joint": 13,
+          "proximal_object_clearance_m": 0.001,
+          "refinement_rounds": 3
+        },
+        "controller": "palm_preserving_wrist_clearance_v1",
+        "execution_protocol_id": "fixed_grasp_lift_v3_table_clearance",
+        "parameters": {
+          "approach_duration_s": 1.0,
+          "close_duration_s": 1.0,
+          "force_close_delta_rad": 0.2,
+          "grip_command": 1.0,
+          "grip_command_type": "normalized_position",
+          "hold_duration_s": 2.0,
+          "lift_duration_s": 1.5,
+          "lift_height_m": 0.15,
+          "maximum_mean_fingertip_error_m": 0.01,
+          "palm_height_above_object_m": 0.04,
+          "pregrasp_distance_m": 0.08,
+          "settle_duration_s": 0.8,
+          "total_timeout_s": 10.0
+        },
+        "runtime_table_margin_m": 0.001,
+        "schema_version": "execution_protocol_v1",
+        "states": [
+          "reset",
+          "load_object",
+          "retarget",
+          "move_to_pregrasp",
+          "approach",
+          "close_fingers",
+          "lift",
+          "hold",
+          "score"
+        ],
+        "success": {
+          "maximum_object_drop_m": 0.02,
+          "minimum_lift_m": 0.14,
+          "required_hold_s": 2.0
+        }
+      },
+      "stored_v3_execution_protocol_config_hash": "sha256:4a6f39458c413eafb06f93cbd24e8a4e13850acadd31bde76bec88d846b45608",
+      "source_binding": {
+        "object_id": "hug_mug",
+        "observation_files_sha256": {
+          "T_world_camera.npy": "sha256:dfd0bf5db56e1b9806918f2de09164b966fa15376959c2cd6d6455ceb4389a09",
+          "depth.png": "sha256:a816968bac20b8c5658db6aed22c944b20e3a9a61f8a773faaffcdad41e489f4",
+          "depth_m.npy": "sha256:d972426c6a703a58bc9e37e707ff043ea39f32b86ab7e2419de1c7ff3a796b63",
+          "intrinsics.npy": "sha256:284e3ac36b9bf5038dc41030f30ef79e397f5e15414767f5730b0da1858a0f4f",
+          "object_mask.png": "sha256:430f9ea1ccfcd033a3e11a065fc5f4aeba4e64268e23d6ba8846a5a51595f2cf",
+          "rgb.png": "sha256:032116075fe34acf9ccf5304963ecf971ea845f5f07ecc1bd9e8efd97dd7cc2a"
+        },
+        "proposal_sha256": "sha256:f49c9b92760f981da6a12f97191d4f9c986d7e8d61fc0aefff5aa136327824ea",
+        "camera_sha256": "sha256:dfd0bf5db56e1b9806918f2de09164b966fa15376959c2cd6d6455ceb4389a09",
+        "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+        "object_position_m": [
+          0.01918091676627766,
+          0.03149974009638402,
+          0.05731972693903388
+        ],
+        "object_orientation_xyzw": [
+          -0.01342755199553721,
+          -0.00613754557101098,
+          -0.0012919682924089813,
+          0.9998901750690935
+        ],
+        "observation_manifest_sha256": "sha256:7c6aec66b7f352713649d6151a36e1871875551bce12da7a170f413833b80519",
+        "group_id": "sha256:7d16f81f7490197102dbe00c55abe380b7c24845457d93d8f6bc547e333f12e8",
+        "observation_group_id": "sha256:95ec9fd1d841d0aaa699c5fc9d5ee219f6a26a02dddaabc4e4ac3a43f0ef60a7",
+        "geometry_group_id": "sha256:fbb290d9b70ffb20e0aaadab762d5c8e38e289ce7993894d4be5c1ae3f048bde",
+        "scene_contract_status": "verified",
+        "scene_contract_sha256": "sha256:a81892de93d866e8cf75c5ff2ae437075ee101f114980efcd36624c8d2b157c3",
+        "observation_selection_uv": [
+          111,
+          106
+        ],
+        "observation_source": {
+          "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+          "kind": "mujoco_render",
+          "mujoco_version": "3.3.7",
+          "object": "hug_mug",
+          "seed": 10107
+        },
+        "inference_report_sha256": "sha256:0b21667265c1bdcbd71e706c61aba6b6a0ffafc0bd1e9aff5889a879cc82d5dd",
+        "hug_inference_provenance": {
+          "seed": 1,
+          "sampling_steps": 50,
+          "device": "cpu",
+          "dtype": "float32",
+          "generation_rng": "PyTorch and libc srand reset immediately before CPU model.sample; batch size one",
+          "hug_code_commit": "8d1c52d4c24bfae5a369e32e3f134f5601a02630",
+          "checkpoint_sha256": "515b5c3bc7987739aec019e754c15df5fbf3eff9daefb93924da098ae4bd1eae",
+          "inference_script_sha256": "4b11f7ab5621bf7e104421f7bb2561adeda97485382504c37e7ef38644b19793",
+          "manifest_sha256": "7c6aec66b7f352713649d6151a36e1871875551bce12da7a170f413833b80519",
+          "hug_depth_png_sha256": "a816968bac20b8c5658db6aed22c944b20e3a9a61f8a773faaffcdad41e489f4",
+          "prepared_sample_sha256": "04028cea3b505a3a8c7bf0ba83cc95f12978032b4f850cae96fa25f6c571fb92",
+          "input_tensor_hash": "sha256:35893ca78306a2519eefc699beae8fa53593afee29df263ea8177a7db26ef096"
+        },
+        "geometry_asset_files_sha256": {
+          "object.xml": "sha256:ced71ba19f6a40dc7634a729ca8ae24e78de1be0a8c8df1ddcac486661423e1d",
+          "visual.obj": "sha256:e9ee0f42bb25cd8e2149e8090bf3f062cf3d735f9738972b5d2d932c7e4179bb",
+          "collision/part_000.obj": "sha256:f050b714d7721bcfaf67391bbc375c42577b72838f80e96f73ace5bb0cb37416",
+          "collision/part_001.obj": "sha256:37b822ec21d2497030c57ff003adfdeee56c312a3d20cb0295bb670ec0b30ccb",
+          "collision/part_002.obj": "sha256:88da7546e7559e7f3d94c448ce30742408b44442c5d55b49de66c91f652db44c",
+          "collision/part_003.obj": "sha256:17890e11105b70874f2a4cf20f5e66387b9490a742e13ad0a804c5e237f8b568",
+          "collision/part_004.obj": "sha256:37b4575c623c914855c185aa12211919093d38bf164382e8a1e8366209ceb612",
+          "collision/part_005.obj": "sha256:d2977aeca19a41553e5a623974984e4d2f8264822ad77ce034d672fbc8d75a30",
+          "collision/part_006.obj": "sha256:83d7ff7ba8a6b8b56e3c09bbb38c39c94a4129ab83d281e0b96a2ef613a7e1eb",
+          "collision/part_007.obj": "sha256:d1c0e8e316ef6e24b63002fd9066012a73fbfe1d43832a082c6301c9f93e644c",
+          "collision/part_008.obj": "sha256:fb8fdcf8226d1d450f5073c79188c4271640ef967b5484a647b834cea4d15265",
+          "collision/part_009.obj": "sha256:6cde7933ad04711b65ab13c3454ef9ffd322d3d50ac4c39ed891e1e733cb9b86",
+          "collision/part_010.obj": "sha256:81fe2b968182947eeeafeabba6253803670a37f7f40b9b860c300220e84b8810",
+          "collision/part_011.obj": "sha256:aa4c74dec977942b89e0a62a6ea005a297ce3d64d9e3d5ffb593258f97aa0e1c",
+          "collision/part_012.obj": "sha256:f2c88a547b5757fb559b49bb8ba15d9465abed3e647a423eb13584ae2739519e",
+          "collision/part_013.obj": "sha256:e298ecbbb1dc4ce1b364216fbc626986fdafa82f13c41617b3171a6454dd1e5a",
+          "collision/part_014.obj": "sha256:7bd0bbd3ffac686db9033f5729e83954cd9b85071e3b98dfba2953d83d21f7f3"
+        },
+        "proposal_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_1/proposal.pkl",
+        "observation_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/observations/scene_003"
+      },
+      "poses": {
+        "A": {
+          "wrist_rad": [
+            -0.1318087760416668,
+            -0.05693242467737197
+          ],
+          "nominal_table_clearance_m": 0.010091977189915252,
+          "nominal_proximal_object_distance_m": 0.06989633912249925,
+          "passes_geometry_gate": true,
+          "failed_gates": [],
+          "root_position_m": [
+            0.3664771498273817,
+            -0.11561495572858466,
+            0.0777768414607962
+          ],
+          "root_quaternion_wxyz": [
+            0.6286639945430433,
+            -0.06255113538795162,
+            -0.6885311736176812,
+            -0.35608111489311084
+          ],
+          "intended_22_finger_targets_unchanged": true,
+          "world_palm_invariance": {
+            "nominal_target": {
+              "maximum_world_palm_position_error_m": 5.551115123125783e-17,
+              "maximum_world_palm_rotation_matrix_error": 1.1102230246251565e-16
+            },
+            "near_open_approach": {
+              "maximum_world_palm_position_error_m": 5.551115123125783e-17,
+              "maximum_world_palm_rotation_matrix_error": 1.1102230246251565e-16
+            }
+          },
+          "finger_geometry_invariance": {
+            "nominal_target": {
+              "maximum_world_finger_geom_position_difference_m": 1.1102230246251565e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 3.885780586188048e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            },
+            "near_open_approach": {
+              "maximum_world_finger_geom_position_difference_m": 1.1102230246251565e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 4.440892098500626e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            }
+          },
+          "training_wrist_scaled_distance": 7.296682008529472,
+          "training_distance_lower_than_B": true,
+          "in_training_command_range_per_joint": [
+            false,
+            false
+          ],
+          "is_observed_training_pair": false,
+          "wrist_distance_from_B_rad": 0.028686066416007794,
+          "eligible_as_A": true,
+          "candidate_origins": [
+            "nearest_training_geometry_refinement_2",
+            "nearest_training_geometry_refinement_3"
+          ]
+        },
+        "B": {
+          "wrist_rad": [
+            -0.14635319270833344,
+            -0.08165792467737197
+          ],
+          "nominal_table_clearance_m": 0.010034701578752456,
+          "nominal_proximal_object_distance_m": 0.06989633921350147,
+          "passes_geometry_gate": true,
+          "failed_gates": [],
+          "root_position_m": [
+            0.37005844790130066,
+            -0.109818449667313,
+            0.07742312541508635
+          ],
+          "root_quaternion_wxyz": [
+            0.634982130773165,
+            -0.053438687937084575,
+            -0.688141286790671,
+            -0.34699217519191017
+          ],
+          "intended_22_finger_targets_unchanged": true,
+          "world_palm_invariance": {
+            "nominal_target": {
+              "maximum_world_palm_position_error_m": 6.938893903907228e-17,
+              "maximum_world_palm_rotation_matrix_error": 2.220446049250313e-16
+            },
+            "near_open_approach": {
+              "maximum_world_palm_position_error_m": 6.938893903907228e-17,
+              "maximum_world_palm_rotation_matrix_error": 2.220446049250313e-16
+            }
+          },
+          "finger_geometry_invariance": {
+            "nominal_target": {
+              "maximum_world_finger_geom_position_difference_m": 1.3877787807814457e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 4.440892098500626e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            },
+            "near_open_approach": {
+              "maximum_world_finger_geom_position_difference_m": 1.249000902703301e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 4.440892098500626e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            }
+          },
+          "training_wrist_scaled_distance": 7.658773019079915,
+          "training_distance_lower_than_B": false,
+          "in_training_command_range_per_joint": [
+            false,
+            false
+          ],
+          "is_observed_training_pair": false,
+          "wrist_distance_from_B_rad": 0.0,
+          "eligible_as_A": false,
+          "matches_stored_v3_plan": {
+            "table_clearance_matches_saved": true,
+            "proximal_distance_matches_saved": true,
+            "carrier_position_matches_saved": true,
+            "carrier_quaternion_matches_saved": true
+          }
+        }
+      },
+      "wrist_delta_A_minus_B_rad": [
+        0.014544416666666643,
+        0.024725499999999997
+      ],
+      "simulator_time_s": 0.0,
+      "generated_action_history_rows": 0
+    },
+    {
+      "pair_id": "mug_scene003_seed2_noise0.00",
+      "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_003_seed_2.yaml",
+      "case_sha256": "1ba865f20853865ebce13a114975407aac4d84c6f115134c3b8506d8d8a69a33",
+      "original_episode_id": "episode_001950",
+      "eligible": true,
+      "status": "frozen_eligible_static_pair",
+      "reason": null,
+      "comparison_qualification": "two_out_of_range_wrists_sensitivity_only",
+      "intended_world_palm_position_m": [
+        0.16186409510623043,
+        0.013623405449527837,
+        0.0701461273517694
+      ],
+      "intended_world_palm_quaternion_wxyz": [
+        0.6080083231501526,
+        -0.10470646123169694,
+        -0.680550366149389,
+        -0.3952387064678851
+      ],
+      "intended_finger_joint_names": [
+        "FFJ4",
+        "FFJ3",
+        "FFJ2",
+        "FFJ1",
+        "MFJ4",
+        "MFJ3",
+        "MFJ2",
+        "MFJ1",
+        "RFJ4",
+        "RFJ3",
+        "RFJ2",
+        "RFJ1",
+        "LFJ5",
+        "LFJ4",
+        "LFJ3",
+        "LFJ2",
+        "LFJ1",
+        "THJ5",
+        "THJ4",
+        "THJ3",
+        "THJ2",
+        "THJ1"
+      ],
+      "intended_finger_target_rad": [
+        -0.349065850399,
+        0.12085044384002686,
+        0.5857545733451843,
+        0.8052833080291748,
+        -0.22844558954238892,
+        0.3807208240032196,
+        0.3973819613456726,
+        0.4609566926956177,
+        0.20373612642288208,
+        0.6715545058250427,
+        0.0662728026509285,
+        0.3613564968109131,
+        0.0,
+        0.17293822765350342,
+        0.7750255465507507,
+        0.0,
+        0.7173568606376648,
+        0.05959806963801384,
+        1.1375958919525146,
+        -0.048686396330595016,
+        0.02303694747388363,
+        0.2295864373445511
+      ],
+      "physical_wrist_limits_rad": [
+        [
+          -0.523599,
+          0.174533
+        ],
+        [
+          -0.698132,
+          0.488692
+        ]
+      ],
+      "resolved_environment": {
+        "schema_version": "environment_spec_v1",
+        "environment_id": "adroit_shadow_tabletop_v2",
+        "runner": "grasp_failure_prediction.evaluation.runner:ActuatedShadowRunner",
+        "simulator": {
+          "type": "mujoco",
+          "physics_timestep_s": 0.002,
+          "control_timestep_s": 0.04
+        },
+        "scene": {
+          "model_path": "third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf",
+          "table_size_m": [
+            0.8,
+            0.8,
+            0.05
+          ]
+        },
+        "robot": {
+          "arm_model": "ideal_arm_carrier_v1",
+          "hand_model": "shadow_hand_right",
+          "joint_order_path": "dex-retargeting:shadow_hand_right.yml",
+          "controller_id": "force_limited_shadow_position_v1"
+        },
+        "contracts": {
+          "observation": "shadow_tabletop_observation_v1",
+          "action": "shadow_force_limited_target_v1",
+          "outcome": "grasp_lift_outcome_v1"
+        },
+        "cameras": [
+          {
+            "id": "front",
+            "width": 640,
+            "height": 480,
+            "fps": 25
+          },
+          {
+            "id": "wrist",
+            "width": 640,
+            "height": 480,
+            "fps": 25
+          }
+        ]
+      },
+      "environment_config_hash": "sha256:954eb93c4a4cffbff9f5b4001823d47dba9c92109427eb97c538ca8532744717",
+      "resolved_base_execution_protocol": {
+        "schema_version": "execution_protocol_v1",
+        "execution_protocol_id": "fixed_grasp_lift_v2",
+        "states": [
+          "reset",
+          "load_object",
+          "retarget",
+          "move_to_pregrasp",
+          "approach",
+          "close_fingers",
+          "lift",
+          "hold",
+          "score"
+        ],
+        "parameters": {
+          "pregrasp_distance_m": 0.08,
+          "palm_height_above_object_m": 0.04,
+          "approach_duration_s": 1.0,
+          "grip_command": 1.0,
+          "grip_command_type": "normalized_position",
+          "close_duration_s": 1.0,
+          "settle_duration_s": 0.8,
+          "force_close_delta_rad": 0.2,
+          "maximum_mean_fingertip_error_m": 0.01,
+          "lift_height_m": 0.15,
+          "lift_duration_s": 1.5,
+          "hold_duration_s": 2.0,
+          "total_timeout_s": 10.0
+        },
+        "success": {
+          "minimum_lift_m": 0.14,
+          "required_hold_s": 2.0,
+          "maximum_object_drop_m": 0.02
+        }
+      },
+      "base_execution_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+      "stored_v3_execution_protocol": {
+        "base_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+        "base_protocol_id": "fixed_grasp_lift_v2",
+        "clearance_configuration": {
+          "check_closing_targets": false,
+          "clearance_m": 0.01,
+          "grid_points_per_joint": 13,
+          "proximal_object_clearance_m": 0.001,
+          "refinement_rounds": 3
+        },
+        "controller": "palm_preserving_wrist_clearance_v1",
+        "execution_protocol_id": "fixed_grasp_lift_v3_table_clearance",
+        "parameters": {
+          "approach_duration_s": 1.0,
+          "close_duration_s": 1.0,
+          "force_close_delta_rad": 0.2,
+          "grip_command": 1.0,
+          "grip_command_type": "normalized_position",
+          "hold_duration_s": 2.0,
+          "lift_duration_s": 1.5,
+          "lift_height_m": 0.15,
+          "maximum_mean_fingertip_error_m": 0.01,
+          "palm_height_above_object_m": 0.04,
+          "pregrasp_distance_m": 0.08,
+          "settle_duration_s": 0.8,
+          "total_timeout_s": 10.0
+        },
+        "runtime_table_margin_m": 0.001,
+        "schema_version": "execution_protocol_v1",
+        "states": [
+          "reset",
+          "load_object",
+          "retarget",
+          "move_to_pregrasp",
+          "approach",
+          "close_fingers",
+          "lift",
+          "hold",
+          "score"
+        ],
+        "success": {
+          "maximum_object_drop_m": 0.02,
+          "minimum_lift_m": 0.14,
+          "required_hold_s": 2.0
+        }
+      },
+      "stored_v3_execution_protocol_config_hash": "sha256:4a6f39458c413eafb06f93cbd24e8a4e13850acadd31bde76bec88d846b45608",
+      "source_binding": {
+        "object_id": "hug_mug",
+        "observation_files_sha256": {
+          "T_world_camera.npy": "sha256:dfd0bf5db56e1b9806918f2de09164b966fa15376959c2cd6d6455ceb4389a09",
+          "depth.png": "sha256:a816968bac20b8c5658db6aed22c944b20e3a9a61f8a773faaffcdad41e489f4",
+          "depth_m.npy": "sha256:d972426c6a703a58bc9e37e707ff043ea39f32b86ab7e2419de1c7ff3a796b63",
+          "intrinsics.npy": "sha256:284e3ac36b9bf5038dc41030f30ef79e397f5e15414767f5730b0da1858a0f4f",
+          "object_mask.png": "sha256:430f9ea1ccfcd033a3e11a065fc5f4aeba4e64268e23d6ba8846a5a51595f2cf",
+          "rgb.png": "sha256:032116075fe34acf9ccf5304963ecf971ea845f5f07ecc1bd9e8efd97dd7cc2a"
+        },
+        "proposal_sha256": "sha256:28a41b209b942f3e3bf58dfe61e3990947527c9ce44cb7034bbfb5af385d29d5",
+        "camera_sha256": "sha256:dfd0bf5db56e1b9806918f2de09164b966fa15376959c2cd6d6455ceb4389a09",
+        "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+        "object_position_m": [
+          0.01918091676627766,
+          0.03149974009638402,
+          0.05731972693903388
+        ],
+        "object_orientation_xyzw": [
+          -0.01342755199553721,
+          -0.00613754557101098,
+          -0.0012919682924089813,
+          0.9998901750690935
+        ],
+        "observation_manifest_sha256": "sha256:7c6aec66b7f352713649d6151a36e1871875551bce12da7a170f413833b80519",
+        "group_id": "sha256:37244cdbd19a2171a178847fac697ba9d25af809d76f6f4b2c9225322e9fc08c",
+        "observation_group_id": "sha256:95ec9fd1d841d0aaa699c5fc9d5ee219f6a26a02dddaabc4e4ac3a43f0ef60a7",
+        "geometry_group_id": "sha256:fbb290d9b70ffb20e0aaadab762d5c8e38e289ce7993894d4be5c1ae3f048bde",
+        "scene_contract_status": "verified",
+        "scene_contract_sha256": "sha256:a81892de93d866e8cf75c5ff2ae437075ee101f114980efcd36624c8d2b157c3",
+        "observation_selection_uv": [
+          111,
+          106
+        ],
+        "observation_source": {
+          "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+          "kind": "mujoco_render",
+          "mujoco_version": "3.3.7",
+          "object": "hug_mug",
+          "seed": 10107
+        },
+        "inference_report_sha256": "sha256:b65dbfb48e49cb3b2001001d446b1219d999b6b28ead4fdf46223b0d4e5c8be7",
+        "hug_inference_provenance": {
+          "seed": 2,
+          "sampling_steps": 50,
+          "device": "cpu",
+          "dtype": "float32",
+          "generation_rng": "PyTorch and libc srand reset immediately before CPU model.sample; batch size one",
+          "hug_code_commit": "8d1c52d4c24bfae5a369e32e3f134f5601a02630",
+          "checkpoint_sha256": "515b5c3bc7987739aec019e754c15df5fbf3eff9daefb93924da098ae4bd1eae",
+          "inference_script_sha256": "4b11f7ab5621bf7e104421f7bb2561adeda97485382504c37e7ef38644b19793",
+          "manifest_sha256": "7c6aec66b7f352713649d6151a36e1871875551bce12da7a170f413833b80519",
+          "hug_depth_png_sha256": "a816968bac20b8c5658db6aed22c944b20e3a9a61f8a773faaffcdad41e489f4",
+          "prepared_sample_sha256": "04028cea3b505a3a8c7bf0ba83cc95f12978032b4f850cae96fa25f6c571fb92",
+          "input_tensor_hash": "sha256:c92bc587ee36b1a04cae88723fcdeed2eda02a63dfce741307df0fdfc7f034d5"
+        },
+        "geometry_asset_files_sha256": {
+          "object.xml": "sha256:ced71ba19f6a40dc7634a729ca8ae24e78de1be0a8c8df1ddcac486661423e1d",
+          "visual.obj": "sha256:e9ee0f42bb25cd8e2149e8090bf3f062cf3d735f9738972b5d2d932c7e4179bb",
+          "collision/part_000.obj": "sha256:f050b714d7721bcfaf67391bbc375c42577b72838f80e96f73ace5bb0cb37416",
+          "collision/part_001.obj": "sha256:37b822ec21d2497030c57ff003adfdeee56c312a3d20cb0295bb670ec0b30ccb",
+          "collision/part_002.obj": "sha256:88da7546e7559e7f3d94c448ce30742408b44442c5d55b49de66c91f652db44c",
+          "collision/part_003.obj": "sha256:17890e11105b70874f2a4cf20f5e66387b9490a742e13ad0a804c5e237f8b568",
+          "collision/part_004.obj": "sha256:37b4575c623c914855c185aa12211919093d38bf164382e8a1e8366209ceb612",
+          "collision/part_005.obj": "sha256:d2977aeca19a41553e5a623974984e4d2f8264822ad77ce034d672fbc8d75a30",
+          "collision/part_006.obj": "sha256:83d7ff7ba8a6b8b56e3c09bbb38c39c94a4129ab83d281e0b96a2ef613a7e1eb",
+          "collision/part_007.obj": "sha256:d1c0e8e316ef6e24b63002fd9066012a73fbfe1d43832a082c6301c9f93e644c",
+          "collision/part_008.obj": "sha256:fb8fdcf8226d1d450f5073c79188c4271640ef967b5484a647b834cea4d15265",
+          "collision/part_009.obj": "sha256:6cde7933ad04711b65ab13c3454ef9ffd322d3d50ac4c39ed891e1e733cb9b86",
+          "collision/part_010.obj": "sha256:81fe2b968182947eeeafeabba6253803670a37f7f40b9b860c300220e84b8810",
+          "collision/part_011.obj": "sha256:aa4c74dec977942b89e0a62a6ea005a297ce3d64d9e3d5ffb593258f97aa0e1c",
+          "collision/part_012.obj": "sha256:f2c88a547b5757fb559b49bb8ba15d9465abed3e647a423eb13584ae2739519e",
+          "collision/part_013.obj": "sha256:e298ecbbb1dc4ce1b364216fbc626986fdafa82f13c41617b3171a6454dd1e5a",
+          "collision/part_014.obj": "sha256:7bd0bbd3ffac686db9033f5729e83954cd9b85071e3b98dfba2953d83d21f7f3"
+        },
+        "proposal_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_2/proposal.pkl",
+        "observation_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/observations/scene_003"
+      },
+      "poses": {
+        "A": {
+          "wrist_rad": [
+            0.09453870833333333,
+            -0.25770903125
+          ],
+          "nominal_table_clearance_m": 0.010132733213696274,
+          "nominal_proximal_object_distance_m": 0.07603406459367502,
+          "passes_geometry_gate": true,
+          "failed_gates": [],
+          "root_position_m": [
+            0.377479881993824,
+            -0.10159199985737141,
+            0.10598608017916256
+          ],
+          "root_quaternion_wxyz": [
+            0.5814434302230029,
+            -0.04007045180898966,
+            -0.7540123465643543,
+            -0.3029575507737791
+          ],
+          "intended_22_finger_targets_unchanged": true,
+          "world_palm_invariance": {
+            "nominal_target": {
+              "maximum_world_palm_position_error_m": 4.163336342344337e-17,
+              "maximum_world_palm_rotation_matrix_error": 6.106226635438361e-16
+            },
+            "near_open_approach": {
+              "maximum_world_palm_position_error_m": 4.163336342344337e-17,
+              "maximum_world_palm_rotation_matrix_error": 6.106226635438361e-16
+            }
+          },
+          "finger_geometry_invariance": {
+            "nominal_target": {
+              "maximum_world_finger_geom_position_difference_m": 1.7694179454963432e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 1.1657341758564144e-15,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            },
+            "near_open_approach": {
+              "maximum_world_finger_geom_position_difference_m": 1.5959455978986625e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 9.43689570931383e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            }
+          },
+          "training_wrist_scaled_distance": 40.89825813417264,
+          "training_distance_lower_than_B": false,
+          "in_training_command_range_per_joint": [
+            false,
+            false
+          ],
+          "is_observed_training_pair": false,
+          "wrist_distance_from_B_rad": 0.02868606641600782,
+          "eligible_as_A": true,
+          "candidate_origins": [
+            "nearest_training_geometry_refinement_3"
+          ]
+        },
+        "B": {
+          "wrist_rad": [
+            0.109083125,
+            -0.23298353125
+          ],
+          "nominal_table_clearance_m": 0.010007279490842222,
+          "nominal_proximal_object_distance_m": 0.07603406452068236,
+          "passes_geometry_gate": true,
+          "failed_gates": [],
+          "root_position_m": [
+            0.37410980969918695,
+            -0.10750965495029487,
+            0.10629009368779137
+          ],
+          "root_quaternion_wxyz": [
+            0.5757886065855534,
+            -0.050367532483682254,
+            -0.7543865617952341,
+            -0.3111776142021427
+          ],
+          "intended_22_finger_targets_unchanged": true,
+          "world_palm_invariance": {
+            "nominal_target": {
+              "maximum_world_palm_position_error_m": 6.938893903907228e-17,
+              "maximum_world_palm_rotation_matrix_error": 4.440892098500626e-16
+            },
+            "near_open_approach": {
+              "maximum_world_palm_position_error_m": 6.938893903907228e-17,
+              "maximum_world_palm_rotation_matrix_error": 4.440892098500626e-16
+            }
+          },
+          "finger_geometry_invariance": {
+            "nominal_target": {
+              "maximum_world_finger_geom_position_difference_m": 1.5265566588595902e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 8.881784197001252e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            },
+            "near_open_approach": {
+              "maximum_world_finger_geom_position_difference_m": 1.5959455978986625e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 8.881784197001252e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            }
+          },
+          "training_wrist_scaled_distance": 40.57991460563364,
+          "training_distance_lower_than_B": false,
+          "in_training_command_range_per_joint": [
+            false,
+            false
+          ],
+          "is_observed_training_pair": false,
+          "wrist_distance_from_B_rad": 0.0,
+          "eligible_as_A": false,
+          "matches_stored_v3_plan": {
+            "table_clearance_matches_saved": true,
+            "proximal_distance_matches_saved": true,
+            "carrier_position_matches_saved": true,
+            "carrier_quaternion_matches_saved": true
+          }
+        }
+      },
+      "wrist_delta_A_minus_B_rad": [
+        -0.01454441666666667,
+        -0.02472550000000001
+      ],
+      "simulator_time_s": 0.0,
+      "generated_action_history_rows": 0
+    },
+    {
+      "pair_id": "mug_scene003_seed3_noise0.00",
+      "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_003_seed_3.yaml",
+      "case_sha256": "83a73baa5cf834a3e7d166769116aab8076d956e51d940616ef5d5d58478dc1d",
+      "original_episode_id": "episode_002015",
+      "eligible": true,
+      "status": "frozen_eligible_static_pair",
+      "reason": null,
+      "comparison_qualification": "two_out_of_range_wrists_sensitivity_only",
+      "intended_world_palm_position_m": [
+        0.16311175120538174,
+        0.018743014691263382,
+        0.07060024647280738
+      ],
+      "intended_world_palm_quaternion_wxyz": [
+        0.6085313245218675,
+        -0.13811114727599266,
+        -0.7013740356537372,
+        -0.3445132801280103
+      ],
+      "intended_finger_joint_names": [
+        "FFJ4",
+        "FFJ3",
+        "FFJ2",
+        "FFJ1",
+        "MFJ4",
+        "MFJ3",
+        "MFJ2",
+        "MFJ1",
+        "RFJ4",
+        "RFJ3",
+        "RFJ2",
+        "RFJ1",
+        "LFJ5",
+        "LFJ4",
+        "LFJ3",
+        "LFJ2",
+        "LFJ1",
+        "THJ5",
+        "THJ4",
+        "THJ3",
+        "THJ2",
+        "THJ1"
+      ],
+      "intended_finger_target_rad": [
+        -0.349065850399,
+        0.0972781851887703,
+        0.5778075456619263,
+        0.8098222613334656,
+        -0.24260607361793518,
+        0.3629274070262909,
+        0.39615774154663086,
+        0.4653019607067108,
+        0.20430871844291687,
+        0.6496595740318298,
+        0.06808343529701233,
+        0.3651222288608551,
+        0.0,
+        0.1514558643102646,
+        0.7453085780143738,
+        0.0,
+        0.7236423492431641,
+        0.08533884584903717,
+        1.150767207145691,
+        -0.050795622169971466,
+        0.012526891194283962,
+        0.2325516790151596
+      ],
+      "physical_wrist_limits_rad": [
+        [
+          -0.523599,
+          0.174533
+        ],
+        [
+          -0.698132,
+          0.488692
+        ]
+      ],
+      "resolved_environment": {
+        "schema_version": "environment_spec_v1",
+        "environment_id": "adroit_shadow_tabletop_v2",
+        "runner": "grasp_failure_prediction.evaluation.runner:ActuatedShadowRunner",
+        "simulator": {
+          "type": "mujoco",
+          "physics_timestep_s": 0.002,
+          "control_timestep_s": 0.04
+        },
+        "scene": {
+          "model_path": "third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf",
+          "table_size_m": [
+            0.8,
+            0.8,
+            0.05
+          ]
+        },
+        "robot": {
+          "arm_model": "ideal_arm_carrier_v1",
+          "hand_model": "shadow_hand_right",
+          "joint_order_path": "dex-retargeting:shadow_hand_right.yml",
+          "controller_id": "force_limited_shadow_position_v1"
+        },
+        "contracts": {
+          "observation": "shadow_tabletop_observation_v1",
+          "action": "shadow_force_limited_target_v1",
+          "outcome": "grasp_lift_outcome_v1"
+        },
+        "cameras": [
+          {
+            "id": "front",
+            "width": 640,
+            "height": 480,
+            "fps": 25
+          },
+          {
+            "id": "wrist",
+            "width": 640,
+            "height": 480,
+            "fps": 25
+          }
+        ]
+      },
+      "environment_config_hash": "sha256:954eb93c4a4cffbff9f5b4001823d47dba9c92109427eb97c538ca8532744717",
+      "resolved_base_execution_protocol": {
+        "schema_version": "execution_protocol_v1",
+        "execution_protocol_id": "fixed_grasp_lift_v2",
+        "states": [
+          "reset",
+          "load_object",
+          "retarget",
+          "move_to_pregrasp",
+          "approach",
+          "close_fingers",
+          "lift",
+          "hold",
+          "score"
+        ],
+        "parameters": {
+          "pregrasp_distance_m": 0.08,
+          "palm_height_above_object_m": 0.04,
+          "approach_duration_s": 1.0,
+          "grip_command": 1.0,
+          "grip_command_type": "normalized_position",
+          "close_duration_s": 1.0,
+          "settle_duration_s": 0.8,
+          "force_close_delta_rad": 0.2,
+          "maximum_mean_fingertip_error_m": 0.01,
+          "lift_height_m": 0.15,
+          "lift_duration_s": 1.5,
+          "hold_duration_s": 2.0,
+          "total_timeout_s": 10.0
+        },
+        "success": {
+          "minimum_lift_m": 0.14,
+          "required_hold_s": 2.0,
+          "maximum_object_drop_m": 0.02
+        }
+      },
+      "base_execution_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+      "stored_v3_execution_protocol": {
+        "base_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+        "base_protocol_id": "fixed_grasp_lift_v2",
+        "clearance_configuration": {
+          "check_closing_targets": false,
+          "clearance_m": 0.01,
+          "grid_points_per_joint": 13,
+          "proximal_object_clearance_m": 0.001,
+          "refinement_rounds": 3
+        },
+        "controller": "palm_preserving_wrist_clearance_v1",
+        "execution_protocol_id": "fixed_grasp_lift_v3_table_clearance",
+        "parameters": {
+          "approach_duration_s": 1.0,
+          "close_duration_s": 1.0,
+          "force_close_delta_rad": 0.2,
+          "grip_command": 1.0,
+          "grip_command_type": "normalized_position",
+          "hold_duration_s": 2.0,
+          "lift_duration_s": 1.5,
+          "lift_height_m": 0.15,
+          "maximum_mean_fingertip_error_m": 0.01,
+          "palm_height_above_object_m": 0.04,
+          "pregrasp_distance_m": 0.08,
+          "settle_duration_s": 0.8,
+          "total_timeout_s": 10.0
+        },
+        "runtime_table_margin_m": 0.001,
+        "schema_version": "execution_protocol_v1",
+        "states": [
+          "reset",
+          "load_object",
+          "retarget",
+          "move_to_pregrasp",
+          "approach",
+          "close_fingers",
+          "lift",
+          "hold",
+          "score"
+        ],
+        "success": {
+          "maximum_object_drop_m": 0.02,
+          "minimum_lift_m": 0.14,
+          "required_hold_s": 2.0
+        }
+      },
+      "stored_v3_execution_protocol_config_hash": "sha256:4a6f39458c413eafb06f93cbd24e8a4e13850acadd31bde76bec88d846b45608",
+      "source_binding": {
+        "object_id": "hug_mug",
+        "observation_files_sha256": {
+          "T_world_camera.npy": "sha256:dfd0bf5db56e1b9806918f2de09164b966fa15376959c2cd6d6455ceb4389a09",
+          "depth.png": "sha256:a816968bac20b8c5658db6aed22c944b20e3a9a61f8a773faaffcdad41e489f4",
+          "depth_m.npy": "sha256:d972426c6a703a58bc9e37e707ff043ea39f32b86ab7e2419de1c7ff3a796b63",
+          "intrinsics.npy": "sha256:284e3ac36b9bf5038dc41030f30ef79e397f5e15414767f5730b0da1858a0f4f",
+          "object_mask.png": "sha256:430f9ea1ccfcd033a3e11a065fc5f4aeba4e64268e23d6ba8846a5a51595f2cf",
+          "rgb.png": "sha256:032116075fe34acf9ccf5304963ecf971ea845f5f07ecc1bd9e8efd97dd7cc2a"
+        },
+        "proposal_sha256": "sha256:015ccbd3a888f0f2d712593aa30336f1fc60c95c294a8151effe032408246523",
+        "camera_sha256": "sha256:dfd0bf5db56e1b9806918f2de09164b966fa15376959c2cd6d6455ceb4389a09",
+        "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+        "object_position_m": [
+          0.01918091676627766,
+          0.03149974009638402,
+          0.05731972693903388
+        ],
+        "object_orientation_xyzw": [
+          -0.01342755199553721,
+          -0.00613754557101098,
+          -0.0012919682924089813,
+          0.9998901750690935
+        ],
+        "observation_manifest_sha256": "sha256:7c6aec66b7f352713649d6151a36e1871875551bce12da7a170f413833b80519",
+        "group_id": "sha256:3ab3db12a1e77507123e7c0c3b5a6e60dded2db259adf2e9c4bf257d2a13e208",
+        "observation_group_id": "sha256:95ec9fd1d841d0aaa699c5fc9d5ee219f6a26a02dddaabc4e4ac3a43f0ef60a7",
+        "geometry_group_id": "sha256:fbb290d9b70ffb20e0aaadab762d5c8e38e289ce7993894d4be5c1ae3f048bde",
+        "scene_contract_status": "verified",
+        "scene_contract_sha256": "sha256:a81892de93d866e8cf75c5ff2ae437075ee101f114980efcd36624c8d2b157c3",
+        "observation_selection_uv": [
+          111,
+          106
+        ],
+        "observation_source": {
+          "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+          "kind": "mujoco_render",
+          "mujoco_version": "3.3.7",
+          "object": "hug_mug",
+          "seed": 10107
+        },
+        "inference_report_sha256": "sha256:cb5b143368c826601aa5f3d02f346f08888a89eac0f1b7d047fd86d4bed0cbf0",
+        "hug_inference_provenance": {
+          "seed": 3,
+          "sampling_steps": 50,
+          "device": "cpu",
+          "dtype": "float32",
+          "generation_rng": "PyTorch and libc srand reset immediately before CPU model.sample; batch size one",
+          "hug_code_commit": "8d1c52d4c24bfae5a369e32e3f134f5601a02630",
+          "checkpoint_sha256": "515b5c3bc7987739aec019e754c15df5fbf3eff9daefb93924da098ae4bd1eae",
+          "inference_script_sha256": "4b11f7ab5621bf7e104421f7bb2561adeda97485382504c37e7ef38644b19793",
+          "manifest_sha256": "7c6aec66b7f352713649d6151a36e1871875551bce12da7a170f413833b80519",
+          "hug_depth_png_sha256": "a816968bac20b8c5658db6aed22c944b20e3a9a61f8a773faaffcdad41e489f4",
+          "prepared_sample_sha256": "04028cea3b505a3a8c7bf0ba83cc95f12978032b4f850cae96fa25f6c571fb92",
+          "input_tensor_hash": "sha256:164ee170048c4a2f13f0f94a64677ad4de409a4bc392cd1e877c121604ba96f7"
+        },
+        "geometry_asset_files_sha256": {
+          "object.xml": "sha256:ced71ba19f6a40dc7634a729ca8ae24e78de1be0a8c8df1ddcac486661423e1d",
+          "visual.obj": "sha256:e9ee0f42bb25cd8e2149e8090bf3f062cf3d735f9738972b5d2d932c7e4179bb",
+          "collision/part_000.obj": "sha256:f050b714d7721bcfaf67391bbc375c42577b72838f80e96f73ace5bb0cb37416",
+          "collision/part_001.obj": "sha256:37b822ec21d2497030c57ff003adfdeee56c312a3d20cb0295bb670ec0b30ccb",
+          "collision/part_002.obj": "sha256:88da7546e7559e7f3d94c448ce30742408b44442c5d55b49de66c91f652db44c",
+          "collision/part_003.obj": "sha256:17890e11105b70874f2a4cf20f5e66387b9490a742e13ad0a804c5e237f8b568",
+          "collision/part_004.obj": "sha256:37b4575c623c914855c185aa12211919093d38bf164382e8a1e8366209ceb612",
+          "collision/part_005.obj": "sha256:d2977aeca19a41553e5a623974984e4d2f8264822ad77ce034d672fbc8d75a30",
+          "collision/part_006.obj": "sha256:83d7ff7ba8a6b8b56e3c09bbb38c39c94a4129ab83d281e0b96a2ef613a7e1eb",
+          "collision/part_007.obj": "sha256:d1c0e8e316ef6e24b63002fd9066012a73fbfe1d43832a082c6301c9f93e644c",
+          "collision/part_008.obj": "sha256:fb8fdcf8226d1d450f5073c79188c4271640ef967b5484a647b834cea4d15265",
+          "collision/part_009.obj": "sha256:6cde7933ad04711b65ab13c3454ef9ffd322d3d50ac4c39ed891e1e733cb9b86",
+          "collision/part_010.obj": "sha256:81fe2b968182947eeeafeabba6253803670a37f7f40b9b860c300220e84b8810",
+          "collision/part_011.obj": "sha256:aa4c74dec977942b89e0a62a6ea005a297ce3d64d9e3d5ffb593258f97aa0e1c",
+          "collision/part_012.obj": "sha256:f2c88a547b5757fb559b49bb8ba15d9465abed3e647a423eb13584ae2739519e",
+          "collision/part_013.obj": "sha256:e298ecbbb1dc4ce1b364216fbc626986fdafa82f13c41617b3171a6454dd1e5a",
+          "collision/part_014.obj": "sha256:7bd0bbd3ffac686db9033f5729e83954cd9b85071e3b98dfba2953d83d21f7f3"
+        },
+        "proposal_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_3/proposal.pkl",
+        "observation_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/observations/scene_003"
+      },
+      "poses": {
+        "A": {
+          "wrist_rad": [
+            0.08726649999999991,
+            -0.13099084375000003
+          ],
+          "nominal_table_clearance_m": 0.01018624899503219,
+          "nominal_proximal_object_distance_m": 0.07592267642816575,
+          "passes_geometry_gate": true,
+          "failed_gates": [],
+          "root_position_m": [
+            0.3689365318109731,
+            -0.11310316296647821,
+            0.10681580387627741
+          ],
+          "root_quaternion_wxyz": [
+            0.5841677797209373,
+            -0.11088718092915899,
+            -0.7486117274504448,
+            -0.2933130064711683
+          ],
+          "intended_22_finger_targets_unchanged": true,
+          "world_palm_invariance": {
+            "nominal_target": {
+              "maximum_world_palm_position_error_m": 5.551115123125783e-17,
+              "maximum_world_palm_rotation_matrix_error": 1.6653345369377348e-16
+            },
+            "near_open_approach": {
+              "maximum_world_palm_position_error_m": 5.551115123125783e-17,
+              "maximum_world_palm_rotation_matrix_error": 1.6653345369377348e-16
+            }
+          },
+          "finger_geometry_invariance": {
+            "nominal_target": {
+              "maximum_world_finger_geom_position_difference_m": 9.71445146547012e-17,
+              "maximum_world_finger_geom_rotation_matrix_difference": 4.996003610813204e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            },
+            "near_open_approach": {
+              "maximum_world_finger_geom_position_difference_m": 9.71445146547012e-17,
+              "maximum_world_finger_geom_rotation_matrix_difference": 6.661338147750939e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            }
+          },
+          "training_wrist_scaled_distance": 33.17920957713618,
+          "training_distance_lower_than_B": false,
+          "in_training_command_range_per_joint": [
+            false,
+            false
+          ],
+          "is_observed_training_pair": false,
+          "wrist_distance_from_B_rad": 0.028686066416007797,
+          "eligible_as_A": true,
+          "candidate_origins": [
+            "nearest_training_geometry_refinement_2"
+          ]
+        },
+        "B": {
+          "wrist_rad": [
+            0.07272208333333324,
+            -0.15571634375
+          ],
+          "nominal_table_clearance_m": 0.01002925302362194,
+          "nominal_proximal_object_distance_m": 0.07592267653813162,
+          "passes_geometry_gate": true,
+          "failed_gates": [],
+          "root_position_m": [
+            0.3726553022573781,
+            -0.10747302811756923,
+            0.10576651726730468
+          ],
+          "root_quaternion_wxyz": [
+            0.5906279865029329,
+            -0.10080475049576519,
+            -0.7480109084335537,
+            -0.285441175553542
+          ],
+          "intended_22_finger_targets_unchanged": true,
+          "world_palm_invariance": {
+            "nominal_target": {
+              "maximum_world_palm_position_error_m": 5.551115123125783e-17,
+              "maximum_world_palm_rotation_matrix_error": 3.608224830031759e-16
+            },
+            "near_open_approach": {
+              "maximum_world_palm_position_error_m": 5.551115123125783e-17,
+              "maximum_world_palm_rotation_matrix_error": 3.608224830031759e-16
+            }
+          },
+          "finger_geometry_invariance": {
+            "nominal_target": {
+              "maximum_world_finger_geom_position_difference_m": 1.1796119636642288e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 7.216449660063518e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            },
+            "near_open_approach": {
+              "maximum_world_finger_geom_position_difference_m": 1.4224732503009818e-16,
+              "maximum_world_finger_geom_rotation_matrix_difference": 9.575673587391975e-16,
+              "applied_finger_commands_equal": true,
+              "passes": true
+            }
+          },
+          "training_wrist_scaled_distance": 32.73942049382932,
+          "training_distance_lower_than_B": false,
+          "in_training_command_range_per_joint": [
+            false,
+            false
+          ],
+          "is_observed_training_pair": false,
+          "wrist_distance_from_B_rad": 0.0,
+          "eligible_as_A": false,
+          "matches_stored_v3_plan": {
+            "table_clearance_matches_saved": true,
+            "proximal_distance_matches_saved": true,
+            "carrier_position_matches_saved": true,
+            "carrier_quaternion_matches_saved": true
+          }
+        }
+      },
+      "wrist_delta_A_minus_B_rad": [
+        0.01454441666666667,
+        0.024725499999999984
+      ],
+      "simulator_time_s": 0.0,
+      "generated_action_history_rows": 0
+    }
+  ],
+  "source_sha256": {
+    "repository:research_artifacts/wrist_comparison_plan_v1/protocol.json": "3cad8858ef5d425298148d7542be28faa00debf8f97d3b261fb0d396a3b95351",
+    "repository:research_artifacts/object_scene_pilot_v1/dataset.npz": "29f773f7faf03cff5e1c694ef475d02adfd07c239314b349f2228f86db9d3aad",
+    "repository:research_artifacts/object_scene_pilot_v1/splits.json": "27a9c894b0775a5a10e2ae83a18b6a70f78d4c504b80396086a80158b3b5aac7",
+    "repository:research_artifacts/object_scene_pilot_v1/manifest.json": "9a9c076620cea317e71fb59259faf2995b000dea51be2ed208cd0001e0108303",
+    "repository:research_artifacts/task_outcome_baseline_v1/report.json": "19f1aa3e7ab0902da1c955aaaa992b8023f7c6b453fa60b835d284cd385c13a8",
+    "repository:research_artifacts/task_outcome_baseline_v1/proprioception_and_commands.npz": "16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb",
+    "repository:scripts/analyze_wrist_pose_feasibility.py": "a611c3f79c1172bd0aa29d0841f6324c03d6564fbde821d2d85178bb4e3e654f",
+    "repository:src/grasp_failure_prediction/__init__.py": "87b8cc4c5652151ca92f02eef5b3fb98d12a87657acc3c1f8cbcd0d580073df0",
+    "repository:src/grasp_failure_prediction/environments/adroit.py": "1e419f3e44d31a34697e1d93cc99eb3c44763107e1f5f8b8c6f7bb6a43f1e8f9",
+    "repository:src/grasp_failure_prediction/environments/__init__.py": "bd20d43b87c568f47abec4a1e2d613b3ea20a5fb496fc51ef6130cbfd03ed805",
+    "repository:src/grasp_failure_prediction/prediction/__init__.py": "0df68193d3ba4335d633e655919d5e6fff7d54aff738ff26f2a4e8d174fa21b1",
+    "repository:src/grasp_failure_prediction/prediction/model.py": "f5fbe2762efd7099a05b75ccca11cdae670eac9e20f7b265632d98b2a24fdea8",
+    "repository:src/grasp_failure_prediction/prediction/dataset.py": "ac6a6fe517cbfd21b4bdae0e858fb31674561b923b1e0c0f4397255cf1316076",
+    "repository:src/grasp_failure_prediction/prediction/fresh_evaluation.py": "0cd04920feef0800e2299bbd7669bcfc14199994774364a1483a327863fd4d0b",
+    "repository:src/grasp_failure_prediction/integrations/sim_observations.py": "9e502c5a7a387a4fcb0ba28307d31c67e2c1d0227c87b8e3ae736e3fc2aa9b43",
+    "repository:src/grasp_failure_prediction/integrations/observations.py": "acd911d45dec2a9b96e0aa87044c22b4e28cf0ff82095b0454fcbc3fb8e3aed0",
+    "repository:src/grasp_failure_prediction/integrations/hug.py": "48e9e62cace4add358b546f3d15cff19535463714613ad22eb955d6fb278dd5a",
+    "repository:src/grasp_failure_prediction/integrations/__init__.py": "0bc838fad37219f5d58677eac17c20dea29a18735ddd65ce38deccd30760f4fb",
+    "repository:src/grasp_failure_prediction/integrations/hug_preprocessing.py": "9b086d212b63fac37696b3a2885ab9ccc496ee8968913696bb79a167732b39d7",
+    "repository:src/grasp_failure_prediction/integrations/hug_rng.py": "ee22d61a7cb69d438488e18c8f27a0a3bf6e60a09cd5db6cef0e97addbd24830",
+    "repository:src/grasp_failure_prediction/integrations/hug_frames.py": "cd7ad9b8df1d5d6adad70e949a9c7f21ad448a25710a54f47e1ffa95fa28562a",
+    "repository:src/grasp_failure_prediction/part1/scripted.py": "f5b4bc710afb68b08f2da4ce95e7822307d5684e41470c503206437a116c9657",
+    "repository:src/grasp_failure_prediction/part1/train_act.py": "386f1da35d0e704d966bd89c830974aa8f003050f1bdfce0cb39af29c3dc70a1",
+    "repository:src/grasp_failure_prediction/part1/collect.py": "f03043be950784a4c5b7e047854fbe64edcfb0b695ff9a0ee156586072264eff",
+    "repository:src/grasp_failure_prediction/part1/config.py": "23e4b36afe2ab1c3a73ea0f28468ae7199b29ce3febdd802db13cddc0991befa",
+    "repository:src/grasp_failure_prediction/part1/__init__.py": "2ef8a8411c9079643ef7b72308be63a7923d6c5349759923bfec08c5272c8f7e",
+    "repository:src/grasp_failure_prediction/part1/stack.py": "20e95e3d44993c49ee4fe23d9da09b8d672034d292825638318a4407a003a149",
+    "repository:src/grasp_failure_prediction/part1/record.py": "fe53da2cd0e0ce3f571237087ed243b5b96e19ebc6e7db7ce22fb737050eb8b5",
+    "repository:src/grasp_failure_prediction/part1/environment.py": "2bdca29fc0f42ab05fbdf0a74e6527939d22bb2eac5bd983c462b39a69869930",
+    "repository:src/grasp_failure_prediction/part1/evaluate.py": "ec34bc96fa10cdbc494e4e4db71aa2dd5b8e7f1b6c07f79bdfbfc1d0366fd9c7",
+    "repository:src/grasp_failure_prediction/part1/lerobot_export.py": "f1b347bcc9019569993d23919aada88a2c3c81bbed79b9d9c3c8eac90cf6e53b",
+    "repository:src/grasp_failure_prediction/part1/snapshot.py": "18e99bae0467afa4bfcdea7fdfb255f3b0dfd9f917dd34cb54da7060f389d75a",
+    "repository:src/grasp_failure_prediction/evaluation/runner.py": "4d819711660c346938ce468b06b207aaed9d0315ab1ee3dffd9d4c56e1f417e6",
+    "repository:src/grasp_failure_prediction/evaluation/case_runner.py": "61aeef7a7125fa7698549cfbfc440a4f8374daf289bdddd87deaafe8ce108b11",
+    "repository:src/grasp_failure_prediction/evaluation/recording.py": "18bf4ea638defc836e9a2fac31f0d9a0cb84c6806e9842cb345f366179da06d7",
+    "repository:src/grasp_failure_prediction/evaluation/registry.py": "26571b11b7c3d72ed067028672f8fd283ba1916e982461ef495ec5c01e6c08eb",
+    "repository:src/grasp_failure_prediction/evaluation/view_pose.py": "a724ca00c5d4a62b3a6c41d21e26defb8ebcc615450e0f09589455b505279f99",
+    "repository:src/grasp_failure_prediction/evaluation/scoring.py": "b8994fb0aba95f4e757555cad85cdc8bfe3112fd9a4fb9a2a217ae3c39fe0d00",
+    "repository:src/grasp_failure_prediction/evaluation/rollout_events.py": "a36f1797d80bccafb20422cfeeefb561d81fff9701893083b9a924e3a9e7996c",
+    "repository:src/grasp_failure_prediction/evaluation/__init__.py": "8f1a89a1cf1bd5848362d879f44a406d1d871d4fd9f106e9a279755a27e0c110",
+    "repository:src/grasp_failure_prediction/evaluation/noisy_rollouts.py": "384f930f5b38bb62ddf52d3883557d9d7cddfcfadb0d5a45ce87d13a255f0295",
+    "repository:src/grasp_failure_prediction/evaluation/table_safe_execution.py": "1064ce8832485e792db36731c657b8847580e27c96feb5ecadd1e4dd2230b778",
+    "repository:src/grasp_failure_prediction/evaluation/render_rollout.py": "21b2e64b63b6b7aa7085cd76544ca89852d03f8239babe6a56396e2722c00207",
+    "repository:src/grasp_failure_prediction/evaluation/table_clearance.py": "f11dfdedc1ccd55458735c3c7c3f8b3cb5ecd156a2c6724683098112d6f14bbc",
+    "repository:src/grasp_failure_prediction/evaluation/result_viewer.py": "044dee32abdaaccd78bf97c8f1edb9a55db65fb80f6ae2f99d1997c720ad01aa",
+    "repository:src/grasp_failure_prediction/evaluation/retargeting.py": "a6631a0f0d20f6ef94c389529b7d6d677a8a8cd9f8e923efff19ccfee26aa4ff",
+    "repository:src/grasp_failure_prediction/evaluation/artifacts.py": "8817f42e6e35b7e5fced2c1edd2d0ba82ad3a13c5014793889e5c45daccc668e",
+    "repository:src/grasp_failure_prediction/evaluation/scene_contracts.py": "14bc333226fdcc4e341e6db43940f67f4a2eae88f6d4a6bd56469d2a9c272fcb",
+    "repository:src/grasp_failure_prediction/evaluation/pose_validation.py": "1136cdfe80c405031e7060c5f31dd3a0270400314e6ff5aa7a4630c487cdea75",
+    "repository:src/grasp_failure_prediction/evaluation/schema.py": "48f56b918adf207368a9e05a040ca19d4b94928e50e786282f6927f45bd19d9d",
+    "repository:src/grasp_failure_prediction/evaluation/object_assets.py": "02554eb96235ac77d3301d983e5f97d55e5ad5c6637a35315b9494f7b9ea54f9",
+    "repository:src/grasp_failure_prediction/evaluation/configs/environments.yaml": "a9dd3ddf6a369efdd87fb1fe15f79c3c932cdef862984ab49eda56622d7c87d1",
+    "repository:src/grasp_failure_prediction/evaluation/configs/execution_protocols.yaml": "69b7f199352fddd0d90238d2726de228f0db4322e1db5fd7ac7fc8a731aeb8a1",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/LICENSE": "a0cde1d0181b6b646c06d3a976f0499ae5128f9ea8516e5fa1ff73abb6a1ccff",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_left_glb.urdf": "2f4a478f8a09353a179e32f93013684c40e73c780d209d4cb52cb35a40ec0e77",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right_glb.urdf": "84189a3b6fd3d9cefb114922c3d86ccdc1b0d8211859ebca554f682e61ab95df",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/README.md": "7142c32b7f51e5c72f071db6f518abbd7940f7948d2278e3fc716dc321f0e2c3",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/bimanual.urdf": "2c4118783b2e6a3ee9dfcf069ee628086bb2f6d23a790139b6304ff0d374813f",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_left.urdf": "24988ac25c1d9136e0c18bed0d3d9d5d2745d7aa83df2b4a9ec0abf36be36d48",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf": "29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_proximal_E3M5.glb": "9c43089eac777d05cf902620931b81870aa3bfb811370ffa58d34548577d8c85",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/wrist_E3M5.mtl": "ddf7562276de61678b848d82160baee5c654af0de07c744581a740f2e1b6ba45",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/palm_E3M5_left.mtl": "8e79f263296075919dff5bd28d6eb21fe2d4ca7704d848e306f41dd788663c3a",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/forearm_E3M5.mtl": "5f99cbfe0015ff932b593b00f3d42c1b68928a49ef7d7ec6918c04f48528709d",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_proximal_E3M5.glb": "3a16729bc49472397cc02663998e903f49cab353b9385d4469b801d6c9ceadb9",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/palm_E3M5_left.glb": "1f9871bc32f2385187a199fa840c08528201f5ba05d690388b652326e6eb8714",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_middle_E3M5.obj": "c1c0b460c69894cbef8bc1ab8bfed6112832a20aa77531f3823a4fb8090daeac",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_proximal_E3M5.mtl": "997065356d2a865204443d1cba21d19067369da599e9d3a4bbaa02bfe8ef3360",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/forearm_E3M5.glb": "82bbef2f9dead84f527fef66bd1993895477388daeb1550b9bcd7a25e713754c",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/wrist_E3M5.glb": "e7f04596fc7e45d5f33f797a20187842433e36c560cde1eae8fe6f51728b915e",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_proximal_E3M5.mtl": "997065356d2a865204443d1cba21d19067369da599e9d3a4bbaa02bfe8ef3360",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_distal_pst.mtl": "997065356d2a865204443d1cba21d19067369da599e9d3a4bbaa02bfe8ef3360",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/palm_E3M5.obj": "529d6bcf4f356aeaece8a9c884d98bc399d039fdb2f3174449aeaaf262aa812d",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/lf_metacarpal_E3M5_left.obj": "dbe1dc639cd9c212229a4010f60ebc56b174ff6891eac05410e6bee2965f927f",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_middle_E3M5.glb": "3ee962b02fd4d1f40cf71e9d44c10fccaea022c5c08312ab318b6045b8426a3b",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_distal_pst.glb": "a961159aafcda9906e30456dbe6956890b207bea6dd82aa83494473a2a7692a4",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_distal_pst.mtl": "997065356d2a865204443d1cba21d19067369da599e9d3a4bbaa02bfe8ef3360",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_middle_E3M5.mtl": "997065356d2a865204443d1cba21d19067369da599e9d3a4bbaa02bfe8ef3360",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_distal_pst.glb": "b664fc97df01a855e237a1cac0b25e6dfeb3322ead9c77dc338877cb5854d6e7",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/lf_metacarpal_E3M5.obj": "def539fcdefb4399ae69cb4fc5b2c5296b43ec7015c5581c2b90e7643a030a62",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_knuckle_E3M5.obj": "1452690f5f93875665e5b23f022e89fa04f2a6aab6e49ae0112db7821f759792",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/palm_E3M5.mtl": "997065356d2a865204443d1cba21d19067369da599e9d3a4bbaa02bfe8ef3360",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_knuckle_E3M5.glb": "4cfd18bc698f89813900fd1a743459b35f95c8aa3d873e37bd5749ef4cdef16a",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_distal_pst.obj": "da8ca3aa9aeceeb6aac940a6db0605cac4014dcd496133080bc5787e217346ce",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/lf_metacarpal_E3M5.glb": "3be27d164d5eafa1ab272d755f5f363454c5204102135ef0bb486045520b878f",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/lf_metacarpal_E3M5_left.mtl": "aced883bd97a1bd04abe5c74e44224a7116eab8cc61f332a51c3b4a1e017c7d2",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_knuckle_E3M5.mtl": "a689c3f677cda3adfa1cabd6f60c7b17770ad6cecc3d9aea57f6be4865ff1510",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/lf_metacarpal_E3M5.mtl": "997065356d2a865204443d1cba21d19067369da599e9d3a4bbaa02bfe8ef3360",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/palm_E3M5.glb": "dcb1a4b613d28970100090830626a09ad1ca4d5479278880226baa7ed915a3fc",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/lf_metacarpal_E3M5_left.glb": "b69f0ad7600c6f1eb7c74ba563d0acaa5864b31531e94a660ba8bf5cd7a23817",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_middle_E3M5.obj": "49416cd8b0ca8a976749cc7c954ce56a59fc9e4664c68fc931d14a1a53ffd2ba",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_distal_pst.obj": "04d7ddc2166089b0c670806c1d1eb4b47b8f8c48428c00581b0fe64d59d4e5f8",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/palm_E3M5_left.obj": "3f7b3a9f8e00602aaba900fe107a19e7a9ab480750faa63812311d5009711bdf",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_middle_E3M5.glb": "88aa04c5c084e64eb1d210c74638d552fb3efbdff6e5875f0193fe22a40a695d",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/forearm_E3M5.obj": "67f719d4131da5edd1c43e8a560481087074833e3fe4580f4ffe0ea3d07691fb",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/wrist_E3M5.obj": "29724f4640064dde710b3725cbd37b0ee1ba8e000b0b5ad402d66bbba284bd29",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_proximal_E3M5.obj": "adb5475347a153997da789b0ab46b3b1b945906c9bf6a4e28787150ed3afa8cd",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_proximal_E3M5.obj": "c021a0c066743274d4133d0e85146a3fa3433102616a5e56e2aa18ff602bf996",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_middle_E3M5.mtl": "997065356d2a865204443d1cba21d19067369da599e9d3a4bbaa02bfe8ef3360",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/collision/f_knuckle_E3M5.obj": "7b76866ef85a388f79dba377293c7d12a17154d369c225e760afa9ccd5fa6b22",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/collision/th_middle_E3M5.obj": "de7278a75a3cc202f7186f0e0701c22c2cd6cdaf6ea68f991cbefb819d7bce38",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/collision/f_distal_pst.obj": "60fc4387b60b9362cdbc5b40d8f3869247cc5049de75fc6e7e7ae32cf8e87e33",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/collision/forearm_E3M5.obj": "ae348fdf00c61695dbd484455070101e901d89f3977a7585ae575742cec4a3be",
+    "repository:third_party/dex-urdf/robots/hands/shadow_hand/meshes/collision/th_proximal_E3M5.obj": "1763d80c8e34ed86bc20f0de67cd683aaf10eb7ff3b8395a9ab2b35554183c4c",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_002_seed_0.yaml": "9391b4c3e03d68c3b67be9dfe4d4bd6225f0f93ce22a881c659ccc2b15c51a97",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed0_noise0.00/collection_metadata.json": "a8e4268308dbc5b5ea9777b449634a2b7eccb83f6f3856fc7d028e352e026ae3",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed0_noise0.00/trajectory.npz": "2a28c88af099232c924f225246cb4977f4c1e93ece833a2f3e370efb975bbb1d",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed0_noise0.00/actions.npz": "587471c3eebf93b61cd7beac5ea2a71204ffd1ba5c9af4d7354c6ffa8acefecd",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed0_noise0.00/result.json": "8046f73d17da7ebfcc4599e87f518b2e8a877c39215891e23da7b5fc0ad38d5b",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed0_noise0.00/events.json": "c934d30972dbc6edbd0de506e835bbb56327d4d590b6524741a920691ed5d09f",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed0_noise0.00/final_state.npz": "3ba37e7bbb94c7de73e46895686d8061bc5f5c4ffe49d4390b0c87806759ea1e",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed0_noise0.00/scene.mjb": "3b36e1826b962cc229d3f822cdf13b9f0d37de66749faf68b955aa1ef652dc2d",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed0_noise0.00/scene.xml": "570168e34d54511e48a4742a6f36cd0ac7c56bc07afd11e5433ee719c67e8484",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed0_noise0.00/resolved_case.json": "5eab944174db8606395e60ec6d7eb2917dc8a62e3fb44f53f711bd74f1a27941",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_0/proposal.pkl": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_0/T_world_camera.npy": "7cf921d5850c26bfb5ee491763efb56a5fb097f1b1197a269ba4b0b080d8bbcf",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/object.xml": "ced71ba19f6a40dc7634a729ca8ae24e78de1be0a8c8df1ddcac486661423e1d",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/visual.obj": "e9ee0f42bb25cd8e2149e8090bf3f062cf3d735f9738972b5d2d932c7e4179bb",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/collision/part_000.obj": "f050b714d7721bcfaf67391bbc375c42577b72838f80e96f73ace5bb0cb37416",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/collision/part_001.obj": "37b822ec21d2497030c57ff003adfdeee56c312a3d20cb0295bb670ec0b30ccb",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/collision/part_002.obj": "88da7546e7559e7f3d94c448ce30742408b44442c5d55b49de66c91f652db44c",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/collision/part_003.obj": "17890e11105b70874f2a4cf20f5e66387b9490a742e13ad0a804c5e237f8b568",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/collision/part_004.obj": "37b4575c623c914855c185aa12211919093d38bf164382e8a1e8366209ceb612",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/collision/part_005.obj": "d2977aeca19a41553e5a623974984e4d2f8264822ad77ce034d672fbc8d75a30",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/collision/part_006.obj": "83d7ff7ba8a6b8b56e3c09bbb38c39c94a4129ab83d281e0b96a2ef613a7e1eb",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/collision/part_007.obj": "d1c0e8e316ef6e24b63002fd9066012a73fbfe1d43832a082c6301c9f93e644c",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/collision/part_008.obj": "fb8fdcf8226d1d450f5073c79188c4271640ef967b5484a647b834cea4d15265",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/collision/part_009.obj": "6cde7933ad04711b65ab13c3454ef9ffd322d3d50ac4c39ed891e1e733cb9b86",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/collision/part_010.obj": "81fe2b968182947eeeafeabba6253803670a37f7f40b9b860c300220e84b8810",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/collision/part_011.obj": "aa4c74dec977942b89e0a62a6ea005a297ce3d64d9e3d5ffb593258f97aa0e1c",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/collision/part_012.obj": "f2c88a547b5757fb559b49bb8ba15d9465abed3e647a423eb13584ae2739519e",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/collision/part_013.obj": "e298ecbbb1dc4ce1b364216fbc626986fdafa82f13c41617b3171a6454dd1e5a",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/collision/part_014.obj": "7bd0bbd3ffac686db9033f5729e83954cd9b85071e3b98dfba2953d83d21f7f3",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_002_seed_1.yaml": "79e5ae165dc861dbfb8f69ab1f4289597abb8f332db7b8256842e94f428b316a",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed1_noise0.00/collection_metadata.json": "36b8b924b5cc6b70f85396d35f8a9f09db5577ec49fb66a97e358d780374c0d1",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed1_noise0.00/trajectory.npz": "1f9ef5a8a630393cd95e672dda5c2c7bcb7d7577b89e170ab4724c061ce7797f",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed1_noise0.00/actions.npz": "91d2be8f529cede20571c0208605df7d91eaf66f5d48bb9d4100e317587272d0",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed1_noise0.00/result.json": "c05b6b0337ba14073992c6679ea19c558613f3f2955122f8150bb1d8c0b34007",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed1_noise0.00/events.json": "9f7fbc0172923cf58c736faf82f6f3f6ffa9fff69bed1072b2ff74434aff416f",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed1_noise0.00/final_state.npz": "16c8a417ab98740b1af9e36e3cd15389919e1ebcc64824f299995755c3188e9a",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed1_noise0.00/scene.mjb": "3b36e1826b962cc229d3f822cdf13b9f0d37de66749faf68b955aa1ef652dc2d",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed1_noise0.00/scene.xml": "570168e34d54511e48a4742a6f36cd0ac7c56bc07afd11e5433ee719c67e8484",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed1_noise0.00/resolved_case.json": "c63b8666979a26e7060deb66eab2959be073754c588eda6aac20ac9e971f3392",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_1/proposal.pkl": "6d6fff54a29762f036f82e263ce77bb4712a706f5776e0fddacd3c99b9d91abc",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_1/T_world_camera.npy": "7cf921d5850c26bfb5ee491763efb56a5fb097f1b1197a269ba4b0b080d8bbcf",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_002_seed_2.yaml": "a0bbdf11704a8fa21366f6a23c0801e0737bea2646e702860e4f0bed79e0cf84",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed2_noise0.00/collection_metadata.json": "17187dceeec75cde53eb06a45168fedda10bc421835bf730cc4ba5e168d50b64",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed2_noise0.00/trajectory.npz": "e211f904f163ae7814719c26f246d3c4f79f14cf43096e0dd31510f774c076d1",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed2_noise0.00/actions.npz": "18683fd559668308947091321d7218f54cef7d875daa8f379c5558b71a6366eb",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed2_noise0.00/result.json": "9a953f254fbbd3f2340bab95a917628fffe0f4899818ef0e36402478d64ec981",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed2_noise0.00/events.json": "83733d3ffbe80d14fe9c1986e8d240a7823e406a54a2632b4ebc1671ce4a6612",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed2_noise0.00/final_state.npz": "3d63ca30c1562d458cc15295f12060627d13342a3d3a255306c441c13b7ffced",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed2_noise0.00/scene.mjb": "3b36e1826b962cc229d3f822cdf13b9f0d37de66749faf68b955aa1ef652dc2d",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed2_noise0.00/scene.xml": "570168e34d54511e48a4742a6f36cd0ac7c56bc07afd11e5433ee719c67e8484",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed2_noise0.00/resolved_case.json": "6d8bd8b208511fe1219595fee8dee46ccb34e79dab6482b68ec95c8e9f08aca7",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_2/proposal.pkl": "46a2821224d3d36e833acd82354573b9db25c0d97641831dd82cfbf265761a67",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_2/T_world_camera.npy": "7cf921d5850c26bfb5ee491763efb56a5fb097f1b1197a269ba4b0b080d8bbcf",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_002_seed_3.yaml": "9aa731e66d02d3c33aeb4f20524f453be8f6228762774aa0a694a4d32b4f9b66",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed3_noise0.00/collection_metadata.json": "bbf07611422a937a83405d61e5238339a51f6ae2cd6b11edb85cca3c200f65dd",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed3_noise0.00/trajectory.npz": "dc7112fac7339b4556b0ba384c35126eb622bc4ee122301717f3be42543e4a1e",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed3_noise0.00/actions.npz": "562ae0393b249b1b3502f6fdc8600b20f287ec6fd2f9ad110ec5d43486300aeb",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed3_noise0.00/result.json": "61132f48261e3ce8e4a2316c9fe004949143ba39b9928eda2faa5212805926bb",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed3_noise0.00/events.json": "512ad59139d4677b304a4e5f71d9a2d153311e9363cec1a9556d122dde7a6212",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed3_noise0.00/final_state.npz": "934b721bcba9c11e7b7b94a79252b2eefc086dfb5478dccd9e99c88c85e1aed2",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed3_noise0.00/scene.mjb": "3b36e1826b962cc229d3f822cdf13b9f0d37de66749faf68b955aa1ef652dc2d",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed3_noise0.00/scene.xml": "570168e34d54511e48a4742a6f36cd0ac7c56bc07afd11e5433ee719c67e8484",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene002_seed3_noise0.00/resolved_case.json": "86af3fbb265b834a75859504012c8ed9af26c478e98fbf3cb38cf2ea94be00dd",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_3/proposal.pkl": "16aa0a790528ff3af2a64937fffefea98658fb1ab9f020ae5a430f501287125e",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_3/T_world_camera.npy": "7cf921d5850c26bfb5ee491763efb56a5fb097f1b1197a269ba4b0b080d8bbcf",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_003_seed_0.yaml": "87eafdc9e3a0594c9ae15d9596b043778ce8883a9841585485e049aa11e6e164",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed0_noise0.00/collection_metadata.json": "2990a70865893b5941ceb2ea69ac7b20431cd248e5a6ee216ec5f9dc2ddd203b",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed0_noise0.00/trajectory.npz": "19f8c56793bec29b25df6096354eab5f2b1c4450586169afde99bf31ffee05fd",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed0_noise0.00/actions.npz": "eddaa8bd895192303922985a1fd1e598ec00a4ea954b049fe30d081ec246edca",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed0_noise0.00/result.json": "02955daa6a34298b03806217e7f4aac4e22f71a9e9890708f5e9e94df38cb0ab",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed0_noise0.00/events.json": "18cf63028940e7994b3e008cf8a2b81cebb1f85c8a2af688adbb12ba68702535",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed0_noise0.00/final_state.npz": "24c00c09f5114ef25782403c0dc59645a046152f0ce6325bfef27c97f5f495e6",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed0_noise0.00/scene.mjb": "3b36e1826b962cc229d3f822cdf13b9f0d37de66749faf68b955aa1ef652dc2d",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed0_noise0.00/scene.xml": "570168e34d54511e48a4742a6f36cd0ac7c56bc07afd11e5433ee719c67e8484",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed0_noise0.00/resolved_case.json": "fdfad76adc8ea06207fabb6e4ecbca9d2e64644b87a376eb3de844e3e8e31ade",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/proposal.pkl": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/T_world_camera.npy": "dfd0bf5db56e1b9806918f2de09164b966fa15376959c2cd6d6455ceb4389a09",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_003_seed_1.yaml": "8ff8c453add8ed8088de048229d696416e0076eb45e61f627e4949fdb9e97693",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed1_noise0.00/collection_metadata.json": "13c902e8108c8299799bc2fba92cfbb4efe54798f1f53126f8e862c5003b9dc7",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed1_noise0.00/trajectory.npz": "b2655905bcf6d61d9421def2608192337a21919f4c583f39371a722b9436f295",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed1_noise0.00/actions.npz": "b700b81d7ed029a10803102d1b1b9ff9c88147e6c82e16a06536cc2d21b433fd",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed1_noise0.00/result.json": "8b315f7fc15cdff92cf3b64414f3832dab0cdf8b9ecd2dce91c47fdc7be73893",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed1_noise0.00/events.json": "a3198d67b931a4e278df99f033f1f1bcccb26e5f68fc5390084c5a80e6ee35c5",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed1_noise0.00/final_state.npz": "175255b567b1358b9bb46c673465c93ac085223ab4206ba858b550fedc6f21e1",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed1_noise0.00/scene.mjb": "3b36e1826b962cc229d3f822cdf13b9f0d37de66749faf68b955aa1ef652dc2d",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed1_noise0.00/scene.xml": "570168e34d54511e48a4742a6f36cd0ac7c56bc07afd11e5433ee719c67e8484",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed1_noise0.00/resolved_case.json": "63119a129aaaad671e6520c73963bdf645529c78b9a160452d87288252086e65",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_1/proposal.pkl": "f49c9b92760f981da6a12f97191d4f9c986d7e8d61fc0aefff5aa136327824ea",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_1/T_world_camera.npy": "dfd0bf5db56e1b9806918f2de09164b966fa15376959c2cd6d6455ceb4389a09",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_003_seed_2.yaml": "1ba865f20853865ebce13a114975407aac4d84c6f115134c3b8506d8d8a69a33",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed2_noise0.00/collection_metadata.json": "7bc426707ed62b268b76ca356f86bfb4a100750ca0a5022d5c57a77ca2c5293f",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed2_noise0.00/trajectory.npz": "3f47dbd9c0d06bdae2ee3bea6d9a59ddef73bd21b7bbde0f11023899cdf74b98",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed2_noise0.00/actions.npz": "cd1c53381a7af095df22c7837c4a9ee36793f3e9e6f813d0063e4e779f604b17",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed2_noise0.00/result.json": "756772ebcbe3c3b250370ac9868f8d2f09f7c66c97be1f965df72e43c2152419",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed2_noise0.00/events.json": "78395462e681f2df5d98d81299ee3f410a47a1a440d401746cbbfff315b43ea1",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed2_noise0.00/final_state.npz": "9f03560d5d604202539c89de98a68bdf9a7c110be777bb0e8ea9cd5496e8afe1",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed2_noise0.00/scene.mjb": "3b36e1826b962cc229d3f822cdf13b9f0d37de66749faf68b955aa1ef652dc2d",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed2_noise0.00/scene.xml": "570168e34d54511e48a4742a6f36cd0ac7c56bc07afd11e5433ee719c67e8484",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed2_noise0.00/resolved_case.json": "8cecbfc538d9f568e78a78224d4ffbfb3716e4dcb79df12eb84fd009f30dea0e",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_2/proposal.pkl": "28a41b209b942f3e3bf58dfe61e3990947527c9ce44cb7034bbfb5af385d29d5",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_2/T_world_camera.npy": "dfd0bf5db56e1b9806918f2de09164b966fa15376959c2cd6d6455ceb4389a09",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_003_seed_3.yaml": "83a73baa5cf834a3e7d166769116aab8076d956e51d940616ef5d5d58478dc1d",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed3_noise0.00/collection_metadata.json": "9a81e2880ca2a80b2e63ae8585a2aa475bd2b97a559990a048635cd425f3abdc",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed3_noise0.00/trajectory.npz": "2375b956c00280024f6545033e3e505371b4a5715579e9288fc6a0d24e7de6f4",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed3_noise0.00/actions.npz": "e8e949f4825875923bfc40bf4e40ed3d1a11bced605b3d8efd779ce2c107c20f",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed3_noise0.00/result.json": "5763037dbacbdbf2e682ccc5a4abfdd5a0d2b88a3ca01094daab30e69cbee1b3",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed3_noise0.00/events.json": "834e192b276859a7fefd1c7be4d0fb23a5651f0e545bfdc64b0196243f0629ba",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed3_noise0.00/final_state.npz": "67224e0df39514f403408526c50ce8b623273a6027d19d5c50608fe253402721",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed3_noise0.00/scene.mjb": "3b36e1826b962cc229d3f822cdf13b9f0d37de66749faf68b955aa1ef652dc2d",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed3_noise0.00/scene.xml": "570168e34d54511e48a4742a6f36cd0ac7c56bc07afd11e5433ee719c67e8484",
+    "runtime_assets:runs/mug_table_clearance_validation_2026-10-11/final_checks_27/mug_scene003_seed3_noise0.00/resolved_case.json": "5aee02fd29d51db0bdc8bf4a92b12f190468e440dff8824feb5d795d34f4a60a",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_3/proposal.pkl": "015ccbd3a888f0f2d712593aa30336f1fc60c95c294a8151effe032408246523",
+    "runtime_assets:runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_3/T_world_camera.npy": "dfd0bf5db56e1b9806918f2de09164b966fa15376959c2cd6d6455ceb4389a09",
+    "repository:research_artifacts/wrist_pose_feasibility_v1/report.json": "ac41990e4632db16239c19d15f13bffbc633a1a405694d5bb7bf971f0d081434",
+    "repository:research_artifacts/wrist_pose_feasibility_v1/manifest.json": "599e52d4294aa5596fc150b7d7d933ca2dcd3c2e8d798b71e8306239cc4b48fc",
+    "repository:scripts/select_wrist_comparison_poses.py": "7b9e9aa2d6bf3957650aa86ef2df812b3a00f63b43ee84f3c5410c71e16f808a"
+  },
+  "source_protocol_numerical_contract_sha256": "9a5459dfd297e8555d080968c6e209e2d9f03c23401ef71bcc0ff4e2e2086f2f",
+  "full_source_protocol_sha256": "3cad8858ef5d425298148d7542be28faa00debf8f97d3b261fb0d396a3b95351",
+  "runtime_versions": {
+    "python": "3.12.13",
+    "numpy": "2.5.3",
+    "mujoco": "3.3.7",
+    "pinocchio": "3.8.0",
+    "dex-retargeting": "0.5.0",
+    "pin_distribution_metadata": "4.1.0"
+  },
+  "no_simulator_time_advanced": true,
+  "no_predictions_generated": true,
+  "no_labels_generated": true,
+  "frozen_model_unchanged": true,
+  "interpretation": "Static selection preserves intended geometry but does not certify dynamic safety, equal motion/contact, success or a causal warning mechanism. Both out-of-training wrist settings establish sensitivity only, not familiar versus unfamiliar transfer."
+}

@@ -751,6 +751,70 @@ before a training remedy. The equal-budget training comparison remains
 unexecuted. Keep bound plans immutable and update current status in notes and
 new evidence bundles instead of rewriting historical declarations.
 
+## 12 October 2026 Completing the seven remaining frozen wrist comparisons
+
+**Previous plan and authorization:** after the first pair succeeded physically
+but produced two false warnings, the user requested the remaining seven pairs
+with zero noise and no model changes. Retain the same exact pose manifest,
+v4 executor, model, normalizer, input cutoff, task scorer and 0.5 threshold.
+
+**Pre-execution choice:** freeze the ordered seven-pair inventory and all
+finished execution/model source hashes before any new physics step. Run A then
+B once in every case, without replacements or outcome-based selection. Preserve
+the first pair separately. Bind completed scoring and audit implementations
+before inference rather than including unfinished analysis code in the
+execution declaration. The old audit amendment remains a historical first-pair
+record; this extension requires no new code exception.
+
+**Measured result:** all 14 new attempts complete without guard stops or hand/table
+contacts. There are 11 successes and three scorer-defined failed acquisitions;
+the model warns on all 14. Thus 11 successes are false alarms and the three
+task failures are detected. Five new pairs succeed at both settings and warn
+at both, one pair fails at both, and one fails in A but succeeds in B. Including
+the preserved first pair gives 16 attempts, 13 successful false alarms and
+three detected failures, with six both-success pairs. See
+[the extension evidence](../research_artifacts/wrist_pair_remaining_v1/README.md).
+
+**New label evidence:** the changed-outcome scene 003 seed 2 pair peaks at
+13.996398 cm in A and 14.020459 cm in B. A is just 0.036021 mm below the fixed
+14 cm cutoff; both satisfy qualifying contact and the sampled 2 s HOLD rule.
+The peak difference is 0.240608 mm. Preserve labels 0/1, but describe a small
+task-cutoff crossing rather than a slip, drop or dramatic physical recovery.
+The other two failures peak at approximately 13.04 and 13.02 cm. All three
+failures derive from two proposal families.
+
+**Interpretation and challenge:** false warnings repeat across the declared
+both-success pairs. At the fixed decision threshold the predictor behaves like
+an always-warn rule here; 3/3 detections do not establish useful reliability.
+Descriptive AUROC remains 0.9091 on the new batch and 0.8974 on all 16, so do
+not claim that the scores contain no information. Wrist changes affect scores
+and actual contact dynamics; both settings remain outside training ranges.
+These related development cases do not establish causal wrist harm, general
+object transfer, a training benefit or actionable slip timing.
+
+**Verification and storage:** manual probabilities match within 1.39e−17;
+original training normalization reproduces bitwise. Replay reproduces all
+recorded states over 45,640 new physics substeps without hand/table contact.
+Zero noise, exact wrist targets, identical paired finger histories and nominal
+palm paths are verified. All seven B motions reproduce their older v3
+references apart from signed-zero noise representation. A separate scoring
+rerun reproduces its report, predictions, dataset and pre-outcome record
+byte-for-byte. Model, bound sources, raw recordings and first-pair artifacts
+remain unchanged. New raw data are in
+`runs/wrist_pair_diagnostic_2026-10-12/remaining_pairs`; portable inputs and
+audit/figure records are in `research_artifacts/wrist_pair_remaining_v1`.
+
+**Next decision:** the declared diagnostic is complete. Before fitting the
+matched wrist-coverage versus finger-noise cohorts, declare equal selected
+training budgets, class mix, base identities, validation and a common fresh
+holdout. A separate validation-fitted calibration reference would test whether
+coverage training improves beyond simple score calibration. Do not select a
+mapping or threshold from these eight diagnostic pairs, change labels to clear
+errors, or alter the frozen result. This is a proposed comparison addition,
+not a completed calibration or training experiment. Paper, current evidence
+index and handoff now report the full diagnostic while historical bound plans
+and first-pair notes keep their original bytes.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new

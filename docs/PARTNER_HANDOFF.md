@@ -22,9 +22,9 @@ training data, the same success/failure proportions and the same model
 architecture?
 
 Our immediate task is smaller: compare safe wrist settings for the same intended
-mug grasp at zero noise with the saved model unchanged. The first pair is now
-complete: both grasps succeed and both trigger false warnings. Seven remaining
-declared pairs and the later training comparison remain pending.
+mug grasp at zero noise with the saved model unchanged. All eight declared
+pairs are now complete: all 13 successful attempts and three task failures
+trigger warnings. The later training comparison remains pending.
 
 The first static check found that none of the eight observed training wrist
 command pairs met the nominal table gate across the eight declared mug proposals
@@ -37,6 +37,8 @@ for every candidate and source binding.
 The [first paired diagnostic](../research_artifacts/wrist_pair_diagnostic_v1/README.md)
 uses two safe unfamiliar settings selected without new scores or outcomes.
 It does not claim a familiar-versus-unfamiliar contrast.
+The [seven-pair extension](../research_artifacts/wrist_pair_remaining_v1/README.md)
+preserves the first pair and documents the complete outcome and warning matrix.
 
 ## Original pilot completed on 11 October
 
@@ -183,22 +185,21 @@ public website or a shareable link to Nila's recordings.
 
 ## Next work in order
 
-1. **Understand the first completed pair.** Two safe unfamiliar wrist settings
-   execute the same intended grasp with zero noise. Both lift and hold the mug;
-   both receive a failure warning. Inspect the replay, causal inputs, labels and
-   [independent checks](../research_artifacts/wrist_pair_diagnostic_v1/README.md).
-   The unchanged model has two false alarms here. No failures occur, so this
-   pair cannot estimate failure recall.
-2. **Check the remaining seven declared pairs for repeatability.** The
-   [frozen pose manifest](../research_artifacts/wrist_pair_selection_v1/pose_manifest.json)
-   already selects A/B settings without new predictions or outcomes. The v4
-   executor honors those exact poses and rejects substitution. Retain all
-   outcomes and guard stops; use the same zero noise, causal cutoff and frozen
-   model. Both settings are unfamiliar, so qualify these as sensitivity checks.
-3. **Review the full diagnostic before a training change.** Compare both-success
-   pairs separately from pairs whose outcomes differ. Measure actual palm/finger
-   tracking, logits and wrist/nonwrist terms. The first pair alone cannot
-   demonstrate improved prediction, generalization or a training remedy.
+1. **Understand the complete diagnostic.** All 14 new attempts finish. Eleven
+   successes cause false warnings; three failed task labels are correctly
+   flagged. With the first pair, all 13 successes warn. Six pairs succeed at
+   both wrist settings, yet neither clears. One changed label misses the lift
+   cutoff by only 0.036 mm; it is not evidence of a drop. Inspect
+   [the full evidence](../research_artifacts/wrist_pair_remaining_v1/README.md).
+2. **Declare new data and holdouts before fitting.** The diagnostic used two
+   already inspected mug scenes, so it cannot become the final test. Keep a
+   common fresh set outside training and validation and preserve family
+   identities, task labels and all collection exclusions.
+3. **Include a simple calibration reference in the proposed comparison.**
+   Scores retain some ranking information, despite warning on every success
+   at 0.5. Fit any mapping or threshold only on separate validation data, not
+   these diagnostic pairs. Keep original weights/results as the fixed reference.
+   No calibration has been fitted yet; it must not replace the frozen result.
 4. **Decide on the equal budget training experiment from the diagnosis.**
    Compare the same original base plus equal numbers of finger noise or wrist
    coverage examples, with matched success/failure mix and base object/proposal

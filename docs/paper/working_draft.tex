@@ -29,9 +29,11 @@ outside the original training ranges; reconstructed wrist terms push all 20
 scores toward failure. This is an input and score diagnostic, not isolated
 physical causation. A static check also finds no eligible mug configuration
 among the eight wrist command pairs observed in training under the declared
-clearance gate. In a subsequent frozen pair of two safe unfamiliar wrist
-configurations, both grasps succeed and both trigger alerts. Wrist terms change
-the success logit, while actual palm and finger motions remain close. We
+clearance gate. Across eight subsequent frozen pairs of unfamiliar wrist
+configurations, all 13 successes and three task failures trigger alerts.
+Six pairs succeed at both settings, yet no warning clears. One changed task
+label crosses the lift cutoff by a submillimeter amount. Wrist terms change
+scores without establishing an improvement. We
 specify a subsequent comparison of wrist coverage against
 additional finger noise at matched training counts and class proportions.
 That comparison remains unexecuted. Current results establish a reliability
@@ -204,8 +206,8 @@ We freeze eight feasible pairs using geometry and training distance alone,
 requiring at least 0.02 rad Euclidean command separation. A uses the nearest
 eligible candidate in a deterministic bounded search; B retains the previously
 corrected pose. Both settings remain outside training command ranges in every
-selected case. Only the first eligible pair in the declared order is executed
-here, with zero noise and separately versioned explicit v4 execution. It rejects
+selected case. The first eligible pair in the declared order is executed first,
+with zero noise and separately versioned explicit v4 execution. It rejects
 any substituted pose before motion and retains the existing runtime guard,
 task parameters, scorer and predictor.
 
@@ -228,15 +230,46 @@ auditor-only code amendment finalizes geometry and rounding checks after its
 initial hash was declared. It changes no executed treatment or model input.
 This both-success pair demonstrates persistent false warnings under a small
 safe wrist change, not an improvement or a familiar-versus-unfamiliar contrast.
-No failures occur, so failure recall is undefined. Seven selected pairs remain
-unexecuted, and these new v4 records remain separate from the earlier v3 checks.
+No failures occur in this initial pair, so its failure recall is undefined.
+These v4 records remain separate from the earlier v3 checks.
+
+\paragraph{Completion of the remaining declared pairs.}
+The remaining seven pairs run once per posture without changing poses, noise,
+model, normalization or threshold. All 14 complete: 11 successes and three
+scorer-defined failed acquisitions, with no clearance stops. Every attempt
+triggers an alert. Five new pairs succeed at both settings, one fails at both,
+and one fails in A but succeeds in B. Including the preserved first pair gives
+16 attempts, 13 successful false alarms and three detected failures; all six
+both-success pairs warn at both settings. No alternative attempt is selected
+after observing results.
+
+The outcome-changing scene 003 seed 2 pair is cutoff-adjacent. A peaks at
+0.139963979 m, only 0.036021 mm below the 0.14 m requirement, while B peaks at
+0.140204587 m. Their peak lifts differ by 0.240608 mm; both satisfy qualifying
+contact and the sampled 2 s HOLD measure. Original labels remain failure and
+success. This crossing does not demonstrate slipping, dropping or a dramatic
+recovery. The other two failed acquisitions peak at approximately 0.1304 and
+0.1302 m. All three failures belong to two proposal families.
+
+Manual probabilities match within $1.39\times10^{-17}$, original training
+normalization reproduces bitwise, and independent replay reproduces all saved
+states across 45,640 new physics substeps without table contact. Applied finger
+commands and nominal world paths remain identical within each pair. Actual
+closing-window palm and finger geometry differences reach 0.458 and 4.116 mm;
+the largest occurs in the both-failed pair. These are not pure input
+interventions or independent new object conditions.
+
+At the fixed threshold the predictor behaves like an always-warn rule on these
+cases. Descriptive failure AUROC is 0.9091 for the new batch and 0.8974 for all
+16, based on only three related failures. This ranking signal does not repair
+the operating-point false alarms, but also prevents concluding that the scores
+contain no information. Threshold selection from these diagnostic outcomes
+would not constitute fresh evaluation.
 
 \section{Planned comparison and decision criteria}
-\paragraph{First isolate the diagnostic.}
-Exact paired poses and explicit execution support are now available; the first
-pair above completes the initial check. Review it before executing the remaining
-declared pairs with intended grasp, physics, timings and the model held fixed.
-Retain the full inventory, including any stops or changed outcomes. Compare
+\paragraph{Completed wrist diagnostic.}
+The declared eight-pair diagnostic is now complete. Review the full inventory,
+including changed outcomes, before choosing a training remedy. Compare
 alerts, logits and wrist/nonwrist
 terms in pairs where both actual tasks succeed; report all other outcome pairs
 separately. Two out-of-range wrists test sensitivity, not familiar versus
@@ -263,6 +296,10 @@ numerators, denominators, object/posture breakdowns and uncertainty respecting
 shared families. No failures means undefined failure recall; a few failures
 cannot establish broad noninferiority. Neither warning on everything nor
 clearing everything satisfies both objectives. No such comparison is completed.
+A separately validation-fitted calibration reference would test whether coverage
+training adds value beyond adjusting score calibration. Any mapping or threshold
+must be fitted on separate validation data, with the current diagnostic result
+preserved and the common fresh test untouched. No calibration is fitted here.
 
 \section{Limitations and evidence availability}
 Our completed diagnostic concerns one hand, fixed task definitions and reused
@@ -280,7 +317,8 @@ partitions, fitted coefficients, predictions and hash-bound artifacts in
 \path{object_scene_pilot_v1}, \path{task_outcome_baseline_v1},
 \path{fresh_object_scene_eval_v1}, \path{corrected_mug_model_diagnostic_v1},
 \path{mug_wrist_input_diagnostic_v1}, \path{wrist_pose_feasibility_v1},
-\path{wrist_pair_selection_v1} and \path{wrist_pair_diagnostic_v1}.
+\path{wrist_pair_selection_v1}, \path{wrist_pair_diagnostic_v1} and
+\path{wrist_pair_remaining_v1}.
 The historical \path{wrist_comparison_plan_v1} remains frozen as the source
 declaration; current progress is recorded separately rather than rewriting it.
 Raw trajectories remain local rather than constituting a public dataset release.

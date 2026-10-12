@@ -15,14 +15,15 @@ training budgets. That comparison is planned, not completed. Completed evidence
 comprises the pilot, frozen fresh evaluation, separate mug executor correction,
 scoring of 26 completed checks, the wrist input audit and a static check of
 observed training wrist settings, frozen selection of eight wrist pairs and
-one completed zero-noise paired comparison. Future slip timing,
+completion of all eight zero-noise comparisons. Future slip timing,
 recovery and real world transfer remain untested.
 
-**Immediate next step:** review the first completed pair: both grasps succeed,
-but both are warned on by the unchanged model. Then check the seven remaining
-declared pairs for repeatability before choosing a training remedy. See the
+**Immediate next step:** declare the matched training comparison, a separate
+validation/calibration reference and a common fresh holdout before fitting.
+All eight wrist pairs are complete: every success still triggers a warning.
+See the
 [current question and evidence gates](#accepted-paper-question-and-evidence-gates-12-october).
-The latest [first paired result](#first-safe-wrist-pair-12-october) supersedes
+The latest [completed paired results](#seven-remaining-wrist-pairs-completed-12-october) supersede
 earlier planning-status statements below; bound historical plans retain their
 original bytes.
 
@@ -956,3 +957,57 @@ seven frozen pairs before any training change. Neither broad transfer nor a
 training remedy is demonstrated. No failures occur in this pair, so failure
 recall is undefined. The workshop template, page limit, anonymous packaging and
 author review remain submission preparation tasks.
+
+## Seven remaining wrist pairs completed, 12 October
+
+**Execution:** all seven remaining declared pairs ran once per wrist setting,
+with zero noise, unchanged poses, the same v4 executor and the original model.
+All **14 new attempts completed**, with no guard stops or hand/table contacts.
+The first pair and its evidence remain unchanged and were not run again.
+
+**Predictions versus outcomes:** the model warned on all 14. **Eleven actual
+successes were false alarms; three failed task labels were correctly flagged.**
+Five new pairs succeeded in both A and B, and neither setting cleared the alert
+in any of those pairs. One pair failed in both; one failed in A and succeeded
+in B. Including the preserved first pair gives eight pairs and 16 attempts:
+13 successful false alarms, three detected task failures, six both-success
+pairs, one both-failure pair and one A-failure/B-success pair. The full
+[paired report and figure](../research_artifacts/wrist_pair_remaining_v1/README.md)
+keep these stages and outcomes separate.
+
+**Label boundary:** in scene 003 seed 2, A peaks at 13.996398 cm, only
+0.036021 mm below the 14 cm cutoff; B peaks at 14.020459 cm. Both satisfy
+qualifying contact and the sampled 2 s HOLD rule. Labels remain 0 and 1;
+this small cutoff crossing does not establish slipping, dropping or recovery.
+The other two failed acquisitions peak at about 13.04 and 13.02 cm. These
+three failures come from two proposal families, not three independent objects.
+
+**Interpretation:** at the fixed 0.5 threshold, this batch behaves like an
+always-warn rule. The false alarms repeat across six both-success proposal
+pairs. Descriptive AUROC is 0.9091 for the new batch and 0.8974 for all 16,
+so scores retain some ranking information; we do not conclude that the model
+contains no useful information. Those tiny development counts do not establish
+reliable detection, calibrated probabilities or justify tuning a threshold
+on these cases. Both wrist settings remain outside original training ranges.
+Actual motion also changes, so this is not a pure input intervention or an
+untouched generalization benchmark.
+
+**Verification:** the finished scorer and independent auditor were bound before
+new inference. No new audit-source exception is needed. All 14 predictions
+were saved before reading task-result files. Original training normalization
+reproduces bitwise and manual probabilities agree within 1.39e−17. All 45,640
+new physics substeps replay exact states with no hand/table contact; all 22
+finger command histories match within pairs. Model, poses, source records and
+the old first-pair bundle remain unchanged. Current pair tracking and causal
+input exports are preserved in the new bundle. An actual separate scoring
+rerun reproduced the report, predictions, dataset and pre-outcome prediction
+record byte-for-byte.
+
+**Next design decision:** the declared diagnostic is complete. The matched
+wrist-coverage versus additional finger-noise training study remains unexecuted.
+Define equal budgets/class mix/base identities, separate validation and a
+fresh common test before fitting. A validation-fitted calibration reference
+would check whether a simple score adjustment helps as much as new training
+coverage. That comparison is proposed, not fitted; preserve the current 0.5
+result and original labels. The paper now reports the full diagnostic and
+compiles. Workshop formatting and author review remain pending.

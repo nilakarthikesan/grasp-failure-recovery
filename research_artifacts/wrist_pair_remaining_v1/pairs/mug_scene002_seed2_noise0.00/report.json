@@ -1,0 +1,223 @@
+{
+  "schema_version": "frozen_wrist_pair_model_diagnostic_v1",
+  "date": "2026-10-12",
+  "pair_id": "mug_scene002_seed2_noise0.00",
+  "pose_manifest_sha256": "354f245ba6663974c92a132895709ea8d41dd5578942dc7af8e526f75dbb8ee1",
+  "planned": 2,
+  "completed_scored": 2,
+  "stopped_unscored": 0,
+  "prediction_time_s": 2.96,
+  "history_steps": 20,
+  "failure_alert_threshold": 0.5,
+  "model_unchanged": true,
+  "no_training_or_tuning": true,
+  "offline_causal_prefix_scoring": true,
+  "records": [
+    {
+      "posture": "A",
+      "status": "completed",
+      "observed_through_s": 2.9599999999998956,
+      "p_success": 1.1825498059949924e-12,
+      "p_failure": 0.9999999999988175,
+      "failure_alert": true,
+      "success_logit": -27.463348156195728,
+      "wrist_contribution": -26.339871004975137,
+      "nonwrist_contribution": -0.5273962187387573,
+      "intercept": -0.5960809324818366,
+      "label_success": 0,
+      "failure_type": "failed_acquisition",
+      "classification": "detected_failure",
+      "measured_task_outcome": {
+        "artifacts": {
+          "hug_proposal": null,
+          "inference_report": null,
+          "resolved_case": "resolved_case.json",
+          "simulator_state": "final_state.npz",
+          "trajectory": "trajectory.npz",
+          "video": null
+        },
+        "case_id": "scene002_hug_seed2",
+        "failure_type": "failed_acquisition",
+        "outcome": {
+          "acquired_object": true,
+          "final_object_height_m": 0.18581133330298574,
+          "hold_duration_s": 2.0,
+          "maximum_lift_m": 0.1303995170813942,
+          "opposing_contact_duration_s": 5.0,
+          "peak_actuator_force_fraction": 1.0,
+          "peak_contact_normal_force_n": 21.595365539374217
+        },
+        "resolved_execution": {
+          "code_commit": "affde66cc7230934191cf9e39683da1881c911b5",
+          "embodiment_id": "shadow_hand_right",
+          "environment_config_hash": "sha256:954eb93c4a4cffbff9f5b4001823d47dba9c92109427eb97c538ca8532744717",
+          "environment_id": "adroit_shadow_tabletop_v2",
+          "execution_protocol_config_hash": "sha256:518004cff0d9a4b00dcdc12302935f840ed61aeeed1097d98df314c003925c11",
+          "execution_protocol_id": "fixed_grasp_lift_v4_frozen_wrist_pair",
+          "execution_protocol_parameters": {
+            "approach_duration_s": 1.0,
+            "close_duration_s": 1.0,
+            "force_close_delta_rad": 0.2,
+            "grip_command": 1.0,
+            "grip_command_type": "normalized_position",
+            "hold_duration_s": 2.0,
+            "lift_duration_s": 1.5,
+            "lift_height_m": 0.15,
+            "maximum_mean_fingertip_error_m": 0.01,
+            "palm_height_above_object_m": 0.04,
+            "pregrasp_distance_m": 0.08,
+            "settle_duration_s": 0.8,
+            "total_timeout_s": 10.0
+          },
+          "mujoco_version": "3.3.7"
+        },
+        "retargeting": {
+          "config_id": "shadow_hand_right",
+          "library": "dex-retargeting==0.5.0",
+          "maximum_fingertip_error_m": 0.015517924902818784,
+          "mean_fingertip_error_m": 0.006302526373489331
+        },
+        "schema_version": "eval_result_v1",
+        "status": "completed",
+        "success": false
+      }
+    },
+    {
+      "posture": "B",
+      "status": "completed",
+      "observed_through_s": 2.9599999999998956,
+      "p_success": 1.9701616457354263e-13,
+      "p_failure": 0.9999999999998029,
+      "failure_alert": true,
+      "success_logit": -29.255490615865913,
+      "wrist_contribution": -27.071857968432845,
+      "nonwrist_contribution": -1.587551714951228,
+      "intercept": -0.5960809324818366,
+      "label_success": 0,
+      "failure_type": "failed_acquisition",
+      "classification": "detected_failure",
+      "measured_task_outcome": {
+        "artifacts": {
+          "hug_proposal": null,
+          "inference_report": null,
+          "resolved_case": "resolved_case.json",
+          "simulator_state": "final_state.npz",
+          "trajectory": "trajectory.npz",
+          "video": null
+        },
+        "case_id": "scene002_hug_seed2",
+        "failure_type": "failed_acquisition",
+        "outcome": {
+          "acquired_object": true,
+          "final_object_height_m": 0.18563830643304807,
+          "hold_duration_s": 2.0,
+          "maximum_lift_m": 0.13023149001526407,
+          "opposing_contact_duration_s": 5.0,
+          "peak_actuator_force_fraction": 1.0,
+          "peak_contact_normal_force_n": 23.413927752036194
+        },
+        "resolved_execution": {
+          "code_commit": "affde66cc7230934191cf9e39683da1881c911b5",
+          "embodiment_id": "shadow_hand_right",
+          "environment_config_hash": "sha256:954eb93c4a4cffbff9f5b4001823d47dba9c92109427eb97c538ca8532744717",
+          "environment_id": "adroit_shadow_tabletop_v2",
+          "execution_protocol_config_hash": "sha256:916a455f786c37deda192484e08963a0cd12c8be0b72ffcc4ea57fe7b96be65c",
+          "execution_protocol_id": "fixed_grasp_lift_v4_frozen_wrist_pair",
+          "execution_protocol_parameters": {
+            "approach_duration_s": 1.0,
+            "close_duration_s": 1.0,
+            "force_close_delta_rad": 0.2,
+            "grip_command": 1.0,
+            "grip_command_type": "normalized_position",
+            "hold_duration_s": 2.0,
+            "lift_duration_s": 1.5,
+            "lift_height_m": 0.15,
+            "maximum_mean_fingertip_error_m": 0.01,
+            "palm_height_above_object_m": 0.04,
+            "pregrasp_distance_m": 0.08,
+            "settle_duration_s": 0.8,
+            "total_timeout_s": 10.0
+          },
+          "mujoco_version": "3.3.7"
+        },
+        "retargeting": {
+          "config_id": "shadow_hand_right",
+          "library": "dex-retargeting==0.5.0",
+          "maximum_fingertip_error_m": 0.015517924902818784,
+          "mean_fingertip_error_m": 0.006302526373489331
+        },
+        "schema_version": "eval_result_v1",
+        "status": "completed",
+        "success": false
+      }
+    }
+  ],
+  "excluded": [],
+  "paired_difference": {
+    "success_logit_B_minus_A": -1.7921424596701847,
+    "wrist_contribution_B_minus_A": -0.7319869634577074,
+    "nonwrist_contribution_B_minus_A": -1.0601554962124706,
+    "p_failure_B_minus_A": 9.85433956657289e-13,
+    "both_successful": false,
+    "alerts_differ": false
+  },
+  "metrics": {
+    "episodes": 2,
+    "successes": 0,
+    "failures": 2,
+    "accuracy": 1.0,
+    "balanced_accuracy": null,
+    "log_loss": 1.0912749029980958e-12,
+    "brier_score": 7.186197063810318e-25,
+    "failure_roc_auc": null,
+    "failure_average_precision": 1.0,
+    "failure_recall": 1.0,
+    "failure_precision": 1.0,
+    "success_false_alarm_rate": null,
+    "failure_confusion": {
+      "true_positive": 2,
+      "false_positive": 0,
+      "true_negative": 0,
+      "false_negative": 0
+    },
+    "decision_rule": "alert if p_failure >= 0.5; p_failure = 1 - p_success"
+  },
+  "frozen_file_sha256": {
+    "research_artifacts/task_outcome_baseline_v1/proprioception_and_commands.npz": "16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb",
+    "research_artifacts/task_outcome_baseline_v1/report.json": "19f1aa3e7ab0902da1c955aaaa992b8023f7c6b453fa60b835d284cd385c13a8",
+    "src/grasp_failure_prediction/prediction/model.py": "f5fbe2762efd7099a05b75ccca11cdae670eac9e20f7b265632d98b2a24fdea8",
+    "src/grasp_failure_prediction/prediction/dataset.py": "ac6a6fe517cbfd21b4bdae0e858fb31674561b923b1e0c0f4397255cf1316076",
+    "research_artifacts/object_scene_pilot_v1/dataset.npz": "29f773f7faf03cff5e1c694ef475d02adfd07c239314b349f2228f86db9d3aad",
+    "research_artifacts/object_scene_pilot_v1/splits.json": "27a9c894b0775a5a10e2ae83a18b6a70f78d4c504b80396086a80158b3b5aac7",
+    "scripts/run_remaining_wrist_pairs.py": "0e4267c8859dd500fcf4799949e6efe93833a239eb320fee98c513c0a40a6938",
+    "scripts/select_wrist_comparison_poses.py": "7b9e9aa2d6bf3957650aa86ef2df812b3a00f63b43ee84f3c5410c71e16f808a",
+    "src/grasp_failure_prediction/evaluation/paired_wrist_execution.py": "23b0b5cb784009f023d3829e7ec394d87558588a67d503c0ef23dd855a51911c",
+    "src/grasp_failure_prediction/evaluation/table_safe_execution.py": "1064ce8832485e792db36731c657b8847580e27c96feb5ecadd1e4dd2230b778",
+    "src/grasp_failure_prediction/evaluation/table_clearance.py": "f11dfdedc1ccd55458735c3c7c3f8b3cb5ecd156a2c6724683098112d6f14bbc",
+    "src/grasp_failure_prediction/evaluation/noisy_rollouts.py": "384f930f5b38bb62ddf52d3883557d9d7cddfcfadb0d5a45ce87d13a255f0295",
+    "src/grasp_failure_prediction/evaluation/runner.py": "4d819711660c346938ce468b06b207aaed9d0315ab1ee3dffd9d4c56e1f417e6"
+  },
+  "raw_source_sha256": {
+    "A/actions.npz": "2c912cadbcbd567d5990ce0fc4e13a3065e6a9a9eb2e5ba9aa3ca6a73ec71d41",
+    "A/collection_metadata.json": "4c962a6843f99014b80949ba29dc80d163bbe60526cb4dfb6c59ce1e145cd26d",
+    "A/events.json": "e4615de57e3cae25c28d94a3696912c4ebc51e442cf667cc327a4ac4aebb375a",
+    "A/final_state.npz": "a7d0a9ceb0d6f8e5d5fdb4aecb3f3466255dc9fbae823efbf61816d9c44ffd96",
+    "A/resolved_case.json": "cc208441dda4f57cc1d1715860e1db95a7081ca1f50d297d3dcfef4014c74cf6",
+    "A/result.json": "5e8b29a07add461fab8eae417ab90e3261fbe2ff2296a08d257bb7a16ba5b23e",
+    "A/scene.mjb": "3b36e1826b962cc229d3f822cdf13b9f0d37de66749faf68b955aa1ef652dc2d",
+    "A/scene.xml": "570168e34d54511e48a4742a6f36cd0ac7c56bc07afd11e5433ee719c67e8484",
+    "A/trajectory.npz": "66900b8d2171959ac8156acc7a279438b51fc074e0dcbaaff7af4661a3fef525",
+    "B/actions.npz": "b02301f298749c0b3d320fb046b74cf71fad553075585427a9fdbe375e027a23",
+    "B/collection_metadata.json": "f5e1a6ccc4193dc4bf444492d232a232d75aa87d0220bd0edb9afb3e033e1505",
+    "B/events.json": "83733d3ffbe80d14fe9c1986e8d240a7823e406a54a2632b4ebc1671ce4a6612",
+    "B/final_state.npz": "3d63ca30c1562d458cc15295f12060627d13342a3d3a255306c441c13b7ffced",
+    "B/resolved_case.json": "a1bb7fbcba5854b725a17213735c15605d491ba75a8282cdd2ee21d178cc6f93",
+    "B/result.json": "286025a5539f965fd269bd8de119289abd85cd501bb19f69ce454f8ea8347a20",
+    "B/scene.mjb": "3b36e1826b962cc229d3f822cdf13b9f0d37de66749faf68b955aa1ef652dc2d",
+    "B/scene.xml": "570168e34d54511e48a4742a6f36cd0ac7c56bc07afd11e5433ee719c67e8484",
+    "B/trajectory.npz": "e211f904f163ae7814719c26f246d3c4f79f14cf43096e0dd31510f774c076d1",
+    "plan.json": "b0df624c10a8a7677b67cbed45a765f6604ba0679cf2e03fae6474e6c23a3537"
+  },
+  "scope": "One predeclared remaining development pair; final grasp/lift/hold outcomes, not slip timing or recovery.",
+  "comparison_qualification": "Both predeclared wrist settings lie outside original training-command ranges; this tests sensitivity, not familiar-versus-unfamiliar transfer."
+}

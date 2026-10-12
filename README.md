@@ -147,9 +147,18 @@ separately. Both wrist settings remain outside training ranges. Watch
 [the paired replay](research_artifacts/wrist_pair_diagnostic_v1/wrist_pair_replay.mp4)
 or inspect [the result figure](research_artifacts/wrist_pair_diagnostic_v1/wrist_pair_outcomes.png).
 
-**Immediate next step:** understand this first comparison, then check whether
-the pattern repeats across the seven remaining declared pairs before choosing
-a training remedy. The [original diagnostic plan](research_artifacts/wrist_comparison_plan_v1/protocol.json)
+The [seven remaining pairs are now complete](research_artifacts/wrist_pair_remaining_v1/README.md).
+All 14 new attempts finish without stops or hand/table contacts. The model warns on
+**all 11 successes and all three task failures**. Including the first pair,
+that is 13 false alarms on 13 successes across eight pairs. Six pairs succeed
+at both wrist settings, yet neither clears the warning. One changed label is
+only a small crossing of the 14 cm lift cutoff, not evidence of a drop.
+See [the full paired summary](research_artifacts/wrist_pair_remaining_v1/wrist_pair_summary.png).
+
+**Immediate next step:** declare the matched training comparison and a separate
+validation/calibration reference before fitting any remedy. The current model
+and 0.5 threshold remain unchanged; its ranking signal is not proof that its
+warnings are useful. The [original diagnostic plan](research_artifacts/wrist_comparison_plan_v1/protocol.json)
 is retained as a frozen source record; current execution status is in the new
 evidence bundles and notes.
 
