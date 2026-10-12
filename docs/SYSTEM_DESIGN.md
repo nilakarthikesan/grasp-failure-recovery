@@ -4,7 +4,8 @@
 
 ## System Design Document
 
-**Status:** Working draft  
+**Status:** Research design; implementation in progress
+
 **Project repository:** `grasp-failure-recovery`
 
 This document records the research question, experimental design, system
@@ -25,10 +26,10 @@ This project asks:
 > is likely to fail, and choose an effective recovery while recovery is still
 > possible?
 
-The project is one connected research program with three separately trained and
-evaluated components:
+The project has three components, evaluated in stages:
 
-1. **Grasp learning:** What action should the robot take?
+1. **HUG-conditioned grasp execution:** Does a proposed grasp succeed under the
+   declared execution protocol?
 2. **Failure prediction:** What will happen if it continues its current
    behavior?
 3. **Recoverability and recovery:** Could another action still save the
@@ -238,7 +239,10 @@ The initial experiment does not train a manipulation policy. It uses the
 versioned deterministic `fixed_grasp_lift_v1` protocol so grasp failures are
 not confounded with controller-learning failures. Existing inverse kinematics,
 motion planning, actuator interfaces, and feedback controllers execute its
-fixed sequence.
+fixed sequence. The current registered runner instead prescribes wrist and
+hand positions kinematically; it is not an actuator-limited physical controller.
+It uses protocol-defined table-parallel wrist placement. Separate actuated
+Shadow Hand experiments are documented in [HUG simulation pilot](HUG_SIMULATION_PILOT.md).
 
 Part I proceeds in this order:
 
@@ -252,9 +256,10 @@ Part I proceeds in this order:
 A learned execution policy may be studied later as a separately versioned
 protocol. It is not part of the initial grasp-quality evaluation.
 
-Part I reports acquisition, lift, transport, and placement success separately,
-along with object loss, collisions, and excessive-force events where those can
-be measured.
+The present protocol reports contact, maximum lift, hold duration, final object
+height, approach collision, and a coarse failure category. Its `acquired_object`
+flag denotes contact, not a secured grasp. Transport, placement, and calibrated
+force measurements require additional protocol and outcome definitions.
 
 ### 6.2 Part II — Future-failure prediction
 
@@ -374,19 +379,30 @@ force-torque sensors, calibration, timestamping, and safety limits.
 Simulation-only results using ideal contact information remain explicitly
 simulation results until tested with measurements available on the robot.
 
-## 7. Current Technical Starting Point
+## 7. Current Implementation
 
 The repository currently provides:
 
-- inspection of `AdroitHandRelocate-v1`, a MuJoCo environment with a Shadow
-  Hand and arm;
-- access to robot state, object position, mass, friction, and simulator contact
+- HUG prediction adapters, RGB-D validation, coordinate-frame checks, and Dex
+  Retargeting integration with explicit MuJoCo joint-name mapping;
+- a versioned environment/protocol registry, strict one-case input schema,
+  deterministic grasp/lift execution, outcome scoring, and saved artifacts;
+- separate alignment, CPU inference, and actuated Shadow Hand diagnostic scripts;
+- inspection of `AdroitHandRelocate-v1` and access to simulator physics/contact
   information; and
-- an adapter for validating grasp predictions produced by Human Universal
-  Grasping (HUG).
+- supporting Panda demonstration collection, synchronized logging, HDF5 export,
+  LeRobot conversion, ACT training, and physics-state snapshots.
 
-It does not yet train a policy, collect rollouts, create future-horizon labels,
-branch simulator states, or train failure and recovery models.
+The registered case runner currently accepts one object ID, nominal friction,
+and nominal lift motion. It prescribes joint/wrist positions kinematically and
+uses protocol-defined wrist placement. Saved final `qpos` and `qvel` are not a
+complete environment/controller replay snapshot. The separate actuated pilot
+remains a one-cube diagnostic, not a held-out-condition benchmark.
+
+The Panda `part1.evaluate` module is absent, so its combined pipeline skips
+closed-loop ACT evaluation. This is separate from the implemented HUG case
+runner. Batch holdouts, future-horizon labels, complete intervention branching,
+failure models, and recovery models remain to be implemented.
 
 The default Adroit observation does not contain tactile measurements. MuJoCo
 does maintain contact information internally, so the first simulation study can
@@ -428,24 +444,23 @@ The selection criteria were:
 - controllable mass, inertia, center of mass, and friction; and
 - access to contacts without exposing privileged values to learned models.
 
-The deciding factor was recovery branching. MuJoCo is the only examined engine
-that documents a complete integration state (`mjSTATE_INTEGRATION`) whose
-restoration reproduces identical forward dynamics; PhysX-based stacks expose
-scene-state restoration without an equivalent full-engine guarantee. A correct
-implementation must additionally snapshot environment counters, controller
-state, RNG, observation-delay buffers, changed model parameters (mass, inertia,
-friction), and any controller or policy action-history state, since stock
-robosuite state helpers capture only time, `qpos`, and `qvel`.
+Recovery branching motivates MuJoCo's integration-state interface
+(`mjSTATE_INTEGRATION`). The supporting Panda snapshot module also stores
+selected object mass, inertia, and friction parameters. Faithful intervention
+replay additionally requires environment counters, controller state, RNG,
+observation-delay buffers, and policy/action-history state. Physics-state
+restoration alone does not establish equivalent closed-loop behavior.
 
 **Hardware tracks.** The physical robot is not required for Part I. Track A
-(simulation) is the critical path now. Track B evaluates a friend-built robot
+(simulation) is the critical path now. Track B evaluates a proposed custom robot
 only against a written specification and acceptance tests. Track C investigates
 lab access and funding-dependent hardware (for example xArm6 or FR3-class arms).
 A single hardware gate selects one target embodiment before large-scale
 scientific data collection; a portable Cartesian-plus-gripper action interface
 keeps the policy transferable. A low-cost arm such as SO-101 may validate
 software plumbing but is not assumed sufficient for quantitative force/recovery
-claims. See [PART_I_TRAINING_SPEC.md](PART_I_TRAINING_SPEC.md).
+claims. See [Hardware audit](HARDWARE_AUDIT.md) and
+[Evaluation manifest](EVALUATION_MANIFEST.md).
 
 HUG is the source of grasp hypotheses for the primary experiment. Its RGB-D
 model predicts wrist translation, wrist rotation, and a MANO hand pose, and its
@@ -455,7 +470,8 @@ model, collision geometry, actuators, a controller, and an embodiment adapter.
 The Adroit/Shadow Hand supplies the first executable target. See
 [RESEARCH_FOUNDATIONS.md](RESEARCH_FOUNDATIONS.md).
 
-The planned batch-evaluation schema therefore records an `embodiment_id`. The
+The one-case schema records an `embodiment_id`; batch evaluation should retain
+the same explicit embodiment reference. The
 initial value is `shadow_hand_right`; `mano_human_reference` identifies the
 non-actuated source grasp. Metrics are stratified by embodiment.
 
@@ -610,8 +626,8 @@ well-controlled finding.
 
 ## 11. Immediate Next Deliverable
 
-The first concrete deliverable is a complete HUG-conditioned grasp execution
-baseline with excellent logging:
+The next deliverable is a reviewed HUG-conditioned execution baseline that
+extends the current one-case prototype with reproducible batch evaluation:
 
 - a validated Adroit/Shadow Hand simulation environment;
 - a thin HUG-to-Dex-Retargeting integration using the supplied Shadow config;

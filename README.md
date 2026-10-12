@@ -1,7 +1,7 @@
-# Learning, Anticipating, and Recovering from Grasp Failures
+# Grasp Failure Prediction and Recovery
 
-**A three-part robot-learning research program under hidden physical
-variation**
+MuJoCo research infrastructure for executing dexterous grasps and studying
+whether their outcomes can be predicted early enough for useful intervention.
 
 This project studies one connected question:
 

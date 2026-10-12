@@ -46,7 +46,7 @@ its depth, contacts, or ability to resist gravity.
 The axis conversion is a proper rotation derived from Dex's right-hand
 `OPERATOR2MANO_RIGHT`. Vector conversion and pose conversion must be paired;
 unit tests verify they preserve world-coordinate landmark geometry. These are
-experimental changes in our scripts, not edits to the partner's branch.
+experimental changes in the project's diagnostic scripts.
 
 The approach reached its commanded palm position within floating-point precision
 in all variants. The original visible gap therefore was not an unfinished
@@ -216,7 +216,7 @@ The baseline regression also succeeds from a fresh static cube initialization
 using the saved JSON joint target, without loading HUG or MANO. Its open-thumb
 negative control fails. A separate regression checks that adding actuators does
 not change collision geometry or attach the cube to a constraint. These tests
-require the optional partner evaluation package and downloaded Shadow assets.
+require the optional collaborator evaluation package and downloaded Shadow assets.
 
 The existing `acquired_object` flag still denotes any contact, so it can be true
 in the failed open-thumb trial. Use lift and hold success, plus contact diagnostics,

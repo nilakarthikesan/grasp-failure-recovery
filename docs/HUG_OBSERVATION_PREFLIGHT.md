@@ -43,12 +43,14 @@ The official `medium_1.pkl` observation passed locally: RGB `3 x 224 x 224`,
 point cloud `4096 x 3`, and repeatable tensor contents at seed 42. Unit tests
 cover input validation and the sampling adapter without network calls.
 
-## Remaining work
+## Integration scope
 
-Load HUG and MANO, check its inference-specific input path, generate a proposal,
-and execute it in simulation. Observations captured from our own simulation
-still need to pass these checks. The offline manifest path and upstream sample
-test are not yet a single end-to-end inference interface.
+The connected simulation path loads HUG and MANO, validates the inference input,
+generates proposals, and runs diagnostic executions. See
+[HUG simulation pilot](HUG_SIMULATION_PILOT.md) for its additional dependencies,
+commands, and limitations. The offline manifest checker and upstream sample
+test remain separate from that execution path. New observations must pass the
+same input and geometry checks before inference.
 
 MANO model files, checkpoints, upstream downloads, and generated results stay
 outside version control. Local MANO assets belong in `assets/mano_models/`;

@@ -5,8 +5,8 @@ is **not** required to produce the first result. This document audits the parall
 hardware-discovery tracks and defines a single decision gate that must pass
 before any purchase, custom build, or large-scale physical data collection.
 
-No hardware is bought and no custom build is authorized by this document. Each
-track below is an information-gathering activity.
+Hardware selection remains open. Each track below defines the evidence needed
+to evaluate a physical platform.
 
 ## Why three tracks in parallel
 
@@ -17,18 +17,20 @@ physical target; the others become fallbacks.
 
 ## Track A — Simulation now (critical path)
 
-* Status: **active**. Adroit inspection and HUG prediction validation run on
-  this machine; the Dex Retargeting coordinate/joint adapter and execution
-  sequence remain to be built.
+* Status: **active**. HUG prediction validation, Dex Retargeting integration,
+  joint-name mapping, and a registered one-case grasp/lift runner are implemented.
+  The initial runner prescribes hand motion kinematically; separate actuated
+  diagnostics are recorded in [HUG simulation pilot](HUG_SIMULATION_PILOT.md).
+  Batch evaluation and physical-robot validation remain open.
 * Deliverable: HUG-conditioned dexterous grasp executions, closed-loop
   evaluations, and the logs/snapshots that Parts II and III consume.
 * Blocking on physical hardware: **no**. Simulation results are labeled
   simulation-only until reproduced on a real robot.
 
-## Track B — Friend-built robot
+## Track B — Custom robot
 
-A collaborator offered to build a robot. Before authorizing a build, obtain a
-written specification and evaluate it against acceptance criteria.
+A collaborator has proposed a custom robot. Evaluate its written specification
+against the task requirements before selecting this platform.
 
 Specification to request:
 
@@ -55,9 +57,9 @@ Acceptance criteria (all must hold):
 
 ## Track C — Lab or funded hardware
 
-The author knows people at robotics labs and could request access; access is not
-guaranteed, and lab robots may not be lendable. Separately, a commercial arm
-(for example an xArm6 or FR3-class arm) could be purchased if funding is secured.
+Lab access requires confirmation of the available robot, permitted experiments,
+supervision, and scheduling. A commercial arm (for example an xArm6 or FR3-class
+arm) is a separate option if funding is secured.
 
 Actions:
 

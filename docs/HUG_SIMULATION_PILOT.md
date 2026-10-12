@@ -1,6 +1,6 @@
 # First connected simulation pilot
 
-The pilot connects the partner's MuJoCo cube scene to observation validation,
+The pilot connects a collaborator's MuJoCo cube scene to observation validation,
 official HUG preprocessing and CPU inference, Dex retargeting, and an
 execution/scoring protocol. It is a functioning integration experiment, not yet
 a validated HUG grasp-success benchmark.
@@ -42,7 +42,7 @@ simulation controller, not a calibrated physical Shadow Hand.
 
 ## Source and assets
 
-Partner source: `eval-infra-setup` at
+Collaborator's evaluation source: `eval-infra-setup` at
 `07d4b811dd7f5b216339436dcd4305e6b61d269a`.
 HUG source: `https://github.com/KevinyWu/hug` at
 `8d1c52d4c24bfae5a369e32e3f134f5601a02630`.
@@ -50,16 +50,16 @@ Dex URDF: `https://github.com/dexsuite/dex-urdf` at
 `7304c7fb59214dab870eca02cf26f76e944e12df`.
 Checkpoint: `kevinywu/hug`, SHA256
 `515b5c3bc7987739aec019e754c15df5fbf3eff9daefb93924da098ae4bd1eae`.
-MANO assets were supplied separately by the user and retain their licenses.
+MANO assets were supplied separately and retain their licenses.
 
 Downloads, local dependency installs, and outputs are ignored under `runs/`.
-The pilot used an isolated copy of the partner's source with our two observation
-modules added; it did not change the partner's branch or merge either PR.
+The pilot used an isolated copy of the collaborator's evaluation source with
+the project's observation modules added.
 
 ## Commands
 
-These scripts require the partner's evaluation package and our observation
-modules on the same Python import path. The capture and execution scripts also
+These scripts require the collaborator's evaluation package and the project's
+observation modules on the same Python import path. The capture and execution scripts also
 require working macOS graphics access. Use a fresh output directory for each
 capture; proposals and reports are protected from accidental overwriting.
 
@@ -92,8 +92,8 @@ height, hold, and drop labels before training a future-drop predictor.
 
 ## Latest diagnostic commands
 
-The local combined runtime contains the partner's evaluation package plus the
-current observation/frame/RNG modules. It is not included by a base installation
+The local combined runtime contains the collaborator's evaluation package plus
+the current observation/frame/RNG modules. It is not included by a base installation
 of this branch. Set its isolated dependency paths, including HUG's dependencies:
 
 ```sh
