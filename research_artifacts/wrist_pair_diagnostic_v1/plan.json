@@ -1,0 +1,75 @@
+{
+  "schema_version": "first_frozen_wrist_pair_execution_plan_v1",
+  "declared_at_utc": "2026-10-12T10:23:53.329223+00:00",
+  "pair_id": "mug_scene002_seed0_noise0.00",
+  "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_002_seed_0.yaml",
+  "pose_manifest_sha256": "354f245ba6663974c92a132895709ea8d41dd5578942dc7af8e526f75dbb8ee1",
+  "postures": [
+    "A",
+    "B"
+  ],
+  "noise_amplitude_rad": 0.0,
+  "noise_seed": 9000,
+  "prediction_time_s": 2.96,
+  "history_steps": 20,
+  "failure_alert_threshold": 0.5,
+  "model_contract": {
+    "model_file": "research_artifacts/task_outcome_baseline_v1/proprioception_and_commands.npz",
+    "model_sha256": "16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb",
+    "weights_normalization_features_unchanged": true,
+    "failure_alert_threshold": 0.5,
+    "decision_rule": "p_failure >= 0.5",
+    "prediction_time_s": 2.96,
+    "history_steps": 20,
+    "fields": [
+      "hand_qpos",
+      "hand_qvel",
+      "commanded_target_rad"
+    ],
+    "joint_names": [
+      "WRJ2",
+      "WRJ1",
+      "FFJ4",
+      "FFJ3",
+      "FFJ2",
+      "FFJ1",
+      "MFJ4",
+      "MFJ3",
+      "MFJ2",
+      "MFJ1",
+      "RFJ4",
+      "RFJ3",
+      "RFJ2",
+      "RFJ1",
+      "LFJ5",
+      "LFJ4",
+      "LFJ3",
+      "LFJ2",
+      "LFJ1",
+      "THJ5",
+      "THJ4",
+      "THJ3",
+      "THJ2",
+      "THJ1"
+    ],
+    "outcomes_not_inputs": true
+  },
+  "execution_protocol_id": "fixed_grasp_lift_v4_frozen_wrist_pair",
+  "selection": "First eligible case in declared order; pose selection used geometry and training distance only. No new outcome or score used.",
+  "scope": "One development sensitivity pair; both wrist settings outside training. Other selected pairs remain unexecuted pending review.",
+  "frozen_files_sha256": {
+    "research_artifacts/task_outcome_baseline_v1/proprioception_and_commands.npz": "16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb",
+    "research_artifacts/task_outcome_baseline_v1/report.json": "19f1aa3e7ab0902da1c955aaaa992b8023f7c6b453fa60b835d284cd385c13a8",
+    "src/grasp_failure_prediction/prediction/model.py": "f5fbe2762efd7099a05b75ccca11cdae670eac9e20f7b265632d98b2a24fdea8",
+    "src/grasp_failure_prediction/prediction/dataset.py": "ac6a6fe517cbfd21b4bdae0e858fb31674561b923b1e0c0f4397255cf1316076",
+    "research_artifacts/object_scene_pilot_v1/dataset.npz": "29f773f7faf03cff5e1c694ef475d02adfd07c239314b349f2228f86db9d3aad",
+    "research_artifacts/object_scene_pilot_v1/splits.json": "27a9c894b0775a5a10e2ae83a18b6a70f78d4c504b80396086a80158b3b5aac7"
+  },
+  "paired_source_sha256": {
+    "src/grasp_failure_prediction/evaluation/paired_wrist_execution.py": "23b0b5cb784009f023d3829e7ec394d87558588a67d503c0ef23dd855a51911c",
+    "scripts/select_wrist_comparison_poses.py": "7b9e9aa2d6bf3957650aa86ef2df812b3a00f63b43ee84f3c5410c71e16f808a",
+    "scripts/score_wrist_pair.py": "1c39b0bde102c999bd6b5ad96379ce9bed9a23f663a4bb05179300928d5f23c9",
+    "scripts/audit_wrist_pair.py": "6039a6c636f0da4586a3a262ea4a7609a69a1d1b85bcb2f55624cd069d4eb46f",
+    "scripts/render_wrist_pair.py": "d741a80f068e2dd719ed14486d4458cf906c74c99409c8e8878c6090ff4d41c5"
+  }
+}

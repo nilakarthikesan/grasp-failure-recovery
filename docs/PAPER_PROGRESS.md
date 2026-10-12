@@ -14,14 +14,17 @@ successful wrist coverage with additional finger command noise at matched
 training budgets. That comparison is planned, not completed. Completed evidence
 comprises the pilot, frozen fresh evaluation, separate mug executor correction,
 scoring of 26 completed checks, the wrist input audit and a static check of
-observed training wrist settings. Future slip timing,
+observed training wrist settings, frozen selection of eight wrist pairs and
+one completed zero-noise paired comparison. Future slip timing,
 recovery and real world transfer remain untested.
 
-**Immediate next step:** review why the observed training wrist settings fail
-the mug clearance gate, then find an interpretable safe comparison. Declare its
-geometry and selection before running a
-paired zero noise diagnostic with the model unchanged. See the
+**Immediate next step:** review the first completed pair: both grasps succeed,
+but both are warned on by the unchanged model. Then check the seven remaining
+declared pairs for repeatability before choosing a training remedy. See the
 [current question and evidence gates](#accepted-paper-question-and-evidence-gates-12-october).
+The latest [first paired result](#first-safe-wrist-pair-12-october) supersedes
+earlier planning-status statements below; bound historical plans retain their
+original bytes.
 
 The authoritative completed collection is documented in
 [MULTI_SCENE_COLLECTION.md](MULTI_SCENE_COLLECTION.md). Earlier documents retain
@@ -898,3 +901,58 @@ without first replacing the predictor. That alignment is an interpretation of
 his messages, not confirmation that he agrees with the scope or timeline. The
 [current partner handoff](PARTNER_HANDOFF.md) explains the actual data source,
 completed results and first bounded task for discussion.
+
+## First safe wrist pair, 12 October
+
+**Completed:** freeze eight A/B wrist pairs using geometry and training distance
+alone, implement an exact-pose v4 executor, then execute and score only the first
+pair with zero noise and the original model. The seven other pairs remain
+unexecuted. The matched training-diversity experiment is still planned.
+
+**Simple result:** both actual grasps lift and hold the mug successfully, but
+the model gives a failure warning for both. Each is a false alarm. Success is
+the physical task label; the alert is a separate prediction from joint positions,
+velocities and commands during closing, before lifting.
+
+The [selection manifest](../research_artifacts/wrist_pair_selection_v1/README.md)
+records every case, training-distance/range flag, angle, carrier pose, gate and
+source hash. Both selected wrists remain unfamiliar in all eight cases.
+The predeclared separation rule is at least 0.02 rad; the first pair differs
+by 0.028686 rad. A is slightly nearer training in this pair; that is not true
+for every selected case and does not mean the model must score it safer.
+
+The first pair is `mug_scene002_seed0_noise0.00`. A commands
+`[+0.1136282552, −0.2020766563]` rad at WRJ2/WRJ1, B
+`[+0.0990838385, −0.2268021563]` rad. Nominal clearance is 10.062933 and
+10.003215 mm. Actual peak lifts are 14.6208 and 14.6077 cm; both satisfy the
+2 s HOLD requirement. Neither stops or contacts the table.
+
+The unchanged model's failure scores are 0.9999999871415051 and
+0.9999999784968061. Success logits are −18.169261 and −17.655064; wrist terms
+change by +0.529098 and nonwrist terms by −0.014901 from A to B. Neither alert
+changes. These are uncalibrated scores; a rounded display of 1.000000 does not
+mean a measured 100% physical failure probability.
+
+The [paired evidence and replay](../research_artifacts/wrist_pair_diagnostic_v1/README.md)
+includes original prediction inputs, outcomes, reports and independent checks.
+All 22 applied finger histories are identical. Nominal palm/finger paths agree
+within 1.67e−16 m; actual maximum paired palm and finger geometry differences
+are 0.05890 and 0.35723 mm. All 6,520 replayed physics steps reproduce states
+bitwise without table contact. B also reproduces its earlier v3 motion, apart
+from signed-zero noise metadata. Separate v4 results are not pooled with the
+old 23 v3 mugs as an independent benchmark.
+
+**Quality and audit status:** 21 focused executor tests passed and selection
+reproduced byte-for-byte with 15,654 independent checks. The independent audit
+hand reconstructs the causal prefixes, normalization and scores. Its source was
+still being finalized when included in the execution declaration; an explicit
+auditor-only amendment and exact historical source snapshot preserve that
+correction. The original plan, scorer report, executed poses, model and
+recordings remain unchanged. The paper includes this measured first pair and
+compiles with the desktop compiler.
+
+**What remains:** review this example, then check repeatability over the remaining
+seven frozen pairs before any training change. Neither broad transfer nor a
+training remedy is demonstrated. No failures occur in this pair, so failure
+recall is undefined. The workshop template, page limit, anonymous packaging and
+author review remain submission preparation tasks.

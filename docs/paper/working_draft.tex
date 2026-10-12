@@ -29,7 +29,10 @@ outside the original training ranges; reconstructed wrist terms push all 20
 scores toward failure. This is an input and score diagnostic, not isolated
 physical causation. A static check also finds no eligible mug configuration
 among the eight wrist command pairs observed in training under the declared
-clearance gate. We specify a subsequent comparison of wrist coverage against
+clearance gate. In a subsequent frozen pair of two safe unfamiliar wrist
+configurations, both grasps succeed and both trigger alerts. Wrist terms change
+the success logit, while actual palm and finger motions remain close. We
+specify a subsequent comparison of wrist coverage against
 additional finger noise at matched training counts and class proportions.
 That comparison remains unexecuted. Current results establish a reliability
 problem and a constraint on its diagnosis, not improved transfer, slip timing
@@ -196,19 +199,45 @@ blocked. They do not establish dynamic safety or rule out every point of a
 continuous wrist range. A comparison using these stored training pairs cannot
 honestly contrast familiar and unfamiliar safe mug wrist commands.
 
+\paragraph{First frozen wrist pair.}
+We freeze eight feasible pairs using geometry and training distance alone,
+requiring at least 0.02 rad Euclidean command separation. A uses the nearest
+eligible candidate in a deterministic bounded search; B retains the previously
+corrected pose. Both settings remain outside training command ranges in every
+selected case. Only the first eligible pair in the declared order is executed
+here, with zero noise and separately versioned explicit v4 execution. It rejects
+any substituted pose before motion and retains the existing runtime guard,
+task parameters, scorer and predictor.
+
+For this mug proposal, A commands $(0.113628,-0.202077)$ rad at the two wrist
+joints and B $(0.099084,-0.226802)$ rad, a combined separation of 0.028686 rad.
+Both tasks succeed, with peak lifts 0.146208 and 0.146077 m and the required
+2 s hold. The frozen predictor warns on both: failure scores
+0.9999999871 and 0.9999999785, with success logits $-18.169261$ and $-17.655064$.
+The B-minus-A logit change is $+0.514197$, comprising $+0.529098$ in wrist terms
+and $-0.014901$ elsewhere. A is slightly nearer the original command
+distribution under the declared scaled distance, yet receives the higher
+failure score. Training distance is not the learned decision function.
+
+Applied finger command histories are identical. Nominal palm/finger paths
+agree within $1.67\times10^{-16}$ m; actual maximum paired palm and finger
+geometry differences are 0.05890 and 0.35723 mm. Independent replay reproduces
+all saved states bitwise across 6,520 physics substeps, with no table contact.
+The scoring report and execution declaration are preserved; a disclosed
+auditor-only code amendment finalizes geometry and rounding checks after its
+initial hash was declared. It changes no executed treatment or model input.
+This both-success pair demonstrates persistent false warnings under a small
+safe wrist change, not an improvement or a familiar-versus-unfamiliar contrast.
+No failures occur, so failure recall is undefined. Seven selected pairs remain
+unexecuted, and these new v4 records remain separate from the earlier v3 checks.
+
 \section{Planned comparison and decision criteria}
 \paragraph{First isolate the diagnostic.}
-Exact paired poses and explicit executor support remain pending. For each
-eligible declared grasp, select two distinct feasible wrist settings using
-training distance and clearance alone, before inspecting new model scores or
-outcomes. Preserve intended world palm path, all 22 finger targets, object
-state, physics, timings, force limits and reset policy; use zero command noise.
-The executor must honor the frozen poses rather than silently substitute its
-preferred posture. Record numeric invariance gates and actual palm/finger
-tracking, since identical nominal targets do not imply identical contact dynamics.
-
-Start with one pair and then retain the full declared inventory, including
-infeasible cases and stopped attempts. Compare alerts, logits and wrist/nonwrist
+Exact paired poses and explicit execution support are now available; the first
+pair above completes the initial check. Review it before executing the remaining
+declared pairs with intended grasp, physics, timings and the model held fixed.
+Retain the full inventory, including any stops or changed outcomes. Compare
+alerts, logits and wrist/nonwrist
 terms in pairs where both actual tasks succeed; report all other outcome pairs
 separately. Two out-of-range wrists test sensitivity, not familiar versus
 unfamiliar coverage. No alert change may also reflect saturated probabilities.
@@ -250,8 +279,10 @@ partitions, fitted coefficients, predictions and hash-bound artifacts in
 \path{research_artifacts/}. Relevant bundles are
 \path{object_scene_pilot_v1}, \path{task_outcome_baseline_v1},
 \path{fresh_object_scene_eval_v1}, \path{corrected_mug_model_diagnostic_v1},
-\path{mug_wrist_input_diagnostic_v1}, \path{wrist_pose_feasibility_v1}
-and the unexecuted \path{wrist_comparison_plan_v1}.
+\path{mug_wrist_input_diagnostic_v1}, \path{wrist_pose_feasibility_v1},
+\path{wrist_pair_selection_v1} and \path{wrist_pair_diagnostic_v1}.
+The historical \path{wrist_comparison_plan_v1} remains frozen as the source
+declaration; current progress is recorded separately rather than rewriting it.
 Raw trajectories remain local rather than constituting a public dataset release.
 \href{../PAPER_PROGRESS.md}{The evidence index} and
 \href{../RESEARCH_DECISIONS.md}{dated decision history} document how acquisition

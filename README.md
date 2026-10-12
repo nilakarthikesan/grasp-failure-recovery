@@ -131,15 +131,27 @@ finds both wrist commands outside training ranges in every successful mug;
 wrist terms push their saved scores toward failure. That explains score
 arithmetic without isolating physical causation or demonstrating a fix.
 
-**Immediate next step:** establish a safe, controlled wrist comparison before
-another rollout. [Static feasibility checks](research_artifacts/wrist_pose_feasibility_v1/README.md)
+The [static feasibility checks](research_artifacts/wrist_pose_feasibility_v1/README.md)
 found that none of the eight wrist command pairs observed in training meets
 the declared table-clearance gate for any of the eight mug proposals. A
 fallback comparison of two unfamiliar wrist settings must be described as
 sensitivity, rather than familiar-versus-unfamiliar transfer.
-[The paired diagnostic plan](research_artifacts/wrist_comparison_plan_v1/protocol.json)
-requires exact poses, preserved intended grasp geometry and explicit executor
-support before testing with zero noise and the frozen model.
+
+We [froze eight geometry-qualified wrist pairs](research_artifacts/wrist_pair_selection_v1/README.md)
+and added explicit execution that rejects pose substitution. The
+[first zero-noise pair is complete](research_artifacts/wrist_pair_diagnostic_v1/README.md):
+**both grasps succeed, and the original model warns on both**. Wrist terms
+change the score, but neither clears the alert. Applied finger commands and
+intended world grasp paths are the same; actual motion differences are audited
+separately. Both wrist settings remain outside training ranges. Watch
+[the paired replay](research_artifacts/wrist_pair_diagnostic_v1/wrist_pair_replay.mp4)
+or inspect [the result figure](research_artifacts/wrist_pair_diagnostic_v1/wrist_pair_outcomes.png).
+
+**Immediate next step:** understand this first comparison, then check whether
+the pattern repeats across the seven remaining declared pairs before choosing
+a training remedy. The [original diagnostic plan](research_artifacts/wrist_comparison_plan_v1/protocol.json)
+is retained as a frozen source record; current execution status is in the new
+evidence bundles and notes.
 
 The later training comparison will match episode counts, success/failure
 proportions, base objects/proposals and model settings, then use a common fresh

@@ -1,0 +1,12 @@
+{
+  "schema_version": "independent_wrist_audit_code_amendment_v1",
+  "declared_at_utc": "2026-10-12T10:27:13.673982+00:00",
+  "script_path": "scripts/audit_wrist_pair.py",
+  "pre_execution_audit_script_sha256": "6039a6c636f0da4586a3a262ea4a7609a69a1d1b85bcb2f55624cd069d4eb46f",
+  "audit_script_sha256": "b42221c4a6e87456220dfc719ee47f8d99853191112fdc05b1b1c1baa2b13ebc",
+  "original_plan_sha256": "faa9ca97d915bd3a62decdd154d388261fb2c6a75402076b2976859e7c037a5b",
+  "original_scoring_report_sha256": "80c1c82d57bf75356e931724b76417091e22376968060eacb04c7e05b7bfafa5",
+  "experiment_model_data_and_executor_unmodified": true,
+  "reason": "The independent audit implementation was still being finalized when the parent froze the execution declaration. Later changes added independent nominal geometry, actual tracking and stopped-arm checks. This amendment allows only that auditor source binding; execution declaration, model, poses, controller, scoring implementation, raw recordings and predictor inputs remain unchanged. The command-to-manifest check uses the already-declared 1e-12 pose reproduction tolerance to accommodate <=2.78e-17 rad interpolation rounding; exact paired finger-command equality is retained.",
+  "scope": "Analysis implementation amendment only. Original pre-execution declaration and score report remain preserved."
+}

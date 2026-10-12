@@ -687,6 +687,70 @@ the original model, data and prior controller results unchanged.
 The [static feasibility bundle](../research_artifacts/wrist_pose_feasibility_v1/README.md)
 records all candidate checks, geometry invariance, source hashes and reproduction.
 
+## 12 October 2026 First explicit safe wrist pair, with the model unchanged
+
+**Previous plan:** no actually observed training wrist pair cleared the nominal
+gate for the declared mug proposals. We needed a safe comparison with exact
+selection before executing more attempts.
+
+**Pre-execution choice:** freeze all eight mug A/B pairs using only geometry
+and original training wrist-command distance. Use a deterministic bounded grid
+and refinement search; require at least 0.02 rad Euclidean A/B separation so
+the second setting is not merely a numerical copy. Keep B from the existing
+corrected recording. A is the nearest eligible evaluated candidate, not a
+globally optimal continuous pose. The separation gate was fixed before new
+predictions or outcomes. All eight pairs qualify geometrically, but both
+settings remain outside training ranges; A is nearer training in only three
+cases. The first eligible case in the declared order is executed once per
+posture; the seven other pairs remain pending review.
+
+**Implementation:** add the opt-in `fixed_grasp_lift_v4_frozen_wrist_pair`
+executor, preserving historical v2/v3 code and outcomes. It validates frozen
+hashes, exact wrist settings, unchanged intended palm/finger geometry, zero
+noise, task parameters and the existing runtime guard. It rejects an unsafe
+requested wrist before motion if planning would substitute a different setting.
+Twenty-one focused tests pass. Static selection reproduces byte-for-byte and
+passes 15,654 independent checks. See
+[the selection bundle](../research_artifacts/wrist_pair_selection_v1/README.md).
+
+**Measured result:** `mug_scene002_seed0_noise0.00` A and B both succeed,
+lifting 14.6208 and 14.6077 cm and satisfying the 2 s HOLD requirement. Both
+trigger false warnings: failure scores 0.9999999871415051 and
+0.9999999784968061, with success logits −18.169261 and −17.655064. The
+B-minus-A logit change is +0.514197, comprising +0.529098 wrist and −0.014901
+nonwrist contributions. No stops occur. A is slightly closer to training in
+the declared command distance but has the higher failure score. That distance
+is not the learned decision rule.
+
+**Independent checks:** whitelisted inputs, training normalization and manual
+scores reproduce. All 22 applied finger command histories match exactly.
+Nominal palm/finger paths agree within 1.67e−16 m. Actual maximum paired palm
+and finger geometry differences are 0.05890 and 0.35723 mm; identical contact
+dynamics are not claimed. Replay reproduces every saved state across 6,520
+physics steps without table contact. B reproduces prior v3 motion, apart from
+signed-zero representation in disabled-noise arrays. The
+[paired result bundle](../research_artifacts/wrist_pair_diagnostic_v1/README.md)
+preserves reports, inputs, tracking, hashes and replay media. Full new recordings
+remain in `runs/wrist_pair_diagnostic_2026-10-12/first_pair` in the original
+runtime checkout.
+
+**Audit implementation correction:** the parent froze the auditor hash before
+its checks were finished. Later geometry/tracking checks and the already-declared
+1e−12 command reproduction tolerance finalized the auditor. The original plan
+and score report remain intact. An explicit auditor-only amendment records both
+hashes, and the exact historical script bytes are archived. Model, executor,
+scorer, poses, predictor inputs and recordings are unchanged. Do not claim that
+every source is unchanged without disclosing this exception.
+
+**Interpretation and next check:** both successful grasps still cause warnings;
+wrist terms change scores without clearing alerts. Saturated probabilities
+hide the logit change. One development pair does not establish a physical
+cause, improvement, failure recall, useful warning time or generalization.
+Review this example, then check the seven remaining frozen pairs for repeatability
+before a training remedy. The equal-budget training comparison remains
+unexecuted. Keep bound plans immutable and update current status in notes and
+new evidence bundles instead of rewriting historical declarations.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new
@@ -694,4 +758,4 @@ observation or source, the choice made, its implementation status, the supportin
 artifact and the next check. Mark unsuccessful experiments and rejected inputs
 explicitly. Distinguish measured results from interpretations and proposals.
 Link the paper to the evidence used for each claim. This convention is the
-ongoing documentation requirement; this turn did not launch new experiments.
+ongoing documentation requirement.

@@ -21,17 +21,22 @@ additional finger-command noise, when both approaches use the same amount of
 training data, the same success/failure proportions and the same model
 architecture?
 
-Our immediate task is smaller: find two safe wrist settings for the same intended
-mug grasp, then compare their warnings and actual outcomes at zero noise with
-the saved model unchanged. The later training comparison remains planned.
+Our immediate task is smaller: compare safe wrist settings for the same intended
+mug grasp at zero noise with the saved model unchanged. The first pair is now
+complete: both grasps succeed and both trigger false warnings. Seven remaining
+declared pairs and the later training comparison remain pending.
 
 The first static check found that none of the eight observed training wrist
 command pairs met the nominal table gate across the eight declared mug proposals
 (0 of 64 combinations). The corrected poses still meet that static gate.
-We must resolve this feasibility issue before calling a pair familiar versus
-unfamiliar or running it. The check did not step physics or generate new grasps.
+Those stored vectors cannot supply a safe familiar setting in these cases.
+The static check did not step physics or generate new grasps; the later paired
+test explicitly uses two unfamiliar safe settings instead.
 See the [static feasibility record](../research_artifacts/wrist_pose_feasibility_v1/README.md)
 for every candidate and source binding.
+The [first paired diagnostic](../research_artifacts/wrist_pair_diagnostic_v1/README.md)
+uses two safe unfamiliar settings selected without new scores or outcomes.
+It does not claim a familiar-versus-unfamiliar contrast.
 
 ## Original pilot completed on 11 October
 
@@ -178,28 +183,22 @@ public website or a shareable link to Nila's recordings.
 
 ## Next work in order
 
-1. **Find an interpretable safe wrist pair.** Use the declared mug cases and
-   geometry, without predictions or new outcomes, to check possible wrist
-   settings. Keep the intended world palm and all finger targets fixed with
-   compensated carrier placement. A familiar training command may not clear
-   the table: the eight stored training command pairs already failed all 64
-   tested combinations at the nominal 10 mm clearance gate. This does not rule
-   out all continuous settings inside the ranges. Check a valid alternative
-   setting or controlled case, and record infeasible cases instead of forcing
-   a collision.
-2. **Implement explicit selection and freeze the comparison.** The current
-   executor chooses one safe pose, not a declared A/B pair. Before any rollout,
-   record exact angles, carrier poses, numeric geometry gates and source hashes.
-   Setting B is the stored corrected pose; an eligible A must be a distinct
-   safe candidate selected without score or outcome optimization. If both
-   settings are unfamiliar, call it posture sensitivity rather than a familiar
-   versus unfamiliar test.
-3. **Run one eligible zero noise pair with the model unchanged.** Keep the
-   scene, object, HUG proposal, timing, physics, finger commands, saved model,
-   normalization, 2.96 second cutoff and 0.5 threshold fixed. Inspect actual
-   palm/finger tracking, the warning and the final grasp/lift/hold label. Report
-   the complete declared case inventory, including changed outcomes and guard
-   stops. Continue with remaining eligible pairs only after this check.
+1. **Understand the first completed pair.** Two safe unfamiliar wrist settings
+   execute the same intended grasp with zero noise. Both lift and hold the mug;
+   both receive a failure warning. Inspect the replay, causal inputs, labels and
+   [independent checks](../research_artifacts/wrist_pair_diagnostic_v1/README.md).
+   The unchanged model has two false alarms here. No failures occur, so this
+   pair cannot estimate failure recall.
+2. **Check the remaining seven declared pairs for repeatability.** The
+   [frozen pose manifest](../research_artifacts/wrist_pair_selection_v1/pose_manifest.json)
+   already selects A/B settings without new predictions or outcomes. The v4
+   executor honors those exact poses and rejects substitution. Retain all
+   outcomes and guard stops; use the same zero noise, causal cutoff and frozen
+   model. Both settings are unfamiliar, so qualify these as sensitivity checks.
+3. **Review the full diagnostic before a training change.** Compare both-success
+   pairs separately from pairs whose outcomes differ. Measure actual palm/finger
+   tracking, logits and wrist/nonwrist terms. The first pair alone cannot
+   demonstrate improved prediction, generalization or a training remedy.
 4. **Decide on the equal budget training experiment from the diagnosis.**
    Compare the same original base plus equal numbers of finger noise or wrist
    coverage examples, with matched success/failure mix and base object/proposal
