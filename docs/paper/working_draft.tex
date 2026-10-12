@@ -335,7 +335,21 @@ Raw trajectories remain local rather than constituting a public dataset release.
 labels, unseen-object errors and controller audits changed our question.
 HUG's apple asset retains its CC BY 4.0 attribution and pinned revision in the
 geometry provenance record. No public real-world failure dataset has been
-imported for these results.
+imported for these quantitative results.
+
+\paragraph{Separate public-recording audit.}
+We inspected one successful and one failed real WidowX acquisition from SAFE's
+released recordings \cite{safe}, selected by task and raw episode index before
+viewing. In sampled frames the successful episode carries a carrot to a plate;
+the failed episode raises an empty gripper while the carrot remains on the
+table. These are qualitative observations, not independently reviewed event
+labels. The extracted records lack monitor scores and calibration artifacts,
+so we have not measured SAFE's errors on this pair. A separate author-provided
+Franka demonstration eventually alerts during repeated unsuccessful acquisition;
+its sampled warning transition does not establish physical detection delay.
+\href{../SAFE_RECORDING_WALKTHROUGH.md}{The recording audit} separates these
+sources and defines the next alignment and baseline checks. This exploration
+does not add real-world predictor, recovery or transfer results to this paper.
 
 \paragraph{Draft status.}
 This editable research draft reports completed diagnostics and explicitly

@@ -987,6 +987,47 @@ evidence while a precise contribution is selected. The separate context-trust
 and multimodal agent-evaluation idea was transferred to a new projectless chat
 at the user's request; it is not part of the grasp study.
 
+## 12 October 2026 Starting from SAFE real recordings and preserving our simulator
+
+Previously, public loader formats suggested an offline VLA monitoring route,
+but archive contents and monitor availability were unverified. The user now
+asks to inspect a successful/failed grasp before selecting a contribution and
+to consider reusing the existing simulator and wrist analysis.
+
+We inventoried SAFE's public WidowX ZIP and extracted one same-task pair under
+a selection rule fixed before viewing. Source episode 3 succeeds; episode 0
+fails. Sampled video frames show the carrot carried to a plate versus an empty
+raised gripper. Six extracted members passed ZIP CRC checks and have saved
+SHA256 hashes. Passive pickle inspection confirmed metadata and hidden-state
+records without executing deserialization. The [source audit](../research_artifacts/safe_recording_audit_v1/README.md)
+stores provenance, format checks and qualitative observations; downloaded raw
+files stay local and outside our training dataset.
+
+No published trained SAFE checkpoint, calibration band or raw-pair score trace
+was found in the inspected release. Thus we did not measure its misses on the
+raw pair. A separate author-provided Franka demo eventually alerts during
+repeated unsuccessful acquisitions. The sampled green-to-red transition
+raises a timing question but is neither an undetected task failure nor a
+validated physical detection delay. An empty acquisition can be retried;
+event-level labels must remain distinct from eventual task outcome.
+
+Choice: first verify alignment and inspect a small declared development
+inventory, then reproduce a compatible baseline and check repeated errors.
+The provisional objective is recognizing unsuccessful acquisitions sooner
+without unnecessary warnings on successful attempts. Temporal boundaries,
+visual task progress and benign novelty already have related work; no distinct
+contribution is established by this example. Wrist variation remains a possible
+benign stress test, not a proven SAFE weakness. Rotation commands in the new
+CSVs are not measured wrist angles. Our fixed Shadow executor supplies no VLA
+hidden states, so its trajectories and weights cannot be treated as SAFE input.
+
+The [walkthrough](SAFE_RECORDING_WALKTHROUGH.md) maps reuse of provenance,
+recording, splits, replay and controlled simulation tests. Model fitting,
+calibration changes, new simulation collection, interventions and sim-to-real
+transfer remain unexecuted. Original scientific artifacts are unchanged.
+The manuscript adds only a clearly separated qualitative audit paragraph;
+its quantitative results remain the original simulation results.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new

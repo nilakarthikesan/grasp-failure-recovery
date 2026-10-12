@@ -28,6 +28,10 @@ baseline route; it does not adopt a VLA controller or establish a new contributi
 **Current research priority:** grasp-specific monitoring of existing VLA
 policies. The current manuscript preserves the original simulation evidence;
 a new precise contribution and evaluation have not yet been adopted.
+The [SAFE recording walkthrough](SAFE_RECORDING_WALKTHROUGH.md) now documents
+one raw real-robot success/failure pair and a separate author demo with an
+eventual warning. It is a qualitative audit; no published monitor was scored
+on our selected raw pair and no missed-failure rate or improvement was measured.
 All eight wrist pairs are complete: every success still triggers a warning.
 See the
 [current question and evidence gates](#accepted-paper-question-and-evidence-gates-12-october).

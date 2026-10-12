@@ -27,8 +27,10 @@ the direction in published training and evaluation practices. Read the
 or fitting. Neither wrist importance nor a wrist-training benefit is established.
 The [VLA direction review](VLA_DIRECTION_REVIEW.md) records the user's interest
 in a monitor grounded in an actual robot-policy problem. Public SAFE loader
-formats were inspected; archives, grasp-specific labels and runtime remain
-unverified. This is an exploration, not an implemented pivot.
+formats were inspected. The [recording walkthrough](SAFE_RECORDING_WALKTHROUGH.md)
+now adds a verified small WidowX extraction and separate author-demo inspection.
+Event labels, timing alignment, monitor checkpoints and runtime reproduction
+remain unverified. This is an exploration, not an implemented pivot.
 The next research area to prioritize is grasp-specific monitoring alongside a
 pretrained VLA policy, with a reproduced baseline and failure analysis before
 selecting the contribution. The old wrist training comparison is no longer

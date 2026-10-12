@@ -95,7 +95,10 @@ Public source-code inspection is pinned to
 
 Anonymous preview metadata names the archives `pi0fast_droid_0510_all.zip`
 (approximately 27.37 GB) and `openvla_widowx.zip` (approximately 1.41 GB).
-No archive was downloaded or inspected. Expected fields are not verified contents.
+The subsequent [recording walkthrough](SAFE_RECORDING_WALKTHROUGH.md) inventories
+the WidowX archive and inspects one same-task success/failure pair. The Franka
+archive remains undownloaded; its author-provided demo videos were inspected
+separately. Neither inspection is a reproduced monitor evaluation.
 No explicit code/data license was found in the reviewed Git tree; archive terms
 remain unverified. The published trainer hardcodes CUDA, so execution on this
 Mac is not established. The next check is access/terms and a small relevant
@@ -151,6 +154,9 @@ runtime support it. Then identify a grasp-specific limitation and decide which
 additional simulation or real data would test it. Keep the current pilot as
 preserved evidence while assessing that route.
 
-No new controller, dataset import, archive extraction, model fitting,
-calibration, label change or simulation was performed. The wrist comparison
-remains a candidate under review; no VLA thesis or new title has been adopted.
+No new controller, model fitting, calibration, original-label change or
+simulation was performed. The small public recording audit now has local
+extracted files, separate provenance and qualitative observations. Published
+monitor scores for the raw pair are unavailable in the inspected release.
+The wrist comparison remains a candidate under review; no VLA thesis or new
+title has been adopted.

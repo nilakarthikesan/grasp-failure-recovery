@@ -1,0 +1,77 @@
+{
+  "annotation_status": "qualitative illustrative observations; not training or timing ground truth",
+  "reviewer": "Codex visual inspection",
+  "human_review_complete": false,
+  "timebase": "encoded playback; physical timestamp alignment unverified",
+  "raw_widowx": [
+    {
+      "episode": 3,
+      "source_task_success": true,
+      "frame": 30,
+      "playback_seconds": 6.0,
+      "observation": "Carrot visibly held above plate."
+    },
+    {
+      "episode": 3,
+      "source_task_success": true,
+      "frame": 49,
+      "playback_seconds": 9.8,
+      "observation": "Carrot released onto plate; gripper open above it."
+    },
+    {
+      "episode": 0,
+      "source_task_success": false,
+      "frame": 30,
+      "playback_seconds": 6.0,
+      "observation": "Raised gripper appears empty; carrot on table, plate empty."
+    },
+    {
+      "episode": 0,
+      "source_task_success": false,
+      "frame": 49,
+      "playback_seconds": 9.8,
+      "observation": "Robot returned toward carrot; carrot on table, plate empty."
+    }
+  ],
+  "separate_author_franka_demo": {
+    "task": "put both the carrot and the ball in the bowl",
+    "selection": "authors selected these published qualitative examples; not raw WidowX pair",
+    "success_url": "https://vla-safe.github.io/static/videos/pi0-fast-real-2-succ.mp4",
+    "failure_url": "https://vla-safe.github.io/static/videos/pi0-fast-real-2-fail.mp4",
+    "success_displayed_episode": 45,
+    "failure_displayed_episode": 37,
+    "observations": [
+      {
+        "outcome": "success",
+        "playback_seconds_approx": 11.1,
+        "observation": "Carrot carried; green border."
+      },
+      {
+        "outcome": "success",
+        "playback_seconds_approx": 33.4,
+        "observation": "Both objects in bowl; score below band, green border."
+      },
+      {
+        "outcome": "success",
+        "playback_seconds_approx": 50.0,
+        "observation": "Task complete; displayed score below alert band."
+      },
+      {
+        "outcome": "failure",
+        "playback_seconds_approx": 20.0,
+        "observation": "Carrot remains on table; green border, no displayed alert at sampled frame."
+      },
+      {
+        "outcome": "failure",
+        "playback_seconds_approx": 25.25,
+        "observation": "Red border; displayed failure score crosses alert boundary."
+      },
+      {
+        "outcome": "failure",
+        "playback_seconds_approx": 43.5,
+        "observation": "Carrot remains on table; red border persists at sampled frame."
+      }
+    ],
+    "inference": "An eventual alarm is visible. First physical acquisition-failure time and first alert time were not measured. No missed-task rate established."
+  }
+}

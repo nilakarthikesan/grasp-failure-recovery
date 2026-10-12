@@ -16,6 +16,9 @@ The [public grasp-prediction evidence review](docs/GRASP_PREDICTION_EVIDENCE_REV
 compares published predictors, runtime monitors and company systems, including
 their data, measurements and evaluation limits. The next collection strategy is
 under review; varied wrists remain a hypothesis, not a demonstrated remedy.
+The [SAFE real-recording walkthrough](docs/SAFE_RECORDING_WALKTHROUGH.md) compares
+one successful and one empty grasp, audits monitor availability, and explains
+which simulator infrastructure we can reuse without changing the original model.
 
 ## Interactive noise demo
 
