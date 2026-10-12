@@ -6,6 +6,11 @@ are recorded in the [container workflow](https://github.com/nilakarthikesan/gras
 The connected inference script currently runs on CPU; a CUDA base image does
 not establish that inference uses the GPU.
 
+The 12 October Linux rerun built the image but failed while importing Pinocchio
+because `libgomp.so.1` was missing. `libgomp1` is now included in the image's
+Ubuntu packages. A subsequent Linux rebuild and runtime smoke test are pending;
+the corrected mug walkthrough used the existing native Mac runtime.
+
 `Dockerfile.eval` creates the pinned Linux x86-64 runtime for HUG inference,
 Dex Retargeting, and MuJoCo evaluation. It pins HUG and Dex URDF revisions and
 records the project commit as an OCI image label and runtime environment value.
