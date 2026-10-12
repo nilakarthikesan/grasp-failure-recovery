@@ -373,6 +373,57 @@ pose groups. The current task did not retrain, remove wrist features, tune a
 threshold or launch a larger collection. Useful warning timing, recovery and
 physical transfer remain separate questions.
 
+## 12 October 2026 Explaining wrist inputs before changing the model
+
+**Previous plan:** after all completed mugs triggered alerts, we proposed
+examining input distributions rather than immediately widening noise or
+retraining. The user requested the wrist comparison first and asked for a
+plain language explanation and a possible conference target within one week.
+
+**Implemented evidence:** reconstructed original normalization exactly from
+the 520 training rows, excluding validation and test. Both last wrist command
+angles are outside training ranges in all 20 successful mugs. Last measured
+WRJ2 angles are outside in 19/20 and WRJ1 in 17/20. Each successful mug has
+four to eight active wrist statistics outside their training ranges. Combined
+wrist contributions are negative for the success score in all 20. Absolute
+wrist contribution fraction has median 75.5%, exceeds half in 17/20, and ranges
+from 31.0% to 86.9%. This describes the original linear score, not physical
+causation or an improved model. The [diagnostic record](../research_artifacts/mug_wrist_input_diagnostic_v1/README.md)
+contains exact contributions, training ranges and provenance. No model change,
+hypothetical modified prediction, new motion or collection was performed.
+Independent calculation verified all 26 episode rows, 624 wrist feature rows
+and eight source hashes. Normalization matched exactly; grouped contributions
+matched within 3.55e-15. The audit is included with the diagnostic bundle.
+
+**Interpretation and proposed next check:** wrist input extrapolation is now
+supported across the successful mugs, rather than only one example. Finger
+noise variation did not supply this wrist coverage. Wrist terms do not dominate
+every case, and geometry, proposals and controller conditions differ together.
+We should design a matched comparison of safe postures for the same intended
+grasp, with invariance and execution checks, before choosing a feature or fit
+change. A later fresh evaluation must remain separate from these development
+records. This comparison is proposed, not implemented.
+
+**Conference candidate, not a submission decision:** official sources checked
+12 October identify [CoRL 2026 Sim2Real2Field](https://sim2real2field-corl26.github.io/)
+as an [accepted conference workshop](https://2026.corl.org/program/workshops).
+Its non archival Late Breaking Track accepts up to four pages excluding
+references and explicitly welcomes preliminary findings and negative results.
+The deadline is **15 October 2026, 11:59 PM Central Time**, three days from this
+check, rather than a full week. A narrow simulation input/controller shift
+diagnosis might fit its transfer failure theme; this is our interpretation,
+not confirmation from organizers or evidence of achieved physical transfer.
+Every author needs an OpenReview profile and one author must be willing to
+review at most two papers. The site warns that new profiles without an
+institutional email can take up to two weeks to approve. No account was created,
+organizer contacted, venue commitment made or paper submitted here.
+
+The requested one week goal ends 19 October. A short preliminary report is a
+plausible writing scope; neither scientific readiness for a full main conference
+paper nor acceptance is established. Choosing a deadline should constrain
+scope and claims rather than require an unsupported contribution. The current
+working manuscript is preserved pending an explicit venue and revision choice.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new

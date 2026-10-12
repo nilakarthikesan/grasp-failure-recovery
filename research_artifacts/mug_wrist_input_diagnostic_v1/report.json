@@ -1,0 +1,80 @@
+{
+  "schema_version": "frozen_mug_wrist_input_diagnostic_v1",
+  "date": "2026-10-12",
+  "training_episodes": 520,
+  "scored_episodes": 26,
+  "successful_mugs": 20,
+  "active_wrist_features": 20,
+  "normalization_reproduced_exactly": true,
+  "original_sources_unchanged": true,
+  "source_sha256": {
+    "research_artifacts/task_outcome_baseline_v1/proprioception_and_commands.npz": "16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb",
+    "research_artifacts/task_outcome_baseline_v1/report.json": "19f1aa3e7ab0902da1c955aaaa992b8023f7c6b453fa60b835d284cd385c13a8",
+    "research_artifacts/object_scene_pilot_v1/dataset.npz": "29f773f7faf03cff5e1c694ef475d02adfd07c239314b349f2228f86db9d3aad",
+    "research_artifacts/object_scene_pilot_v1/splits.json": "27a9c894b0775a5a10e2ae83a18b6a70f78d4c504b80396086a80158b3b5aac7",
+    "research_artifacts/object_scene_pilot_v1/manifest.json": "9a9c076620cea317e71fb59259faf2995b000dea51be2ed208cd0001e0108303",
+    "research_artifacts/corrected_mug_model_diagnostic_v1/dataset.npz": "5a034a13948bf2cd8627749732949bc719c8f5878db144da9e983e5c06821820",
+    "research_artifacts/corrected_mug_model_diagnostic_v1/predictions.csv": "48dceb44c52d8dd01fea46ecc21bf2a5b7aa0b204cb064109c0bd17e7d35bedb",
+    "src/grasp_failure_prediction/prediction/model.py": "f5fbe2762efd7099a05b75ccca11cdae670eac9e20f7b265632d98b2a24fdea8"
+  },
+  "analysis_script_sha256": "fce04eac98947de103923fa9098206191ac9ac4beecd01ebccecc1ce00497143",
+  "successful_mug_last_wrist_comparisons": [
+    {
+      "statistic": "last",
+      "field": "hand_qpos",
+      "joint": "WRJ2",
+      "unit": "rad",
+      "training_min": -0.22946326434612274,
+      "training_max": -0.14193083345890045,
+      "successful_mug_min": -0.15923741459846497,
+      "successful_mug_max": 0.17953398823738098,
+      "successful_mugs_outside_training_range": 19
+    },
+    {
+      "statistic": "last",
+      "field": "hand_qpos",
+      "joint": "WRJ1",
+      "unit": "rad",
+      "training_min": -0.13310138881206512,
+      "training_max": 0.005239995662122965,
+      "successful_mug_min": -0.5630168914794922,
+      "successful_mug_max": -0.09622257947921753,
+      "successful_mugs_outside_training_range": 17
+    },
+    {
+      "statistic": "last",
+      "field": "commanded_target_rad",
+      "joint": "WRJ2",
+      "unit": "rad",
+      "training_min": -0.20388315618038177,
+      "training_max": -0.1763840615749359,
+      "successful_mug_min": -0.14635320007801056,
+      "successful_mug_max": 0.17453299462795258,
+      "successful_mugs_outside_training_range": 20
+    },
+    {
+      "statistic": "last",
+      "field": "commanded_target_rad",
+      "joint": "WRJ1",
+      "unit": "rad",
+      "training_min": -0.03943963348865509,
+      "training_max": -0.014604825526475906,
+      "successful_mug_min": -0.531234860420227,
+      "successful_mug_max": -0.08165792375802994,
+      "successful_mugs_outside_training_range": 20
+    }
+  ],
+  "successful_mugs_with_negative_wrist_net_contribution": 20,
+  "successful_mug_wrist_net_contribution_range": [
+    -25.764758579909596,
+    -2.171551927045054
+  ],
+  "successful_mug_wrist_absolute_contribution_fraction_range": [
+    0.3096843193216991,
+    0.868505553536676
+  ],
+  "prediction_time_s": 2.96,
+  "threshold_unchanged": 0.5,
+  "interpretation": "Both wrist commands are outside training range for all 20 successful mugs; the net wrist terms push the saved linear score toward failure in all 20",
+  "scope": "Observational explanation of the exact unchanged model score; no model change, counterfactual prediction, new simulation, causal isolation, or improved model result"
+}

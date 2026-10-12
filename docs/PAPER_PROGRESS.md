@@ -426,3 +426,25 @@ families under a changed controller; this is a retrospective development
 diagnostic, not an untouched benchmark or slip warning experiment. It extends
 the single false alarm observation without isolating wrist inputs as its cause.
 The manuscript's quantitative pilot claims remain unchanged.
+
+## Wrist input comparison, 12 October
+
+Compared the 26 saved diagnostic inputs with the original 520 training rows
+only. Both last wrist command angles are outside the training ranges for all
+20 successful mugs; measured last angles are outside in 19/20 for WRJ2 and
+17/20 for WRJ1. Original temporal statistics reproduce saved normalization
+exactly. The combined wrist contributions push the unchanged linear success
+score downward in all 20 successes. Their absolute contribution fraction has
+median 75.5%, exceeding half in 17/20 cases; it is not a causal percentage.
+
+The [wrist diagnostic](../research_artifacts/mug_wrist_input_diagnostic_v1/README.md)
+preserves per episode and per feature attribution, training ranges and source
+hashes. An independent calculation checked all 26 episode rows, 624 wrist
+feature rows and eight original source hashes, reproducing the normalization
+exactly and grouped contributions within 3.55e-15. This extends the input
+distribution shift evidence without changing
+the model or collecting data. It does not establish that removing wrist inputs
+fixes transfer, or isolate controller change from object/proposal differences.
+The stopped attempt remains excluded. The next comparison should separate safe
+posture changes from object changes before further training. The manuscript's
+earlier quantitative scope remains unchanged.

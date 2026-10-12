@@ -1,0 +1,31 @@
+{
+  "schema_version": "independent_mug_wrist_input_audit_v1",
+  "status": "passed",
+  "audited_at_utc": "2026-10-12T07:06:02.345714+00:00",
+  "method": "Independent temporal summaries on the original 520 training rows only; training mean/scale/mask reproduction; manual linear contribution reconstruction. No project prediction helpers, fitting, replacement features or simulations.",
+  "output_root": "/Users/nilakarthikesan/grasp-failure-prediction/runs/mug_wrist_input_diagnostic_2026-10-12",
+  "training_rows": 520,
+  "episode_rows_checked": 26,
+  "mug_rows": 23,
+  "successful_mug_rows": 20,
+  "wrist_feature_rows_checked": 624,
+  "checks_passed": 6533,
+  "training_mean_max_abs_difference": 0.0,
+  "training_scale_max_abs_difference": 0.0,
+  "training_active_mask_exact": true,
+  "maximum_absolute_episode_numeric_difference": 3.552713678800501e-15,
+  "maximum_absolute_feature_numeric_difference": 0.0,
+  "episode_numeric_tolerance": 1e-12,
+  "feature_numeric_tolerance": 1e-14,
+  "source_hashes_checked": 8,
+  "model_sha256": "16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb",
+  "model_report_sha256": "19f1aa3e7ab0902da1c955aaaa992b8023f7c6b453fa60b835d284cd385c13a8",
+  "output_sha256": {
+    "report.json": "9f348cc3e2a8adfea03e1fd532a2993636525caa3f461953080850db784ddb8e",
+    "episode_attribution.csv": "355397ae93b069031390cd054f0dace7ea5a5be3d9324023ecac358ccfb6143c",
+    "wrist_features.csv": "0d7bb4fdd287895d53a2d28193d7e2acefe7516220ed73870edce390e7367372"
+  },
+  "issues": [],
+  "scope": "Explanation of existing frozen-model logits under corrected v3 conditions. Feature contribution percentages describe a chosen linear decomposition, not physical causal responsibility or proof that removing wrist inputs improves prediction.",
+  "writes": "Only this audit JSON. Original model, input artifacts, source code and generated analysis outputs were read only."
+}
