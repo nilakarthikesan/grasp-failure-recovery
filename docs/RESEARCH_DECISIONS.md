@@ -329,6 +329,50 @@ randomization using real robot rollouts; no such real calibration is present
 here. These sources support investigating specific uncertainty models, not
 assuming that arbitrarily wide randomization covers unseen contact physics.
 
+## 12 October 2026 Scoring the 26 completed corrected controller checks
+
+**Previous plan:** the context reconciliation proposed scoring all existing
+corrected checks before collecting more data or changing the model. The user
+authorized this diagnostic and asked whether mug false alarms repeat across
+noise levels, with the stopped attempt kept separate.
+
+**Implemented evidence:** all 26 completed recordings were scored with the
+original model, normalization, closing prefix and 0.5 failure threshold.
+Predictions used only measured joint positions, velocities and applied targets
+through 2.96 seconds. Every completed mug was flagged: false alarms on all
+20 successes and detection of all three acquisition failures. False alarms
+were 7/7 successes at zero noise, 8/8 at 0.15 rad and 5/5 at 0.60 rad. Recall
+and AUROC are undefined in the all successful 0.15 rad group. The guard rejection
+has null label, score and alert and is excluded from outcome metrics.
+
+The same seed2 scene002 proposal failed with zero noise and succeeded at both
+noisy settings, while the model flagged all three. Other proposals failed only
+at the largest bound. This confirms why physical outcomes, rather than noise
+presence or amplitude, supply the binary labels. Across all 26 cases, the cube
+control was correctly cleared, the apple failure detected and the successful
+milk carton falsely flagged. No new motion or fit was generated.
+
+**Interpretation and choice:** the successful mug false alarm repeats under
+all three command noise conditions at the current threshold. Adding this same
+noise does not establish transfer to corrected mug grasps. The earlier wrist
+attribution remains a candidate explanation rather than an isolated cause;
+these scores do not justify declaring a feature removal fix. Keep this evidence
+as a retrospective development diagnostic, separately from historical v2 and
+any future evaluation declared after development decisions.
+
+**Verification and artifact:** the [scoring record](../research_artifacts/corrected_mug_model_diagnostic_v1/README.md)
+preserves all 26 observable prefixes and scores, grouped results, separate
+rejection and figure. Independent calculation reproduced probabilities within
+1.11e-16, verified metrics and the null rejection, and checked all 238 raw source
+files and four frozen model/report/prediction source hashes were unchanged.
+
+**Next check, not implemented:** compare input distributions and safe wrist
+coverage with matched development controls. If a representation or training
+change is justified, evaluate that comparison on freshly declared object and
+pose groups. The current task did not retrain, remove wrist features, tune a
+threshold or launch a larger collection. Useful warning timing, recovery and
+physical transfer remain separate questions.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new

@@ -1,0 +1,224 @@
+{
+  "schema_version": "corrected_mug_frozen_model_diagnostic_v1",
+  "date": "2026-10-12",
+  "planned": 27,
+  "scored": 26,
+  "stopped_unscored": 1,
+  "overall": {
+    "episodes": 26,
+    "successes": 22,
+    "failures": 4,
+    "accuracy": 0.19230769230769232,
+    "balanced_accuracy": 0.5227272727272727,
+    "log_loss": 11.640192092029425,
+    "brier_score": 0.7584857771857383,
+    "failure_roc_auc": 0.5681818181818182,
+    "failure_average_precision": 0.41847826086956524,
+    "failure_recall": 1.0,
+    "failure_precision": 0.16,
+    "success_false_alarm_rate": 0.9545454545454546,
+    "failure_confusion": {
+      "true_positive": 4,
+      "false_positive": 21,
+      "true_negative": 1,
+      "false_negative": 0
+    },
+    "decision_rule": "alert if p_failure >= 0.5; p_failure = 1 - p_success",
+    "p_failure_range": [
+      0.04427451140335703,
+      0.9999999999998029
+    ]
+  },
+  "mug": {
+    "episodes": 23,
+    "successes": 20,
+    "failures": 3,
+    "accuracy": 0.13043478260869565,
+    "balanced_accuracy": 0.5,
+    "log_loss": 13.108916838738592,
+    "brier_score": 0.8403178201631318,
+    "failure_roc_auc": 0.6833333333333333,
+    "failure_average_precision": 0.5,
+    "failure_recall": 1.0,
+    "failure_precision": 0.13043478260869565,
+    "success_false_alarm_rate": 1.0,
+    "failure_confusion": {
+      "true_positive": 3,
+      "false_positive": 20,
+      "true_negative": 0,
+      "false_negative": 0
+    },
+    "decision_rule": "alert if p_failure >= 0.5; p_failure = 1 - p_success",
+    "p_failure_range": [
+      0.6700103497706819,
+      0.9999999999998029
+    ]
+  },
+  "mug_by_noise": [
+    {
+      "noise_amplitude_rad": 0.0,
+      "planned": 8,
+      "completed": 8,
+      "stopped": 0,
+      "metrics": {
+        "episodes": 8,
+        "successes": 7,
+        "failures": 1,
+        "accuracy": 0.125,
+        "balanced_accuracy": 0.5,
+        "log_loss": 12.566952563068488,
+        "brier_score": 0.8685126596665445,
+        "failure_roc_auc": 1.0,
+        "failure_average_precision": 1.0,
+        "failure_recall": 1.0,
+        "failure_precision": 0.125,
+        "success_false_alarm_rate": 1.0,
+        "failure_confusion": {
+          "true_positive": 1,
+          "false_positive": 7,
+          "true_negative": 0,
+          "false_negative": 0
+        },
+        "decision_rule": "alert if p_failure >= 0.5; p_failure = 1 - p_success",
+        "p_failure_range": [
+          0.9737647600738123,
+          0.9999999999998029
+        ]
+      }
+    },
+    {
+      "noise_amplitude_rad": 0.15,
+      "planned": 8,
+      "completed": 8,
+      "stopped": 0,
+      "metrics": {
+        "episodes": 8,
+        "successes": 8,
+        "failures": 0,
+        "accuracy": 0.0,
+        "balanced_accuracy": null,
+        "log_loss": 15.869648198144088,
+        "brier_score": 0.9912931187949776,
+        "failure_roc_auc": null,
+        "failure_average_precision": null,
+        "failure_recall": null,
+        "failure_precision": 0.0,
+        "success_false_alarm_rate": 1.0,
+        "failure_confusion": {
+          "true_positive": 0,
+          "false_positive": 8,
+          "true_negative": 0,
+          "false_negative": 0
+        },
+        "decision_rule": "alert if p_failure >= 0.5; p_failure = 1 - p_success",
+        "p_failure_range": [
+          0.9646276222871669,
+          0.9999999999872193
+        ]
+      }
+    },
+    {
+      "noise_amplitude_rad": 0.6,
+      "planned": 8,
+      "completed": 7,
+      "stopped": 1,
+      "metrics": {
+        "episodes": 7,
+        "successes": 5,
+        "failures": 2,
+        "accuracy": 0.2857142857142857,
+        "balanced_accuracy": 0.5,
+        "log_loss": 10.573183028755292,
+        "brier_score": 0.635551948008551,
+        "failure_roc_auc": 0.5,
+        "failure_average_precision": 0.41666666666666663,
+        "failure_recall": 1.0,
+        "failure_precision": 0.2857142857142857,
+        "success_false_alarm_rate": 1.0,
+        "failure_confusion": {
+          "true_positive": 2,
+          "false_positive": 5,
+          "true_negative": 0,
+          "false_negative": 0
+        },
+        "decision_rule": "alert if p_failure >= 0.5; p_failure = 1 - p_success",
+        "p_failure_range": [
+          0.6700103497706819,
+          0.9999999999961531
+        ]
+      }
+    }
+  ],
+  "controls": [
+    {
+      "episode_id": "control_cube",
+      "object_id": "object01",
+      "role": "control",
+      "observation_group_id": "sha256:fe111bc8591b8ba7bc0b23a4c14f9357a86482e216956587bf0c28bceddd22b9",
+      "proposal_group_id": "sha256:7b9cfa57b87c17636cf91ebe9d23e78c26fa0555d2474f41e95a1ac48f8b023a",
+      "noise_amplitude_rad": 0.0,
+      "p_success": 0.955725488596643,
+      "p_failure": 0.04427451140335703,
+      "failure_alert": false,
+      "observed_through_s": 2.9599999999998956,
+      "label_success": 1,
+      "failure_type": null,
+      "classification": "correct_success"
+    },
+    {
+      "episode_id": "control_apple",
+      "object_id": "hug_apple",
+      "role": "control",
+      "observation_group_id": "sha256:26705a9bdce55bc69c741c7f8491175085fb3fb93eceb84e24c69e4120dc28b6",
+      "proposal_group_id": "sha256:bfeb1c97815bec722b9c9f6d5f68a616b314b440b17e2bc9f0a67415e2179f58",
+      "noise_amplitude_rad": 0.0,
+      "p_success": 0.14511955286517317,
+      "p_failure": 0.8548804471348268,
+      "failure_alert": true,
+      "observed_through_s": 2.9599999999998956,
+      "label_success": 0,
+      "failure_type": "failed_acquisition",
+      "classification": "detected_failure"
+    },
+    {
+      "episode_id": "control_milk_carton",
+      "object_id": "hug_milk_box",
+      "role": "control",
+      "observation_group_id": "sha256:d289acefecbfa26ba895e1446bdbe74898442d3d8ea1840dc65f46e6c32208bb",
+      "proposal_group_id": "sha256:70aeca4ea8a76a9ee1ebb1f44517ea7eb71df357da0382b837f8f9b4931e3c65",
+      "noise_amplitude_rad": 0.0,
+      "p_success": 0.3914768483505597,
+      "p_failure": 0.6085231516494403,
+      "failure_alert": true,
+      "observed_through_s": 2.9599999999998956,
+      "label_success": 1,
+      "failure_type": null,
+      "classification": "false_alarm"
+    }
+  ],
+  "frozen_model_and_prediction_sources_unchanged": true,
+  "original_raw_files_unchanged": true,
+  "frozen_after": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/task_outcome_baseline_v1/proprioception_and_commands.npz": "sha256:16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/task_outcome_baseline_v1/report.json": "sha256:19f1aa3e7ab0902da1c955aaaa992b8023f7c6b453fa60b835d284cd385c13a8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/prediction/model.py": "sha256:f5fbe2762efd7099a05b75ccca11cdae670eac9e20f7b265632d98b2a24fdea8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/prediction/dataset.py": "sha256:ac6a6fe517cbfd21b4bdae0e858fb31674561b923b1e0c0f4397255cf1316076"
+  },
+  "prediction_time_s": 2.96,
+  "failure_alert_threshold": 0.5,
+  "execution_protocol_id": "fixed_grasp_lift_v3_table_clearance",
+  "execution_protocol_config_hash": "sha256:4a6f39458c413eafb06f93cbd24e8a4e13850acadd31bde76bec88d846b45608",
+  "runtime": {
+    "python": "3.12.13",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "scope": "Offline diagnostic of reused controller-development scenes and proposals",
+  "limitations": [
+    "Two mug observation families and eight related proposals; noise draws are paired",
+    "Changed v3 wrist/controller conditions; not the historical unchanged v2 evaluation",
+    "Requested noise bounds do not equal all applied offsets because joint limits clip commands",
+    "Failure scores are not calibrated physical probabilities; no tuning or fitting performed",
+    "Eventual task outcome, not physical slip onset, live warning lead time or recovery"
+  ]
+}

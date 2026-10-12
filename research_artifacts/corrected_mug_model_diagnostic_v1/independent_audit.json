@@ -1,0 +1,37 @@
+{
+  "schema_version": "independent_corrected_mug_diagnostic_audit_v1",
+  "status": "passed",
+  "audited_at_utc": "2026-10-12T06:30:24.908476+00:00",
+  "method": "Independent raw extraction and float32 conversion; hand-coded temporal summaries, saved scaling and coefficients, stable scalar sigmoid, pairwise AUROC and grouped precision-recall. No project prediction helpers imported.",
+  "diagnostic_root": "/Users/nilakarthikesan/grasp-failure-prediction/runs/corrected_mug_model_diagnostic_2026-10-12",
+  "raw_root": "/Users/nilakarthikesan/grasp-failure-prediction/runs/mug_table_clearance_validation_2026-10-11/final_checks_27",
+  "absolute_probability_tolerance": 1e-14,
+  "maximum_absolute_probability_difference": 1.1102230246251565e-16,
+  "completed_prefixes_reconstructed": 26,
+  "prediction_rows_matched": 26,
+  "checks_passed": 896,
+  "all_completed_prefixes_passed": true,
+  "problems": [],
+  "unlisted_output_files": [],
+  "verified_output_manifest_sha256": "sha256:d04166c56e7ca282fb62c3ce2012be12db7a78348036758dced756413d22d150",
+  "verified_model_sha256": "sha256:16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb",
+  "verified_model_report_sha256": "sha256:19f1aa3e7ab0902da1c955aaaa992b8023f7c6b453fa60b835d284cd385c13a8",
+  "scope": "Retrospective v3 controller-development diagnostic; not untouched generalization, slip onset, warning lead time or deployment calibration.",
+  "writes": "Only this audit JSON. Models, sources, original rollouts and diagnostic outputs were read only.",
+  "overall_confusion": {
+    "true_positive": 4,
+    "false_positive": 21,
+    "true_negative": 1,
+    "false_negative": 0
+  },
+  "mug_confusion": {
+    "true_positive": 3,
+    "false_positive": 20,
+    "true_negative": 0,
+    "false_negative": 0
+  },
+  "raw_files_hashed": 238,
+  "output_files_hashed": 59,
+  "frozen_files_hashed": 4,
+  "stopped_unscored": 1
+}

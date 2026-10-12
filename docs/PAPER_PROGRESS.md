@@ -393,3 +393,36 @@ demonstration. It supplies neither an aggregate unseen object score nor evidence
 of warning time, calibration or recovery. The [walkthrough bundle](../research_artifacts/mug_single_walkthrough_v1/README.md)
 preserves the actual input, score, outcome, audit and explanation. The manuscript
 retains its earlier pilot scope; this note does not revise its quantitative claims.
+
+## Frozen model diagnostic on all corrected checks, 12 October
+
+Scored the 26 completed recordings from the existing corrected v3 checks,
+without simulation, training, feature changes or threshold tuning. The saved
+state and command model retained its original normalization, 20 closing samples
+through 2.96 seconds and 0.5 failure alert threshold. All predictions were
+computed from copied observable prefixes before loading task outcomes.
+
+All 23 completed mugs were flagged: 20 successful grasps were false alarms and
+three failed acquisitions were detected. By requested finger command noise
+bound, false alarms were **7/7 successful mugs at 0.00 rad, 8/8 at 0.15 rad and
+5/5 at 0.60 rad**. There are no failures at 0.15 rad, so its failure recall and
+AUROC are undefined. The high noise condition has one additional guard rejection
+with null label and prediction; it is excluded from all outcome metrics.
+
+A paired proposal failed without noise and succeeded with both noisy settings,
+yet the model warned in all three runs. Noise does not assign a failure label.
+Controls comprise a correctly cleared successful cube, a detected apple
+acquisition failure and a falsely flagged successful milk carton. Overall:
+21 false alarms, four detected failures, one correctly cleared success and zero
+missed failures. The model cannot clear a successful mug at its current threshold.
+
+The [diagnostic bundle](../research_artifacts/corrected_mug_model_diagnostic_v1/README.md)
+contains every score, original label, causal input, grouped metrics, separate
+guard record and an exportable figure. Independent calculation reproduced all
+26 probabilities within 1.11e-16 and checked metrics, prefixes and hashes.
+All 238 raw files and four frozen model/report/prediction source files were
+unchanged. These checks reuse two mug observation families and eight proposal
+families under a changed controller; this is a retrospective development
+diagnostic, not an untouched benchmark or slip warning experiment. It extends
+the single false alarm observation without isolating wrist inputs as its cause.
+The manuscript's quantitative pilot claims remain unchanged.

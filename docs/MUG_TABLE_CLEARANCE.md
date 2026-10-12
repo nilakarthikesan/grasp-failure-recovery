@@ -156,6 +156,23 @@ attempts separately, and preserve execution-version grouping. Freeze that batch
 before testing the unchanged predictor. Count and report rejections rather than
 silently discarding them. The larger collection has not been started here.
 
+## Subsequent frozen model diagnostic, 12 October
+
+The 26 completed checks above have now been scored with the unchanged saved
+predictor, original input contract and 0.5 failure alert threshold. All 23
+completed mugs were flagged, including all 20 successful grasps: 7/7 successful
+zero noise attempts, 8/8 at 0.15 rad and 5/5 at 0.60 rad. The three actual mug
+acquisition failures were also flagged. The one runtime guard rejection remains
+unscored with a null outcome; it stopped before the input cutoff.
+
+The [diagnostic record](../research_artifacts/corrected_mug_model_diagnostic_v1/README.md)
+contains scores, grouped results, the rejection, causal inputs and an independent
+audit. This uses the existing controller development recordings and does not
+start a new collection or replace the unchanged historical v2 evaluation.
+The controller correction results above and original recording files are
+preserved. The repeated false alarms motivate a separate input distribution
+and safe wrist coverage investigation before an expanded evaluation.
+
 ## Note for the paper
 
 The fresh-object experiment exposed an embodiment feasibility problem: all mug
