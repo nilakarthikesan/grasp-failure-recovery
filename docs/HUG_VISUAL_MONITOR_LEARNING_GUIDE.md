@@ -3,6 +3,11 @@
 Prepared 12 October 2026 using existing recordings. No visual monitor training,
 VLA integration or new simulation occurred. The original predictor is unchanged.
 
+**Status update:** the user now defers VLM/VLA and visual-monitor implementation
+to focus on the existing HUG executor and joint predictor. This guide remains
+a learning reference. The [current research plan](HUG_MONITOR_RESEARCH_PLAN.md)
+compares broader HUG situation coverage with additional noisy repetitions.
+
 ## Five components, five jobs
 
 **A vision-language model (VLM) interprets images and text.** Given an image

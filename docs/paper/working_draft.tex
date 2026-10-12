@@ -34,7 +34,7 @@ configurations, all 13 successes and three task failures trigger alerts.
 Six pairs succeed at both settings, yet no warning clears. One changed task
 label crosses the lift cutoff by a submillimeter amount. Wrist terms change
 scores without establishing an improvement. We
-specify a subsequent comparison of wrist coverage against
+specify a subsequent comparison of broader HUG observation and proposal coverage against
 additional finger noise at matched training counts and class proportions.
 That comparison remains unexecuted. Current results establish a reliability
 problem and a constraint on its diagnosis, not improved transfer, slip timing
@@ -45,14 +45,16 @@ or recovery.
 A useful grasp warning must distinguish a failed task from a successful attempt
 in an unfamiliar configuration. Our research question is:
 \begin{quote}
-For a simulated dexterous hand, does training with more diverse successful
-wrist configurations improve prediction of grasp, lift and hold outcomes on
-unfamiliar objects and wrist configurations more than additional finger-command
-noise, when both approaches use the same amount of training data, the same
-success/failure proportions and the same model architecture?
+At a fixed number of simulated training attempts, does broader coverage of
+HUG-generated grasp situations improve pre-lift outcome warnings on unfamiliar
+objects and scenes more than additional finger-command perturbations of a
+smaller set of grasps?
 \end{quote}
 We distinguish the completed frozen-model diagnostic from the proposed training
 comparison. The former motivates the question; it does not answer it.
+The wrist diagnostic remains a coverage subgroup, not an isolated causal result.
+The target remains eventual grasp, lift and hold completion from the closing
+prefix, rather than slip onset or a certified stable-grip decision.
 
 Failure prediction and recovery are established topics. Gilday et al. combine
 sensor-based grasp prediction with wrist-driven recovery and discuss errors on
@@ -75,8 +77,8 @@ checking measurements, calibration and baseline comparisons before attributing
 our errors to wrist coverage. The proposed training comparison remains under
 scope review; wrist-feature contributions alone do not demonstrate its remedy.
 
-\paragraph{Visual-monitor route under exploration.}
-We are considering preserving HUG-conditioned fixed execution as a source of
+\paragraph{Deferred visual-monitor exploration.}
+We considered preserving HUG-conditioned fixed execution as a source of
 controlled examples for a common visual monitor, evaluated separately on real
 VLA-controlled recordings. OpenVLA illustrates a VLM adapted to output robot
 actions \cite{openvla}; this differs from a monitor that interprets images.
@@ -85,7 +87,13 @@ studies simulated and real training examples \cite{guardian}. Thus that mixture
 alone is not a new contribution. A future visual study must distinguish
 forecasting final outcome from detecting an unsuccessful acquisition, align
 target definitions and test a controlled data strategy. No visual predictor,
-VLA integration or transfer improvement has been demonstrated here.
+VLA integration or transfer improvement has been demonstrated here. This route
+is deferred while the active study retains the joint-based predictor.
+
+Recent proprioceptive work also learns a hand-local grasp-readiness score
+alongside reactive control \cite{blindreflex}. We therefore do not claim that
+command-relative features or pre-lift monitoring are new; our candidate
+contribution concerns a controlled HUG collection and representation comparison.
 
 \section{Execution, labels and predictor}
 \paragraph{Grasp source and simulation.}
@@ -296,22 +304,35 @@ separately. Two out-of-range wrists test sensitivity, not familiar versus
 unfamiliar coverage. No alert change may also reflect saturated probabilities.
 This development diagnostic cannot demonstrate improvement to a frozen model.
 
-\paragraph{Then test training diversity.}
-Fit two new models with the same architecture and validation rule:
-the original training base plus an additional finger-noise cohort, and the same
-base plus a wrist-coverage cohort. Match selected episode counts, class
-proportions and base object/proposal identities; fit normalization on each
-training set only. Declare cohort selection and quotas before fitting, without
-using prediction scores. Retain all generated, selected and excluded counts:
-equal training-data budgets need not imply equal collection costs. If matched
-cohorts cannot be formed, amend the design before fitting and retain the confound.
+\paragraph{First diagnose simpler explanations.}
+Declare development calibration/threshold and representation comparisons before
+larger collection. Include original inputs, a wrist-removed reference and a
+target-relative representation from existing joints, velocities and command
+errors. This does not add sensors; tracking error is not a unique contact or
+stability measurement. These comparisons have not run. Already inspected data
+remain retrospective development evidence.
+
+\paragraph{Then test training coverage.}
+Compare additional finger-noise repetitions of a smaller grasp set with an
+equally sized cohort covering more HUG observations and proposals. Keep the
+allowed training-object pool, corrected executor, task definitions and model
+family fixed; declare class selection and fit normalization on training only.
+Safe wrist coverage may be part of the broader strategy and a declared subgroup.
+Several changed axes support a collection-strategy result, not wrist causality.
+Freeze sampling rules, source identities and quotas before collection and
+fitting, without using prediction scores. Retain generated, selected and
+excluded counts and actual applied
+perturbations. Equal selected counts do not imply equal inference or collection
+cost. If matched cohorts cannot be formed, amend the design before fitting.
 
 Declare one common fresh holdout of objects, postures and source families
 outside training and validation; freeze both fitted models before scoring.
 Also report the original frozen predictor as a reference, whose smaller
 training budget does not itself isolate the diversity effect. Improvement
-requires fewer false warnings among successful tasks without more missed
-completed failures at the same 0.5 threshold on this common test. Report
+must assess false warnings among successful tasks together with missed
+completed failures under validation-selected operating rules. Preserve the
+original model's 0.5 threshold as a historical reference; do not retune on the
+fresh test. Report
 numerators, denominators, object/posture breakdowns and uncertainty respecting
 shared families. No failures means undefined failure recall; a few failures
 cannot establish broad noninferiority. Neither warning on everything nor
@@ -433,5 +454,12 @@ P. Pacaud et al.
 \emph{Guardian: Detecting Robotic Manipulation Failures with Vision-Language Models}.
 arXiv:2512.01946v4, 2026 revision.
 \url{https://arxiv.org/html/2512.01946v4}.
+
+\bibitem{blindreflex}
+A. Alexiev et al.
+\emph{See to Reach, Feel to Grasp: Learning A Blind Grasp Reflex for
+Anthropomorphic Robotic Hands}.
+arXiv:2609.31323v1, 2026, preprint.
+\url{https://arxiv.org/html/2609.31323v1}.
 \end{thebibliography}
 \end{document}

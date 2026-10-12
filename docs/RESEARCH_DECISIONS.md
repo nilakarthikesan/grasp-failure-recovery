@@ -1064,6 +1064,41 @@ choice is the visual monitor's target and decision time; our learning artifact
 does not adopt a new paper title or claim visual transfer. The working paper
 adds only the explicitly proposed route and relevant source context.
 
+## 12 October 2026 Returning to the HUG setup and testing collection coverage
+
+The user explicitly chooses to continue the existing HUG simulation and
+prediction setup, deferring VLM/VLA work. Earlier exploration remains recorded
+but is not the active plan. The working question now compares broader HUG
+observation/proposal coverage with more finger-noise repetitions at equal
+training episode counts. Wrist coverage can be a subgroup of that strategy,
+not a presumed sole cause of prediction failure.
+
+The practical motivation is a pre-lift warning that catches unsuccessful tasks
+without unnecessarily rejecting successful unfamiliar grasps. The original
+model has outcome signal, but repeated corrected mug warnings expose unreliable
+operating behavior. The 1,040 pilot trials contain only four observation and
+sixteen proposal families. This supports checking coverage, while calibration,
+feature encoding and label boundaries remain alternative explanations.
+
+Close non-VLA prior includes See to Reach, Feel to Grasp's learned proprioceptive
+control/readiness score. Thus hand-local command errors and pre-lift prediction
+are not inherently new. Our candidate contribution is a controlled HUG
+collection-strategy finding. A bounded search also found ContactGuard's
+pre-contact world-model monitor, which is a different interface; no global
+absence of prior HUG monitoring was established.
+
+The [current plan](HUG_MONITOR_RESEARCH_PLAN.md) requires a development comparison
+of calibration and representations before larger collection, followed by
+matched cohorts and one fresh family-disjoint test under a corrected executor.
+Keep the target as final grasp/lift/hold outcome from the 2.96-second prefix.
+The user-facing goal of useful real-robot warnings remains an ambition; the
+current joint model needs compatible robot measurements for real validation.
+
+The manuscript question and plans now reflect this scope; completed results
+and all original scientific artifacts are unchanged. No new training,
+calibration, rollout or visual/VLA integration occurred. Collection quotas,
+source IDs and exact baseline formulas must be declared before execution.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new

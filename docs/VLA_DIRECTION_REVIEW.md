@@ -1,17 +1,22 @@
 # VLA failure monitoring: purpose, feasibility and remaining questions
 
+**Current status, 12 October 2026:** this exploration is deferred. The user
+chooses the existing HUG simulation and joint-based predictor for the active
+study. See [the current HUG monitor plan](HUG_MONITOR_RESEARCH_PLAN.md).
+The discussion below records earlier exploration, not a VLA migration or fit.
+
 Reviewed 12 October 2026. The user asks for a concrete robotics benefit and a
 research basis before choosing a niche. They are open to other datasets and
 simulators, and are considering a VLA-based grasp monitor. This records an
 exploration, not adoption of a new controller or a claim of novelty.
 
-**Current research priority:** grasp-specific failure monitoring alongside an
+**Earlier research priority:** grasp-specific failure monitoring alongside an
 existing VLA policy. Public evidence establishes this as an active research
 direction, so the next exploration will be based here. The exact contribution,
 dataset and experimental question remain to be selected; no model migration
 or new VLA result is implied.
 
-**Preferred integration route for exploration:** retain HUG's grasp proposals
+**Earlier preferred integration route for exploration:** retain HUG's grasp proposals
 and our fixed simulator, then investigate a common visual monitor evaluated on
 real VLA-controlled recordings. This differs from SAFE's policy-specific latent
 monitor and from training a new VLA. The [learning guide](HUG_VISUAL_MONITOR_LEARNING_GUIDE.md)

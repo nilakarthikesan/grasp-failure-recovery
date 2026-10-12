@@ -10,8 +10,9 @@ checkout and recovery references. Scientific protocol versions remain separate.
 **Updated: 12 October 2026.** This is the evidence index for the
 [standalone working paper](paper/working_draft.tex), now titled **Evaluating
 Simulation Diversity for Grasp Failure Warnings**. The current draft question compares
-successful wrist coverage with additional finger command noise at matched
-training budgets. That proposed comparison is under review and not completed.
+broader HUG observation/proposal coverage with additional finger-noise repeats
+at equal training episode counts. Wrist coverage is a possible subgroup rather
+than the sole assumed explanation. The comparison is not completed.
 The [public evidence review](GRASP_PREDICTION_EVIDENCE_REVIEW.md) records training,
 sensing and evaluation practices before we choose further collection. Completed evidence
 comprises the pilot, frozen fresh evaluation, separate mug executor correction,
@@ -20,26 +21,28 @@ observed training wrist settings, frozen selection of eight wrist pairs and
 completion of all eight zero-noise comparisons. Future slip timing,
 recovery and real world transfer remain untested.
 
-**Immediate next step:** review the published evidence and confirm our prediction
-target, observable inputs and baseline comparisons before choosing new data.
+**Immediate next step:** declare a small development comparison of calibration
+and joint representations before choosing larger collection.
 Any fitting still needs separate validation/calibration and a common fresh holdout.
 The [VLA direction review](VLA_DIRECTION_REVIEW.md) adds a possible real-recording
 baseline route; it does not adopt a VLA controller or establish a new contribution.
-**Current research priority:** grasp-specific monitoring of existing VLA
-policies. The current manuscript preserves the original simulation evidence;
-a new precise contribution and evaluation have not yet been adopted.
+**Current research priority:** the existing HUG executor and joint-based
+pre-lift outcome predictor. The [current plan](HUG_MONITOR_RESEARCH_PLAN.md)
+records the coverage question, baseline controls and limits. VLM/VLA and visual
+monitor implementation are deferred; no new remedy has been demonstrated.
 The [SAFE recording walkthrough](SAFE_RECORDING_WALKTHROUGH.md) now documents
 one raw real-robot success/failure pair and a separate author demo with an
 eventual warning. It is a qualitative audit; no published monitor was scored
 on our selected raw pair and no missed-failure rate or improvement was measured.
 The [HUG visual-monitor learning guide](HUG_VISUAL_MONITOR_LEARNING_GUIDE.md)
-now explains the preferred integration route under exploration: preserve HUG
+records an earlier integration route considered: preserve HUG
 execution and assess a common visual monitor on real VLA recordings. Forecasting
 future task outcome and detecting unsuccessful acquisition remain separate
 target choices. No visual training, new simulation or controller migration ran.
+That guide is now a learning reference rather than the active study plan.
 All eight wrist pairs are complete: every success still triggers a warning.
 See the
-[current question and evidence gates](#accepted-paper-question-and-evidence-gates-12-october).
+[current HUG question and evidence gates](HUG_MONITOR_RESEARCH_PLAN.md).
 The latest [completed paired results](#seven-remaining-wrist-pairs-completed-12-october) supersede
 earlier planning-status statements below; bound historical plans retain their
 original bytes.
@@ -795,6 +798,10 @@ working manuscript exist. The controlled pair comparison, data diversity fit,
 useful warning timing, recovery and workshop submission are still pending.
 
 ## Accepted paper question and evidence gates, 12 October
+
+**Historical scope:** this wrist-specific question was subsequently broadened
+to the [current HUG coverage comparison](HUG_MONITOR_RESEARCH_PLAN.md). Its dated
+declaration and completed diagnostic evidence remain preserved below.
 
 **Working title: Evaluating Simulation Diversity for Grasp Failure Warnings.**
 

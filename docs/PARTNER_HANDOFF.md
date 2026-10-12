@@ -14,12 +14,16 @@ physical slip prediction, warning lead time, recovery or real robot transfer.
 
 **Working paper title: Evaluating Simulation Diversity for Grasp Failure Warnings.**
 
-**Current draft question:** For a simulated dexterous hand, does training with more
-diverse successful wrist configurations improve prediction of grasp, lift and
-hold outcomes on unfamiliar objects and wrist configurations more than
-additional finger-command noise, when both approaches use the same amount of
-training data, the same success/failure proportions and the same model
-architecture?
+**Current draft question:** At a fixed number of simulated training attempts,
+does broader coverage of HUG-generated grasp situations improve pre-lift
+outcome warnings on unfamiliar objects and scenes more than additional
+finger-command perturbations of a smaller grasp set?
+
+Read [the current HUG monitor plan](HUG_MONITOR_RESEARCH_PLAN.md). The user now
+defers VLM/VLA and visual-monitor development, keeping the existing joint-based
+predictor and fixed HUG executor. First declare development calibration/feature
+comparisons, then collect controlled matched cohorts and a common fresh test.
+Wrist coverage is a possible subgroup; its causal importance remains unproven.
 
 This proposed comparison is under review following the user's request to ground
 the direction in published training and evaluation practices. Read the
@@ -31,14 +35,12 @@ formats were inspected. The [recording walkthrough](SAFE_RECORDING_WALKTHROUGH.m
 now adds a verified small WidowX extraction and separate author-demo inspection.
 Event labels, timing alignment, monitor checkpoints and runtime reproduction
 remain unverified. This is an exploration, not an implemented pivot.
-The next research area to prioritize is grasp-specific monitoring alongside a
-pretrained VLA policy, with a reproduced baseline and failure analysis before
-selecting the contribution. The old wrist training comparison is no longer
-assumed to be the primary experiment; its evidence remains preserved.
-The user prefers retaining HUG and exploring a visual monitor shared across
-simulated and real recordings. See [the learning guide](HUG_VISUAL_MONITOR_LEARNING_GUIDE.md)
+The VLA and visual-monitor routes are now deferred historical exploration.
+The earlier wrist-only training comparison is no longer assumed to be the
+primary experiment; its evidence remains preserved.
+See [the learning guide](HUG_VISUAL_MONITOR_LEARNING_GUIDE.md)
 for the actual HUG teaching pair, model roles and proposed training steps.
-This is a visual-monitor route, not a new VLA or a completed SAFE reproduction.
+That learning material does not establish a trained visual model or SAFE reproduction.
 
 The completed diagnostic compared safe wrist settings for the same intended
 mug grasp at zero noise with the saved model unchanged. All eight declared
@@ -204,9 +206,10 @@ public website or a shareable link to Nila's recordings.
 
 ## Next work in order
 
-Before the proposed experiments below, confirm our target, available measurements
-and appropriate baseline comparisons using the evidence review. This is a
-research decision gate; no new collection or fitting has begun.
+Follow [the current HUG plan](HUG_MONITOR_RESEARCH_PLAN.md): keep the existing
+pre-lift task-outcome target and joint measurements. Declare exact baseline
+formulas, selection rules and source memberships before fitting. No new
+collection or remedy fit has begun.
 
 1. **Understand the complete diagnostic.** All 14 new attempts finish. Eleven
    successes cause false warnings; three failed task labels are correctly
@@ -214,28 +217,31 @@ research decision gate; no new collection or fitting has begun.
    both wrist settings, yet neither clears. One changed label misses the lift
    cutoff by only 0.036 mm; it is not evidence of a drop. Inspect
    [the full evidence](../research_artifacts/wrist_pair_remaining_v1/README.md).
-2. **Declare new data and holdouts before fitting.** The diagnostic used two
+2. **Diagnose calibration and representation on development data.** Compare
+   original inputs, a validation-only calibration/threshold reference,
+   wrist-removed inputs and a target-relative joint representation. These are
+   proposed comparisons using the existing measurements, not new sensors or
+   guaranteed contact indicators. Keep separate outputs and preserve the
+   original weights. Results on inspected data remain retrospective.
+3. **Declare new data and holdouts before the coverage comparison.** The diagnostic used two
    already inspected mug scenes, so it cannot become the final test. Keep a
    common fresh set outside training and validation and preserve family
    identities, task labels and all collection exclusions.
-3. **Include a simple calibration reference in the proposed comparison.**
-   Scores retain some ranking information, despite warning on every success
-   at 0.5. Fit any mapping or threshold only on separate validation data, not
-   these diagnostic pairs. Keep original weights/results as the fixed reference.
-   No calibration has been fitted yet; it must not replace the frozen result.
-4. **Decide on the equal budget training experiment from the diagnosis.**
-   Compare the same original base plus equal numbers of finger noise or wrist
-   coverage examples, with matched success/failure mix and base object/proposal
-   identities. Keep the same model architecture, feature fields and validation
-   selection rule. This is planned work, not a demonstrated wrist coverage gain.
+4. **Declare the equal-count coverage experiment from the diagnosis.**
+   Compare more finger-noise repetitions of a smaller grasp set with broader
+   HUG observation/proposal coverage. Match selected counts, class-selection
+   rules, the allowed training-object pool, corrected executor and model family.
+   Wrist coverage can be a subgroup; several changed axes do not isolate its cause.
+   Do not attribute gains from feature or calibration changes to added data.
    Declare cohort selection before fitting; retain every generated, selected
    and excluded attempt count, since equal training counts need not cost equal
    collection effort.
 5. **Measure improvement on one fresh common test set.** Keep entire test
    object/posture/observation/proposal groups outside training and validation,
-   and freeze both models before looking at test outcomes. At the same 0.5
-   threshold, improvement means fewer false warnings on successes without more
-   missed failures. Report counts and group uncertainty; a few failures cannot
+   and freeze both models before looking at test outcomes. Use operating rules
+   selected on separate validation/calibration data; report false warnings and
+   missed failures together. The old model keeps its historical 0.5 rule.
+   Report counts and group uncertainty; a few failures cannot
    prove broad reliability. Lower scores alone do not meet the criterion.
    Also score the original frozen model as a reference on this same test; its
    smaller training budget does not isolate the augmentation strategy.

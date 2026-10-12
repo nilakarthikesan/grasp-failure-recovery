@@ -14,8 +14,11 @@ cleanup, active checkout and recovery references. `main` remains the published b
 
 The [public grasp-prediction evidence review](docs/GRASP_PREDICTION_EVIDENCE_REVIEW.md)
 compares published predictors, runtime monitors and company systems, including
-their data, measurements and evaluation limits. The next collection strategy is
-under review; varied wrists remain a hypothesis, not a demonstrated remedy.
+their data, measurements and evaluation limits. The
+[current HUG research plan](docs/HUG_MONITOR_RESEARCH_PLAN.md) asks whether broader
+grasp-situation coverage improves pre-lift warnings more than additional
+finger-noise repeats at equal training counts. VLM/VLA implementation is deferred;
+wrist coverage remains a subgroup hypothesis, not a demonstrated remedy.
 The [SAFE real-recording walkthrough](docs/SAFE_RECORDING_WALKTHROUGH.md) compares
 one successful and one empty grasp, audits monitor availability, and explains
 which simulator infrastructure we can reuse without changing the original model.
@@ -172,10 +175,11 @@ warnings are useful. The [original diagnostic plan](research_artifacts/wrist_com
 is retained as a frozen source record; current execution status is in the new
 evidence bundles and notes.
 
-The later training comparison will match episode counts, success/failure
-proportions, base objects/proposals and model settings, then use a common fresh
-holdout. Improvement means fewer false warnings on successful grasps without
-more missed failures on that same test. The [paper evidence and quality gates](docs/PAPER_PROGRESS.md)
+The [broader HUG coverage comparison](docs/HUG_MONITOR_RESEARCH_PLAN.md) will match
+training counts, class-selection rules, the allowed object pool and model
+settings while varying observation/proposal coverage. It needs a common fresh
+holdout and validation-only operating rules. Improvement must consider both
+false warnings and missed failures. The [paper evidence and quality gates](docs/PAPER_PROGRESS.md)
 also record collection costs, uncertainty and the conditions under which we
 must revise the design or report a negative finding.
 
