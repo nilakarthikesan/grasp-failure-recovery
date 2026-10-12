@@ -11,6 +11,11 @@ Ordinary code, experiment and paper updates now share this working branch and
 one consolidated PR. A separate persistent branch is created only at the user's
 explicit request.
 
+The only open project PR is [19](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/19).
+The 13 superseded PRs are closed, and the 17 old remote branch names and
+14 redundant local aliases are retired. Only `main` and `codex/project-work`
+remain as branch names; original tips are recoverable from the archive tags.
+
 ## Why the older branches existed
 
 The earlier workflow created a branch and PR for each milestone so execution,
@@ -36,8 +41,10 @@ The active checkout remains:
 The existing paper stays at `docs/paper/working_draft.tex` in that checkout.
 Raw run data and the local dependency runtime remain under
 `/Users/nilakarthikesan/grasp-failure-prediction/runs`; cleanup does not remove them.
-Older clean checkouts are detached at their saved commits, preserving their
-ignored files. They are historical copies, rather than additional working branches.
+The original project checkout is on published `main`. Older auxiliary checkouts
+are detached at saved commits, preserving their ignored files; they are historical
+copies rather than additional working branches. The active paper and source
+checkout remains on `codex/project-work`.
 
 ## Recovery and historical references
 

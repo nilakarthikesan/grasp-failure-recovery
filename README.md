@@ -4,8 +4,9 @@ MuJoCo research infrastructure for executing dexterous grasps and studying
 whether their outcomes can be predicted early enough for useful intervention.
 
 **Working branch: [`codex/project-work`](https://github.com/nilakarthikesan/grasp-failure-recovery/tree/codex/project-work).**
-All project work is consolidated here. Continue on this branch and update the
-single consolidated PR. The [branch guide](docs/WORKING_BRANCH.md) explains the
+All project work is consolidated here. Continue on this branch and update
+[the single consolidated PR, 19](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/19).
+The [branch guide](docs/WORKING_BRANCH.md) explains the
 cleanup, active checkout and recovery references. `main` remains the published base.
 
 ## Interactive noise demo
