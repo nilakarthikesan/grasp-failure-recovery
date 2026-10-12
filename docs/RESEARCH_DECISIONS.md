@@ -292,6 +292,43 @@ Warning lead time, intervention benefit and real robot transfer require separate
 tests. We should choose the question now and let the experiments refine it,
 rather than claim that finishing a collection pipeline establishes a contribution.
 
+## 12 October 2026 Reconciling the external context brief
+
+The user supplied an external robotics context brief compiled without access to
+this repository. We treated its handoff suggestions as background, rather than
+as instructions to reset the project or as evidence of completed experiments.
+Repository records resolve several of its unknowns: the Shadow Hand and MuJoCo
+setup, state and command features, task labels, grouped splits, trained baseline
+and frozen fresh object evaluation already exist. Slip timing, real correction
+data and recovery remain unresolved.
+
+The category holdout proposal is useful when the held factor and test groups
+are declared explicitly. Our existing pilot already prevents frame and proposal
+variant leakage, but both original objects occur in training. A new object
+holdout using those data would require a separate fit and split, not relabeling
+the existing coefficients. Poor held out performance identifies a failing test
+condition; it does not isolate a cause when geometry, mass or controller
+conditions change together. Acquisition failures and sparse task scored drops
+do not establish physical slip onset or warning time.
+
+**Smallest recommended diagnostic, not yet scored:** reuse the 27 corrected
+controller checks already saved. All 26 completed cases have valid closing
+prefixes and the original model's joint ordering: 23 mug attempts and three
+familiar controls, totaling 22 successes and four acquisition failures. Compare
+frozen predictions with labels by proposal and noise amplitude. Report the
+single guard rejection separately with a null label; it has no complete prefix.
+This requires no new simulation or training and is a development diagnostic,
+not an untouched object generalization benchmark. A fresh evaluation can be
+declared after this check and any development decisions.
+
+The brief's [Tobin et al. reference](https://arxiv.org/abs/1703.06907) concerns
+randomized rendered images for visual localization. It does not establish the
+right joint command disturbance for our state based predictor. Its
+[Chebotar et al. reference](https://arxiv.org/abs/1810.05687) adapts simulation
+randomization using real robot rollouts; no such real calibration is present
+here. These sources support investigating specific uncertainty models, not
+assuming that arbitrarily wide randomization covers unseen contact physics.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new
