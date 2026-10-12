@@ -32,6 +32,11 @@ The [SAFE recording walkthrough](SAFE_RECORDING_WALKTHROUGH.md) now documents
 one raw real-robot success/failure pair and a separate author demo with an
 eventual warning. It is a qualitative audit; no published monitor was scored
 on our selected raw pair and no missed-failure rate or improvement was measured.
+The [HUG visual-monitor learning guide](HUG_VISUAL_MONITOR_LEARNING_GUIDE.md)
+now explains the preferred integration route under exploration: preserve HUG
+execution and assess a common visual monitor on real VLA recordings. Forecasting
+future task outcome and detecting unsuccessful acquisition remain separate
+target choices. No visual training, new simulation or controller migration ran.
 All eight wrist pairs are complete: every success still triggers a warning.
 See the
 [current question and evidence gates](#accepted-paper-question-and-evidence-gates-12-october).

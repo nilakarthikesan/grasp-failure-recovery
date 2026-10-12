@@ -75,6 +75,18 @@ checking measurements, calibration and baseline comparisons before attributing
 our errors to wrist coverage. The proposed training comparison remains under
 scope review; wrist-feature contributions alone do not demonstrate its remedy.
 
+\paragraph{Visual-monitor route under exploration.}
+We are considering preserving HUG-conditioned fixed execution as a source of
+controlled examples for a common visual monitor, evaluated separately on real
+VLA-controlled recordings. OpenVLA illustrates a VLM adapted to output robot
+actions \cite{openvla}; this differs from a monitor that interprets images.
+Guardian verifies subtask execution using before/after images and already
+studies simulated and real training examples \cite{guardian}. Thus that mixture
+alone is not a new contribution. A future visual study must distinguish
+forecasting final outcome from detecting an unsuccessful acquisition, align
+target definitions and test a controlled data strategy. No visual predictor,
+VLA integration or transfer improvement has been demonstrated here.
+
 \section{Execution, labels and predictor}
 \paragraph{Grasp source and simulation.}
 HUG supplies grasp hypotheses from rendered RGB-D observations \cite{hug}.
@@ -409,5 +421,17 @@ H. Rajaprakash, A. Prajapati, R. Xue, A. Anwar, and J. Thomason.
 \emph{SAFECAST: Robust Failure Detection for VLA Policies with Contrast-Set
 Training and Calibration}. arXiv:2608.04246, 2026, preprint.
 \url{https://arxiv.org/abs/2608.04246}.
+
+\bibitem{openvla}
+M. J. Kim et al.
+\emph{OpenVLA: An Open-Source Vision-Language-Action Model}.
+arXiv:2406.09246v3, 2024.
+\url{https://arxiv.org/html/2406.09246v3}.
+
+\bibitem{guardian}
+P. Pacaud et al.
+\emph{Guardian: Detecting Robotic Manipulation Failures with Vision-Language Models}.
+arXiv:2512.01946v4, 2026 revision.
+\url{https://arxiv.org/html/2512.01946v4}.
 \end{thebibliography}
 \end{document}

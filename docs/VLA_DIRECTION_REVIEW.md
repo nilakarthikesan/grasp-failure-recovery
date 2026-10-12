@@ -11,6 +11,14 @@ direction, so the next exploration will be based here. The exact contribution,
 dataset and experimental question remain to be selected; no model migration
 or new VLA result is implied.
 
+**Preferred integration route for exploration:** retain HUG's grasp proposals
+and our fixed simulator, then investigate a common visual monitor evaluated on
+real VLA-controlled recordings. This differs from SAFE's policy-specific latent
+monitor and from training a new VLA. The [learning guide](HUG_VISUAL_MONITOR_LEARNING_GUIDE.md)
+explains the interfaces, an existing HUG example and the unchosen timing target.
+A VLM is an optional verifier or representation source; a smaller image-based
+classifier is also possible. No visual model or transfer result exists yet.
+
 ## Evidence of relevance, rather than a universal standard
 
 SAFE is followed by recent [ActProbe](https://arxiv.org/html/2606.08508v1),

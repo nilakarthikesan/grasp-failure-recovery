@@ -1,0 +1,169 @@
+{
+  "schema_version": "hug_visual_monitor_teaching_v1",
+  "prepared_date": "2026-10-12",
+  "purpose": "Explain existing HUG simulation recordings and proposed visual monitor choices",
+  "status": "teaching_only",
+  "not_a_visual_training_dataset": true,
+  "new_simulations": 0,
+  "models_trained": 0,
+  "vla_integrated": false,
+  "external_monitor_scored": false,
+  "historical_executor_commit": "843fcfea7bd0278d6a881762b26a02a279612ff5",
+  "historical_protocol": "fixed_grasp_lift_v2",
+  "historical_environment": "adroit_shadow_tabletop_v2",
+  "runtime_data_root": "/Users/nilakarthikesan/grasp-failure-prediction",
+  "shared_proposal": {
+    "source": "HUG",
+    "generation_seed": 2,
+    "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/fresh_hug_fixed_closure_v3/seed_2/proposal.pkl",
+    "sha256": "9bffd661cca2cee91ab7843c845472e4742aba0a7f3c95cd30cf74984096fad5",
+    "bytes": 48492
+  },
+  "label_contract": {
+    "scope": "final completed simulated task outcome, not acquisition event timing or slip onset",
+    "convention": "1=success, 0=completed failure; invalid or stopped attempts have no binary label",
+    "minimum_peak_lift_m": 0.14,
+    "required_qualifying_hold_s": 2.0,
+    "maximum_final_drop_from_peak_m": 0.02,
+    "additional_requirements": ["manipulation contact", "no approach hand/table collision", "no timeout"]
+  },
+  "episodes": [
+    {
+      "case_id": "pilot_cube_hug_seed2",
+      "episode_id": "batch/episode_000006",
+      "label_success": 1,
+      "noise_mode": "uniform_episode_bias",
+      "noise_bound_rad": 0.0,
+      "noise_seed": 3089070908,
+      "maximum_lift_m": 0.14796566754442475,
+      "hold_duration_s": 2.0,
+      "failure_type": null,
+      "video": {
+        "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/noisy_pilot_2026-10-09/batch/episode_000006/rollout.mp4",
+        "sha256": "d9c16392d0c951071f9326b458920b5ff53d356cc4c139b01fd219125c548a96",
+        "bytes": 120084,
+        "fps": 25,
+        "frames": 163,
+        "width": 640,
+        "height": 480
+      },
+      "result": {
+        "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/noisy_pilot_2026-10-09/batch/episode_000006/result.json",
+        "sha256": "84eb2e7b4a610a89f323545960e337ea51ba9cdde46d0e1c4ad2ff4d9b9cdc87"
+      },
+      "collection_metadata": {
+        "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/noisy_pilot_2026-10-09/batch/episode_000006/collection_metadata.json",
+        "sha256": "7cde30a9a7c71f4d3548499c37a64e0a178407b7ee91eee25844f56fe00fec50"
+      },
+      "trajectory": {
+        "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/noisy_pilot_2026-10-09/batch/episode_000006/trajectory.npz",
+        "sha256": "47a01354d6e1069cfbf81811dec34d3fe25b2ce44a1b6800ca3674b68b01620d"
+      },
+      "actions": {
+        "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/noisy_pilot_2026-10-09/batch/episode_000006/actions.npz",
+        "sha256": "a78b71e2b6b9d0883e20ac92e113248afbb24f511166d48726d03e20f76e61b6"
+      }
+    },
+    {
+      "case_id": "pilot_cube_hug_seed2",
+      "episode_id": "stress_batch/episode_000005",
+      "label_success": 0,
+      "noise_mode": "uniform_episode_bias",
+      "noise_bound_rad": 0.6,
+      "noise_seed": 3089070908,
+      "maximum_lift_m": 0.052836031373514336,
+      "hold_duration_s": 0.0,
+      "failure_type": "failed_acquisition",
+      "interpretation_limit": "Contact and some lift occurred; not an empty grasp or an independently annotated physical slip",
+      "video": {
+        "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/noisy_pilot_2026-10-09/stress_batch/episode_000005/rollout.mp4",
+        "sha256": "67172428873577f2b26fb3d42671ba285b8ee295d4be6ee6b79babacfb27df78",
+        "bytes": 119218,
+        "fps": 25,
+        "frames": 163,
+        "width": 640,
+        "height": 480
+      },
+      "result": {
+        "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/noisy_pilot_2026-10-09/stress_batch/episode_000005/result.json",
+        "sha256": "e87a114899db3c7d9f932edc6c53fd3673a692f12144686eabd0372ddb93694f"
+      },
+      "collection_metadata": {
+        "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/noisy_pilot_2026-10-09/stress_batch/episode_000005/collection_metadata.json",
+        "sha256": "ffe5fdbf2e04c3836995d135ee32fb411cf7a8809a13fb42a494b29955ddd924"
+      },
+      "trajectory": {
+        "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/noisy_pilot_2026-10-09/stress_batch/episode_000005/trajectory.npz",
+        "sha256": "79569b5c6073f9ae82c555da708553750ee1d9f40804d550c4f6bfbddae7a26b"
+      },
+      "actions": {
+        "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/noisy_pilot_2026-10-09/stress_batch/episode_000005/actions.npz",
+        "sha256": "3acf9845bb14744272c2b13e4c32e1257e989b6332c8c00a22b600213ebb3306"
+      }
+    }
+  ],
+  "images_and_observation": [
+    {
+      "role": "initial RGB",
+      "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/cube_observation/rgb.png",
+      "sha256": "7ff24baeb373eec9a9345ef7f3ed3ea4d59b4e4e49977feba8de9ab14b7c0a87"
+    },
+    {
+      "role": "explanatory HUG proposal illustration; not a clean model input",
+      "shared_seed2_pose_verified": false,
+      "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/cube_observation/hug_observation_overlay.png",
+      "sha256": "64012b7fac2329a3f6b0f6279331e405f46da86ffb4207b99d3afa98b9d1d0c7"
+    },
+    {
+      "role": "initial depth PNG",
+      "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/cube_observation/depth.png",
+      "sha256": "df1c23572fbe03527bdcb461748ffea54d20d25371eab0213c87e944c094c256"
+    },
+    {
+      "role": "initial object mask",
+      "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/cube_observation/object_mask.png",
+      "sha256": "7d998f9c3f434fd1d5aa8568d5800b944ffb57365fc1641f8a0609869c536193"
+    },
+    {
+      "role": "initial observation manifest",
+      "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/cube_observation/observation_manifest.json",
+      "sha256": "75abd4919e2028fd7a3d49aab34c45801cebfbbead8e48543a736c397a1d60e2"
+    }
+  ],
+  "input_cautions": [
+    "Replay videos contain explanatory overlays and are not declared clean visual inputs",
+    "No per-frame sensor RGB-D was recorded in this collection",
+    "Future outcome prediction must restrict all features to a declared causal cutoff",
+    "Acquisition detection requires distinct event labels and cannot inherit whole-task failure labels",
+    "No final outcome, noise seed/amplitude, source filename or privileged contact/state diagnostics may enter a visual predictor without a separately justified observable contract",
+    "Shadow Hand simulation and real VLA recordings require separately evaluated cross-domain adaptation"
+  ],
+  "proposed_comparison": {
+    "status": "candidate_only_not_implemented",
+    "arms": ["real development data only", "same real data plus targeted simulations", "same real data plus size-matched random simulations"],
+    "controls": ["same monitor architecture and training recipe", "comparable class balance", "whole-episode and related-proposal grouped splits", "validation-selected warning threshold", "separate real test recordings"],
+    "novelty_or_improvement_claim": false
+  },
+  "reading_sources": [
+    {
+      "title": "Human Universal Grasping",
+      "url": "https://grasping.io/",
+      "focus": "RGB-D human grasp proposal, robot retargeting and static-pose/contact-force limits"
+    },
+    {
+      "title": "OpenVLA: An Open-Source Vision-Language-Action Model",
+      "url": "https://arxiv.org/html/2406.09246v3",
+      "focus": "Figure 2 and Sections 3.1-3.2: VLM backbone adapted to output robot actions"
+    },
+    {
+      "title": "Guardian: Detecting Robotic Manipulation Failures with Vision-Language Models",
+      "url": "https://arxiv.org/html/2512.01946v4",
+      "focus": "Section 4.1 before/after execution verification; Figure 7 missed plate grasp; Section 5.3 mixed-data composition"
+    },
+    {
+      "title": "SAFE: Multitask Failure Detection for Vision-Language-Action Models",
+      "url": "https://arxiv.org/html/2506.09937v1",
+      "focus": "Optional contrast: monitor using existing VLA internal representations"
+    }
+  ]
+}

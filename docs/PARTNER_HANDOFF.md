@@ -35,6 +35,10 @@ The next research area to prioritize is grasp-specific monitoring alongside a
 pretrained VLA policy, with a reproduced baseline and failure analysis before
 selecting the contribution. The old wrist training comparison is no longer
 assumed to be the primary experiment; its evidence remains preserved.
+The user prefers retaining HUG and exploring a visual monitor shared across
+simulated and real recordings. See [the learning guide](HUG_VISUAL_MONITOR_LEARNING_GUIDE.md)
+for the actual HUG teaching pair, model roles and proposed training steps.
+This is a visual-monitor route, not a new VLA or a completed SAFE reproduction.
 
 The completed diagnostic compared safe wrist settings for the same intended
 mug grasp at zero noise with the saved model unchanged. All eight declared

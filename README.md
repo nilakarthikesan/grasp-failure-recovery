@@ -19,6 +19,8 @@ under review; varied wrists remain a hypothesis, not a demonstrated remedy.
 The [SAFE real-recording walkthrough](docs/SAFE_RECORDING_WALKTHROUGH.md) compares
 one successful and one empty grasp, audits monitor availability, and explains
 which simulator infrastructure we can reuse without changing the original model.
+The [HUG and visual-monitor learning guide](docs/HUG_VISUAL_MONITOR_LEARNING_GUIDE.md)
+explains VLMs, VLAs, our recorded cube example and the proposed training process.
 
 ## Interactive noise demo
 

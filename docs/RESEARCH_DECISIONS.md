@@ -1028,6 +1028,42 @@ transfer remain unexecuted. Original scientific artifacts are unchanged.
 The manuscript adds only a clearly separated qualitative audit paragraph;
 its quantitative results remain the original simulation results.
 
+## 12 October 2026 Retaining HUG while clarifying the visual-monitor route
+
+The user favors retaining HUG and asks to understand the VLM/VLA distinction,
+how a predictor would be trained and what HUG contributes before proceeding.
+The previous VLA-monitoring discussion left two interfaces open: policy latent
+features or a common visual monitor. The preferred route for exploration now
+keeps the HUG-conditioned fixed executor and considers a visual monitor that
+could also be evaluated on real VLA-controlled recordings. This does not train
+or integrate a VLA. A VLM could verify images and task text; a smaller image
+encoder with a learned classifier is another candidate.
+
+The [learning guide](HUG_VISUAL_MONITOR_LEARNING_GUIDE.md) and
+[teaching artifact](../research_artifacts/hug_visual_monitor_teaching_v1/README.md)
+bind an existing same-proposal cube success/failure pair and preserve its exact
+source hashes. The failed case has contact and some lift, so it must not be
+presented as an empty-hand event or slip-onset ground truth. The guide separates
+predicting a future task outcome from detecting an already unsuccessful
+acquisition. Real task success and our lift/hold rule cannot silently become
+one target. Replay outcome/score overlays and future frames remain outside
+model inputs.
+
+HUG's sampling randomness creates candidate pose diversity; our original
+finger-target bias is applied later during execution. These are distinct
+sources of variety. HUG's published limitations include open-loop contact/lift
+execution and retargeting issues; this motivates monitoring but does not prove
+an untouched gap. The recent Guardian VLM verifier already uses simulated and
+real data, and its published missed-plate example is a qualitative case, not
+proof that a general empty-grasp weakness dominates. Any data-strategy claim
+needs controlled, size-matched comparisons and reserved real evaluation.
+
+No model fitting, new rollout, calibration, label revision or new controller
+was performed. The original predictor remains unchanged. The next scientific
+choice is the visual monitor's target and decision time; our learning artifact
+does not adopt a new paper title or claim visual transfer. The working paper
+adds only the explicitly proposed route and relevant source context.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new
