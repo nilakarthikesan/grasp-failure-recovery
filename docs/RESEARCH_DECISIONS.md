@@ -465,6 +465,38 @@ not run. No model, threshold or recording was changed; no rollout, account
 creation, external message or paper submission was performed. Preserve the
 manuscript while the user establishes the question and understands its evidence.
 
+## 12 October 2026 Checking whether recovery supplies a new contribution
+
+**Question:** the user asked whether recognizing genuine failures and correcting
+them makes the original prediction goal distinctive, relevant to the field and
+appropriate for the selected workshop.
+
+**New evidence:** [Gilday et al. 2023](https://doi.org/10.1002/aisy.202200390)
+combine grasp outcome prediction and physical wrist translation recovery.
+They also discuss poor predictions on unfamiliar objects with different
+successful grasp modes. [Nazari et al. 2022](https://arxiv.org/html/2209.06019)
+predict future slip and proactively adapt trajectories, with reactive and no
+control comparisons. These are measured interventions, unlike interpreting
+SAFE's motivation to stop or ask for help as evaluated grasp recovery.
+
+**Interpretation and choice:** prediction plus recovery remains a useful goal,
+but its combination and the need to avoid nuisance warnings are established
+research. Our distinct hand and joint measurements do not by themselves prove
+novelty. The workshop's explicit interest in monitoring transfer failures
+supports a scoped reliability study; suitability does not establish acceptance.
+Do not append a recovery feature merely to make the abstract sound new.
+
+**Missing evidence and next check:** separate object changes from safe posture
+changes with matched execution, retaining the current model. Then any proposed
+warning improvement needs a separate frozen fresh evaluation. Future warning
+claims need validated event timing; recovery claims need an intervention
+comparison that also measures harm to successful grasps and added time.
+The existing table clearance correction fixes the executor and is not evidence
+of model triggered recovery. The [progress note](PAPER_PROGRESS.md#prediction-and-recovery-prior-work-12-october)
+records the staged plan and primary papers. This turn reviewed literature and
+documented proposals; it did not collect data, train a model, implement recovery
+or alter the manuscript. Preserve that scope in the imminent workshop draft.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new

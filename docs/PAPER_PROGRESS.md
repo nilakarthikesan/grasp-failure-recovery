@@ -556,3 +556,66 @@ disclosure field. Prepare an accurate account of assistance for submission.
 
 These are preparation steps. The existing manuscript, model and recordings
 remain unchanged during this exploration.
+
+## Prediction and recovery prior work, 12 October
+
+The user asked whether recognizing genuine failures and correcting them would
+make the project distinctive. Both remain important, but the combination has
+been demonstrated before. It cannot serve as a novelty claim on its own.
+
+[Gilday et al. 2023](https://doi.org/10.1002/aisy.202200390) predict grasp
+outcomes with a sensorized soft hand and trigger a wrist translation recovery.
+They compare intervention enabled and disabled on physical trials. Their
+Section 3.6 also reports inaccurate predictions when novel objects succeed
+through different grasp modes, suggesting insufficient diversity of successful
+training examples. Their hand and tactile inputs differ from our Shadow Hand
+simulation and joint summaries, but even unfamiliar successful grasps causing
+poor predictions is established motivation.
+
+[Nazari et al. 2022](https://arxiv.org/html/2209.06019) predict slip from tactile
+and action histories and alter the manipulation trajectory proactively. They
+compare proactive, reactive and no slip control, including novel objects.
+This tests actual prevention, not only a proposed future recovery response.
+As a more recent adjacent example, [FPC-VLA](https://fpcvla.github.io/) integrates
+a vision and language supervisor with action correction and reports simulation
+and robot experiments. None is a measured baseline in our project.
+
+The [workshop's transfer questions](https://sim2real2field-corl26.github.io/)
+explicitly include monitoring and surviving transfer failures using onboard
+signals. Our possible fit is therefore a careful reliability diagnostic and
+controlled comparison. A state only predictor is a different sensing choice,
+but that difference alone does not establish a new method or literature gap.
+
+### What our current experiment still lacks
+
+1. **A controlled cause comparison.** The current mugs change geometry,
+   proposals and wrist/controller conditions together. Weighted score
+   attribution explains the classifier arithmetic but does not isolate the
+   physical effect of posture. A declared comparison should keep object,
+   scene and intended grasp fixed while testing feasible safe wrist solutions.
+   Preserve world palm and intended finger geometry, validate execution and
+   measure actual outcomes rather than assuming they are invariant.
+2. **A validated warning improvement.** Use development evidence to select
+   one representation or training change, then freeze it and evaluate on
+   fresh declared object and posture groups. Measure false warnings and
+   detected failures together. The current model clears no successful mug at
+   its original threshold; neither more finger noise nor removing wrist inputs
+   has been demonstrated to fix it. No change has been made here.
+3. **A timed future event.** Final task failure is not slip onset. Establish
+   the failure being forecast, when it occurs, whether the attempt is still
+   viable at the warning, and the time available after inference and actuation
+   delay. Acquisition failures cannot be relabeled as predicted slips.
+4. **Measured recovery benefit.** Only then test a bounded correction using
+   information available at the warning. Compare matched intervention and
+   continuation conditions, including successful grasps that might be harmed
+   by unnecessary correction. Report final success, false interventions,
+   missed failures and added time. The table collision correction was an
+   executor fix; it was not a recovery triggered by the prediction model.
+
+The proposed next scientific step remains the small controlled wrist
+comparison with the existing model frozen. Its planner extension and physics
+checks need a declared protocol before collection. Reliable prediction and
+successful recovery are separate accomplishments. With the workshop deadline
+on 15 October, report completed diagnostic evidence and its limits rather than
+promise a full recovery system by that date. No model change, rollout or
+recovery experiment was performed during this literature review.
