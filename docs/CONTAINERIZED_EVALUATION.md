@@ -9,9 +9,10 @@ CPU; a CUDA base image does not establish that inference uses the GPU.
 Dex Retargeting, and MuJoCo evaluation. It pins HUG and Dex URDF revisions and
 records the project commit as an OCI image label and runtime environment value.
 
-The image does not contain the HUG checkpoint, MANO files, Hugging Face model
-cache, evaluation inputs, or results. Those assets are mounted at runtime so
-licensed files and large generated artifacts cannot enter the public image.
+The image excludes the HUG checkpoint, MANO files, Hugging Face model cache,
+recorded datasets, demo videos and rollout results. Runtime assets are mounted
+separately. Case templates and the synthetic smoke fixture remain part of the
+image; local assets and saved prediction pickles are excluded from its context.
 
 ## Public build and saved-grasp smoke test
 

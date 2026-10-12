@@ -166,6 +166,25 @@ These are hypotheses and planned tests, not completed contributions. Adding a
 larger neural network, more noise types or more trajectories would be justified
 by a demonstrated limitation, rather than used as a substitute for these tests.
 
+## 11 October 2026 Simplifying the working branch
+
+The milestone workflow created small reviewable PRs, but its stacked branches
+made it hard for the user to identify the current project. Some demo and
+literature files also remained outside the latest experiment branch.
+
+**Implemented source decision:** consolidate the histories and unique files on
+`codex/project-work`. Preserve historical designs and the optional container
+runtime with clear status notes. Keep scientific v2 and v3 records distinct;
+this is source organization, not new model training or a changed experiment.
+The integrated suite passed 373 tests with 32 optional skips, and the frozen
+source hashes and four published evidence bundles are unchanged.
+
+**Ongoing workflow:** use one working branch and one consolidated PR. Create
+another persistent branch only at the user's explicit request. Save original
+tips as archive tags and a verified Git bundle before retiring their pointers.
+The [branch guide](WORKING_BRANCH.md) and [archive](BRANCH_ARCHIVE.json) provide
+the working location and recovery references. The open paper keeps its path.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new

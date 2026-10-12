@@ -1,5 +1,11 @@
 # Grasp failure project handoff
 
+**Current working branch: `codex/project-work`.** All pushed implementation,
+demo, model and paper work is consolidated there. The earlier handoff below
+records the original baseline; subsequent fresh object tests and mug correction
+are documented in [PAPER_PROGRESS.md](PAPER_PROGRESS.md). Use
+[WORKING_BRANCH.md](WORKING_BRANCH.md) for the active checkout and branch archive.
+
 **Confirmed on 11 October 2026.** The original six-step plan now has a working
 simulation pilot, a portable labeled dataset, and a first trained model.
 Building on the existing HUG-to-Shadow execution work, this pilot adds controlled

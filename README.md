@@ -3,6 +3,11 @@
 MuJoCo research infrastructure for executing dexterous grasps and studying
 whether their outcomes can be predicted early enough for useful intervention.
 
+**Working branch: [`codex/project-work`](https://github.com/nilakarthikesan/grasp-failure-recovery/tree/codex/project-work).**
+All project work is consolidated here. Continue on this branch and update the
+single consolidated PR. The [branch guide](docs/WORKING_BRANCH.md) explains the
+cleanup, active checkout and recovery references. `main` remains the published base.
+
 ## Interactive noise demo
 
 [![Recorded finger angle noise and measured motion](docs/demos/grasp-noise/preview.jpg)](docs/demos/grasp-noise/index.html)
@@ -73,7 +78,7 @@ goals.
    model using encoder and command history before lifting. See
    [the model explanation and results](docs/PREDICTION_BASELINE.md).
 
-The code is published in reviewable sections: [interactive noise demo (#8)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/8),
+The earlier milestone PRs are historical references: [interactive noise demo (#8)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/8),
 [literature notes (#9)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/9),
 [partner execution follow-up (#12)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/12),
 [noisy collector (#10)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/10),

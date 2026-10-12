@@ -1,5 +1,10 @@
 # Paper progress: controlled grasp collection pilot
 
+**Working branch: `codex/project-work`.** The earlier milestone branches are
+consolidated, with one ongoing PR. Historical PR links below preserve the
+development record; see [WORKING_BRANCH.md](WORKING_BRANCH.md) for the current
+checkout and recovery references. Scientific protocol versions remain separate.
+
 **Updated: 11 October 2026.** This is the evidence index for the
 [standalone working paper](paper/working_draft.tex). The draft's title and claims
 describe a collection protocol and its first pre-lift task-outcome baseline.
@@ -232,8 +237,9 @@ physical generalization.
 **Published sections:** [paper and evidence notes (#13)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/13),
 [Step 5 dataset and grouped splits (#14)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/14),
 and [Step 6 trained baselines and results (#15)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/15).
-These are stacked draft PRs, with the collection and execution dependencies
-listed in the README; publication does not mean they have merged into main.
+These were originally stacked draft PRs. Source is now consolidated on
+`codex/project-work`; their historical links do not mean those changes have
+automatically merged into `main`.
 
 ## Literature findings → implementation decisions
 
