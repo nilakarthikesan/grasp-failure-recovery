@@ -14,6 +14,12 @@ adroit_shadow_tabletop_v2
 
 ## Case record
 
+The following flat record illustrates the conceptual manifest fields. The
+executable case uses nested `environment`, `execution_protocol`, `object`,
+`grasp` and `initial_condition` records, as in
+[the case template](../eval_cases/hug_case_001/case.yaml). The strict loader
+does not accept this conceptual flat record as an input case.
+
 ```json
 {
   "case_id": "object01_grasp003_mass018_seed9000",
@@ -118,7 +124,8 @@ The resolved run record must add:
     "pregrasp_distance_m": 0.08,
     "palm_height_above_object_m": 0.04,
     "approach_duration_s": 1.0,
-    "grip_force": 0.6,
+    "grip_command": 1.0,
+    "grip_command_type": "normalized_position",
     "lift_height_m": 0.15,
     "lift_duration_s": 1.5,
     "hold_duration_s": 2.0
@@ -200,3 +207,12 @@ Before opening the viewer or advancing simulation, this command must resolve
 and validate both `environment_id` and `execution_protocol_id`, verify both
 configuration hashes, and write the resolved environment and protocol records
 to the output directory.
+
+## Corrected table clearance execution
+
+The v2 registry and historical collections remain frozen. The opt-in v3 command
+validates an original saved v2 case, then records its separately hashed wrist
+planner and runtime clearance policy. Use the entry point in
+[MUG_TABLE_CLEARANCE.md](MUG_TABLE_CLEARANCE.md), rather than substituting an
+unregistered v3 ID into the legacy case command. Rejected proposals and stopped
+motions carry a null label and are distinct from completed task failures.

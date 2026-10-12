@@ -551,6 +551,19 @@ selects regularization on validation, and reports the reserved test results.
 [Step 6](docs/PREDICTION_BASELINE.md) explains what the model sees, the three
 comparisons, saved coefficients, examples and remaining research work.
 
+### 6. Build the Linux evaluation container
+
+The pinned CUDA, HUG, Dex Retargeting, and MuJoCo runtime is defined in
+`Dockerfile.eval`. Build it and run the saved-grasp MuJoCo smoke test with:
+
+```bash
+bash scripts/verify_container_image.sh grasp-eval:local
+```
+
+HUG weights and licensed MANO models are mounted at runtime and never copied
+into the image. See [Containerized evaluation runtime](docs/CONTAINERIZED_EVALUATION.md)
+for the asset gate, connected-inference command, and platform notes.
+
 ---
 
 ## Implementation roadmap

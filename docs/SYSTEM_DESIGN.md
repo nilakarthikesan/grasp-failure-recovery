@@ -6,6 +6,10 @@
 
 **Status:** Research design; implementation in progress
 
+Current completed evidence is in [PAPER_PROGRESS.md](PAPER_PROGRESS.md) and
+[RESEARCH_DECISIONS.md](RESEARCH_DECISIONS.md). Proposed future horizons,
+transport and recovery in this design remain separate from those results.
+
 **Project repository:** `grasp-failure-recovery`
 
 This document records the research question, experimental design, system
@@ -235,14 +239,12 @@ The first experiment answers:
 
 > Does this HUG-generated grasp succeed under a fixed execution protocol?
 
-The initial experiment does not train a manipulation policy. It uses the
-versioned deterministic `fixed_grasp_lift_v1` protocol so grasp failures are
-not confounded with controller-learning failures. Existing inverse kinematics,
-motion planning, actuator interfaces, and feedback controllers execute its
-fixed sequence. The current registered runner instead prescribes wrist and
-hand positions kinematically; it is not an actuator-limited physical controller.
-It uses protocol-defined table-parallel wrist placement. Separate actuated
-Shadow Hand experiments are documented in [HUG simulation pilot](HUG_SIMULATION_PILOT.md).
+The initial experiment does not train a manipulation policy. The implemented
+v2 fixed sequence uses force limited hand servos and an ideal arm carrier;
+the earlier v1 protocol prescribes hand motion kinematically. The separately
+versioned v3 entry point adds wrist clearance planning and a runtime table guard.
+These controllers are documented in [MULTI_SCENE_COLLECTION.md](MULTI_SCENE_COLLECTION.md)
+and [MUG_TABLE_CLEARANCE.md](MUG_TABLE_CLEARANCE.md).
 
 Part I proceeds in this order:
 
@@ -393,16 +395,17 @@ The repository currently provides:
 - supporting Panda demonstration collection, synchronized logging, HDF5 export,
   LeRobot conversion, ACT training, and physics-state snapshots.
 
-The registered case runner currently accepts one object ID, nominal friction,
-and nominal lift motion. It prescribes joint/wrist positions kinematically and
-uses protocol-defined wrist placement. Saved final `qpos` and `qvel` are not a
-complete environment/controller replay snapshot. The separate actuated pilot
-remains a one-cube diagnostic, not a held-out-condition benchmark.
+The HUG path now includes reviewed object geometry, calibrated scene capture,
+bounded noisy batches, outcome scoring and full integration snapshots. The
+recorded batches, grouped splits and first outcome predictor are documented in
+[PAPER_PROGRESS.md](PAPER_PROGRESS.md). Corrected controller checks remain
+separate from historical frozen model evaluations. Final `qpos` and `qvel`
+alone are insufficient for full replay.
 
-The Panda `part1.evaluate` module is absent, so its combined pipeline skips
-closed-loop ACT evaluation. This is separate from the implemented HUG case
-runner. Batch holdouts, future-horizon labels, complete intervention branching,
-failure models, and recovery models remain to be implemented.
+The supporting Panda `part1.evaluate` module is preserved from the earlier design
+branch. It is separate from the HUG experiment. Future loss timing, actionable
+warnings, matched recovery comparisons and physical transfer remain research
+work; a completed outcome classifier does not establish these capabilities.
 
 The default Adroit observation does not contain tactile measurements. MuJoCo
 does maintain contact information internally, so the first simulation study can
