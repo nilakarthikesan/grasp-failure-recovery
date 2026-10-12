@@ -497,6 +497,41 @@ records the staged plan and primary papers. This turn reviewed literature and
 documented proposals; it did not collect data, train a model, implement recovery
 or alter the manuscript. Preserve that scope in the imminent workshop draft.
 
+## 12 October 2026 Exploring documented limitations before choosing the next fit
+
+**Question:** the user asked whether a wrist specific focus was too narrow,
+what established gaps fit the workshop, and whether to keep improving the
+implementation while exploring or let exploration guide the next experiment.
+
+**New evidence:** [SAFECAST](https://arxiv.org/html/2608.04246v1) already addresses
+deployment shift with training and calibration perturbations. Its stated limits
+include shifts outside the collected families, rollout cost and the absence
+of restored formal guarantees under arbitrary shifts. It reports that pooling
+more perturbations generally does not improve detection over focused sets,
+with model/metric exceptions. [FIPER](https://arxiv.org/html/2510.09459v2) already
+addresses benign unfamiliarity and discusses remaining alarm accuracy and
+calibration limitations. [RAPT](https://arxiv.org/abs/2602.01515) rules out treating
+efficient joint summary monitoring itself as a new broad concept.
+
+**Interpretation:** reliability after training/deployment mismatch is a
+documented active problem with partial solutions. It is not an unoccupied
+topic. A dexterous grasp experiment needs a specific comparison and a measured
+finding before claiming a distinct contribution. The full explanatory sentence
+need not become the paper title; wrist variation can be one concrete test of
+a broader question about reliable warnings or useful simulation diversity.
+
+**Proposed workflow:** bound exploration to a reading and decision pass ending
+in one question, comparison and improvement criterion. Continue checking and
+explaining existing records; retain the frozen baseline. Avoid simultaneously
+retraining, widening collection and adding recovery while the question remains
+undecided. Candidate directions are simulation diversity at equal budgets,
+warning reliability across execution changes and trustworthy decisions under
+unfamiliarity. The [progress record](PAPER_PROGRESS.md#candidate-directions-and-a-bounded-exploration-phase-12-october)
+states each candidate's evidence and implementation requirements. Current
+diagnostics can support a scoped preliminary workshop account; broader
+augmentation claims require new experiments. The user has not chosen a new
+direction. This turn changed documentation only, without a fit or rollout.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new

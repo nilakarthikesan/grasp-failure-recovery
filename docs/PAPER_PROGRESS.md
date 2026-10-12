@@ -619,3 +619,52 @@ successful recovery are separate accomplishments. With the workshop deadline
 on 15 October, report completed diagnostic evidence and its limits rather than
 promise a full recovery system by that date. No model change, rollout or
 recovery experiment was performed during this literature review.
+
+## Candidate directions and a bounded exploration phase, 12 October
+
+The user asked for documented open problems and alternatives to a long wrist
+specific question. The overall goal remains useful failure warning on new
+conditions, with eventual correction. A short question can express that goal;
+the wrist can be one experimental factor rather than the whole research topic.
+
+Current primary work supports an active reliability problem, not an empty
+research area. [FIPER](https://arxiv.org/html/2510.09459v2) already distinguishes
+unfamiliar successful executions from failures. Its limitations discuss costly
+false alarms, calibration data requirements and restricted policy modalities.
+The August 2026 [SAFECAST preprint](https://arxiv.org/html/2608.04246v1) already
+studies perturbed training and calibration. It reports that unseen perturbations
+can still degrade detection, empirical gains do not restore guarantees under
+arbitrary shifts, and pooling many additional perturbations generally fares
+worse than its focused sets, with exceptions depending on model and metric.
+Its visual/language VLA study does not supply a demonstrated solution for our
+fixed controller and joint state predictor. [RAPT](https://arxiv.org/abs/2602.01515)
+also studies efficient interpretable monitoring with joint summaries for
+humanoid deployment; joint measurements or a lightweight monitor alone are
+not novelty claims.
+
+Three candidate questions remain proposals:
+
+1. **Which simulation variations help grasp warnings transfer?** At equal
+   collection/training budgets, compare more repetitions of finger noise
+   with broader successful grasp and posture coverage. This directly addresses
+   the workshop's simulation diversity question. It requires new grouped data,
+   controlled training comparisons and fresh held out evaluation. Existing
+   records show limited coverage, not a demonstrated augmentation benefit.
+2. **Do warnings survive a controller or posture change?** Keep the current
+   model fixed and separate execution factors in matched safe comparisons.
+   Current false warnings and input attribution provide preliminary evidence;
+   an isolated posture comparison requires explicit feasible pose selection,
+   geometry invariance and dynamic execution checks before fresh rollouts.
+3. **When should a warning be trusted?** Study a decision threshold or withheld
+   decision policy under changed conditions. Distinguish unfamiliarity from
+   actual failure and report missed failures, false warnings and withheld
+   decisions together. Tune on development data only and evaluate separately.
+   This would be an empirical study, not a universal safety guarantee.
+
+Recommendation: finish one focused reading and decision pass before further
+model or collection changes. Existing data verification and explanation can
+continue while exploring. End the pass with **one question, one comparison and
+one criterion for improvement**. Preserve the saved model as the baseline.
+The existing diagnostic is the smallest immediate workshop scope; a data
+diversity study is a broader follow up requiring new work. The user has not
+selected a new direction, and no candidate's novelty is established here.
