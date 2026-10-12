@@ -375,3 +375,21 @@ runtime failure prediction, so earlier timing alone is not a novelty claim.
 The next evidence should address causal information, unfamiliar conditions and
 advance warning at a controlled false alarm rate. Recovery benefit requires a
 separate intervention experiment.
+
+## One corrected mug walkthrough, 12 October
+
+One first listed development proposal was executed with the corrected v3
+controller and zero noise. It succeeded with 14.6077 cm peak lift and two seconds
+sampled hold, while the unchanged predictor raised a near 100% failure score
+from the closing prefix through 2.96 seconds. This is a false alarm, with no
+training or threshold change. Independent replay checked 3,260 physics steps,
+found zero hand table contacts and reproduced the full saved states exactly.
+
+Eight wrist features exceed five original training standard deviations; wrist
+inputs dominate this particular linear model score. This motivates a controller
+and input distribution shift check, not an immediate conclusion to remove wrist
+inputs. The reused scene and changed execution protocol make this a development
+demonstration. It supplies neither an aggregate unseen object score nor evidence
+of warning time, calibration or recovery. The [walkthrough bundle](../research_artifacts/mug_single_walkthrough_v1/README.md)
+preserves the actual input, score, outcome, audit and explanation. The manuscript
+retains its earlier pilot scope; this note does not revise its quantitative claims.

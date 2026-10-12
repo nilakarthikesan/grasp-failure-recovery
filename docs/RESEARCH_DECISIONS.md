@@ -204,6 +204,36 @@ The next research milestone remains collecting valid corrected mug attempts
 and evaluating the fixed predictor by object. A better training score alone
 would not establish transfer, warning time or recovery benefit.
 
+## 12 October 2026 Walking through one corrected mug prediction
+
+The next step was to inspect one feasible grasp before expanding data collection
+or changing the model. We selected the first saved mug proposal before seeing
+its new score and ran it with the v3 correction and zero finger angle noise.
+This is a reused development scene, not an untouched generalization example.
+
+**Measured result:** the hand lifted the mug 14.6077 cm and met the two second
+sampled hold rule. The task label is 1. Independent replay checked 3,260 physics
+steps with zero hand table contacts and reproduced every saved state bit for bit.
+The original predictor, using only the closing prefix through 2.96 seconds,
+assigned a failure score of 0.9999999785 and raised a false alarm. The model,
+normalization, threshold and prediction source hashes are unchanged.
+
+**Evidence behind our interpretation:** eight wrist features are more than five
+training standard deviations from the original training means. Wrist inputs
+account for 80.0% of absolute linear contributions to this score. This supports
+investigating input distribution shift after the controller correction. It does
+not establish physical causation, aggregate performance or a benefit from
+removing wrist features. No feature masking, fitting or tuning was performed.
+
+**Next decision remains proposed:** declare a small corrected controller batch
+with familiar controls and fresh scenes, then measure the frozen model's false
+alarms and missed failures. Review candidate representations using development
+data before freezing a separate evaluation. We drafted a request for Irmak's
+advice; no message or expert recommendation is claimed here.
+
+Evidence: [the walkthrough, causal input, replay and score explanation](../research_artifacts/mug_single_walkthrough_v1/README.md).
+Full raw recordings remain in the local run directory recorded in its manifest.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new

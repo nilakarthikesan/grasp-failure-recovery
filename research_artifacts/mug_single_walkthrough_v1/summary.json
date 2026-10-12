@@ -1,0 +1,78 @@
+{
+  "schema_version": "single_mug_walkthrough_result_v1",
+  "status": "completed",
+  "noise_amplitude_rad": 0.0,
+  "saved_requested_and_applied_noise_all_zero": true,
+  "prediction": {
+    "schema_version": "task_outcome_prediction_v1",
+    "model": "proprioception_and_commands",
+    "observed_through_s": 2.9599999999998956,
+    "p_success": 2.1503193896901624e-08,
+    "p_failure": 0.9999999784968061,
+    "predicted_task_success": false,
+    "scope": "frozen eventual task outcome; not slip onset or a recovery decision"
+  },
+  "outcome": {
+    "artifacts": {
+      "hug_proposal": null,
+      "inference_report": null,
+      "resolved_case": "resolved_case.json",
+      "simulator_state": "final_state.npz",
+      "trajectory": "trajectory.npz",
+      "video": null
+    },
+    "case_id": "scene002_hug_seed0",
+    "failure_type": null,
+    "outcome": {
+      "acquired_object": true,
+      "final_object_height_m": 0.20164502090372052,
+      "hold_duration_s": 2.0,
+      "maximum_lift_m": 0.14607651407005093,
+      "opposing_contact_duration_s": 5.72,
+      "peak_actuator_force_fraction": 1.0,
+      "peak_contact_normal_force_n": 16.0587972234294
+    },
+    "resolved_execution": {
+      "code_commit": "4d931fe412b059372d824316c83e431a9935ea0d",
+      "embodiment_id": "shadow_hand_right",
+      "environment_config_hash": "sha256:954eb93c4a4cffbff9f5b4001823d47dba9c92109427eb97c538ca8532744717",
+      "environment_id": "adroit_shadow_tabletop_v2",
+      "execution_protocol_config_hash": "sha256:4a6f39458c413eafb06f93cbd24e8a4e13850acadd31bde76bec88d846b45608",
+      "execution_protocol_id": "fixed_grasp_lift_v3_table_clearance",
+      "execution_protocol_parameters": {
+        "approach_duration_s": 1.0,
+        "close_duration_s": 1.0,
+        "force_close_delta_rad": 0.2,
+        "grip_command": 1.0,
+        "grip_command_type": "normalized_position",
+        "hold_duration_s": 2.0,
+        "lift_duration_s": 1.5,
+        "lift_height_m": 0.15,
+        "maximum_mean_fingertip_error_m": 0.01,
+        "palm_height_above_object_m": 0.04,
+        "pregrasp_distance_m": 0.08,
+        "settle_duration_s": 0.8,
+        "total_timeout_s": 10.0
+      },
+      "mujoco_version": "3.3.7"
+    },
+    "retargeting": {
+      "config_id": "shadow_hand_right",
+      "library": "dex-retargeting==0.5.0",
+      "maximum_fingertip_error_m": 0.015877682993542606,
+      "mean_fingertip_error_m": 0.006609027962972786
+    },
+    "schema_version": "eval_result_v1",
+    "status": "completed",
+    "success": true
+  },
+  "model_and_prediction_sources_unchanged": true,
+  "immutable_after": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/task_outcome_baseline_v1/proprioception_and_commands.npz": "sha256:16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/task_outcome_baseline_v1/report.json": "sha256:19f1aa3e7ab0902da1c955aaaa992b8023f7c6b453fa60b835d284cd385c13a8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/prediction/model.py": "sha256:f5fbe2762efd7099a05b75ccca11cdae670eac9e20f7b265632d98b2a24fdea8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/prediction/dataset.py": "sha256:ac6a6fe517cbfd21b4bdae0e858fb31674561b923b1e0c0f4397255cf1316076"
+  },
+  "sampled_hand_table_contact": false,
+  "scope": "Single reused development proposal under corrected v3 execution; no retraining, tuning or generalization claim"
+}
