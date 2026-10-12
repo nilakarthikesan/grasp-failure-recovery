@@ -936,6 +936,33 @@ and partner handoff reflect this gate. Original model, normalization, threshold,
 labels, protocol artifacts and recordings remain unchanged. No new simulation,
 training, calibration, recovery or real-world evaluation was performed.
 
+## 12 October 2026 Seeking deployment relevance and understanding VLAs
+
+The user values the concrete decisions supported by Amazon's deployment study
+and the touch-sensing comparison, and is open to other data or simulators.
+They propose exploring a VLA-based grasp-failure predictor and ask about
+workshop significance. This reopens scope selection; it does not authorize
+describing a proposed integration as a completed result.
+
+The [VLA direction review](VLA_DIRECTION_REVIEW.md) distinguishes a controller,
+an image/text model and a separate failure monitor. Our fixed HUG executor is
+not a VLA. Adopting one is not a prerequisite for simulation collection.
+Current work already combines VLA representations, varied rollouts and
+calibration; merely combining those components would not establish novelty.
+Failure timing and grasp-specific labels also need explicit evidence.
+
+Public SAFE source and archive previews were inspected without downloading data.
+The expected formats include saved policy features that might support an offline
+monitor baseline. Final task outcomes are not automatically grasp outcomes;
+archive content, reuse terms and a suitable runtime still need checking.
+The preferred next exploration is a small relevant recording/label audit
+before building a new controller, followed by a compatible baseline.
+
+The target remains a non-archival CoRL workshop welcoming preliminary and
+negative findings, not a journal. The official call was rechecked. No universal
+acceptance threshold or accepted contribution is inferred from the papers.
+No simulation, controller, predictor, calibration or frozen evidence changed.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new

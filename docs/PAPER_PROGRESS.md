@@ -23,6 +23,8 @@ recovery and real world transfer remain untested.
 **Immediate next step:** review the published evidence and confirm our prediction
 target, observable inputs and baseline comparisons before choosing new data.
 Any fitting still needs separate validation/calibration and a common fresh holdout.
+The [VLA direction review](VLA_DIRECTION_REVIEW.md) adds a possible real-recording
+baseline route; it does not adopt a VLA controller or establish a new contribution.
 All eight wrist pairs are complete: every success still triggers a warning.
 See the
 [current question and evidence gates](#accepted-paper-question-and-evidence-gates-12-october).

@@ -7,6 +7,10 @@ leaderboard or independent certification of production reliability. Paper
 versions are pinned where available; preprints and company claims are marked.
 No model, label, threshold, simulator or recording changed in this review.
 
+The later [VLA direction review](VLA_DIRECTION_REVIEW.md) explains SAFE's
+controller/monitor distinction, checks published real-rollout formats and
+records remaining questions about useful warning timing and deployment relevance.
+
 ## Start with these three sources
 
 1. [Amazon Robin](https://arxiv.org/html/2305.10272v1): a deployed pick-success

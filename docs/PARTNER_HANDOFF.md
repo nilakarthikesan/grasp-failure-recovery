@@ -25,6 +25,10 @@ This proposed comparison is under review following the user's request to ground
 the direction in published training and evaluation practices. Read the
 [public evidence review](GRASP_PREDICTION_EVIDENCE_REVIEW.md) before new collection
 or fitting. Neither wrist importance nor a wrist-training benefit is established.
+The [VLA direction review](VLA_DIRECTION_REVIEW.md) records the user's interest
+in a monitor grounded in an actual robot-policy problem. Public SAFE loader
+formats were inspected; archives, grasp-specific labels and runtime remain
+unverified. This is an exploration, not an implemented pivot.
 
 The completed diagnostic compared safe wrist settings for the same intended
 mug grasp at zero noise with the saved model unchanged. All eight declared
