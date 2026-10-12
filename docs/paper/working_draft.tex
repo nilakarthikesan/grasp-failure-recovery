@@ -1,561 +1,310 @@
-\documentclass[11pt,letterpaper]{article}
+\documentclass[10pt,letterpaper]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb,booktabs}
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \urlstyle{same}
-\setlength{\parskip}{0.35em}
+\setlength{\parskip}{0.25em}
 \setlength{\parindent}{0pt}
 \newcommand{\projecturl}{https://github.com/nilakarthikesan/grasp-failure-recovery}
 
-\title{A Reproducible Protocol for Collecting Noisy Grasps:\\
-       A Simulation Pilot with Two Geometries}
-\author{Project contributors: authorship and affiliations to be determined}
-\date{11 October 2026, Working draft}
+\title{Evaluating Simulation Diversity for Grasp Failure Warnings}
+\author{Working draft: authorship and affiliations to be confirmed}
+\date{12 October 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-We document a controlled simulation protocol for collecting labeled robot
-grasp attempts from Human Universal Grasping (HUG) proposals. Fresh calibrated
-RGB and depth inputs, geometry and scene records bound to source content, a fixed
-actuated Shadow Hand controller, and bounded disturbances to finger targets
-held constant within each episode make the
-collection inspectable and repeatable. The initial collection contains 1,040
-attempts from two geometries, four observation families, and sixteen fresh
-proposals: 444 task successes, 596 task failures, and no validation or runtime
-errors. Requested disturbances frequently encounter joint limits, so requested
-noise, applied target offsets, and measured motion are saved separately. Task
-labels and conservative sampled event annotations are also separated: missing
-a lift cutoff is not evidence of a physical slip. A regularized logistic model
-using joint state and command summaries before lifting attains failure AUROC 0.8523,
-log loss 0.3771, and Brier score 0.1170 on the apple observation held out for testing. At a
-fixed threshold it flags 187 of 202 failures and 22 of 58 successes. These are
-retrospective development results from one test observation, not calibrated
-deployment rates. This draft does not establish slip onset prediction, useful
-warning lead time, recovery, or transfer to the real world.
+Simulation can generate labeled grasp attempts, but additional disturbed attempts
+need not cover the conditions that cause prediction errors. We study a fixed
+Shadow Hand grasp, lift and hold task using HUG proposals and MuJoCo execution.
+A logistic outcome predictor trained from cube and apple closing histories
+flags 187 of 202 failures and 22 of 58 successes in a retrospective development
+test. A frozen evaluation on fresh objects exposes a mug executor collision.
+After a separately versioned clearance correction, the unchanged predictor
+warns on all 23 completed mug checks, including all 20 successes, across three
+finger disturbance bounds. Both wrist commands in every successful mug lie
+outside the original training ranges; reconstructed wrist terms push all 20
+scores toward failure. This is an input and score diagnostic, not isolated
+physical causation. A static check also finds no eligible mug configuration
+among the eight wrist command pairs observed in training under the declared
+clearance gate. We specify a subsequent comparison of wrist coverage against
+additional finger noise at matched training counts and class proportions.
+That comparison remains unexecuted. Current results establish a reliability
+problem and a constraint on its diagnosis, not improved transfer, slip timing
+or recovery.
 \end{abstract}
 
-\section{Introduction}
-Grasp generation and successful physical execution are different problems.
-A proposed pose can be plausible while the executed hand fails to acquire the
-object or retain it during lifting. Our long term question is whether the
-robot's observations and actions can warn of a forthcoming failure early enough
-for a useful intervention. Before testing that question, we need a reproducible
-execution system, a defensible prediction target, and trajectories whose input
-and label provenance can be checked.
+\section{Question and relation to prior work}
+A useful grasp warning must distinguish a failed task from a successful attempt
+in an unfamiliar configuration. Our research question is:
+\begin{quote}
+For a simulated dexterous hand, does training with more diverse successful
+wrist configurations improve prediction of grasp, lift and hold outcomes on
+unfamiliar objects and wrist configurations more than additional finger-command
+noise, when both approaches use the same amount of training data, the same
+success/failure proportions and the same model architecture?
+\end{quote}
+We distinguish the completed frozen-model diagnostic from the proposed training
+comparison. The former motivates the question; it does not answer it.
 
-This pilot uses HUG to supply grasp hypotheses and a fixed controller to execute
-them. It varies finger targets while holding the execution protocol fixed.
-The current deliverable is an audited collection protocol and a first baseline
-for predicting task outcomes before lifting. Its practical research questions are whether we can
-preserve source scenes, applied commands, and label semantics while collecting
-varied attempts, and whether measured closing response adds predictive
-information beyond the commanded target history.
+Failure prediction and recovery are established topics. Gilday et al. combine
+sensor-based grasp prediction with wrist-driven recovery and discuss errors on
+novel objects using different successful grasp modes \cite{gilday}. FIPER
+explicitly distinguishes benign unfamiliar observations from failures in
+generative robot policies \cite{fiper}. SAFE studies multitask failure detection
+\cite{safe}; SAFECAST investigates contrast-set training and calibration under
+visual and language shifts, and reports that adding more perturbations does
+not uniformly help \cite{safecast}. These results motivate controlled diversity
+comparisons, not a claim that nuisance warnings or augmentation are new ideas.
+Our candidate contribution is a reproducible, embodiment-specific investigation
+of which simulated variations improve warnings at a matched training-data
+budget. No new algorithm or real-world transfer result is claimed.
 
-The completed work comprises fresh observation capture and proposal inference;
-validation of geometry, cameras, and scene content; paired bounded disturbances;
-unchanged binary task scoring; conservative event annotations; replay and
-collection audits; a validated causal prefix export with disjoint observation groups
-across development splits; and a compact trained baseline compared with a model
-using commands alone. The resulting 1,040 attempts belong to only four observation
-families. This distinction is central to subsequent evaluation: repeating a
-proposal with new disturbances does not create an independent object or scene.
+\section{Execution, labels and predictor}
+\paragraph{Grasp source and simulation.}
+HUG supplies grasp hypotheses from rendered RGB-D observations \cite{hug}.
+Dex Retargeting maps the proposed human hand pose to an articulated right
+Shadow Hand \cite{dex}; MuJoCo supplies physics \cite{mujoco}. We use HUG
+proposals and selected development assets, not official benchmark grasp labels
+or a HUG-Bench evaluation. A fixed sequence approaches, closes, settles, lifts
+and holds through force-limited position servos. Physics steps are 2 ms;
+recorded control intervals are 40 ms. We train an outcome predictor, not the
+grasp controller. Initial RGB-D is saved; there is no online image stream among
+the predictor inputs.
 
-\section{Related work and design implications}
-\paragraph{Grasp hypotheses and benchmark assets.}
-HUG predicts wrist placement and a MANO hand pose from a selected object in an
-RGB and depth image, with retargeting to robot embodiments. Its released benchmark
-provides metric object meshes and geometric categories \cite{hug}. We use fresh
-HUG proposals and one reviewed development asset, rather than official benchmark
-grasp labels. Our Shadow Hand execution and task scorer are specific to this project;
-the reported collection is not an official HUG-Bench score.
-
-\paragraph{Outcome prediction and sensing.}
-Calandra et al. compare vision, touch, and their combination for predicting grasp
-outcomes using a gripper with two fingers and GelSight sensors \cite{feeling}.
-This motivates later ablations of information sources, but does not establish that
-our simulator contacts are equivalent to tactile measurements. The initial
-predictor should use a documented subset of signals observable by the robot before
-adding any contact or visual features.
-
-\paragraph{Current slip, future dynamics, and anomaly monitoring.}
-SlipSense uses causal histories of pressure and vibration signals to classify
-current contact/slip states and evaluates detection latency and false alarms
-\cite{slipsense}. This motivates keeping detection of current slip distinct from
-future object loss and measuring warning time at a controlled budget for false alarms.
-FeelWorld predicts visual and tactile states conditioned on actions with separate
-contact and slip supervision \cite{feelworld}; it motivates preserving action
-history and deferring a larger world model until a simpler target is understood.
-Ward et al. use uncertainty from probabilistic world models for conformal runtime
-monitoring \cite{ward}. Their discussion of calibration across complete trajectories motivates
-grouped evaluation and caution about guarantees under distribution shift. None
-of these systems is reproduced in this pilot.
-
-\paragraph{Simulation.}
-MuJoCo provides articulated dynamics, actuators, and contact simulation
-\cite{mujoco}. Its utility for controlled execution does not by itself establish
-realistic friction or slip on physical hardware. We report labels derived from
-the simulator and replay evidence using the same runtime separately from any future transfer
-claim.
-
-\paragraph{Verification and advance warning.}
-Guardian's documented execution verifier uses observations before and after a
-subtask to judge its outcome \cite{guardian}. That condition does not establish
-warning before a future grasp failure. SAFE studies runtime failure detection
-across tasks using features of learned robot policies \cite{safe}. Early
-prediction therefore already has relevant prior work; the timing difference
-from an outcome verifier alone cannot establish novelty for this pilot.
-
-\section{Collection methods}
-\subsection{Frozen embodiment and execution}
-The experiment resolves the versioned environment
-\path{adroit_shadow_tabletop_v2}, embodiment \path{shadow_hand_right}, and
-protocol \path{fixed_grasp_lift_v2}. HUG's landmarks and wrist transform are
-converted from the calibrated camera frame and retargeted with the supplied
-right Shadow Hand configuration in Dex Retargeting \cite{dex}. Joint outputs
-are mapped by name and checked before execution.
-
-The fixed sequence performs pregrasp, approach, finger closing, settling,
-lifting, holding, and scoring. The controller governing this sequence does not replan in
-response to a disturbance or outcome; its position servos operate with force
-limits and respond to contact. The commanded lift is 0.15 m. Physics
-steps are 2 ms and saved control intervals are 40 ms. This pilot evaluates
-grasping, lifting, and holding, not transport, placement, or recovery.
-
-\subsection{Objects, observations, and provenance}
-We use the existing 0.18 kg cube and a 0.2304 kg apple from the HUG development
-asset \path{val/medium_3/apple}. Each geometry has two requested scenes defined
-by object position and camera, producing four unique initial observation identities. HUG
-inference seeds 0 to 3 produce four fresh proposals per scene, for sixteen proposal
-families. Initial images are 224 by 224 RGB with registered metric depth, an
-object mask, camera intrinsics, and a transform from camera to world coordinates. Inference uses
-50 CPU integration steps from a pinned released checkpoint; no HUG weights are
-trained here.
-
-Capture uses the geometry that will be executed and records its actual settled
-pose and mass. A versioned scene contract binds object identity, the geometry
-dependency closure, pose, mass, environment configuration, calibration, and
-all six hashes of observation files. The original contract is copied into each
-proposal directory. Validation additionally checks inference output, reports,
-manifest bytes, selected pixel, seed, and source/software provenance before
-labeling an attempt. Content binding detects mismatches; it cannot prove an
-arbitrary external capture was truthful.
-
-The apple's upright starting setup rolled off the table and was rejected before
-grasp generation. Inverted setups remained geometrically stationary but
-showed small instantaneous contact jitter. Capture therefore requires a full
-window of one second with positional bounding box diagonal at most 0.1 mm,
-conservative angular diameter at most 0.002 rad, continuous table contact, no
-hand contact, and an object center inside the working table. It must finish
-within 2,000 physics steps (4 s). The upright negative control still fails.
-The apple templates request a rotation of 180 degrees about X and center height
-0.04295394025198684 m, 0.1 mm above the transformed collision bounds. Actual
-captured pose and velocities are saved; rollout reset uses that pose with the
-protocol's standard zero initial velocities. No mesh, mass, friction, or velocity
-changes during a run were used to force settling.
-
-\subsection{Bounded target disturbances}
-For proposal $p$ and repetition $r$, draw one vector
-$\boldsymbol\xi_{p,r}$ whose finger components are independently uniform on
-$[-1,1]$; both wrist components are zero. For amplitude $a$ radians, the requested
-episode bias is $\boldsymbol\delta=a\boldsymbol\xi_{p,r}$. In the designated
-closing, lift, hold, and score phases, a commanded target is
-\begin{equation}
+\paragraph{What noise means.}
+The original \path{fixed_grasp_lift_v2} protocol adds an episode-constant
+bias to 22 finger targets during designated closing and subsequent phases.
+For a fixed draw $\boldsymbol\xi\sim\mathcal U([-1,1]^{22})$ and bound
+$a\in\{0,0.15,0.60\}$ radians,
+\[
  \mathbf u_t=\operatorname{clip}_{[\mathbf l,\mathbf h]}
-                  (\mathbf u_t^{\mathrm{nom}}+\boldsymbol\delta),
- \qquad
- \boldsymbol\delta_t^{\mathrm{applied}}
-                  =\mathbf u_t-\mathbf u_t^{\mathrm{nom}}.
-\end{equation}
-There are 22 perturbed finger targets and two unperturbed wrist targets. One
-bias remains fixed within an episode; this is not fresh random noise at every
-frame, observation noise, an inserted obstacle, or a measured model of hardware
-error. The actuator interpolates targets at physics substeps, and measured
-joint motion can differ from both the nominal and disturbed targets.
+ (\mathbf u_t^{\rm nominal}+a\boldsymbol\xi).
+\]
+The two wrist biases are zero. Requested offsets, clipped targets and measured
+motion are distinct saved fields. This varies commands, not object identity,
+obstacles, observation noise or a validated hardware error distribution.
+Nonzero bounds share paired draws within a proposal and repetition. Noise can
+improve or harm the grasp; the executed outcome determines its label.
 
-The schedule uses $a\in\{0,0.15,0.6\}$ rad. Nonzero amplitudes share the same
-draw for a proposal/repetition, providing 512 paired directions. Each proposal
-has one deterministic baseline without noise and 32 repetitions at each nonzero
-amplitude. Thus $16(1+32+32)=1,040$ attempts. Master seed 9400, source hashes,
-manifest ordering, and seeds for each attempt are frozen in the collection plan.
-Requested and clipped offsets are saved separately.
+\paragraph{Success and failure.}
+A completed attempt has $y=1$ when the frozen scorer records qualifying contact,
+peak lift at least 0.14 m, at least 2 s of consecutive HOLD samples above the
+initial object center plus 0.12 m, final height loss at most 0.02 m, no approach
+table collision and no timeout. Otherwise a completed task has $y=0$.
+Setup errors and runtime clearance stops have null labels and remain outside
+task-outcome metrics. Labels describe task completion, not physical slip onset;
+threshold-adjacent acquisitions and category precedence are audited separately.
 
-\subsection{Unchanged task labels}
-For each completed physical attempt, label $y=1$ if the registered scorer's
-conditions hold and $y=0$ otherwise. Invalid inputs and runtime errors have a
-separate error status with a null label. Let $z_0$ be the first recorded object
-center height. Success requires qualifying contact between hand and object during
-closing/lifting/holding, peak lift at least 0.14 m above $z_0$, at least 2 s of
-consecutive HOLD samples above $z_0+0.12$ m, and height loss from peak to final of at
-most 0.02 m. It also requires no collision between hand and table during pregrasp/approach
-and no protocol timeout. Hold duration is the number of HOLD samples multiplied
-by the control interval; continuous retention between samples is not proved.
+\paragraph{Causal inputs and fitting.}
+Twenty closing samples from 2.20 through 2.96 s precede the first LIFT sample
+at 3.00 s. Each contains 24 joint positions, 24 velocities and 24 applied targets.
+Last value, mean, population standard deviation and last-minus-first change
+produce 288 statistics; 269 are active under training-only normalization.
+L2 logistic regression predicts success, with
+$p_{\rm failure}=1-p_{\rm success}$ and an alert at $p_{\rm failure}\geq0.5$.
+Validation log loss selects $\lambda=0.1$ from
+$\{0.001,0.01,0.1,1\}$. Commands-only and training-prevalence baselines use
+consistent splits. Outcomes, contacts, object truth, identities, injected noise
+metadata and future samples are excluded from inputs. An alert is a model
+prediction, not a physical failure or a controller intervention.
 
-The first applicable failure category is recorded in order: timeout, approach
-collision, missing qualifying contact, failed lift acquisition, final drop,
-then insufficient hold. The scorer's \path{acquired_object} field, based on
-contact alone, does not establish a secured grip. These labels express a frozen
-task definition, not physical slip mechanisms.
+\section{Completed evidence}
+\paragraph{Original pilot.}
+Sixteen proposals in four observation families from a cube and a HUG apple
+produce 1,040 attempts: 444 successes, 596 failures and no runtime errors.
+Training, validation and test contain 520, 260 and 260 whole trajectories,
+respectively, grouped by observation family. Both geometries occur in training;
+the test is one reserved apple observation family. Splits were selected after
+collection and inspection, so results are retrospective development evidence.
+Failures comprise 590 acquisitions, two missing-contact tasks and four
+scorer-defined drops, insufficient for a slip forecasting benchmark.
 
-\subsection{Conservative temporal annotations and timing}
-Separately versioned annotations record a proxy for lift with contact, a proxy
-for retained lift, an acquisition deadline, and an interval of sampled height loss. The lift
-proxy requires the lift threshold, contact between hand and object, and no table contact;
-the retention proxy adds the required sampled HOLD duration. The acquisition
-deadline is the observed interval from the last LIFT endpoint to the first HOLD
-endpoint. Missing acquisition by that deadline is not a slip beginning there.
-Height loss after reaching the proxy is bounded by consecutive sampled timestamps; its
-physical mechanism remains unknown. Missing references, gaps, incomplete
-subsequent observations, and unsupported causes remain explicit. Events never overwrite the
-binary task outcome.
+On this test, state plus command features attain failure AUROC 0.8523, versus
+0.6419 for commands alone; log loss is 0.3771 and Brier score 0.1170.
+At the fixed threshold the full model detects 187/202 failures, misses 15,
+and falsely warns on 22/58 successes. The commands-only model warns on
+192/202 failures and 52/58 successes. Better ranking than this ablation does
+not establish reliable deployment or calibrated physical probabilities.
 
-Joint and object states use endpoint times of control intervals. MuJoCo body/contact
-and force diagnostics precede the final physics integration substep and are
-normally 2 ms earlier; this offset is logged. Neither 40 ms sampling nor a
-height crossing supplies exact slip onset ground truth. The event files are
-supervision/analysis metadata, not predictor inputs.
+\paragraph{Fresh evaluation and executor correction.}
+With model, normalization, threshold and v2 execution frozen, 2,080 new attempts
+produce 659 successes and 1,421 failures. AUROC is 0.9173 on fresh cube/apple
+scenes and 0.5588 on pooled new milk-carton/mug attempts. Geometry, mass and
+failure composition change together; this is not an isolated object-shape
+comparison. All 520 mugs collide during approach before the prediction cutoff,
+so mug false alarms on successes cannot be estimated from this batch.
 
-\subsection{Saved artifacts and audits}
-The plan, index, and summary describe the collection. Each episode stores nominal
-and disturbed commands, requested/applied offsets, joint state, object state,
-contact diagnostics, scores, events, resolved configurations, runtime metadata,
-binary scene, and simulator integration snapshots. Only initial RGB and depth images
-are captured. Six representative videos were rendered later from saved
-trajectories; they are not additional attempts or online camera streams.
+The Shadow forearm does not fit the original mug poses. Version
+\path{fixed_grasp_lift_v3_table_clearance} changes wrist configuration and
+compensates the carrier transform to preserve intended world palm and finger
+geometry. Its nominal table clearance is 10 mm; a runtime guard checks an
+actual 1 mm margin every physics step. This is a controller correction, not
+prediction-triggered recovery. Checks planned before scoring contain 24 mugs
+and three controls. Twenty-six finish without table contact; one high-noise
+mug stops at about 2.858 s, before a full prediction prefix, and stays unscored.
+The frozen model is then scored offline against all completed recordings.
 
-All 1,040 scores and event files regenerate exactly. The audit checks joint
-bounds, clipping, wrist exclusion, phases, timing, RNG records, paired draws,
-and all sixteen source bindings. Seven representative complete executions
-reproduced states, contacts, and forces bitwise on the same runtime. This is
-limited reproducibility evidence, not validation across platforms or on physical robots.
-
-\section{Initial results and label audit}
 \begin{table}[ht]
 \centering
-\caption{Descriptive collection counts under the frozen task. Noise amplitudes
-are requested bounds on command bias. Attempts share source families.}
+\caption{Completed corrected mugs under the unchanged predictor. Noise is a
+requested finger bias bound. Related attempts share eight proposals and two
+observation families. A warning on a success is a false alarm.}
 \begin{tabular}{lrrrr}
 \toprule
-Condition & Attempts & Successes & Failures & Errors\\
+Bound (rad) & Successes & False alarms & Failures & Detected failures\\
 \midrule
-Zero noise & 16 & 8 & 8 & 0\\
-0.15 rad & 512 & 294 & 218 & 0\\
-0.6 rad & 512 & 142 & 370 & 0\\
+0.00 & 7 & 7 & 1 & 1\\
+0.15 & 8 & 8 & 0 & 0\\
+0.60 & 5 & 5 & 2 & 2\\
 \midrule
-Cube & 520 & 336 & 184 & 0\\
-Apple & 520 & 108 & 412 & 0\\
-\midrule
-Total & 1,040 & 444 & 596 & 0\\
+Total & 20 & 20 & 3 & 3\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-At least one target was clipped in 508 of 512 attempts at 0.15 rad and all 512
-at 0.6 rad. The requested amplitude therefore does not describe an equal applied
-offset at every joint. All eight apple baselines failed, while 108 disturbed
-apple attempts succeeded. A disturbance can raise or lower task success; this
-alone does not establish better grip security. Aggregate counts are descriptive; this pilot does not establish
-a general monotonic relationship between noise and success or estimate an
-confidence interval for independent population samples.
+All 23 mugs trigger alerts. Detecting 3/3 failures while warning on 20/20
+successes is not useful discrimination at this threshold. Failure recall at
+0.15 rad is undefined because no failures occur. These checks reuse controller
+development cases; they are not an untouched benchmark. Independent arithmetic
+reproduces all 26 model scores within $1.11\times10^{-16}$, with original
+recordings and frozen model sources unchanged.
 
-The 596 failures comprise 590 \path{failed_acquisition}, two
-\path{no_contact}, and four \path{drop} categories. The category for missing contact
-means missing qualifying contact during acquisition phases. There are only
-four drops under the task scorer, so the collection is dominated by acquisition failures
-and is not yet a convincing benchmark of future loss.
+\paragraph{Wrist coverage and score attribution.}
+Original training-only statistics exactly reproduce the saved normalization.
+Both last wrist commands in all 20 successful mugs lie outside training ranges:
+WRJ2 spans $[-0.2039,-0.1764]$ rad in training versus
+$[-0.1464,+0.1745]$ in successful mugs; WRJ1 spans
+$[-0.0394,-0.0146]$ versus $[-0.5312,-0.0817]$.
+Net wrist terms reduce the success logit in every successful mug. Their share
+of absolute weighted feature contributions has median 75.5\% and range
+31.0\% to 86.9\%, excluding the intercept. This describes saved linear score
+arithmetic, not a percentage of physical causation. Fingers also contribute;
+object, proposals and controller changed together. Removing wrist features
+or collecting more wrist data has not been shown to improve performance.
 
-The cutoff is sensitive: 21 attempts fall within 0.5 mm of 14 cm, comprising
-14 successes and seven failures. Apple \path{episode_000465} meets the sampled
-hold requirement but peaks only 0.0308 mm below the lift cutoff; its stored
-label remains failed acquisition. Thirty further attempts lose more than 2 cm
-from peak to final height yet remain failed acquisition because the lift cutoff
-was not reached first. Thus category precedence hides some observed height
-losses, and a label near the cutoff does not demonstrate grip insecurity. Any
-alternative target must receive a new explicit version while retaining these
-original outcomes.
+\paragraph{Static feasibility constraint.}
+Before new rollouts, we check the eight distinct last wrist-command pairs
+observed in the 520 training episodes against the eight declared mug proposals,
+preserving intended world palm and finger geometry. None of the 64 combinations
+meets the declared 10 mm nominal table-clearance gate; table clearances range
+from $-65.211$ to $+0.187$ mm. All eight stored corrected postures revalidate
+at 10.001 to 10.042 mm. These are static kinematic checks with physics stepping
+blocked. They do not establish dynamic safety or rule out every point of a
+continuous wrist range. A comparison using these stored training pairs cannot
+honestly contrast familiar and unfamiliar safe mug wrist commands.
 
-\section{Completed dataset export and baseline before lifting}
-\subsection{Exploratory grouped splits}
-The collection records three identities derived from content. A proposal group keeps
-all noisy variants of one proposal together. An observation group keeps
-proposals sharing captured pose/camera/input bytes together. A geometry group
-keeps the same geometry closure together regardless of object naming.
-Repeated captures with identical bytes across preparation batches count as the same
-observation. Complete trajectories and every derived window must remain in one
-split; random splitting by frame would leak shared attempts and sources.
+\section{Planned comparison and decision criteria}
+\paragraph{First isolate the diagnostic.}
+Exact paired poses and explicit executor support remain pending. For each
+eligible declared grasp, select two distinct feasible wrist settings using
+training distance and clearance alone, before inspecting new model scores or
+outcomes. Preserve intended world palm path, all 22 finger targets, object
+state, physics, timings, force limits and reset policy; use zero command noise.
+The executor must honor the frozen poses rather than silently substitute its
+preferred posture. Record numeric invariance gates and actual palm/finger
+tracking, since identical nominal targets do not imply identical contact dynamics.
 
-The saved protocol is a retrospective split with disjoint observation groups:
-scenes 0 and 2 train on 520 attempts (231 successes/289 failures), scene 1
-validates on 260 cube attempts (155/105), and scene 3 tests on 260 apple attempts
-(58/202). Training contains both geometries. Validation contains only cube and
-test only apple, so their condition distributions differ. The intended claim is
-performance on an apple observation held out under the frozen task, not an unseen
-geometry or a broad population of unseen objects. The four scene families provide
-limited evidence even when every attempt has a separate trajectory.
+Start with one pair and then retain the full declared inventory, including
+infeasible cases and stopped attempts. Compare alerts, logits and wrist/nonwrist
+terms in pairs where both actual tasks succeed; report all other outcome pairs
+separately. Two out-of-range wrists test sensitivity, not familiar versus
+unfamiliar coverage. No alert change may also reflect saturated probabilities.
+This development diagnostic cannot demonstrate improvement to a frozen model.
 
-The completed \path{task_prefix_dataset_v1} export stores 1,040 rows with
-1,440 float32 input columns, each a flattened $20\times72$ causal closing
-window. Outcomes and identities are stored separately, outside the model
-matrix. Training has eight proposal/two observation families; validation and
-test each have four proposal/one observation family. There are no excluded
-attempts. The saved feature manifest and split record bind payload hashes,
-named column ordering, agreement between source labels and scorer, provenance, and memberships.
-The actual export passed the validated loader, and 28 focused tests cover
-mutations of causal and privileged data, timestamps, groups, corrupt payloads, exclusions,
-and overwrite protection. This completes export and splitting for this pilot.
+\paragraph{Then test training diversity.}
+Fit two new models with the same architecture and validation rule:
+the original training base plus an additional finger-noise cohort, and the same
+base plus a wrist-coverage cohort. Match selected episode counts, class
+proportions and base object/proposal identities; fit normalization on each
+training set only. Declare cohort selection and quotas before fitting, without
+using prediction scores. Retain all generated, selected and excluded counts:
+equal training-data budgets need not imply equal collection costs. If matched
+cohorts cannot be formed, amend the design before fitting and retain the confound.
 
-Training fits parameters; validation selects regularization; test is scored
-after selection. Although assignments depend on declared scene identities
-without using outcomes, this split was chosen after collection and outcome
-inspection. It is not a preregistered or untouched final benchmark.
+Declare one common fresh holdout of objects, postures and source families
+outside training and validation; freeze both fitted models before scoring.
+Also report the original frozen predictor as a reference, whose smaller
+training budget does not itself isolate the diversity effect. Improvement
+requires fewer false warnings among successful tasks without more missed
+completed failures at the same 0.5 threshold on this common test. Report
+numerators, denominators, object/posture breakdowns and uncertainty respecting
+shared families. No failures means undefined failure recall; a few failures
+cannot establish broad noninferiority. Neither warning on everything nor
+clearing everything satisfies both objectives. No such comparison is completed.
 
-\subsection{Causal first model, then a target for a future event}
-The first learning task predicts eventual frozen task success from a
-prefix ending at a declared time $t$:
-\begin{equation}
- \widehat p_t=P_{\theta}\!\left(y=1\mid
-       \{\mathbf q_s,\dot{\mathbf q}_s,\mathbf u_s\}_{s\leq t}\right).
-\end{equation}
-The chosen prefix comprises the last twenty CLOSE\_FINGERS samples, ending at
-2.96 s, before the first LIFT sample at 3.00 s. Each row whitelists 24 measured
-hand joint positions, 24 joint velocities, and 24 actual commanded targets,
-forming a $20\times72$ window. The baseline summarizes each column by its last
-value, mean, population standard deviation, and change from the first to the last sample: 288 features.
-An ablation using commands alone uses the same summaries for 24 command columns, giving
-96 features; a constant baseline uses outcome prevalence in the training set.
+\section{Limitations and evidence availability}
+Our completed diagnostic concerns one hand, fixed task definitions and reused
+mug cases under a corrected executor. Simulation contact fidelity, real-world
+transfer, usable warning lead time and prediction-driven recovery are untested.
+The task target is eventual grasp, lift and hold completion, not impending
+physical slip. Prior literature already studies nuisance warnings and diversity;
+a distinct scientific contribution still requires a convincing controlled
+comparison or informative negative finding. Static feasibility constrains that
+comparison and should not be replaced by unsafe or mismatched trials.
 
-The classifier is logistic regression with L2 regularization, optimized with
-SciPy L-BFGS-B. Its objective is mean binary cross entropy plus
-$\lambda\|\mathbf w\|^2/2$, with an unpenalized intercept. The scaler is fitted
-only on training data. Features with training standard deviation at most
-$10^{-8}$ are excluded, leaving 269 active features for the full model and 77
-for commands only. The fixed candidate grid is $\{0.001,0.01,0.1,1\}$;
-minimum validation log loss among converged fits selects $\lambda=0.1$ for both
-models. Both selected fits converge. The decision threshold is fixed at
-$p_{\mathrm{failure}}\geq0.5$, and test is scored only after regularization
-selection, without test tuning. No final
-outcome, event annotation, future sample, object ground truth, full integration
-state, injected amplitude, noise vector, seed, or identity/hash is an input.
-Commands may reveal applied target changes; the ablation using commands alone tests
-whether measured response adds information beyond these commands.
+The \href{\projecturl}{repository} preserves original protocols, training
+partitions, fitted coefficients, predictions and hash-bound artifacts in
+\path{research_artifacts/}. Relevant bundles are
+\path{object_scene_pilot_v1}, \path{task_outcome_baseline_v1},
+\path{fresh_object_scene_eval_v1}, \path{corrected_mug_model_diagnostic_v1},
+\path{mug_wrist_input_diagnostic_v1}, \path{wrist_pose_feasibility_v1}
+and the unexecuted \path{wrist_comparison_plan_v1}.
+Raw trajectories remain local rather than constituting a public dataset release.
+\href{../PAPER_PROGRESS.md}{The evidence index} and
+\href{../RESEARCH_DECISIONS.md}{dated decision history} document how acquisition
+labels, unseen-object errors and controller audits changed our question.
+HUG's apple asset retains its CC BY 4.0 attribution and pinned revision in the
+geometry provenance record. No public real-world failure dataset has been
+imported for these results.
 
-\subsection{Actual baseline comparison}
-\begin{table}[ht]
-\centering
-\small
-\caption{Apple B results on the development test set (260 attempts: 202 failures and
-58 successes). AP is average precision for failures. Lower log loss and
-Brier score are better; no calibration or transfer guarantee is implied.}
-\begin{tabular}{lrrrr}
-\toprule
-Model & Failure AUROC & AP & Log loss & Brier\\
-\midrule
-Joint state + commands & 0.8523 & 0.9478 & 0.3771 & 0.1170\\
-Commands only & 0.6419 & 0.8665 & 0.5244 & 0.1711\\
-Training prevalence & 0.5000 & 0.7769 & 0.6374 & 0.2222\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-For the full model, training/validation/test log losses are
-0.2268/0.4065/0.3771 and failure AUROCs are 0.9806/0.8924/0.8523. At the
-fixed threshold, the apple B test flags 187/202 failures (92.6\% recall) and
-22/58 successes (37.9\% false alarms among successful attempts), leaving 15
-missed failures and 36 correctly unflagged successes. Commands alone flag
-192/202 failures and 52/58 successes. The prevalence baseline uses
-$p_{\mathrm{success}}=231/520$ and flags every attempt.
-
-The model using measured response improves this comparison beyond command summaries.
-The substantial rate of false alarms among successes limits usefulness at the fixed
-threshold. Log loss and Brier score evaluate these probability forecasts;
-they do not establish calibrated deployment failure rates. Test consists of
-one previously inspected apple observation, both geometries appear in training,
-and validation is restricted to cube. Therefore these results are exploratory and cannot
-establish transfer to unseen geometries or reliability across the population.
-
-Eventual outcome prediction is not equivalent
-to forecasting loss within a future horizon. A later task with a specified future horizon needs
-supported acquisition, a separately versioned loss event, strictly causal
-windows, and explicit handling of incomplete subsequent observations. Only four
-drops identified by the task scorer occur in the entire collection. These metrics do not measure drop
-detection, slip onset, or warning lead time; event recall at a fixed budget for
-false alarms belongs to a later evaluation.
-
-An illustrative CLI prediction for cube A \path{episode_000534} gives failure
-probability 0.4815 at 2.96 s, predicting success despite its recorded drop.
-This attempt belongs to a training observation family and is not an additional
-result on held out data. It demonstrates a model error without implying a specialized
-drop detector.
-
-\section{Limitations and next work}
-Two rigid geometries and four input families limit diversity despite the number
-of attempts. The controller and embodiment are fixed, friction is nominal, and
-each object's mass is held constant. Disturbances stress joint targets and are
-frequently clipped; they are not a validated distribution of hardware error.
-The task cutoff and failure precedence affect label meaning. Simulator contacts
-and object truth provide useful supervision but are not tactile sensing or
-automatically observable robot inputs. No online visual trajectory stream is
-present. Reproducibility across runtimes and physical contact fidelity remain
-untested.
-
-The first baseline is complete under the original task labels and grouped
-development split. More untouched observation families, geometries, and physically
-motivated conditions should follow before a broad generalization claim. Timed
-loss after acquisition requires additional supported events and an audit of event
-labels, rather than assigning every failed episode a slip time. External
-failures collected using VR require licensing, embodiment, sensing, synchronization,
-and outcome audits before use. Generation of synthetic human videos remains an
-exploratory idea with no implementation or demonstrated benefit.
-
-Recovery is a separate future experiment. It needs matched continuation and
-intervention outcomes, bounded actions and delays, and appropriate simulator
-state restoration or repeated physical trials. A failure probability alone
-does not establish recoverability. This working draft therefore makes no claim
-that a predictor anticipates slips or improves recovery.
-
-\subsection{Evolution of the research question}
-The initial plan combined learning a grasp policy with predicting failures.
-Fixed HUG execution made the first experiment narrower, while documented target
-biases and grouped splits made its assumptions inspectable. The comparison with
-commands alone tests whether measured hand response adds information. Its
-substantial false alarm rate motivates further evaluation rather than a larger
-model by default.
-
-Development after the initial pilot first froze the predictor for a fresh object
-and scene evaluation. Mug failures prompted an execution audit before retraining:
-the forearm collided with the table before disturbances were applied. A separately
-versioned wrist correction and runtime clearance guard addressed that controller
-problem. These later records are linked in the
-\href{../RESEARCH_DECISIONS.md}{research decision history} and
-\href{../MUG_TABLE_CLEARANCE.md}{mug correction guide}; they do not replace the
-quantitative pilot results above. Earlier entries in the decision history are
-reconstructed from development records, rather than represented as preregistration.
-
-Public failure data and existing detectors are now proposed comparisons, with
-no new import or model evaluation completed here. Comparisons must declare the
-available signals and prediction cutoff. An outcome verifier using images after
-a completed action and a predictor using only earlier observations answer
-different questions. A Guardian experiment using an earlier image prefix would
-require its own forecasting evaluation; its documented verification score cannot
-be interpreted as that result.
-
-The proposed next question is whether measured hand response before lifting
-improves warnings of eventual grasp failure on unfamiliar objects, beyond
-commands alone, at a controlled false alarm rate. This is a hypothesis, not an
-established literature gap. Untouched object and scene tests must keep controller
-versions explicit and count clearance rejections separately. Useful warning time
-also requires a validated future failure event, observations preceding that event,
-and allowance for inference and stopping delays. A grasp acquisition deadline
-does not supply physical slip onset. Threshold selection belongs to validation,
-with warning time and false alarms measured on test trajectories. Establishing
-that responding to an alert improves success requires a subsequent matched
-continuation and intervention experiment.
-
-\section{Software, asset provenance, and availability}
-Versioned source and documentation are in the
-\href{\projecturl}{project repository}. The collection audit identifies source
-commit \path{99f70a6}; the documented full suite at \path{301ca1f} passed
-292 tests with five skips. A subsequent renderer change was checked with the
-six replay videos. The final combined suite passed 332 tests with five skips
-and one upstream \path{hppfcl} deprecation warning; the 40 focused prediction
-tests also passed with runtime warnings treated as errors. The effective collection runtime was Python 3.12.13,
-MuJoCo 3.3.7, NumPy 2.5.3, Dex Retargeting 0.5.0, and loaded Pinocchio 3.8.0.
-HUG code was pinned to \path{8d1c52d4c24bfae5a369e32e3f134f5601a02630}; exact
-checkpoint, script, input, and report hashes are in collection metadata.
-
-The apple's MJCF, separate visual mesh, and two collision meshes come from
-\href{https://huggingface.co/datasets/kevinywu/1m-hugs}{HUG / 1M-HuGs,
-published by kevinywu}, revision
-\path{56ea3f100b1a4ec38bb35e986c0dd14d38977283}, licensed under
-\href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}.
-Attribution, source URLs, and byte hashes are in the download manifest.
-The geometry closure hash is
-\path{sha256:744ec02132a20129defe59048d1c3c6474e528ec276f717a5009ece8004d8c81}.
-The loader preserves the source geom, mesh, and inertial frames. Official
-benchmark grasp annotations were not used.
-
-The canonical local experiment is
-\path{runs/object_scene_pilot_2026-10-10/}, including
-\path{collection_1040/} and \path{collection_1040_audit.json}.
-Raw assets, observations, checkpoints, and full rollouts are not committed;
-the raw collection remains local. The local collection viewer and preparation,
-collection, and audit instructions are documented in
-\path{docs/MULTI_SCENE_COLLECTION.md}. Tracked progress is in
-\path{docs/PAPER_PROGRESS.md}. The completed derived export is available in
-\href{../../research_artifacts/object_scene_pilot_v1/}{\path{research_artifacts/object_scene_pilot_v1/}},
-with \path{dataset.npz}, \path{manifest.json}, and \path{splits.json};
-\href{../DATA_SPLITS.md}{\path{docs/DATA_SPLITS.md}} documents its contract
-and reproduction. The dataset payload SHA-256 is
-\path{29f773f7faf03cff5e1c694ef475d02adfd07c239314b349f2228f86db9d3aad}.
-This compact derived export is separate from the local raw collection.
-The completed baseline bundle is
-\href{../../research_artifacts/task_outcome_baseline_v1/}{\path{research_artifacts/task_outcome_baseline_v1/}},
-containing \href{../../research_artifacts/task_outcome_baseline_v1/report.json}{\path{report.json}},
-\path{proprioception_and_commands.npz}, \path{commands_only.npz}, and
-\href{../../research_artifacts/task_outcome_baseline_v1/predictions.csv}{\path{predictions.csv}}.
-\href{../PREDICTION_BASELINE.md}{\path{docs/PREDICTION_BASELINE.md}} records
-reproduction and the whitelist. The report binds input, split, model source,
-model, and prediction hashes. Training used Python 3.12.13, NumPy 2.2.6, and
-SciPy 1.17.1, separately from the simulation runtime.
+\paragraph{Draft status.}
+This editable research draft reports completed diagnostics and explicitly
+planned experiments. It has not been submitted. Official CoRL template
+formatting, the four-page main-text limit, anonymity, author review and verified
+OpenReview profiles remain submission preparation tasks. The long-term
+prediction and recovery ambition is retained separately from measured claims.
 
 \begin{thebibliography}{99}
 \bibitem{hug}
 K. Y. Wu, T. Zhou, I. Tu, B. Yan, I. Guzey, D. Fouhey, D. Shan, and L. Pinto.
 \emph{Human Universal Grasping}. arXiv:2606.17054, 2026.
-\url{https://arxiv.org/abs/2606.17054}. Official resources:
-\url{https://grasping.io/}.
-
-\bibitem{feeling}
-R. Calandra, A. Owens, M. Upadhyaya, W. Yuan, J. Lin, E. H. Adelson, and S. Levine.
-\emph{The Feeling of Success: Does Touch Sensing Help Predict Grasp Outcomes?}
-Conference on Robot Learning, PMLR 78:314--323, 2017.
-\url{https://proceedings.mlr.press/v78/calandra17a.html}.
-
-\bibitem{slipsense}
-T. Jian, A. T. Senthil Kumar, X. Li, Z. Chen, T. Dai, A. Sengul,
-M. Grimaldi, W. Lu, S. Nabi, and T. Yu.
-\emph{SlipSense: Multimodal Tactile Learning for Low-Latency and Generalized
-Slip Detection}. arXiv:2609.15910, 2026.
-\url{https://arxiv.org/abs/2609.15910}.
-
-\bibitem{feelworld}
-W. Ma, C. Zhang, C. Xue, Y. Cai, G. Yao, S. Cui, and S. Wang.
-\emph{FeelWorld: Visuo-Tactile World Model for Hierarchical Contact Prediction
-and Planning}. arXiv:2607.24267, 2026.
-\url{https://arxiv.org/abs/2607.24267}.
-
-\bibitem{ward}
-I. R. Ward, M. Ho, H. Liu, A. Feldman, J. Vincent, L. Kruse, S. Cheong,
-D. Eddy, M. J. Kochenderfer, and M. Schwager.
-\emph{Foundational World Models Accurately Detect Bimanual Manipulator Failures}.
-arXiv:2603.06987, 2026. \url{https://arxiv.org/abs/2603.06987}.
-
-\bibitem{mujoco}
-E. Todorov, T. Erez, and Y. Tassa.
-\emph{MuJoCo: A physics engine for model-based control}.
-IEEE/RSJ International Conference on Intelligent Robots and Systems, 2012.
-\url{https://www.roboti.us/lab/papers/TodorovIROS12.pdf}.
+\url{https://arxiv.org/abs/2606.17054}.
 
 \bibitem{dex}
 Y. Qin, W. Yang, B. Huang, K. Van Wyk, H. Su, X. Wang, Y.-W. Chao, and D. Fox.
 \emph{AnyTeleop: A General Vision-Based Dexterous Robot Arm-Hand Teleoperation
 System}. Robotics: Science and Systems, 2023.
-\url{https://yzqin.github.io/anyteleop/}. Derived retargeting software:
-\url{https://github.com/dexsuite/dex-retargeting}; supplied Shadow Hand
-configuration, effective version 0.5.0, accessed 11 October 2026.
+\url{https://yzqin.github.io/anyteleop/}. Retargeting software:
+\url{https://github.com/dexsuite/dex-retargeting}.
 
-\bibitem{guardian}
-P. Pacaud and collaborators.
-\emph{Guardian: Multi View VLM for Robotic Planning and Execution Failure
-Detection, Thinking variant}. Official model card, accessed 11 October 2026.
-\url{https://huggingface.co/paulpacaud/guardian-thinking}.
+\bibitem{mujoco}
+E. Todorov, T. Erez, and Y. Tassa.
+\emph{MuJoCo: A physics engine for model-based control}. IEEE/RSJ IROS, 2012.
+\url{https://www.roboti.us/lab/papers/TodorovIROS12.pdf}.
+
+\bibitem{gilday}
+K. Gilday, T. George-Thuruthel, and F. Iida.
+\emph{Predictive Learning of Error Recovery with a Sensorized Passivity-Based
+Soft Anthropomorphic Hand}. Advanced Intelligent Systems, 5:2200390, 2023.
+\url{https://doi.org/10.1002/aisy.202200390}.
+
+\bibitem{fiper}
+R. R\"omer, A. Kobras, L. Worbis, and A. P. Schoellig.
+\emph{Failure Prediction at Runtime for Generative Robot Policies}.
+NeurIPS, 2025. \url{https://arxiv.org/abs/2510.09459}.
 
 \bibitem{safe}
 Q. Gu, Y. Ju, S. Sun, I. Gilitschenski, H. Nishimura, M. Itkina, and F. Shkurti.
-\emph{SAFE: Multitask Failure Detection for Vision Language Action Models}.
-NeurIPS 2025. Official project page, accessed 11 October 2026.
-\url{https://vla-safe.github.io/}.
+\emph{SAFE: Multitask Failure Detection for Vision-Language-Action Models}.
+NeurIPS, 2025. \url{https://vla-safe.github.io/}.
+
+\bibitem{safecast}
+H. Rajaprakash, A. Prajapati, R. Xue, A. Anwar, and J. Thomason.
+\emph{SAFECAST: Robust Failure Detection for VLA Policies with Contrast-Set
+Training and Calibration}. arXiv:2608.04246, 2026, preprint.
+\url{https://arxiv.org/abs/2608.04246}.
 \end{thebibliography}
 \end{document}

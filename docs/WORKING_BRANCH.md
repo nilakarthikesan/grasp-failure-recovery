@@ -6,10 +6,11 @@ baseline, fresh object evaluation, mug correction, paper and decision history.
 The earlier design proposals and optional Docker runtime are preserved too.
 
 `main` is the shared published branch for the partner to read. The consolidated
-snapshot is published through [PR 19](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/19);
-its GitHub status records whether that integration is complete. The user
-authorized merging it on 12 October 2026. Ordinary implementation, experiment
-and paper updates continue in the existing `codex/project-work` checkout.
+snapshot was merged through [PR 19](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/19)
+on 12 October 2026, at `c95dd8db9557f9e0d3c3dcc96aa0dbe49b2dc465`.
+Subsequent experiment and paper updates continue in the existing
+`codex/project-work` checkout. Consult that branch for the latest diagnostics;
+their presence there does not mean they have also been integrated into `main`.
 A separate persistent branch is created only at the user's explicit request.
 
 The consolidated integration PR is [19](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/19).

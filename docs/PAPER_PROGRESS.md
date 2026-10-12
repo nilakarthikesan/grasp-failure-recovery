@@ -1,15 +1,27 @@
-# Paper progress: controlled grasp collection pilot
+# Paper progress: evaluating simulation diversity for grasp failure warnings
 
-**Working branch: `codex/project-work`.** The earlier milestone branches are
-consolidated, with one ongoing PR. Historical PR links below preserve the
+**Working branch: `codex/project-work`.** The earlier milestone branches were
+consolidated through [PR 19](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/19),
+which is merged into `main`. Later diagnostics and paper preparation continue on
+this one working branch; they are not automatically part of `main`. Historical PR links below preserve the
 development record; see [WORKING_BRANCH.md](WORKING_BRANCH.md) for the current
 checkout and recovery references. Scientific protocol versions remain separate.
 
-**Updated: 11 October 2026.** This is the evidence index for the
-[standalone working paper](paper/working_draft.tex). The draft's title and claims
-describe a collection protocol and its first pre-lift task-outcome baseline.
-Future-slip prediction, recovery, and real-world transfer are research goals,
-not completed results.
+**Updated: 12 October 2026.** This is the evidence index for the
+[standalone working paper](paper/working_draft.tex), now titled **Evaluating
+Simulation Diversity for Grasp Failure Warnings**. The accepted question compares
+successful wrist coverage with additional finger command noise at matched
+training budgets. That comparison is planned, not completed. Completed evidence
+comprises the pilot, frozen fresh evaluation, separate mug executor correction,
+scoring of 26 completed checks, the wrist input audit and a static check of
+observed training wrist settings. Future slip timing,
+recovery and real world transfer remain untested.
+
+**Immediate next step:** review why the observed training wrist settings fail
+the mug clearance gate, then find an interpretable safe comparison. Declare its
+geometry and selection before running a
+paired zero noise diagnostic with the model unchanged. See the
+[current question and evidence gates](#accepted-paper-question-and-evidence-gates-12-october).
 
 The authoritative completed collection is documented in
 [MULTI_SCENE_COLLECTION.md](MULTI_SCENE_COLLECTION.md). Earlier documents retain
@@ -760,3 +772,129 @@ evaluation, the separate mug executor correction, frozen scoring of 26 completed
 checks and the wrist training distribution audit. Paper evidence notes and a
 working manuscript exist. The controlled pair comparison, data diversity fit,
 useful warning timing, recovery and workshop submission are still pending.
+
+## Accepted paper question and evidence gates, 12 October
+
+**Working title: Evaluating Simulation Diversity for Grasp Failure Warnings.**
+
+**Accepted research question:** For a simulated dexterous hand, does training
+with more diverse successful wrist configurations improve prediction of grasp,
+lift and hold outcomes on unfamiliar objects and wrist configurations more than
+additional finger-command noise, when both approaches use the same amount of
+training data, the same success/failure proportions and the same model
+architecture?
+
+In plain language: **which simulation variations make grasp warnings more
+reliable in new conditions?** The wrist diagnostic comes first because we need
+to understand the existing false alarms before testing a training remedy.
+Neither the wrist coverage benefit nor its novelty has been established.
+
+### What the completed evidence establishes
+
+The unchanged predictor alerted on **all 23 completed corrected mug attempts**:
+**20 successful grasps were false alarms and three failed acquisitions were
+detected**. This repeated at all three finger noise bounds, including zero.
+One guard stopped attempt remains separate with no binary label or prediction.
+See the [frozen scoring evidence](../research_artifacts/corrected_mug_model_diagnostic_v1/README.md).
+
+Both last wrist commands in all 20 successful mugs lie outside their respective
+original training ranges. Wrist terms push their saved linear scores toward
+failure, but object geometry, proposals and execution also changed. The
+[wrist input audit](../research_artifacts/mug_wrist_input_diagnostic_v1/README.md)
+is an attribution of existing scores, not an isolated physical cause or proof
+that changing features or training data will fix the model.
+
+The paper revision connects this completed evidence to the accepted question.
+The original pilot and fresh v2 results retain their own controller versions,
+counts and limitations. The v3 correction is an executor fix, not a successful
+model triggered recovery experiment. This revision adds no training or rollout
+result.
+
+### What must be checked before the next claim
+
+1. **Feasibility and comparable execution.** Select safe A/B wrist settings
+   using geometry and the original training distribution, without new scores
+   or outcomes. Freeze exact angles, compensated carrier placement, source
+   hashes and geometry tolerances. Implement explicit selection before any
+   rollout; then measure actual palm and finger tracking. If no safe familiar
+   setting exists, report that instead of implying a familiar versus unfamiliar
+   comparison.
+2. **Interpretable frozen diagnosis.** Use zero noise, the unchanged model and
+   the same intended grasp. Publish all declared pairs, changed outcomes and
+   guard stops. A different warning when both attempts succeed is useful
+   diagnostic evidence; it does not by itself show improved prediction.
+3. **Controlled training comparison.** Later compare the same base collection
+   plus equally sized additional finger noise or wrist coverage cohorts. Match
+   success/failure proportions and base object/proposal identities; retain the
+   architecture, feature contract and validation selection rule. Fit scaling
+   on each training partition only. An infeasible match requires a declared
+   protocol change, not an undisclosed substitute comparison.
+   Declare cohort selection before fitting and publish generated, selected and
+   excluded counts. Equal selected training counts do not mean equal collection
+   effort. Score the original frozen model on the same fresh test as a reference;
+   its smaller training budget does not isolate the two augmentation strategies.
+4. **Fresh evaluation and useful improvement.** Freeze both fitted models
+   before examining a common new test set whose object, posture, observation
+   and proposal groups are kept outside fitting and selection. At the same
+   0.5 threshold, seek fewer false warnings on successes without additional
+   missed failures. Report counts, rates, group breakdowns and uncertainty.
+   This criterion is not a statistical noninferiority guarantee; three mug
+   failures do not establish broad reliability.
+5. **Honest research scope.** Compare against relevant prior work, preserve
+   negative findings and distinguish unfamiliar inputs from genuine failed
+   grasps. Inputs must remain earlier than the scored outcome. Do not claim
+   physical slip prediction, useful intervention time, recovery or real robot
+   transfer from this task outcome experiment. A contribution depends on a
+   convincing comparison and an informative finding, not on adding complexity.
+
+The [declared protocol](../research_artifacts/wrist_comparison_plan_v1/protocol.json)
+contains the eight development mug proposal families and exclusions. Exact
+pair feasibility and executor support remain the first gates; up to 16 paired
+executions are proposed, not collected. These reused cases cannot become an
+untouched generalization benchmark by changing the paper title.
+
+### First static feasibility result
+
+A read only kinematic check tested the **eight unique last wrist command pairs
+actually observed among the 520 training episodes** against the eight declared
+mug proposals, preserving the intended world palm/finger geometry. **None of
+these 64 combinations met the 10 mm nominal table clearance gate**. Clearances
+ranged from approximately **−65.211 mm to +0.187 mm**. All eight stored corrected
+setting B poses revalidated at approximately **10.001 to 10.042 mm** nominal
+clearance. Physics stepping was blocked; no model scoring or rollout took place.
+
+This finite check rules out immediately reusing those stored training command
+pairs as safe familiar settings in these cases. It does not prove that no
+continuous pose inside the training command ranges could work, and nominal
+clearance does not establish dynamic safety. No A/B feasibility manifest is
+frozen yet. The next design choice is to find another valid familiar setting
+or controlled case, or explicitly qualify a comparison between two unfamiliar
+safe settings as posture sensitivity. The full matched training diversity
+question remains unchanged. Do not force unsafe settings to preserve a desired
+comparison label.
+
+The [static feasibility bundle](../research_artifacts/wrist_pose_feasibility_v1/README.md)
+records every candidate, failed gate, compensated carrier pose and source hash.
+The existing working manuscript was updated in place and compiled successfully
+with the desktop editor compiler. This confirms source compilation; final
+workshop template compliance and author review remain pending.
+
+### Workshop and partner preparation
+
+The target is the **Sim2Real2Field CoRL 2026 workshop Late-Breaking Track**,
+a nonarchival research workshop. Its simulation diversity and deployment
+monitoring themes fit this empirical question; fit and acceptance remain
+unproven. The [official call](https://sim2real2field-corl26.github.io/) requires
+at most four pages excluding references using the standard CoRL template.
+Final condensation, template packaging, anonymization, reference and claim
+review, and active OpenReview profiles for every author remain submission tasks.
+Use the earlier official site deadline, **15 October 2026 at 11:59 PM CDT**
+(16 October at 12:59 AM Eastern), and aim to finish during the Eastern daytime.
+The working manuscript is not itself a completed submission.
+
+Enoch asked for tests on new things before assuming a better model was needed.
+The frozen diagnosis and subsequent controlled comparison address that concern
+without first replacing the predictor. That alignment is an interpretation of
+his messages, not confirmation that he agrees with the scope or timeline. The
+[current partner handoff](PARTNER_HANDOFF.md) explains the actual data source,
+completed results and first bounded task for discussion.

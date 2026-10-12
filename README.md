@@ -5,7 +5,10 @@ whether their outcomes can be predicted early enough for useful intervention.
 
 **Working branch: [`codex/project-work`](https://github.com/nilakarthikesan/grasp-failure-recovery/tree/codex/project-work).**
 All project work is consolidated here. Continue on this branch and update
-[the single consolidated PR, 19](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/19).
+[the project notes](docs/PAPER_PROGRESS.md) as evidence changes.
+[The consolidated PR, 19](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/19)
+was merged into `main`; subsequent experiments and manuscript changes continue
+on the working branch until another integration is authorized.
 The [branch guide](docs/WORKING_BRANCH.md) explains the
 cleanup, active checkout and recovery references. `main` remains the published base.
 
@@ -31,21 +34,24 @@ The [initial literature review](docs/PILOT_LITERATURE_REVIEW.md) preserves the
 papers that informed the first pilot. Later choices and implemented evidence
 are recorded in the [research decision history](docs/RESEARCH_DECISIONS.md).
 
-This project studies one connected question:
+The current paper is **Evaluating Simulation Diversity for Grasp Failure Warnings**.
+Its research question is:
 
-> How can a robot learn to grasp an object, recognize when its current behavior
-> is likely to fail, and choose an effective recovery while recovery is still
-> possible?
+> For a simulated dexterous hand, does training with more diverse successful
+> wrist configurations improve prediction of grasp, lift and hold outcomes on
+> unfamiliar objects and wrist configurations more than additional finger-command
+> noise, when both approaches use the same amount of training data, the same
+> success/failure proportions and the same model architecture?
 
-The work progresses from **learning actions**, to **predicting outcomes**, to
-**choosing interventions**. These are separately trained and evaluated learning
-problems that share the same robot, task, objects, logging infrastructure, and
-controlled physical variations.
+In plain language: **which simulation variations help the model distinguish a
+failed grasp from a successful grasp in a new condition?** The planned training
+comparison has not been run. The completed evidence below identifies a
+reliability problem and motivates that comparison.
 
-This is one research program, not a commitment to produce three papers. The
-initial goal is one coherent, reproducible result. A component should become a
-separate paper only if it develops an independent question, contribution, and
-body of evidence.
+The long-term goal remains predicting failures early enough for useful recovery.
+Our current controller executes fixed HUG grasps; the separate model predicts
+the final grasp, lift and hold outcome. Slip timing, intervention benefit and
+physical transfer require later experiments.
 
 ## Completed work and working paper
 
@@ -60,9 +66,10 @@ collision correction and consideration of public data and existing detectors.
 
 The [working paper draft](docs/paper/working_draft.tex) and
 [six-step evidence and literature notes](docs/PAPER_PROGRESS.md) describe the
-completed pilot and the decisions behind it. The paper is an editable research
-draft; future-slip prediction, recovery, and physical transfer remain research
-goals.
+completed pilot, frozen mug diagnostics and the decisions behind the proposed
+comparison. The paper is an editable research draft, with measured results
+separate from planned work. Submission formatting and author review remain
+pending; future-slip prediction, recovery and physical transfer remain goals.
 
 1. **Review inputs and assets:** selected HUG development assets and documented
    geometry, licensing, camera, and retargeting requirements.
@@ -102,8 +109,8 @@ collected **2,080 new attempts**: 659 successes, 1,421 failures and zero errors.
 The original model, normalization, controller, scorer and threshold stayed
 unchanged. Its failure ranking AUC is **0.9173 on fresh cube/apple scenes** and
 **0.5588 across new milk carton/mug attempts**. The new objects expose substantial
-false alarms and missed failures; all mug attempts fail, so a mug success false
-alarm rate cannot be estimated. The [portable evaluation bundle](research_artifacts/fresh_object_scene_eval_v1/)
+false alarms and missed failures; all mugs in this original v2 batch fail during
+approach, so it cannot estimate false alarms on successful mugs. The [portable evaluation bundle](research_artifacts/fresh_object_scene_eval_v1/)
 contains inputs, predictions and provenance. The [local walkthrough viewer](http://127.0.0.1:8770/)
 shows eight replays beside their saved predictions while the server is running.
 
@@ -113,12 +120,41 @@ human-hand pose. A new execution protocol adjusts the wrist while preserving
 the intended grasp and checks actual table clearance at every physics step.
 Its small regression completed 26 trials with zero table contacts and stopped
 one high-noise closure before contact. See the [before/after demo](research_artifacts/mug_table_clearance_v1/mug_before_after.mp4)
-and [local replay viewer](http://127.0.0.1:8771/). Larger collection remains the
-next step; these controller checks do not replace the original model evaluation.
+and [local replay viewer](http://127.0.0.1:8771/). These controller checks are a
+separate protocol version from the original model evaluation.
+
+We then [scored all 26 completed recordings with the model unchanged](research_artifacts/corrected_mug_model_diagnostic_v1/README.md).
+It warned on all 23 completed mugs: **20 false alarms on successes and three
+detected failures**. The stopped attempt has no label or prediction.
+[The training-input comparison](research_artifacts/mug_wrist_input_diagnostic_v1/README.md)
+finds both wrist commands outside training ranges in every successful mug;
+wrist terms push their saved scores toward failure. That explains score
+arithmetic without isolating physical causation or demonstrating a fix.
+
+**Immediate next step:** establish a safe, controlled wrist comparison before
+another rollout. [Static feasibility checks](research_artifacts/wrist_pose_feasibility_v1/README.md)
+found that none of the eight wrist command pairs observed in training meets
+the declared table-clearance gate for any of the eight mug proposals. A
+fallback comparison of two unfamiliar wrist settings must be described as
+sensitivity, rather than familiar-versus-unfamiliar transfer.
+[The paired diagnostic plan](research_artifacts/wrist_comparison_plan_v1/protocol.json)
+requires exact poses, preserved intended grasp geometry and explicit executor
+support before testing with zero noise and the frozen model.
+
+The later training comparison will match episode counts, success/failure
+proportions, base objects/proposals and model settings, then use a common fresh
+holdout. Improvement means fewer false warnings on successful grasps without
+more missed failures on that same test. The [paper evidence and quality gates](docs/PAPER_PROGRESS.md)
+also record collection costs, uncertainty and the conditions under which we
+must revise the design or report a negative finding.
 
 ---
 
-## Research program
+## Long-term research program
+
+The following parts describe the broader ambition. The current workshop
+study is the outcome-warning reliability comparison above; transport, timed
+slip prediction and recovery are not completed deliverables.
 
 ### Part I — Execute HUG grasps with a dexterous hand
 

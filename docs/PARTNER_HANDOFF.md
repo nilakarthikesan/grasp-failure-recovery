@@ -1,19 +1,39 @@
 # Grasp failure project handoff
 
 **Current working branch: `codex/project-work`.** All pushed implementation,
-demo, model and paper work is consolidated there. The earlier handoff below
-records the original baseline; subsequent fresh object tests and mug correction
-are documented in [PAPER_PROGRESS.md](PAPER_PROGRESS.md). Use
+demo, model and paper work is consolidated there. [PR 19](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/19)
+merged the earlier snapshot into `main`; later diagnostics and paper work
+continue on `codex/project-work` and are not automatically merged. Use
 [WORKING_BRANCH.md](WORKING_BRANCH.md) for the active checkout and branch archive.
 
-**Confirmed on 11 October 2026.** The original six-step plan now has a working
-simulation pilot, a portable labeled dataset, and a first trained model.
-Building on the existing HUG-to-Shadow execution work, this pilot adds controlled
-noise collection, audited outcomes, grouped data splits, model comparisons and
-paper documentation. The next experiment is to evaluate the saved model on fresh
-observation families before changing it.
+**Updated 12 October 2026.** We have a working simulation and labeling pipeline,
+an original trained predictor, a fresh object/scene evaluation, a corrected mug
+executor and audits of repeated mug false alarms. We are diagnosing those
+alarms before changing the model. We have not demonstrated a training remedy,
+physical slip prediction, warning lead time, recovery or real robot transfer.
 
-## Completed work
+**Working paper title: Evaluating Simulation Diversity for Grasp Failure Warnings.**
+
+**Accepted question:** For a simulated dexterous hand, does training with more
+diverse successful wrist configurations improve prediction of grasp, lift and
+hold outcomes on unfamiliar objects and wrist configurations more than
+additional finger-command noise, when both approaches use the same amount of
+training data, the same success/failure proportions and the same model
+architecture?
+
+Our immediate task is smaller: find two safe wrist settings for the same intended
+mug grasp, then compare their warnings and actual outcomes at zero noise with
+the saved model unchanged. The later training comparison remains planned.
+
+The first static check found that none of the eight observed training wrist
+command pairs met the nominal table gate across the eight declared mug proposals
+(0 of 64 combinations). The corrected poses still meet that static gate.
+We must resolve this feasibility issue before calling a pair familiar versus
+unfamiliar or running it. The check did not step physics or generate new grasps.
+See the [static feasibility record](../research_artifacts/wrist_pose_feasibility_v1/README.md)
+for every candidate and source binding.
+
+## Original pilot completed on 11 October
 
 1. **Reviewed HUG inputs and benchmark assets.** Selected the existing cube and
    a pinned HUG apple development asset. Documented geometry, camera calibration,
@@ -52,36 +72,61 @@ observation families before changing it.
    **22 of 58 successes**, missing 15 failures. The model predicts eventual
    task outcome from closing behavior; slip timing and recovery remain future work.
 
-The completed implementation was tested with **332 tests passing and five
+At the original handoff, the implementation was tested with **332 tests passing and five
 skipped**. The forty focused dataset/model tests also passed with runtime
-warnings treated as errors. A fresh read-only artifact check for this handoff
+warnings treated as errors. That handoff's read-only artifact check
 verified all hashes, all 3,120 saved predictions and every reported partition
-metric. The [working manuscript](paper/working_draft.tex) compiles and includes
-primary-source citations, methods, actual results and limitations.
+metric. These are historical validation results, not a new test run for this
+documentation update. The [working manuscript](paper/working_draft.tex) now
+contains the new question and diagnostic evidence and compiles successfully in
+the desktop editor. Workshop template compliance and author review are pending.
+
+## What happened after the pilot
+
+1. **Tested the frozen model on 2,080 fresh attempts.** New cube/apple scenes
+   and milk carton/mug geometries gave 659 successes and 1,421 failures with
+   zero runtime errors. All 520 v2 mug attempts hit the table before the model
+   cutoff. They could not tell us whether the predictor recognizes successful
+   unfamiliar mugs. See [FRESH_OBJECT_EVALUATION.md](FRESH_OBJECT_EVALUATION.md).
+2. **Corrected the mug executor separately.** Changed wrist settings and
+   compensated carrier placement preserve the intended world palm and finger
+   targets while clearing the forearm from the table. A runtime clearance guard
+   stops invalid attempts. Of 27 declared checks, 26 completed and one stopped.
+   The completed mugs include 20 successes and three failed acquisitions.
+   This is an execution correction, not model triggered recovery. See
+   [MUG_TABLE_CLEARANCE.md](MUG_TABLE_CLEARANCE.md).
+3. **Scored those existing recordings without changing the model.** All 23
+   completed mugs triggered a failure alert, including every successful mug.
+   The false warnings repeat at all three finger noise bounds, including zero.
+   The three actual mug failures were also flagged, so warning on everything
+   is the problem. The stopped attempt has no label or prediction. See
+   [the scoring evidence](../research_artifacts/corrected_mug_model_diagnostic_v1/README.md).
+4. **Compared wrist inputs with the original training data.** Both last wrist
+   commands in all 20 successful mugs lie outside the training ranges. Their
+   wrist feature contributions push the existing linear scores toward failure.
+   This arithmetic is a contributor, not proof that posture alone caused the
+   errors or that removing wrist features fixes them. See
+   [the wrist audit](../research_artifacts/mug_wrist_input_diagnostic_v1/README.md).
 
 ## Start from the correct branch
 
-Use **`codex/task-outcome-baseline`**, the latest combined execution,
-collection, split and model branch. The verified pre-handoff code/results
-snapshot is commit `ef0f4d84bac6f6ce13931d911cc27f9c2ad54ed9`.
-The latest work remains in open draft PRs and has not merged into `main`.
+Use **`codex/project-work`**, the single ongoing branch containing the latest
+diagnostic evidence and plan. The old milestone branch and PR names are
+historical references, not instructions to create another branch. On Nila's
+machine, use `git worktree list` and work in the existing checkout holding this
+branch. Preserve dirty files, runtime assets and all experiment directories.
 
-The dependency order is [execution #12](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/12)
-→ [collector #10](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/10)
-→ [multi-scene collection #11](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/11)
-→ [paper #13](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/13)
-→ [splits #14](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/14)
-→ [model #15](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/15).
-[Teaching website #8](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/8)
-and [earlier literature notes #9](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/9)
-target `main` separately; their additional files are not in the combined model
-branch. Review and merge with those dependencies in mind.
-
-From an existing clean clone, create a separate branch for the next experiment:
+From an existing clean partner clone, fetch and use the existing branch:
 
 ```sh
 git fetch origin
-git switch --no-track -c codex/fresh-scene-evaluation origin/codex/task-outcome-baseline
+git switch codex/project-work
+```
+
+Optional reproduction of the original fit writes a separate output bundle;
+it does not replace the saved model used in the next diagnostic:
+
+```sh
 python -m venv .venv
 source .venv/bin/activate
 pip install -e '.[prediction,dev]'
@@ -102,6 +147,10 @@ or graphics. The [model guide](PREDICTION_BASELINE.md) explains commands and met
 - [Noise and event definitions](NOISY_ROLLOUT_COLLECTION.md).
 - [Input and split contract](DATA_SPLITS.md).
 - [Model explanation and reproduction](PREDICTION_BASELINE.md).
+- [Frozen corrected mug predictions](../research_artifacts/corrected_mug_model_diagnostic_v1/README.md).
+- [Training wrist range and score attribution audit](../research_artifacts/mug_wrist_input_diagnostic_v1/README.md).
+- [Planned wrist pair comparison](../research_artifacts/wrist_comparison_plan_v1/protocol.json).
+- [Dated research decisions](RESEARCH_DECISIONS.md).
 - [Portable dataset](../research_artifacts/object_scene_pilot_v1/): inputs,
   task labels, provenance and saved memberships, approximately 6.55 MB.
 - [Saved model bundle](../research_artifacts/task_outcome_baseline_v1/):
@@ -129,42 +178,57 @@ public website or a shareable link to Nila's recordings.
 
 ## Next work in order
 
-1. **Reproduce the saved baseline.** Confirm 1,040 rows, the 520/260/260
-   memberships, and the comparison metrics. Preserve the published dataset,
-   coefficients and task rule as version 1.
-2. **Declare a fresh evaluation before collecting it.** First vary object
-   positions and cameras for cube/apple while retaining the controller,
-   label rule, noise schedule and saved models. A suggested first batch is
-   eight fresh observation families, four per geometry, with four proposals
-   per observation. The existing schedule gives **2,080 planned attempts**:
-   32 proposals × (one baseline + 32 trials at each of two noise levels).
-   Run a small collection smoke check before scaling. More noisy repeats of
-   identical captures do not create new observation families.
-3. **Add evaluation for that new batch.** The current dataset exporter binds
-   the original four scene seeds, 9100–9103; it is not a general exporter for
-   arbitrary new splits. Add a separately versioned fresh-evaluation command
-   or manifest that validates labels/provenance and rejects overlap with the
-   original observation/proposal groups. Reuse the frozen 2.96-second observable
-   prefix and saved normalization/weights. Keep outcomes separate and exclude
-   invalid attempts rather than labeling setup errors as failures.
-4. **Score the fixed model before changing it.** Report all three comparisons,
-   failure ranking, log loss/Brier score, recall, success false alarms, and
-   counts per observation/proposal/noise level. Publish the new manifest,
-   predictions and metrics. Do not adjust weights or the threshold using the
-   new test outcomes. If tuning follows, reserve different development data
-   and another untouched evaluation.
-5. **Expand the research question after that check.** Add validated new
-   geometries and more supported post-acquisition losses. The existing failure
-   mix is 590 acquisition failures, two missing-contact failures and only four
-   task-scored drops. A future-slip model needs separately versioned temporal
-   labels and warning-time evaluation. Audit the friend's real recordings for
-   available sensors, actions, synchronization and outcomes before combining
-   them with simulation. Recovery and synthetic human video remain later work.
+1. **Find an interpretable safe wrist pair.** Use the declared mug cases and
+   geometry, without predictions or new outcomes, to check possible wrist
+   settings. Keep the intended world palm and all finger targets fixed with
+   compensated carrier placement. A familiar training command may not clear
+   the table: the eight stored training command pairs already failed all 64
+   tested combinations at the nominal 10 mm clearance gate. This does not rule
+   out all continuous settings inside the ranges. Check a valid alternative
+   setting or controlled case, and record infeasible cases instead of forcing
+   a collision.
+2. **Implement explicit selection and freeze the comparison.** The current
+   executor chooses one safe pose, not a declared A/B pair. Before any rollout,
+   record exact angles, carrier poses, numeric geometry gates and source hashes.
+   Setting B is the stored corrected pose; an eligible A must be a distinct
+   safe candidate selected without score or outcome optimization. If both
+   settings are unfamiliar, call it posture sensitivity rather than a familiar
+   versus unfamiliar test.
+3. **Run one eligible zero noise pair with the model unchanged.** Keep the
+   scene, object, HUG proposal, timing, physics, finger commands, saved model,
+   normalization, 2.96 second cutoff and 0.5 threshold fixed. Inspect actual
+   palm/finger tracking, the warning and the final grasp/lift/hold label. Report
+   the complete declared case inventory, including changed outcomes and guard
+   stops. Continue with remaining eligible pairs only after this check.
+4. **Decide on the equal budget training experiment from the diagnosis.**
+   Compare the same original base plus equal numbers of finger noise or wrist
+   coverage examples, with matched success/failure mix and base object/proposal
+   identities. Keep the same model architecture, feature fields and validation
+   selection rule. This is planned work, not a demonstrated wrist coverage gain.
+   Declare cohort selection before fitting; retain every generated, selected
+   and excluded attempt count, since equal training counts need not cost equal
+   collection effort.
+5. **Measure improvement on one fresh common test set.** Keep entire test
+   object/posture/observation/proposal groups outside training and validation,
+   and freeze both models before looking at test outcomes. At the same 0.5
+   threshold, improvement means fewer false warnings on successes without more
+   missed failures. Report counts and group uncertainty; a few failures cannot
+   prove broad reliability. Lower scores alone do not meet the criterion.
+   Also score the original frozen model as a reference on this same test; its
+   smaller training budget does not isolate the augmentation strategy.
 
-For the first new PR, deliver the fresh-evaluation plan/command, group-overlap
-and causal-input checks, a small smoke run, and instructions to scale it.
-For the following PR, deliver the completed batch, unchanged-model comparison
-and a paper update with all observations and exclusions accounted for.
+Continue on `codex/project-work`; do not create another milestone branch or PR.
+Preserve every scientific protocol version and original artifact. A warning
+change on two successful paired grasps can diagnose sensitivity, but cannot
+establish improved prediction because the model is unchanged.
+
+For the workshop, review the evidence together, verify references and claims,
+complete the four page CoRL formatted anonymous paper, and ensure every author
+has an active OpenReview profile. The
+[Sim2Real2Field call](https://sim2real2field-corl26.github.io/) gives the earlier
+deadline as **15 October 2026 at 11:59 PM CDT**. Aim to submit during the Eastern
+daytime. The current working draft is not a completed submission or evidence
+of acceptance.
 
 ## How to describe the result
 
@@ -173,6 +237,14 @@ that the original collection outcomes had already been inspected before the
 scene split was declared. The model fitting did exclude its test rows, but
 that split is still exploratory and contains only one apple observation family.
 The probability scores have not established calibrated real-world failure rates.
-The strongest present finding is that measured closing behavior added task-outcome
-information beyond commands in this specific simulation split. Fresh evaluation
-is the next test of whether that finding holds beyond this pilot.
+The pilot showed that measured closing behavior added outcome information beyond
+commands in that specific split. Later tests show that the fixed threshold does
+not distinguish successful corrected mugs from failed mugs. Shifted wrist inputs
+are a measured contributor to the scores; their causal role and the proposed
+training remedy remain untested. This is an informative negative result, not a
+claim that the model already generalizes.
+
+Enoch's request to test new conditions before replacing the model is consistent
+with this sequence. His agreement with the narrowed question and schedule is
+still unknown; review the question and one proposed comparison with him before
+expanding the implementation.

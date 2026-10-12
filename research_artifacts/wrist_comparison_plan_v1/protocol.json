@@ -1,8 +1,8 @@
 {
   "schema_version": "paired_wrist_diagnostic_plan_v1",
   "date": "2026-10-12",
-  "status": "planned_not_executed_pending_pose_feasibility_and_executor_support",
-  "research_question": "At the same training-data budget and success/failure balance, does successful wrist-posture coverage reduce false grasp warnings on new conditions more than additional finger-command noise?",
+  "status": "planned_not_executed_observed_training_wrist_pairs_ineligible_explicit_pair_and_executor_pending",
+  "research_question": "For a simulated dexterous hand, does training with more diverse successful wrist configurations improve prediction of grasp, lift and hold outcomes on unfamiliar objects and wrist configurations more than additional finger-command noise, when both approaches use the same amount of training data, the same success/failure proportions and the same model architecture?",
   "first_diagnostic_question": "For the same intended mug grasp, do two feasible wrist settings change the unchanged predictor warning when both actual grasps succeed?",
   "source_sha256": {
     "research_artifacts/task_outcome_baseline_v1/proprioception_and_commands.npz": "16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb",
@@ -122,8 +122,11 @@
     ],
     "fallback": "Record whether A is within the original command range and whether its training distance is lower than B. Two out-of-range settings test wrist sensitivity, not familiar-versus-unfamiliar inputs.",
     "no_distinct_safe_pair": "Mark case no_feasible_pair and retain in inventory; do not force an unsafe wrist or replace the case after inspecting predictions.",
-    "pending_implementation": "The current executor chooses one wrist setting. Explicit pair selection and versioned execution support are not implemented.",
-    "required_before_rollout": "Freeze an exact pose manifest containing A/B wrist vectors, carrier compensation, geometry/source hashes, protocol/runtime versions, eligibility and numeric invariance gates. Numerical wrist pairs are not yet available."
+    "pending_implementation": "No eligible A/B pose pair is frozen. Select and qualify a distinct safe fallback or amend the controlled diagnostic case before implementing explicit pose selection and reject-on-deviation execution support.",
+    "required_before_rollout": "Freeze an exact pose manifest containing A/B wrist vectors, carrier compensation, geometry/source hashes, protocol/runtime versions, eligibility and numeric invariance gates. Numerical wrist pairs are not yet available.",
+    "preflight_scope": "Static finite candidate check of the eight wrist command pairs actually observed in training across the eight declared mug proposals. No new rollout or prediction.",
+    "preflight_result": "None of the 64 observed-training-pair/proposal combinations meets the 10 mm nominal table gate. All eight stored corrected B postures revalidate. This does not rule out the entire continuous training command range or establish dynamic safety.",
+    "preflight_evidence": "research_artifacts/wrist_pose_feasibility_v1/report.json"
   },
   "held_constant": [
     "object geometry and native mass",
@@ -186,13 +189,29 @@
       "comparing different test populations",
       "calling the reused eight diagnostic proposals a fresh test",
       "claiming slip onset, useful recovery timing or physical transfer from final task labels"
-    ]
+    ],
+    "cohort_selection": "Declare selection quotas and rules before fitting; match outcomes within training cohorts without using model prediction scores. Preserve all generated, selected and excluded counts. Equal selected training counts do not imply equal collection effort; report both.",
+    "reference": "Score the original frozen predictor on the same common fresh holdout as a reference. Its smaller training budget does not isolate the wrist-versus-finger diversity effect."
   },
   "direct_next_steps": [
-    "Understand this question, comparison and outcome/prediction distinction.",
-    "Check geometric feasibility for both wrist settings and implement/audit explicit selection only after this planning step.",
-    "Freeze exact A/B pose manifest before any new rollout.",
-    "Run one eligible pair first, then all declared eligible development pairs with the frozen model.",
-    "Review results before choosing any data augmentation or model change."
+    "Review the static 0/64 training-command feasibility result with the user; explain why a safe familiar-wrist mug contrast is not yet available.",
+    "Select a distinct feasible alternative under the declared geometry rule, or amend the diagnostic case before inspecting new predictions. Qualify a two-OOD-wrist comparison as sensitivity.",
+    "Implement and audit explicit pose selection with reject-on-deviation behavior, preserving nominal world palm and all finger targets.",
+    "Freeze exact eligible A/B pose manifest and numeric invariance gates before any new rollout.",
+    "Run one eligible pair first with zero noise and unchanged model, then the remaining declared eligible development pairs.",
+    "Review actual outcomes and alerts before any data augmentation or model change."
+  ],
+  "paper_title": "Evaluating Simulation Diversity for Grasp Failure Warnings",
+  "plain_question": "Which simulation variations make grasp warnings more reliable in new conditions?",
+  "research_quality_gates": [
+    "Existing false alarms and score attribution motivate a test; neither proves physical wrist causation nor an improved predictor.",
+    "Before rollout, verify two distinct feasible settings and freeze exact intended geometry, poses and execution support. Record failed feasibility and guard stops.",
+    "If both wrist settings lie outside training, describe the comparison as sensitivity rather than familiar-versus-unfamiliar transfer.",
+    "Use matched training counts, class mix, source identities and validation settings for the later comparison; report total collection effort separately.",
+    "Keep a common fresh holdout outside training and validation; do not tune on its labels or reuse developmental proposals as a final test.",
+    "Report false alarms and missed failures together, family dependence and uncertainty. Sparse failures do not establish broad noninferiority.",
+    "Compare the scope and evidence with closest prior work; failure prediction, wrist recovery and benign novelty warnings alone do not establish novelty.",
+    "Revise the question or report an informative negative finding when feasibility, identifiability or the evidence fails a gate.",
+    "Keep paper claims at eventual grasp/lift/hold outcome until slip events, useful intervention timing, recovery or physical transfer are separately evaluated."
   ]
 }
