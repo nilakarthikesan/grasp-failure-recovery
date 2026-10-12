@@ -273,6 +273,13 @@ design inferences; they do not mean the papers evaluated our pipeline.
 
 ## Changes to the original plan
 
+The [research decision history](RESEARCH_DECISIONS.md) records the evidence and
+reasons behind these changes, including later mug debugging, consideration of
+public data and the distinction between outcome verification and useful early
+warnings. Implemented choices and proposed experiments are marked separately.
+Append a dated entry after each material change instead of rewriting earlier
+reasoning as though the final plan had been known from the start.
+
 - **9–10 October:** Replaced the initial idea of training a grasp policy first
   with fixed HUG-conditioned execution, isolating grasp/command effects from
   controller-learning failures. The earlier
@@ -349,3 +356,16 @@ all 6,240 predictions exactly and recomputed all 87 group metric records. It
 verified disjoint original source content and unchanged model/controller hashes.
 The standalone manuscript currently retains its earlier pilot scope; these
 separate evidence notes preserve the new experiment for a subsequent revision.
+
+## Decision history and research question update 11 October
+
+The [decision history](RESEARCH_DECISIONS.md) now connects the original pilot,
+frozen fresh evaluation, separately versioned mug correction and public data
+discussion. The standalone manuscript adds a scoped discussion of this evolution
+and the proposed warning question; its quantitative pilot results remain the
+earlier experiment. Guardian and public DROID data are potential comparisons,
+with no import, training or evaluation completed here. Prior work already studies
+runtime failure prediction, so earlier timing alone is not a novelty claim.
+The next evidence should address causal information, unfamiliar conditions and
+advance warning at a controlled false alarm rate. Recovery benefit requires a
+separate intervention experiment.

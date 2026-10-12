@@ -25,6 +25,11 @@ The [partner handoff](docs/PARTNER_HANDOFF.md) confirms the completed work,
 identifies the latest branch and data locations, and gives the next experiment
 in order.
 
+The [research decision history](docs/RESEARCH_DECISIONS.md) explains how evidence
+changed our plan, which choices are implemented, and which questions remain
+proposed. It connects the original pilot, unfamiliar object evaluation, mug
+collision correction and consideration of public data and existing detectors.
+
 The [working paper draft](docs/paper/working_draft.tex) and
 [six-step evidence and literature notes](docs/PAPER_PROGRESS.md) describe the
 completed pilot and the decisions behind it. The paper is an editable research
