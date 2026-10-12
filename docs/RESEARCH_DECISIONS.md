@@ -865,6 +865,40 @@ future work, not a prerequisite for the controlled simulation comparison.
 new trials, training, calibration, threshold or label changes were made in this
 discussion. The accepted formal question and completed results are preserved.
 
+## 12 October 2026 Broad failure goal and a focused first experiment
+
+The user agrees to simulation collection first and asks whether wrist comparisons
+are too narrow given the multiple ways a grasp can fail. The recommendation is
+to retain broad grasp outcome prediction as the goal and use wrist coverage as
+the first controlled experiment. This discussion does not replace the accepted
+formal question or declare a demonstrated wrist training benefit.
+
+Wrists became the focus because successful corrected mugs repeatedly triggered
+warnings and unfamiliar wrist features pushed the model's score toward failure.
+The immediate problem is recognizing successful unfamiliar configurations, not
+an established claim that wrist movement is the physical failure mechanism.
+Both low false alarms on successes and detection of failures matter. The zero
+noise comparison diagnosed repeatability; it did not establish causation.
+
+Broader collection should be staged: geometry and grasp placement, safe wrist
+coverage, and separately declared finger perturbations first; material/mass and
+later disturbances require additional implementation and a defined observable
+question. Preserve outcome labels and record verified failure-event metadata
+for evaluation, without feeding hidden simulator causes into the predictor.
+The original pilot is dominated by failed acquisitions and has only four
+scorer-defined drops, so comprehensive slip prediction is not demonstrated.
+
+The current model uses joint positions, velocities and commands before lifting.
+A cue absent from these inputs cannot be supplied merely by generating more
+examples. Contact sensing is a possible future input, supported by the
+[vision/touch grasp outcome study](https://arxiv.org/abs/1710.05512) and
+[tactile contact-event study](https://arxiv.org/abs/1910.03973); neither result
+establishes a required sensor or a performance guarantee for our system.
+
+**Status:** rationale recorded, simulation-first preference confirmed. Broader
+failure coverage remains a staged proposal. No collection, model change,
+calibration or claim of predicting every failure mode was made in this turn.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new
