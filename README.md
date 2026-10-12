@@ -21,6 +21,10 @@ Open [the local demo](http://127.0.0.1:8767/) while the server is running. See t
 [demo guide](docs/demos/grasp-noise/README.md) and
 [Step 1 walkthrough](docs/HUG_STEP_1_WALKTHROUGH.md) for provenance and labels.
 
+The [initial literature review](docs/PILOT_LITERATURE_REVIEW.md) preserves the
+papers that informed the first pilot. Later choices and implemented evidence
+are recorded in the [research decision history](docs/RESEARCH_DECISIONS.md).
+
 This project studies one connected question:
 
 > How can a robot learn to grasp an object, recognize when its current behavior

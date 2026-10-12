@@ -27,6 +27,11 @@ hypotheses and a human-hand reference space; this project asks whether an
 executed grasp is likely to fail soon and whether an intervention can still
 save it.
 
+The [noisy pilot literature review](PILOT_LITERATURE_REVIEW.md) connects AHA,
+Predictive Learning of Error Recovery, and FAIL-Detect to the six-step collection
+and prediction plan. It records proposed refinements to failure timing, grouped
+splits, baselines, and evaluation; these are not completed model results.
+
 ## Hand embodiment as an experiment parameter
 
 The experiment schema records an explicit `embodiment_id` rather than
