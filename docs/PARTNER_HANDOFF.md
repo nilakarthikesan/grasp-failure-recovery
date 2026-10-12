@@ -14,14 +14,19 @@ physical slip prediction, warning lead time, recovery or real robot transfer.
 
 **Working paper title: Evaluating Simulation Diversity for Grasp Failure Warnings.**
 
-**Accepted question:** For a simulated dexterous hand, does training with more
+**Current draft question:** For a simulated dexterous hand, does training with more
 diverse successful wrist configurations improve prediction of grasp, lift and
 hold outcomes on unfamiliar objects and wrist configurations more than
 additional finger-command noise, when both approaches use the same amount of
 training data, the same success/failure proportions and the same model
 architecture?
 
-Our immediate task is smaller: compare safe wrist settings for the same intended
+This proposed comparison is under review following the user's request to ground
+the direction in published training and evaluation practices. Read the
+[public evidence review](GRASP_PREDICTION_EVIDENCE_REVIEW.md) before new collection
+or fitting. Neither wrist importance nor a wrist-training benefit is established.
+
+The completed diagnostic compared safe wrist settings for the same intended
 mug grasp at zero noise with the saved model unchanged. All eight declared
 pairs are now complete: all 13 successful attempts and three task failures
 trigger warnings. The later training comparison remains pending.
@@ -184,6 +189,10 @@ python -m grasp_failure_prediction.evaluation.result_viewer \
 public website or a shareable link to Nila's recordings.
 
 ## Next work in order
+
+Before the proposed experiments below, confirm our target, available measurements
+and appropriate baseline comparisons using the evidence review. This is a
+research decision gate; no new collection or fitting has begun.
 
 1. **Understand the complete diagnostic.** All 14 new attempts finish. Eleven
    successes cause false warnings; three failed task labels are correctly

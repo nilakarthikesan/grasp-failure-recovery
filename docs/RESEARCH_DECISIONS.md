@@ -899,6 +899,43 @@ establishes a required sensor or a performance guarantee for our system.
 failure coverage remains a staged proposal. No collection, model change,
 calibration or claim of predicting every failure mode was made in this turn.
 
+## 12 October 2026 Grounding the direction in published predictor evidence
+
+**User request:** review strong public prediction systems and their training
+practices before assuming wrist coverage is important or collecting more data.
+The user asks for a credible baseline and evidence about other causes of failure.
+Simulation-first collection remains the expressed preference.
+
+**Completed review:** the [public evidence guide](GRASP_PREDICTION_EVIDENCE_REVIEW.md)
+records 21 systems, papers and company announcements spanning grasp scoring,
+contact/slip detection, runtime task monitors, post-action verification and
+policy value models. It separates prediction metrics from executed task success,
+pins paper versions where available, and marks preprints and commercial claims.
+Public descriptions do not independently certify production reliability.
+
+**Interpretation:** there is no demonstrated universal recipe across those
+different tasks and sensor interfaces. Recurring practices are an explicit
+target/time, informative measurements, representative data, controlled
+comparisons, held-out groups and separate calibration. Targeted coverage is an
+established method; no reviewed source identifies wrist diversity as the unique
+remedy for our joint-only predictor. Our original model remains a measurable
+pilot baseline, with limited retrospective evaluation and poor mug warnings.
+
+**Revised next gate, not an executed experiment:** before selecting larger
+collection, inspect whether the label and causal inputs support the desired
+prediction, and declare appropriate calibration and feature baselines on
+grouped development data. A wrist-feature ablation or command-tracking feature
+comparison would require retraining under a new protocol, not editing frozen
+weights or pretending an altered score is the original model. Reserve fresh
+evaluation before fitting. Choose collection axes from the remaining evidence.
+The draft wrist-versus-noise comparison is now a candidate under review; no
+broader hypothesis or new research contribution has been adopted as a result.
+
+**Documentation and status:** the guide, manuscript related work, progress index
+and partner handoff reflect this gate. Original model, normalization, threshold,
+labels, protocol artifacts and recordings remain unchanged. No new simulation,
+training, calibration, recovery or real-world evaluation was performed.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new

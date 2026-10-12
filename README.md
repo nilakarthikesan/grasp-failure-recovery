@@ -12,6 +12,11 @@ on the working branch until another integration is authorized.
 The [branch guide](docs/WORKING_BRANCH.md) explains the
 cleanup, active checkout and recovery references. `main` remains the published base.
 
+The [public grasp-prediction evidence review](docs/GRASP_PREDICTION_EVIDENCE_REVIEW.md)
+compares published predictors, runtime monitors and company systems, including
+their data, measurements and evaluation limits. The next collection strategy is
+under review; varied wrists remain a hypothesis, not a demonstrated remedy.
+
 ## Interactive noise demo
 
 [![Recorded finger angle noise and measured motion](docs/demos/grasp-noise/preview.jpg)](docs/demos/grasp-noise/index.html)

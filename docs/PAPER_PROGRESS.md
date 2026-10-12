@@ -9,17 +9,20 @@ checkout and recovery references. Scientific protocol versions remain separate.
 
 **Updated: 12 October 2026.** This is the evidence index for the
 [standalone working paper](paper/working_draft.tex), now titled **Evaluating
-Simulation Diversity for Grasp Failure Warnings**. The accepted question compares
+Simulation Diversity for Grasp Failure Warnings**. The current draft question compares
 successful wrist coverage with additional finger command noise at matched
-training budgets. That comparison is planned, not completed. Completed evidence
+training budgets. That proposed comparison is under review and not completed.
+The [public evidence review](GRASP_PREDICTION_EVIDENCE_REVIEW.md) records training,
+sensing and evaluation practices before we choose further collection. Completed evidence
 comprises the pilot, frozen fresh evaluation, separate mug executor correction,
 scoring of 26 completed checks, the wrist input audit and a static check of
 observed training wrist settings, frozen selection of eight wrist pairs and
 completion of all eight zero-noise comparisons. Future slip timing,
 recovery and real world transfer remain untested.
 
-**Immediate next step:** declare the matched training comparison, a separate
-validation/calibration reference and a common fresh holdout before fitting.
+**Immediate next step:** review the published evidence and confirm our prediction
+target, observable inputs and baseline comparisons before choosing new data.
+Any fitting still needs separate validation/calibration and a common fresh holdout.
 All eight wrist pairs are complete: every success still triggers a warning.
 See the
 [current question and evidence gates](#accepted-paper-question-and-evidence-gates-12-october).
