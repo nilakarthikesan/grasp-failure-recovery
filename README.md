@@ -3,6 +3,24 @@
 MuJoCo research infrastructure for executing dexterous grasps and studying
 whether their outcomes can be predicted early enough for useful intervention.
 
+## Interactive noise demo
+
+[![Recorded finger angle noise and measured motion](docs/demos/grasp-noise/preview.jpg)](docs/demos/grasp-noise/index.html)
+
+The [complete demo website](docs/demos/grasp-noise/index.html) lets you select
+five recorded noise strengths, inspect joint limit clipping and measured finger
+motion, and watch successful and failed replays. It embeds the historical
+50 attempt cube pilot and works offline. It is an explanation of recorded
+simulation data, rather than a live simulation or prediction model.
+
+```bash
+python3 -m http.server 8767 --bind 127.0.0.1 --directory docs/demos/grasp-noise
+```
+
+Open [the local demo](http://127.0.0.1:8767/) while the server is running. See the
+[demo guide](docs/demos/grasp-noise/README.md) and
+[Step 1 walkthrough](docs/HUG_STEP_1_WALKTHROUGH.md) for provenance and labels.
+
 This project studies one connected question:
 
 > How can a robot learn to grasp an object, recognize when its current behavior
