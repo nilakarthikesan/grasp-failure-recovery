@@ -532,6 +532,47 @@ diagnostics can support a scoped preliminary workshop account; broader
 augmentation claims require new experiments. The user has not chosen a new
 direction. This turn changed documentation only, without a fit or rollout.
 
+## 12 October 2026 Declaring the chosen question and first comparison
+
+**User decision:** the user chose simulation diversity as the broader question,
+with the wrist comparison first, and asked to define the experiment and success
+criterion before model changes or more data collection.
+
+**Declared question:** at matched training data counts and success/failure
+balance, does successful safe wrist posture coverage reduce false warnings
+on fresh conditions more than additional finger command noise? This is a
+testable proposal, not an established advantage or novelty claim.
+
+**First diagnostic:** retain the original model, normalization, 2.96 second
+closing cutoff and 0.5 alert. Use the same intended mug grasps at zero noise
+with two geometrically feasible wrist settings and compensated carrier poses.
+Declare the eight existing proposal families, up to 16 future executions.
+Setting B comes from the recorded corrected configuration. Seek A among
+original training wrist commands when feasible, otherwise a distinct feasible
+candidate closest to that distribution, without consulting predictions or new
+outcomes. Exact angles and an audited explicit selector remain pending.
+
+**Interpretation:** nominal palm/finger geometry must be preserved, but actual
+tracking and outcomes must still be measured. Both successful pairs with
+different warnings support sensitivity in the tested setup. Outcome changing
+pairs are not harmless posture changes. Infeasible pairs and runtime stops
+remain in the inventory with null labels. Two unfamiliar safe settings do not
+establish an in range versus out of range comparison. This is development
+diagnosis, not improved model performance or an untouched test benchmark.
+
+**Improvement criterion for the later model comparison:** fewer success false
+warnings and no additional missed failures on the same fresh held out test
+groups, at the same threshold, with equal training budgets and matched label
+proportions. Report counts and grouped uncertainty. No failures means recall
+is undefined, and very few cannot establish broad reliability. Do not optimize
+against the test or call lower scores alone an improvement.
+
+The [proposed protocol](../research_artifacts/wrist_comparison_plan_v1/protocol.json)
+binds original source hashes and planned case identities. The [plain explanation](PAPER_PROGRESS.md#selected-question-and-proposed-wrist-comparison-12-october)
+records completed work and direct next steps. This turn wrote the plan only:
+no selector code, feasibility search, simulation, inference or fit was performed.
+Keep the current manuscript and all existing scientific records unchanged.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new

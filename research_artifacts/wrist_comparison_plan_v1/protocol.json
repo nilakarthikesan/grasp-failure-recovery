@@ -1,0 +1,198 @@
+{
+  "schema_version": "paired_wrist_diagnostic_plan_v1",
+  "date": "2026-10-12",
+  "status": "planned_not_executed_pending_pose_feasibility_and_executor_support",
+  "research_question": "At the same training-data budget and success/failure balance, does successful wrist-posture coverage reduce false grasp warnings on new conditions more than additional finger-command noise?",
+  "first_diagnostic_question": "For the same intended mug grasp, do two feasible wrist settings change the unchanged predictor warning when both actual grasps succeed?",
+  "source_sha256": {
+    "research_artifacts/task_outcome_baseline_v1/proprioception_and_commands.npz": "16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb",
+    "research_artifacts/task_outcome_baseline_v1/report.json": "19f1aa3e7ab0902da1c955aaaa992b8023f7c6b453fa60b835d284cd385c13a8",
+    "research_artifacts/object_scene_pilot_v1/dataset.npz": "29f773f7faf03cff5e1c694ef475d02adfd07c239314b349f2228f86db9d3aad",
+    "research_artifacts/object_scene_pilot_v1/splits.json": "27a9c894b0775a5a10e2ae83a18b6a70f78d4c504b80396086a80158b3b5aac7",
+    "research_artifacts/mug_table_clearance_v1/plan.json": "6639a3e27f2440ebe9d7b6dc4f9a40950bede55019f143851c01937a25ecc21f",
+    "research_artifacts/mug_table_clearance_v1/protocol.json": "7f772f0a9c0e0b0b2e09e50d4819f1b1ebc7e519b1e7479163b7afffb3b2d438",
+    "research_artifacts/corrected_mug_model_diagnostic_v1/report.json": "9a1f84d6cfd2d27184dd3a7ba87e056172931686971c6841a2384bbe2d365ee8",
+    "research_artifacts/mug_wrist_input_diagnostic_v1/report.json": "9f348cc3e2a8adfea03e1fd532a2993636525caa3f461953080850db784ddb8e"
+  },
+  "model_contract": {
+    "model_file": "research_artifacts/task_outcome_baseline_v1/proprioception_and_commands.npz",
+    "model_sha256": "16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb",
+    "weights_normalization_features_unchanged": true,
+    "failure_alert_threshold": 0.5,
+    "decision_rule": "p_failure >= 0.5",
+    "prediction_time_s": 2.96,
+    "history_steps": 20,
+    "fields": [
+      "hand_qpos",
+      "hand_qvel",
+      "commanded_target_rad"
+    ],
+    "joint_names": [
+      "WRJ2",
+      "WRJ1",
+      "FFJ4",
+      "FFJ3",
+      "FFJ2",
+      "FFJ1",
+      "MFJ4",
+      "MFJ3",
+      "MFJ2",
+      "MFJ1",
+      "RFJ4",
+      "RFJ3",
+      "RFJ2",
+      "RFJ1",
+      "LFJ5",
+      "LFJ4",
+      "LFJ3",
+      "LFJ2",
+      "LFJ1",
+      "THJ5",
+      "THJ4",
+      "THJ3",
+      "THJ2",
+      "THJ1"
+    ],
+    "outcomes_not_inputs": true
+  },
+  "development_cases": [
+    {
+      "episode_id": "mug_scene002_seed0_noise0.00",
+      "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_002_seed_0.yaml",
+      "original_episode_id": "episode_001560"
+    },
+    {
+      "episode_id": "mug_scene002_seed1_noise0.00",
+      "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_002_seed_1.yaml",
+      "original_episode_id": "episode_001625"
+    },
+    {
+      "episode_id": "mug_scene002_seed2_noise0.00",
+      "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_002_seed_2.yaml",
+      "original_episode_id": "episode_001690"
+    },
+    {
+      "episode_id": "mug_scene002_seed3_noise0.00",
+      "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_002_seed_3.yaml",
+      "original_episode_id": "episode_001755"
+    },
+    {
+      "episode_id": "mug_scene003_seed0_noise0.00",
+      "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_003_seed_0.yaml",
+      "original_episode_id": "episode_001820"
+    },
+    {
+      "episode_id": "mug_scene003_seed1_noise0.00",
+      "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_003_seed_1.yaml",
+      "original_episode_id": "episode_001885"
+    },
+    {
+      "episode_id": "mug_scene003_seed2_noise0.00",
+      "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_003_seed_2.yaml",
+      "original_episode_id": "episode_001950"
+    },
+    {
+      "episode_id": "mug_scene003_seed3_noise0.00",
+      "case_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_003_seed_3.yaml",
+      "original_episode_id": "episode_002015"
+    }
+  ],
+  "scope": {
+    "observation_families": 2,
+    "proposal_families": 8,
+    "postures_per_eligible_case": 2,
+    "maximum_planned_new_diagnostic_executions": 16,
+    "no_new_runs_or_predictions_in_this_plan": true,
+    "not_untouched_generalization_benchmark": true,
+    "not_improvement_of_model_or_recovery_evaluation": true
+  },
+  "pose_selection": {
+    "B": "The corrected wrist setting stored for this case in the existing zero-noise v3 recording; revalidate under the paired executor.",
+    "A": "First seek a different geometrically feasible wrist command pair actually observed in the original training partition. If none fits, select a distinct feasible search candidate nearest the original wrist command distribution.",
+    "distance": "Euclidean distance of the two last wrist commands after scaling with original training mean and scale for command feature indices 48 and 49; no failure scores used.",
+    "selection_uses": [
+      "training wrist commands",
+      "joint limits",
+      "intended geometry",
+      "clearance constraints"
+    ],
+    "selection_must_not_use": [
+      "model predictions for candidates",
+      "new grasp outcomes"
+    ],
+    "fallback": "Record whether A is within the original command range and whether its training distance is lower than B. Two out-of-range settings test wrist sensitivity, not familiar-versus-unfamiliar inputs.",
+    "no_distinct_safe_pair": "Mark case no_feasible_pair and retain in inventory; do not force an unsafe wrist or replace the case after inspecting predictions.",
+    "pending_implementation": "The current executor chooses one wrist setting. Explicit pair selection and versioned execution support are not implemented.",
+    "required_before_rollout": "Freeze an exact pose manifest containing A/B wrist vectors, carrier compensation, geometry/source hashes, protocol/runtime versions, eligibility and numeric invariance gates. Numerical wrist pairs are not yet available."
+  },
+  "held_constant": [
+    "object geometry and native mass",
+    "scene, initial object state, random seed and reset-velocity policy",
+    "friction and simulator parameters",
+    "HUG proposal",
+    "intended world palm path",
+    "all 22 finger targets",
+    "controller durations and force limits",
+    "2 ms physics and 40 ms saved control interval",
+    "task scorer",
+    "model input contract and threshold"
+  ],
+  "noise": {
+    "finger_command_bias_rad": 0.0,
+    "wrist_random_noise_rad": 0.0
+  },
+  "geometry_and_motion": {
+    "base_execution_protocol": "fixed_grasp_lift_v3_table_clearance",
+    "carrier_compensation": "Adjust carrier position/orientation to preserve nominal world palm and intended finger geometry as wrist coordinates change. Do not rotate the intended object grasp.",
+    "nominal_table_clearance_m": 0.01,
+    "nominal_proximal_object_clearance_m": 0.001,
+    "runtime_table_margin_m": 0.001,
+    "runtime_check_interval_s": 0.002,
+    "actual_motion": "Measure world palm/finger tracking deviations and physical outcomes. Nominal invariance does not imply identical contact forces or dynamics."
+  },
+  "outcome_rule": {
+    "label_1": "Frozen grasp/lift/hold success",
+    "label_0": "Completed failed task",
+    "minimum_lift_m": 0.14,
+    "required_hold_s": 2.0,
+    "maximum_object_drop_m": 0.02,
+    "guard_stop_or_setup_rejection": "Null label and unscored; record reason and phase, exclude from task-outcome metrics."
+  },
+  "diagnostic_analysis": {
+    "inventory": "Report all eight cases, pair eligibility, actual executions, errors and stops by posture.",
+    "pair_outcomes": [
+      "success/success",
+      "success/failure",
+      "failure/success",
+      "failure/failure",
+      "incomplete or rejected"
+    ],
+    "primary": "On both-success pairs, compare paired failure scores, success logits and alert decisions. Count B-alert/A-clear and the reverse.",
+    "support": "Reconstruct wrist and nonwrist contributions, input training distances, and measured tracking differences.",
+    "interpretation": "Both-success alert changes support nuisance-warning sensitivity for the tested paired setups. Outcome-changing pairs are not evidence of harmless pose changes.",
+    "repeatability": "Report by proposal and observation family; a repeated direction across at least two proposal families is qualitative repeatability, not a significance or population reliability claim.",
+    "null_result": "No alert change does not refute wrist input sensitivity if both poses remain out of range or scores saturate near one. Report logits and limitations.",
+    "not_an_improvement": "The model remains unchanged. Score changes alone are not a validated model improvement."
+  },
+  "later_data_diversity_test": {
+    "status": "proposed_after_diagnostic_not_ready_for_collection_or_training",
+    "comparison": "Original training base plus an equal-size additional finger-noise cohort versus the same base plus a wrist-coverage cohort.",
+    "controls": "Match training episode count, success/failure proportions, base object/proposal identities, model architecture and validation selection rule. Fit normalization on each training set only. If matched cohorts cannot be formed, amend the design before training and do not attribute a confounded difference specifically to wrist versus finger variation.",
+    "evaluation": "Declare a common fresh object/posture/observation/proposal holdout before collection; keep it outside training and validation, freeze both models before scoring.",
+    "improvement_rule": "At the same 0.5 threshold on that common test set, fewer false warnings among successful grasps without more missed completed failures. Report counts, object/posture breakdowns and paired uncertainty respecting family grouping.",
+    "insufficient_evidence": "No failure examples means failure detection is undefined. A few failures cannot establish broad noninferiority. Always warning or never warning fails the joint criterion.",
+    "not_allowed": [
+      "tuning threshold on test outcomes",
+      "comparing different test populations",
+      "calling the reused eight diagnostic proposals a fresh test",
+      "claiming slip onset, useful recovery timing or physical transfer from final task labels"
+    ]
+  },
+  "direct_next_steps": [
+    "Understand this question, comparison and outcome/prediction distinction.",
+    "Check geometric feasibility for both wrist settings and implement/audit explicit selection only after this planning step.",
+    "Freeze exact A/B pose manifest before any new rollout.",
+    "Run one eligible pair first, then all declared eligible development pairs with the frozen model.",
+    "Review results before choosing any data augmentation or model change."
+  ]
+}

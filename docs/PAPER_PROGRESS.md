@@ -668,3 +668,97 @@ one criterion for improvement**. Preserve the saved model as the baseline.
 The existing diagnostic is the smallest immediate workshop scope; a data
 diversity study is a broader follow up requiring new work. The user has not
 selected a new direction, and no candidate's novelty is established here.
+
+## Selected question and proposed wrist comparison, 12 October
+
+The user chose useful simulation diversity as the broad question and a
+controlled wrist comparison as the next diagnostic. The [proposed protocol](../research_artifacts/wrist_comparison_plan_v1/protocol.json)
+records the case list, frozen hashes, comparisons and interpretation rules.
+Its status is **planned, not executed**. No model or recording changed.
+
+### The research question
+
+**Does varied simulation data make grasp warnings more reliable in new conditions?**
+
+Operationally: at the same training episode count and success/failure balance,
+does adding coverage of successful safe wrist postures reduce false warnings
+on new object/posture groups more than adding more finger command noise?
+Both eventual training variants must use the same model family, feature fields
+and validation selection rule. This is a proposed comparison, not a claim that
+posture coverage or finger noise should use different base objects or proposals;
+those identities must match between the training cohorts. Nor does it establish that
+posture data are already better. It follows the original noisy data plan while
+testing which variation helps, rather than assuming more randomization helps.
+
+### The first comparison with the model unchanged
+
+For the same saved mug proposal, compare two feasible wrist settings with the
+same object, scene, initial object state, finger targets, planned world palm
+path, timings, physics and zero noise. Compensate carrier placement so the
+nominal palm and finger grasp stays the same. The model, normalization,
+closing inputs through 2.96 seconds and 0.5 alert threshold stay frozen.
+
+Setting B is the case's recorded corrected wrist pose. First seek setting A
+among wrist command pairs observed in the original training partition, using
+geometry alone to test feasibility. If none fits, choose a distinct feasible
+candidate closest to the training command distribution and record its distance.
+Selection cannot use candidate prediction scores or new outcomes. A familiar
+command does not imply all measured model inputs are familiar.
+
+Use the eight existing mug proposal families from two scenes, with at most
+two future executions per eligible case: **up to 16 diagnostic trials**.
+These are development cases, not a fresh generalization benchmark. The current
+executor selects one pose; explicit pair selection is not implemented yet.
+The exact A/B angles must be declared in a feasibility manifest before any
+rollout. A training range pose might not clear the table. Record missing pairs
+instead of forcing unsafe settings or replacing cases based on their scores.
+
+Both settings must satisfy the existing nominal geometry gates and the runtime
+1 mm table margin. Record measured palm/finger tracking, scores, alerts and
+outcomes. Nominal preservation does not imply identical forces or motion.
+Report the entire pair outcome matrix, including changed outcomes and stops.
+Rejected or stopped attempts have null labels and remain outside scored metrics.
+
+The cleanest comparison is a pair in which **both grasps succeed**. If their
+alert decisions differ, this shows that a successful intended grasp can receive
+different warnings across the paired wrist setups. Report score, linear logit
+and wrist/nonwrist contributions too. Repetition across at least two proposal
+families is qualitative repeatability, not a statistical reliability guarantee.
+If actual outcomes change, the pair cannot demonstrate a harmless posture
+change. If both settings remain unfamiliar or scores saturate near one, no
+alert change does not rule out wrist sensitivity.
+
+### What counts as improvement
+
+This first comparison is diagnosis; it cannot improve unchanged model weights.
+Later improvement requires, at the same 0.5 threshold on a common freshly
+declared test set, **fewer false warnings among successful grasps without more
+missed failures**. Report counts, rates, object/posture breakdowns and uncertainty
+that respects related proposal/scene families. Use matched training budgets
+and label proportions so simply adding more success labels does not masquerade
+as better posture coverage. Keep test groups outside training and validation.
+
+Lower scores alone, a result on different test populations, an always warn
+predictor or a never warn predictor do not meet this criterion. If the test
+contains no failures, failure detection is undefined. Very few failures cannot
+establish broad noninferiority. The three current mug failures do not resolve
+that limitation. Useful lead time, intervention benefit and real transfer are
+still separate untested claims.
+
+### Direct next actions
+
+1. Check whether two usable wrist settings exist, using geometry and the
+   original training distribution before any new outcome or prediction.
+2. Implement and audit explicit posture selection, preserving the existing
+   controller records. Freeze exact angles, source hashes and invariance gates.
+3. Run one eligible pair first and inspect its input, warning and physical
+   outcome, then execute the remaining declared eligible pairs.
+4. Review the diagnostic before choosing the size and implementation of the
+   equal budget data diversity experiment or changing the model.
+
+The completed foundation is the simulated execution and labeling pipeline,
+the 1,040 cube/apple pilot and trained baseline, the 2,080 fresh object/scene
+evaluation, the separate mug executor correction, frozen scoring of 26 completed
+checks and the wrist training distribution audit. Paper evidence notes and a
+working manuscript exist. The controlled pair comparison, data diversity fit,
+useful warning timing, recovery and workshop submission are still pending.
