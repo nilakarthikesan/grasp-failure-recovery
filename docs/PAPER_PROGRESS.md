@@ -683,12 +683,10 @@ Its status is **planned, not executed**. No model or recording changed.
 Operationally: at the same training episode count and success/failure balance,
 does adding coverage of successful safe wrist postures reduce false warnings
 on new object/posture groups more than adding more finger command noise?
-Both eventual training variants must use the same model family, feature fields
-and validation selection rule. This is a proposed comparison, not a claim that
-posture coverage or finger noise should use different base objects or proposals;
-those identities must match between the training cohorts. Nor does it establish that
-posture data are already better. It follows the original noisy data plan while
-testing which variation helps, rather than assuming more randomization helps.
+Both eventual training variants must use the same model family, feature fields,
+validation selection rule and base object/proposal identities. The benefit of
+posture coverage remains untested. This comparison follows the original noisy
+data plan and asks which variation helps transfer.
 
 ### The first comparison with the model unchanged
 
