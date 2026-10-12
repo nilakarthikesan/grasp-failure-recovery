@@ -11,6 +11,12 @@ because `libgomp.so.1` was missing. `libgomp1` is now included in the image's
 Ubuntu packages. A subsequent Linux rebuild and runtime smoke test are pending;
 the corrected mug walkthrough used the existing native Mac runtime.
 
+**12 October verification update:** [Linux workflow 38204790827](https://github.com/nilakarthikesan/grasp-failure-recovery/actions/runs/38204790827)
+passed for commit `5f3882ac3ca1f505d0f02d0ab3dfcf2419629a81`, after adding
+`libgomp1`. This verifies the image build and public synthetic saved grasp
+execution on Linux. Licensed HUG inference and GPU rendering remain outside
+that check. The earlier pending status above records the sequence of the fix.
+
 `Dockerfile.eval` creates the pinned Linux x86-64 runtime for HUG inference,
 Dex Retargeting, and MuJoCo evaluation. It pins HUG and Dex URDF revisions and
 records the project commit as an OCI image label and runtime environment value.

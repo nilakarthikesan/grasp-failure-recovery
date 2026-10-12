@@ -234,6 +234,64 @@ advice; no message or expert recommendation is claimed here.
 Evidence: [the walkthrough, causal input, replay and score explanation](../research_artifacts/mug_single_walkthrough_v1/README.md).
 Full raw recordings remain in the local run directory recorded in its manifest.
 
+## 12 October 2026 Separating command noise from data diversity
+
+The user asked whether adding more mug noise would address transfer and what
+would make this a research contribution. Our first collection varied finger
+commands within cube and apple scenes. That supplied command variation, not
+independent coverage of object geometry, scene conditions or safe wrist poses.
+The corrected zero noise mug false alarm motivates testing those factors
+separately before expanding the collection or changing the model.
+
+Primary sources reviewed on this date inform the recommendation:
+
+1. [The Feeling of Success, CoRL 2017](https://proceedings.mlr.press/v78/calandra17a/calandra17a.pdf)
+   already predicts grasp outcomes before lifting, varies grasp position,
+   orientation and force, and evaluates with objects separated between training
+   and test. This supports deliberate grasp diversity and object grouping;
+   prelift prediction alone is not our novelty.
+2. [SAFE, NeurIPS 2025](https://arxiv.org/html/2506.09937v2) tests runtime VLA
+   failure detection on held out tasks and compares alarm accuracy and timing.
+   It motivates measuring false alarms and useful timing in addition to ranking.
+3. [FIPER, NeurIPS 2025](https://arxiv.org/html/2510.09459v2) explicitly tests
+   unfamiliar successful executions alongside actual failures. It uses generative
+   policy observation embeddings and action uncertainty, so its implementation
+   is not directly compatible with our deterministic controller. Its calibration
+   assumptions do not guarantee performance after our controller change.
+4. [Isaac Lab noise documentation](https://isaac-sim.github.io/IsaacLab/main/source/tutorials/03_envs/create_direct_rl_env.html#action-and-observation-noise)
+   separates command and measurement noise, including fixed episode biases and
+   perstep disturbances. Its [transfer guidance](https://isaac-sim.github.io/IsaacLab/develop/source/how-to/transfer_policies_between_physx_and_newton.html#introducing-domain-randomization)
+   recommends plausible physics uncertainty and a deterministic nominal
+   evaluation. These are representative engineering practices, not a universal
+   recipe or evidence that our current disturbances match hardware uncertainty.
+
+**Proposed next experiment, not implemented:** declare a small v3 diagnostic
+batch with familiar object controls, multiple mug grasps and fresh scenes.
+Compare zero noise with the existing bounded finger command bias levels, while
+keeping model weights, input cutoff, task labels and alert threshold unchanged.
+Record commanded versus applied offsets, guard rejections and objectwise false
+alarms and missed failures. Group related proposal and scene families together.
+Do not treat previously inspected mug or milk results as an untouched test set.
+
+Object and safe wrist diversity are separate axes. Testing multiple compensated
+wrist solutions for the same intended palm and finger grasp would require a
+planned executor extension and its invariance and motion checks. It is not
+equivalent to enabling random wrist offsets in the current finger noise path.
+Introduce actuator, sensor or friction variation later when a specific
+uncertainty question justifies it. Current synthetic stress is not calibrated
+hardware noise, and physical grasp outcomes must be measured rather than
+assumed invariant under nominal geometry preservation.
+
+**Provisional research direction:** evaluate whether a lightweight hand state
+monitor can retain useful outcome discrimination and fewer false alarms across
+safe wrist configurations and unfamiliar objects. Matched execution controls
+and representation comparisons could make a specific dexterous hand study.
+This is a hypothesis, not an established literature gap or completed novelty.
+It needs repeated evidence and comparisons on fresh object and pose groups.
+Warning lead time, intervention benefit and real robot transfer require separate
+tests. We should choose the question now and let the experiments refine it,
+rather than claim that finishing a collection pipeline establishes a contribution.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new
