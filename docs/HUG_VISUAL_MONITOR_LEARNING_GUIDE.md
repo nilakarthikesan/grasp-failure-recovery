@@ -25,15 +25,41 @@ The generator's sampling noise produces different candidate grasp poses. Our
 finger-angle noise is a separate disturbance applied after choosing a proposal.
 These provide two different kinds of variation; they should not be conflated.
 
+HUG means Human Universal Grasping. Hugging Face is a platform that hosts its
+pretrained weights; it is not the grasp model or our simulator. HUG is a
+vision-conditioned grasp generator, not a VLM or a language-conditioned VLA.
+Its output describes a candidate pose, not performance metrics: wrist position,
+wrist orientation and finger configuration. Our adapter also reads the
+exported human-hand landmarks and mesh, then retargets them to Shadow joints.
+
 **MuJoCo is our simulated world.** Our fixed controller approaches, closes,
 lifts and holds the object using a retargeted HUG proposal. HUG supplies the
 starting grasp; MuJoCo computes what happens during execution.
+The fixed controller is scripted; receiving numerical targets does not make
+it a VLA. A simulator can contain a learned VLA controller, but the simulator
+and that controller are different components.
 
 **Our proposed visual monitor watches the attempt.** Images available so far
 would enter a separate model that scores an outcome or event. It could watch
 our HUG executor and a real VLA-controlled robot. This would be a visual
 monitor evaluated on VLA rollouts, not a newly trained VLA or VLA-feature
 monitor. Our existing predictor uses joint measurements and commands.
+
+## What visual feedback means
+
+Visual feedback means using new camera observations during execution to
+decide whether to change the movement. For example, if the object shifts after
+the initial picture, a controller could see that shift and adjust its approach.
+Our fixed executor follows its approach/close/lift/hold sequence without
+replanning from new images. Its position servos still use joint-state feedback;
+the absence of visual replanning does not mean there is no feedback anywhere.
+
+Recording or rendering a video is observation, not automatically feedback.
+A visual monitor could produce a warning from those images. It becomes part
+of a feedback loop only when that warning actually changes execution, such as
+stopping, retrying or asking for help. No such intervention is implemented in
+our current predictor. Evaluation of earlier warnings and useful corrections
+remains separate from the classification score.
 
 ## Walk through our existing cube example
 
