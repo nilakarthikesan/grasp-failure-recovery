@@ -963,6 +963,30 @@ negative findings, not a journal. The official call was rechecked. No universal
 acceptance threshold or accepted contribution is inferred from the papers.
 No simulation, controller, predictor, calibration or frozen evidence changed.
 
+## 12 October 2026 Prioritizing a relevant VLA-monitoring research area
+
+The user asks for a direct judgment about relevance before committing to a
+research direction. Recent primary monitoring papers and company research
+support VLM/VLA failure monitoring as an active area. The answer is yes:
+prioritize grasp-specific monitoring alongside an existing VLA policy.
+This selects an area of investigation, not a final hypothesis or a claim that
+all robotics failures are now handled by one industry-standard architecture.
+Public announcements do not establish startup formation or adoption counts.
+
+The evidence review now includes 24 records, adding action-only and temporal
+monitoring alternatives. The next gate is real-recording suitability, a
+compatible baseline, and a taxonomy of missed grasp failures. Existing work
+already addresses feature fusion, timestamp supervision, phase-aware checks
+and varied rollouts, so a distinctive contribution requires a closer
+comparison. The previous wrist-versus-noise study remains a preserved candidate,
+not an assumed primary experiment.
+
+No data archive, training run, VLA integration, model change or new experiment
+was performed. The existing manuscript remains a record of completed pilot
+evidence while a precise contribution is selected. The separate context-trust
+and multimodal agent-evaluation idea was transferred to a new projectless chat
+at the user's request; it is not part of the grasp study.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new

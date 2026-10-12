@@ -5,6 +5,32 @@ research basis before choosing a niche. They are open to other datasets and
 simulators, and are considering a VLA-based grasp monitor. This records an
 exploration, not adoption of a new controller or a claim of novelty.
 
+**Current research priority:** grasp-specific failure monitoring alongside an
+existing VLA policy. Public evidence establishes this as an active research
+direction, so the next exploration will be based here. The exact contribution,
+dataset and experimental question remain to be selected; no model migration
+or new VLA result is implied.
+
+## Evidence of relevance, rather than a universal standard
+
+SAFE is followed by recent [ActProbe](https://arxiv.org/html/2606.08508v1),
+[Hide-and-Seek](https://arxiv.org/html/2605.30834v1) and
+[VLA-FAIL](https://arxiv.org/html/2606.21386v1) studies of lightweight runtime
+monitors. These offer alternative signals and concrete limitations to compare.
+Foundation-model activity also appears in Google's
+[success-detection reasoning model](https://deepmind.google/blog/gemini-robotics-er-1-6/)
+and Physical Intelligence's
+[learned value function](https://arxiv.org/html/2511.14759v2).
+These sources support technical and commercial relevance; they do not prove
+one dominant industrial detector or comparative startup-formation rates.
+
+The working area is now clear. Next inspect grasp-containing real recordings,
+reproduce a suitable monitor and analyze which failures it misses. A candidate
+question is whether observable grasp-state evidence can catch failed
+acquisitions before transporting an unsecured object, at the same false-alarm
+budget. Existing visual/phase-aware systems and gripper-feature ablations
+require closer comparison before calling that question distinctive.
+
 ## What makes the comparison useful?
 
 Amazon's study connects collected deployment data to a decision about which

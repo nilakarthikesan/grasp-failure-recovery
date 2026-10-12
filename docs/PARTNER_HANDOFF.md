@@ -29,6 +29,10 @@ The [VLA direction review](VLA_DIRECTION_REVIEW.md) records the user's interest
 in a monitor grounded in an actual robot-policy problem. Public SAFE loader
 formats were inspected; archives, grasp-specific labels and runtime remain
 unverified. This is an exploration, not an implemented pivot.
+The next research area to prioritize is grasp-specific monitoring alongside a
+pretrained VLA policy, with a reproduced baseline and failure analysis before
+selecting the contribution. The old wrist training comparison is no longer
+assumed to be the primary experiment; its evidence remains preserved.
 
 The completed diagnostic compared safe wrist settings for the same intended
 mug grasp at zero noise with the saved model unchanged. All eight declared

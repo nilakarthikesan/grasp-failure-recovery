@@ -1,6 +1,6 @@
 # Public evidence for grasp failure prediction
 
-Reviewed 12 October 2026. This is a bounded review of 21 published systems,
+Reviewed 12 October 2026. This is a bounded review of 24 published systems,
 research releases and company announcements. It includes foundational studies
 and recent 2025–2026 work. It is not an exhaustive company census, a benchmark
 leaderboard or independent certification of production reliability. Paper
@@ -319,6 +319,36 @@ Primary papers or official research/company releases are linked directly.
 **Reported evidence:** Public announcement reviewed; old technical pages inaccessible.
 **Limit:** No reproducible grasp-warning benchmark in reviewed material.
 **Use for our decision:** A public survey cannot certify undisclosed production reliability.
+
+### Tsinghua / collaborators: ActProbe
+
+2026 · June preprint. Preprint. [Primary source](https://arxiv.org/html/2606.08508v1).
+
+**Inputs and task:** Emitted action chunks; magnitude and temporal inconsistency.
+**Training variety:** Released generative-policy rollout benchmarks; compact learned action probe.
+**Reported evidence:** Early-detection comparisons; small real recorded-pick evaluation.
+**Limit:** Offline real tests are limited; not universal physical-slip forecasting.
+**Use for our decision:** Compare an action-only baseline with hidden-feature monitoring.
+
+### Academic VLA-monitor research: Hide-and-Seek
+
+2026 · May preprint. Preprint. [Primary source](https://arxiv.org/html/2605.30834v1).
+
+**Inputs and task:** VLA representations with temporal contrastive training.
+**Training variety:** Trajectory outcomes; no step-level annotation required.
+**Reported evidence:** Simulation and real task-monitor evaluations.
+**Limit:** Averaged embeddings can lose joint structure; perceptual failures remain difficult.
+**Use for our decision:** Localized supervision and signal structure already have prior work.
+
+### Academic VLA-monitor research: VLA-FAIL
+
+2026 · June preprint. Preprint. [Primary source](https://arxiv.org/html/2606.21386v1).
+
+**Inputs and task:** Internal feature shift and overlapping-action inconsistency.
+**Training variety:** Policy fine-tuning data; failure examples not required.
+**Reported evidence:** Runtime-monitoring studies of learned policies.
+**Limit:** Can miss failures with consistent features and actions; requires compatible action chunks.
+**Use for our decision:** Check physical task evidence beyond policy consistency.
 
 ## Review status and reproducibility
 

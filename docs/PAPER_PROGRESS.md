@@ -25,6 +25,9 @@ target, observable inputs and baseline comparisons before choosing new data.
 Any fitting still needs separate validation/calibration and a common fresh holdout.
 The [VLA direction review](VLA_DIRECTION_REVIEW.md) adds a possible real-recording
 baseline route; it does not adopt a VLA controller or establish a new contribution.
+**Current research priority:** grasp-specific monitoring of existing VLA
+policies. The current manuscript preserves the original simulation evidence;
+a new precise contribution and evaluation have not yet been adopted.
 All eight wrist pairs are complete: every success still triggers a warning.
 See the
 [current question and evidence gates](#accepted-paper-question-and-evidence-gates-12-october).
