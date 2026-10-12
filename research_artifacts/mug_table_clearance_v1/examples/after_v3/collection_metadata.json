@@ -1,0 +1,324 @@
+{
+  "camera_sha256": "sha256:7cf921d5850c26bfb5ee491763efb56a5fb097f1b1197a269ba4b0b080d8bbcf",
+  "case_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/cases/scene_002_seed_0.yaml",
+  "clearance_plan": {
+    "adjusted_wrist_rad": [
+      0.09908383854166658,
+      -0.22680215624999997
+    ],
+    "configuration": {
+      "check_closing_targets": false,
+      "clearance_m": 0.01,
+      "grid_points_per_joint": 13,
+      "proximal_object_clearance_m": 0.001,
+      "refinement_rounds": 3
+    },
+    "evaluated_candidates": 190,
+    "feasible": true,
+    "minimum_proximal_object_distance_m": 0.06773319829313498,
+    "minimum_table_clearance_m": 0.010003214505024935,
+    "original_proximal_object_distance_m": 0.0677331974037074,
+    "original_table_clearance_m": -0.03436453913044401,
+    "original_wrist_rad": [
+      -0.2069414258003235,
+      -0.04512403532862663
+    ],
+    "rejection_reason": null,
+    "root_position_m": [
+      0.31625809077778844,
+      -0.1492773592479093,
+      0.10809106565287957
+    ],
+    "root_quaternion_wxyz": [
+      0.5830096860388664,
+      -0.07656748093241693,
+      -0.7560160864745108,
+      -0.2875357435872821
+    ],
+    "schema_version": "table_clearance_plan_v1",
+    "search_objective": "smallest squared wrist change among evaluated feasible candidates",
+    "table_measure": "minimum support above the table top plane, including all active hand geoms",
+    "wrist_joint_names": [
+      "WRJ2",
+      "WRJ1"
+    ]
+  },
+  "environment_config_hash": "sha256:954eb93c4a4cffbff9f5b4001823d47dba9c92109427eb97c538ca8532744717",
+  "execution_protocol": {
+    "base_protocol_config_hash": "sha256:a2c6d674b0813b2e21d1fb5d13a339cef80fec718e620b39bc5c21cc4516b99c",
+    "base_protocol_id": "fixed_grasp_lift_v2",
+    "clearance_configuration": {
+      "check_closing_targets": false,
+      "clearance_m": 0.01,
+      "grid_points_per_joint": 13,
+      "proximal_object_clearance_m": 0.001,
+      "refinement_rounds": 3
+    },
+    "controller": "palm_preserving_wrist_clearance_v1",
+    "execution_protocol_id": "fixed_grasp_lift_v3_table_clearance",
+    "parameters": {
+      "approach_duration_s": 1.0,
+      "close_duration_s": 1.0,
+      "force_close_delta_rad": 0.2,
+      "grip_command": 1.0,
+      "grip_command_type": "normalized_position",
+      "hold_duration_s": 2.0,
+      "lift_duration_s": 1.5,
+      "lift_height_m": 0.15,
+      "maximum_mean_fingertip_error_m": 0.01,
+      "palm_height_above_object_m": 0.04,
+      "pregrasp_distance_m": 0.08,
+      "settle_duration_s": 0.8,
+      "total_timeout_s": 10.0
+    },
+    "runtime_table_margin_m": 0.001,
+    "schema_version": "execution_protocol_v1",
+    "states": [
+      "reset",
+      "load_object",
+      "retarget",
+      "move_to_pregrasp",
+      "approach",
+      "close_fingers",
+      "lift",
+      "hold",
+      "score"
+    ],
+    "success": {
+      "maximum_object_drop_m": 0.02,
+      "minimum_lift_m": 0.14,
+      "required_hold_s": 2.0
+    }
+  },
+  "execution_protocol_config_hash": "sha256:4a6f39458c413eafb06f93cbd24e8a4e13850acadd31bde76bec88d846b45608",
+  "failure_type": null,
+  "geometry_asset_files_sha256": {
+    "collision/part_000.obj": "sha256:f050b714d7721bcfaf67391bbc375c42577b72838f80e96f73ace5bb0cb37416",
+    "collision/part_001.obj": "sha256:37b822ec21d2497030c57ff003adfdeee56c312a3d20cb0295bb670ec0b30ccb",
+    "collision/part_002.obj": "sha256:88da7546e7559e7f3d94c448ce30742408b44442c5d55b49de66c91f652db44c",
+    "collision/part_003.obj": "sha256:17890e11105b70874f2a4cf20f5e66387b9490a742e13ad0a804c5e237f8b568",
+    "collision/part_004.obj": "sha256:37b4575c623c914855c185aa12211919093d38bf164382e8a1e8366209ceb612",
+    "collision/part_005.obj": "sha256:d2977aeca19a41553e5a623974984e4d2f8264822ad77ce034d672fbc8d75a30",
+    "collision/part_006.obj": "sha256:83d7ff7ba8a6b8b56e3c09bbb38c39c94a4129ab83d281e0b96a2ef613a7e1eb",
+    "collision/part_007.obj": "sha256:d1c0e8e316ef6e24b63002fd9066012a73fbfe1d43832a082c6301c9f93e644c",
+    "collision/part_008.obj": "sha256:fb8fdcf8226d1d450f5073c79188c4271640ef967b5484a647b834cea4d15265",
+    "collision/part_009.obj": "sha256:6cde7933ad04711b65ab13c3454ef9ffd322d3d50ac4c39ed891e1e733cb9b86",
+    "collision/part_010.obj": "sha256:81fe2b968182947eeeafeabba6253803670a37f7f40b9b860c300220e84b8810",
+    "collision/part_011.obj": "sha256:aa4c74dec977942b89e0a62a6ea005a297ce3d64d9e3d5ffb593258f97aa0e1c",
+    "collision/part_012.obj": "sha256:f2c88a547b5757fb559b49bb8ba15d9465abed3e647a423eb13584ae2739519e",
+    "collision/part_013.obj": "sha256:e298ecbbb1dc4ce1b364216fbc626986fdafa82f13c41617b3171a6454dd1e5a",
+    "collision/part_014.obj": "sha256:7bd0bbd3ffac686db9033f5729e83954cd9b85071e3b98dfba2953d83d21f7f3",
+    "object.xml": "sha256:ced71ba19f6a40dc7634a729ca8ae24e78de1be0a8c8df1ddcac486661423e1d",
+    "visual.obj": "sha256:e9ee0f42bb25cd8e2149e8090bf3f062cf3d735f9738972b5d2d932c7e4179bb"
+  },
+  "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+  "geometry_group_id": "sha256:fbb290d9b70ffb20e0aaadab762d5c8e38e289ce7993894d4be5c1ae3f048bde",
+  "group_id": "sha256:f7b2dd211275340f4c6e58c1bed7e9e3c29ca2b05cda6db3276fbe1fa4cd23ee",
+  "hug_inference_provenance": {
+    "checkpoint_sha256": "515b5c3bc7987739aec019e754c15df5fbf3eff9daefb93924da098ae4bd1eae",
+    "device": "cpu",
+    "dtype": "float32",
+    "generation_rng": "PyTorch and libc srand reset immediately before CPU model.sample; batch size one",
+    "hug_code_commit": "8d1c52d4c24bfae5a369e32e3f134f5601a02630",
+    "hug_depth_png_sha256": "1ae0d1c8001d0b7b5932ee21e976bf27645b4f06c403cbf2ff31a413753d8395",
+    "inference_script_sha256": "4b11f7ab5621bf7e104421f7bb2561adeda97485382504c37e7ef38644b19793",
+    "input_tensor_hash": "sha256:26a32dfeb859c3414d60fb8f85c86cb939c949eafe33f1bbc4abbc99fa05f907",
+    "manifest_sha256": "630242e4b79a884112209084853b31d25a01cc264ac536a67a43055da61aa9f1",
+    "prepared_sample_sha256": "30afd1d03bd335b9c9ce75ad9eb53235a2f733d3da5677946bb139eb3b4424b3",
+    "sampling_steps": 50,
+    "seed": 0
+  },
+  "inference_report_sha256": "sha256:6a4241df32ae34cc2727d68548791b3db68fe407eb1ad3b3ccee603eb4810fa2",
+  "intended_world_palm_position_m": [
+    0.103979513839143,
+    -0.02888848653135806,
+    0.06952656250663058
+  ],
+  "intended_world_palm_quaternion_wxyz": [
+    0.6087106541159315,
+    -0.13196247809723544,
+    -0.6886262179468837,
+    -0.37128314787552974
+  ],
+  "label": 1,
+  "label_scope": "unchanged final grasp/lift/hold scorer; clearance rejection has no label",
+  "noise_amplitude_rad": 0.0,
+  "noise_mode": "uniform_episode_bias",
+  "noise_seed": 3089070908,
+  "object_id": "hug_mug",
+  "object_orientation_xyzw": [
+    -0.013427551995984773,
+    -0.006137545571129831,
+    -0.0012919682924076275,
+    0.9998901750690867
+  ],
+  "object_position_m": [
+    -0.03081908323373589,
+    -0.013500259903564488,
+    0.05731972693903406
+  ],
+  "observation_files_sha256": {
+    "T_world_camera.npy": "sha256:7cf921d5850c26bfb5ee491763efb56a5fb097f1b1197a269ba4b0b080d8bbcf",
+    "depth.png": "sha256:1ae0d1c8001d0b7b5932ee21e976bf27645b4f06c403cbf2ff31a413753d8395",
+    "depth_m.npy": "sha256:6d84b8e27cb25c27cb44d47e8c58800b85dc2209469e1fcfe7a817e1da8c2f96",
+    "intrinsics.npy": "sha256:284e3ac36b9bf5038dc41030f30ef79e397f5e15414767f5730b0da1858a0f4f",
+    "object_mask.png": "sha256:03e5c6919148dd9b00383d9fd95e75adfee0402fcf31c2d052b698ce3ca564b3",
+    "rgb.png": "sha256:1918d526d8a96ad3cf211fb1bdfe661c5846f41213afbcd1ab604035c35349fa"
+  },
+  "observation_group_id": "sha256:25ac5ecfb667d98aeabc060b069640a74805148a800669404d666c70c094bd98",
+  "observation_manifest_sha256": "sha256:630242e4b79a884112209084853b31d25a01cc264ac536a67a43055da61aa9f1",
+  "observation_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/observations/scene_002",
+  "observation_selection_uv": [
+    112,
+    106
+  ],
+  "observation_source": {
+    "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+    "kind": "mujoco_render",
+    "mujoco_version": "3.3.7",
+    "object": "hug_mug",
+    "seed": 10106
+  },
+  "original_case_sha256": "sha256:9391b4c3e03d68c3b67be9dfe4d4bd6225f0f93ce22a881c659ccc2b15c51a97",
+  "original_resolved_case": {
+    "case_id": "scene002_hug_seed0",
+    "embodiment": {
+      "id": "shadow_hand_right"
+    },
+    "environment": {
+      "expected_config_hash": null,
+      "id": "adroit_shadow_tabletop_v2"
+    },
+    "execution_protocol": {
+      "expected_config_hash": null,
+      "id": "fixed_grasp_lift_v2"
+    },
+    "grasp": {
+      "id": "hug_scene002_seed0",
+      "inference_seed": 0,
+      "observation_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/observations/scene_002",
+      "prediction_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_0/proposal.pkl",
+      "source": "hug"
+    },
+    "initial_condition": {
+      "id": "captured_scene002",
+      "object_orientation_xyzw": [
+        -0.013427551995984773,
+        -0.006137545571129831,
+        -0.0012919682924076275,
+        0.9998901750690867
+      ],
+      "object_position_m": [
+        -0.03081908323373589,
+        -0.013500259903564488,
+        0.05731972693903406
+      ]
+    },
+    "motion_profile_id": "nominal_lift_v1",
+    "object": {
+      "friction_profile_id": "nominal_v1",
+      "geometry": {
+        "expected_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+        "kind": "mjcf_asset",
+        "mjcf_path": "runs/fresh_object_scene_eval_2026-10-11/assets/mug/sim_assets/object.xml",
+        "schema_version": "object_geometry_ref_v1"
+      },
+      "id": "hug_mug",
+      "mass_kg": 0.4253
+    },
+    "schema_version": "eval_case_v1",
+    "seed": 10106
+  },
+  "privileged_replay_only_fields": [
+    "full_qpos",
+    "full_qvel",
+    "integration_state"
+  ],
+  "proposal_path": "runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_0/proposal.pkl",
+  "proposal_sha256": "sha256:11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+  "proximal_object_measure_scope": "nominal approach endpoint only; no general swept-object certificate",
+  "purpose": "small controller validation; not a frozen-model evaluation or training dataset",
+  "resolved_environment": {
+    "cameras": [
+      {
+        "fps": 25,
+        "height": 480,
+        "id": "front",
+        "width": 640
+      },
+      {
+        "fps": 25,
+        "height": 480,
+        "id": "wrist",
+        "width": 640
+      }
+    ],
+    "contracts": {
+      "action": "shadow_force_limited_target_v1",
+      "observation": "shadow_tabletop_observation_v1",
+      "outcome": "grasp_lift_outcome_v1"
+    },
+    "environment_id": "adroit_shadow_tabletop_v2",
+    "robot": {
+      "arm_model": "ideal_arm_carrier_v1",
+      "controller_id": "force_limited_shadow_position_v1",
+      "hand_model": "shadow_hand_right",
+      "joint_order_path": "dex-retargeting:shadow_hand_right.yml"
+    },
+    "runner": "grasp_failure_prediction.evaluation.runner:ActuatedShadowRunner",
+    "scene": {
+      "model_path": "third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf",
+      "table_size_m": [
+        0.8,
+        0.8,
+        0.05
+      ]
+    },
+    "schema_version": "environment_spec_v1",
+    "simulator": {
+      "control_timestep_s": 0.04,
+      "physics_timestep_s": 0.002,
+      "type": "mujoco"
+    }
+  },
+  "retargeting_metric_scope": "original finger-shape gate; compensated world palm and finger geometry unchanged",
+  "runtime_guard": "1 mm table plane margin checked at every 2 ms physics endpoint; margin violations stop execution and have no task label",
+  "runtime_versions": {
+    "dex-retargeting": "0.5.0",
+    "mujoco": "3.3.7",
+    "numpy": "2.5.3",
+    "pin_distribution_metadata": "4.1.0",
+    "pinocchio": "3.8.0",
+    "python": "3.12.13"
+  },
+  "sampled_approach_table_contact": false,
+  "sampled_hand_table_contact": false,
+  "scene_contract_sha256": "sha256:31e90523b29c632662f600b3b01deffe624ea5ce0595f99f1a9570fe75013fdd",
+  "scene_contract_status": "verified",
+  "schema_version": "table_safe_rollout_v1",
+  "source_file_sha256": {
+    "../../../scripts/infer_sim_observation.py": "sha256:4b11f7ab5621bf7e104421f7bb2561adeda97485382504c37e7ef38644b19793",
+    "../../../scripts/prepare_scene_pilot.py": "sha256:c5d2a1a5b6aeaa7847e130218905806965ffe323198f0e1403416332cfdd2927",
+    "../integrations/hug.py": "sha256:48e9e62cace4add358b546f3d15cff19535463714613ad22eb955d6fb278dd5a",
+    "../integrations/hug_frames.py": "sha256:cd7ad9b8df1d5d6adad70e949a9c7f21ad448a25710a54f47e1ffa95fa28562a",
+    "../integrations/sim_observations.py": "sha256:9e502c5a7a387a4fcb0ba28307d31c67e2c1d0227c87b8e3ae736e3fc2aa9b43",
+    "artifacts.py": "sha256:8817f42e6e35b7e5fced2c1edd2d0ba82ad3a13c5014793889e5c45daccc668e",
+    "case_runner.py": "sha256:61aeef7a7125fa7698549cfbfc440a4f8374daf289bdddd87deaafe8ce108b11",
+    "noisy_rollouts.py": "sha256:384f930f5b38bb62ddf52d3883557d9d7cddfcfadb0d5a45ce87d13a255f0295",
+    "object_assets.py": "sha256:02554eb96235ac77d3301d983e5f97d55e5ad5c6637a35315b9494f7b9ea54f9",
+    "pose_validation.py": "sha256:1136cdfe80c405031e7060c5f31dd3a0270400314e6ff5aa7a4630c487cdea75",
+    "registry.py": "sha256:26571b11b7c3d72ed067028672f8fd283ba1916e982461ef495ec5c01e6c08eb",
+    "retargeting.py": "sha256:a6631a0f0d20f6ef94c389529b7d6d677a8a8cd9f8e923efff19ccfee26aa4ff",
+    "rollout_events.py": "sha256:a36f1797d80bccafb20422cfeeefb561d81fff9701893083b9a924e3a9e7996c",
+    "runner.py": "sha256:4d819711660c346938ce468b06b207aaed9d0315ab1ee3dffd9d4c56e1f417e6",
+    "scene_contracts.py": "sha256:14bc333226fdcc4e341e6db43940f67f4a2eae88f6d4a6bd56469d2a9c272fcb",
+    "schema.py": "sha256:48f56b918adf207368a9e05a040ca19d4b94928e50e786282f6927f45bd19d9d",
+    "scoring.py": "sha256:b8994fb0aba95f4e757555cad85cdc8bfe3112fd9a4fb9a2a217ae3c39fe0d00",
+    "table_clearance.py": "sha256:f11dfdedc1ccd55458735c3c7c3f8b3cb5ecd156a2c6724683098112d6f14bbc",
+    "table_safe_execution.py": "sha256:1064ce8832485e792db36731c657b8847580e27c96feb5ecadd1e4dd2230b778"
+  },
+  "state_replay": "scene.mjb plus actions.npz integration_state (mjSTATE_INTEGRATION)",
+  "static_scope": "nominal pregrasp/approach geometry; dynamic tracking and noisy closure require validation",
+  "status": "completed",
+  "vision": "referenced initial RGB-D only; no per-frame RGB-D"
+}

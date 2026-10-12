@@ -29,22 +29,57 @@ class EmbodimentReference(StrictModel):
     id: str = Field(pattern=ID_PATTERN)
 
 
+class ObjectGeometryReference(StrictModel):
+    """An explicit MJCF geometry asset with a pinned dependency-closure hash.
+
+    The content hash covers the MJCF and every referenced geometry asset, not
+    just the XML file. File existence, dependency closure, symlink containment,
+    and agreement with the captured scene are checked before execution.
+    """
+
+    schema_version: Literal["object_geometry_ref_v1"] = "object_geometry_ref_v1"
+    kind: Literal["mjcf_asset"] = "mjcf_asset"
+    mjcf_path: Path
+    expected_content_hash: str = Field(pattern=SHA256_PATTERN)
+
+    @field_validator("mjcf_path")
+    @classmethod
+    def require_relative_mjcf_path(cls, value: Path) -> Path:
+        if value.is_absolute() or ".." in value.parts or not value.name:
+            raise ValueError("mjcf_path must be a repository-relative file path")
+        if value.suffix.lower() not in {".xml", ".mjcf"}:
+            raise ValueError("mjcf_path must identify an XML/MJCF asset file")
+        return value
+
+
 class ObjectCase(StrictModel):
     id: str = Field(pattern=ID_PATTERN)
     mass_kg: float = Field(gt=0.0)
     friction_profile_id: str = Field(pattern=ID_PATTERN)
+    # None preserves historic case parsing. Execution must restrict that legacy
+    # default to the registered object01 cube; it is not a verified scene match.
+    geometry: ObjectGeometryReference | None = None
 
 
 class GraspCase(StrictModel):
     source: Literal["hug"] = "hug"
     id: str = Field(pattern=ID_PATTERN)
-    prediction_path: Path
+    prediction_path: Path | None = None
+    observation_path: Path | None = None
+    inference_seed: int = Field(default=42, ge=0, le=2**32 - 1)
 
     @field_validator("prediction_path")
     @classmethod
-    def require_relative_prediction_path(cls, value: Path) -> Path:
-        if value.is_absolute() or ".." in value.parts:
+    def require_relative_prediction_path(cls, value: Path | None) -> Path | None:
+        if value is not None and (value.is_absolute() or ".." in value.parts):
             raise ValueError("prediction_path must be a repository-relative path")
+        return value
+
+    @field_validator("observation_path")
+    @classmethod
+    def require_relative_observation_path(cls, value: Path | None) -> Path | None:
+        if value is not None and (value.is_absolute() or ".." in value.parts):
+            raise ValueError("observation_path must be repository-relative")
         return value
 
 
@@ -99,6 +134,9 @@ class OutcomeMetrics(StrictModel):
     maximum_lift_m: float = Field(ge=0.0)
     hold_duration_s: float = Field(ge=0.0)
     final_object_height_m: float
+    opposing_contact_duration_s: float = Field(ge=0.0)
+    peak_contact_normal_force_n: float = Field(ge=0.0)
+    peak_actuator_force_fraction: float = Field(ge=0.0)
 
 
 class ArtifactReferences(StrictModel):
@@ -106,6 +144,8 @@ class ArtifactReferences(StrictModel):
     resolved_case: Path
     video: Path | None = None
     simulator_state: Path | None = None
+    hug_proposal: Path | None = None
+    inference_report: Path | None = None
 
 
 class EvaluationResult(StrictModel):

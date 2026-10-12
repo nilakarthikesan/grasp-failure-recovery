@@ -13,9 +13,9 @@ def valid_case() -> dict:
     return {
         "schema_version": "eval_case_v1",
         "case_id": "object01_grasp003_mass018_seed9000",
-        "environment": {"id": "adroit_shadow_tabletop_v1"},
+        "environment": {"id": "adroit_shadow_tabletop_v2"},
         "embodiment": {"id": "shadow_hand_right"},
-        "execution_protocol": {"id": "fixed_grasp_lift_v1"},
+        "execution_protocol": {"id": "fixed_grasp_lift_v2"},
         "object": {
             "id": "object01",
             "mass_kg": 0.18,
@@ -38,8 +38,16 @@ def valid_case() -> dict:
 
 def test_case_schema_accepts_reviewed_contract() -> None:
     case = EvaluationCase.model_validate(valid_case())
-    assert case.environment.id == "adroit_shadow_tabletop_v1"
-    assert case.execution_protocol.id == "fixed_grasp_lift_v1"
+    assert case.environment.id == "adroit_shadow_tabletop_v2"
+    assert case.execution_protocol.id == "fixed_grasp_lift_v2"
+
+
+def test_inference_case_does_not_require_saved_prediction() -> None:
+    payload = valid_case()
+    del payload["grasp"]["prediction_path"]
+    payload["grasp"]["observation_path"] = "observations/object01"
+    case = EvaluationCase.model_validate(payload)
+    assert case.grasp.prediction_path is None
 
 
 @pytest.mark.parametrize(
@@ -49,6 +57,8 @@ def test_case_schema_accepts_reviewed_contract() -> None:
         (("seed",), -1),
         (("environment", "id"), "Unknown Environment"),
         (("grasp", "prediction_path"), "../outside.pkl"),
+        (("grasp", "observation_path"), "../outside"),
+        (("grasp", "inference_seed"), 2**32),
     ],
 )
 def test_case_schema_rejects_invalid_values(path: tuple[str, ...], value) -> None:

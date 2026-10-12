@@ -1,0 +1,25 @@
+---
+description: Use one working branch and preserve research decision evidence
+alwaysApply: true
+---
+
+# Project workflow
+
+The user requested one ongoing working branch: `codex/project-work`.
+Continue ordinary implementation, documentation and experiment work there.
+Update its consolidated PR rather than creating a branch or PR per milestone.
+Create another persistent branch only when the user explicitly requests one.
+
+Before switching, use `git worktree list` to find the checkout holding that
+branch and work in that directory. Preserve dirty files, ignored simulation
+assets and all historical experiment data. Do not reset an existing checkout
+or switch an open paper to a different file path.
+
+After a material research decision, append a dated entry to
+`docs/RESEARCH_DECISIONS.md`: previous plan, new evidence, choice, implementation
+status and next check. Distinguish completed results, interpretations and
+proposed experiments. Preserve original model/data/controller provenance;
+scientific protocol versions remain distinct even though source shares a branch.
+
+Keep `docs/PAPER_PROGRESS.md` and the working manuscript consistent with measured
+claims. Compile the existing `.tex` source with the desktop compiler after edits.

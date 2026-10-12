@@ -1,0 +1,485 @@
+{
+  "schema_version": "pose_only_settling_audit_v1",
+  "created_utc": "2026-10-11T22:52:44.436917+00:00",
+  "selection_rule": "First acceptable pose in predeclared candidate order; setup stability only, without HUG inference or grasp outcomes.",
+  "unchanged": "Model, scorer, native geometry, native mass, friction, fixed capture thresholds, reset velocities, and physics timestep are unchanged.",
+  "candidates_wxyz": {
+    "identity": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "180_X": [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    "plus_90_X": [
+      0.7071067811865476,
+      0.7071067811865476,
+      0.0,
+      0.0
+    ],
+    "minus_90_X": [
+      0.7071067811865476,
+      -0.7071067811865476,
+      0.0,
+      0.0
+    ],
+    "plus_90_Y": [
+      0.7071067811865476,
+      0.0,
+      0.7071067811865476,
+      0.0
+    ],
+    "minus_90_Y": [
+      0.7071067811865476,
+      0.0,
+      -0.7071067811865476,
+      0.0
+    ]
+  },
+  "runtime": {
+    "python": "3.12.13 (main, Mar  3 2026, 12:39:30) [Clang 17.0.0 (clang-1700.6.3.2)]",
+    "numpy": "2.5.3",
+    "mujoco": "3.3.7",
+    "executable": "/Users/nilakarthikesan/grasp-failure-prediction/.venv/bin/python",
+    "pythonpath": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src:/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/hug-deps:/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps:/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps/cmeel.prefix/lib/python3.12/site-packages"
+  },
+  "prior_failure": {
+    "object": "salt_shaker",
+    "orientation": "identity",
+    "evidence": "preparation.log, scene 4: object did not settle to a sufficiently stationary capture pose"
+  },
+  "attempts": [
+    {
+      "object_id": "hug_salt_shaker",
+      "case_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/setup/scene_4.yaml",
+      "candidate": "identity",
+      "initial_orientation_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "initial_orientation_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "initial_position_m": [
+        -0.015,
+        -0.02,
+        0.044940498743185314
+      ],
+      "height_method": "Exact compiled native collision vertices, rotated about body origin; table top z=0, clearance 0.5 mm.",
+      "geometry_hash": "sha256:56e6166ca14e170a9989e448815c6cec6ebe0a6fd9b988c7cb9a3886ec201c41",
+      "native_mass_kg": 0.0878,
+      "settling_physics_steps": 2000,
+      "window": {
+        "sample_count": 500,
+        "maximum_linear_speed_m_s": 0.028397555039411368,
+        "maximum_angular_speed_rad_s": 0.6376630407956618,
+        "position_box_diagonal_m": 0.00035878433316620715,
+        "maximum_quaternion_angle_from_first_rad": 0.004286298329286727,
+        "quaternion_diameter_bound_rad": 0.008572596658573454,
+        "maximum_abs_workspace_xy_m": 0.020103205906662893,
+        "all_object_table_contact": true,
+        "any_hand_object_contact": false,
+        "accepted": false
+      },
+      "accepted": false,
+      "final_pose_wxyz": [
+        -0.014991939670980194,
+        -0.01998212073217856,
+        0.043767223967700546,
+        0.9999999276803894,
+        0.00015437204487393622,
+        0.00032326686656266646,
+        0.00012769894406696318
+      ],
+      "final_velocity": [
+        -0.0062114881376500175,
+        0.002973425704049847,
+        0.0004996892177390506,
+        -0.06674998030171254,
+        -0.14102279850949553,
+        -0.001356994368447406
+      ]
+    },
+    {
+      "object_id": "hug_salt_shaker",
+      "case_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/setup/scene_4.yaml",
+      "candidate": "180_X",
+      "initial_orientation_wxyz": [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "initial_orientation_xyzw": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "initial_position_m": [
+        -0.015,
+        -0.02,
+        0.05163942968839845
+      ],
+      "height_method": "Exact compiled native collision vertices, rotated about body origin; table top z=0, clearance 0.5 mm.",
+      "geometry_hash": "sha256:56e6166ca14e170a9989e448815c6cec6ebe0a6fd9b988c7cb9a3886ec201c41",
+      "native_mass_kg": 0.0878,
+      "settling_physics_steps": 2000,
+      "window": {
+        "sample_count": 500,
+        "maximum_linear_speed_m_s": 0.020085829777853375,
+        "maximum_angular_speed_rad_s": 0.3938842552116554,
+        "position_box_diagonal_m": 0.00026348965794558153,
+        "maximum_quaternion_angle_from_first_rad": 0.0037154252793604368,
+        "quaternion_diameter_bound_rad": 0.0074308505587208735,
+        "maximum_abs_workspace_xy_m": 0.02006579669381828,
+        "all_object_table_contact": true,
+        "any_hand_object_contact": false,
+        "accepted": false
+      },
+      "accepted": false,
+      "final_pose_wxyz": [
+        -0.0149973360586113,
+        -0.02004010668758067,
+        0.05064780090391776,
+        -0.00047693436332424817,
+        0.9999900644589964,
+        0.004431179217909491,
+        -9.037501688912945e-05
+      ],
+      "final_velocity": [
+        0.005296942363433936,
+        0.001793703350765592,
+        -0.00041403744977958426,
+        -0.0341952642038314,
+        -0.10435533756495005,
+        -0.0005954476815221557
+      ]
+    },
+    {
+      "object_id": "hug_salt_shaker",
+      "case_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/setup/scene_4.yaml",
+      "candidate": "plus_90_X",
+      "initial_orientation_wxyz": [
+        0.7071067811865476,
+        0.7071067811865476,
+        0.0,
+        0.0
+      ],
+      "initial_orientation_xyzw": [
+        0.7071067811865476,
+        0.0,
+        0.0,
+        0.7071067811865476
+      ],
+      "initial_position_m": [
+        -0.015,
+        -0.02,
+        0.02660382993797256
+      ],
+      "height_method": "Exact compiled native collision vertices, rotated about body origin; table top z=0, clearance 0.5 mm.",
+      "geometry_hash": "sha256:56e6166ca14e170a9989e448815c6cec6ebe0a6fd9b988c7cb9a3886ec201c41",
+      "native_mass_kg": 0.0878,
+      "settling_physics_steps": 2000,
+      "window": {
+        "sample_count": 500,
+        "maximum_linear_speed_m_s": 0.03171461970651771,
+        "maximum_angular_speed_rad_s": 1.1433223120874125,
+        "position_box_diagonal_m": 0.0006614187793979758,
+        "maximum_quaternion_angle_from_first_rad": 0.07234248392677131,
+        "quaternion_diameter_bound_rad": 0.14468496785354262,
+        "maximum_abs_workspace_xy_m": 0.02063635430286795,
+        "all_object_table_contact": true,
+        "any_hand_object_contact": false,
+        "accepted": false
+      },
+      "accepted": false,
+      "final_pose_wxyz": [
+        -0.00010567255331792489,
+        -0.02061472714141683,
+        0.019256710284924938,
+        0.6470479332067288,
+        0.6842294860367589,
+        0.17429859122648309,
+        -0.2877133706785884
+      ],
+      "final_velocity": [
+        -0.0068814087998869435,
+        -0.0065646760018535305,
+        -0.005042464334334526,
+        0.27855889207655427,
+        0.25224469223274265,
+        0.35694568381018343
+      ]
+    },
+    {
+      "object_id": "hug_salt_shaker",
+      "case_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/setup/scene_4.yaml",
+      "candidate": "minus_90_X",
+      "initial_orientation_wxyz": [
+        0.7071067811865476,
+        -0.7071067811865476,
+        0.0,
+        0.0
+      ],
+      "initial_orientation_xyzw": [
+        -0.7071067811865476,
+        0.0,
+        0.0,
+        0.7071067811865476
+      ],
+      "initial_position_m": [
+        -0.015,
+        -0.02,
+        0.026593479987704526
+      ],
+      "height_method": "Exact compiled native collision vertices, rotated about body origin; table top z=0, clearance 0.5 mm.",
+      "geometry_hash": "sha256:56e6166ca14e170a9989e448815c6cec6ebe0a6fd9b988c7cb9a3886ec201c41",
+      "native_mass_kg": 0.0878,
+      "settling_physics_steps": 2000,
+      "window": {
+        "sample_count": 500,
+        "maximum_linear_speed_m_s": 0.03140249836871658,
+        "maximum_angular_speed_rad_s": 1.1146324033800066,
+        "position_box_diagonal_m": 0.0004836611714101914,
+        "maximum_quaternion_angle_from_first_rad": 0.012010960992260115,
+        "quaternion_diameter_bound_rad": 0.02402192198452023,
+        "maximum_abs_workspace_xy_m": 0.0316270773815953,
+        "all_object_table_contact": true,
+        "any_hand_object_contact": false,
+        "accepted": false
+      },
+      "accepted": false,
+      "final_pose_wxyz": [
+        -0.031528755752357626,
+        -0.019379470675964062,
+        0.019091407299464246,
+        0.672435823727234,
+        -0.6633220183860699,
+        -0.24405581339083762,
+        -0.21970599182235376
+      ],
+      "final_velocity": [
+        0.0006410340792397084,
+        0.009190456759930141,
+        -0.0023407498320148898,
+        -0.3617445853456401,
+        -0.27738494729823027,
+        0.02511344549348351
+      ]
+    },
+    {
+      "object_id": "hug_salt_shaker",
+      "case_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/setup/scene_4.yaml",
+      "candidate": "plus_90_Y",
+      "initial_orientation_wxyz": [
+        0.7071067811865476,
+        0.0,
+        0.7071067811865476,
+        0.0
+      ],
+      "initial_orientation_xyzw": [
+        0.0,
+        0.7071067811865476,
+        0.0,
+        0.7071067811865476
+      ],
+      "initial_position_m": [
+        -0.015,
+        -0.02,
+        0.026409980745763798
+      ],
+      "height_method": "Exact compiled native collision vertices, rotated about body origin; table top z=0, clearance 0.5 mm.",
+      "geometry_hash": "sha256:56e6166ca14e170a9989e448815c6cec6ebe0a6fd9b988c7cb9a3886ec201c41",
+      "native_mass_kg": 0.0878,
+      "settling_physics_steps": 2000,
+      "window": {
+        "sample_count": 500,
+        "maximum_linear_speed_m_s": 0.03590833368024654,
+        "maximum_angular_speed_rad_s": 1.2415421517178575,
+        "position_box_diagonal_m": 0.0012357355528262758,
+        "maximum_quaternion_angle_from_first_rad": 0.19759545661992095,
+        "quaternion_diameter_bound_rad": 0.3951909132398419,
+        "maximum_abs_workspace_xy_m": 0.015221413555442254,
+        "all_object_table_contact": true,
+        "any_hand_object_contact": false,
+        "accepted": false
+      },
+      "accepted": false,
+      "final_pose_wxyz": [
+        -0.015182865509911344,
+        -0.007454650656375157,
+        0.0182857494096664,
+        0.5451577895089352,
+        0.014552485003616375,
+        0.7049816230442485,
+        -0.45342267354847665
+      ],
+      "final_velocity": [
+        -0.005812311190502486,
+        0.005850929325890153,
+        0.006346286956380406,
+        0.41195429801068306,
+        -0.22102386627526677,
+        -0.024438140902528126
+      ]
+    },
+    {
+      "object_id": "hug_salt_shaker",
+      "case_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/setup/scene_4.yaml",
+      "candidate": "minus_90_Y",
+      "initial_orientation_wxyz": [
+        0.7071067811865476,
+        0.0,
+        -0.7071067811865476,
+        0.0
+      ],
+      "initial_orientation_xyzw": [
+        0.0,
+        -0.7071067811865476,
+        0.0,
+        0.7071067811865476
+      ],
+      "initial_position_m": [
+        -0.015,
+        -0.02,
+        0.02642197066898747
+      ],
+      "height_method": "Exact compiled native collision vertices, rotated about body origin; table top z=0, clearance 0.5 mm.",
+      "geometry_hash": "sha256:56e6166ca14e170a9989e448815c6cec6ebe0a6fd9b988c7cb9a3886ec201c41",
+      "native_mass_kg": 0.0878,
+      "settling_physics_steps": 2000,
+      "window": {
+        "sample_count": 500,
+        "maximum_linear_speed_m_s": 0.031905637910176685,
+        "maximum_angular_speed_rad_s": 1.4968232358493208,
+        "position_box_diagonal_m": 0.0013108400655955773,
+        "maximum_quaternion_angle_from_first_rad": 0.09963664315261578,
+        "quaternion_diameter_bound_rad": 0.19927328630523156,
+        "maximum_abs_workspace_xy_m": 0.038080876416453927,
+        "all_object_table_contact": true,
+        "any_hand_object_contact": false,
+        "accepted": false
+      },
+      "accepted": false,
+      "final_pose_wxyz": [
+        -0.01836563451847852,
+        -0.038080876416453927,
+        0.018195761562181587,
+        0.6495706408283276,
+        0.18356086910863492,
+        -0.6816222089222107,
+        -0.2824084882045254
+      ],
+      "final_velocity": [
+        -0.010578697356300869,
+        -0.016071216140201183,
+        0.007848504923306184,
+        0.18805304042922383,
+        -0.3071597658637472,
+        -0.9480290529239936
+      ]
+    },
+    {
+      "object_id": "hug_mug",
+      "case_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/setup/scene_6.yaml",
+      "candidate": "identity",
+      "initial_orientation_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "initial_orientation_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "initial_position_m": [
+        -0.03,
+        -0.015,
+        0.0587650116887372
+      ],
+      "height_method": "Exact compiled native collision vertices, rotated about body origin; table top z=0, clearance 0.5 mm.",
+      "geometry_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+      "native_mass_kg": 0.4253,
+      "settling_physics_steps": 899,
+      "window": {
+        "sample_count": 500,
+        "maximum_linear_speed_m_s": 0.008757523150616071,
+        "maximum_angular_speed_rad_s": 0.152415789772617,
+        "position_box_diagonal_m": 8.682496413439876e-05,
+        "maximum_quaternion_angle_from_first_rad": 0.0009377158865396128,
+        "quaternion_diameter_bound_rad": 0.0018754317730792255,
+        "maximum_abs_workspace_xy_m": 0.030844833106671746,
+        "all_object_table_contact": true,
+        "any_hand_object_contact": false,
+        "accepted": true
+      },
+      "accepted": true,
+      "final_pose_wxyz": [
+        -0.03081908323373589,
+        -0.013500259903564488,
+        0.05731972693903406,
+        0.9998901750690862,
+        -0.013427551995984766,
+        -0.006137545571129828,
+        -0.0012919682924076269
+      ],
+      "final_velocity": [
+        0.0009537160557455405,
+        -0.0011566850697147363,
+        0.0003175206051979944,
+        0.020041005598795545,
+        0.016645401190913962,
+        0.00010770768329012795
+      ]
+    }
+  ],
+  "first_accepted_per_object": {
+    "hug_mug": {
+      "candidate": "identity",
+      "initial_orientation_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "initial_position_m": [
+        -0.03,
+        -0.015,
+        0.0587650116887372
+      ],
+      "settling_physics_steps": 899,
+      "window": {
+        "sample_count": 500,
+        "maximum_linear_speed_m_s": 0.008757523150616071,
+        "maximum_angular_speed_rad_s": 0.152415789772617,
+        "position_box_diagonal_m": 8.682496413439876e-05,
+        "maximum_quaternion_angle_from_first_rad": 0.0009377158865396128,
+        "quaternion_diameter_bound_rad": 0.0018754317730792255,
+        "maximum_abs_workspace_xy_m": 0.030844833106671746,
+        "all_object_table_contact": true,
+        "any_hand_object_contact": false,
+        "accepted": true
+      }
+    }
+  },
+  "source_sha256": {
+    "src/grasp_failure_prediction/integrations/sim_observations.py": "9e502c5a7a387a4fcb0ba28307d31c67e2c1d0227c87b8e3ae736e3fc2aa9b43",
+    "src/grasp_failure_prediction/evaluation/runner.py": "4d819711660c346938ce468b06b207aaed9d0315ab1ee3dffd9d4c56e1f417e6",
+    "src/grasp_failure_prediction/evaluation/object_assets.py": "02554eb96235ac77d3301d983e5f97d55e5ad5c6637a35315b9494f7b9ea54f9"
+  },
+  "audit_script_sha256": "0a5f2a4b6d436a45178cd8a65d8508ab6fb1d55f98113165a079f5da19ae0ac0"
+}

@@ -1,0 +1,33 @@
+schema_version: eval_case_v1
+case_id: fresh_capture_hug_milk_box_1
+environment:
+  id: adroit_shadow_tabletop_v2
+embodiment:
+  id: shadow_hand_right
+execution_protocol:
+  id: fixed_grasp_lift_v2
+object:
+  id: hug_milk_box
+  mass_kg: 0.3705
+  friction_profile_id: nominal_v1
+  geometry:
+    schema_version: object_geometry_ref_v1
+    kind: mjcf_asset
+    mjcf_path: runs/fresh_object_scene_eval_2026-10-11/assets/milk_box/sim_assets/object.xml
+    expected_content_hash: sha256:6548772aee0e79293f2b3450e97210d4aafb22d1cfd2a94efc3ebbf5f62a8eef
+grasp:
+  source: hug
+  id: fresh_capture_hug_milk_box_1
+initial_condition:
+  id: fresh_scene_5
+  object_position_m:
+  - 0.03
+  - 0.02
+  - 0.07227472027184745
+  object_orientation_xyzw:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 1.0
+motion_profile_id: nominal_lift_v1
+seed: 10105

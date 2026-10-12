@@ -1,0 +1,377 @@
+# Paper progress: controlled grasp collection pilot
+
+**Working branch: `codex/project-work`.** The earlier milestone branches are
+consolidated, with one ongoing PR. Historical PR links below preserve the
+development record; see [WORKING_BRANCH.md](WORKING_BRANCH.md) for the current
+checkout and recovery references. Scientific protocol versions remain separate.
+
+**Updated: 11 October 2026.** This is the evidence index for the
+[standalone working paper](paper/working_draft.tex). The draft's title and claims
+describe a collection protocol and its first pre-lift task-outcome baseline.
+Future-slip prediction, recovery, and real-world transfer are research goals,
+not completed results.
+
+The authoritative completed collection is documented in
+[MULTI_SCENE_COLLECTION.md](MULTI_SCENE_COLLECTION.md). Earlier documents retain
+their historical scope and dates; this page does not reinterpret their smaller
+verification batches as new independent data.
+
+The earlier milestone documents preserve their dated findings. Reviewable sections are the
+[interactive demo](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/8),
+[earlier literature notes](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/9),
+[execution dependency](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/12),
+[collector](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/10),
+and [expanded collection](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/11).
+
+## 1. Review HUG datasets and benchmarks — initial review complete
+
+HUG supplies grasp hypotheses; its RGB-D model predicts wrist placement and a
+MANO pose that we retarget to the actuated right Shadow Hand. The released
+HUG-Bench objects provide a useful taxonomy and metric simulation assets. Our
+review is enough for this pilot, not a full benchmark reproduction or an audit
+of every released dataset.
+
+We selected the development apple asset `val/medium_3/apple` and the existing
+cube. The apple's native MJCF/visual/two-part collision geometry, mass, content
+hash, pinned revision, and CC BY 4.0 attribution are recorded in
+[the geometry provenance section](MULTI_SCENE_COLLECTION.md#geometry-source-and-what-we-use).
+Official benchmark grasp annotations remain unused: inputs are rendered
+locally and proposals come from fresh HUG inference. See
+[Research foundations](RESEARCH_FOUNDATIONS.md) for the embodiment and
+retargeting decisions.
+
+**Paper note:** HUG generates grasps; our contribution at this stage is the
+verified execution/data contract around those hypotheses. Use
+[the HUG paper](https://arxiv.org/abs/2606.17054) and
+[official resources](https://grasping.io/) for source claims.
+
+## 2. Generate varied simulation trials — controlled milestone complete
+
+We froze `adroit_shadow_tabletop_v2`, `shadow_hand_right`, and
+`fixed_grasp_lift_v2`. A fixed high-level approach/close/lift/hold sequence runs
+through force-limited position servos. It does not learn or replan a policy.
+
+The only current noise type is `uniform_episode_bias`: one random angle offset
+per finger target, fixed through designated phases, with wrist offsets zero.
+The schedule requests 0, 0.15, and 0.6 rad bounds. Nominal plus requested bias
+is clipped at joint limits, and measured motion can differ from the target.
+Requested offsets, actual clipped offsets, commands, and measured states are
+saved separately. This is deliberate command stress, not obstacles, camera
+noise, or a calibrated hardware-noise distribution. See
+[the noise definition and example](NOISY_ROLLOUT_COLLECTION.md#what-the-noise-means).
+
+**Paper note:** At least one target was clipped in 508/512 attempts at 0.15 rad
+and 512/512 at 0.6 rad. Avoid claiming equal applied disturbances or that noise
+always causes failure; 108 noisy apple attempts succeeded although all eight
+apple baselines failed.
+
+## 3. Collect trajectories — 1,040-attempt pilot complete
+
+Two geometries × two observation scenes × four fresh proposals produced
+**16 proposal families and four observation families**. One baseline plus 32
+repetitions at each nonzero amplitude gives **1,040 attempts**: **444 successes,
+596 failures, and zero errors**. There are 512 paired noise directions across
+amplitudes. These attempts are not 1,040 independent scenes.
+
+The local source is `runs/object_scene_pilot_2026-10-10/`: `inputs_v3/` and
+`inputs_v3_extra/` hold captures/proposals; `collection_1040/` holds the frozen
+plan, index, summary, and episode bundles; `collection_1040_audit.json` records
+verification. These ignored raw files are not a public dataset release. The
+[collection documentation](MULTI_SCENE_COLLECTION.md#fresh-results-and-verification)
+records exact paths, counts, provenance, and reproduction commands.
+
+Initial RGB-D is saved per scene. Robot/object state, commands, contacts,
+outcomes, and replay states are logged per control interval; there is no online
+camera image at every rollout frame. The
+[local viewer](http://127.0.0.1:8769/) shows the collection and six videos
+rendered later from saved states. It is available only while the local server
+is running.
+
+**Paper note:** All 1,040 scores/events regenerate exactly, all source bindings
+and paired draws were checked, and seven representative complete sequences
+reexecuted bitwise on the same runtime. The collection audit identifies source
+`99f70a6`; the documented suite at `301ca1f` passed 292 tests with five skips.
+Same-runtime replay is not cross-platform or real-robot validation.
+
+## 4. Label trajectories — frozen task labels complete; target review needed
+
+The existing scorer keeps **1 = task success**, **0 = completed physical task
+failure**, and **null = validation/runtime error**. Success requires qualifying
+contact, at least **14 cm peak lift**, **2 s sampled HOLD at least 12 cm above
+initial height**, no more than **2 cm peak-to-final loss**, and the collision
+and timeout checks. Contact alone is not a secured-grip label.
+
+The failures are 590 `failed_acquisition`, two `no_contact`, and four `drop`.
+The [label audit](MULTI_SCENE_COLLECTION.md#what-the-labels-mean-before-we-train)
+found **21 attempts within 0.5 mm of the lift cutoff**. Apple
+`episode_000465` meets the sampled hold requirement but falls 0.0308 mm short
+of the peak-lift cutoff. Thirty additional attempts lose more than 2 cm yet
+remain acquisition failures because of category precedence. Preserve these
+labels; any different grasp/retention target needs its own explicit version.
+
+`events.json` separately records lift/retention proxies, an acquisition deadline
+interval, and observed post-proxy height-loss bounds. Unknown, unsupported, and
+censored cases stay explicit. Forty-millisecond endpoints and the logged 2 ms
+diagnostic offset do not give exact slip onset. See
+[event definitions](NOISY_ROLLOUT_COLLECTION.md#final-labels-and-event-annotations).
+
+**Paper note:** This collection mainly supports acquisition/task-outcome study.
+Four task-scored drops do not establish a future-slip benchmark. Event labels
+are analysis/supervision, never model features.
+
+## 5. Separate training, validation, and test — exploratory pilot complete
+
+The actual derived export is saved in
+[`research_artifacts/object_scene_pilot_v1/`](../research_artifacts/object_scene_pilot_v1/).
+It contains [`dataset.npz`](../research_artifacts/object_scene_pilot_v1/dataset.npz),
+the [feature/provenance manifest](../research_artifacts/object_scene_pilot_v1/manifest.json),
+and [split memberships](../research_artifacts/object_scene_pilot_v1/splits.json).
+See [DATA_SPLITS.md](DATA_SPLITS.md) for the input contract, checks, and
+reproduction command. It exports **1,040 × 1,440 float32 values**: the final
+20 closing samples × 72 whitelisted position/velocity/command columns, ending
+at 2.96 s before lifting. Outcomes and source identities are stored separately,
+outside the model matrix; no privileged or future features are included.
+
+Training fits model parameters; validation selects regularization; test measures
+performance after that choice is fixed. Complete trajectories, proposal groups,
+their noise variants, and observation groups remain in one partition.
+
+The selected protocol is a **retrospective observation-disjoint split**:
+scenes 0 + 2 train on 520 attempts (231 successes/289 failures); scene 1 validates
+on 260 cube attempts (155/105); scene 3 tests on 260 apple attempts (58/202).
+Training contains both geometries, while validation is cube-only and test is
+apple-only. This asks about a held-out apple observation under the frozen task;
+it does not establish unseen-geometry or broad object generalization. It was
+chosen after collection, not preregistered. All shared observation/proposal/noise
+variants stay together. Four observations and two geometries limit any claim.
+
+Training contains eight proposal/two observation families; validation and test
+each contain four proposal/one observation family. The export has zero excluded
+attempts and preserves all 444 success/596 failure labels. Its loader checks
+payload hashes, exact column order, source-label/scorer agreement, provenance,
+group consistency, and the declared assignments. **28 focused exporter/loader
+tests passed**, including causal/privileged-data mutation checks, group conflicts,
+corruption, exclusions, and overwrite protection; the actual export also passed
+the validated loader.
+
+The dataset payload hash is
+`sha256:29f773f7faf03cff5e1c694ef475d02adfd07c239314b349f2228f86db9d3aad`;
+the split hash is
+`sha256:27a9c894b0775a5a10e2ae83a18b6a70f78d4c504b80396086a80158b3b5aac7`.
+These records complete step 5 for this exploratory pilot. A larger untouched
+benchmark and unseen-geometry evaluation remain future work.
+
+## 6. Train and evaluate a prediction model — first task-outcome baseline complete
+
+The frozen first protocol predicts the unchanged eventual task label from the
+**last 20 CLOSE_FINGERS samples, ending at 2.96 s**, before first LIFT at 3.00 s.
+Whitelist 24 measured hand joint positions, 24 joint velocities, and 24 actual
+commanded targets: a 20 × 72 window. Last/mean/population-standard-deviation/end-minus-start
+summaries give 288 features. L2 logistic regression uses SciPy L-BFGS-B,
+training-only scaling, and the fixed regularization grid **0.001, 0.01, 0.1, 1**,
+selected by minimum validation log loss among converged fits. Both the full
+model and command-only ablation selected **lambda = 0.1** and converged. Training
+standard deviation ≤ 1e-8 excludes a feature: 269 full-model and 77 command-only
+features remain active. The objective is mean binary cross entropy plus half
+lambda times the squared weight norm, with unpenalized intercept.
+
+We compared a command-only 96-feature ablation and a training-prevalence constant
+baseline (success probability 231/520). The decision threshold remained fixed
+at failure probability ≥ 0.5; test was scored only after validation-based
+regularization selection, with no test tuning. A larger temporal model remains
+a later comparison.
+
+Exclude future samples, final outcomes, event metadata, noise vectors/settings/
+seeds, source identities, simulator object truth, and full integration state from
+predictor features. This first task is eventual-outcome prediction. Fixed-horizon
+future loss and useful warning time require a separately validated event target
+and more supported loss cases.
+
+The unchanged split has **520 training attempts (231 success/289 failure)**,
+**260 cube-B validation attempts (155/105)**, and **260 apple-B test attempts
+(58/202)**. On the apple-B test partition:
+
+- **Measured joint state + commands:** failure AUROC **0.8523**, failure average
+  precision **0.9478**, log loss **0.3771**, Brier score **0.1170**. The fixed
+  threshold flagged **187/202 failures** and incorrectly flagged **22/58
+  successes**: 92.6% failure recall and 37.9% success false alarms.
+- **Commands only:** failure AUROC **0.6419**, average precision **0.8665**,
+  log loss **0.5244**, Brier score **0.1711**; flagged 192/202 failures and
+  52/58 successes.
+- **Training-prevalence constant:** failure AUROC **0.5000**, average precision
+  **0.7769**, log loss **0.6374**, Brier score **0.2222**; flags every attempt.
+
+Measured response improves this comparison beyond command summaries. These are
+empirical metrics on one held-out apple observation, not established calibrated
+deployment rates. The retrospective raw outcomes were previously inspected,
+both geometries occur in training, and validation is cube-only. This is not an
+untouched benchmark or evidence of unseen-geometry transfer, slip onset, warning
+lead time, or drop detection. Only four task-scored drops occur in the entire
+collection.
+
+An illustrative CLI prediction for cube-A `episode_000534` returns failure
+probability **0.4815** at 2.96 s and therefore predicts success, while the recorded
+outcome is `drop`. This belongs to a training observation family, not an
+additional held-out evaluation. The error helps demonstrate why this classifier
+must not be described as a specialized drop detector.
+
+The [baseline documentation](PREDICTION_BASELINE.md) records the method and
+reproduction command. The completed
+[artifact bundle](../research_artifacts/task_outcome_baseline_v1/) contains the
+[full report](../research_artifacts/task_outcome_baseline_v1/report.json),
+[state-and-command model](../research_artifacts/task_outcome_baseline_v1/proprioception_and_commands.npz),
+[command-only model](../research_artifacts/task_outcome_baseline_v1/commands_only.npz),
+and [per-attempt predictions](../research_artifacts/task_outcome_baseline_v1/predictions.csv).
+The report pins input dataset/manifest/split and training-source hashes, fitted
+models, all fixed-grid validation candidates, and prediction hashes. Its
+runtime is Python 3.12.13, NumPy 2.2.6, and SciPy 1.17.1, separately recorded
+from the simulation collection runtime.
+
+**Verification:** The final combined suite passed **332 tests, with five skips**
+and one upstream `hppfcl` deprecation warning. The **40 focused prediction tests**
+also passed with runtime warnings treated as errors. The older 292-pass/five-skip
+suite reported above remains the historical collection check. Model reload/
+prediction consistency and causal input checks are separate from proof of
+physical generalization.
+
+**Published sections:** [paper and evidence notes (#13)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/13),
+[Step 5 dataset and grouped splits (#14)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/14),
+and [Step 6 trained baselines and results (#15)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/15).
+These were originally stacked draft PRs. Source is now consolidated on
+`codex/project-work`; their historical links do not mean those changes have
+automatically merged into `main`.
+
+## Literature findings → implementation decisions
+
+These primary sources were checked on 11 October 2026. The arrows below are our
+design inferences; they do not mean the papers evaluated our pipeline.
+
+- **[HUG](https://arxiv.org/abs/2606.17054), Wu et al., 2026:** RGB-D-conditioned
+  human grasp hypotheses and metric benchmark assets → use pinned proposals,
+  explicit retargeting, and asset/scene provenance; do not call this pilot an
+  official benchmark score.
+- **[The Feeling of Success](https://proceedings.mlr.press/v78/calandra17a.html),
+  Calandra et al., 2017:** compares vision and GelSight touch for grasp-outcome
+  prediction → preserve a future sensing-ablation question while distinguishing
+  simulator diagnostics from physical tactile measurements.
+- **[SlipSense](https://arxiv.org/html/2609.15910v1), Jian et al., 2026,
+  §§3–5:** causal current-frame contact/slip classification and latency versus
+  false-alarm evaluation → keep current slip, future loss, and acquisition failure
+  separate; use only history available by the prediction time.
+- **[FeelWorld](https://arxiv.org/html/2607.24267v1), Ma et al., 2026,
+  §III:** action-conditioned visual/contact/force-related/slip prediction → save
+  commands alongside observations and defer a large world model until the simple
+  outcome target is understood.
+- **[Foundational World Models Accurately Detect Bimanual Manipulator
+  Failures](https://arxiv.org/html/2603.06987v1), Ward et al., 2026,
+  §IV-C:** trajectory-level conformal calibration with exchangeability and shift
+  caveats → freeze grouped validation and report empirical calibration; do not
+  promise guarantees across novel objects or changed conditions.
+- **[MuJoCo](https://www.roboti.us/lab/papers/TodorovIROS12.pdf),
+  Todorov, Erez, and Tassa, 2012:** articulated dynamics and contact simulation
+  for model-based control → use controlled execution and replay, while measuring
+  contact fidelity on hardware before any transfer claim.
+- **[AnyTeleop](https://yzqin.github.io/anyteleop/), Qin et al., 2023, and
+  [Dex Retargeting](https://github.com/dexsuite/dex-retargeting):** the released
+  retargeting library documents joint-order differences → use its supplied
+  Shadow configuration and explicit joint-name mapping; preserve library and
+  robot-asset provenance instead of implementing a new optimizer.
+
+## Changes to the original plan
+
+The [research decision history](RESEARCH_DECISIONS.md) records the evidence and
+reasons behind these changes, including later mug debugging, consideration of
+public data and the distinction between outcome verification and useful early
+warnings. Implemented choices and proposed experiments are marked separately.
+Append a dated entry after each material change instead of rewriting earlier
+reasoning as though the final plan had been known from the start.
+
+- **9–10 October:** Replaced the initial idea of training a grasp policy first
+  with fixed HUG-conditioned execution, isolating grasp/command effects from
+  controller-learning failures. The earlier
+  [system design](SYSTEM_DESIGN.md) remains a research agenda, not a completion
+  ledger.
+- **10 October:** Replaced generic “noise” with one documented bounded episode
+  bias, paired amplitude directions, and separate requested/applied/measured
+  records. Distinguished task labels from conservative temporal proxies.
+- **10 October:** Expanded one cube observation to verified cube/apple geometry,
+  four byte-defined observations, and sixteen proposals. Repeated identical
+  captures were grouped together. The upright apple setup was rejected; a
+  documented pose-window settling gate accepted bounded inverted poses without
+  changing physics. Setup rejection was never labeled grasp failure.
+- **11 October:** Added this progress index and the scoped working paper. Kept
+  original task labels after the lift-boundary audit, and made target review,
+  grouped splitting, and a causal baseline the next evidence-producing steps.
+- **11 October, step 5 update:** Exported the 1,040 causal closing prefixes and
+  saved the observation-disjoint development split, source hashes, and strict
+  loader checks. The retrospective limitation remains; step 6 training and
+  evaluation were still pending at that point.
+- **11 October, step 6 update:** Trained the regularized task-outcome model and
+  two comparisons using the frozen prefix/splits. Validation selected lambda
+  0.1 without test tuning. Recorded the actual apple-B metrics and its substantial
+  success false-alarm rate; future-slip, drop-timing, recovery, and real-robot
+  claims remain untested.
+
+External VR failure data and synthetic human-video generation remain separate
+exploratory tracks. The former needs a source/sensor/outcome audit; the latter
+has no implemented method or measured benefit. Neither blocks expanding and
+testing the controlled simulation baseline on new observations.
+
+## Frozen evaluation on fresh objects and scenes, 11 October
+
+The next experiment is now complete. Before collection we froze the saved
+model, normalization, 2.96 second input cutoff, 0.5 failure alert, scorer and
+original executed environment/controller configuration. Two new position and
+camera scenes per familiar cube/apple and new HUG milk carton/mug supplied
+eight observation families and 32 proposals. The original noise schedule gave
+**2,080 completed attempts: 659 successes, 1,421 failures and zero errors**.
+No new data selected model weights, regularization, features or threshold.
+
+The unchanged full model has failure AUROC **0.9173 on fresh familiar geometry
+scenes** and **0.5588 across the new geometries**. The milk carton has AUROC
+0.8121 but 185 false alarms among 245 successes at the original threshold.
+Every mug attempt is an approach collision; the model misses 205 of those
+520 failures. With no mug successes, mug AUROC and success false alarm rate
+are undefined. These approach failures happen before the input cutoff and do
+not measure warning time before a future failure. The new object comparison
+changes native mass and geometry together and mixes two different conditions.
+
+Overall AUROC is 0.7737, log loss 0.6645 and Brier score 0.1865. The constant
+training prevalence has log loss 0.6584; improved ranking/Brier does not imply
+better log loss. Report both the aggregate and object breakdowns. These results
+support studying transfer and threshold reliability under new conditions,
+not claiming slip detection or reliable deployment.
+
+The initially selected salt shaker failed stationary capture in all six
+declared resting orientations. A recorded amendment replaced it with the milk
+carton before grasp outcomes, without changing physics or acceptance rules.
+That setup rejection is not a grasp label. The completed batch uses native HUG
+geometry/masses and fresh inference rather than downloaded failure trajectories.
+
+The [step by step guide](FRESH_OBJECT_EVALUATION.md) explains methods, examples,
+Enoch's questions and storage. The [portable evaluation bundle](../research_artifacts/fresh_object_scene_eval_v1/)
+contains the causal data, all 6,240 predictions, full/grouped results and frozen
+protocol/source records. Full rollouts remain local; eight small replay videos
+are included with the portable artifact.
+The [fresh viewer](http://127.0.0.1:8770/) shows predictions beside outcomes.
+
+Validation: all 77 focused model/data/evaluator/viewer checks passed, and the
+full suite passed 338 tests with 34 skipped and one upstream deprecation warning.
+An independent audit reconstructed every raw prefix and task label, reproduced
+all 6,240 predictions exactly and recomputed all 87 group metric records. It
+verified disjoint original source content and unchanged model/controller hashes.
+The standalone manuscript currently retains its earlier pilot scope; these
+separate evidence notes preserve the new experiment for a subsequent revision.
+
+## Decision history and research question update 11 October
+
+The [decision history](RESEARCH_DECISIONS.md) now connects the original pilot,
+frozen fresh evaluation, separately versioned mug correction and public data
+discussion. The standalone manuscript adds a scoped discussion of this evolution
+and the proposed warning question; its quantitative pilot results remain the
+earlier experiment. Guardian and public DROID data are potential comparisons,
+with no import, training or evaluation completed here. Prior work already studies
+runtime failure prediction, so earlier timing alone is not a novelty claim.
+The next evidence should address causal information, unfamiliar conditions and
+advance warning at a controlled false alarm rate. Recovery benefit requires a
+separate intervention experiment.

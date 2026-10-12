@@ -190,7 +190,7 @@ class ShadowPoseValidator:
         self.data.qvel[:] = 0.0
         mujoco.mj_forward(self.model, self.data)
 
-    def validate(self, pose: RetargetedHandPose, scaling_factor: float = 1.2) -> PoseValidation:
+    def validate(self, pose: RetargetedHandPose, scaling_factor: float = 1.0) -> PoseValidation:
         self.set_pose(pose)
         palm_position = self.data.xpos[_body_id(self.model, "palm")]
         achieved = _link_positions(self.model, self.data, self.source_urdf) - palm_position

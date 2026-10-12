@@ -1,0 +1,76 @@
+{
+  "schema_version": "fresh_object_scene_plan_v1",
+  "declared_at_utc": "2026-10-11T22:48:29.070640+00:00",
+  "question": "Does the unchanged eventual-task-outcome model generalize to fresh observations of familiar objects and previously unseen geometries?",
+  "model_change_allowed": false,
+  "training_allowed": false,
+  "threshold_failure_probability": 0.5,
+  "prefix_end_s": 2.96,
+  "prefix_samples": 20,
+  "observable_channels": [
+    "hand_joint_position",
+    "hand_joint_velocity",
+    "actual_commanded_target"
+  ],
+  "controller": "fixed_grasp_lift_v2",
+  "environment": "adroit_shadow_tabletop_v2",
+  "embodiment": "shadow_hand_right",
+  "label_rule": "original frozen grasp/lift/hold scorer; errors stay null",
+  "objects": [
+    "object01 (existing cube)",
+    "hug_apple",
+    "hug_salt_shaker",
+    "hug_mug"
+  ],
+  "scenes_per_object": 2,
+  "proposal_seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "noise_amplitudes_rad": [
+    0,
+    0.15,
+    0.6
+  ],
+  "nonzero_repetitions": 32,
+  "baseline_once": true,
+  "master_seed": 10400,
+  "planned_observation_families": 8,
+  "planned_proposals": 32,
+  "planned_attempts": 2080,
+  "novelty_comparisons": [
+    "fresh scenes of familiar cube and apple",
+    "fresh scenes of new salt shaker and mug with native asset masses"
+  ],
+  "asset_revision": "56ea3f100b1a4ec38bb35e986c0dd14d38977283",
+  "smoke_policy": "One proposal per object and one attempt per noise amplitude in a separate output; check pipeline validity, do not choose objects/proposals/noise based on outcomes. Smoke attempts excluded from final evaluation.",
+  "setup_failure_policy": "Record capture/import failures and any pose-only amendments before scoring; do not silently replace objects or change physics/model/scorer.",
+  "metrics": [
+    "failure AUROC",
+    "failure average precision",
+    "log loss",
+    "Brier score",
+    "fixed-threshold failure recall",
+    "false alarms among successes",
+    "per-object/observation/noise counts"
+  ],
+  "limitations": [
+    "Simulation only",
+    "Objects vary in native geometry and mass",
+    "Shared source proposals make repetitions dependent",
+    "No claim of exact slip timing or physical transfer"
+  ],
+  "frozen_sha256": {
+    "research_artifacts/object_scene_pilot_v1/dataset.npz": "29f773f7faf03cff5e1c694ef475d02adfd07c239314b349f2228f86db9d3aad",
+    "research_artifacts/object_scene_pilot_v1/manifest.json": "9a9c076620cea317e71fb59259faf2995b000dea51be2ed208cd0001e0108303",
+    "research_artifacts/object_scene_pilot_v1/splits.json": "27a9c894b0775a5a10e2ae83a18b6a70f78d4c504b80396086a80158b3b5aac7",
+    "research_artifacts/task_outcome_baseline_v1/proprioception_and_commands.npz": "16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb",
+    "research_artifacts/task_outcome_baseline_v1/commands_only.npz": "18580278554dfa8660cecd4b6b495e23255c492d83dd69d910cb0dd672cf57ad",
+    "research_artifacts/task_outcome_baseline_v1/report.json": "19f1aa3e7ab0902da1c955aaaa992b8023f7c6b453fa60b835d284cd385c13a8",
+    "src/grasp_failure_prediction/prediction/model.py": "f5fbe2762efd7099a05b75ccca11cdae670eac9e20f7b265632d98b2a24fdea8",
+    "src/grasp_failure_prediction/evaluation/scoring.py": "b8994fb0aba95f4e757555cad85cdc8bfe3112fd9a4fb9a2a217ae3c39fe0d00",
+    "src/grasp_failure_prediction/evaluation/configs/execution_protocols.yaml": "69b7f199352fddd0d90238d2726de228f0db4322e1db5fd7ac7fc8a731aeb8a1"
+  }
+}

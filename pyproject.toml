@@ -46,9 +46,15 @@ dev = [
     "pytest>=7.4",
 ]
 
+prediction = [
+    "scipy>=1.11,<2",
+]
+
 eval = [
     "dex-retargeting>=0.5,<0.6",
+    "Pillow",
     "torch",
+    "opencv-python",
 ]
 
 # Part I robot-training stack. Kept separate so the Adroit/HUG baseline and the
@@ -77,6 +83,11 @@ inspect-adroit = "grasp_failure_prediction.environments.adroit:main"
 inspect-hug-prediction = "grasp_failure_prediction.integrations.hug:main"
 view-retargeted-hand = "grasp_failure_prediction.evaluation.view_pose:main"
 run-hug-eval-case = "grasp_failure_prediction.evaluation.case_runner:main"
+collect-noisy-rollouts = "grasp_failure_prediction.evaluation.noisy_rollouts:main"
+export-task-prefixes = "grasp_failure_prediction.prediction.dataset:main"
+train-outcome-baseline = "grasp_failure_prediction.prediction.model:main"
+capture-hug-scene = "grasp_failure_prediction.integrations.sim_observations:main"
+view-eval-results = "grasp_failure_prediction.evaluation.result_viewer:main"
 validate-stack = "grasp_failure_prediction.part1.stack:main"
 collect-demos = "grasp_failure_prediction.part1.collect:main"
 export-demos = "grasp_failure_prediction.part1.lerobot_export:main"

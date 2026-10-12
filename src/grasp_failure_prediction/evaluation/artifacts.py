@@ -27,6 +27,7 @@ def _code_commit() -> str:
     try:
         result = subprocess.run(
             ["git", "rev-parse", "HEAD"],
+            cwd=Path(__file__).resolve().parents[3],
             check=True,
             capture_output=True,
             text=True,
@@ -52,6 +53,9 @@ def write_evaluation_artifacts(
     outcome: ScoredOutcome,
     final_qpos: np.ndarray,
     final_qvel: np.ndarray,
+    video: Path | None = None,
+    hug_proposal: Path | None = None,
+    inference_report: Path | None = None,
 ) -> EvaluationResult:
     output = Path(output_dir)
     output.mkdir(parents=True, exist_ok=True)
@@ -75,6 +79,15 @@ def write_evaluation_artifacts(
         hand_table_contact=np.asarray([step.hand_table_contact for step in trace.steps]),
         object_table_contact=np.asarray(
             [step.object_table_contact for step in trace.steps]
+        ),
+        opposing_hand_object_contact=np.asarray(
+            [step.opposing_hand_object_contact for step in trace.steps]
+        ),
+        maximum_contact_normal_force_n=np.asarray(
+            [step.maximum_contact_normal_force_n for step in trace.steps]
+        ),
+        maximum_actuator_force_fraction=np.asarray(
+            [step.maximum_actuator_force_fraction for step in trace.steps]
         ),
     )
     np.savez_compressed(final_state_path, qpos=final_qpos, qvel=final_qvel)
@@ -119,11 +132,26 @@ def write_evaluation_artifacts(
             maximum_lift_m=outcome.maximum_lift_m,
             hold_duration_s=outcome.hold_duration_s,
             final_object_height_m=outcome.final_object_height_m,
+            opposing_contact_duration_s=sum(
+                step.opposing_hand_object_contact for step in trace.steps
+            )
+            * resolved.environment.simulator.control_timestep_s,
+            peak_contact_normal_force_n=max(
+                (step.maximum_contact_normal_force_n for step in trace.steps),
+                default=0.0,
+            ),
+            peak_actuator_force_fraction=max(
+                (step.maximum_actuator_force_fraction for step in trace.steps),
+                default=0.0,
+            ),
         ),
         artifacts=ArtifactReferences(
             trajectory=Path("trajectory.npz"),
             resolved_case=Path("resolved_case.json"),
             simulator_state=Path("final_state.npz"),
+            video=video,
+            hug_proposal=hug_proposal,
+            inference_report=inference_report,
         ),
     )
     _write_json(result_path, result.model_dump(mode="json"))

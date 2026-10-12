@@ -66,7 +66,7 @@ def test_engineered_shadow_pickup_and_open_thumb_negative_control():
         from actuated_shadow_pilot import ActuatedShadowRunner, run_candidate
         from grasp_failure_prediction.evaluation.retargeting import RetargetedHandPose
         from dataclasses import replace
-        protocol=load_protocol_registry().resolve('fixed_grasp_lift_v1')
+        protocol=load_protocol_registry().resolve('fixed_grasp_lift_v2')
         protocol=protocol.model_copy(update={'parameters':protocol.parameters.model_copy(update={'grip_command':1.})})
         runner=ActuatedShadowRunner(protocol,assets)
         snapshot={'qpos':runner.model.qpos0.copy(),'qvel':np.zeros(runner.model.nv)}
@@ -101,7 +101,7 @@ def test_hug_target_needs_closing_pressure_without_object_aware_fit():
         from grasp_failure_prediction.evaluation.retargeting import RetargetedHandPose
         pose = RetargetedHandPose(tuple(fixture['joint_names']), np.array(fixture['joints']),
                                  np.zeros((21, 3)), np.zeros((10, 3)), np.eye(4))
-        protocol = load_protocol_registry().resolve('fixed_grasp_lift_v1')
+        protocol = load_protocol_registry().resolve('fixed_grasp_lift_v2')
         outcomes = []
         for delta in (0., .1):
             runner = ActuatedShadowRunner(protocol, assets, force_close_delta_rad=delta)

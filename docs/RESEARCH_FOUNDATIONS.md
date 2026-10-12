@@ -27,6 +27,11 @@ hypotheses and a human-hand reference space; this project asks whether an
 executed grasp is likely to fail soon and whether an intervention can still
 save it.
 
+The [noisy pilot literature review](PILOT_LITERATURE_REVIEW.md) connects AHA,
+Predictive Learning of Error Recovery, and FAIL-Detect to the six-step collection
+and prediction plan. It records proposed refinements to failure timing, grouped
+splits, baselines, and evaluation; these are not completed model results.
+
 ## Hand embodiment as an experiment parameter
 
 The experiment schema records an explicit `embodiment_id` rather than
@@ -109,18 +114,19 @@ HUG MANO grasp has been executed.
 
 The repository retargets saved HUG predictions, displays the resulting Shadow
 Hand pose, and reports fingertip alignment error. The `run-hug-eval-case` command
-resolves the versioned `adroit_shadow_tabletop_v1` environment and
-`fixed_grasp_lift_v1` execution protocol. Its case contract is in
+resolves the versioned `adroit_shadow_tabletop_v2` environment and
+`fixed_grasp_lift_v2` execution protocol. Its case contract is in
 [Evaluation manifest](EVALUATION_MANIFEST.md). No learned manipulation policy is
 used by this initial protocol.
 
-The registered runner currently supports one object ID with nominal friction
-and lift motion. Wrist placement is prescribed relative to the object and hand
-joints are advanced kinematically. This differs from executing the source HUG
-wrist pose with a calibrated robot controller. The separate actuated Shadow
-Hand diagnostics in [HUG simulation pilot](HUG_SIMULATION_PILOT.md) use another
-execution path. Review and freeze the chosen conversion/controller before
-expanding to new objects or interpreting failures as physical-condition effects.
+The current runner uses force limited hand servos and an ideal arm carrier,
+supports reviewed MJCF object geometry, and executes the world palm pose derived
+from HUG. The original v1 kinematic controller remains a historical protocol.
+The [multi scene collection](MULTI_SCENE_COLLECTION.md) and
+[fresh object evaluation](FRESH_OBJECT_EVALUATION.md) document completed v2
+experiments. The [mug clearance correction](MUG_TABLE_CLEARANCE.md) introduces
+the separate v3 entry point and runtime guard. None establishes calibrated
+physical robot contact or recovery performance.
 
 ### Tactile adaptation and recovery
 

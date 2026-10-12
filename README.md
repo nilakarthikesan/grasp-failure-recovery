@@ -1,88 +1,345 @@
 # Grasp Failure Prediction and Recovery
 
 MuJoCo research infrastructure for executing dexterous grasps and studying
-whether object loss can be predicted early enough for a useful recovery action.
+whether their outcomes can be predicted early enough for useful intervention.
 
-The primary path uses [HUG](https://github.com/KevinyWu/hug) human-hand grasp
-predictions, [Dex Retargeting](https://github.com/dexsuite/dex-retargeting), and
-a Shadow Hand model. The project separates grasp execution, future-failure
-prediction, and recovery evaluation so each stage can be assessed independently.
+**Working branch: [`codex/project-work`](https://github.com/nilakarthikesan/grasp-failure-recovery/tree/codex/project-work).**
+All project work is consolidated here. Continue on this branch and update
+[the single consolidated PR, 19](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/19).
+The [branch guide](docs/WORKING_BRANCH.md) explains the
+cleanup, active checkout and recovery references. `main` remains the published base.
 
-## Current status
+## Interactive noise demo
 
-This is an active research prototype. The repository includes:
+[![Recorded finger angle noise and measured motion](docs/demos/grasp-noise/preview.jpg)](docs/demos/grasp-noise/index.html)
 
-- HUG prediction loading and validation, coordinate-frame adapters, and
-  RGB-D observation checks.
-- Dex Retargeting integration with explicit MuJoCo joint-name mapping and
-  numerical pose validation.
-- A one-case HUG evaluation command with versioned environment and execution
-  protocol registries, configuration hashes, trajectory artifacts, and outcome
-  scoring.
-- Separate experimental CPU inference, alignment, and actuated Shadow Hand
-  diagnostic scripts. The [simulation pilot](docs/HUG_SIMULATION_PILOT.md)
-  records results from one cube scene and their limitations.
-- Supporting robosuite/Panda demonstration collection, synchronized logging,
-  HDF5-to-LeRobot export, ACT training, and MuJoCo state snapshots.
+The [complete demo website](docs/demos/grasp-noise/index.html) lets you select
+five recorded noise strengths, inspect joint limit clipping and measured finger
+motion, and watch successful and failed replays. It embeds the historical
+50 attempt cube pilot and works offline. It is an explanation of recorded
+simulation data, rather than a live simulation or prediction model.
 
-The registered `fixed_grasp_lift_v1` case runner prescribes wrist and hand motion
-kinematically. It places the palm horizontally above the object using protocol
-parameters, rather than executing the source HUG wrist pose unchanged. Its grip
-command is normalized position, not calibrated force. The experimental actuated
-runner described in the pilot is a separate execution path.
+```bash
+python3 -m http.server 8767 --bind 127.0.0.1 --directory docs/demos/grasp-noise
+```
 
-The one-case interface currently supports `object01`, `nominal_v1` friction,
-and `nominal_lift_v1` motion. Batch holdouts, future-failure labeling, trained
-failure predictors, intervention branching, and learned recovery remain work
-in progress. Neither the registered case runner nor the one-cube pilot
-establishes general grasp reliability or physical-robot performance.
+Open [the local demo](http://127.0.0.1:8767/) while the server is running. See the
+[demo guide](docs/demos/grasp-noise/README.md) and
+[Step 1 walkthrough](docs/HUG_STEP_1_WALKTHROUGH.md) for provenance and labels.
 
-The supporting Panda pipeline also lacks its `part1.evaluate` module. Its
-combined runner saves a trained checkpoint and skips evaluation; the declared
-`eval-act` entry point is unavailable. This limitation is separate from the
-implemented HUG case runner.
+The [initial literature review](docs/PILOT_LITERATURE_REVIEW.md) preserves the
+papers that informed the first pilot. Later choices and implemented evidence
+are recorded in the [research decision history](docs/RESEARCH_DECISIONS.md).
 
-## Research plan
+This project studies one connected question:
 
-### Part I: Execute HUG-conditioned grasps
+> How can a robot learn to grasp an object, recognize when its current behavior
+> is likely to fail, and choose an effective recovery while recovery is still
+> possible?
 
-Generate multiple MANO hand poses from RGB-D observations, retarget them to
-Shadow Hand joint targets, and execute a fixed grasp/lift protocol. Freeze the
-observation, retargeting, controller, and outcome definitions before expanding
-to batch evaluation.
+The work progresses from **learning actions**, to **predicting outcomes**, to
+**choosing interventions**. These are separately trained and evaluated learning
+problems that share the same robot, task, objects, logging infrastructure, and
+controlled physical variations.
 
-The planned initial batch fixes the hand embodiment and nominal friction, then
-varies grasp samples, objects, mass, initial pose, and motion. The current
-one-case interface supports a narrower set of assets and profiles. Transport
-and placement are extensions beyond the present fixed lift-and-hold protocol.
+This is one research program, not a commitment to produce three papers. The
+initial goal is one coherent, reproducible result. A component should become a
+separate paper only if it develops an independent question, contribution, and
+body of evidence.
 
-### Part II: Predict future object loss
+## Completed work and working paper
 
-Freeze the execution system and train a temporal model conditioned on
-observations and actions. Labels use object loss within a specified future
-horizon. Split complete episodes, objects, and physical conditions before
-creating temporal windows.
+The [partner handoff](docs/PARTNER_HANDOFF.md) confirms the completed work,
+identifies the latest branch and data locations, and gives the next experiment
+in order.
 
-Planned metrics include failure recall at a fixed false-alarm budget, warning
-lead time, probability calibration, and performance under held-out conditions.
-Simulator mass, friction, and contact truth can support analysis and oracle
-baselines; they must not be confused with realistic tactile sensing.
+The [research decision history](docs/RESEARCH_DECISIONS.md) explains how evidence
+changed our plan, which choices are implemented, and which questions remain
+proposed. It connects the original pilot, unfamiliar object evaluation, mug
+collision correction and consideration of public data and existing detectors.
 
-### Part III: Compare recovery actions
+The [working paper draft](docs/paper/working_draft.tex) and
+[six-step evidence and literature notes](docs/PAPER_PROGRESS.md) describe the
+completed pilot and the decisions behind it. The paper is an editable research
+draft; future-slip prediction, recovery, and physical transfer remain research
+goals.
 
-Restore matched states and compare bounded grip adjustments, motion changes,
-return to a support surface, and continued execution under specified response
-delay. Evaluate task completion, object-preserving aborts, and harmful
-interventions separately before training a recovery selector.
+1. **Review inputs and assets:** selected HUG development assets and documented
+   geometry, licensing, camera, and retargeting requirements.
+2. **Run varied trials:** executed fresh HUG proposals with a fixed actuated
+   Shadow controller and logged bounded finger-target noise.
+3. **Save trajectories:** collected 1,040 attempts across two geometries and
+   four observation families: 444 successes, 596 failures, and zero runtime errors.
+4. **Audit task labels:** retained the frozen 14 cm lift/2 s hold task definition,
+   with explicit cutoff and failure-category limitations.
+5. **Freeze grouped splits:** exported a portable pre-lift dataset with 520
+   training, 260 validation and 260 test attempts, grouped by observation family.
+   See [the split contract](docs/DATA_SPLITS.md) for the retrospective pilot limits.
+6. **Train a causal baseline:** trained and evaluated a first task-outcome
+   model using encoder and command history before lifting. See
+   [the model explanation and results](docs/PREDICTION_BASELINE.md).
 
-The research design is in [System design](docs/SYSTEM_DESIGN.md). The hand
-embodiment and external-method scope are in
-[Research foundations](docs/RESEARCH_FOUNDATIONS.md).
+The earlier milestone PRs are historical references: [interactive noise demo (#8)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/8),
+[literature notes (#9)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/9),
+[partner execution follow-up (#12)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/12),
+[noisy collector (#10)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/10),
+[verified multi-scene collection (#11)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/11),
+[paper and evidence notes (#13)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/13),
+[grouped prefix dataset (#14)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/14),
+and [trained task-outcome baseline (#15)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/15).
+The [collection guide](docs/MULTI_SCENE_COLLECTION.md) includes the local viewer,
+six replay examples, exact settings, data paths, and verification evidence.
+The [published closing histories](research_artifacts/object_scene_pilot_v1/)
+support reproducing training without downloading HUG assets or raw simulator states.
+The [trained baselines](research_artifacts/task_outcome_baseline_v1/) include
+coefficients, selection settings and all predictions. On the reserved apple
+scene, the state-and-command model has failure-ranking AUC 0.8523, compared
+with 0.6419 for commands alone. This is a retrospective development result
+from one test observation family; the paper explains the limits and errors.
+
+The subsequent [frozen model test on fresh objects and scenes](docs/FRESH_OBJECT_EVALUATION.md)
+collected **2,080 new attempts**: 659 successes, 1,421 failures and zero errors.
+The original model, normalization, controller, scorer and threshold stayed
+unchanged. Its failure ranking AUC is **0.9173 on fresh cube/apple scenes** and
+**0.5588 across new milk carton/mug attempts**. The new objects expose substantial
+false alarms and missed failures; all mug attempts fail, so a mug success false
+alarm rate cannot be estimated. The [portable evaluation bundle](research_artifacts/fresh_object_scene_eval_v1/)
+contains inputs, predictions and provenance. The [local walkthrough viewer](http://127.0.0.1:8770/)
+shows eight replays beside their saved predictions while the server is running.
+
+The [mug collision diagnosis and fix](docs/MUG_TABLE_CLEARANCE.md) explains why
+the original mug grasps struck the table: the Shadow forearm did not fit the
+human-hand pose. A new execution protocol adjusts the wrist while preserving
+the intended grasp and checks actual table clearance at every physics step.
+Its small regression completed 26 trials with zero table contacts and stopped
+one high-noise closure before contact. See the [before/after demo](research_artifacts/mug_table_clearance_v1/mug_before_after.mp4)
+and [local replay viewer](http://127.0.0.1:8771/). Larger collection remains the
+next step; these controller checks do not replace the original model evaluation.
+
+---
+
+## Research program
+
+### Part I — Execute HUG grasps with a dexterous hand
+
+Given an RGB-D observation and a selected object, use HUG to generate multiple
+MANO human-hand grasp samples. Retarget each sample to an articulated dexterous
+hand with [Dex Retargeting](https://github.com/dexsuite/dex-retargeting),
+execute the grasp in MuJoCo, then lift and transport the object under controlled
+conditions.
+
+The initial executable embodiment is the Adroit/Shadow Hand in MuJoCo. The
+repository's Panda parallel-jaw pipeline remains useful generic manipulation
+infrastructure, but it cannot execute a MANO dexterous grasp and is not the
+primary experimental embodiment. A Panda or another arm may later carry a
+dexterous hand.
+
+**Deliverable:** a reproducible RGB-D → HUG → Dex Retargeting → Shadow Hand →
+grasp/lift/transport pipeline with saved successful and failed executions.
+
+The corrected HUG-centered scope is in
+[`docs/RESEARCH_FOUNDATIONS.md`](docs/RESEARCH_FOUNDATIONS.md); the executable
+Part I contract will be frozen after the retargeting prototype is validated.
+
+### Part II — Anticipate future failure
+
+Freeze the HUG-conditioned grasp execution system and run it across controlled
+grasp, object, and motion conditions. Train a separate temporal model to estimate:
+
+> Given the observations and actions so far, how likely is the object to be
+> lost within a future horizon if the robot continues its current behavior?
+
+The predictor is conditioned on behavior because the same grasp may survive a
+slow movement and fail under a more aggressive motion. Data is split by complete
+episodes, objects, and physical conditions—not neighboring frames.
+
+**Deliverable:** a calibrated future-failure predictor with measured warning
+lead time and evaluation under held-out HUG grasp samples, objects, masses, and
+motion conditions.
+
+### Part III — Estimate recoverability and intervene
+
+At selected simulator states, compare multiple possible interventions from
+matched starting conditions. Initially, the actions are fixed, bounded recovery
+behaviors such as:
+
+- adjust grip within hardware limits;
+- slow or modify the transport motion;
+- return the object to a support surface and regrasp; or
+- continue the nominal policy.
+
+Train an intervention-outcome model to estimate which available behavior is
+most likely to recover successfully after realistic response delay. A learned
+recovery controller comes only after this comparison is understood.
+
+**Deliverable:** an evaluated recovery selector/controller, measurements of
+when recovery remains possible, and explicit separation between task
+completion, object-preserving aborts, and harmful interventions.
+
+---
+
+## End-to-end architecture
+
+```
+RGB-D object observation
+    │
+    ▼
+HUG: generate MANO human-hand grasp samples
+    │
+    ▼
+Part I: Dex Retargeting → Shadow Hand → grasp/lift/transport
+    │
+    ├── successful and failed executions under controlled physics
+    ▼
+Part II: train future-failure predictor
+    │
+    ├── warning states + matched simulator intervention trials
+    ▼
+Part III: train intervention-outcome model and recovery selector
+    │
+    ▼
+compare base, reactive, anticipatory, and recovery-aware systems
+```
+
+The components are trained and frozen in stages so improvements remain
+interpretable. Joint training may be studied later.
+
+## Controlled physical variation
+
+The initial controlled evaluation fixes one Adroit/Shadow Hand embodiment and
+one nominal friction value. It varies the **HUG grasp sample**, object identity
+and shape, object mass, initial object pose, and lift/transport motion. Friction
+remains supported and recorded but is not swept in the first batch.
+
+The experiment schema includes a hand `embodiment_id`. The initial value is
+`shadow_hand_right`; `mano_human_reference` identifies the source HUG grasp
+rather than an actuated embodiment. See
+[`docs/RESEARCH_FOUNDATIONS.md`](docs/RESEARCH_FOUNDATIONS.md) for the staged
+embodiment and HUG integration plan.
+
+Every case also carries the versioned environment ID
+`adroit_shadow_tabletop_v2`. It resolves through an explicit registry to the
+force-limited HUG/Shadow-Hand MuJoCo runner and fixes the scene, robot model, controller,
+timestep, sensor/action contracts, cameras, and outcome definitions. Unknown
+IDs and environment configuration-hash mismatches are hard validation errors.
+See [`docs/EVALUATION_MANIFEST.md`](docs/EVALUATION_MANIFEST.md) for the portable
+case and provenance contract.
+
+The initial case also fixes `execution_protocol_id` to
+`fixed_grasp_lift_v2`: reset, load, retarget, pre-grasp, approach, close, settle,
+lift,
+hold, and score. This is a deterministic scripted protocol. The initial HUG
+evaluation does not train or invoke a manipulation policy, which keeps learned
+controller failures out of the grasp-quality measurement. Results save the
+resolved protocol parameters and configuration hash.
+
+Hidden simulator parameters generate controlled trials and evaluation groups,
+but they are not exposed to a sensor-based predictor.
+
+## Current repository status
+
+The HUG-centered execution and controlled collection pilot are implemented.
+The main future-loss and recovery experiments remain ahead:
+
+- `AdroitHandRelocate-v1` inspection exposes the articulated arm, wrist, and
+  Shadow Hand action space, object physics, and MuJoCo contacts.
+- A validated adapter reads released
+  [HUG](https://github.com/KevinyWu/hug) grasp predictions without depending on
+  HUG's CUDA runtime.
+- The robosuite/Panda package provides generic collection, logging, snapshot,
+  LeRobot export, ACT smoke training, and a visible MuJoCo example. It does not
+  meaningfully evaluate HUG MANO grasps.
+- The HUG-to-Dex-Retargeting coordinate adapter, explicit joint-name mapping,
+  force-limited Shadow execution, fresh calibrated scene capture, noisy batch
+  evaluation, task labels, conservative event annotations, and result viewer
+  are implemented and tested.
+- The first grouped task-outcome predictor is trained and evaluated on a
+  portable pre-lift dataset. Validated fixed-horizon future-loss labels, intervention
+  comparisons, recovery learning, and hardware transfer are later milestones.
+
+The default Adroit observation contains no tactile or contact measurements.
+MuJoCo does maintain contact information internally, so a first simulation
+study can surface contact-derived features through a wrapper. Those features
+must not be described as realistic tactile sensing.
+
+The executable environment embeds the pinned `dex-urdf` Shadow model in the
+tabletop scene, accepts verified cube/apple geometry and HUG targets, and scores
+grasp/lift/hold. Transport and recovery are later protocol extensions. MuJoCo
+provides controlled execution and saved integration states for future branching.
+
+Integration testing found that the stock Gymnasium Adroit MJCF does not use the
+same Shadow joint names and axes as Dex Retargeting's official URDF. The runner
+therefore embeds the pinned `dex-urdf` Shadow model. Numeric suffix remapping is rejected because
+it produces incorrect finger and thumb poses.
+
+The physical robot is not required for Part I. Three hardware discovery tracks
+run in parallel while the simulation policy is built:
+
+- **Track A — simulation now:** integrate Dex Retargeting with its supplied
+  Shadow Hand configuration and execute one HUG grasp in Adroit/MuJoCo; this is
+  the critical path.
+- **Track B — friend-built robot:** evaluate a written specification (DOF,
+  payload, repeatability, control/telemetry rates, gripper force interface,
+  URDF/simulation model, API, emergency stop, BOM, and publishability) before
+  authorizing any build.
+- **Track C — lab or funded hardware:** investigate lab access requirements and
+  funding-dependent options (for example an xArm6 or FR3-class arm). No purchase
+  or custom build is authorized yet.
+
+At a single hardware gate the project selects one target embodiment. Large-scale
+scientific data collection waits until then; a portable Cartesian end-effector
+plus gripper interface keeps the policy transferable across these options.
+
+## Data sources
+
+- **HUG predictions:** MANO grasp samples, wrist transforms, landmarks, and
+  object-conditioned grasp geometry provide the Part I starting hypotheses.
+- **Dexterous-hand executions:** successful and unsuccessful retargeted HUG
+  rollouts provide Part II's future-outcome data. Every episode must contain
+  synchronized observations, hand/arm state, actions, contacts, and outcomes.
+- **Matched intervention trials:** simulator state branching produces the
+  counterfactual comparisons needed by Part III.
+- **A collaborator's VR-collected dataset:** usable for the central experiments
+  only after auditing provenance, embodiment, synchronization, sensors, actions,
+  outcomes, licensing, and physical-property labels. Data without failures or
+  measured physical conditions may still support policy or representation
+  pretraining.
+- **HUG:** the foundational source of human grasp hypotheses, MANO hand poses,
+  and the HUG-Bench object taxonomy. Predictions enter through the validated
+  adapter and pass through Dex Retargeting before Shadow Hand execution.
+- **Dex Retargeting:** the MIT-licensed, AnyTeleop-derived retargeting library
+  used to convert HUG's 21 hand landmarks into Shadow Hand joint targets. The
+  project integrates its supplied Shadow Hand configuration instead of building
+  a new retargeting optimizer.
+- **See to Touch:** a research precedent for combining visual demonstrations
+  with tactile policy adaptation. It motivates a later tactile recovery track,
+  not the first simulation batch.
+
+## Evaluation
+
+The four primary system comparisons are:
+
+1. Base policy alone.
+2. Reactive detector plus a fixed recovery controller.
+3. Future-failure predictor plus the same fixed controller.
+4. Predictor plus learned intervention selection or recovery.
+
+Part I reports closed-loop task success and failure modes. Part II reports
+failure recall at a fixed false-alarm budget, warning lead time, probability
+calibration, and held-out-condition performance. Part III reports recovery
+success, task completion, safe aborts, harmful interventions, and sensitivity
+to response delay.
+
+When an intervention prevents a drop, the warning is not automatically a false
+positive. Predictor evaluation therefore needs a non-intervention comparison
+from simulator branching or closely matched physical trials.
+
+---
 
 ## Installation
 
-Requires Python 3.10 or later. Initialize the pinned `dex-urdf` submodule and
-install the evaluation extra:
+Requires Python ≥ 3.10. The lightweight Adroit/HUG baseline needs only the
+default dependencies:
 
 ```bash
 git submodule update --init --recursive
@@ -91,157 +348,312 @@ source .venv/bin/activate
 pip install -e ".[dev,eval]"
 ```
 
-HUG inference requires additional external code, model weights, and licensed
-MANO assets. It is not installed by the evaluation extra. See
-[HUG simulation pilot](docs/HUG_SIMULATION_PILOT.md) for that separate runtime.
+The pinned `dex-urdf` submodule supplies the official Shadow Hand URDF required
+by Dex Retargeting. The repository does not copy those third-party assets into
+its own source tree.
 
-For the supporting Panda training stack, the macOS ARM64 constraints record
-the project's local dependency versions:
+The Part I robot-training stack (robosuite, robomimic, LeRobot, ACT, PyTorch) is
+an optional extra. Install it against the validated version set:
 
 ```bash
 pip install -e ".[dev,robot]" -c constraints/part1-macos-arm64.txt
 pip install "lerobot[dataset]" -c constraints/part1-macos-arm64.txt
 ```
 
-On macOS, use `MUJOCO_GL=cgl` for offscreen rendering. The Panda
-`validate-stack` command checks dependencies, a short simulator rollout, and
-the LeRobot/ACT data path.
+On macOS, offscreen rendering uses CGL, so prefix simulation commands with
+`MUJOCO_GL=cgl`. Validate the stack with `MUJOCO_GL=cgl validate-stack`.
+
+---
 
 ## Workflows
 
-### Inspect an environment or HUG prediction
+### 1. Inspect the Adroit environment (runs on Mac)
+
+Resets one episode, never calls `env.step(...)`, and prints the observation
+layout, action/actuator layout, timing (0.01 s control step), object mass and
+friction, and the MuJoCo contacts present at reset.
 
 ```bash
+python scripts/inspect_adroit.py
+# or, after installation:
 inspect-adroit
-inspect-hug-prediction /path/to/grasp_pred/example.pkl
-view-retargeted-hand /path/to/grasp_pred/example.pkl
 ```
 
-The Adroit inspector resets one episode without stepping it and reports the
-observation/action layout, timing, object physics, and simulator contacts.
-Adroit's default observations do not include tactile or contact measurements.
+### 2. Inspect a HUG prediction (no HUG runtime needed)
 
-For visual inspection of a retargeted hand on macOS:
+Reads a `grasp_pred/*.pkl` you already generated with HUG's released inference
+code and prints its usable grasp fields (MANO pose, wrist transform, translation,
+landmarks, mesh vertices, camera metadata).
 
 ```bash
+python scripts/inspect_hug_prediction.py /path/to/grasp_pred/example.pkl
+# or, after installation:
+inspect-hug-prediction /path/to/grasp_pred/example.pkl
+```
+
+Retarget and numerically validate the pose in the official Shadow model loaded
+by MuJoCo; add `--viewer` under `mjpython` for visual inspection:
+
+```bash
+view-retargeted-hand /path/to/grasp_pred/example.pkl
 MUJOCO_GL=glfw mjpython -m grasp_failure_prediction.evaluation.view_pose \
   /path/to/grasp_pred/example.pkl --viewer
 ```
 
-Pickle files can execute arbitrary code during loading. Use predictions you
-generated or obtained from a trusted source.
+> **Security note:** `*.pkl` files can execute arbitrary code when unpickled.
+> Only run this on prediction files you generated or trust. The test suite uses
+> synthetic in-memory dictionaries only — never opaque downloaded pickles.
 
-### Run one HUG evaluation case
+### 3. Part I: grasp-and-transport pipeline (robosuite, simulation-only)
 
-Place a trusted prediction at the repository-relative path referenced by the
-case. Use a new or empty output directory:
+Requires the `robot` extra. Validate the stack, inspect the task, or run the
+whole collect → export → train → evaluate loop:
 
 ```bash
-run-hug-eval-case \
-  eval_cases/hug_case_001/case.yaml \
-  --output runs/hug_case_001
+MUJOCO_GL=cgl validate-stack                       # versions + live sim + LeRobot round-trip
+MUJOCO_GL=cgl python scripts/inspect_container_task.py   # one demo, phases, HDF5, exact snapshot restore
+MUJOCO_GL=cgl python scripts/run_part1_pipeline.py --workdir runs/part1_smoke  # end-to-end smoke
 ```
 
-For live playback on macOS:
+To watch the scripted Panda perform one successful episode in a native MuJoCo
+window on macOS:
 
 ```bash
-MUJOCO_GL=glfw mjpython -m grasp_failure_prediction.evaluation.case_runner \
-  eval_cases/hug_case_001/case.yaml \
-  --output runs/hug_case_001_viewer \
-  --viewer
+MUJOCO_GL=glfw .venv-part1/bin/mjpython -u scripts/watch_container_task.py
 ```
 
-The command resolves the environment and protocol registries, validates the
-case and supported assets, and checks supplied expected configuration hashes.
-It writes `resolved_case.json`, `trajectory.npz`, `final_state.npz`, and
-`result.json`. The final state contains joint positions and velocities; it
-does not constitute a complete controller/environment replay snapshot.
-
-The `acquired_object` flag means hand-object contact during manipulation.
-Use lift and hold measurements to assess task success. Coarse task-failure
-labels must be validated before they supply future-drop training targets.
-
-The executable input schema and provenance contract are documented in
-[Evaluation manifest](docs/EVALUATION_MANIFEST.md).
-
-### Collect Panda demonstrations and train ACT
-
-These commands exercise the supporting parallel-jaw pipeline:
+Individual stages are also exposed as entry points:
 
 ```bash
-MUJOCO_GL=cgl validate-stack
-MUJOCO_GL=cgl python scripts/inspect_container_task.py
 MUJOCO_GL=cgl collect-demos runs/demos.hdf5 --split train
 MUJOCO_GL=cgl export-demos runs/demos.hdf5 runs/lerobot
-MUJOCO_GL=cgl train-act runs/lerobot runs/policy --smoke
+MUJOCO_GL=cgl train-act runs/lerobot runs/policy          # add --smoke for a fast check
+MUJOCO_GL=cgl eval-act runs/policy                        # held-out closed-loop metrics
 ```
 
-The combined smoke runner collects, exports, and trains, then skips the missing
-Panda evaluation stage:
+The scripted demonstrator reliably solves the task; a short smoke-trained ACT
+policy will not, by design. Reaching a competent policy needs the full-scale run
+(more demonstrations, a larger model, and many optimizer steps). All Part I
+numbers are simulation-only.
 
-```bash
-MUJOCO_GL=cgl python scripts/run_part1_pipeline.py --workdir runs/part1_smoke
-```
+These commands exercise the supporting Panda pipeline. ACT is not part of the
+initial HUG/Shadow-Hand evaluation protocol.
 
-A small smoke-trained model checks the data path; it does not demonstrate a
-competent manipulation policy. ACT is not used by the initial HUG execution
-protocol.
-
-To view the scripted Panda on macOS after installing the robot extra:
-
-```bash
-MUJOCO_GL=glfw mjpython -u scripts/watch_container_task.py
-```
-
-### Run tests
+### 4. Run the tests
 
 ```bash
 pytest
 ```
 
-Tests for unavailable optional integrations may skip. Review the skip summary
-when assessing what was exercised.
+### 5. Run one HUG evaluation case
+
+For a full evaluation, add the captured observation and inference seed to the
+case manifest:
+
+```yaml
+grasp:
+  source: hug
+  id: grasp_003
+  observation_path: observations/object01
+  inference_seed: 42
+```
+
+Then run HUG inference, retargeting, MuJoCo execution, and scoring with one
+command:
+
+```bash
+run-hug-eval-case \
+  eval_cases/hug_case_001/case.yaml \
+  --output runs/hug_case_001 \
+  --hug-root ../hug \
+  --checkpoint ../hug/checkpoints/hug_full.safetensors
+```
+
+The output includes the generated proposal and inference report under
+`hug_inference/`. Offline retargeting converts MANO into Dex's right-hand frame,
+solves without teleoperation smoothing, and rejects mean fingertip error above
+10 mm. The registered environment executes the result with force-limited Shadow
+joint servos and a fixed 0.2-radian bounded closing increment. To debug the
+simulator without running HUG, provide a trusted
+`prediction_path` in the case and pass `--no-inference`:
+
+```bash
+run-hug-eval-case \
+  eval_cases/hug_case_001/case.yaml \
+  --output runs/hug_case_001 \
+  --no-inference
+```
+
+For real-time playback on macOS:
+
+```bash
+MUJOCO_GL=glfw mjpython -m grasp_failure_prediction.evaluation.case_runner \
+  eval_cases/hug_case_001/case.yaml \
+  --output runs/hug_case_001_viewer \
+  --hug-root ../hug \
+  --checkpoint ../hug/checkpoints/hug_full.safetensors \
+  --viewer
+```
+
+The command validates both registry references and hashes before simulation,
+then writes `resolved_case.json`, `trajectory.npz`, `final_state.npz`, and
+`result.json`. In inference mode, `result.json` also references the generated
+proposal and inference report. The result and trajectory include opposing-contact,
+normal-force, and actuator-force diagnostics. Normal runs also render an H.264
+`rollout.mp4` and attach it through `artifacts.video`. Use `--no-video` only for
+nonvisual simulator debugging. On macOS, the command invokes MuJoCo's bundled
+`mjpython` renderer after physics execution.
+
+### 6. Review evaluation results
+
+Launch the read-only local results viewer:
+
+```bash
+view-eval-results --runs-root runs
+```
+
+The command opens `http://127.0.0.1:8765/`. It recursively indexes result
+bundles, summarizes success and failure counts, filters by outcome or search
+text, shows the recorded metrics and resolved IDs, and streams attached rollout
+videos. Historical bundles without videos remain visible and are labeled as
+having no attached recording. Stop the viewer with `Ctrl-C`.
+
+### 7. Collect a small noisy HUG rollout pilot
+
+Replay trusted saved HUG proposals with bounded changes to finger joint targets:
+
+```bash
+python -m grasp_failure_prediction.evaluation.noisy_rollouts cases.json \
+  --project-root . --output runs/noisy_pilot \
+  --noise-amplitudes 0 0.05 0.15 --repetitions 1 --seed 9000
+```
+
+Each attempt saves the requested and applied noise, robot states, commands,
+binary outcome, conservative event timing, and replay state. This is a
+collection command; derived prediction data and splits are exported separately.
+See [`docs/NOISY_ROLLOUT_COLLECTION.md`](docs/NOISY_ROLLOUT_COLLECTION.md) for the
+manifest format, success definition, data locations, and current limitations.
+
+For fresh HUG proposals across the cube and a pinned HUG apple mesh, see
+[`docs/MULTI_SCENE_COLLECTION.md`](docs/MULTI_SCENE_COLLECTION.md). That guide
+explains scene capture, geometry and input hashes, paired noise collection,
+and grouping attempts by proposal, observation, or geometry. The completed
+[Step 5 guide](docs/DATA_SPLITS.md) explains the frozen 2.96 s input window,
+portable dataset and observation-family holdouts.
+
+### 6. Train the first task-outcome baseline
+
+The compact dataset in the repository runs without HUG inference or rendering:
+
+```bash
+pip install -e '.[prediction]'
+python -m grasp_failure_prediction.prediction.model \
+  research_artifacts/object_scene_pilot_v1 \
+  --output runs/my_task_outcome_baseline
+```
+
+Use a new output directory. This trains on the declared training partition,
+selects regularization on validation, and reports the reserved test results.
+[Step 6](docs/PREDICTION_BASELINE.md) explains what the model sees, the three
+comparisons, saved coefficients, examples and remaining research work.
+
+### 6. Build the Linux evaluation container
+
+The pinned CUDA, HUG, Dex Retargeting, and MuJoCo runtime is defined in
+`Dockerfile.eval`. Build it and run the saved-grasp MuJoCo smoke test with:
+
+```bash
+bash scripts/verify_container_image.sh grasp-eval:local
+```
+
+HUG weights and licensed MANO models are mounted at runtime and never copied
+into the image. See [Containerized evaluation runtime](docs/CONTAINERIZED_EVALUATION.md)
+for the asset gate, connected-inference command, and platform notes.
+
+---
+
+## Implementation roadmap
+
+1. **Research and data contract:** freeze the task, embodiment, observation and
+   action interfaces, failure taxonomy, logging schema, physics ranges, and
+   held-out splits.
+2. **Part I baseline:** retarget HUG MANO grasps to Shadow Hand, execute one
+   grasp end to end, implement the versioned environment registry and eval
+   command, then evaluate grasp/lift/transport behavior in batches.
+3. **Part II benchmark:** freeze HUG, retargeting, and execution versions;
+   collect balanced future-failure windows and train calibrated temporal
+   baselines.
+4. **Part III branching:** restore matched simulator states, test bounded
+   interventions and delays, then train the intervention-outcome model.
+5. **Physical validation:** reproduce the important findings using the sensing
+   and actuation available on the selected robot.
+6. **Optional extensions:** richer tactile sensing, additional dexterous-hand
+   embodiments, learned recovery control, reinforcement learning, and joint
+   training.
+
+---
 
 ## Repository layout
 
-```text
+```
 src/grasp_failure_prediction/
-  environments/             # Adroit inspection
-  integrations/             # HUG output, frames, RNG, and RGB-D validation
-  evaluation/               # Retargeting, registries, case runner, and scoring
-    configs/                # Versioned environment and protocol definitions
-  part1/                    # Supporting Panda simulation and ACT training
-eval_cases/                 # Example case inputs; prediction assets are external
-scripts/                    # Inspection and separate simulation diagnostics
-tests/                      # Unit tests and optional simulation regressions
-constraints/                # Local simulation/training dependency versions
-docs/                       # Design, contracts, and diagnostic records
+  environments/adroit.py      # Adroit/MuJoCo inspection (runnable baseline)
+  integrations/hug.py         # validator for primary HUG grasp inputs
+  prediction/dataset.py      # observable prefixes and grouped development splits
+  prediction/model.py        # pre-lift task-outcome baselines and inference
+  part1/                      # supporting Panda manipulation infrastructure
+    config.py                 #   frozen task/physics/split contract
+    environment.py            #   weighted-container task (robosuite/Panda wrapper)
+    snapshot.py               #   exact MuJoCo state capture/restore (Part III primitive)
+    record.py                 #   canonical episode schema + RoboMimic-style HDF5
+    scripted.py               #   privileged scripted demonstrator (teacher)
+    collect.py                #   demonstration collection
+    lerobot_export.py         #   HDF5 -> LeRobot dataset for ACT
+    train_act.py              #   ACT training loop
+    stack.py                  #   training-stack validator
+scripts/
+  inspect_adroit.py           # entry point for the Adroit inspection
+  inspect_hug_prediction.py   # entry point for the HUG-output inspection
+  watch_container_task.py     # visible supporting Panda simulation
+  validate_stack.py           # validate the Part I training stack
+  inspect_container_task.py   # inspect the weighted-container task end to end
+  run_part1_pipeline.py       # collect -> export -> train -> evaluate
+  analyze_task_outcome.py     # descriptive audit of fixed outcome predictions
+research_artifacts/
+  object_scene_pilot_v1/      # compact derived inputs, labels, provenance and splits
+  task_outcome_baseline_v1/   # trained coefficients, report and saved predictions
+constraints/
+  part1-macos-arm64.txt       # validated Part I stack versions (macOS arm64)
+tests/
+  test_hug_adapter.py         # synthetic-dictionary tests for the HUG adapter
+  test_part1_config.py        # observation contract, splits, phases
+  test_part1_record.py        # episode/HDF5/snapshot round-trips, leak detection
+  test_part1_pipeline.py      # export/eval pure-logic tests
 ```
 
-## Documentation
+---
 
-- [System design](docs/SYSTEM_DESIGN.md): research questions and staged metrics.
-- [Research foundations](docs/RESEARCH_FOUNDATIONS.md): HUG, Dex Retargeting,
-  tactile adaptation, and embodiment choices.
-- [Evaluation manifest](docs/EVALUATION_MANIFEST.md): case schema and provenance.
-- [Hardware audit](docs/HARDWARE_AUDIT.md): requirements for physical validation.
-- [HUG observation preflight](docs/HUG_OBSERVATION_PREFLIGHT.md): RGB-D checks.
-- [HUG simulation pilot](docs/HUG_SIMULATION_PILOT.md): integration commands,
-  dependencies, and limits.
-- [Alignment investigation](docs/HUG_ALIGNMENT_DEBUG.md): coordinate frames,
-  contact diagnostics, controller ablations, and historical results.
+The evolving end-to-end specification is in
+[`docs/SYSTEM_DESIGN.md`](docs/SYSTEM_DESIGN.md).
+The relationship to HUG, HUG-Bench, MANO hand poses, and See to Touch is in
+[`docs/RESEARCH_FOUNDATIONS.md`](docs/RESEARCH_FOUNDATIONS.md).
 
-## Attribution and license
+## Attribution
 
-This project uses the released output format of
-[Human Universal Grasping (HUG)](https://github.com/KevinyWu/hug), distributed
-under the MIT License, and integrates
-[Dex Retargeting](https://github.com/dexsuite/dex-retargeting). HUG code, model
-weights, and MANO assets are not redistributed here. The pinned `dex-urdf`
-submodule and separately obtained models, data, and assets retain their
-respective licenses.
+This project builds on ideas and the released output format of **HUG (Human
+Universal Grasping)**:
 
-[See to Touch](https://see-to-touch.github.io/) informs the later tactile
-adaptation direction; its code and data are not redistributed here.
+- Repository: <https://github.com/KevinyWu/hug>
+- HUG is distributed under the MIT License.
 
-Project code is available under the [MIT License](LICENSE).
+HUG's authors retain all rights to their work; this repository only consumes
+HUG's released prediction format and does not redistribute HUG code, weights, or
+the MANO assets it depends on.
+
+The recovery and tactile-adaptation direction is also informed by
+[See to Touch](https://see-to-touch.github.io/); no See to Touch code or data is
+redistributed here.
+
+## License
+
+MIT — see [`LICENSE`](LICENSE).

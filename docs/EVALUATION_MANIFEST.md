@@ -1,133 +1,218 @@
 # Portable Evaluation Manifest
 
-Evaluation cases use versioned environment and execution protocol references.
-The environment fixes the simulated scene and controller contract; the protocol
-fixes the execution sequence and its parameters.
+Every evaluation case must identify the reusable simulated world through a
+versioned `environment_id`. The environment implementation creates and runs the
+world; the ID tells an evaluation platform which registered implementation and
+contract to load.
 
-The current one-case command is implemented. Batch scheduling, duplicate case
-checks across a collection, and broader asset registries remain extensions.
+The active registry entry is:
 
-## Executable case schema
+```text
+adroit_shadow_tabletop_v2
+    → force-limited HUG/Shadow-Hand MuJoCo runner
+```
 
-The current input uses nested references, as in
-[`eval_cases/hug_case_001/case.yaml`](../eval_cases/hug_case_001/case.yaml):
+## Case record
+
+The following flat record illustrates the conceptual manifest fields. The
+executable case uses nested `environment`, `execution_protocol`, `object`,
+`grasp` and `initial_condition` records, as in
+[the case template](../eval_cases/hug_case_001/case.yaml). The strict loader
+does not accept this conceptual flat record as an input case.
+
+```json
+{
+  "case_id": "object01_grasp003_mass018_seed9000",
+  "environment_id": "adroit_shadow_tabletop_v2",
+  "embodiment_id": "shadow_hand_right",
+  "execution_protocol_id": "fixed_grasp_lift_v2",
+  "object_id": "object01",
+  "hug_grasp_id": "grasp_003",
+  "mass_kg": 0.18,
+  "friction_profile": "nominal_v1",
+  "initial_condition_id": "pose_001",
+  "motion_profile": "nominal_lift_v1",
+  "seed": 9000
+}
+```
+
+`case_id` must be unique within a manifest. All referenced IDs must resolve to
+versioned records or assets; a runner must not infer an asset from a display
+name.
+
+## Execution protocol registry
+
+The execution protocol is versioned independently from the environment. The
+environment fixes the controller implementation and its input/output contract;
+the protocol fixes the deterministic sequence and its resolved parameters.
+
+The active registry entry is:
 
 ```yaml
-schema_version: eval_case_v1
-case_id: object01_grasp003_mass018_seed9000
-environment:
-  id: adroit_shadow_tabletop_v1
-embodiment:
-  id: shadow_hand_right
-execution_protocol:
-  id: fixed_grasp_lift_v1
-object:
-  id: object01
-  mass_kg: 0.18
-  friction_profile_id: nominal_v1
+fixed_grasp_lift_v2:
+  pregrasp_distance_m: 0.08
+  palm_height_above_object_m: 0.04
+  approach_duration_s: 1.0
+  grip_command: 1.0
+  settle_duration_s: 0.8
+  force_close_delta_rad: 0.2
+  maximum_mean_fingertip_error_m: 0.01
+  lift_height_m: 0.15
+  lift_duration_s: 1.5
+  hold_duration_s: 2.0
+```
+
+It executes:
+
+```text
+reset
+    → load object
+    → retarget HUG grasp
+    → move to pre-grasp
+    → approach
+    → close fingers
+    → lift
+    → hold
+    → score success/failure
+```
+
+The first experiment uses this hardcoded deterministic protocol. It does not
+train or invoke a manipulation policy. This isolates HUG grasp quality from
+controller-learning failures. Changes to the sequence, parameter meanings, or
+defaults require a new protocol ID.
+
+## Environment contract
+
+An `environment_id` fixes all of the following:
+
+- simulator and scene;
+- table geometry;
+- arm and hand model;
+- controller;
+- physics timestep;
+- observation and action contracts;
+- cameras; and
+- success and failure definitions.
+
+Any incompatible change to one of these fields requires a new environment
+version, such as `adroit_shadow_tabletop_v2`. The version is part of the ID; it
+must not be supplied as an independent mutable field.
+
+Individual cases may vary:
+
+- object;
+- HUG grasp;
+- mass;
+- starting condition;
+- motion profile; and
+- seed.
+
+Friction is represented by a versioned profile and remains fixed to
+`nominal_v1` for the initial experiment. The schema supports other profiles for
+later studies.
+
+## Reproducibility record
+
+The resolved run record must add:
+
+```json
+{
+  "environment_config_hash": "sha256:...",
+  "execution_protocol_id": "fixed_grasp_lift_v2",
+  "execution_protocol_config_hash": "sha256:...",
+  "execution_protocol_parameters": {
+    "pregrasp_distance_m": 0.08,
+    "palm_height_above_object_m": 0.04,
+    "approach_duration_s": 1.0,
+    "grip_command": 1.0,
+    "grip_command_type": "normalized_position",
+    "lift_height_m": 0.15,
+    "lift_duration_s": 1.5,
+    "hold_duration_s": 2.0
+  },
+  "mujoco_version": "3.3.7",
+  "code_commit": "..."
+}
+```
+
+`environment_config_hash` is the SHA-256 digest of the canonical resolved
+environment configuration, including the registered scene, model, controller,
+timestep, camera, and contract definitions. `code_commit` records the exact
+repository commit used by the runner. These values describe the execution and
+must be stored with its trajectory and outcome.
+
+`execution_protocol_config_hash` is the SHA-256 digest of the canonical
+resolved protocol entry. The ID, full resolved parameters, and hash are stored
+with both the submitted case and result so a later change cannot alter the
+meaning of an existing run.
+
+## Registry and validation behavior
+
+The evaluation platform maintains an explicit registry from `environment_id`
+to runner implementation and expected configuration hash. Before simulation,
+it must:
+
+1. reject an unknown `environment_id`;
+2. reject an unknown `execution_protocol_id`;
+3. resolve both registered implementations and canonical configurations;
+4. recompute and compare both configuration hashes;
+5. validate all referenced object, grasp, starting-condition, friction, motion,
+   and embodiment IDs; and
+6. reject duplicate `case_id` values and invalid numeric ranges.
+
+An unknown environment or protocol ID, or either configuration-hash mismatch,
+is a hard validation failure. The platform must never substitute a default or
+silently run a different setup.
+
+The portable manifest contains case inputs. The resolved run record adds
+software provenance, the resolved hash, timestamps, outcome, failure type, and
+trajectory artifact references.
+
+## One-case command contract
+
+The `grasp` section supports both the normal inference path and a saved-proposal
+debug path. `observation_path` identifies the validated RGB-D capture and
+`inference_seed` controls HUG generation. `prediction_path` is optional and is
+used only when inference is explicitly disabled.
+
+```yaml
 grasp:
   source: hug
   id: grasp_003
-  prediction_path: grasps/object01/grasp_003.pkl
-initial_condition:
-  id: pose_001
-  object_position_m: [0.0, 0.0, 0.03]
-  object_orientation_xyzw: [0.0, 0.0, 0.0, 1.0]
-motion_profile_id: nominal_lift_v1
-seed: 9000
+  observation_path: observations/object01
+  inference_seed: 42
 ```
 
-Prediction paths must be repository-relative and may not contain `..`.
-The case schema rejects undeclared fields, invalid IDs, nonpositive object
-mass, invalid seed ranges, and zero-length orientation quaternions. Use trusted
-prediction files because loading a pickle can execute code.
+Normal evaluation uses `--hug-root ... --checkpoint ...` and runs inference by
+default. `--no-inference` skips model loading and executes `prediction_path`
+instead.
 
-The current runner accepts `object01`, `nominal_v1` friction, and
-`nominal_lift_v1` motion. Unknown values are rejected. The initial-condition ID
-labels the explicit pose supplied in the case; it is not a separate pose-asset
-registry lookup.
+`fixed_grasp_lift_v2` also fixes the offline retargeting acceptance limit, the
+settling duration, and the bounded post-grasp closing increment. The environment
+registry fixes the force-limited controller and MuJoCo contact solver. Changing
+any of these values changes the recorded registry hash.
 
-## Environment and protocol registries
-
-`adroit_shadow_tabletop_v1` resolves to the HUG/Shadow Hand MuJoCo runner and its
-configuration. It fixes the scene, model, controller, physics/control timing,
-observation/action contract, cameras, and outcome definitions.
-
-`fixed_grasp_lift_v1` defines this sequence:
-
-```text
-reset → load object → retarget → pre-grasp → approach → close → lift → hold → score
-```
-
-Its parameters are in
-[`execution_protocols.yaml`](../src/grasp_failure_prediction/evaluation/configs/execution_protocols.yaml).
-The current settings include:
-
-- 0.08 m pre-grasp distance and 0.04 m palm height above the object.
-- 1.0 s approach and 1.0 s closure.
-- A normalized position command of 0.6.
-- A commanded 0.15 m lift over 1.5 s and a 2.0 s hold.
-- A 10.0 s timeout.
-- A 0.14 m minimum measured lift, 2.0 s required hold, and 0.02 m maximum drop.
-
-The grip command interpolates hand joint positions toward the retargeted pose.
-It is not a calibrated force command. Wrist placement is table-parallel and
-defined relative to the object. The registered runner prescribes joint and
-wrist positions during physics stepping rather than modeling an actuator-limited
-robot. Its outcome depends on the complete retargeting and execution method,
-not only HUG's source prediction.
-
-Incompatible changes to an environment or protocol require a new versioned ID.
-Results from different controllers or protocol meanings must remain distinguishable.
-
-## Configuration hashes and provenance
-
-Environment and execution protocol configurations are resolved and hashed
-before execution. Each reference may include an optional
-`expected_config_hash: "sha256:..."` to pin the expected configuration. A
-supplied mismatch is a validation error. An omitted expected hash permits the
-registered configuration to be resolved; the resulting hash is still recorded.
-
-Each resolved result includes:
-
-- environment, embodiment, and execution protocol IDs;
-- environment and protocol configuration hashes;
-- resolved protocol parameters;
-- MuJoCo version and code commit;
-- retargeting metrics, outcome measurements, and artifact references.
-
-A batch manifest should additionally enforce unique `case_id` values and
-freeze its object, grasp, initial-condition, friction, and motion definitions.
-The current interface executes one case at a time.
-
-## Run one case
-
-Initialize the `dex-urdf` submodule, install the evaluation extra, and supply
-the trusted prediction referenced by the case. Use a new or empty directory:
+The executable interface is:
 
 ```bash
 run-hug-eval-case \
   eval_cases/hug_case_001/case.yaml \
-  --output runs/hug_case_001
-```
-
-For live viewing on macOS:
-
-```bash
-MUJOCO_GL=glfw mjpython -m grasp_failure_prediction.evaluation.case_runner \
-  eval_cases/hug_case_001/case.yaml \
-  --output runs/hug_case_001_viewer \
+  --output runs/hug_case_001 \
+  --hug-root ../hug \
+  --checkpoint ../hug/checkpoints/hug_full.safetensors \
   --viewer
 ```
 
-The command validates the case and registries before advancing simulation.
-After execution it writes `resolved_case.json`, `trajectory.npz`,
-`final_state.npz`, and `result.json`. The final state contains `qpos` and
-`qvel`; it does not capture all physics integration, environment, controller,
-or RNG state needed for complete intervention replay.
+Before opening the viewer or advancing simulation, this command must resolve
+and validate both `environment_id` and `execution_protocol_id`, verify both
+configuration hashes, and write the resolved environment and protocol records
+to the output directory.
 
-The scorer's `acquired_object` flag records any hand-object contact during
-manipulation. Lift, hold, final height, collision, and timeout checks determine
-task success. A height shortfall labeled `failed_acquisition` is not necessarily
-a drop. These coarse outcome labels need separate validation before use as
-future-drop prediction targets.
+## Corrected table clearance execution
+
+The v2 registry and historical collections remain frozen. The opt-in v3 command
+validates an original saved v2 case, then records its separately hashed wrist
+planner and runtime clearance policy. Use the entry point in
+[MUG_TABLE_CLEARANCE.md](MUG_TABLE_CLEARANCE.md), rather than substituting an
+unregistered v3 ID into the legacy case command. Rejected proposals and stopped
+motions carry a null label and are distinct from completed task failures.

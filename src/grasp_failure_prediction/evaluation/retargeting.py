@@ -9,6 +9,7 @@ from typing import Sequence
 import numpy as np
 
 from grasp_failure_prediction.integrations.hug import HugGraspPrediction
+from grasp_failure_prediction.integrations.hug_frames import MANO_TO_OPERATOR_RIGHT
 
 
 class RetargetingError(ValueError):
@@ -128,6 +129,13 @@ class ShadowHandRetargeter:
         )
         self.config_path = Path(config_path)
         self._retargeting = RetargetingConfig.load_from_file(config_path).build()
+        # The packaged Shadow configuration targets streaming teleoperation and
+        # therefore smooths each frame and enlarges vectors by 1.2. Evaluation
+        # cases contain one static HUG proposal, so solve it without temporal
+        # filtering and preserve its metric hand dimensions.
+        self._retargeting.filter = None
+        self._retargeting.optimizer.scaling = 1.0
+        self.optimizer_iterations = 20
 
     @property
     def joint_names(self) -> tuple[str, ...]:
@@ -141,9 +149,19 @@ class ShadowHandRetargeter:
         landmarks = camera_landmarks_to_wrist(
             grasp.landmarks_3d, grasp.T_camera_wrist
         )
+        # HUG exports MANO coordinates. Dex's Shadow optimizer uses the
+        # right-hand operator convention; this proper rotation comes from
+        # Dex Retargeting's OPERATOR2MANO_RIGHT mapping.
+        landmarks = landmarks @ MANO_TO_OPERATOR_RIGHT.T
         indices = self._retargeting.optimizer.target_link_human_indices
         vectors = reference_vectors(landmarks, indices)
-        qpos = np.asarray(self._retargeting.retarget(vectors), dtype=np.float64)
+        qpos = None
+        for _ in range(self.optimizer_iterations):
+            qpos = np.asarray(
+                self._retargeting.retarget(vectors.astype(np.float32)),
+                dtype=np.float64,
+            )
+        assert qpos is not None
         if qpos.shape != (len(self.joint_names),) or not np.all(np.isfinite(qpos)):
             raise RetargetingError("Dex Retargeting returned an invalid joint vector")
         limits = self.joint_limits
