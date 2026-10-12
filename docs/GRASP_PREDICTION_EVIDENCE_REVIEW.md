@@ -332,4 +332,3 @@ our simulator's contact physics, our chosen wrist augmentation, or real-world
 transfer. The accepted draft question has not been replaced with a broader
 claim; scope selection should follow review of the baseline and observable
 failure target.
-
