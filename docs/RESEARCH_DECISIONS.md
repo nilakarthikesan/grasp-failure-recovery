@@ -424,6 +424,47 @@ paper nor acceptance is established. Choosing a deadline should constrain
 scope and claims rather than require an unsupported contribution. The current
 working manuscript is preserved pending an explicit venue and revision choice.
 
+## 12 October 2026 Selecting the workshop and an understandable scope
+
+**Previous plan:** Sim2Real2Field was a candidate; wrist extrapolation had been
+measured before changing the model or collecting more recordings. The user
+selected its Late Breaking Track, requested submission steps and public
+examples, and asked to understand each piece before accelerating development.
+
+**Choice:** keep this turn focused on exploration and explanation. Start with
+one stored grasp and the difference between physical outcome and model alert.
+The original apple development test caught 187/202 failures with 22/58 success
+false warnings; the corrected mug diagnostic caught 3/3 with 20/20 success
+false warnings. Preserve their different scopes. Catching every mug failure
+while warning on every success is not useful discrimination at the saved
+threshold. It is a measured limitation, not proof of a successful new method.
+
+**Public examples:** one [author repository](https://github.com/YTomar79/sim2real_budget)
+reports a workshop submission of a controlled pendulum measurement versus
+randomization study; its older arXiv version names an IROS workshop. Treat that
+report separately from an officially accepted paper. [SAFE](https://arxiv.org/html/2506.09937v2)
+explains why unfamiliar behavior can succeed and why evaluation needs successful
+as well as failed executions. Neither establishes novelty for our wrist study
+or an acceptance cutoff. The selected venue hides current submissions and
+does not list a complete contributed paper roster. Public social searches do
+not resolve that visibility limit.
+
+**Submission preparation:** checked the call, linked template, OpenReview form
+and account guidance. The website cutoff converts to 16 October 12:59 AM
+Eastern, one hour earlier than the invitation timestamp. Plan an upload for
+15 October daytime, using the earlier cutoff. The [preparation record](PAPER_PROGRESS.md#workshop-preparation-and-first-reading-12-october)
+records format, profiles, review commitment, anonymity interpretation, sources
+and a staged outline. The workshop's welcome for preliminary and negative
+results supports a narrow diagnostic report; it does not guarantee selection
+or justify unsupported physical transfer claims.
+
+**Next check:** explain a recorded attempt with the user, agree on the precise
+claim and comparison, then prepare the existing manuscript in the required
+format and review it with both authors. A posture experiment remains proposed,
+not run. No model, threshold or recording was changed; no rollout, account
+creation, external message or paper submission was performed. Preserve the
+manuscript while the user establishes the question and understands its evidence.
+
 ## Keeping this record current
 
 For each material change, record the date, what we thought previously, the new

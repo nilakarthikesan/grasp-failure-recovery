@@ -448,3 +448,111 @@ fixes transfer, or isolate controller change from object/proposal differences.
 The stopped attempt remains excluded. The next comparison should separate safe
 posture changes from object changes before further training. The manuscript's
 earlier quantitative scope remains unchanged.
+
+## Workshop preparation and first reading, 12 October
+
+The user selected **CoRL 2026 Sim2Real2Field, Late Breaking Track**, and asked
+for understanding and exploration before further experiments. This is a
+preliminary, non archival workshop target. The paper has not been submitted.
+
+### Does the predictor work?
+
+In the original apple development test, it detected 187 of 202 failures, missed
+15 and falsely warned on 22 of 58 successes. In the corrected mug diagnostic,
+it warned on all three failures and all 20 successes. A predictor that always
+warns would also catch those three failures. Failure detection alone therefore
+does not establish useful discrimination or transfer to mugs.
+
+HUG proposes a grasp from initial image and depth. A fixed controller executes
+it. Our separate predictor reads joint angles, velocities and applied targets
+during closing, then produces a failure score. Its original 0.5 threshold
+turns that score into an alert. Later, the task scorer supplies the actual
+grasp, lift and hold outcome. That outcome is not an input to the prediction.
+
+In `mug_scene002_seed0_noise0.00`, the predictor read motion through 2.96
+seconds and gave a failure score of 0.9999999785. The actual grasp succeeded.
+This is a false warning, not a robot failure. The [saved score and input](../research_artifacts/corrected_mug_model_diagnostic_v1/README.md)
+and [wrist comparison](../research_artifacts/mug_wrist_input_diagnostic_v1/README.md)
+preserve the evidence. The near one score is not a calibrated physical failure
+probability. The stopped attempt remains separate and unscored.
+
+### Public examples and what to learn from them
+
+The authors of [How Should a Simulation to Reality Transfer Budget Be Spent](https://github.com/YTomar79/sim2real_budget)
+report in their current README that they submitted to Sim2Real2Field. This is
+an author report, not acceptance evidence. Its June [arXiv version](https://arxiv.org/html/2606.22062v2)
+still names an earlier IROS workshop. The paper compares system measurement
+with randomization breadth in a controlled two parameter pendulum simulation,
+varying two factors over ten seeds and reporting uncertainty and limits.
+Its finding concerns that identifiable setting, not a general conclusion that
+noise is bad. Our inferred lesson is to isolate one question and comparison;
+the reported submission does not establish an acceptance standard.
+
+[SAFE](https://arxiv.org/html/2506.09937v2) is related prior work, not a confirmed
+submission to this workshop. It explains why an unfamiliar execution can
+succeed, tests failure detection on unseen tasks and measures alarm performance
+and timing. Its [project videos](https://vla-safe.github.io/) show successful
+and failed executions. It uses internal features of large robot policies,
+rather than our joint summaries. The lesson is to measure false warnings as
+well as caught failures; it is not an evaluated baseline in our project.
+
+The official program lists invited speakers rather than contributed papers.
+The public venue configuration hides submissions. GitHub, arXiv, LinkedIn and
+forum searches found the author report above and organizer announcements, but
+did not establish a complete applicant or accepted paper list. We cannot infer
+an acceptance rate or score cutoff.
+
+### Submission requirements checked on 12 October
+
+The [workshop call](https://sim2real2field-corl26.github.io/) welcomes preliminary
+and negative results. This track permits four pages excluding references in
+the linked [CoRL 2026 template](https://drive.google.com/file/d/1R9irIW0ImqeDHh5g8Ukm2XGy91sWxOsQ/view).
+All authors need active OpenReview profiles, and one author must be willing to
+review up to two papers. The workshop is in person in Austin on 12 November;
+specific accepted author registration obligations are not explicit in the call.
+
+The website cutoff is **15 October, 11:59 PM Central**, equivalent to
+**16 October, 12:59 AM Eastern**. The public invitation timestamp is one hour
+later. Use the earlier website cutoff; aim to submit during 15 October daytime
+in New York. This target gives three days, not a full week.
+
+Use the [workshop portal](https://openreview.net/group?id=robot-learning.org/CoRL/2026/Workshop/Sim2Real2Field)
+and choose **Late-Breaking Track** in the shared form. It requires title,
+author profiles, keywords, abstract, track and PDF, with a 50 MB PDF limit.
+The current form has license, author email sharing and accepted paper public
+release acknowledgments, but no supplementary upload field. See the
+[public invitation](https://api2.openreview.net/invitations?id=robot-learning.org%2FCoRL%2F2026%2FWorkshop%2FSim2Real2Field%2F-%2FSubmission).
+
+Prepare an anonymous initial PDF in the template's submission mode. This follows
+the template and [standard CoRL reviewing instructions](https://www.corl.org/contributions/instruction-for-authors),
+although the workshop does not separately spell out anonymity. Its four page
+limit and actual form take precedence over main conference page and supplement
+rules. Named GitHub links expose authorship and need a suitable anonymous
+evidence presentation. Main CoRL asks authors to own content, verify citations
+and disclose generative AI use; the workshop form currently has no separate
+disclosure field. Prepare an accurate account of assistance for submission.
+
+### Preparation sequence with understanding first
+
+1. **Today:** Enoch creates and activates his profile, using an institutional
+   email if available. Confirm authors, affiliations and the reviewer commitment.
+   Use [OpenReview signup guidance](https://docs.openreview.net/getting-started/creating-an-openreview-profile/signing-up-for-openreview).
+2. **Explain one stored attempt:** identify what the model measured, what its
+   warning meant and how the actual task outcome was assigned. Understand
+   this example before extending the system.
+3. **Agree on one narrow claim:** ask whether a grasp outcome predictor gives
+   false warnings when wrist settings leave the training range. Current
+   attribution supports a mechanism in the scores, not isolated physical
+   causation or a validated fix. A matched safe posture comparison is proposed,
+   not run. Real transfer, slip warning and recovery remain untested.
+4. **Prepare the four page paper:** introduce the question and prior work;
+   explain execution, inputs and labels; present original evaluation, repeated
+   mug false warnings and wrist evidence; state limits and the next comparison.
+   Both authors inspect each claim and figure and can explain them before upload.
+5. **Confirm submission:** upload the final reviewed PDF in the selected track,
+   check the stored version and authors, and save its OpenReview identifier
+   and receipt. A draft or account is not a confirmed submission. Selection
+   follows review.
+
+These are preparation steps. The existing manuscript, model and recordings
+remain unchanged during this exploration.
