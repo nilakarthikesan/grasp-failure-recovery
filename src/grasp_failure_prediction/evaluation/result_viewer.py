@@ -143,6 +143,7 @@ def discover_results(runs_root: str | Path, evaluation_root: str | Path | None =
         case = resolved.get("case", {})
         outcome = result.get("outcome", {})
         retargeting = result.get("retargeting", {})
+        proposal_validation = result.get("proposal_validation", {})
         execution = result.get("resolved_execution", {})
         artifacts = result.get("artifacts", {})
         video_relative = artifacts.get("video")
@@ -164,8 +165,11 @@ def discover_results(runs_root: str | Path, evaluation_root: str | Path | None =
                 "mujoco_version": execution.get("mujoco_version"),
                 "object_id": case.get("object", {}).get("id"),
                 "mass_kg": case.get("object", {}).get("mass_kg"),
-                "grasp_id": case.get("grasp", {}).get("id"),
-                "inference_seed": case.get("grasp", {}).get("inference_seed"),
+                "grasp_id": result.get("proposal_id", case.get("grasp", {}).get("id")),
+                "provider_id": result.get("provider_id"),
+                "inference_seed": result.get(
+                    "generation_seed", case.get("grasp", {}).get("inference_seed")
+                ),
                 "simulator_seed": case.get("seed"),
                 "maximum_lift_m": outcome.get("maximum_lift_m"),
                 "hold_duration_s": outcome.get("hold_duration_s"),
@@ -179,11 +183,18 @@ def discover_results(runs_root: str | Path, evaluation_root: str | Path | None =
                     "peak_actuator_force_fraction"
                 ),
                 "mean_fingertip_error_m": retargeting.get(
-                    "mean_fingertip_error_m"
+                    "mean_fingertip_error_m",
+                    proposal_validation.get("provider_metrics", {}).get(
+                        "mean_fingertip_error_m"
+                    ),
                 ),
                 "maximum_fingertip_error_m": retargeting.get(
-                    "maximum_fingertip_error_m"
+                    "maximum_fingertip_error_m",
+                    proposal_validation.get("provider_metrics", {}).get(
+                        "maximum_fingertip_error_m"
+                    ),
                 ),
+                "proposal_joint_count": proposal_validation.get("joint_count"),
                 "has_video": has_video,
                 "video_url": f"/files/{quote(file_relative)}" if has_video else None,
                 "result_url": f"/files/{quote((relative_dir / 'result.json').as_posix())}",
@@ -224,7 +235,7 @@ const errorName=e=>({correct:'Correct prediction',missed_failure:'Missed failure
 function visible(){return state.items.filter(x=>(state.filter==='all'||(state.filter==='success'&&x.success)||(state.filter==='failure'&&!x.success))&&(!state.videoOnly||x.has_video)&&JSON.stringify(x).toLowerCase().includes(state.query))}
 function render(){const matching=visible();const items=matching.slice(0,state.limit);document.querySelector('#summary').textContent=`${state.items.length} results · ${state.items.filter(x=>x.success).length} success · ${state.items.filter(x=>!x.success).length} failure · showing ${items.length}/${matching.length}`;document.querySelector('#load-more').hidden=matching.length<=state.limit;const cards=document.querySelector('#cards');cards.innerHTML=items.map(x=>`<article class="card ${state.selected===x.run_id?'selected':''}" data-id="${esc(x.run_id)}"><div class="row"><div class="grow"><div class="case">${esc(x.case_id)}</div><div class="run">${esc(x.run_id)}</div></div><span class="badge ${x.success?'pass':'fail'}">${esc(x.success?'SUCCESS':(x.failure_type||'FAILED'))}</span></div><div class="metrics"><span class="metric">Lift<b>${mm(x.maximum_lift_m)}</b></span><span class="metric">Hold<b>${n(x.hold_duration_s,2)} s</b></span><span class="metric">Alignment<b>${mm(x.mean_fingertip_error_m)}</b></span></div>${x.evaluation?`<div class="prediction-note">${pct(x.evaluation.p_failure)} predicted failure · ${errorName(x.evaluation.model_error)}</div>`:''}${x.has_video?'<div class="video-dot">● Video attached</div>':''}</article>`).join('')||'<div class="empty">No matching results</div>';cards.querySelectorAll('.card').forEach(el=>el.onclick=()=>select(el.dataset.id));}
 function predictionDetail(x){const e=x.evaluation;if(!e)return '';const novelty=e.geometry_novelty==='new_geometry'?'New object geometry':'New scene, familiar geometry';return `<section class="prediction"><h3>Frozen model prediction</h3><div class="grid"><div class="tile">Failure probability from observations through ${n(e.observed_at_s,2)} s<b>${pct(e.p_failure)}</b></div><div class="tile">Fixed 50% alert threshold<b>${e.failure_alert?'Predict failure':'Predict success'}</b></div><div class="tile">Prediction versus actual outcome<b>${errorName(e.model_error)}</b></div><div class="tile">Object novelty<b>${novelty}</b></div><div class="tile">Requested finger angle noise<b>${n(e.noise_amplitude_rad,2)} rad</b></div><div class="tile">Recorded label<b>${e.label} = ${e.label?'success':'failure'}</b></div></div><p>This is a prediction of eventual grasp, lift, and hold success from saved observations before lifting. The model weights, scaling, and alert threshold are unchanged.</p><h3>What happened in this attempt</h3><ol class="walkthrough"><li><strong>Capture the starting scene.</strong> Save calibrated RGB and depth for ${esc(x.object_id||'this object')}.</li><li><strong>Generate a fresh HUG grasp.</strong> Turn that observation into finger and palm targets for the Shadow Hand.</li><li><strong>Execute the fixed controller with noise.</strong> Add bounded finger target offsets up to ${n(e.noise_amplitude_rad,2)} rad. Each offset stays fixed during the attempt; joint limits clip the commands. Noise can improve or weaken the grasp.</li><li><strong>Use only observations through ${n(e.observed_at_s,2)} seconds.</strong> The saved predictor uses finger angles, velocities, and commands from closing, before lifting. It assigns ${pct(e.p_failure)} probability of failure.</li><li><strong>Compare with the completed simulation.</strong> The frozen contact, lift, and hold rule assigns ${e.label?'success (1)':'failure (0)'}. ${e.model_error==='correct'?'The prediction agrees.':e.model_error==='false_alarm'?'The model warned, but the attempt succeeded.':'The model missed a failed attempt.'}</li></ol></section>`;}
-function select(id){state.selected=id;const x=state.items.find(v=>v.run_id===id);render();if(!x)return;document.querySelector('#detail').innerHTML=`${x.video_url?`<video controls preload="metadata" src="${x.video_url}"></video>`:'<div class="empty">No video attached to this historical result</div>'}<h2>${x.case_id}</h2><div class="sub">${x.run_id} · ${x.environment_id||'unknown environment'} · ${x.execution_protocol_id||'unknown protocol'}</div>${predictionDetail(x)}<div class="grid"><div class="tile">Outcome<b style="color:${x.success?'var(--green)':'var(--red)'}">${x.success?'Success':(x.failure_type||'Failure')}</b></div><div class="tile">Maximum lift<b>${mm(x.maximum_lift_m)}</b></div><div class="tile">Stable hold<b>${n(x.hold_duration_s,2)} s</b></div><div class="tile">Mean alignment error<b>${mm(x.mean_fingertip_error_m)}</b></div><div class="tile">Opposing contact<b>${n(x.opposing_contact_duration_s,2)} s</b></div><div class="tile">Peak normal force<b>${n(x.peak_contact_normal_force_n,2)} N</b></div><div class="tile">Peak actuator limit<b>${pct(x.peak_actuator_force_fraction)}</b></div><div class="tile">Object / mass<b>${x.object_id||'—'} · ${x.mass_kg??'—'} kg</b></div><div class="tile">Inference / sim seed<b>${x.inference_seed??'—'} / ${x.simulator_seed??'—'}</b></div></div><div class="links"><a href="${x.result_url}" target="_blank">Open result.json</a>${x.video_url?`<a href="${x.video_url}" target="_blank">Open video</a>`:''}</div>`;}
+function select(id){state.selected=id;const x=state.items.find(v=>v.run_id===id);render();if(!x)return;document.querySelector('#detail').innerHTML=`${x.video_url?`<video controls preload="metadata" src="${x.video_url}"></video>`:'<div class="empty">No video attached to this historical result</div>'}<h2>${x.case_id}</h2><div class="sub">${x.run_id} · ${x.provider_id||'legacy HUG'} · ${x.environment_id||'unknown environment'} · ${x.execution_protocol_id||'unknown protocol'}</div>${predictionDetail(x)}<div class="grid"><div class="tile">Outcome<b style="color:${x.success?'var(--green)':'var(--red)'}">${x.success?'Success':(x.failure_type||'Failure')}</b></div><div class="tile">Maximum lift<b>${mm(x.maximum_lift_m)}</b></div><div class="tile">Stable hold<b>${n(x.hold_duration_s,2)} s</b></div><div class="tile">Mean alignment error<b>${mm(x.mean_fingertip_error_m)}</b></div><div class="tile">Opposing contact<b>${n(x.opposing_contact_duration_s,2)} s</b></div><div class="tile">Peak normal force<b>${n(x.peak_contact_normal_force_n,2)} N</b></div><div class="tile">Peak actuator limit<b>${pct(x.peak_actuator_force_fraction)}</b></div><div class="tile">Object / mass<b>${x.object_id||'—'} · ${x.mass_kg??'—'} kg</b></div><div class="tile">Inference / sim seed<b>${x.inference_seed??'—'} / ${x.simulator_seed??'—'}</b></div></div><div class="links"><a href="${x.result_url}" target="_blank">Open result.json</a>${x.video_url?`<a href="${x.video_url}" target="_blank">Open video</a>`:''}</div>`;}
 document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{state.filter=b.dataset.filter;state.limit=100;document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('active',x===b));render()});document.querySelector('#search').oninput=e=>{state.query=e.target.value.toLowerCase();state.limit=100;render()};
 document.querySelector('#video-only').onchange=e=>{state.videoOnly=e.target.checked;state.limit=100;render()};document.querySelector('#load-more').onclick=()=>{state.limit+=100;render()};
 fetch('/api/results').then(r=>{if(!r.ok)throw new Error('Saved evaluation could not be verified. Check the server output and collection path.');return r.json()}).then(items=>{state.items=items;render();if(items.length)select(items[0].run_id)}).catch(e=>document.querySelector('#summary').textContent=e.message);
