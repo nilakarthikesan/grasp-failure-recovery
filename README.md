@@ -266,6 +266,32 @@ object-relative Shadow Hand target. `run-grasp-eval-case` then validates its
 content hash, exact 24-joint set, joint limits, object geometry, embodiment and
 protocol compatibility before using the existing MuJoCo runner.
 
+The normal user interface is one versioned experiment file and one command:
+
+```bash
+grasp-eval validate experiments/pilot.yaml
+grasp-eval run experiments/pilot.yaml \
+  --hug-root ../hug \
+  --checkpoint ../hug/checkpoints/hug_full.safetensors
+```
+
+`grasp-eval run` generates each job's proposals, materializes content-addressed
+evaluation cases, runs MuJoCo, records videos when enabled, and writes one
+experiment summary. Interrupted work can be continued and inspected without
+repeating completed cases:
+
+```bash
+grasp-eval status experiments/pilot.yaml
+grasp-eval resume experiments/pilot.yaml \
+  --hug-root ../hug \
+  --checkpoint ../hug/checkpoints/hug_full.safetensors
+grasp-eval view experiments/pilot.yaml
+```
+
+The experiment format and output layout are documented in
+[`docs/GRASP_EVAL_CLI.md`](docs/GRASP_EVAL_CLI.md). The commands below remain
+available as lower-level debugging interfaces.
+
 Generate HUG samples locally or on a suitable worker:
 
 ```bash

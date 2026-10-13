@@ -249,3 +249,21 @@ runtime smoke artifacts are not research data and are not committed.
 
 The next scientific check is paired HUG and non-HUG proposals on identical
 objects and initial conditions, followed by grouped, held-out outcome analysis.
+
+## 12 October 2026 — Use one versioned command for proposal-to-evaluation experiments
+
+- **Previous plan:** Users invoked proposal generation, case materialization,
+  batch execution, and the result viewer as separate commands. That exposed
+  internal paths and made it easy to mix proposals, hashes, and output roots.
+- **New evidence:** The interchangeable-provider implementation already has
+  strict request, proposal, case, and result boundaries, so orchestration can
+  be added without changing HUG, the MuJoCo environment, or the scorer.
+- **Choice:** Add `grasp-eval` with `validate`, `run`, `status`, `resume`, and
+  `view` subcommands over `grasp_eval_experiment_v1`. One experiment file maps
+  provider requests and proposal sample indexes to controlled physical cases.
+- **Implementation status:** Implemented on `codex/project-work`. Completed
+  cases are immutable during resume; incomplete stage directories are retained
+  before retry. Existing low-level commands remain available for debugging.
+- **Next check:** Run a small multi-provider experiment and confirm that resume,
+  videos, and the viewer behave correctly before adding dataset-wide
+  Parquet/DuckDB export.
