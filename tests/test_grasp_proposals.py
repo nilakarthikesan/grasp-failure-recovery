@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 import yaml
+import numpy as np
 
 from grasp_failure_prediction.evaluation.schema import canonical_sha256
 from grasp_failure_prediction.proposals.artifacts import (
@@ -12,6 +14,7 @@ from grasp_failure_prediction.proposals.artifacts import (
     proposal_content_hash,
 )
 from grasp_failure_prediction.proposals.generate import generate_proposals
+from grasp_failure_prediction.proposals.execution import _world_palm, run_proposal_case
 from grasp_failure_prediction.proposals.registry import load_provider_registry
 from grasp_failure_prediction.proposals.schema import GraspProposal, RigidTransform
 
@@ -74,6 +77,30 @@ def test_native_artifacts_are_optional_but_deep_audit_is_strict(tmp_path):
 def test_rigid_transform_requires_a_unit_quaternion():
     with pytest.raises(ValueError, match="unit length"):
         RigidTransform(translation_m=(0, 0, 0), quaternion_xyzw=(0, 0, 0, 2))
+
+
+def test_object_relative_palm_pose_composes_with_case_object_pose():
+    request = {
+        "schema_version": "eval_case_v2",
+        "case_id": "transform_composition",
+        "environment": {"id": "adroit_shadow_tabletop_v2"},
+        "embodiment": {"id": "shadow_hand_right"},
+        "execution_protocol": {"id": "fixed_grasp_lift_v2"},
+        "object": {"id": "object01", "mass_kg": 0.18, "friction_profile_id": "nominal_v1"},
+        "grasp": {"id": "proposal_001", "proposal_path": "proposal.json", "expected_proposal_hash": "sha256:" + "0" * 64},
+        "initial_condition": {"id": "rotated", "object_position_m": [0.2, -0.1, 0.03], "object_orientation_xyzw": [0.0, 0.0, 2**-0.5, 2**-0.5]},
+        "motion_profile_id": "nominal_lift_v1",
+        "seed": 1,
+    }
+    from grasp_failure_prediction.proposals.schema import EvaluationCaseV2
+    case = EvaluationCaseV2.model_validate(request)
+    proposal = SimpleNamespace(object_to_palm=RigidTransform(
+        translation_m=(0.01, 0.02, 0.04),
+        quaternion_xyzw=(0.0, 0.0, 0.0, 1.0),
+    ))
+    position, quaternion = _world_palm(case, proposal)
+    np.testing.assert_allclose(position, [0.18, -0.09, 0.07], atol=1e-12)
+    np.testing.assert_allclose(np.abs(quaternion), [2**-0.5, 0, 0, 2**-0.5], atol=1e-12)
 
 
 def test_provider_registry_hash_is_stable():
@@ -163,3 +190,47 @@ def test_provider_requirements_fail_before_worker_invocation(tmp_path, monkeypat
         )
     assert called is False
     assert not (tmp_path / "remote").exists()
+
+
+def test_saved_provider_executes_through_generic_mujoco_runner(tmp_path):
+    manifest = generate_proposals(
+        _request(tmp_path), tmp_path / "proposals", project_root=tmp_path
+    )
+    entry = manifest.proposals[0]
+    case = {
+        "schema_version": "eval_case_v2",
+        "case_id": "provider_saved_cube_smoke",
+        "environment": {"id": "adroit_shadow_tabletop_v2"},
+        "embodiment": {"id": "shadow_hand_right"},
+        "execution_protocol": {"id": "fixed_grasp_lift_v2"},
+        "object": {
+            "id": "object01",
+            "mass_kg": 0.18,
+            "friction_profile_id": "nominal_v1",
+        },
+        "grasp": {
+            "id": entry.proposal_id,
+            "proposal_path": str(Path("proposals") / entry.proposal_path),
+            "expected_proposal_hash": entry.proposal_hash,
+        },
+        "initial_condition": {
+            "id": "centered_upright",
+            "object_position_m": [0.0, 0.0, 0.03],
+            "object_orientation_xyzw": [0.0, 0.0, 0.0, 1.0],
+        },
+        "motion_profile_id": "nominal_lift_v1",
+        "seed": 19,
+    }
+    case_path = tmp_path / "case.yaml"
+    case_path.write_text(yaml.safe_dump(case, sort_keys=False))
+    result = run_proposal_case(
+        case_path,
+        tmp_path / "run",
+        project_root=tmp_path,
+        record_video=False,
+    )
+    assert result.status == "completed"
+    assert result.provider_id == "shadow_saved_record_v1"
+    assert result.proposal_hash == entry.proposal_hash
+    assert result.proposal_validation.joint_count == 24
+    assert (tmp_path / "run/proposal.json").is_file()

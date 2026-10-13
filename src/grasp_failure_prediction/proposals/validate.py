@@ -6,6 +6,7 @@ import argparse
 import json
 
 from .artifacts import load_proposal, proposal_content_hash
+from .execution import _validate_pose
 from .registry import load_provider_registry
 
 
@@ -31,10 +32,12 @@ def main() -> None:
         raise ValueError("provider and proposal protocol compatibility do not match")
     if proposal.approach_semantics != spec.approach_semantics:
         raise ValueError("provider and proposal approach semantics do not match")
+    _, validation = _validate_pose(proposal)
     print(json.dumps({
         "proposal_id": proposal.proposal_id,
         "provider_id": proposal.provider.id,
         "proposal_hash": proposal_content_hash(proposal),
+        "validation": validation.model_dump(mode="json"),
     }, indent=2))
 
 
