@@ -1,0 +1,29 @@
+hug_mano_shadow_v1:
+  schema_version: proposal_provider_spec_v1
+  provider_id: hug_mano_shadow_v1
+  adapter: grasp_failure_prediction.proposals.providers:HugProposalProvider
+  embodiment_id: shadow_hand_right
+  execution: local_or_external
+  required_inputs: [rgb, depth_m, intrinsics, object_mask, selection_uv, scene_contract]
+  compatible_execution_protocols: [fixed_grasp_lift_v2]
+  approach_semantics: fixed_world_negative_z
+  maximum_mean_fingertip_error_m: 0.01
+
+shadow_saved_record_v1:
+  schema_version: proposal_provider_spec_v1
+  provider_id: shadow_saved_record_v1
+  adapter: grasp_failure_prediction.proposals.providers:SavedShadowProposalProvider
+  embodiment_id: shadow_hand_right
+  execution: local
+  required_inputs: [object_geometry, saved_shadow_record]
+  compatible_execution_protocols: [fixed_grasp_lift_v2]
+  approach_semantics: fixed_world_negative_z
+
+dexgrasp_anything_shadow_v1:
+  schema_version: proposal_provider_spec_v1
+  provider_id: dexgrasp_anything_shadow_v1
+  embodiment_id: shadow_hand_right
+  execution: external
+  required_inputs: [object_mesh, object_point_cloud]
+  compatible_execution_protocols: [fixed_grasp_lift_v2]
+  approach_semantics: fixed_world_negative_z
