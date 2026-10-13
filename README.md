@@ -257,6 +257,83 @@ The main future-loss and recovery experiments remain ahead:
   portable pre-lift dataset. Validated fixed-horizon future-loss labels, intervention
   comparisons, recovery learning, and hardware transfer are later milestones.
 
+### Interchangeable grasp providers
+
+New experiments separate grasp generation from simulation with the strict
+[`grasp_proposal_v1` contract](docs/GRASP_PROPOSAL_PROVIDER_PLAN.md). HUG, a
+reviewed saved pose, an isolated command, or an HTTP worker produces the same
+object-relative Shadow Hand target. `run-grasp-eval-case` then validates its
+content hash, exact 24-joint set, joint limits, object geometry, embodiment and
+protocol compatibility before using the existing MuJoCo runner.
+
+The normal user interface is one versioned experiment file and one command:
+
+```bash
+grasp-eval validate experiments/pilot.yaml
+grasp-eval run experiments/pilot.yaml \
+  --hug-root ../hug \
+  --checkpoint ../hug/checkpoints/hug_full.safetensors
+```
+
+`grasp-eval run` generates each job's proposals, materializes content-addressed
+evaluation cases, runs MuJoCo, records videos when enabled, and writes one
+experiment summary. Interrupted work can be continued and inspected without
+repeating completed cases:
+
+```bash
+grasp-eval status experiments/pilot.yaml
+grasp-eval resume experiments/pilot.yaml \
+  --hug-root ../hug \
+  --checkpoint ../hug/checkpoints/hug_full.safetensors
+grasp-eval view experiments/pilot.yaml
+```
+
+The experiment format and output layout are documented in
+[`docs/GRASP_EVAL_CLI.md`](docs/GRASP_EVAL_CLI.md). The commands below remain
+available as lower-level debugging interfaces.
+
+Generate HUG samples locally or on a suitable worker:
+
+```bash
+generate-grasp-proposals requests/hug_cube.yaml \
+  --provider hug_mano_shadow_v1 \
+  --hug-root ../hug \
+  --checkpoint ../hug/checkpoints/hug_full.safetensors \
+  --output proposals/hug_cube
+```
+
+The same request can dispatch another registered provider through a process or
+HTTP endpoint:
+
+```bash
+generate-grasp-proposals requests/cube.yaml \
+  --provider dexgrasp_anything_shadow_v1 \
+  --external-command './workers/run_dga.sh' \
+  --output proposals/dga_cube
+
+generate-grasp-proposals requests/cube.yaml \
+  --provider dexgrasp_anything_shadow_v1 \
+  --endpoint https://worker.example/v1/grasp-proposals \
+  --bearer-token-env GRASP_WORKER_TOKEN \
+  --output proposals/dga_cube
+```
+
+Inference produces immutable proposals; simulation consumes them separately:
+
+```bash
+validate-grasp-proposal proposals/dga_cube/sample_0000/proposal.json
+run-grasp-eval-case eval_cases/dga_cube_000.yaml --output runs/dga_cube_000
+run-grasp-eval-batch eval_cases/hug/*.yaml eval_cases/dga/*.yaml \
+  --output-root runs/provider_comparison_001
+```
+
+Each case chooses a proposal, object mass/pose and simulator seed. Comparing
+models means generating proposal sets from each provider, materializing cases
+that reference their returned hashes, and passing all case files to the same
+batch command. The provider never changes the registered environment or scorer.
+The external worker wire format is documented in
+[`docs/GRASP_PROVIDER_WORKERS.md`](docs/GRASP_PROVIDER_WORKERS.md).
+
 The default Adroit observation contains no tactile or contact measurements.
 MuJoCo does maintain contact information internally, so a first simulation
 study can surface contact-derived features through a wrapper. Those features

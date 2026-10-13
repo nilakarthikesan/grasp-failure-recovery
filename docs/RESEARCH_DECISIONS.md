@@ -212,3 +212,58 @@ artifact and the next check. Mark unsuccessful experiments and rejected inputs
 explicitly. Distinguish measured results from interpretations and proposals.
 Link the paper to the evidence used for each claim. This convention is the
 ongoing documentation requirement; this turn did not launch new experiments.
+
+## 12 October 2026 Adding an interchangeable grasp-proposal boundary
+
+The active evaluator previously coupled fresh inference, HUG pickle loading,
+MANO conversion, Dex Retargeting and MuJoCo execution in one HUG-specific
+command. The user wants to compare grasp generators while keeping the registered
+Shadow Hand environment, fixed controller and outcome rule unchanged.
+
+The implementation adds a strict `grasp_proposal_v1` JSON boundary. A proposal
+binds a provider/configuration, object geometry, generation seed, exact named
+Shadow joint targets and `T_object_palm`, where the `palm` link is expressed in
+the registered MuJoCo object body frame. It also records separate geometry,
+observation and generation-request groups. Portable execution validates the
+canonical artifact and its content hash; provider-native outputs and checkpoints
+remain optional deep-audit inputs so a cloud-generated proposal can run without
+the generation environment.
+
+Generation and execution are separate. Built-in HUG and project-authored saved
+record adapters, an external-command contract and an HTTP JSON contract all
+produce the same artifact. New `eval_case_v2` files execute through a generic
+one-case or batch command. Historical `eval_case_v1` HUG commands remain
+available and are not rewritten. Provider identity is provenance and analysis
+metadata and is not an input to the existing failure predictor.
+
+This is an infrastructure result, not evidence that any grasp model is better.
+A deterministic saved proposal completed the common MuJoCo command and was
+scored as `approach_collision`; that failure only verifies end-to-end dispatch.
+A fresh simulator observation was then processed by the pinned HUG checkpoint
+on CPU and executed successfully through the generic runner. Replaying the same
+native HUG proposal through the legacy runner produced the same successful
+outcome and matching phase/contact arrays. Maximum numeric trajectory deviation
+was 5.1e-13 m for palm position, 8.2e-12 rad for hand position and 3.5e-9 N for
+contact force, consistent with transform serialization roundoff. These ignored
+runtime smoke artifacts are not research data and are not committed.
+
+The next scientific check is paired HUG and non-HUG proposals on identical
+objects and initial conditions, followed by grouped, held-out outcome analysis.
+
+## 12 October 2026 — Use one versioned command for proposal-to-evaluation experiments
+
+- **Previous plan:** Users invoked proposal generation, case materialization,
+  batch execution, and the result viewer as separate commands. That exposed
+  internal paths and made it easy to mix proposals, hashes, and output roots.
+- **New evidence:** The interchangeable-provider implementation already has
+  strict request, proposal, case, and result boundaries, so orchestration can
+  be added without changing HUG, the MuJoCo environment, or the scorer.
+- **Choice:** Add `grasp-eval` with `validate`, `run`, `status`, `resume`, and
+  `view` subcommands over `grasp_eval_experiment_v1`. One experiment file maps
+  provider requests and proposal sample indexes to controlled physical cases.
+- **Implementation status:** Implemented on `codex/project-work`. Completed
+  cases are immutable during resume; incomplete stage directories are retained
+  before retry. Existing low-level commands remain available for debugging.
+- **Next check:** Run a small multi-provider experiment and confirm that resume,
+  videos, and the viewer behave correctly before adding dataset-wide
+  Parquet/DuckDB export.
