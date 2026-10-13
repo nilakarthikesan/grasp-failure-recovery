@@ -47,7 +47,7 @@ cover input validation and the sampling adapter without network calls.
 
 The connected simulation path loads HUG and MANO, validates the inference input,
 generates proposals, and runs diagnostic executions. See
-[HUG simulation pilot](HUG_SIMULATION_PILOT.md) for its additional dependencies,
+[HUG simulation pilot](archive/HUG_SIMULATION_PILOT.md) for its additional dependencies,
 commands, and limitations. The offline manifest checker and upstream sample
 test remain separate from that execution path. New observations must pass the
 same input and geometry checks before inference.

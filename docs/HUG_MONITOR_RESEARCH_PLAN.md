@@ -1,8 +1,10 @@
-# Current direction: useful pre-lift warnings for HUG execution
+# Research protocol: pre-lift warnings for HUG execution
 
-12 October 2026. The user chooses the existing HUG, fixed MuJoCo executor and
-joint-based predictor. VLM/VLA integration and visual-monitor development are
-deferred. Their notes remain historical exploration, not the active plan.
+Recorded protocol, 12 October 2026. The evaluated system uses HUG proposals,
+a fixed MuJoCo executor and a joint-based outcome predictor.
+[Completed experiments](PAPER_PROGRESS.md) are reported separately from the
+coverage and representation comparisons specified below, which remain unexecuted
+in the saved evidence.
 
 ## The practical problem
 
@@ -77,7 +79,7 @@ Both comparative collections and fresh evaluation use one frozen corrected
 executor. Historical controller versions remain explicit. Invalid/guard stops
 stay outside binary metrics; report lift-cutoff boundary cases separately.
 
-## Useful findings and workshop scope
+## Evaluation and scope
 
 Report false warnings on successes and missed completed failures together,
 plus ranking and probability error. Select operating rules on validation/
@@ -96,12 +98,6 @@ which compares before-lift vision/touch across objects. We are testing HUG
 collection/monitor reliability, not claiming the first pre-lift predictor or
 a new sensor/control algorithm. A bounded search did not establish global novelty.
 
-The [Sim2Real2Field call](https://sim2real2field-corl26.github.io/) welcomes
-preliminary/negative/system lessons in its four-page Late-Breaking track.
-Deadline: 15 October 2026, 11:59 PM Central. A useful submission needs completed,
-interpretable evidence and precise scope; topic fit does not establish acceptance.
-
-Current evidence is simulation-only. Our joint predictor cannot run on the
-inspected WidowX/Franka videos with its existing inputs. Real warning improvement
-requires compatible measurements and separate real evaluation. No new rollout,
-fit, calibration, label or controller change occurred in selecting this direction.
+Current evidence is simulation-only. Real warning improvement requires
+compatible robot measurements and separate real evaluation. This protocol
+specifies the comparison; it does not report an improvement from added coverage.

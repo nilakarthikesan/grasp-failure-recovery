@@ -1,8 +1,15 @@
 # VLA failure monitoring: purpose, feasibility and remaining questions
 
+> Historical record, archived on 12 October 2026. The evidence and reasoning
+> below preserve the earlier investigation or design. Recommendations,
+> implementation statuses and next steps describe that stage; they are not
+> the active project scope. See the [current project record](../PAPER_PROGRESS.md)
+> and [working paper](../paper/working_draft.tex) for current claims.
+
+
 **Current status, 12 October 2026:** this exploration is deferred. The user
 chooses the existing HUG simulation and joint-based predictor for the active
-study. See [the current HUG monitor plan](HUG_MONITOR_RESEARCH_PLAN.md).
+study. See [the current HUG monitor plan](../HUG_MONITOR_RESEARCH_PLAN.md).
 The discussion below records earlier exploration, not a VLA migration or fit.
 
 Reviewed 12 October 2026. The user asks for a concrete robotics benefit and a

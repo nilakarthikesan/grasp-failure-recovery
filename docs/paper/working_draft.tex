@@ -77,19 +77,6 @@ checking measurements, calibration and baseline comparisons before attributing
 our errors to wrist coverage. The proposed training comparison remains under
 scope review; wrist-feature contributions alone do not demonstrate its remedy.
 
-\paragraph{Deferred visual-monitor exploration.}
-We considered preserving HUG-conditioned fixed execution as a source of
-controlled examples for a common visual monitor, evaluated separately on real
-VLA-controlled recordings. OpenVLA illustrates a VLM adapted to output robot
-actions \cite{openvla}; this differs from a monitor that interprets images.
-Guardian verifies subtask execution using before/after images and already
-studies simulated and real training examples \cite{guardian}. Thus that mixture
-alone is not a new contribution. A future visual study must distinguish
-forecasting final outcome from detecting an unsuccessful acquisition, align
-target definitions and test a controlled data strategy. No visual predictor,
-VLA integration or transfer improvement has been demonstrated here. This route
-is deferred while the active study retains the joint-based predictor.
-
 Recent proprioceptive work also learns a hand-local grasp-readiness score
 alongside reactive control \cite{blindreflex}. We therefore do not claim that
 command-relative features or pre-lift monitoring are new; our candidate
@@ -370,27 +357,6 @@ HUG's apple asset retains its CC BY 4.0 attribution and pinned revision in the
 geometry provenance record. No public real-world failure dataset has been
 imported for these quantitative results.
 
-\paragraph{Separate public-recording audit.}
-We inspected one successful and one failed real WidowX acquisition from SAFE's
-released recordings \cite{safe}, selected by task and raw episode index before
-viewing. In sampled frames the successful episode carries a carrot to a plate;
-the failed episode raises an empty gripper while the carrot remains on the
-table. These are qualitative observations, not independently reviewed event
-labels. The extracted records lack monitor scores and calibration artifacts,
-so we have not measured SAFE's errors on this pair. A separate author-provided
-Franka demonstration eventually alerts during repeated unsuccessful acquisition;
-its sampled warning transition does not establish physical detection delay.
-\href{../SAFE_RECORDING_WALKTHROUGH.md}{The recording audit} separates these
-sources and defines the next alignment and baseline checks. This exploration
-does not add real-world predictor, recovery or transfer results to this paper.
-
-\paragraph{Draft status.}
-This editable research draft reports completed diagnostics and explicitly
-planned experiments. It has not been submitted. Official CoRL template
-formatting, the four-page main-text limit, anonymity, author review and verified
-OpenReview profiles remain submission preparation tasks. The long-term
-prediction and recovery ambition is retained separately from measured claims.
-
 \begin{thebibliography}{99}
 \bibitem{hug}
 K. Y. Wu, T. Zhou, I. Tu, B. Yan, I. Guzey, D. Fouhey, D. Shan, and L. Pinto.
@@ -442,18 +408,6 @@ H. Rajaprakash, A. Prajapati, R. Xue, A. Anwar, and J. Thomason.
 \emph{SAFECAST: Robust Failure Detection for VLA Policies with Contrast-Set
 Training and Calibration}. arXiv:2608.04246, 2026, preprint.
 \url{https://arxiv.org/abs/2608.04246}.
-
-\bibitem{openvla}
-M. J. Kim et al.
-\emph{OpenVLA: An Open-Source Vision-Language-Action Model}.
-arXiv:2406.09246v3, 2024.
-\url{https://arxiv.org/html/2406.09246v3}.
-
-\bibitem{guardian}
-P. Pacaud et al.
-\emph{Guardian: Detecting Robotic Manipulation Failures with Vision-Language Models}.
-arXiv:2512.01946v4, 2026 revision.
-\url{https://arxiv.org/html/2512.01946v4}.
 
 \bibitem{blindreflex}
 A. Alexiev et al.

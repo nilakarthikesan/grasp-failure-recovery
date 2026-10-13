@@ -1,9 +1,16 @@
 # Updated Design Review: Fixed HUG Grasp Execution
 
+> Historical record, archived on 12 October 2026. The evidence and reasoning
+> below preserve the earlier investigation or design. Recommendations,
+> implementation statuses and next steps describe that stage; they are not
+> the active project scope. See the [current project record](../PAPER_PROGRESS.md)
+> and [working paper](../paper/working_draft.tex) for current claims.
+
+
 **Historical review discussion preserved on 11 October 2026.** The questions
 below explain earlier choices. Current results and unresolved research questions
-are recorded in [PAPER_PROGRESS.md](PAPER_PROGRESS.md) and
-[RESEARCH_DECISIONS.md](RESEARCH_DECISIONS.md).
+are recorded in [PAPER_PROGRESS.md](../PAPER_PROGRESS.md) and
+[RESEARCH_DECISIONS.md](../RESEARCH_DECISIONS.md).
 
 ## Response to the earlier questions
 

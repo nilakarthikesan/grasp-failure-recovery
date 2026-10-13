@@ -187,7 +187,7 @@ Place a locally generated trusted proposal at `runs/example/source/proposal.pkl`
 and its corresponding `T_world_camera.npy` beside it. Keep the referenced
 initial RGB-D inputs in `runs/example/observation/`. The collector replays saved
 proposals; it does not run HUG inference or supply checkpoints. See
-[the simulation pilot](HUG_SIMULATION_PILOT.md) for the inference workflow.
+[the simulation pilot](archive/HUG_SIMULATION_PILOT.md) for the inference workflow.
 
 Create `runs/example/cases/cube_seed0.yaml`:
 

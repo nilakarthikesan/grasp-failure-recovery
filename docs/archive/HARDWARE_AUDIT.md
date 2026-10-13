@@ -1,5 +1,12 @@
 # Part I Hardware Audit and Decision Gate
 
+> Historical record, archived on 12 October 2026. The evidence and reasoning
+> below preserve the earlier investigation or design. Recommendations,
+> implementation statuses and next steps describe that stage; they are not
+> the active project scope. See the [current project record](../PAPER_PROGRESS.md)
+> and [working paper](../paper/working_draft.tex) for current claims.
+
+
 Part I runs in simulation now (Adroit/Shadow Hand in MuJoCo). A physical robot
 is **not** required to produce the first result. This document audits the parallel
 hardware-discovery tracks and defines a single decision gate that must pass

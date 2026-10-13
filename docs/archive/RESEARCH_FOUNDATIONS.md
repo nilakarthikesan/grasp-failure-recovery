@@ -1,5 +1,12 @@
 # Research Foundations and Embodiment Scope
 
+> Historical record, archived on 12 October 2026. The evidence and reasoning
+> below preserve the earlier investigation or design. Recommendations,
+> implementation statuses and next steps describe that stage; they are not
+> the active project scope. See the [current project record](../PAPER_PROGRESS.md)
+> and [working paper](../paper/working_draft.tex) for current claims.
+
+
 This project studies failure prediction and recovery for grasps proposed or
 executed across different hand embodiments. It is informed directly by these
 projects and released resources:
@@ -116,15 +123,15 @@ The repository retargets saved HUG predictions, displays the resulting Shadow
 Hand pose, and reports fingertip alignment error. The `run-hug-eval-case` command
 resolves the versioned `adroit_shadow_tabletop_v2` environment and
 `fixed_grasp_lift_v2` execution protocol. Its case contract is in
-[Evaluation manifest](EVALUATION_MANIFEST.md). No learned manipulation policy is
+[Evaluation manifest](../EVALUATION_MANIFEST.md). No learned manipulation policy is
 used by this initial protocol.
 
 The current runner uses force limited hand servos and an ideal arm carrier,
 supports reviewed MJCF object geometry, and executes the world palm pose derived
 from HUG. The original v1 kinematic controller remains a historical protocol.
-The [multi scene collection](MULTI_SCENE_COLLECTION.md) and
-[fresh object evaluation](FRESH_OBJECT_EVALUATION.md) document completed v2
-experiments. The [mug clearance correction](MUG_TABLE_CLEARANCE.md) introduces
+The [multi scene collection](../MULTI_SCENE_COLLECTION.md) and
+[fresh object evaluation](../FRESH_OBJECT_EVALUATION.md) document completed v2
+experiments. The [mug clearance correction](../MUG_TABLE_CLEARANCE.md) introduces
 the separate v3 entry point and runtime guard. None establishes calibrated
 physical robot contact or recovery performance.
 

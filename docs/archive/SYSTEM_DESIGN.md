@@ -1,13 +1,20 @@
 # Learning, Anticipating, and Recovering from Grasp Failures
 
+> Historical record, archived on 12 October 2026. The evidence and reasoning
+> below preserve the earlier investigation or design. Recommendations,
+> implementation statuses and next steps describe that stage; they are not
+> the active project scope. See the [current project record](../PAPER_PROGRESS.md)
+> and [working paper](../paper/working_draft.tex) for current claims.
+
+
 ## Under Hidden Physical Variation
 
 ## System Design Document
 
 **Status:** Research design; implementation in progress
 
-Current completed evidence is in [PAPER_PROGRESS.md](PAPER_PROGRESS.md) and
-[RESEARCH_DECISIONS.md](RESEARCH_DECISIONS.md). Proposed future horizons,
+Current completed evidence is in [PAPER_PROGRESS.md](../PAPER_PROGRESS.md) and
+[RESEARCH_DECISIONS.md](../RESEARCH_DECISIONS.md). Proposed future horizons,
 transport and recovery in this design remain separate from those results.
 
 **Project repository:** `grasp-failure-recovery`
@@ -243,8 +250,8 @@ The initial experiment does not train a manipulation policy. The implemented
 v2 fixed sequence uses force limited hand servos and an ideal arm carrier;
 the earlier v1 protocol prescribes hand motion kinematically. The separately
 versioned v3 entry point adds wrist clearance planning and a runtime table guard.
-These controllers are documented in [MULTI_SCENE_COLLECTION.md](MULTI_SCENE_COLLECTION.md)
-and [MUG_TABLE_CLEARANCE.md](MUG_TABLE_CLEARANCE.md).
+These controllers are documented in [MULTI_SCENE_COLLECTION.md](../MULTI_SCENE_COLLECTION.md)
+and [MUG_TABLE_CLEARANCE.md](../MUG_TABLE_CLEARANCE.md).
 
 Part I proceeds in this order:
 
@@ -398,7 +405,7 @@ The repository currently provides:
 The HUG path now includes reviewed object geometry, calibrated scene capture,
 bounded noisy batches, outcome scoring and full integration snapshots. The
 recorded batches, grouped splits and first outcome predictor are documented in
-[PAPER_PROGRESS.md](PAPER_PROGRESS.md). Corrected controller checks remain
+[PAPER_PROGRESS.md](../PAPER_PROGRESS.md). Corrected controller checks remain
 separate from historical frozen model evaluations. Final `qpos` and `qvel`
 alone are insufficient for full replay.
 
@@ -463,7 +470,7 @@ scientific data collection; a portable Cartesian-plus-gripper action interface
 keeps the policy transferable. A low-cost arm such as SO-101 may validate
 software plumbing but is not assumed sufficient for quantitative force/recovery
 claims. See [Hardware audit](HARDWARE_AUDIT.md) and
-[Evaluation manifest](EVALUATION_MANIFEST.md).
+[Evaluation manifest](../EVALUATION_MANIFEST.md).
 
 HUG is the source of grasp hypotheses for the primary experiment. Its RGB-D
 model predicts wrist translation, wrist rotation, and a MANO hand pose, and its
@@ -487,7 +494,7 @@ conditions, motion profiles, and seeds vary at the case level. Each resolved
 run records the environment configuration hash, MuJoCo version, and code
 commit. Unknown environment IDs and configuration-hash mismatches fail before
 execution. The complete contract is in
-[EVALUATION_MANIFEST.md](EVALUATION_MANIFEST.md).
+[EVALUATION_MANIFEST.md](../EVALUATION_MANIFEST.md).
 
 Each case also records `execution_protocol_id`. The initial
 `fixed_grasp_lift_v1` registry entry defines the deterministic reset, load,

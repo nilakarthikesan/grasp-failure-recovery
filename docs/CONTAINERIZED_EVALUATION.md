@@ -1,21 +1,16 @@
 # Containerized evaluation runtime
 
-**Optional runtime preserved during consolidation on 11 October 2026.** Docker
-is unavailable on the current Mac. Linux image build and public smoke results
-are recorded in the [container workflow](https://github.com/nilakarthikesan/grasp-failure-recovery/actions/workflows/container-eval.yml).
+**Verified public Linux runtime, 12 October 2026.** Docker is unavailable on the
+current Mac. Linux image build and public smoke results are recorded in the
+[container workflow](https://github.com/nilakarthikesan/grasp-failure-recovery/actions/workflows/container-eval.yml).
 The connected inference script currently runs on CPU; a CUDA base image does
 not establish that inference uses the GPU.
 
-The 12 October Linux rerun built the image but failed while importing Pinocchio
-because `libgomp.so.1` was missing. `libgomp1` is now included in the image's
-Ubuntu packages. A subsequent Linux rebuild and runtime smoke test are pending;
-the corrected mug walkthrough used the existing native Mac runtime.
-
-**12 October verification update:** [Linux workflow 38204790827](https://github.com/nilakarthikesan/grasp-failure-recovery/actions/runs/38204790827)
+[Linux workflow 38204790827](https://github.com/nilakarthikesan/grasp-failure-recovery/actions/runs/38204790827)
 passed for commit `5f3882ac3ca1f505d0f02d0ab3dfcf2419629a81`, after adding
 `libgomp1`. This verifies the image build and public synthetic saved grasp
 execution on Linux. Licensed HUG inference and GPU rendering remain outside
-that check. The earlier pending status above records the sequence of the fix.
+that check. The corrected mug walkthrough used the native Mac runtime.
 
 `Dockerfile.eval` creates the pinned Linux x86-64 runtime for HUG inference,
 Dex Retargeting, and MuJoCo evaluation. It pins HUG and Dex URDF revisions and

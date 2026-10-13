@@ -1,5 +1,12 @@
 # Literature review for the noisy grasp pilot
 
+> Historical record, archived on 12 October 2026. The evidence and reasoning
+> below preserve the earlier investigation or design. Recommendations,
+> implementation statuses and next steps describe that stage; they are not
+> the active project scope. See the [current project record](../PAPER_PROGRESS.md)
+> and [working paper](../paper/working_draft.tex) for current claims.
+
+
 Reviewed 10 October 2026. This note connects three papers to the project's six-step plan and records proposed refinements for the first predictor experiment. Keep the fixed controller and joint-angle bias as the collection baseline. Complete a small, reproducible prediction experiment before scaling collection or adding recovery.
 
 The recommendations below are design decisions for the next pilot, not completed experimental results. They extend the existing [system design](SYSTEM_DESIGN.md) and [research foundations](RESEARCH_FOUNDATIONS.md); they do not establish a new research contribution by themselves.

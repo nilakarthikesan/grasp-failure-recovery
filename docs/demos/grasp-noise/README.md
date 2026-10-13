@@ -61,7 +61,7 @@ for this demo. Full raw runs remain in the ignored local
 and the source paths shown on the site identify those original files rather
 than downloadable files bundled here.
 
-The [Step 1 walkthrough](../../HUG_STEP_1_WALKTHROUGH.md) explains the dataset
+The [Step 1 walkthrough](../../archive/HUG_STEP_1_WALKTHROUGH.md) explains the dataset
 choice, complete scoring rule and remaining simulation integration work.
 
 ## Credits

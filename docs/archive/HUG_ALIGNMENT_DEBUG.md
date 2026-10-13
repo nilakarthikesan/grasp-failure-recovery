@@ -1,5 +1,12 @@
 # Alignment investigation
 
+> Historical record, archived on 12 October 2026. The evidence and reasoning
+> below preserve the earlier investigation or design. Recommendations,
+> implementation statuses and next steps describe that stage; they are not
+> the active project scope. See the [current project record](../PAPER_PROGRESS.md)
+> and [working paper](../paper/working_draft.tex) for current claims.
+
+
 **Current status (2026-10-02):** the original saved HUG proposal now succeeds
 without the object-specific contact fit when a fixed, bounded force-closing
 execution rule is added. In a repeatable ten-proposal pilot, this controller

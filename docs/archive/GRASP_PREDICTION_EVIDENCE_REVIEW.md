@@ -1,5 +1,12 @@
 # Public evidence for grasp failure prediction
 
+> Historical record, archived on 12 October 2026. The evidence and reasoning
+> below preserve the earlier investigation or design. Recommendations,
+> implementation statuses and next steps describe that stage; they are not
+> the active project scope. See the [current project record](../PAPER_PROGRESS.md)
+> and [working paper](../paper/working_draft.tex) for current claims.
+
+
 Reviewed 12 October 2026. This is a bounded review of 24 published systems,
 research releases and company announcements. It includes foundational studies
 and recent 2025–2026 work. It is not an exhaustive company census, a benchmark
@@ -48,8 +55,8 @@ scorer-defined failures; every attempt receives a warning. The original
 model therefore supplies a measurable reference, but is not a validated
 general grasp-warning system. Its task labels mostly measure failed
 acquisition/lift, not physical slip onset. See the
-[original baseline](../research_artifacts/task_outcome_baseline_v1/) and
-[complete wrist diagnostic](../research_artifacts/wrist_pair_remaining_v1/README.md).
+[original baseline](../../research_artifacts/task_outcome_baseline_v1) and
+[complete wrist diagnostic](../../research_artifacts/wrist_pair_remaining_v1/README.md).
 
 ## Common practices in the reviewed work
 

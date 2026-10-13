@@ -1,5 +1,12 @@
 # Step 1: Understand HUG's datasets and choose our starting data
 
+> Historical record, archived on 12 October 2026. The evidence and reasoning
+> below preserve the earlier investigation or design. Recommendations,
+> implementation statuses and next steps describe that stage; they are not
+> the active project scope. See the [current project record](../PAPER_PROGRESS.md)
+> and [working paper](../paper/working_draft.tex) for current claims.
+
+
 We are building a model that warns when a robot grasp is likely to fail. Step 1 is to understand the available data, inspect one small example, and decide what we still need to collect.
 
 ## How to explain the project
@@ -104,8 +111,8 @@ combining them. More complicated noise is not automatically more realistic.
 
 ### See the recorded noise
 
-The [complete interactive website](demos/grasp-noise/index.html) is included
-in the repository, with a [demo guide](demos/grasp-noise/README.md) and preview.
+The [complete interactive website](../demos/grasp-noise/index.html) is included
+in the repository, with a [demo guide](../demos/grasp-noise/README.md) and preview.
 It embeds the five recorded seed-2 attempts and both replay videos, so the HTML
 can be opened directly in a browser or shared as a file without the viewer
 server. Choose a strength, select `FFJ1` or `THJ3`, and scrub the attempt to

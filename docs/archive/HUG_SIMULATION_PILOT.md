@@ -1,5 +1,12 @@
 # First connected simulation pilot
 
+> Historical record, archived on 12 October 2026. The evidence and reasoning
+> below preserve the earlier investigation or design. Recommendations,
+> implementation statuses and next steps describe that stage; they are not
+> the active project scope. See the [current project record](../PAPER_PROGRESS.md)
+> and [working paper](../paper/working_draft.tex) for current claims.
+
+
 The pilot connects a collaborator's MuJoCo cube scene to observation validation,
 official HUG preprocessing and CPU inference, Dex retargeting, and an
 execution/scoring protocol. It is a functioning integration experiment, not yet

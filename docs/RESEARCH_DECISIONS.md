@@ -24,8 +24,8 @@ poorly trained controller, a grasp hypothesis or the disturbance being studied.
 Record the resulting attempts and train the outcome predictor separately. The
 larger policy learning and recovery ideas remain a research agenda.
 
-Evidence: [the original plan changes](PAPER_PROGRESS.md#changes-to-the-original-plan)
-and [research foundations](RESEARCH_FOUNDATIONS.md).
+Evidence: [the original plan changes](archive/PAPER_PROGRESS_HISTORY_2026-10-12.md#changes-to-the-original-plan)
+and [research foundations](archive/RESEARCH_FOUNDATIONS.md).
 
 ## 10 October 2026 Making noise and labels precise
 
@@ -452,7 +452,7 @@ not resolve that visibility limit.
 **Submission preparation:** checked the call, linked template, OpenReview form
 and account guidance. The website cutoff converts to 16 October 12:59 AM
 Eastern, one hour earlier than the invitation timestamp. Plan an upload for
-15 October daytime, using the earlier cutoff. The [preparation record](PAPER_PROGRESS.md#workshop-preparation-and-first-reading-12-october)
+15 October daytime, using the earlier cutoff. The [preparation record](archive/PAPER_PROGRESS_HISTORY_2026-10-12.md#workshop-preparation-and-first-reading-12-october)
 records format, profiles, review commitment, anonymity interpretation, sources
 and a staged outline. The workshop's welcome for preliminary and negative
 results supports a narrow diagnostic report; it does not guarantee selection
@@ -492,7 +492,7 @@ warning improvement needs a separate frozen fresh evaluation. Future warning
 claims need validated event timing; recovery claims need an intervention
 comparison that also measures harm to successful grasps and added time.
 The existing table clearance correction fixes the executor and is not evidence
-of model triggered recovery. The [progress note](PAPER_PROGRESS.md#prediction-and-recovery-prior-work-12-october)
+of model triggered recovery. The [progress note](archive/PAPER_PROGRESS_HISTORY_2026-10-12.md#prediction-and-recovery-prior-work-12-october)
 records the staged plan and primary papers. This turn reviewed literature and
 documented proposals; it did not collect data, train a model, implement recovery
 or alter the manuscript. Preserve that scope in the imminent workshop draft.
@@ -526,7 +526,7 @@ explaining existing records; retain the frozen baseline. Avoid simultaneously
 retraining, widening collection and adding recovery while the question remains
 undecided. Candidate directions are simulation diversity at equal budgets,
 warning reliability across execution changes and trustworthy decisions under
-unfamiliarity. The [progress record](PAPER_PROGRESS.md#candidate-directions-and-a-bounded-exploration-phase-12-october)
+unfamiliarity. The [progress record](archive/PAPER_PROGRESS_HISTORY_2026-10-12.md#candidate-directions-and-a-bounded-exploration-phase-12-october)
 states each candidate's evidence and implementation requirements. Current
 diagnostics can support a scoped preliminary workshop account; broader
 augmentation claims require new experiments. The user has not chosen a new
@@ -568,7 +568,7 @@ is undefined, and very few cannot establish broad reliability. Do not optimize
 against the test or call lower scores alone an improvement.
 
 The [proposed protocol](../research_artifacts/wrist_comparison_plan_v1/protocol.json)
-binds original source hashes and planned case identities. The [plain explanation](PAPER_PROGRESS.md#selected-question-and-proposed-wrist-comparison-12-october)
+binds original source hashes and planned case identities. The [plain explanation](archive/PAPER_PROGRESS_HISTORY_2026-10-12.md#selected-question-and-proposed-wrist-comparison-12-october)
 records completed work and direct next steps. This turn wrote the plan only:
 no selector code, feasibility search, simulation, inference or fit was performed.
 Keep the current manuscript and all existing scientific records unchanged.
@@ -640,7 +640,7 @@ successfully with the desktop editor compiler. The question and protocol
 remain proposals about future training benefits. No new model fit, threshold
 change or simulation result is introduced by this documentation revision.
 The [protocol](../research_artifacts/wrist_comparison_plan_v1/protocol.json)
-and [progress record](PAPER_PROGRESS.md#accepted-paper-question-and-evidence-gates-12-october)
+and [progress record](archive/PAPER_PROGRESS_HISTORY_2026-10-12.md#accepted-paper-question-and-evidence-gates-12-october)
 define the next evidence required. Source remains on `codex/project-work`;
 PR 19 is merged into `main`, but later working branch changes are not merged
 by documenting them.
@@ -906,7 +906,7 @@ practices before assuming wrist coverage is important or collecting more data.
 The user asks for a credible baseline and evidence about other causes of failure.
 Simulation-first collection remains the expressed preference.
 
-**Completed review:** the [public evidence guide](GRASP_PREDICTION_EVIDENCE_REVIEW.md)
+**Completed review:** the [public evidence guide](archive/GRASP_PREDICTION_EVIDENCE_REVIEW.md)
 records 21 systems, papers and company announcements spanning grasp scoring,
 contact/slip detection, runtime task monitors, post-action verification and
 policy value models. It separates prediction metrics from executed task success,
@@ -944,7 +944,7 @@ They propose exploring a VLA-based grasp-failure predictor and ask about
 workshop significance. This reopens scope selection; it does not authorize
 describing a proposed integration as a completed result.
 
-The [VLA direction review](VLA_DIRECTION_REVIEW.md) distinguishes a controller,
+The [VLA direction review](archive/VLA_DIRECTION_REVIEW.md) distinguishes a controller,
 an image/text model and a separate failure monitor. Our fixed HUG executor is
 not a VLA. Adopting one is not a prerequisite for simulation collection.
 Current work already combines VLA representations, varied rollouts and
@@ -1021,7 +1021,7 @@ benign stress test, not a proven SAFE weakness. Rotation commands in the new
 CSVs are not measured wrist angles. Our fixed Shadow executor supplies no VLA
 hidden states, so its trajectories and weights cannot be treated as SAFE input.
 
-The [walkthrough](SAFE_RECORDING_WALKTHROUGH.md) maps reuse of provenance,
+The [walkthrough](archive/SAFE_RECORDING_WALKTHROUGH.md) maps reuse of provenance,
 recording, splits, replay and controlled simulation tests. Model fitting,
 calibration changes, new simulation collection, interventions and sim-to-real
 transfer remain unexecuted. Original scientific artifacts are unchanged.
@@ -1039,7 +1039,7 @@ could also be evaluated on real VLA-controlled recordings. This does not train
 or integrate a VLA. A VLM could verify images and task text; a smaller image
 encoder with a learned classifier is another candidate.
 
-The [learning guide](HUG_VISUAL_MONITOR_LEARNING_GUIDE.md) and
+The [learning guide](archive/HUG_VISUAL_MONITOR_LEARNING_GUIDE.md) and
 [teaching artifact](../research_artifacts/hug_visual_monitor_teaching_v1/README.md)
 bind an existing same-proposal cube success/failure pair and preserve its exact
 source hashes. The failed case has contact and some lift, so it must not be
@@ -1107,3 +1107,34 @@ artifact and the next check. Mark unsuccessful experiments and rejected inputs
 explicitly. Distinguish measured results from interpretations and proposals.
 Link the paper to the evidence used for each claim. This convention is the
 ongoing documentation requirement.
+
+## 12 October 2026 Curating documentation after research exploration
+
+**Previous presentation:** the README, paper progress and partner handoff mixed
+operational instructions and measured results with superseded research
+questions, VLM/VLA teaching, workshop browsing and the original long-term
+recovery program. The README contained both wrist-only and broader HUG coverage
+questions.
+
+**Evidence reviewed:** all 91 commits reachable through `6790b2d`, including
+the 24 after the main snapshot `c95dd8d`, were reviewed for their implementation,
+evidence, exploration or workflow roles. No source or experiment commit was
+reverted. The [commit review](archive/COMMIT_REVIEW_2026-10-12.md) records each
+disposition.
+
+**Choice and implementation:** keep the README focused on the implemented
+pipeline, reproduction and essential documentation. Archive earlier designs,
+surveys and educational routes; retain the full previous progress record and
+branch history. Current results, partner instructions and submission tasks
+now have focused documents. Remove deferred visual-monitor ideas and the
+qualitative SAFE recording walkthrough from the manuscript; retain literature
+that directly informs the measured HUG outcome study. Archive moves require
+relative-link maintenance, and two original guide paths remain forwarding
+notices for immutable evidence bundles.
+
+**Scientific status:** this is documentation curation, with no code, model,
+data, label or controller change. The recorded question and quantitative
+results are preserved. The user reports a partner-agreed thesis/testing plan;
+its exact wording was requested rather than inferred. The larger coverage
+comparison remains unexecuted in the current saved evidence. Any later agreed
+protocol should be reconciled with this record and supporting artifacts.
