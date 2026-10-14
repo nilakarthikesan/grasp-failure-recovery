@@ -268,6 +268,22 @@ class ProposalExecutionValidation(StrictModel):
     provider_metrics: dict[str, float | int | str | bool] = Field(default_factory=dict)
 
 
+class ResolvedProviderMetadata(StrictModel):
+    kind: Literal["model", "optimizer", "dataset_replay"]
+    translation_strategy_id: str = Field(pattern=ID_PATTERN)
+    source_revision: str = Field(min_length=1)
+    license_statuses: dict[str, Literal["verified", "unverified", "not_applicable"]]
+
+
+class ProposalPreflightRejection(StrictModel):
+    schema_version: Literal["proposal_preflight_rejection_v1"] = "proposal_preflight_rejection_v1"
+    status: Literal["translation_failed", "proposal_rejected"]
+    stage: Literal["translation", "structural", "kinematic", "scene_preflight"]
+    code: str = Field(pattern=ID_PATTERN)
+    message: str = Field(min_length=1)
+    task_label: None = None
+
+
 class ProposalArtifactReferences(StrictModel):
     trajectory: Path
     resolved_case: Path
@@ -286,6 +302,9 @@ class ProposalExecutionResult(StrictModel):
     proposal_id: str = Field(pattern=ID_PATTERN)
     provider_id: str = Field(pattern=ID_PATTERN)
     provider_config_hash: str = Field(pattern=SHA256_PATTERN)
+    # Optional only for backward loading of eval_result_v2 artifacts written
+    # before provider classification was added. New executions always populate it.
+    provider_metadata: ResolvedProviderMetadata | None = None
     proposal_hash: str = Field(pattern=SHA256_PATTERN)
     generation_seed: int = Field(ge=0, le=2**32 - 1)
     proposal_sample_index: int = Field(ge=0)

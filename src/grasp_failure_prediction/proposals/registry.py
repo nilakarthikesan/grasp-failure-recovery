@@ -15,6 +15,9 @@ from grasp_failure_prediction.evaluation.schema import StrictModel
 class ProviderSpec(StrictModel):
     schema_version: Literal["proposal_provider_spec_v1"]
     provider_id: str
+    kind: Literal["model", "optimizer", "dataset_replay"]
+    enabled: bool = True
+    unsupported_reason: str | None = None
     adapter: str | None = None
     embodiment_id: Literal["shadow_hand_right"]
     execution: Literal["local", "local_or_external", "external"]
@@ -22,6 +25,24 @@ class ProviderSpec(StrictModel):
     compatible_execution_protocols: tuple[str, ...]
     approach_semantics: Literal["fixed_world_negative_z"]
     maximum_mean_fingertip_error_m: float | None = Field(default=None, gt=0.0)
+    translation_strategy_id: str
+    provenance: "ProviderLicenseProvenance"
+
+
+class LicenseRecord(StrictModel):
+    status: Literal["verified", "unverified", "not_applicable"]
+    identifier: str | None = None
+    evidence: str = Field(min_length=1)
+    redistribution: Literal["allowed", "restricted", "unknown", "not_applicable"]
+
+
+class ProviderLicenseProvenance(StrictModel):
+    source_revision: str = Field(min_length=1)
+    source_location: str = Field(min_length=1)
+    code: LicenseRecord
+    checkpoint: LicenseRecord
+    dataset: LicenseRecord
+    object_assets: LicenseRecord
 
 
 def load_provider_registry() -> Registry[ProviderSpec]:

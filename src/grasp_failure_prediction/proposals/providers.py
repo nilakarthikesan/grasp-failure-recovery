@@ -14,10 +14,7 @@ import numpy as np
 
 from grasp_failure_prediction.evaluation.case_runner import _hug_world_palm_pose
 from grasp_failure_prediction.evaluation.pose_validation import ShadowPoseValidator
-from grasp_failure_prediction.evaluation.retargeting import (
-    ShadowHandRetargeter,
-    default_dex_urdf_root,
-)
+from grasp_failure_prediction.evaluation.retargeting import default_dex_urdf_root
 from grasp_failure_prediction.evaluation.schema import canonical_sha256
 from grasp_failure_prediction.integrations.hug import load_hug_prediction
 
@@ -33,6 +30,11 @@ from .schema import (
     ProviderProvenance,
     ProviderValidation,
     RigidTransform,
+)
+from .translation import (
+    SyntheticShadowRecordDecoder,
+    translate_mano_with_official_retargeter,
+    translate_native_pose,
 )
 
 
@@ -169,8 +171,9 @@ class HugProposalProvider:
                 raise RuntimeError("HUG provider did not produce its declared native artifacts")
             report = json.loads(report_path.read_text(encoding="utf-8"))
             grasp = load_hug_prediction(native_proposal)
-            retargeter = ShadowHandRetargeter(default_dex_urdf_root())
-            pose = retargeter.retarget(grasp)
+            pose = translate_mano_with_official_retargeter(
+                grasp, self.spec.translation_strategy_id
+            )
             validator = ShadowPoseValidator(default_dex_urdf_root())
             validation = validator.validate(pose)
             maximum = self.spec.maximum_mean_fingertip_error_m
@@ -265,6 +268,8 @@ class SavedShadowProposalProvider:
             raise ValueError("saved Shadow record object ID mismatch")
         if payload.get("geometry_content_hash") != request.object.geometry_content_hash:
             raise ValueError("saved Shadow record geometry hash mismatch")
+        native = SyntheticShadowRecordDecoder().decode(source)
+        translated = translate_native_pose(native, self.spec.translation_strategy_id)
         sample_dir = output_directory / "sample_0000"
         if sample_dir.exists():
             raise FileExistsError(f"proposal sample directory already exists: {sample_dir}")
@@ -283,14 +288,17 @@ class SavedShadowProposalProvider:
                 id=request.object.id,
                 geometry_content_hash=request.object.geometry_content_hash,
             ),
-            object_to_palm=RigidTransform.model_validate(payload["object_to_palm"]),
-            joint_targets_rad=payload["joint_targets_rad"],
+            object_to_palm=translated.object_to_palm,
+            joint_targets_rad=translated.joint_targets_rad,
             compatible_execution_protocols=self.spec.compatible_execution_protocols,
             input_binding=_binding(
                 request, input_manifest_hash=file_sha256(source), scene_contract_hash=None
             ),
             provider_validation=ProviderValidation(status="not_applicable"),
-            provider_metrics={"source_record_sha256": file_sha256(source)},
+            provider_metrics={
+                "source_record_sha256": file_sha256(source),
+                **translated.validation_metrics,
+            },
         )
         path = sample_dir / "proposal.json"
         write_proposal(path, proposal)
