@@ -1,0 +1,850 @@
+{
+  "scope": "HUG only: saved native MANO mesh versus nominal translated Shadow collision shapes at identical INITIAL cube pose; no force-close/lift/stepping/inference",
+  "native_sha256": "573cb003458d9d7cfe85b5b4a7877e414257b3e67d5abda04a09bd6d687fa0c2",
+  "audit_script_sha256": "22d1274568892ec45a665d9a89f135934fe700b29ef82179f22b01606312b04f",
+  "runtime_versions": {
+    "python": "3.12.13",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "mujoco": "3.3.7",
+    "matplotlib": "3.11.2",
+    "chumpy": "0.71"
+  },
+  "licensed_asset_path_only": "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/hug/assets/mano_models/models/MANO_RIGHT.pkl",
+  "raw_licensed_asset_copied": false,
+  "guarded_integration_apis": [
+    "mj_step",
+    "mj_step1",
+    "mj_step2"
+  ],
+  "mujoco_time_s": 0.0,
+  "object_qpos_max_change": 0.0,
+  "native_surface": "Exact saved778vertices and1552triangles, including wrist cap far from cube. Face-normal directions follow saved winding; positive volume; no whole-hand hull.",
+  "native_signed_volume_m3": 0.00044869543791109203,
+  "native_skinning_labels": "Argmax of barycentrically interpolated weights summed over anatomical bone groups; approximate anatomical analysis labels, not contact ground truth.",
+  "native_groups": {
+    "palm": [
+      0
+    ],
+    "index": [
+      1,
+      2,
+      3
+    ],
+    "middle": [
+      4,
+      5,
+      6
+    ],
+    "ring": [
+      10,
+      11,
+      12
+    ],
+    "little": [
+      7,
+      8,
+      9
+    ],
+    "thumb": [
+      13,
+      14,
+      15
+    ]
+  },
+  "shadow_surface": "Union membership/positive outside proximity to actual saved compiled collision geoms. Per-mesh-geom convex hull exactly follows MuJoCo3.3.7 collision geometry. No whole-hand convex hull. Sphere/cylinder distances/normals analytic; curved render is tessellated.",
+  "shadow_geom_count": 45,
+  "shadow_geoms": [
+    {
+      "geom_id": 1,
+      "body": "forearm",
+      "part": "palm",
+      "representation": "exact per-geom convex hull of compiled mesh vertices"
+    },
+    {
+      "geom_id": 2,
+      "body": "forearm",
+      "part": "palm",
+      "representation": "analytic box; exact polygon render"
+    },
+    {
+      "geom_id": 3,
+      "body": "wrist",
+      "part": "palm",
+      "representation": "analytic cylinder; 32-segment render tessellation"
+    },
+    {
+      "geom_id": 4,
+      "body": "wrist",
+      "part": "palm",
+      "representation": "analytic cylinder; 32-segment render tessellation"
+    },
+    {
+      "geom_id": 5,
+      "body": "wrist",
+      "part": "palm",
+      "representation": "analytic cylinder; 32-segment render tessellation"
+    },
+    {
+      "geom_id": 6,
+      "body": "wrist",
+      "part": "palm",
+      "representation": "analytic box; exact polygon render"
+    },
+    {
+      "geom_id": 7,
+      "body": "wrist",
+      "part": "palm",
+      "representation": "analytic box; exact polygon render"
+    },
+    {
+      "geom_id": 8,
+      "body": "palm",
+      "part": "palm",
+      "representation": "analytic box; exact polygon render"
+    },
+    {
+      "geom_id": 9,
+      "body": "palm",
+      "part": "palm",
+      "representation": "analytic box; exact polygon render"
+    },
+    {
+      "geom_id": 10,
+      "body": "palm",
+      "part": "palm",
+      "representation": "analytic box; exact polygon render"
+    },
+    {
+      "geom_id": 11,
+      "body": "palm",
+      "part": "palm",
+      "representation": "analytic box; exact polygon render"
+    },
+    {
+      "geom_id": 12,
+      "body": "palm",
+      "part": "palm",
+      "representation": "analytic box; exact polygon render"
+    },
+    {
+      "geom_id": 13,
+      "body": "palm",
+      "part": "palm",
+      "representation": "analytic box; exact polygon render"
+    },
+    {
+      "geom_id": 14,
+      "body": "palm",
+      "part": "palm",
+      "representation": "analytic box; exact polygon render"
+    },
+    {
+      "geom_id": 15,
+      "body": "palm",
+      "part": "palm",
+      "representation": "analytic box; exact polygon render"
+    },
+    {
+      "geom_id": 16,
+      "body": "ffknuckle",
+      "part": "index",
+      "representation": "exact per-geom convex hull of compiled mesh vertices"
+    },
+    {
+      "geom_id": 17,
+      "body": "ffproximal",
+      "part": "index",
+      "representation": "analytic cylinder; 32-segment render tessellation"
+    },
+    {
+      "geom_id": 18,
+      "body": "ffmiddle",
+      "part": "index",
+      "representation": "analytic cylinder; 32-segment render tessellation"
+    },
+    {
+      "geom_id": 19,
+      "body": "ffmiddle",
+      "part": "index",
+      "representation": "analytic sphere; 32x16 render tessellation"
+    },
+    {
+      "geom_id": 20,
+      "body": "ffmiddle",
+      "part": "index",
+      "representation": "analytic sphere; 32x16 render tessellation"
+    },
+    {
+      "geom_id": 21,
+      "body": "ffdistal",
+      "part": "index",
+      "representation": "exact per-geom convex hull of compiled mesh vertices"
+    },
+    {
+      "geom_id": 22,
+      "body": "mfknuckle",
+      "part": "middle",
+      "representation": "exact per-geom convex hull of compiled mesh vertices"
+    },
+    {
+      "geom_id": 23,
+      "body": "mfproximal",
+      "part": "middle",
+      "representation": "analytic cylinder; 32-segment render tessellation"
+    },
+    {
+      "geom_id": 24,
+      "body": "mfmiddle",
+      "part": "middle",
+      "representation": "analytic cylinder; 32-segment render tessellation"
+    },
+    {
+      "geom_id": 25,
+      "body": "mfmiddle",
+      "part": "middle",
+      "representation": "analytic sphere; 32x16 render tessellation"
+    },
+    {
+      "geom_id": 26,
+      "body": "mfmiddle",
+      "part": "middle",
+      "representation": "analytic sphere; 32x16 render tessellation"
+    },
+    {
+      "geom_id": 27,
+      "body": "mfdistal",
+      "part": "middle",
+      "representation": "exact per-geom convex hull of compiled mesh vertices"
+    },
+    {
+      "geom_id": 28,
+      "body": "rfknuckle",
+      "part": "ring",
+      "representation": "exact per-geom convex hull of compiled mesh vertices"
+    },
+    {
+      "geom_id": 29,
+      "body": "rfproximal",
+      "part": "ring",
+      "representation": "analytic cylinder; 32-segment render tessellation"
+    },
+    {
+      "geom_id": 30,
+      "body": "rfmiddle",
+      "part": "ring",
+      "representation": "analytic cylinder; 32-segment render tessellation"
+    },
+    {
+      "geom_id": 31,
+      "body": "rfmiddle",
+      "part": "ring",
+      "representation": "analytic sphere; 32x16 render tessellation"
+    },
+    {
+      "geom_id": 32,
+      "body": "rfmiddle",
+      "part": "ring",
+      "representation": "analytic sphere; 32x16 render tessellation"
+    },
+    {
+      "geom_id": 33,
+      "body": "rfdistal",
+      "part": "ring",
+      "representation": "exact per-geom convex hull of compiled mesh vertices"
+    },
+    {
+      "geom_id": 34,
+      "body": "lfmetacarpal",
+      "part": "little",
+      "representation": "analytic box; exact polygon render"
+    },
+    {
+      "geom_id": 35,
+      "body": "lfknuckle",
+      "part": "little",
+      "representation": "exact per-geom convex hull of compiled mesh vertices"
+    },
+    {
+      "geom_id": 36,
+      "body": "lfproximal",
+      "part": "little",
+      "representation": "analytic cylinder; 32-segment render tessellation"
+    },
+    {
+      "geom_id": 37,
+      "body": "lfmiddle",
+      "part": "little",
+      "representation": "analytic cylinder; 32-segment render tessellation"
+    },
+    {
+      "geom_id": 38,
+      "body": "lfmiddle",
+      "part": "little",
+      "representation": "analytic sphere; 32x16 render tessellation"
+    },
+    {
+      "geom_id": 39,
+      "body": "lfmiddle",
+      "part": "little",
+      "representation": "analytic sphere; 32x16 render tessellation"
+    },
+    {
+      "geom_id": 40,
+      "body": "lfdistal",
+      "part": "little",
+      "representation": "exact per-geom convex hull of compiled mesh vertices"
+    },
+    {
+      "geom_id": 41,
+      "body": "thbase",
+      "part": "thumb",
+      "representation": "analytic sphere; 32x16 render tessellation"
+    },
+    {
+      "geom_id": 42,
+      "body": "thproximal",
+      "part": "thumb",
+      "representation": "exact per-geom convex hull of compiled mesh vertices"
+    },
+    {
+      "geom_id": 43,
+      "body": "thhub",
+      "part": "thumb",
+      "representation": "analytic sphere; 32x16 render tessellation"
+    },
+    {
+      "geom_id": 44,
+      "body": "thmiddle",
+      "part": "thumb",
+      "representation": "exact per-geom convex hull of compiled mesh vertices"
+    },
+    {
+      "geom_id": 45,
+      "body": "thdistal",
+      "part": "thumb",
+      "representation": "exact per-geom convex hull of compiled mesh vertices"
+    }
+  ],
+  "surface_queries": "3750 deterministic cube-face cell centers at2mm spacing;625perface;4mm\u00b2percell; no stochastic samples or RNG seed. Native nearest triangle exact plus winding occupancy. Robot per-geom analytical/convex distance and any-collider occupancy.",
+  "coverage_definition": "Occupied-or-near footprint: cube-face query is inside rendered native hand / any Shadow collider OR is separated by at most2/5mm. Negative Shadow minimum-per-geom distance is only occupancy/penetration proxy, not exact union interior depth. These tolerances are diagnostics, not acceptance gates.",
+  "normal_definition": "Native closest saved triangle normal; Shadow analytic primitive or individual hull-facet normal. Only externally separated positive<=5mm points used for normal comparison. These geometric normals are not paired native physical contact normals.",
+  "camera_and_scale": {
+    "projection": "orthographic",
+    "elev_deg": 25,
+    "azim_deg": 135,
+    "object_axis_limits_mm": [
+      [
+        -65,
+        135
+      ],
+      [
+        -95,
+        65
+      ],
+      [
+        -30,
+        165
+      ]
+    ],
+    "crop": "Forearm/wrist carrier excluded from visible mesh panels; palm and fingers visible. All45actualhandcollisiongeoms considered for metrics except mesh bounds>20mm fromcube, which cannot affect<=5mm coverage."
+  },
+  "cube_face_results": {
+    "+X": {
+      "native_inside_grid_area_mm2": 0.0,
+      "shadow_inside_any_collider_grid_area_mm2": 0.0,
+      "2mm": {
+        "native_occupied_or_near_area_mm2": 0.0,
+        "shadow_occupied_or_near_area_mm2": 0.0,
+        "intersection_area_mm2": 0.0,
+        "union_area_mm2": 0.0,
+        "native_only_area_mm2": 0.0,
+        "shadow_only_area_mm2": 0.0,
+        "jaccard": null,
+        "native_skinning_parts": {
+          "palm": 0.0,
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0,
+          "thumb": 0.0
+        },
+        "shadow_collider_parts": {
+          "palm": 0.0,
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0,
+          "thumb": 0.0
+        }
+      },
+      "5mm": {
+        "native_occupied_or_near_area_mm2": 40.0,
+        "shadow_occupied_or_near_area_mm2": 0.0,
+        "intersection_area_mm2": 0.0,
+        "union_area_mm2": 40.0,
+        "native_only_area_mm2": 40.0,
+        "shadow_only_area_mm2": 0.0,
+        "jaccard": 0.0,
+        "native_skinning_parts": {
+          "palm": 0.0,
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 40.0,
+          "thumb": 0.0
+        },
+        "shadow_collider_parts": {
+          "palm": 0.0,
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0,
+          "thumb": 0.0
+        }
+      },
+      "geometric_normals": {
+        "native_separated_near_5mm_count": 10,
+        "shadow_separated_near_5mm_count": 0,
+        "native_mean_dot_cube_outward": 0.8891024392261373,
+        "shadow_mean_dot_cube_outward": null,
+        "paired_separated_near_5mm_count": 0,
+        "paired_normal_angle_median_deg": null
+      }
+    },
+    "-X": {
+      "native_inside_grid_area_mm2": 524.0,
+      "shadow_inside_any_collider_grid_area_mm2": 696.0,
+      "2mm": {
+        "native_occupied_or_near_area_mm2": 776.0,
+        "shadow_occupied_or_near_area_mm2": 972.0,
+        "intersection_area_mm2": 720.0,
+        "union_area_mm2": 1028.0,
+        "native_only_area_mm2": 56.0,
+        "shadow_only_area_mm2": 252.0,
+        "jaccard": 0.7003891050583657,
+        "native_skinning_parts": {
+          "palm": 0.0,
+          "index": 336.0,
+          "middle": 440.0,
+          "ring": 0.0,
+          "little": 0.0,
+          "thumb": 0.0
+        },
+        "shadow_collider_parts": {
+          "palm": 0.0,
+          "index": 468.0,
+          "middle": 504.0,
+          "ring": 0.0,
+          "little": 0.0,
+          "thumb": 0.0
+        }
+      },
+      "5mm": {
+        "native_occupied_or_near_area_mm2": 1044.0,
+        "shadow_occupied_or_near_area_mm2": 1296.0,
+        "intersection_area_mm2": 1044.0,
+        "union_area_mm2": 1296.0,
+        "native_only_area_mm2": 0.0,
+        "shadow_only_area_mm2": 252.0,
+        "jaccard": 0.8055555555555556,
+        "native_skinning_parts": {
+          "palm": 0.0,
+          "index": 448.0,
+          "middle": 596.0,
+          "ring": 0.0,
+          "little": 0.0,
+          "thumb": 0.0
+        },
+        "shadow_collider_parts": {
+          "palm": 0.0,
+          "index": 596.0,
+          "middle": 700.0,
+          "ring": 0.0,
+          "little": 0.0,
+          "thumb": 0.0
+        }
+      },
+      "geometric_normals": {
+        "native_separated_near_5mm_count": 130,
+        "shadow_separated_near_5mm_count": 150,
+        "native_mean_dot_cube_outward": 0.34843625343297824,
+        "shadow_mean_dot_cube_outward": 0.14365271255166892,
+        "paired_separated_near_5mm_count": 83,
+        "paired_normal_angle_median_deg": 21.021741369039624
+      }
+    },
+    "+Y": {
+      "native_inside_grid_area_mm2": 308.0,
+      "shadow_inside_any_collider_grid_area_mm2": 500.0,
+      "2mm": {
+        "native_occupied_or_near_area_mm2": 496.0,
+        "shadow_occupied_or_near_area_mm2": 812.0,
+        "intersection_area_mm2": 396.0,
+        "union_area_mm2": 912.0,
+        "native_only_area_mm2": 100.0,
+        "shadow_only_area_mm2": 416.0,
+        "jaccard": 0.4342105263157895,
+        "native_skinning_parts": {
+          "palm": 0.0,
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 300.0,
+          "little": 196.0,
+          "thumb": 0.0
+        },
+        "shadow_collider_parts": {
+          "palm": 0.0,
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 504.0,
+          "little": 308.0,
+          "thumb": 0.0
+        }
+      },
+      "5mm": {
+        "native_occupied_or_near_area_mm2": 812.0,
+        "shadow_occupied_or_near_area_mm2": 1160.0,
+        "intersection_area_mm2": 736.0,
+        "union_area_mm2": 1236.0,
+        "native_only_area_mm2": 76.0,
+        "shadow_only_area_mm2": 424.0,
+        "jaccard": 0.5954692556634305,
+        "native_skinning_parts": {
+          "palm": 0.0,
+          "index": 0.0,
+          "middle": 16.0,
+          "ring": 512.0,
+          "little": 284.0,
+          "thumb": 0.0
+        },
+        "shadow_collider_parts": {
+          "palm": 0.0,
+          "index": 0.0,
+          "middle": 4.0,
+          "ring": 680.0,
+          "little": 476.0,
+          "thumb": 0.0
+        }
+      },
+      "geometric_normals": {
+        "native_separated_near_5mm_count": 126,
+        "shadow_separated_near_5mm_count": 165,
+        "native_mean_dot_cube_outward": 0.33078038043795416,
+        "shadow_mean_dot_cube_outward": -0.20498434681051034,
+        "paired_separated_near_5mm_count": 53,
+        "paired_normal_angle_median_deg": 72.41616351595773
+      }
+    },
+    "-Y": {
+      "native_inside_grid_area_mm2": 0.0,
+      "shadow_inside_any_collider_grid_area_mm2": 0.0,
+      "2mm": {
+        "native_occupied_or_near_area_mm2": 0.0,
+        "shadow_occupied_or_near_area_mm2": 0.0,
+        "intersection_area_mm2": 0.0,
+        "union_area_mm2": 0.0,
+        "native_only_area_mm2": 0.0,
+        "shadow_only_area_mm2": 0.0,
+        "jaccard": null,
+        "native_skinning_parts": {
+          "palm": 0.0,
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0,
+          "thumb": 0.0
+        },
+        "shadow_collider_parts": {
+          "palm": 0.0,
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0,
+          "thumb": 0.0
+        }
+      },
+      "5mm": {
+        "native_occupied_or_near_area_mm2": 0.0,
+        "shadow_occupied_or_near_area_mm2": 132.0,
+        "intersection_area_mm2": 0.0,
+        "union_area_mm2": 132.0,
+        "native_only_area_mm2": 0.0,
+        "shadow_only_area_mm2": 132.0,
+        "jaccard": 0.0,
+        "native_skinning_parts": {
+          "palm": 0.0,
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0,
+          "thumb": 0.0
+        },
+        "shadow_collider_parts": {
+          "palm": 0.0,
+          "index": 132.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0,
+          "thumb": 0.0
+        }
+      },
+      "geometric_normals": {
+        "native_separated_near_5mm_count": 0,
+        "shadow_separated_near_5mm_count": 33,
+        "native_mean_dot_cube_outward": null,
+        "shadow_mean_dot_cube_outward": 0.8807554746071652,
+        "paired_separated_near_5mm_count": 0,
+        "paired_normal_angle_median_deg": null
+      }
+    },
+    "+Z": {
+      "native_inside_grid_area_mm2": 376.0,
+      "shadow_inside_any_collider_grid_area_mm2": 168.0,
+      "2mm": {
+        "native_occupied_or_near_area_mm2": 604.0,
+        "shadow_occupied_or_near_area_mm2": 424.0,
+        "intersection_area_mm2": 388.0,
+        "union_area_mm2": 640.0,
+        "native_only_area_mm2": 216.0,
+        "shadow_only_area_mm2": 36.0,
+        "jaccard": 0.60625,
+        "native_skinning_parts": {
+          "palm": 0.0,
+          "index": 152.0,
+          "middle": 208.0,
+          "ring": 180.0,
+          "little": 64.0,
+          "thumb": 0.0
+        },
+        "shadow_collider_parts": {
+          "palm": 0.0,
+          "index": 100.0,
+          "middle": 192.0,
+          "ring": 132.0,
+          "little": 0.0,
+          "thumb": 0.0
+        }
+      },
+      "5mm": {
+        "native_occupied_or_near_area_mm2": 908.0,
+        "shadow_occupied_or_near_area_mm2": 736.0,
+        "intersection_area_mm2": 704.0,
+        "union_area_mm2": 940.0,
+        "native_only_area_mm2": 204.0,
+        "shadow_only_area_mm2": 32.0,
+        "jaccard": 0.7489361702127659,
+        "native_skinning_parts": {
+          "palm": 0.0,
+          "index": 228.0,
+          "middle": 284.0,
+          "ring": 264.0,
+          "little": 132.0,
+          "thumb": 0.0
+        },
+        "shadow_collider_parts": {
+          "palm": 0.0,
+          "index": 188.0,
+          "middle": 292.0,
+          "ring": 216.0,
+          "little": 40.0,
+          "thumb": 0.0
+        }
+      },
+      "geometric_normals": {
+        "native_separated_near_5mm_count": 133,
+        "shadow_separated_near_5mm_count": 142,
+        "native_mean_dot_cube_outward": 0.17030969473127877,
+        "shadow_mean_dot_cube_outward": 0.32816230050105344,
+        "paired_separated_near_5mm_count": 85,
+        "paired_normal_angle_median_deg": 40.211980150194144
+      }
+    },
+    "-Z": {
+      "native_inside_grid_area_mm2": 0.0,
+      "shadow_inside_any_collider_grid_area_mm2": 0.0,
+      "2mm": {
+        "native_occupied_or_near_area_mm2": 0.0,
+        "shadow_occupied_or_near_area_mm2": 0.0,
+        "intersection_area_mm2": 0.0,
+        "union_area_mm2": 0.0,
+        "native_only_area_mm2": 0.0,
+        "shadow_only_area_mm2": 0.0,
+        "jaccard": null,
+        "native_skinning_parts": {
+          "palm": 0.0,
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0,
+          "thumb": 0.0
+        },
+        "shadow_collider_parts": {
+          "palm": 0.0,
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0,
+          "thumb": 0.0
+        }
+      },
+      "5mm": {
+        "native_occupied_or_near_area_mm2": 0.0,
+        "shadow_occupied_or_near_area_mm2": 0.0,
+        "intersection_area_mm2": 0.0,
+        "union_area_mm2": 0.0,
+        "native_only_area_mm2": 0.0,
+        "shadow_only_area_mm2": 0.0,
+        "jaccard": null,
+        "native_skinning_parts": {
+          "palm": 0.0,
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0,
+          "thumb": 0.0
+        },
+        "shadow_collider_parts": {
+          "palm": 0.0,
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0,
+          "thumb": 0.0
+        }
+      },
+      "geometric_normals": {
+        "native_separated_near_5mm_count": 0,
+        "shadow_separated_near_5mm_count": 0,
+        "native_mean_dot_cube_outward": null,
+        "shadow_mean_dot_cube_outward": null,
+        "paired_separated_near_5mm_count": 0,
+        "paired_normal_angle_median_deg": null
+      }
+    }
+  },
+  "global_coverage": {
+    "2mm": {
+      "native_occupied_or_near_area_mm2": 1876.0,
+      "shadow_occupied_or_near_area_mm2": 2208.0,
+      "intersection_area_mm2": 1504.0,
+      "union_area_mm2": 2580.0,
+      "symmetric_difference_area_mm2": 1076.0,
+      "jaccard": 0.5829457364341085
+    },
+    "5mm": {
+      "native_occupied_or_near_area_mm2": 2804.0,
+      "shadow_occupied_or_near_area_mm2": 3324.0,
+      "intersection_area_mm2": 2484.0,
+      "union_area_mm2": 3644.0,
+      "symmetric_difference_area_mm2": 1160.0,
+      "jaccard": 0.681668496158068
+    }
+  },
+  "shadow_nominal_contact_normals": [
+    {
+      "bodies": [
+        "object",
+        "ffdistal"
+      ],
+      "object_position_m": [
+        -0.02175795240755809,
+        -0.014251394156730351,
+        0.00930726155642725
+      ],
+      "cube_to_hand_normal_object": [
+        -1.0,
+        -1.0697801723557035e-15,
+        1.0720791805156898e-15
+      ],
+      "distance_m": -0.006484095184883825
+    },
+    {
+      "bodies": [
+        "mfmiddle",
+        "object"
+      ],
+      "object_position_m": [
+        -0.023735809595591913,
+        0.012902258169108791,
+        0.02411340450997969
+      ],
+      "cube_to_hand_normal_object": [
+        -2.659986975069471e-35,
+        0.0,
+        1.0
+      ],
+      "distance_m": -0.0017731909800406337
+    },
+    {
+      "bodies": [
+        "object",
+        "mfdistal"
+      ],
+      "object_position_m": [
+        -0.019402203662155247,
+        0.011061634807303442,
+        0.014593592523222496
+      ],
+      "cube_to_hand_normal_object": [
+        -1.0,
+        3.102544841545213e-16,
+        1.9385200140268952e-18
+      ],
+      "distance_m": -0.011195592675689514
+    },
+    {
+      "bodies": [
+        "rfmiddle",
+        "object"
+      ],
+      "object_position_m": [
+        -0.007960549000862481,
+        0.024184806619747836,
+        0.023713534049933368
+      ],
+      "cube_to_hand_normal_object": [
+        -4.81482486096809e-35,
+        0.5352543306707193,
+        0.8446909502878792
+      ],
+      "distance_m": -0.003046003865977724
+    },
+    {
+      "bodies": [
+        "object",
+        "rfdistal"
+      ],
+      "object_position_m": [
+        -0.006924520073939108,
+        0.019825933816222475,
+        0.003086615556823587
+      ],
+      "cube_to_hand_normal_object": [
+        3.6048814595918294e-19,
+        1.0,
+        -4.090612378421423e-16
+      ],
+      "distance_m": -0.010348132367555052
+    },
+    {
+      "bodies": [
+        "object",
+        "lfdistal"
+      ],
+      "object_position_m": [
+        0.01290608062519405,
+        0.023693825136353916,
+        0.007602023336227516
+      ],
+      "cube_to_hand_normal_object": [
+        -6.636866943019038e-16,
+        1.0,
+        -7.378847279407211e-17
+      ],
+      "distance_m": -0.002612349727292168
+    }
+  ],
+  "limits": "Static rendered/sampled MANO surface is not native physical collision rollout. No surface equality, contact-force equality, grasp-family preservation, or generalization claim is established. Grid areas are resolution-dependent approximations; part labels are skinning-derived.",
+  "source_grasp_quality_vs_mapping": "Native penetration or missing contacts belong to the original proposal and are not by themselves mapping failure. Fidelity assessment must preserve poor native proposals too; this comparison measures changes introduced by target embodiment/retargeting rather than repairing or rejecting the source."
+}

@@ -51,6 +51,10 @@ coordinate conversion defect.
 
 ## HUG
 
+The subsequent [individual HUG confirmation](HUG_MAPPING_CONFIRMATION.md)
+adds exact native reconstruction, boundary tests and detailed surface evidence.
+Its status remains partial; the next generators are not advanced automatically.
+
 **Native process:** RGB-D, camera calibration and an object selection condition
 the model. Its output includes right MANO camera-frame landmarks, mesh vertices
 and wrist pose. The adapter removes the global wrist pose, rotates local axes

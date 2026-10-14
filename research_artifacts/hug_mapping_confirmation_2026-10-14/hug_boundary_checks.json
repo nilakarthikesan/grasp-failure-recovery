@@ -1,0 +1,95 @@
+{
+  "schema_version": "hug_boundary_algebra_audit_v1",
+  "date": "2026-10-14",
+  "classification": "manufactured_coordinate_algebra_tests_on_existing_saved_HUG_not_new_grasps_or_eval_data",
+  "source_code_commit": "ab396702f861599fc1ee4baa31ef8d9b372a7a50",
+  "random_seed": 2026101401,
+  "algebra_roundoff_tolerance": 1e-12,
+  "native_proposal": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_grasp_eval_2026-10-13_fresh_cube/output/proposals/hug_cube/sample_0000/native/proposal.pkl",
+  "native_proposal_sha256": "573cb003458d9d7cfe85b5b4a7877e414257b3e67d5abda04a09bd6d687fa0c2",
+  "canonical_proposal": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_grasp_eval_2026-10-13_fresh_cube/output/proposals/hug_cube/sample_0000/proposal.json",
+  "canonical_proposal_sha256": "fac229b41193215f975a41d80efbe21d14b6c89a21beb4b5017833b4d6bd4a5c",
+  "script_sha256": "4ed56c8db09da76d9f2820e6df5efc0371d881d2c4efc5525150cafe02fda054",
+  "source_file_sha256": {
+    "src/grasp_failure_prediction/proposals/execution.py": "525487d4b8b91d0bd63c482d89beaa7e02f58fa35babfde25e01297825a0d913",
+    "src/grasp_failure_prediction/evaluation/retargeting.py": "a6631a0f0d20f6ef94c389529b7d6d677a8a8cd9f8e923efff19ccfee26aa4ff",
+    "third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf": "29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de"
+  },
+  "runtime": {
+    "executable": "/Users/nilakarthikesan/grasp-failure-prediction/.venv/bin/python",
+    "python_version": "3.12.13 (main, Mar  3 2026, 12:39:30) [Clang 17.0.0 (clang-1700.6.3.2)]",
+    "numpy_version": "2.2.6",
+    "scipy_version": "1.17.1",
+    "mujoco_version": "3.3.7",
+    "pythonpath": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src:/private/tmp/grasp-partner-integration-deps:/Users/nilakarthikesan/grasp-failure-prediction/.venv/lib/python3.12/site-packages:/private/tmp/grasp-partner-simulation-deps:/private/tmp/grasp-partner-simulation-deps/cmeel.prefix/lib/python3.12/site-packages"
+  },
+  "guarded_physics_apis": [
+    "mj_step",
+    "mj_step1",
+    "mj_step2"
+  ],
+  "physics_step_calls_attempted": 0,
+  "new_inference": false,
+  "task_cases_generated": false,
+  "task_labels_generated": false,
+  "repo_files_modified": false,
+  "checks": {
+    "world_palm_independent_scipy_composition": {
+      "manufactured_nonidentity_object_transform_count": 64,
+      "maximum_translation_component_error_m": 1.1102230246251565e-16,
+      "maximum_rotation_matrix_element_error": 6.661338147750939e-16,
+      "maximum_output_wxyz_quaternion_norm_error": 2.220446049250313e-16,
+      "maximum_quaternion_sign_invariance_error": 0.0,
+      "passed": true
+    },
+    "xyzw_to_wxyz_helper_normalization": {
+      "manufactured_scaled_quaternion_count": 192,
+      "maximum_transform_matrix_element_error": 5.551115123125783e-16,
+      "invalid_quaternion_count": 3,
+      "invalid_quaternion_rejection_count": 3,
+      "scope": "helper normalization only; nonunit quaternions do not become valid evaluation cases",
+      "passed": true
+    },
+    "exact_named_joint_reordering": {
+      "joint_order_source": "existing Shadow URDF compiled model introspection, without task or FK",
+      "joint_names": [
+        "WRJ2",
+        "WRJ1",
+        "FFJ4",
+        "FFJ3",
+        "FFJ2",
+        "FFJ1",
+        "MFJ4",
+        "MFJ3",
+        "MFJ2",
+        "MFJ1",
+        "RFJ4",
+        "RFJ3",
+        "RFJ2",
+        "RFJ1",
+        "LFJ5",
+        "LFJ4",
+        "LFJ3",
+        "LFJ2",
+        "LFJ1",
+        "THJ5",
+        "THJ4",
+        "THJ3",
+        "THJ2",
+        "THJ1"
+      ],
+      "manufactured_permutation_count": 128,
+      "exact_array_equal_count": 128,
+      "missing_joint_rejected": true,
+      "passed": true
+    },
+    "camera_to_wrist_global_rigid_transform_invariance": {
+      "manufactured_global_coordinate_transform_count": 64,
+      "landmark_source": "same existing saved native HUG output, no new human pose",
+      "maximum_local_landmark_component_error_m": 2.706168622523819e-16,
+      "passed": true
+    }
+  },
+  "passed": true,
+  "limitations": "Boundary algebra only; no new contact-fidelity or physical-success acceptance evidence."
+}

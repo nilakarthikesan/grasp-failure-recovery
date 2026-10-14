@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-14",
+  "source_code_commit": "ab39670",
+  "scope": "Existing HUG decoder/frame/retargeter/MuJoCo-static-FK tests, not native grasp outcome evidence",
+  "test_files": [
+    "tests/test_hug_frames.py",
+    "tests/test_hug_adapter.py",
+    "tests/test_retargeting.py",
+    "tests/test_pose_validation.py"
+  ],
+  "passed": 18,
+  "deselected": 1,
+  "deselected_test": "test_stock_adroit_joint_convention_is_rejected",
+  "warning_count": 1,
+  "warning": "Existing hppfcl import deprecated in favor of coal",
+  "physics_stepping_guard": "pytest autouse plugin /private/tmp/grasp_no_rollouts.py forbids mj_step, mj_step1, mj_step2",
+  "new_model_inference": false,
+  "new_eval_data": false,
+  "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH='/private/tmp:src:/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/hug-deps:/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps:/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps/cmeel.prefix/lib/python3.12/site-packages' /Users/nilakarthikesan/grasp-failure-prediction/.venv/bin/python -m pytest -p grasp_no_rollouts tests/test_hug_frames.py tests/test_hug_adapter.py tests/test_retargeting.py tests/test_pose_validation.py -k 'not stock_adroit' --basetemp=/private/tmp/grasp-hug-confirmation-2026-10-14/pytest-temp -o cache_dir=/private/tmp/grasp-hug-confirmation-2026-10-14/pytest-cache -q"
+}

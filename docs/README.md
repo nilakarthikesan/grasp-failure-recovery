@@ -21,6 +21,7 @@
 ## Research and completed evidence
 
 - [Grasp mapping fidelity audit](GRASP_MAPPING_FIDELITY.md)
+- [HUG individual mapping confirmation](HUG_MAPPING_CONFIRMATION.md)
 
 - [Research protocol](HUG_MONITOR_RESEARCH_PLAN.md)
 - [Experiment results and evidence index](PAPER_PROGRESS.md)

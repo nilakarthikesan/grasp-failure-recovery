@@ -235,3 +235,18 @@ performed for this audit. Diagnostic plots/reports are separate from scientific
 training data. Static nominal contacts and native near-surface vertices cover the same three
 cube faces, but both intersect the object. Next compare finer patches/normals;
 preserve the historical executor until any change is explicitly versioned.
+
+
+## 14 October 2026 — Individual confirmation begins with HUG
+
+The user clarified that generators must be tested and confirmed one at a time.
+[HUG is the active case](HUG_MAPPING_CONFIRMATION.md). Exact native MANO
+reconstruction, 18 guarded existing tests and independent coordinate/joint checks
+pass. The detailed native/Shadow surface footprint changes despite coarse
+finger/face agreement; occupied-or-near IoU 0.583 at a 2 mm band is a geometric diagnostic
+including penetration, not a contact-fidelity pass threshold or predictor score.
+HUG's overall status remains partial; ContactGen/DGA/UniDex have not advanced.
+
+Next inspect per-finger grid/band sensitivity and anatomically matched normals
+on the same existing cube. No new HUG sampling, physics/eval data or training
+occurred. Existing adapters, controller, manuscript and predictor are unchanged.

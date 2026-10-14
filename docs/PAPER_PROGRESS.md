@@ -133,6 +133,18 @@ These diagnostics establish bounded implementation facts, not four-generator
 equivalence or prediction improvement. No new inference, physics, evaluation
 collection, task labels or fitting occurred. [Audit and evidence](GRASP_MAPPING_FIDELITY.md).
 
+## Individual HUG mapping confirmation
+
+The user requested generator-by-generator confirmation, starting with HUG.
+The saved native MANO export reconstructs exactly, 18 existing guarded tests
+pass, and independent coordinate/quaternion/joint-order checks pass. Same-scale
+surface comparison at the existing cube reveals detailed footprint changes:
+occupied-or-near geometry IoU is 0.583 at a 2 mm diagnostic band and 0.682 at
+5 mm. These include penetration and are not contact-preservation or prediction
+scores. No acceptance threshold or full fidelity claim is established.
+The HUG mapping remains partially confirmed; no new inference, physics,
+evaluation collection, task labels or training occurred. [HUG case and evidence](HUG_MAPPING_CONFIRMATION.md).
+
 ## Claim boundaries and paper status
 
 The saved results establish a simulation warning-reliability problem.

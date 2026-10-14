@@ -1473,3 +1473,45 @@ experiment artifacts remain unchanged; no fitting or new execution occurred.
 both authors; shorten and format the existing manuscript in place, compile it
 with the desktop compiler, inspect the PDF and verify the live submission form.
 Keep essential evidence within four pages and use the earlier public deadline.
+
+
+## 14 October 2026 — Confirm generators individually and keep HUG as the active case
+
+**Previous plan:** A first four-source static audit identified correct boundaries
+and unresolved contact/asset/worker evidence. The user clarified that each
+generator must be tested and confirmed individually before moving on.
+
+**Choice:** Start with the existing real HUG cube output. Separate exact native
+representation, coordinate/joint conversion, nominal geometry/contact fidelity,
+and executor changes. Preserve poor native proposals too: source penetration
+is not itself a mapping failure or a reason to repair/remove a proposal.
+
+**Implemented evidence:** The upstream parametric MANO wrapper reproduces all
+778 vertices, 21 landmarks, wrist rotation, 1,552 closed face indices and saved
+2D projection exactly without loading/sampling HUG's grasp generator. Eighteen
+existing tests pass under a stepping guard. Additional manufactured checks of
+64 object poses, 192 quaternion normalizations and 128 joint permutations pass;
+64 global coordinate changes preserve local landmarks to numerical precision.
+These are algebra checks rather than new grasps or evaluation cases.
+
+Same-scale surface inspection uses the actual saved native mesh and Shadow's
+analytic collision geoms/per-mesh convex hulls. On 3,750 deterministic cube-face
+queries at 2 mm spacing, occupied-or-near footprint IoU is 0.583 at a 2 mm band
+and 0.682 at 5 mm. Dominant finger/face regions persist, but patches shift or
+broaden; native little-finger top-face coverage is missing from the 2 mm target
+footprint. These diagnostics include penetration and are not physical contact
+areas, a fidelity acceptance threshold or model accuracy. Skinning labels and
+nearest-surface normal comparisons are geometric proxies.
+
+**Status:** Native representation and coordinate/joint conventions are confirmed
+within the tested scope. Contact fidelity is approximate and remains unconfirmed;
+HUG has not received an overall fidelity sign-off. Other generators remain
+pending individual checks. No new generator sampling, physics integration,
+task labels, evaluation dataset, fitting, adapter/controller changes or
+historical relabeling occurred. The paper and frozen predictor are unchanged.
+[HUG walkthrough and artifacts](HUG_MAPPING_CONFIRMATION.md).
+
+**Next check:** On this same existing cube, test grid/band sensitivity of the
+per-finger footprint differences and compare normals only where anatomical
+parts correspond. Relate any acceptance criterion to geometry/the intended
+scientific claim before changing the mapping or moving to the next provider.
