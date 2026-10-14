@@ -30,7 +30,9 @@ class MappingEvidence(StrictModel):
 class TranslationStrategySpec(StrictModel):
     schema_version: Literal["translation_strategy_spec_v1"]
     strategy_id: str = Field(min_length=1)
-    strategy_kind: Literal["exact_kinematic_mapping", "official_retargeter"]
+    strategy_kind: Literal[
+        "exact_kinematic_mapping", "verified_kinematic_mapping", "official_retargeter"
+    ]
     source_hand_model_id: str = Field(min_length=1)
     target_hand_model_id: Literal["shadow_hand_right"]
     source_root_link: str = Field(min_length=1)
@@ -47,11 +49,16 @@ class TranslationStrategySpec(StrictModel):
         roles = {item.role for item in self.evidence}
         if not {"target_asset", "implementation"}.issubset(roles):
             raise ValueError("translation strategy requires target-asset and implementation evidence")
-        if self.strategy_kind == "exact_kinematic_mapping":
+        if self.strategy_kind in {"exact_kinematic_mapping", "verified_kinematic_mapping"}:
             if self.source_asset_hash is None or self.joint_mapping_path is None:
-                raise ValueError("exact mapping requires source asset hash and joint mapping")
+                raise ValueError("kinematic mapping requires source asset hash and joint mapping")
             if not {"source_asset", "joint_mapping"}.issubset(roles):
-                raise ValueError("exact mapping requires source-asset and joint-mapping evidence")
+                raise ValueError("kinematic mapping requires source-asset and joint-mapping evidence")
+            if (
+                self.strategy_kind == "verified_kinematic_mapping"
+                and self.maximum_mean_fingertip_error_m is None
+            ):
+                raise ValueError("verified mapping requires a registered residual threshold")
         elif self.retargeter_id is None or self.maximum_mean_fingertip_error_m is None:
             raise ValueError("official retargeter requires ID and residual threshold")
         return self
@@ -125,7 +132,7 @@ def translate_native_pose(native: NativeHandPose, strategy_id: str) -> Translate
     spec = load_translation_registry().resolve(strategy_id)
     if native.source_hand_model_id != spec.source_hand_model_id or native.source_root_link != spec.source_root_link:
         raise TranslationError("source_hand_mismatch", "native source hand/root does not match translation strategy")
-    if spec.strategy_kind != "exact_kinematic_mapping":
+    if spec.strategy_kind not in {"exact_kinematic_mapping", "verified_kinematic_mapping"}:
         raise TranslationError("strategy_input_unsupported", "official retargeter requires native landmark payload")
     mapping_resource = files(__package__).joinpath(spec.joint_mapping_path)
     mapping_digest = "sha256:" + hashlib.sha256(mapping_resource.read_bytes()).hexdigest()
@@ -137,9 +144,23 @@ def translate_native_pose(native: NativeHandPose, strategy_id: str) -> Translate
     joint_mapping = mapping["joint_mapping"]
     if set(native.joint_targets_rad) != set(joint_mapping):
         raise TranslationError("native_joint_set_mismatch", "native named joint set does not match exact mapping")
+    target_values = {
+        str(name): float(value)
+        for name, value in mapping.get("target_constants_rad", {}).items()
+    }
+    for source, rule in joint_mapping.items():
+        if isinstance(rule, str):
+            target, multiplier, offset = rule, 1.0, 0.0
+        else:
+            target = str(rule["target"])
+            multiplier = float(rule.get("multiplier", 1.0))
+            offset = float(rule.get("offset_rad", 0.0))
+        if target in target_values:
+            raise TranslationError("target_joint_duplicated", f"target joint {target!r} is assigned more than once")
+        target_values[target] = multiplier * native.joint_targets_rad[source] + offset
     return TranslatedHandPose(
         object_to_palm=native.object_to_root,
-        joint_targets_rad={target: native.joint_targets_rad[source] for source, target in joint_mapping.items()},
+        joint_targets_rad=target_values,
         validation_metrics={"translation_strategy_id": strategy_id, "mapping_kind": spec.strategy_kind},
     )
 

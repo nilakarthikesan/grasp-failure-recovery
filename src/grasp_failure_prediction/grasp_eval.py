@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from pathlib import Path
 
 from grasp_failure_prediction.evaluation.result_viewer import serve_results
 from grasp_failure_prediction.proposals.workflow import (
@@ -13,6 +14,7 @@ from grasp_failure_prediction.proposals.workflow import (
     run_experiment,
     validate_experiment,
 )
+from grasp_failure_prediction.proposals.dexgraspnet import import_official_sample
 
 
 def _add_experiment_argument(parser: argparse.ArgumentParser) -> None:
@@ -49,6 +51,15 @@ def build_parser() -> argparse.ArgumentParser:
     view.add_argument("--host", default="127.0.0.1")
     view.add_argument("--port", type=int, default=8765)
     view.add_argument("--no-open", action="store_true")
+    importer = commands.add_parser(
+        "import-dexgraspnet", help="import one pinned official DexGraspNet replay sample"
+    )
+    importer.add_argument("--source", required=True, help="official DexGraspNet checkout")
+    importer.add_argument("--output", default="data/dexgraspnet/core_mug_record_0000")
+    importer.add_argument("--project-root", default=".")
+    importer.add_argument("--object", default="core_mug_8570d9a8d24cb0acbebd3c0c0c70fb03")
+    importer.add_argument("--record-index", type=int, default=0)
+    importer.add_argument("--mass-kg", type=float, default=0.18)
     return parser
 
 
@@ -72,7 +83,7 @@ def main(argv: list[str] | None = None) -> int:
             record_video=False if args.no_video else None,
             resume=args.command == "resume",
         )
-    else:
+    elif args.command == "view":
         experiment = load_experiment(args.experiment)
         output = experiment_output_root(
             experiment, args.project_root, args.output
@@ -84,6 +95,19 @@ def main(argv: list[str] | None = None) -> int:
             open_browser=not args.no_open,
         )
         return 0
+    else:
+        project = Path(args.project_root).resolve()
+        output = Path(args.output)
+        if not output.is_absolute():
+            output = project / output
+        result = import_official_sample(
+            args.source,
+            output,
+            project_root=project,
+            object_key=args.object,
+            record_index=args.record_index,
+            base_mass_kg=args.mass_kg,
+        )
     print(json.dumps(result, indent=2, sort_keys=True))
     return 0
 

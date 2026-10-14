@@ -296,3 +296,21 @@ objects and initial conditions, followed by grouped, held-out outcome analysis.
 - **Next check:** Run a small multi-provider experiment and confirm that resume,
   videos, and the viewer behave correctly before adding dataset-wide
   Parquet/DuckDB export.
+# DexGraspNet replay uses a measured kinematic mapping
+
+- **Decision:** Enable the pinned official DexGraspNet sample as
+  `dataset_replay`, with licensed inputs kept under ignored local `data/`.
+- **Evidence:** Official commit `bd1b13d7248729af117e1d46aaa6266b147a3c7b`
+  documents metric translation, static-XYZ Euler rotation, 22 named Shadow
+  joints, and object scale. FK comparison against the canonical `dex-urdf`
+  Shadow hand measured 0.429 mm mean and 1.722 mm maximum fingertip residual on
+  the first record.
+- **Boundary:** The source has a free palm while the canonical model has two
+  wrist joints. Replay maps the source palm pose to `T_object_palm`, sets the
+  canonical wrist joints to zero, and applies only the registered name/sign map.
+- **Outcome:** Ten official mug records produced seven approach collisions, one
+  failed acquisition, and two unlabeled joint-limit rejections. No proposal was
+  clipped or repositioned.
+- **Next check:** Run fresh DexGrasp Anything sampling on an Ubuntu/NVIDIA worker
+  and feed its untouched native outputs through the same translation and FK
+  gates.

@@ -36,6 +36,7 @@ from .schema import (
     ProposalExecutionResult,
     ProposalExecutionValidation,
     ProposalPreflightRejection,
+    ProposalRejectionArtifact,
     ResolvedProviderMetadata,
 )
 
@@ -294,8 +295,21 @@ def run_proposal_case(
         raise ValueError("provider is incompatible with the selected execution protocol")
     if proposal.approach_semantics != spec.approach_semantics:
         raise ValueError("proposal approach semantics do not match its provider registry entry")
-    pose, validation = _validate_pose(proposal)
-    _scene_preflight(proposal)
+    try:
+        pose, validation = _validate_pose(proposal)
+        _scene_preflight(proposal)
+    except ProposalRejected as exc:
+        output.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(proposal_path, output / "proposal.json")
+        artifact = ProposalRejectionArtifact(
+            case_id=case.case_id,
+            proposal_id=proposal.proposal_id,
+            provider_id=proposal.provider.id,
+            proposal_hash=proposal_content_hash(proposal),
+            rejection=exc.rejection,
+        )
+        _write_json(output / "rejection.json", artifact.model_dump(mode="json"))
+        raise
     runner_type = _runner_class(resolved)
     runner = runner_type(
         resolved.execution_protocol,

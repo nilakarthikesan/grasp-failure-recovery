@@ -284,6 +284,15 @@ class ProposalPreflightRejection(StrictModel):
     task_label: None = None
 
 
+class ProposalRejectionArtifact(StrictModel):
+    schema_version: Literal["proposal_rejection_artifact_v1"] = "proposal_rejection_artifact_v1"
+    case_id: str = Field(pattern=ID_PATTERN)
+    proposal_id: str = Field(pattern=ID_PATTERN)
+    provider_id: str = Field(pattern=ID_PATTERN)
+    proposal_hash: str = Field(pattern=SHA256_PATTERN)
+    rejection: ProposalPreflightRejection
+
+
 class ProposalArtifactReferences(StrictModel):
     trajectory: Path
     resolved_case: Path

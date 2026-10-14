@@ -33,9 +33,11 @@ from .schema import (
 )
 from .translation import (
     SyntheticShadowRecordDecoder,
+    load_translation_registry,
     translate_mano_with_official_retargeter,
     translate_native_pose,
 )
+from .dexgraspnet import DexGraspNetRecordDecoder, validate_fk_translation
 
 
 class ProposalProvider(Protocol):
@@ -305,6 +307,90 @@ class SavedShadowProposalProvider:
         return [path]
 
 
+class DexGraspNetReplayProvider:
+    """Replay one hash-pinned official DexGraspNet Shadow Hand record."""
+
+    def __init__(self, spec: ProviderSpec, *, project_root: Path):
+        self.spec = spec
+        self.project_root = project_root
+
+    def generate(self, request: ProposalRequest, output_directory: Path) -> list[Path]:
+        if request.sample_count != 1:
+            raise ValueError("DexGraspNet replay emits exactly one proposal")
+        if request.provider_input_path is None:
+            raise ValueError("DexGraspNet replay requires provider_input_path")
+        bundle = _project_input(
+            self.project_root, request.provider_input_path, "DexGraspNet replay bundle"
+        )
+        payload = json.loads(bundle.read_text(encoding="utf-8"))
+        if payload.get("object_id") != request.object.id:
+            raise ValueError("DexGraspNet bundle object ID mismatch")
+        if payload.get("geometry_content_hash") != request.object.geometry_content_hash:
+            raise ValueError("DexGraspNet bundle geometry hash mismatch")
+        native = DexGraspNetRecordDecoder().decode(bundle)
+        translated = translate_native_pose(native, self.spec.translation_strategy_id)
+        strategy = load_translation_registry().resolve(self.spec.translation_strategy_id)
+        threshold = strategy.maximum_mean_fingertip_error_m
+        assert threshold is not None
+        validation = validate_fk_translation(
+            native, translated, maximum_error_m=threshold
+        )
+        sample_dir = output_directory / "sample_0000"
+        if sample_dir.exists():
+            raise FileExistsError(f"proposal sample directory already exists: {sample_dir}")
+        native_dir = sample_dir / "native"
+        native_dir.mkdir(parents=True)
+        copied_bundle = native_dir / "replay_bundle.json"
+        copied_record = native_dir / "dataset.npy"
+        shutil.copy2(bundle, copied_bundle)
+        source_record = bundle.parent / payload["record_path"]
+        shutil.copy2(source_record, copied_record)
+        revision = _code_revision(self.project_root)
+        proposal = GraspProposal(
+            proposal_id=f"{request.request_id}_sample_0000",
+            provider=ProviderProvenance(
+                id=self.spec.provider_id,
+                config_hash=canonical_sha256(self.spec),
+                code_revision=payload["source_commit"],
+                adapter_code_revision=revision,
+            ),
+            generation=GenerationRecord(seed=request.seed, sample_index=0),
+            object=ProposalObjectBinding(
+                id=request.object.id,
+                geometry_content_hash=request.object.geometry_content_hash,
+            ),
+            object_to_palm=translated.object_to_palm,
+            joint_targets_rad=translated.joint_targets_rad,
+            compatible_execution_protocols=self.spec.compatible_execution_protocols,
+            input_binding=_binding(
+                request, input_manifest_hash=file_sha256(bundle), scene_contract_hash=None
+            ),
+            provider_validation=ProviderValidation(status="passed", metrics=validation),
+            provider_metrics={
+                "classification": "dataset_replay",
+                "record_index": native.payload["record_index"],
+                "record_sha256": native.payload["record_sha256"],
+                "object_scale": native.payload["object_scale"],
+                "translation_strategy_id": self.spec.translation_strategy_id,
+            },
+            native_artifacts=(
+                NativeArtifactReference(
+                    role="provider_manifest",
+                    path=Path("native/replay_bundle.json"),
+                    sha256=file_sha256(copied_bundle),
+                ),
+                NativeArtifactReference(
+                    role="provider_output",
+                    path=Path("native/dataset.npy"),
+                    sha256=file_sha256(copied_record),
+                ),
+            ),
+        )
+        path = sample_dir / "proposal.json"
+        write_proposal(path, proposal)
+        return [path]
+
+
 def load_local_provider(
     spec: ProviderSpec,
     *,
@@ -322,6 +408,8 @@ def load_local_provider(
         )
     if spec.provider_id == "shadow_saved_record_v1":
         return SavedShadowProposalProvider(spec, project_root=project_root)
+    if spec.provider_id == "dexgraspnet_saved_record_v1":
+        return DexGraspNetReplayProvider(spec, project_root=project_root)
     raise ValueError(
         f"provider {spec.provider_id!r} has no built-in local adapter; "
         "use --external-command or --endpoint"
