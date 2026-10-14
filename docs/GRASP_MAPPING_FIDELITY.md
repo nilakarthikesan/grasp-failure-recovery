@@ -285,3 +285,140 @@ Reports, the existing-HUG overlay and snapshot scripts are in
 Scripts retain the exact local input/source paths used; they are historical
 diagnostics, not provider inference or a new dataset exporter. Reports distinguish
 real saved HUG output from synthetic FK tests and record no task labels.
+
+
+## Original-generator evidence and proposed common validation framework
+
+Reviewed 14 October 2026. The user explicitly agrees that faithful mappings
+must preserve poor native proposals, and that mapping fidelity must be assessed
+before task success/failure labeling. The following is a literature-backed
+protocol proposal, not a completed four-source validation or a frozen scientific
+acceptance threshold. HUG remains the active individual audit; reviewing other
+sources here does not advance their runtime or mapping acceptance.
+
+### What the original work establishes
+
+Original papers define the native representation and measure generated-grasp
+quality. Released code additionally fixes operational frames, assets, joint
+order, normalization and output stage. Their evidence motivates our checks;
+it does not certify this project's adapter, Shadow geometry or controller.
+Grasp generation can admit several useful configurations for an object, so
+pose distance to one reference grasp is not a universal generation-quality
+criterion. Mapping compares each proposal against its own declared native
+output. Generation quality and mapping fidelity stay separate.
+
+**HUG:** [Section 5.2 and Appendices E/F](https://arxiv.org/html/2606.17054v1)
+define a MANO-derived simulation hand, fingertip/object distance, penetration
+and miss diagnostics, a recorded-human oracle and displacement sensitivity.
+Robot retargeting is separately described for Ability/WUJI, not our Shadow.
+For our argument, reproduce the native MANO exactly, validate camera/object
+placement, and quantify how object-relative finger/palm geometry changes under
+retargeting. Measure missing proximity as well as penetration; a low penetration
+value alone can describe a hand that misses the object. The original oracle
+and success numbers cannot establish our conversion. Our current HUG evidence
+is geometric, not measured human contact-force ground truth.
+
+**ContactGen:** [Sections 4, 6, 7.3--7.4 and 7.7](https://arxiv.org/html/2310.03740v1)
+define contact/part/direction maps and the solver producing a MANO-compatible
+hand. Native reconstruction is assessed with mesh EPE/AUC/F-scores; generated
+quality uses contact, overlap, gravity displacement, diversity and human ratings.
+Direction denotes a bone-local ray, not a surface normal. Our argument should
+separate sampled contact-to-native solver fidelity from refined MANO-to-Shadow
+fidelity. Check optimized shape/pose reconstruction and lost/new finger/object
+regions. Native reconstruction distance thresholds and generation-quality
+measurements are not cross-hand acceptance limits. Current inputs are geometric
+proxies, not force annotations. Preserve touch-only, missing-contact and
+penetrating proposals.
+
+For ContactGen, pinned [demo.py](https://github.com/stevenlsw/contactgen/blob/1aea2b6ce498ec90c4af0dd4c5fbdd4a23db761a/demo.py)
+and [contact_optimizer.py](https://github.com/stevenlsw/contactgen/blob/1aea2b6ce498ec90c4af0dd4c5fbdd4a23db761a/contactgen/contact/contact_optimizer.py)
+govern the executed solver. The paper describes freezing global pose in stage
+two; that code keeps global rotation/translation trainable. Document the pinned
+behavior. Locally, centering, shaped wrist origin and metric units are explicit,
+but sampled points/contact/part/direction maps are not exported. Add that export
+before future generation if we intend to substantiate source contact-to-pose
+fidelity. No export or solver change is implemented by this literature review.
+
+**DexGrasp Anything:** [Sections 3.1--3.4, 4.1, 5.1 and Appendix C](https://arxiv.org/html/2503.08257v2)
+define articulated Shadow proposals, proximity/penetration constraints,
+physics-guided sampling and force/displacement quality evaluation. These motivate
+paired native/translated geometry measurements; successful-grasp curation does
+not define permissible mapping error. Preserve the chosen sampling stage and
+report changes to inner-finger/object proximity, object penetration and hand
+self-intersection. Root placement, wrist articulation and scale require the
+actual released model, not the assumption that all Shadow variants are equal.
+
+Its [pinned visualizer](https://github.com/4DVLab/DexGrasp-Anything/blob/86353d710ca71d0f547f0d8b15cc8ca959c78163/models/visualizer.py#L119)
+and [hand model](https://github.com/4DVLab/DexGrasp-Anything/blob/86353d710ca71d0f547f0d8b15cc8ca959c78163/utils/handmodel.py#L225)
+require denormalization and a 24-joint forearm-to-palm transform. The
+[force test](https://github.com/4DVLab/DexGrasp-Anything/blob/86353d710ca71d0f547f0d8b15cc8ca959c78163/envs/tasks/grasp_test_force_shadowhand.py#L248)
+preconditions finger angles and settles before force evaluation. Paper and
+recommended test learning rates differ, as explained in the
+[official README](https://github.com/4DVLab/DexGrasp-Anything/blob/86353d710ca71d0f547f0d8b15cc8ca959c78163/README.md).
+Keep generation, preconditioning and execution separate. Our source-specific
+decoder/mapping remains pending; no force test is run here.
+
+**UniDexGrasp:** [Sections 3.1--3.2, 4.2 and Appendices A/C.3](https://arxiv.org/html/2303.00938v2)
+define canonicalization, IPDF/Glow proposals, ContactNet adaptation and a separate
+execution policy. Proposal quality uses analytic wrench, penetration and
+diversity metrics; dataset curation tests physical stability, and execution
+separately measures configuration following through FK. Our
+argument must identify pre-TTA versus refined output, invert canonical rotation,
+and verify actual source-hand kinematics and surfaces. Success-conditioned pose
+following does not characterize all proposals; our static fidelity audit should
+cover every evaluable selected output. Its quality filters are not mapping gates.
+
+The pinned [eval.py](https://github.com/PKU-EPIC/UniDexGrasp/blob/36c9bfcf7cedc987dd15e2384c548e51d5aadc21/dexgrasp_generation/network/eval.py#L100)
+retains raw and adapted pose fields. Our worker deliberately exports pre-TTA
+IPDF/Glow output. The source asset, canonical transforms, joint order and
+refinement configuration therefore remain part of the identity of a proposal.
+The existing reference certificate checks kinematics, not collision surfaces;
+actual native-output acceptance remains pending.
+
+### Recommendation: shared questions, source-specific tests
+
+Use one reporting framework across four sources, with a source-specific
+contract explaining each representation and stage:
+
+1. **Recover the actual proposal.** Bind native files, assets, input geometry,
+   source/checkpoint/configuration, units, frames and stage; reconstruct native
+   geometry independently where possible. Retain raw and refined variants as
+   distinct records whenever the selected pipeline produces both.
+2. **Verify the conversion.** Check transforms, root/palm convention, joint
+   names/signs/limits and independent FK. Require numerical agreement where
+   identical models permit it; state the approximation where hands differ.
+3. **Measure geometric changes.** Compare the same proposal and exact object
+   in a shared object frame: per-finger/palm points, orientations, signed
+   distance/miss profiles, preserved/lost/new proximity regions and penetration
+   changes. Label inferred contact as geometric proximity; retain denominators,
+   unmatched regions and sampling sensitivity. Audit visual/collision geometry
+   separately. Individual collider-surface queries inside overlaps are not
+   exact exterior-union distance or physical contacts.
+4. **Evaluate execution separately, later.** Keep nominal conversion,
+   controller commands and achieved state distinct. Eventual outcomes describe
+   the mapped grasp under the declared simulator hand/controller/physics.
+   Source-specific quality numbers from different original test systems are
+   not pooled as a common outcome comparison.
+
+A shared framework does not imply identical numerical tolerances or identical
+source hands. Justify acceptance criteria from geometry and intended use,
+freeze them before independent validation, and separate calibration groups.
+Do not select thresholds because currently inspected cases pass. Existing HUG
+cases are development evidence; later independent validation remains proposed.
+No scientific threshold, collection count or outcome-sensitivity experiment
+is frozen by this note.
+
+Keep a record of mapping status separate from eventual task outcome. A source
+thumb that misses the object can be faithfully mapped and subsequently fail.
+A mapping that silently moves it into contact has altered the proposal even
+if the grasp improves. Malformed, out-of-limit or unrepresentable proposals
+must retain explicit rejection reasons; an adapter rejection is not a simulated
+physical failure label. Quality improvement is permitted only as a declared,
+versioned refinement stage, not hidden within coordinate conversion.
+
+**Immediate next step:** Apply this proposal to HUG's existing static evidence:
+declare contact/proximity correspondences and comparison baselines, resolve
+the collision approximation question, then justify an independent validation
+plan. Other generators await their individual audits. No new inference,
+simulation rollout, task label, evaluation dataset, model fit, production-code
+change or manuscript edit accompanies this review.

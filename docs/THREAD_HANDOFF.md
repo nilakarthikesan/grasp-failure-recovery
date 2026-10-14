@@ -304,3 +304,17 @@ GPU compute may help future generation; current MuJoCo mj_step and the logistic
 predictor run on CPU. No compute was rented. Benchmark actual runtime/VRAM and
 rollout bottlenecks after mapping validation and new-collection authorization;
 independent object/source coverage matters more than repeated episode count.
+
+
+## 14 October 2026 — Source-grounded shared validation framework proposed
+
+The user explicitly accepts preserving bad native proposals and assessing
+mapping fidelity before task success/failure. Read-only review of the four
+original generator papers and pinned code is recorded in
+[the mapping audit](GRASP_MAPPING_FIDELITY.md). Recommended common questions
+cover native reconstruction, conversion/FK, geometric preservation and later
+execution; source-specific contracts retain hand/frame/stage semantics.
+Original quality filters are not conversion acceptance thresholds. Explicit
+mapping rejections are not physical failure labels. No thresholds or new
+collection protocol are frozen. HUG remains the active audit; no other provider
+acceptance, new inference/eval data, training or paper edit occurs.

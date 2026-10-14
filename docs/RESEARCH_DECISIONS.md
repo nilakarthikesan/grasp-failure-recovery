@@ -1708,3 +1708,31 @@ Independent objects/observations/generators and grouped held-out comparisons
 matter more than repeated episode counts; larger counts or source variety do
 not guarantee prediction improvement. Resolve the previously documented recorder
 gap before future predictor collection/scoring.
+
+
+## 14 October 2026 — Original-source evidence and mapping validity before outcomes
+
+**User direction:** Ground each generator's mapping argument in its original
+paper and implementation. The user explicitly agrees that faithful mappings
+must preserve bad proposals and that mapping validity precedes task labeling.
+
+**New evidence:** Read-only review of all four original papers and pinned code
+finds useful native contracts and quality measurements, but no certification
+of this project's translation. Source generation/refinement/test stages differ.
+The latest section of [the mapping audit](GRASP_MAPPING_FIDELITY.md) records
+paper sections, code links, distinctions and current export/asset gaps.
+
+**Choice and proposed work:** Use a shared reporting framework with source-specific
+contracts: native reconstruction, conversion/FK correctness, paired geometric
+changes and separately evaluated execution. The detailed protocol and acceptance
+tolerances remain proposed; no scientific pass threshold is frozen. Keep native
+quality measurements separate from mapping-induced changes and eventual outcomes.
+Do not silently repair/filter poor source proposals. Explicit mapping/feasibility
+rejections retain their reasons and are not physical task-failure labels.
+
+**Implemented scope and next check:** Literature review and documentation only;
+HUG remains active before other providers. Apply source-grounded correspondences
+and baselines to HUG while reviewing object collision approximation. ContactGen
+contact-map export and actual provider assets/runtime evidence remain pending.
+No new generator inference, dynamics, eval data, fit, mapper/controller/collider
+change or manuscript edit occurs. Existing protected hashes remain unchanged.

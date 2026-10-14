@@ -189,3 +189,14 @@ review and separate calibration/validation groups precede any revised mapper
 or new collection. Production code, executor, frozen predictor and manuscript
 are unchanged; no paper drafting or model fitting occurred. GPU rental remains
 a future benchmark-based recommendation, not a provisioned run.
+
+
+## Original-generator validation context, 14 October 2026
+
+The four original papers and pinned implementations inform source-specific
+mapping arguments in [the audit](GRASP_MAPPING_FIDELITY.md). A shared validation
+framework is proposed; its tolerances and independent validation design are
+not frozen. The user accepts preserving poor proposals and separating mapping
+fidelity from task outcomes. This adds literature context, not new generated
+evidence or a completed four-source comparison. HUG validation stays active;
+the manuscript, production pipeline and predictor remain unchanged.
