@@ -1356,3 +1356,41 @@ runtime/checkpoint/hand assets and declare one source/frame/geometry acceptance
 check from each generator before collecting a larger batch. Fresh GPU execution
 and physical suitability remain unverified. Reconcile the final agreed scientific
 comparison separately; adding providers does not establish prediction improvement.
+
+
+## 13 October 2026 — Run one newly authorized fresh HUG CLI evaluation
+
+**Previous plan and authorization:** Evaluation generation was deferred while
+ContactGen and UniDexGrasp adapters were implemented. The user then explicitly
+requested one HUG evaluation using `grasp-eval`. This authorizes the single HUG
+case; it does not begin a multi-provider collection or relax the remaining
+providers' unrun acceptance status.
+
+**New evidence:** The original HUG dependency trees, real compiled torch-cluster
+CPU backend, MANO assets and cached DINO weights remain available. The earlier
+missing-dependency launch omitted those directories from its import path. No
+installation, runtime replacement, fake backend or checkpoint download is needed.
+
+**Choice and implemented result:** Before inference, declare the existing
+verified cube observation, HUG seed 0, one proposal, one nominal v2 execution and
+no extra command noise. `grasp-eval validate`, `run` and `status` complete at
+source `e1abfc3`; the actual HUG provider performs fresh 50-step CPU inference,
+Dex Retargeting and one successful lift/hold. Independent trajectory arithmetic
+verifies maximum lift 0.151335441733 m, hold 2.0 s and peak-to-final loss
+0.000760347291 m. There are no hand/table contacts in 163 saved samples. The
+video contains 163 frames at 25 fps. Full provenance is in
+[the run note](HUG_SINGLE_EVAL_2026-10-13.md) and ignored local run bundle
+`runs/hug_grasp_eval_2026-10-13_fresh_cube/`.
+
+**Scientific status:** The native proposal and all saved trajectory arrays match
+the earlier scene-000/seed-0 replay exactly. This is actual fresh inference and
+execution reproducibility on an existing development situation, not a new
+independent grasp/object/scene sample or model-accuracy result. The frozen
+predictor is unchanged and unscored because generic output still lacks required
+velocity/command histories. No ContactGen/UniDexGrasp generation, fitting, large
+batch, controller change or historical relabeling was performed.
+
+**Next check:** Preserve the completed video and hashes. Future HUG runs can use
+the now-verified preserved import path. Compatible prediction recording and the
+other generators' declared runtime/translation acceptance checks remain separate
+work before scientific comparisons.

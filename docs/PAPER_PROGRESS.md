@@ -98,6 +98,15 @@ fresh inference, model-output acceptance and simulation checks have not run.
 No evaluation data was generated for this implementation.
 [Implementation scope and contracts](CONTACTGEN_AND_UNIDEXGRASP.md).
 
+## One fresh HUG CLI execution check
+
+One newly authorized HUG inference and MuJoCo case completes successfully through
+`grasp-eval`: 0.151335 m maximum lift, 2.0 s hold and no hand/table contact in
+163 saved samples. The existing cube observation and seed 0 reproduce the
+earlier native proposal and saved-replay trajectory exactly. This is a
+development reproducibility check, not an independent benchmark. The frozen
+predictor was not scored. [Run declaration, results and runtime](HUG_SINGLE_EVAL_2026-10-13.md).
+
 ## Claim boundaries and paper status
 
 The saved results establish a simulation warning-reliability problem.

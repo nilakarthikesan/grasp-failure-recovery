@@ -196,3 +196,24 @@ this implementation. Unit fixtures are synthetic and temporary. Fresh GPU
 runtime acceptance, physical suitability and the predictor-recording gap remain
 pending. Continue on the same branch and preserve the manuscript and historical
 results. Do not interpret the implementation as a completed scientific comparison.
+
+
+## Latest authorized HUG evaluation — 13 October 2026
+
+After provider implementation, the user requested one HUG `grasp-eval` run.
+It completed real fresh HUG inference and one successful v2 cube execution:
+maximum lift 0.151335 m, stable hold 2.0 s, no hand/table contact in 163 saved
+samples, and a 6.52 s replay. The same existing observation/seed reproduces the
+previous native proposal and trajectory exactly, so this is a development
+reproducibility check. The predictor remains unchanged and unscored.
+
+The earlier missing HUG dependencies are resolved by using the **existing**
+`hug_integration_check/hug-deps`, `deps` and `deps/cmeel.prefix` import paths;
+real compiled torch-cluster and cached model/MANO assets were present. No
+dependency installation or stub was required. Use the full preserved runtime
+from [the run note](HUG_SINGLE_EVAL_2026-10-13.md), which records actual versions
+separately from the temporary integration-test runtime.
+
+Local run: `runs/hug_grasp_eval_2026-10-13_fresh_cube/`. Result/video are under
+`output/runs/hug_cube_seed0_nominal/`. ContactGen/UniDexGrasp evaluation generation
+is still deferred; this later user request authorized only one HUG case.

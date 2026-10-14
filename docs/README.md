@@ -22,6 +22,7 @@
 
 - [Research protocol](HUG_MONITOR_RESEARCH_PLAN.md)
 - [Experiment results and evidence index](PAPER_PROGRESS.md)
+- [Fresh HUG single-case CLI check](HUG_SINGLE_EVAL_2026-10-13.md)
 - [Fresh-object evaluation](FRESH_OBJECT_EVALUATION.md)
 - [Mug table-clearance correction](MUG_TABLE_CLEARANCE.md)
 - [Working paper](paper/working_draft.tex)
