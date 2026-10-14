@@ -1438,3 +1438,38 @@ remaining providers. Explicitly bind DGA dataset/normalizer, scale, native
 24-joint/root semantics and sampling stage; bind full TTA config if importing
 refined UniDex outputs. Proceed to collection only after declared mapping
 acceptance evidence and a compatible predictor recorder are available.
+
+
+## 14 October 2026 — Structure the late-breaking paper around completed diagnostics
+
+**Previous plan:** The working manuscript motivates a matched HUG coverage
+comparison but still uses generic article formatting and a title about evaluating
+simulation diversity. The recorded protocol keeps that comparison unexecuted.
+
+**New evidence:** The current [Sim2Real2Field call](https://sim2real2field-corl26.github.io/)
+confirms four pages excluding references for preliminary work and a 15 October,
+11:59 PM CDT deadline. The linked CoRL template is single-column with anonymous
+initial-submission mode. The workshop does not explicitly exempt appendices or
+provide a separate supplementary-upload field. Existing saved evidence reports
+20 successful corrected v3 mugs with warnings and 13 successful paired v4
+attempts with warnings; their shared families and protocol versions preclude
+pooling them as independent trials.
+
+**Choice:** After being offered the deadline-oriented and gradual-writing
+options, the user chose to aim for this deadline with the completed diagnostics.
+Plan a focused warning-reliability paper, with a title naming that finding,
+methods and results prioritized, and a short limitations/next-experiment section.
+Use full conference examples for argument structure, compressed to four pages.
+This editorial scope does not replace the broader research protocol or assert
+that calibration, representation or diversity remedies have been evaluated.
+
+**Implementation status:** Added [PAPER_STRUCTURE_PLAN.md](PAPER_STRUCTURE_PLAN.md)
+with verified requirements, primary-source examples, a page budget, display
+plan and proposed opening/abstract. Updated the evidence index and submission
+checklist. The working manuscript, models, labels, executor versions and
+experiment artifacts remain unchanged; no fitting or new execution occurred.
+
+**Next check:** Review the proposed title, contributions and starter prose with
+both authors; shorten and format the existing manuscript in place, compile it
+with the desktop compiler, inspect the PDF and verify the live submission form.
+Keep essential evidence within four pages and use the earlier public deadline.

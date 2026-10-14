@@ -5,6 +5,16 @@ The [research protocol](HUG_MONITOR_RESEARCH_PLAN.md) separates the recorded
 research question and pending comparisons from completed experiments.
 The [working paper](paper/working_draft.tex) draws on the evidence below.
 
+## Workshop writing plan
+
+On 14 October the authors chose to aim for the Sim2Real2Field late-breaking
+deadline with the completed diagnostics. The [paper structure and writing
+plan](PAPER_STRUCTURE_PLAN.md) records verified format requirements, example
+paper structures, a four-page outline and proposed starter prose. The central
+submission story is warning reliability on successful unfamiliar grasps; the
+matched diversity comparison remains unexecuted. The existing manuscript has
+not yet been shortened or converted to the official template.
+
 ## Original pilot and baseline
 
 - **Collection:** 1,040 attempts, with 444 successes and 596 task failures.
