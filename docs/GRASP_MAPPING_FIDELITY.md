@@ -422,3 +422,21 @@ the collision approximation question, then justify an independent validation
 plan. Other generators await their individual audits. No new inference,
 simulation rollout, task label, evaluation dataset, model fit, production-code
 change or manuscript edit accompanies this review.
+
+
+## 14 October 2026 — HUG object/reference measurement update
+
+[The HUG continuation](HUG_MAPPING_CONFIRMATION.md) now tests source/compiled
+object geometry, released/static reference retargeting on all 32 saved poses,
+and surface/signed-profile comparisons on the six fixed noncube cases. No tested
+scale/frame bug is found; inherited internal gap walls and exterior convex
+approximation remain distinct. Better reference tip residuals do not establish
+better finger surfaces: current whole unsigned 2 mm proximity is higher in all
+six pairs, with per-finger tradeoffs. All native area profiles already have
+sampled penetration. Poor proposals remain included.
+
+[The HUG measurement framework](HUG_STATIC_VALIDATION_PROTOCOL.md) separates
+implemented measurements from proposed margins/independent validation. Numerical
+conversion is supported; cross-hand contact and failure-label equivalence remain
+unconfirmed. No other generator acceptance, inference, physics, eval dataset,
+model fit or production/manuscript change occurred.

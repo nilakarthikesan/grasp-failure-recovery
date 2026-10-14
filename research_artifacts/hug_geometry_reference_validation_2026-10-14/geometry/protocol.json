@@ -1,0 +1,55 @@
+{
+  "schema": "hug_object_geometry_cause_static_v1",
+  "frozen_utc": "2026-10-14T11:44:23.222963+00:00",
+  "scope": "Only existing apple, milk box and mug asset geometry; no inference, optimization, rollouts, evaluation data, grasp modifications or labels. No production changes.",
+  "case_selection": "First source-order seed-0 observation group per unique object, existing inventory indices 8,16,24; second groups 12,20,28 checked for identical geometry inputs and source bindings. Not selected by observed geometry/outcome.",
+  "inventory_indices": [
+    8,
+    16,
+    24
+  ],
+  "paired_group_indices": [
+    12,
+    20,
+    28
+  ],
+  "area_density_mm": 2,
+  "outward_probe_lengths_m": [
+    1e-07,
+    1e-06,
+    1e-05,
+    0.0001,
+    0.001
+  ],
+  "inside_halfspace_tolerance_m": 1e-10,
+  "witness_count_per_object": 12,
+  "witness_selection": "Highest area-query collision-to-visual unsigned distance, stable index tie-break; not selected by grasp quality. Rays measured on exactly these points.",
+  "geometry": "Saved MJB compiled mesh vertices mapped via actual geom frames into unchanged object frame. Compare with corresponding original OBJ vertices under source XML scale/local geom frames. Use source per-part convex hulls separately; do not reapply compiler principal-axis offsets to raw OBJ.",
+  "boundary_queries": "Prior v3 exposed-union centroid area-density rule, with outward probe 1e-7m and duplicate tie-breaking; varied probe size is a sensitivity diagnostic and does not change colliders.",
+  "signed_reference": "Winding classification only if exact-welded visual triangle topology is closed and consistently oriented with nonzero signed volume; also report winding ambiguity and self-intersection not exhaustively tested. Unsigned distance never determines inside/outside.",
+  "ray_diagnostic": "Analytic intersection of outward ray with each other convex hull. Record smallest nonnegative entry and corresponding raw-OBJ hull entry. Finite first-entry within a small distance establishes a local empty gap toward the next solid, not globally connected air, contact forces or MuJoCo collision activation.",
+  "guards": [
+    "mj_step",
+    "mj_step1",
+    "mj_step2"
+  ],
+  "invariants": [
+    "All guards installed before model loads",
+    "Time remains zero",
+    "Object qpos and world pose unchanged",
+    "All input hashes unchanged",
+    "No historical report overwritten"
+  ],
+  "limitations": [
+    "Three unique objects from existing development inputs, not held out or proof of complete mapping accuracy.",
+    "Area density is triangle area bound, not uniform spacing; overlap removal at centroids is density dependent.",
+    "Visual topology certification does not exhaustively exclude geometric self-intersections.",
+    "Source build parameters in properties.json identify intended convex decomposition; actual builder version and prebuild raw capture are not necessarily available.",
+    "Collider local gaps alone do not establish physical access for finite hand collision geometries."
+  ],
+  "prior_query_library_path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_palm_object_validation_2026-10-14/surfaces/audit_other_surfaces.py",
+  "prior_query_library_sha256": "b235f8b88b5ecb0fc2bc842c3fdb4a17d4c2eb526f321a449169dcbc3cc27bdd",
+  "inventory_sha256": "5fc28832494c54c7822543a00ea735ab47e1d44d944ff50fc26712eb27536fcb",
+  "all_objects_repeat_fine_density_mm": 1,
+  "amendment_before_metrics": "Repeat all three unique object boundary diagnostics at 1 mm area density, rather than only apple, to compare gap sensitivity consistently."
+}

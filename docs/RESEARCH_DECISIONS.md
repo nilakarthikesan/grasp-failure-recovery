@@ -1736,3 +1736,66 @@ and baselines to HUG while reviewing object collision approximation. ContactGen
 contact-map export and actual provider assets/runtime evidence remain pending.
 No new generator inference, dynamics, eval data, fit, mapper/controller/collider
 change or manuscript edit occurs. Existing protected hashes remain unchanged.
+
+
+## 14 October 2026 — HUG object causes, reference methods and signed profiles
+
+**Authorized direction:** Complete the proposed HUG static investigation before
+changing the mapper or moving providers. Preserve poor native proposals and do
+not generate eval data.
+
+**Implemented evidence:** Source OBJ/XML scale/transforms match compiled object
+vertices within 4.146/7.365/7.690 nm for apple/milk/mug. The large apple/milk
+reverse-distance witnesses lie inside visible solids at inherited micrometer
+slits (next hull about 3.91/3.52 micrometers away), not equivalent large outer
+placement errors. Mug's roughly 10 mm worst witness is an exterior convex
+approximation. All 36 raw simulation asset files match pinned download
+manifests. No tested scale/frame bug is established, and physical hulls/probes
+are not altered. Local ray witnesses do not certify global air connectivity or
+contact accessibility.
+
+Current targets regenerate exactly on all 32 saved poses. A frozen released Dex
+Retargeting 0.5.0 Shadow DexPilot-style reference and a separate
+metric/no-filter sensitivity expose a tradeoff: mean tips 6.428/21.343/2.353 mm,
+middle proxies 6.829/26.377/13.811 mm. The sensitivity's ten-link mean is 8.082
+versus current 6.628 mm. Current whole unsigned 2 mm visual proximity IoU
+exceeds both alternatives on all six selected cases and first-group finer
+repeats; individual fingers differ. No projected pinch activates;
+raw/filter/clamp stages remain distinct. This reference adaptation is neither
+the original Allegro reproduction nor a HUG mapping ground truth.
+
+Independent signed visible-object profiles show penetration in all six native
+area samples (sampled maximum 1.87–24.28 mm, negative area 2.99%–6.84%). Native
+vertex-count, native triangle-area and target approximate-area denominators
+remain separate. Targets expose sampled union surfaces and coarser carriers
+separately; the shapes are not point-corresponded. Finite maxima/misses do not
+certify continuous intersection/contact or rank fidelity automatically. Bad
+native proposals remain included, without task labels.
+
+**Review correction and version history:** Original reference limit-table
+metadata actually contains captured-scene decimal ranges; actual
+optimization/clamping used full source URDF. A standalone correction verifies
+unchanged final targets against the correct source bounds, preserving original
+bytes. Surface V2 and signed V1 stop on this decimal representation issue; final
+frozen surface V3/signed V2 parse original XML and log strict scene excess (up
+to 3.878e-7 rad), without changing q or implying production preflight rejection.
+Incomplete pilots remain separate.
+
+**Choice and bounded claim:** Retain the production mapper; no measured evidence
+justifies a replacement. Numerical conversion is supported in tested scope,
+while cross-hand contact and failure-label equivalence remain unconfirmed. [HUG
+findings](HUG_MAPPING_CONFIRMATION.md), [measurement/proposed-acceptance
+framework](HUG_STATIC_VALIDATION_PROTOCOL.md) and [versioned
+artifacts](../research_artifacts/hug_geometry_reference_validation_2026-10-14/README.md)
+record the argument. Next address object-facing normals and spatial sampling
+uncertainty, justify acceptance margins, and freeze an independent validation
+design. These inspected development cases are not holdout evidence.
+Outcome-sensitivity/physical tests require separate future authorization.
+
+All completed source-hash/guard/time-zero/object-state checks pass; current
+visual baselines reproduce exactly and reference reproduction matches
+geometry/configuration. Production Python, frozen predictor and manuscript
+hashes remain unchanged. No new HUG inference, physics rollout, eval
+dataset/label, fit, production mapper/controller/collider change or manuscript
+edit occurs. Predictor SHA remains
+16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb.

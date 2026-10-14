@@ -1,0 +1,11 @@
+{"start": "hug_apple", "inventory_index": 8}
+{"queries": "hug_apple", "density": 4, "method": "stored_current", "native": 7393, "target_retained": 48081}
+{"queries": "hug_apple", "density": 4, "method": "dexpilot_shipped", "native": 7393, "target_retained": 48019}
+Traceback (most recent call last):
+  File "/private/tmp/hug_signed_profiles_2026-10-14/profile_signed_geometry.py", line 108, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/private/tmp/hug_signed_profiles_2026-10-14/profile_signed_geometry.py", line 93, in main
+    fixed=ref['methods'][method];assert fixed['status']=='computed';q=np.asarray(fixed['qpos_rad']);lower=np.asarray(fixed['limits']['physical_lower_rad']);upper=np.asarray(fixed['limits']['physical_upper_rad']);assert np.all(q>=lower-1e-12) and np.all(q<=upper+1e-12)
+                                                                                                                                                                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

@@ -1,0 +1,90 @@
+{
+  "schema": "hug_static_signed_hand_visual_profile_v2",
+  "frozen_utc": "2026-10-14T12:09:20.264128+00:00",
+  "scope": "Static signed hand-to-visual-object geometry profiles on existing saved six seed0 cases, not physical contacts or evaluation data. Current/shipped/metric target poses already computed in frozen reference report; no retargeting/inference/physics. Preserve bad native proposals.",
+  "inventory_indices": [
+    8,
+    12,
+    16,
+    20,
+    24,
+    28
+  ],
+  "methods": [
+    "stored_current",
+    "dexpilot_shipped",
+    "dexpilot_metric_static"
+  ],
+  "all_cases_area_density_mm": 4,
+  "first_group_each_object_repeat_area_density_mm": 2,
+  "primitive_max_chord_error_m": 0.0005,
+  "signed_boundary_tolerance_m": 1e-07,
+  "target_union_interior_tolerance_m": 1e-08,
+  "target_union_outward_probe_m": 1e-07,
+  "hand_sampling": "Native original vertices (count profile) and area-weighted triangle-subdivision centroids separately. Target actual per-geom compiled convex-hull triangles; analytic boxes; cylinder angular tessellation and normalized octahedral sphere tessellation to <=0.5mm chord error. Primitive query centroids projected onto exact primitive surfaces; area weights retain planar tessellation area, approximate curved area. Repeat all methods at 2mm area-density for first group each object.",
+  "target_union_filter": "Exclude/record samples strictly inside another target collider with 1e-8m signed-distance tolerance, outward probe entering any other target collider with 1e-8m tolerance, and same-oriented coincident boundary assigned to lower geom ID. Per-geom signed distances classify overlaps. Retained domain approximates sampled union boundary and may include narrow gap/cavity walls; not globally externally accessible boundary.",
+  "signed_distance": "Exact nearest compiled visual triangle unsigned distance multiplied by -1 for absolute whole closed-oriented visual winding >0.5. Values within1e-7m of visual surface treated boundary0. Self-intersections not exhaustively certified. Fullshape/part distributions and finite sampled penetration maxima; no exact intersection/volume claim or matched hand point correspondences.",
+  "distance_bins_mm": [
+    -100,
+    -20,
+    -10,
+    -5,
+    -2,
+    -1,
+    -0.1,
+    0.1,
+    1,
+    2,
+    5,
+    10,
+    20,
+    100
+  ],
+  "miss_bands_mm": [
+    1,
+    2,
+    5
+  ],
+  "miss_definition": "Per-finger sampled miss: all retained samples farther than band in unsigned distance to visual object. Separate exterior-gap miss: every retained sample has positive signed distance >band; penetration-only near geometry never asserted physical contact. Vertex counts separate from area weights.",
+  "frames": "Read native mesh in camera frame, transform via captured T_world_camera into unchanged initial object frame. Each stored baseline pose suppliedq/root applied unchanged for static FK in captured scene. Actual sourceURDFlimits validated already; record narrower rounded scene-bound delta without treating static-only decimal difference as failure.",
+  "guards": [
+    "mj_step",
+    "mj_step1",
+    "mj_step2"
+  ],
+  "invariants": [
+    "guards before model loads",
+    "all time0",
+    "objectqpos/objectworldposeunchanged",
+    "nominal method targets unchanged",
+    "input hashes before/after unchanged"
+  ],
+  "limitations": [
+    "Six existing development cases, same MANO shape, no generalization evidence.",
+    "Area-density queries finite; max negative distance is sampled maximum not exact continuous penetration depth.",
+    "Target hand morphology differs; area fractions/distributions are independent profiles, not matched-point errors.",
+    "Projected curved primitive queries have approximate tessellation area weights.",
+    "Visual topology closedoriented but exhaustive self-intersection exclusion absent.",
+    "Targetburied surfaces omitted; centroid filtering approximates unionexposure and not global airaccessibility.",
+    "Miss definitions geometric; no success criterion or low-penetration requirement.",
+    "Source URDFlimits and scene decimalrounding differ; staticphase keeps original targets and does not bypass production preflight for rollout.",
+    "Fulltargethand aggregate uses coarser16mm carriers, so primary anatomical domain and carriers are distinct; zero sampled penetration is not proof of no intersection. Finite sampled max is lower bound on true surface max under signed-reference assumptions."
+  ],
+  "source_paths": {
+    "query_library": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_palm_object_validation_2026-10-14/surfaces/audit_other_surfaces.py",
+    "geometry_cause_report": "/private/tmp/hug_geometry_causes_2026-10-14/geometry_cause_report.json",
+    "reference_report": "/private/tmp/hug_reference_compare_2026-10-14/hug_reference_comparison.json",
+    "inventory": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/existing_hug_inventory.json"
+  },
+  "source_sha256": {
+    "query_library": "b235f8b88b5ecb0fc2bc842c3fdb4a17d4c2eb526f321a449169dcbc3cc27bdd",
+    "geometry_cause_report": "9e3cf38450d312406f00119451f957bc79e5f2d8ab94c7b430ea8b49250d1913",
+    "reference_report": "0b7a2df411b9763f29c9cda6a5a252417716869dc5728de90369ef5f632738f6",
+    "inventory": "5fc28832494c54c7822543a00ea735ab47e1d44d944ff50fc26712eb27536fcb"
+  },
+  "superseded_protocol_sha256": "3b071575d52bfbb9f4e98f67466f3726f9209defea595e6b0e8163bdf754d5a2",
+  "carrier_area_density_mm": 16,
+  "primary_domain": "Native whole MANO vs combined target palm/fingers; carriers separately and combined heterogeneous fulltargethand separately. No paired area equality assumption.",
+  "amendment_before_v2_metrics": "V1 incomplete: target48kqueries at4mm density and strict rounded baseline-field range assertion stopped at first metric-static pose before report. Preserve V1. V2 uses direct full sourceURDF XML ranges, unchanged targets with separately recorded roundedscene excess; carriers fixed16mm density; palm/fingers4mm primary and2mm repeat; exact visual AABB reject for outside winding. Sphere facet-plane bound now conservative certifies <=0.5mm maximum chord deficit.",
+  "limits_source": "Parse original reference report urdf_path XML, hash checked, joint-name ordered physical lower/upper. Baseline rounded limits fields are not physical source bound authority."
+}

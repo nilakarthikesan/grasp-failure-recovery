@@ -1,8 +1,8 @@
 # HUG mapping confirmation
 
-14 October 2026. HUG is the first individual generator under review. This
-inspection uses the existing cube/seed-0 native output; no new grasp-generator
-inference, physics rollout, evaluation dataset or predictor training occurred.
+14 October 2026. HUG is the first individual generator under review. The evidence phases
+reuse saved cube/apple/milk-box/mug proposals; no new grasp-generator inference,
+physics rollout, evaluation dataset or predictor training occurs in these audits.
 
 **Current conclusion:** The native representation, coordinate conversion and
 joint conventions are confirmed for the checked boundaries. Human-to-Shadow
@@ -322,26 +322,141 @@ recorded inputs, production code, frozen predictor and manuscript retain
 their hashes. Optional query arrays are diagnostic derivatives kept locally,
 not evaluation data or new training examples.
 
+## 14 October continuation: object causes and fixed reference methods
+
+[The geometry/reference
+bundle](../research_artifacts/hug_geometry_reference_validation_2026-10-14/README.md)
+separates object approximation, numerical retargeting, common-query surface
+relationships and signed hand/object profiles. It uses only saved development
+proposals: all 32 for reference point/FK checks, and the same six seed-0 noncube
+cases for detailed geometry. No new generator inference, physics, eval
+episode/label, predictor fit or production change occurs.
+
+### Object approximation is inherited, with no tested placement error
+
+Raw source OBJ vertices with source XML scale/transforms reconstruct compiled
+per-geom object vertices within 4.146/7.365/7.690 nm for apple/milk-box/mug. The
+two saved observation groups share the same local compiled geometry. All 36
+source simulation asset files match pinned HUG dataset download manifests. This
+supports correct tested scale/frame placement; it does not establish
+collision/visual equivalence.
+
+The earlier apple/milk reverse-distance maxima, 36.47/27.35 mm, occur on
+collision walls deep inside the visible solid. Outward rays meet the next piece
+after about 3.91/3.52 micrometers in both raw and compiled geometry. These
+witnesses explain retained internal walls at inherited narrow slits, rather than
+a 27–36 mm outer placement error. Mug's approximately 10 mm worst witness lies
+outside the visible solid with no next hull on that ray, exposing exterior
+convex approximation around its lower interior profile. Other regions can have
+other causes; rays do not prove global air access or finite-hand contact.
+
+The prior 0.1 micrometer probe excludes abutting interfaces but retains wider
+gaps. A larger probe would alter the diagnostic domain, not repair the physical
+object. No collider or probe is changed to obtain a preferred score.
+Vertex-rounding/tolerance effects and shallow insets remain distinct from true
+internal gap-wall claims.
+
+![Object geometry causes](../research_artifacts/hug_geometry_reference_validation_2026-10-14/geometry/object_geometry_causes.png)
+
+### Better fingertip fitting does not establish a better mapped grasp
+
+The fixed reference is Dex Retargeting 0.5.0's released Shadow/five-finger
+DexPilot-style adaptation, with scale 1.2 and filter alpha 0.2. It is not the
+original Allegro implementation or a certified HUG-to-Shadow ground truth. A
+separate metric-scale/no-filter sensitivity was frozen before measurement. Both
+use fresh midpoint initialization, 20 static solves, all 24 joints and the same
+MANO-wrist/Shadow-palm origin convention. Root orientation is recomputed through
+the actual wrist chain for each q; it is not forced equal while wrist angles
+change. No per-case tuning is used.
+
+Current targets regenerate all 32 saved joint vectors exactly. Independent
+Pinocchio/fixed MuJoCo FK agrees within 2.23e-16 m; fixed model/captured-scene
+links within 1.01e-7 m. Mean tip error is 6.428 mm current, 21.343 mm released
+reference and 2.353 mm metric/static sensitivity. Mean middle-link proxy error
+is 6.829/26.377/13.811 mm. The sensitivity improves tips but increases ten-link
+mean error from 6.628 to 8.082 mm. All optimizer calls return FTOL_REACHED
+without fallback; no projected pinch activates in this sample. Raw, filtered and
+physically clamped outputs remain distinct, with maximum clamp effects on links
+at most 0.130 mm.
+
+On exactly the same visible-object query sites, current whole-hand unsigned 2 mm
+proximity IoU is 0.242634–0.272962, versus 0.046728–0.161568 released reference
+and 0.132140–0.229001 metric/static. Current is higher in all six cases and the
+three finer repeats. Per-finger tradeoffs differ: sensitivity retains more
+native thumb/index proximity on average, while current retains more
+middle/ring/little. Thumb/index conditional means each use 4/6 native-nonempty
+cases; the other fingers use 6/6. Every lost/new/shared area and empty
+denominator remains reported. This supports retaining the current mapper for
+now, not certifying it as optimal or contact-equivalent.
+
+![Reference surface tradeoffs](../research_artifacts/hug_geometry_reference_validation_2026-10-14/surfaces/surface_reference_tradeoff.png)
+
+### Signed profiles preserve evidence of poor native proposals
+
+Native and target hand surfaces are sampled against the same closed visible
+object triangles, with negative-inside distances. All six native triangle-area
+profiles contain sampled penetration: maxima 1.87–24.28 mm and negative area
+fractions 2.99%–6.84%. On first apple, native/current/released/metric profiles
+have sampled maximum depths 16.84/13.93/21.64/13.65 mm and independent negative
+fractions 3.89%/4.17%/11.45%/2.99%. At finer density, the released maximum rises
+to 22.67 mm. Second milk-box metric/static depth is 27.37 mm versus native 24.28
+mm.
+
+These are independent shape profiles, not matched-point residuals or
+intersection volumes. Native original-vertex count profiles are separate from
+triangle-area profiles; target curved primitive query sites are projected onto
+exact analytic surfaces, with approximate tessellation area weights. Primary
+mapped profiles cover palm/fingers, while coarser carriers remain separately
+reported. Native self-overlap surfaces and sampled target-union exposure also
+differ in domain. Finite sampled maxima may miss deeper penetration, and zero
+negative samples cannot certify no intersection. Per-finger proximity misses and
+exterior-gap misses remain separate geometric definitions, not physical contacts
+or outcomes. Lower penetration alone cannot establish a faithful mapping.
+
+![Signed shape profiles](../research_artifacts/hug_geometry_reference_validation_2026-10-14/signed_profiles/signed_profiles_comparison.png)
+
+### Protocol history and numerical bounds
+
+Frozen per-phase protocols, executable scripts, exact compressed reports,
+provenance and sanity checks are preserved. Reference targets satisfy
+full-precision source URDF bounds. A legacy reference metadata table named
+physical_lower_rad/upper_rad actually stores captured-scene decimal bounds; [the
+correction](../research_artifacts/hug_geometry_reference_validation_2026-10-14/reference/corrections/README.md)
+preserves original bytes and verifies actual source-limit clamping. Some
+reference q values exceed the rounded captured-scene lower bound by 3.878e-7
+rad. This is a static representation audit, not a demonstrated production
+preflight rejection; production validates directly compiled source URDF bounds.
+No target is modified to pass the scene comparison.
+
+The incomplete surface V2 and signed V1 pilots remain versioned; their amended
+final protocols are not pooled with them. Current surface baselines reproduce
+exactly. Stepping guards, zero-time/object invariants, mathematical sanity
+checks and protected code/model/manuscript/input hashes pass. No numerical or
+surface score is adopted as a scientific acceptance threshold.
+
 ## Confirmation boundary and next step
 
-Use **native representation confirmed**, **coordinate/joint conversion
-confirmed**, and **grasp/contact fidelity unconfirmed** as separate statements.
-The overall HUG mapping is partially confirmed, not signed off as equivalent.
+Use **native representation confirmed**, **coordinate/joint conversion confirmed
+within tested scope**, and **grasp/contact fidelity approximate and
+unconfirmed** as separate conclusions. The HUG mapping is not signed off as
+contact- or outcome-equivalent.
 
-The wrist/palm and other-object checks are complete in the measured scope.
-Numerical placement/joint consistency is supported; actual cross-hand contact
-fidelity remains unconfirmed. Next inspect the collision-versus-visual object
-approximation and declare which anatomical object relationships a proposed
-retargeter must preserve. Use separate development/calibration and validation
-groups, with a justified acceptance criterion frozen before testing. The saved
-cases above are already inspected development evidence, not a fresh holdout.
-Version any later collider, mapper or executor change rather than rewriting
-historical results. Preserve poor native proposals and report changed/lost
-relationships. Outcome sensitivity and physical transfer require separately
-authorized future execution evidence. HUG remains active before the next
-provider; no evaluation collection or training starts with this static audit.
+The object-cause investigation and fixed-reference comparison are complete in
+the declared development scope. No tested scale/frame bug or reference advantage
+across the measured surfaces justifies a production replacement. Keep the
+current mapper and all poor native proposals. [The static validation
+framework](HUG_STATIC_VALIDATION_PROTOCOL.md) distinguishes implemented
+measurements from proposed scientific acceptance.
 
-See [the initial four-source audit](GRASP_MAPPING_FIDELITY.md) for source links
-and existing static measurements. Versioned HUG reports and reproducible
-scripts remain in the initial confirmation, finer-grid refinement and latest
-palm/object validation bundles; the links above identify each evidence phase.
+Next complete object-facing normal compatibility and spatial sampling
+uncertainty on these saved cases, then justify geometric acceptance margins from
+the intended claim and resolution/approximation limits before freezing an
+independent validation plan. Existing inspected objects/poses cannot become
+holdout evidence by relabeling them. A claim about preserved failure labels
+additionally needs separately authorized execution/outcome-sensitivity evidence.
+Version any later mapper, collider or executor change; do not rewrite historical
+results. HUG remains active before other providers, new eval collection and
+predictor training.
+
+See [the four-source audit](GRASP_MAPPING_FIDELITY.md) for original papers and
+source-specific contracts. All evidence phases remain separate and linked above.

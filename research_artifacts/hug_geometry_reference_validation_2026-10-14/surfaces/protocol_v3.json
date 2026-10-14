@@ -1,0 +1,142 @@
+{
+  "schema": "hug_existing_static_reference_surface_protocol_v3",
+  "frozen_utc": "2026-10-14T11:55:12.210559+00:00",
+  "scope": "Static retargeter reference comparisons on six preexisting development HUG poses plus finer repeats; no generator inference, physics integration, eval episode/label/dataset or predictor fitting.",
+  "case_selection": [
+    {
+      "object_id": "hug_apple",
+      "observation_group_id": "sha256:26705a9bdce55bc69c741c7f8491175085fb3fb93eceb84e24c69e4120dc28b6",
+      "native_sha256": "0b99bf1919f6d2c06b76361a2c710474c333d83a3ee750a25fb90490cd3b765c",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_0/proposal.pkl",
+      "source_inventory_index": 8
+    },
+    {
+      "object_id": "hug_apple",
+      "observation_group_id": "sha256:c6fbd5c38ae501c3452ad2b596e1d5d0c61fb46304df0ab43590cf7720fc613c",
+      "native_sha256": "2a1f9fd42435e90b5f3b9684c4fa1a7af92e2bcf60723cdc04ed7413a7d368d2",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_0/proposal.pkl",
+      "source_inventory_index": 12
+    },
+    {
+      "object_id": "hug_milk_box",
+      "observation_group_id": "sha256:d289acefecbfa26ba895e1446bdbe74898442d3d8ea1840dc65f46e6c32208bb",
+      "native_sha256": "9b543c10c9c647f6c0986954381dff9e24aa4aaec338433b0b71b5f7458ce731",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_0/proposal.pkl",
+      "source_inventory_index": 16
+    },
+    {
+      "object_id": "hug_milk_box",
+      "observation_group_id": "sha256:1301c8e97e16409a8209c8053047a9d03d337fb696552b5bc541e2ac51e1b6c0",
+      "native_sha256": "52ec7441c108f7a9704535c63611ff9d9da3d5f2871b57396b33fdb1e73a7d8b",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_0/proposal.pkl",
+      "source_inventory_index": 20
+    },
+    {
+      "object_id": "hug_mug",
+      "observation_group_id": "sha256:25ac5ecfb667d98aeabc060b069640a74805148a800669404d666c70c094bd98",
+      "native_sha256": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_0/proposal.pkl",
+      "source_inventory_index": 24
+    },
+    {
+      "object_id": "hug_mug",
+      "observation_group_id": "sha256:95ec9fd1d841d0aaa699c5fc9d5ee219f6a26a02dddaabc4e4ac3a43f0ef60a7",
+      "native_sha256": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/proposal.pkl",
+      "source_inventory_index": 28
+    }
+  ],
+  "methods": [
+    "stored_current",
+    "dexpilot_shipped",
+    "dexpilot_metric_static"
+  ],
+  "reference_method": "Dex Retargeting 0.5.0 DexPilot-style Shadow reference, not exact original paper or a HUG->Shadow gold truth; same fixed asset and implemented wrist/operator/palm placement convention.",
+  "query_domain": "Actual compiled disabled visual mesh triangles using exactly saved v4 deterministic area-weighted query sites. Keep collision-union checks separately; no pooled metric.",
+  "density_max_child_area_mm2": {
+    "all_six_cases": 4,
+    "first_source_order_group_each_object_repeat": 1
+  },
+  "proximity_bands_mm": [
+    1,
+    2,
+    5
+  ],
+  "metrics": "Whole-hand and independent anatomical-part unsigned proximity, occupied-or-near union footprint, lost/new/intersection area, per-finger retention; all include poor native poses/penetration. Target unsigned distances to individual collider surfaces; buried interfaces may contribute for penetrated queries. Globally exterior same-nearest-label normal/separation subset with mismatched/unmatched and closest-object-interior categories retained, not paired physical-contact annotations.",
+  "native_reference": "Immutable saved MANO mesh/labels and cached native distances/winding membership bound to published omission hashes. Closed orientation and source hashes previously checked; verify reused caches and regression before other claims.",
+  "target_placement": "Native MANO wrist=Shadow palm origin; R_world_palm=R_world_operator*R_base_palm(q). Recompute root pose per method exactly as current convention; initial object unchanged.",
+  "reported_normals": "Native oriented closest triangle, target nearest primitive/per-geom hull facet; label/proximity/exterior conditioned, no physical contact force or global contact-preservation pass rate.",
+  "guards": [
+    "mj_step",
+    "mj_step1",
+    "mj_step2"
+  ],
+  "invariants": "time zero, initial object qpos/worldpose fixed, 24 physical named joints, nominal state unchanged during measurement, input/source/model/manuscript hashes unchanged, licensed assets not copied.",
+  "scientific_acceptance": "No overall contact-fidelity threshold adopted from inspected development cases. Results are descriptive comparisons; shared frame assumptions not independently validated by agreement.",
+  "previous_visual_report_sha256": "e6d5ad2df1a6e138af501f9d8a055dd57f20b78ffb2263e53be0fa783ee98573",
+  "previous_query_library_sha256": "b235f8b88b5ecb0fc2bc842c3fdb4a17d4c2eb526f321a449169dcbc3cc27bdd",
+  "previous_visual_protocol_sha256": "7062f9d1e7b4454b7c5822dd4b75f4ccd002606063ab93db77658c1588798da6",
+  "previous_inventory_sha256": "5fc28832494c54c7822543a00ea735ab47e1d44d944ff50fc26712eb27536fcb",
+  "previous_fk_sha256": "04ebe393388193cf4ac256ea0fa0f61d8f2869805618d339c2572673f7445ae8",
+  "reference_protocol_sha256": "f0dfd74d18972e98799869d127a7baae8b6bbc2c31c158871ce164547caa05de",
+  "cached_query_sha256": [
+    {
+      "path": "visual_reference_surfaces/hug_apple_scene_002_seed_0_density1mm_queries.npz",
+      "size_bytes": 6751303,
+      "sha256": "d380472c38be758cfdfec36995675da464483c67f3ae6c4fa48581da0c1e79a5"
+    },
+    {
+      "path": "visual_reference_surfaces/hug_apple_scene_002_seed_0_density2mm_queries.npz",
+      "size_bytes": 1865155,
+      "sha256": "fd3500b5902969e941aa81eabe9e1ec345a489098a31fe438ba65f02ce714980"
+    },
+    {
+      "path": "visual_reference_surfaces/hug_apple_scene_003_seed_0_density2mm_queries.npz",
+      "size_bytes": 1865347,
+      "sha256": "8d032590372a532da4eb62e7abb161553e459223d29764b229e168c4e1e6f5e0"
+    },
+    {
+      "path": "visual_reference_surfaces/hug_milk_box_scene_000_seed_0_density1mm_queries.npz",
+      "size_bytes": 8567063,
+      "sha256": "7bbfb83da541fac1111431d2d83800d1df839cd722ba212af727538e66133f52"
+    },
+    {
+      "path": "visual_reference_surfaces/hug_milk_box_scene_000_seed_0_density2mm_queries.npz",
+      "size_bytes": 2504653,
+      "sha256": "291618ec92db0c4e5b1dd857d4ffba8e556efc7a2a8feb3068b89eae9276ce17"
+    },
+    {
+      "path": "visual_reference_surfaces/hug_milk_box_scene_001_seed_0_density2mm_queries.npz",
+      "size_bytes": 2504167,
+      "sha256": "999a927e524ab6030e104443ac48659cc89a199080d98b1afbeb4bd6781af7e2"
+    },
+    {
+      "path": "visual_reference_surfaces/hug_mug_scene_002_seed_0_density1mm_queries.npz",
+      "size_bytes": 20971214,
+      "sha256": "80e518b96dbd1b0e74134f12310b9fbd6fcf4d26537de87903639dc88a0a3adb"
+    },
+    {
+      "path": "visual_reference_surfaces/hug_mug_scene_002_seed_0_density2mm_queries.npz",
+      "size_bytes": 5608819,
+      "sha256": "2b405e6db66bc8ac4cd89227768bf8727bea8c64d1d2cafd24a2795f241ca754"
+    },
+    {
+      "path": "visual_reference_surfaces/hug_mug_scene_003_seed_0_density2mm_queries.npz",
+      "size_bytes": 5607022,
+      "sha256": "3375410e0b77554bba816e13e3a0f32620df9850d370634e8366187e8b48bfbb"
+    }
+  ],
+  "limitations": [
+    "Same six inspected development source families, one MANO shape; not independent validation or new eval data.",
+    "Packaged DexPilot scale/filter/pinch projection can deliberately change geometry; metric-static sensitivity predeclared separately and not chosen per case.",
+    "Normals only conditional geometric proxies; source self-intersection/winding occupancy uncertainty remains.",
+    "Object collision approximation investigated in separate cause phase; no collider or hand geometry changed.",
+    "No continuum convergence, quality guarantee, simulator/source-system equivalence or physical-transfer claim."
+  ],
+  "superseded_unexecuted_protocol_sha256": "8daa99b1490bea7dcee53ce32a60da53b8bfabf236386b23e9a2fc9cc7a77ebc",
+  "amendment_before_any_surface_measurements": "Add finite full target per-collider unsigned queries (no 5mm broadphase) for continuous paired-distance profiles. Fixed original masks/bands and query domains retained. V1 unexecuted and preserved.",
+  "continuous_distance_profiles": "For every native anatomical part with finite distances, report area-weighted mapped-minus-native unsigned-distance distributions across all common visual query sites and native-proximity<=5mm stratum. Min abs(per-collider signed distances), not exterior-union signed distance, and smaller is not automatically more faithful. Native-absent parts remain null.",
+  "superseded_aborted_protocol_sha256": "e86f6ddaa9fa18fc5f4634ad54e73b67a5d8a35c888760e7206b4dc901b35666",
+  "amendment_before_v3_measurements": "V2 stopped on source/captured-scene decimal joint-range discrepancy. Preserve its exact script/protocol/status. V3 validates unchanged targets against full source URDF physical ranges, permits only the actual per-joint URDF-vs-scene range difference plus1e-9rad for static FK, and records every stricter captured-scene violation. No q clipping, scene change or production preflight acceptance; alternative configs remain static diagnostics.",
+  "static_range_policy": "Exact full-source URDF range hard check with1e-9rad numeric allowance. Compare every bound to saved scene; disclose differences. Captured-scene FK check allowance is measured max absolute bound difference for that joint plus1e-9rad. Report strict saved-scene violations independently, so no claim of strict preflight acceptance is made."
+}

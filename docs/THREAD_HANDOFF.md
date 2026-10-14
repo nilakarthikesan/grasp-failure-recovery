@@ -318,3 +318,38 @@ Original quality filters are not conversion acceptance thresholds. Explicit
 mapping rejections are not physical failure labels. No thresholds or new
 collection protocol are frozen. HUG remains the active audit; no other provider
 acceptance, new inference/eval data, training or paper edit occurs.
+
+
+## 14 October 2026 — HUG object/reference static phase completed
+
+[Latest HUG findings](HUG_MAPPING_CONFIRMATION.md) and [the versioned
+geometry/reference
+bundle](../research_artifacts/hug_geometry_reference_validation_2026-10-14/README.md)
+complete source-vs-compiled object checks, all-32 reference point/FK checks, six
+same-query surface comparisons and six signed hand/object profiles with finer
+first-group repeats. No tested scale/frame bug is found. Apple/milk large
+interior-wall distance witnesses reflect inherited micrometer slits; mug also
+has exterior hull approximation. Do not enlarge probes or modify colliders to
+improve diagnostic scores.
+
+Metric-static reference tips improve (6.428 to 2.353 mm mean), but middle-link
+proxies worsen (6.829 to 13.811 mm) and current whole unsigned 2 mm visual
+proximity is higher for all six pairs. Per-finger tradeoffs remain explicit. All
+six native area profiles already contain sampled penetration. Keep current
+mapping and poor native proposals; lower penetration or a successful lift is not
+a mapping gate.
+
+Historical reference bound-table metadata is corrected separately, without
+overwriting it: actual solver clamps use source URDF, legacy table lists rounded
+captured-scene bounds. Final surface V3/signed V2 parse source XML and record
+tiny scene excess; incomplete surface V2/signed V1 remain preserved. Do not
+claim this static discrepancy caused a production preflight rejection.
+
+[The measurement framework](HUG_STATIC_VALIDATION_PROTOCOL.md) clearly marks
+implemented versus proposed criteria. Numerical native/coordinate/joint checks
+are supported within scope, contact/outcome equivalence remains unconfirmed.
+Next complete object-facing normals and spatial sampling uncertainty, justify
+margins and freeze independent unseen-object/observation validation; inspected
+poses are development evidence. HUG stays active before other providers. No new
+inference, dynamics, eval data/labels, training, production change or manuscript
+edit occurred. Protected model/code/paper and original inputs remain unchanged.

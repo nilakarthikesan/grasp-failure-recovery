@@ -1,0 +1,1 @@
+Incomplete V1 pilot; no completed report or conclusions. Its exact script/protocol/log are preserved. Strict assertion mistakenly compared metric-static target against rounded baseline range field. Target stays valid against original full source URDF; V2 fixes authority and explicitly reduces carrier density to bound runtime. No target or physical asset was changed.

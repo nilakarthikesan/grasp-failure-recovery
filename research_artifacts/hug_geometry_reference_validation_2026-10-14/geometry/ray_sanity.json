@@ -1,0 +1,43 @@
+{
+  "source_script_sha256": "497666df2add53a27f89e575c12190fd886f805ea5bc29b09f1b7629b4feb38f",
+  "script_sha256": "90af50c3d9dfb85b89ae6e7d73f92a83ee1f12be1a5c526fc464d37ae516670e",
+  "checks": [
+    {
+      "case": "entry_to_known_cube",
+      "actual_entry_m": 1.0,
+      "expected_entry_m": 1.0,
+      "passed": true
+    },
+    {
+      "case": "away_from_cube",
+      "actual_entry_m": null,
+      "expected_entry_m": null,
+      "passed": true
+    },
+    {
+      "case": "parallel_outside",
+      "actual_entry_m": null,
+      "expected_entry_m": null,
+      "passed": true
+    },
+    {
+      "case": "starting_inside",
+      "actual_entry_m": 0.0,
+      "expected_entry_m": 0.0,
+      "passed": true
+    },
+    {
+      "case": "tangent_boundary",
+      "actual_entry_m": 1.0,
+      "expected_entry_m": 1.0,
+      "passed": true
+    },
+    {
+      "case": "nonidentity_transform",
+      "actual_entry_m": 0.9999999999999999,
+      "expected_entry_m": 1.0,
+      "passed": true
+    }
+  ],
+  "limitation": "Ray interval intersection includes boundary tangency. Re-entry alone establishes local next-solid boundary, not global cavity connectivity or finite-hand contact access."
+}

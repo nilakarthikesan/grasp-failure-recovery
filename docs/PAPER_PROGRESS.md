@@ -200,3 +200,25 @@ not frozen. The user accepts preserving poor proposals and separating mapping
 fidelity from task outcomes. This adds literature context, not new generated
 evidence or a completed four-source comparison. HUG validation stays active;
 the manuscript, production pipeline and predictor remain unchanged.
+
+
+## HUG object/reference diagnostics, 14 October 2026
+
+[The completed static phase](HUG_MAPPING_CONFIRMATION.md) separates inherited
+object collision approximation from retargeter tradeoffs. Tested source/compiled
+object frames agree; no placement correction is justified. A fixed released
+reference and metric/static sensitivity show that better tip fitting can worsen
+middle-finger geometry and object proximity. Current whole unsigned proximity is
+higher on all six paired noncube development cases. Native signed area profiles
+already penetrate the visible solid, so bad source proposals are retained rather
+than repaired into successes.
+
+[Measurement definitions and proposed
+acceptance](HUG_STATIC_VALIDATION_PROTOCOL.md) distinguish numerical
+correctness, approximate surfaces and untested execution/label equivalence.
+Reference bound metadata is corrected without rewriting original results;
+protocol pilots and final versions remain separate. Next
+normal/sampling-uncertainty checks and an externally justified independent
+validation design remain pending. No new inference, physics, eval data/labels,
+training, production mapper change or manuscript edit occurs. This is supporting
+mapping evidence, not a completed multi-generator predictor study.
