@@ -1281,3 +1281,28 @@ table-clearance and scene-calibration matrix operations; they remain disclosed.
 The CLI help command succeeds, 376 local documentation links resolve, and
 original model/pilot/corrected-mug/wrist artifacts and the manuscript have no
 changes relative to the pre-integration branch.
+
+## 13 October 2026 Running one HUG-derived cube through the shared evaluator
+
+One declared cube case ran through `grasp-eval` at code snapshot `7c49494`,
+using the original v2 executor and no extra command noise. The verified saved
+HUG scene-000 seed-0 proposal was retargeted with the existing Dex adapter
+(mean fingertip error 6.704 mm) and emitted as a project-authored saved Shadow
+record. This is a HUG-derived development replay, not fresh generator inference
+or an independent unseen-object test.
+
+The physical task succeeds: maximum lift 0.151335 m, stable hold 2.0 s and
+peak-to-final height loss 0.000760 m. Independent arithmetic reproduces the
+result from all 163 saved samples, with no hand/table contact in those samples.
+The original predictor hash remains `16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb`;
+it was not scored because this generic recorder lacks required velocity/command
+histories. No model, controller, source code or historical result was changed.
+
+The earlier fresh-inference launch stopped before physics when the HUG runtime
+reported missing dependencies. That setup attempt has no binary task label
+and remains separate. Full inputs, declaration, verification hashes, trajectory
+and replay are local under
+`runs/partner_eval_2026-10-13_hug_cube_replay/` in the working checkout; the
+incomplete launch is at `runs/partner_eval_2026-10-13_hug_cube/`. This check
+establishes usable shared execution of an existing HUG-derived target, not
+new predictor accuracy or generalization.
