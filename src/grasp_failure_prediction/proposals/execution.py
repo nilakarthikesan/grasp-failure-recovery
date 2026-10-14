@@ -34,7 +34,23 @@ from .schema import (
     ProposalArtifactReferences,
     ProposalExecutionResult,
     ProposalExecutionValidation,
+    ProposalPreflightRejection,
+    ResolvedProviderMetadata,
 )
+
+
+class ProposalRejected(ValueError):
+    """A structured pre-rollout rejection which has no physical task label."""
+
+    def __init__(self, rejection: ProposalPreflightRejection):
+        self.rejection = rejection
+        super().__init__(rejection.message)
+
+
+def _reject(stage: str, code: str, message: str) -> None:
+    raise ProposalRejected(ProposalPreflightRejection(
+        status="proposal_rejected", stage=stage, code=code, message=message
+    ))
 
 
 @dataclass(frozen=True)
@@ -86,9 +102,11 @@ def _validate_pose(proposal) -> tuple[NamedJointPose, ProposalExecutionValidatio
     if actual != set(expected):
         missing = sorted(set(expected) - actual)
         unexpected = sorted(actual - set(expected))
-        raise ValueError(
+        _reject(
+            "structural",
+            "shadow_joint_set_mismatch",
             f"proposal joint set does not match Shadow Hand; missing={missing}, "
-            f"unexpected={unexpected}"
+            f"unexpected={unexpected}",
         )
     qpos = np.asarray([proposal.joint_targets_rad[name] for name in expected])
     lower = validator.model.jnt_range[:, 0]
@@ -98,7 +116,7 @@ def _validate_pose(proposal) -> tuple[NamedJointPose, ProposalExecutionValidatio
     if np.any(qpos[limited] < lower[limited] - tolerance) or np.any(
         qpos[limited] > upper[limited] + tolerance
     ):
-        raise ValueError("proposal joint target violates the Shadow Hand joint limits")
+        _reject("kinematic", "shadow_joint_limit_violation", "proposal joint target violates the Shadow Hand joint limits")
     margins = np.minimum(qpos[limited] - lower[limited], upper[limited] - qpos[limited])
     pose = NamedJointPose(expected, qpos)
     validator.set_pose(pose)
@@ -109,6 +127,12 @@ def _validate_pose(proposal) -> tuple[NamedJointPose, ProposalExecutionValidatio
         provider_validation_status=proposal.provider_validation.status,
         provider_metrics=proposal.provider_validation.metrics,
     )
+
+
+def _scene_preflight(proposal) -> None:
+    translation = np.asarray(proposal.object_to_palm.translation_m, dtype=np.float64)
+    if float(np.linalg.norm(translation)) > 0.5:
+        _reject("scene_preflight", "palm_implausibly_distant", "palm is more than 0.5 m from the object frame")
 
 
 def _write_artifacts(
@@ -179,6 +203,15 @@ def _write_artifacts(
         proposal_id=proposal.proposal_id,
         provider_id=proposal.provider.id,
         provider_config_hash=proposal.provider.config_hash,
+        provider_metadata=ResolvedProviderMetadata(
+            kind=resolved.provider_spec.kind,
+            translation_strategy_id=resolved.provider_spec.translation_strategy_id,
+            source_revision=resolved.provider_spec.provenance.source_revision,
+            license_statuses={
+                name: getattr(resolved.provider_spec.provenance, name).status
+                for name in ("code", "checkpoint", "dataset", "object_assets")
+            },
+        ),
         proposal_hash=proposal_hash,
         generation_seed=proposal.generation.seed,
         proposal_sample_index=proposal.generation.sample_index,
@@ -255,6 +288,7 @@ def run_proposal_case(
     if proposal.approach_semantics != spec.approach_semantics:
         raise ValueError("proposal approach semantics do not match its provider registry entry")
     pose, validation = _validate_pose(proposal)
+    _scene_preflight(proposal)
     runner_type = _runner_class(resolved)
     runner = runner_type(
         resolved.execution_protocol,
@@ -289,6 +323,9 @@ def run_proposal_case(
         resolved.execution_protocol,
         control_timestep_s=runner.control_timestep_s,
     )
+    # Attach the already resolved provider spec for provenance reporting without
+    # changing the evaluator's environment/protocol resolution contract.
+    object.__setattr__(resolved, "provider_spec", spec)
     result = _write_artifacts(
         output,
         resolved=resolved,

@@ -1,6 +1,7 @@
 hug_mano_shadow_v1:
   schema_version: proposal_provider_spec_v1
   provider_id: hug_mano_shadow_v1
+  kind: model
   adapter: grasp_failure_prediction.proposals.providers:HugProposalProvider
   embodiment_id: shadow_hand_right
   execution: local_or_external
@@ -8,22 +9,68 @@ hug_mano_shadow_v1:
   compatible_execution_protocols: [fixed_grasp_lift_v2]
   approach_semantics: fixed_world_negative_z
   maximum_mean_fingertip_error_m: 0.01
+  translation_strategy_id: mano_right_to_shadow_hand_right_v1
+  provenance:
+    source_revision: externally_supplied_and_reported_per_proposal
+    source_location: https://github.com/KevinyWu/hug
+    code: {status: unverified, evidence: external checkout is hashed at runtime, redistribution: unknown}
+    checkpoint: {status: unverified, evidence: external checkpoint hash is recorded per proposal, redistribution: restricted}
+    dataset: {status: unverified, evidence: no training dataset is distributed by this repository, redistribution: unknown}
+    object_assets: {status: unverified, evidence: observation geometry is content-addressed per request, redistribution: unknown}
 
 shadow_saved_record_v1:
   schema_version: proposal_provider_spec_v1
   provider_id: shadow_saved_record_v1
+  kind: dataset_replay
   adapter: grasp_failure_prediction.proposals.providers:SavedShadowProposalProvider
   embodiment_id: shadow_hand_right
   execution: local
   required_inputs: [object_geometry, saved_shadow_record]
   compatible_execution_protocols: [fixed_grasp_lift_v2]
   approach_semantics: fixed_world_negative_z
+  translation_strategy_id: dex_urdf_shadow_identity_v1
+  provenance:
+    source_revision: project_authored_v1
+    source_location: tests/fixtures/provider_saved_cube.json
+    code: {status: verified, identifier: MIT, evidence: repository LICENSE, redistribution: allowed}
+    checkpoint: {status: not_applicable, evidence: no learned checkpoint is used, redistribution: not_applicable}
+    dataset: {status: not_applicable, evidence: project-authored synthetic record only, redistribution: not_applicable}
+    object_assets: {status: verified, identifier: project-authored, evidence: synthetic fixture geometry, redistribution: allowed}
 
 dexgrasp_anything_shadow_v1:
   schema_version: proposal_provider_spec_v1
   provider_id: dexgrasp_anything_shadow_v1
+  kind: model
   embodiment_id: shadow_hand_right
   execution: external
   required_inputs: [object_mesh, object_point_cloud]
   compatible_execution_protocols: [fixed_grasp_lift_v2]
   approach_semantics: fixed_world_negative_z
+  translation_strategy_id: unsupported_pending_official_mapping
+  provenance:
+    source_revision: unaudited
+    source_location: https://github.com/4DVLab/DexGrasp-Anything
+    code: {status: unverified, evidence: official release not pinned in this repository, redistribution: unknown}
+    checkpoint: {status: unverified, evidence: no checkpoint is available locally, redistribution: unknown}
+    dataset: {status: unverified, evidence: training provenance has not been audited, redistribution: unknown}
+    object_assets: {status: unverified, evidence: object asset license has not been audited, redistribution: unknown}
+
+dexgraspnet_saved_record_v1:
+  schema_version: proposal_provider_spec_v1
+  provider_id: dexgraspnet_saved_record_v1
+  kind: dataset_replay
+  enabled: false
+  unsupported_reason: exact official saved-record semantics, licensed record, and audited Shadow mapping are unavailable
+  embodiment_id: shadow_hand_right
+  execution: external
+  required_inputs: [object_geometry, saved_provider_record]
+  compatible_execution_protocols: [fixed_grasp_lift_v2]
+  approach_semantics: fixed_world_negative_z
+  translation_strategy_id: unsupported_pending_official_mapping
+  provenance:
+    source_revision: unaudited
+    source_location: https://github.com/PKU-EPIC/DexGraspNet
+    code: {status: unverified, evidence: official release not pinned in this repository, redistribution: unknown}
+    checkpoint: {status: not_applicable, evidence: replay path does not run a checkpoint, redistribution: not_applicable}
+    dataset: {status: unverified, evidence: no licensed saved record is available locally, redistribution: restricted}
+    object_assets: {status: unverified, evidence: no redistributable official fixture is available locally, redistribution: restricted}

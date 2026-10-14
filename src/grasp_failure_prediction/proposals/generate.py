@@ -263,6 +263,10 @@ def generate_proposals(
     effective_request = request_file
     registry = load_provider_registry()
     spec = registry.resolve(request.provider.id, request.provider.expected_config_hash)
+    if not spec.enabled:
+        raise ValueError(
+            f"provider {spec.provider_id!r} is unsupported: {spec.unsupported_reason}"
+        )
     if spec.embodiment_id != request.embodiment_id:
         raise ValueError("provider embodiment does not match proposal request")
     _validate_requirements(request, spec, project)

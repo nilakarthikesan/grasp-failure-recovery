@@ -1,0 +1,33 @@
+dex_urdf_shadow_identity_v1:
+  schema_version: translation_strategy_spec_v1
+  strategy_id: dex_urdf_shadow_identity_v1
+  strategy_kind: exact_kinematic_mapping
+  source_hand_model_id: shadow_hand_right_dex_urdf_7304c7f
+  target_hand_model_id: shadow_hand_right
+  source_root_link: palm
+  target_root_link: palm
+  source_asset_hash: sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de
+  target_asset_hash: sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de
+  joint_mapping_path: configs/shadow_identity_mapping_v1.yaml
+  evidence:
+    - {role: source_asset, location: third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf, sha256: "sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de", availability: repository}
+    - {role: target_asset, location: third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf, sha256: "sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de", availability: repository}
+    - {role: joint_mapping, location: configs/shadow_identity_mapping_v1.yaml, sha256: "sha256:046b1d1ed87323d81df0fbecf866a1121de03909e5fe7b97d0ddf44a0c2b843a", availability: repository}
+    - {role: implementation, location: src/grasp_failure_prediction/proposals/translation.py, sha256: "sha256:40daa48e9819e2f90b0613d7916c290e077947a933f5e3cabf2e514c6e0a48fe", availability: repository}
+
+mano_right_to_shadow_hand_right_v1:
+  schema_version: translation_strategy_spec_v1
+  strategy_id: mano_right_to_shadow_hand_right_v1
+  strategy_kind: official_retargeter
+  source_hand_model_id: mano_right_hug_landmarks_v1
+  target_hand_model_id: shadow_hand_right
+  source_root_link: wrist
+  target_root_link: palm
+  target_asset_hash: sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de
+  retargeter_id: dex_retargeting_vector_shadow_right
+  maximum_mean_fingertip_error_m: 0.01
+  evidence:
+    - {role: target_asset, location: third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf, sha256: "sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de", availability: repository}
+    - {role: retargeter_config, location: dex_retargeting/configs/teleop/shadow_hand_right.yml, sha256: "sha256:e12e9aa5c8f51010793bfa04f3d92ea998b51b8503e5e61330ca8db194f7bf0e", availability: python_package}
+    - {role: implementation, location: src/grasp_failure_prediction/evaluation/retargeting.py, sha256: "sha256:a6631a0f0d20f6ef94c389529b7d6d677a8a8cd9f8e923efff19ccfee26aa4ff", availability: repository}
+    - {role: implementation, location: src/grasp_failure_prediction/integrations/hug_frames.py, sha256: "sha256:cd7ad9b8df1d5d6adad70e949a9c7f21ad448a25710a54f47e1ffa95fa28562a", availability: repository}
