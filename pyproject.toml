@@ -79,10 +79,15 @@ Homepage = "https://github.com/nilakarthikesan/grasp-failure-recovery"
 Repository = "https://github.com/nilakarthikesan/grasp-failure-recovery"
 
 [project.scripts]
+grasp-eval = "grasp_failure_prediction.grasp_eval:main"
 inspect-adroit = "grasp_failure_prediction.environments.adroit:main"
 inspect-hug-prediction = "grasp_failure_prediction.integrations.hug:main"
 view-retargeted-hand = "grasp_failure_prediction.evaluation.view_pose:main"
 run-hug-eval-case = "grasp_failure_prediction.evaluation.case_runner:main"
+generate-grasp-proposals = "grasp_failure_prediction.proposals.generate:main"
+validate-grasp-proposal = "grasp_failure_prediction.proposals.validate:main"
+run-grasp-eval-case = "grasp_failure_prediction.proposals.execution:main"
+run-grasp-eval-batch = "grasp_failure_prediction.proposals.batch:main"
 collect-noisy-rollouts = "grasp_failure_prediction.evaluation.noisy_rollouts:main"
 export-task-prefixes = "grasp_failure_prediction.prediction.dataset:main"
 train-outcome-baseline = "grasp_failure_prediction.prediction.model:main"
@@ -99,6 +104,7 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "grasp_failure_prediction.evaluation" = ["configs/*.yaml"]
+"grasp_failure_prediction.proposals" = ["configs/*.yaml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

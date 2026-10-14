@@ -37,6 +37,17 @@ reported metrics.
 For simulation setup, HUG asset requirements, collection and replay commands,
 see [Running the project](docs/RUNNING_THE_PROJECT.md).
 
+## Grasp proposal sources
+
+HUG remains the reference generator. A shared proposal contract also supports
+trusted saved Shadow poses and pinned DexGraspNet sample replay.
+The [unified evaluation command](docs/GRASP_EVAL_CLI.md) validates, runs, resumes
+and inspects declared experiments. See [DexGraspNet replay](docs/DEXGRASPNET_REPLAY.md)
+for the imported dataset and its execution limits.
+
+The existing predictor uses the original closing-history dataset. Generic
+provider runs do not yet record every state/action field required by that model.
+
 ## Documentation and results
 
 - [Documentation index](docs/README.md)

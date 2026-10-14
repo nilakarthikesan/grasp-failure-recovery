@@ -1,8 +1,9 @@
 # Containerized evaluation runtime
 
 **Verified public Linux runtime, 12 October 2026.** Docker is unavailable on the
-current Mac. Linux image build and public smoke results are recorded in the
-[container workflow](https://github.com/nilakarthikesan/grasp-failure-recovery/actions/workflows/container-eval.yml).
+current Mac. The Dockerfile and verification scripts remain available for
+deliberate validation. PR 22 removed the automatic container workflow on
+12 October; the successful historical Linux run is linked below.
 The connected inference script currently runs on CPU; a CUDA base image does
 not establish that inference uses the GPU.
 

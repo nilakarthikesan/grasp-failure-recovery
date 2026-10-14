@@ -1138,3 +1138,146 @@ results are preserved. The user reports a partner-agreed thesis/testing plan;
 its exact wording was requested rather than inferred. The larger coverage
 comparison remains unexecuted in the current saved evidence. Any later agreed
 protocol should be reconciled with this record and supporting artifacts.
+
+## 13 October 2026 — Implement the evidence-backed translation boundary first
+
+- **Previous plan:** Add DexGraspNet saved-record replay after hardening the
+  provider boundary and geometry inputs.
+- **New evidence:** The repository contains the pinned right-Shadow URDF, the
+  existing tested HUG/Dex Retargeting conversion, and project-authored saved
+  Shadow fixtures. It does not contain a licensed DexGraspNet record, an exact
+  official saved-record contract, an audited object-scale binding, or an
+  authoritative mapping from the released source hand to this evaluator's
+  pinned Shadow asset.
+- **Choice:** Implement the strict reusable boundary and deterministic geometry
+  inputs, register the existing HUG strategy and exact same-asset Shadow mapping,
+  and fail closed for unsupported source models. Register DexGraspNet as disabled
+  `dataset_replay` with the missing evidence stated explicitly. Do not invent a
+  transform or describe the project-authored synthetic fixture as DexGraspNet.
+- **Implementation status:** Implemented on `codex/multi-provider-translation`.
+  Provider classification and license status appear in resolved results;
+  pre-rollout rejections carry a null task label; seeded object-frame point
+  clouds and manifests are content-addressed. The environment, controller,
+  scorer, and execution protocol were not changed.
+- **Evidence:** Focused translation/provider/object tests pass, including exact
+  named-joint mapping, changed-evidence rejection, deterministic point bytes,
+  manifest sensitivity, disabled-provider metadata, and no-outcome rejection
+  semantics. The full-suite result is recorded with the implementation commit.
+- **Next check:** Obtain an authorized redistributable or externally mounted
+  DexGraspNet record plus its exact official schema, source asset, coordinate and
+  scale semantics, then add a provider-specific decoder and run the visual and
+  physics acceptance gate before enabling it.
+
+## 12 October 2026 Adding an interchangeable grasp-proposal boundary
+
+The active evaluator previously coupled fresh inference, HUG pickle loading,
+MANO conversion, Dex Retargeting and MuJoCo execution in one HUG-specific
+command. The user wants to compare grasp generators while keeping the registered
+Shadow Hand environment, fixed controller and outcome rule unchanged.
+
+The implementation adds a strict `grasp_proposal_v1` JSON boundary. A proposal
+binds a provider/configuration, object geometry, generation seed, exact named
+Shadow joint targets and `T_object_palm`, where the `palm` link is expressed in
+the registered MuJoCo object body frame. It also records separate geometry,
+observation and generation-request groups. Portable execution validates the
+canonical artifact and its content hash; provider-native outputs and checkpoints
+remain optional deep-audit inputs so a cloud-generated proposal can run without
+the generation environment.
+
+Generation and execution are separate. Built-in HUG and project-authored saved
+record adapters, an external-command contract and an HTTP JSON contract all
+produce the same artifact. New `eval_case_v2` files execute through a generic
+one-case or batch command. Historical `eval_case_v1` HUG commands remain
+available and are not rewritten. Provider identity is provenance and analysis
+metadata and is not an input to the existing failure predictor.
+
+This is an infrastructure result, not evidence that any grasp model is better.
+A deterministic saved proposal completed the common MuJoCo command and was
+scored as `approach_collision`; that failure only verifies end-to-end dispatch.
+A fresh simulator observation was then processed by the pinned HUG checkpoint
+on CPU and executed successfully through the generic runner. Replaying the same
+native HUG proposal through the legacy runner produced the same successful
+outcome and matching phase/contact arrays. Maximum numeric trajectory deviation
+was 5.1e-13 m for palm position, 8.2e-12 rad for hand position and 3.5e-9 N for
+contact force, consistent with transform serialization roundoff. These ignored
+runtime smoke artifacts are not research data and are not committed.
+
+The next scientific check is paired HUG and non-HUG proposals on identical
+objects and initial conditions, followed by grouped, held-out outcome analysis.
+
+## 12 October 2026 — Use one versioned command for proposal-to-evaluation experiments
+
+- **Previous plan:** Users invoked proposal generation, case materialization,
+  batch execution, and the result viewer as separate commands. That exposed
+  internal paths and made it easy to mix proposals, hashes, and output roots.
+- **New evidence:** The interchangeable-provider implementation already has
+  strict request, proposal, case, and result boundaries, so orchestration can
+  be added without changing HUG, the MuJoCo environment, or the scorer.
+- **Choice:** Add `grasp-eval` with `validate`, `run`, `status`, `resume`, and
+  `view` subcommands over `grasp_eval_experiment_v1`. One experiment file maps
+  provider requests and proposal sample indexes to controlled physical cases.
+- **Implementation status:** Implemented on `codex/project-work`. Completed
+  cases are immutable during resume; incomplete stage directories are retained
+  before retry. Existing low-level commands remain available for debugging.
+- **Next check:** Run a small multi-provider experiment and confirm that resume,
+  videos, and the viewer behave correctly before adding dataset-wide
+  Parquet/DuckDB export.
+# DexGraspNet replay uses a measured kinematic mapping
+
+- **Decision:** Enable the pinned official DexGraspNet sample as
+  `dataset_replay`, with licensed inputs kept under ignored local `data/`.
+- **Evidence:** Official commit `bd1b13d7248729af117e1d46aaa6266b147a3c7b`
+  documents metric translation, static-XYZ Euler rotation, 22 named Shadow
+  joints, and object scale. FK comparison against the canonical `dex-urdf`
+  Shadow hand measured 0.429 mm mean and 1.722 mm maximum fingertip residual on
+  the first record.
+- **Boundary:** The source has a free palm while the canonical model has two
+  wrist joints. Replay maps the source palm pose to `T_object_palm`, sets the
+  canonical wrist joints to zero, and applies only the registered name/sign map.
+- **Outcome:** Ten official mug records produced seven approach collisions, one
+  failed acquisition, and two unlabeled joint-limit rejections. No proposal was
+  clipped or repositioned.
+- **Next check:** Run fresh DexGrasp Anything sampling on an Ubuntu/NVIDIA worker
+  and feed its untouched native outputs through the same translation and FK
+  gates.
+
+
+## 13 October 2026 Integrating the partner's merged provider infrastructure
+
+**Evidence:** Enoch merged PRs [21](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/21),
+[22](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/22),
+[23](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/23) and
+[24](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/24) into main
+through `b503c2f`. All four partner branch tips are ancestors of that snapshot.
+The provider contract, unified CLI, geometry preparation, translation checks
+and pinned DexGraspNet replay are implemented. Fresh DexGrasp Anything inference
+remains a GPU-worker handoff rather than a completed integration.
+
+**Source integration:** merge that main snapshot into the existing
+`codex/project-work` branch, preserving the curated README and both decision
+histories. The only merge conflicts are documentation. Partner implementation
+files are incorporated without modifying them; existing models, datasets,
+labels and corrected v3/v4 diagnostics retain their original provenance.
+
+**Execution evidence and next gate:** the ten-record DexGraspNet gate contains
+seven approach collisions, one failed acquisition and two null-label joint-limit
+rejections, with no successes. Its free-space grasps use the original v2 tabletop
+executor, so this is not an evaluation of the corrected mug protocol. Generic
+provider output currently omits the per-frame velocities and command targets
+required by the existing predictor exporter. Inspect tabletop suitability and
+define a versioned compatible recorder/export path before treating new provider
+rollouts as prediction data. No new model fit or research collection is part of
+this integration.
+
+**Integration verification:** the combined suite passes 416 tests with 33
+skipped. Initial collection failed in the lightweight local environment because
+Pydantic and Pinocchio were absent; missing dependencies were provisioned under
+`/private/tmp` without modifying the recorded project environment. The passing
+test runtime used Python 3.12.13, NumPy 2.2.6, SciPy 1.17.1, MuJoCo 3.3.7,
+Pydantic 2.14.1, Dex Retargeting 0.5.0 and Pinocchio 4.1.0. It differs from
+historical experiment runtimes and is an integration check, not a replay of
+the research results. The suite reports 105 numerical warnings in existing
+table-clearance and scene-calibration matrix operations; they remain disclosed.
+The CLI help command succeeds, 376 local documentation links resolve, and
+original model/pilot/corrected-mug/wrist artifacts and the manuscript have no
+changes relative to the pre-integration branch.

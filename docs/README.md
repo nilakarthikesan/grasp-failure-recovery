@@ -2,6 +2,10 @@
 
 ## Run and reproduce
 
+- [Unified multi-provider evaluation command](GRASP_EVAL_CLI.md)
+- [Pinned DexGraspNet replay](DEXGRASPNET_REPLAY.md)
+- [External provider worker contract](GRASP_PROVIDER_WORKERS.md)
+
 - [Setup, simulation commands and replay](RUNNING_THE_PROJECT.md)
 - [Noisy rollout collection and task labels](NOISY_ROLLOUT_COLLECTION.md)
 - [Multi-scene collection and geometry provenance](MULTI_SCENE_COLLECTION.md)

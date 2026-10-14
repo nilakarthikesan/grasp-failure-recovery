@@ -1,6 +1,6 @@
 # Completed experiments and evidence
 
-Updated 12 October 2026. This index reports saved simulation results.
+Updated 13 October 2026. This index reports saved simulation results.
 The [research protocol](HUG_MONITOR_RESEARCH_PLAN.md) separates the recorded
 research question and pending comparisons from completed experiments.
 The [working paper](paper/working_draft.tex) draws on the evidence below.
@@ -73,6 +73,24 @@ submillimeter amount and is not evidence of a drop.
 
 The corrected checks and paired diagnostics reuse development families and
 have distinct executor versions. They must be reported separately.
+
+## Partner provider foundation and replay gate
+
+PRs 21 through 24 add interchangeable grasp proposal sources, a unified
+evaluation command, explicit pose/geometry translation checks and official
+DexGraspNet sample replay. All are merged into main through `b503c2f` and
+integrated into the ongoing working branch.
+
+The recorded ten-sample mug gate has seven approach collisions, one failed
+acquisition and two null-label joint-limit rejections, with no successes.
+This is a dataset-replay execution check, not a trained predictor evaluation.
+[Replay and translation scope](DEXGRASPNET_REPLAY.md) and
+[gate evidence](../research_artifacts/dexgraspnet_replay_gate_v1/README.md).
+
+The generic v2 output lacks velocity and commanded-target histories required
+by the existing predictor exporter. Fresh non-HUG model inference and compatible
+prediction-data recording remain implementation work. No model improvement is
+established by importing these proposals.
 
 ## Claim boundaries and paper status
 
