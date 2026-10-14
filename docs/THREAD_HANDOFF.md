@@ -425,3 +425,28 @@ followed by the unchanged audit. Do not tune acceptance to these development
 cases. No current evidence proves strict preservation globally impossible or
 approximate predictor adequacy. Preserve the current paper path and existing
 untracked/ignored files; continue on codex/project-work.
+
+
+## 14 October 2026 — Fingertip/direction code checkpoint; HUG fits still running
+
+Latest authorization: implement fingertip constraints and surface direction
+fitting on existing HUG grasps, rerun mapping checks, generate no new eval data
+and do not move to another generator. [The new method](HUG_CONSTRAINED_REFINEMENT.md)
+and isolated API are implemented. Fifty new manufactured tests and all 120
+installed new/prior surface API tests pass; this is not geometry sign-off.
+
+Canonical joint method V1 runtime V2.1 is running all six existing seed-0
+apple/milk/mug grasps from original q, fixed 120-iteration budget. Protocol
+e42b74b787a8a1a5b5a661596466fe66b24c14eea39db25ad039fda2a462b8ff is at
+/private/tmp/hug_constrained_refinement_runtime_v2_1_2026-10-14/protocol.json.
+Complete fits, source preflight and unchanged six-coarse/three-fine audit are
+PENDING at this checkpoint. Do not treat live callback probes as selected poses.
+
+The final independent wrapper is prepared in
+/private/tmp/hug_constrained_validation_runtime_v2_1_2026-10-14, protocol
+9f0e0833c80a5b36f0ad21f629ecb84cf399f0e2e7669436eb3b93e561faf8f5.
+Preserve incomplete V1, import-aborted V2 and unexecuted faster-helper V3 history
+separately. Do not restart the active fits for further performance work. The
+default mapper/controller/model/manuscript and 114 protected source bytes remain
+unchanged. Continue the authorized static checks; no new inference, physical
+eval data, training or another-generator advance is authorized.

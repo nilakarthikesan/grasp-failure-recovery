@@ -266,3 +266,20 @@ eval data, task labels, prediction fits or independent generalization evidence.
 A constrained native-relative direction-aware solve remains proposed. The
 central multi-generator failure-prediction study has not yet been trained or
 validated by these mapping diagnostics.
+
+
+## HUG constrained correction implementation, 14 October 2026 — results pending
+
+[The joint constrained method](HUG_CONSTRAINED_REFINEMENT.md) is implemented in
+an isolated API: five original-error fingertip constraints, strict mean guard,
+actual native-relative direction targets and retained invalid-site penalties.
+Fifty new manufactured tests pass; 120 installed new/prior API tests pass.
+The six existing-grasp fits are still running under canonical runtime V2.1.
+Independent source preflight and unchanged nine-resolution surface audit are
+pending; no new geometry result or mapping sign-off is claimed yet.
+
+Default production mapping, controller, original inputs, manuscript and frozen
+predictor remain unchanged. No new generator inference, eval episode/label,
+training or other-generator validation occurs. This is implementation progress
+toward supporting mapping validity, not a completed multi-generator prediction
+study or independent generalization result.

@@ -1943,3 +1943,40 @@ features could target the remaining relationships. Freeze settings and preserve
 bad native states, ties/unavailable domains and the same independent audit.
 This next solver is not implemented or guaranteed here. No new collection or
 four-generator sign-off follows from the measured development improvement.
+
+
+## 14 October 2026 — Joint HUG fingertip/direction fitting implemented; real results pending
+
+**Authorization and previous plan:** The user asks to implement fingertip
+constraints and actual native-relative surface-direction fitting on existing
+HUG grasps, then rerun mapping checks. New eval data and other-generator work
+remain deferred. The previous staged/interpolated surface correction worsened
+tip/middle errors and failed all nine strict audits.
+
+**Implemented evidence:** The new isolated joint SLSQP API enforces each
+fingertip's original-error bound plus the existing strict 10 mm mean guard;
+final engineering checks name a 10 nm per-tip arithmetic allowance separately.
+Actual native facing scores, including away states, are fixed targets. Newly
+invalid fixed sites retain nonzero penalties and reasons. Source limits,
+original±0.35 rad trust bounds, original-q fallback, best feasible major/raw
+selection and nonconvergence bookkeeping are explicit. Fifty new manufactured
+tests pass; the installed API and prior surface/guard tests pass all 120 checks.
+The installed module is byte-identical to the frozen experiment solver.
+
+**Runtime choice and status:** Canonical runtime V2.1 (e42b74b7…) runs all six
+existing seed-0 apple/milk/mug cases from original q under the same method V1
+settings. It uses two active Numba threads with pool four and BLAS/OpenMP one.
+One/two-thread field/reference parity passes six baselines and three fixed
+static poses. V1 incomplete searches and V2 import-only aborts remain separate;
+the faster burial helper passed separate equality checks but its frozen V3
+fitting preparation is unexecuted. Retain the active run rather than discard
+over twenty minutes of progress for an uncertain whole-fit timing gain.
+
+**Pending measured claims:** No completed six-case constrained result or new
+independent mapping verdict exists at this checkpoint. Next finish all six
+under fixed 120-iteration settings, recompute source/target preflight and apply
+the unchanged six-coarse/three-fine rule. Do not promote from average fitting
+improvement or engineering guard passage. Default mapper/controller, original
+inputs, frozen predictor and manuscript remain unchanged. No inference,
+integrated physics, eval episode/task label, prediction training or provider
+advance occurs. [Implementation and scope](HUG_CONSTRAINED_REFINEMENT.md).
