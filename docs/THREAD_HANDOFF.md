@@ -217,3 +217,21 @@ separately from the temporary integration-test runtime.
 Local run: `runs/hug_grasp_eval_2026-10-13_fresh_cube/`. Result/video are under
 `output/runs/hug_cube_seed0_nominal/`. ContactGen/UniDexGrasp evaluation generation
 is still deferred; this later user request authorized only one HUG case.
+
+
+## 14 October 2026 — Mapping audit is the immediate priority
+
+The user requested proof of faithful native-to-simulator portrayal before
+collection or training. [The static fidelity audit](GRASP_MAPPING_FIDELITY.md)
+records what is measured and what remains pending. HUG coordinate composition
+passes for the existing cube, but human-to-robot fingertips differ (mean 6.704 mm,
+maximum 14.125 mm), and v2 extra closing deliberately changes commands. ContactGen
+real-output contact fidelity and UniDex actual source-hand/native acceptance
+are unverified. DGA's released output uses 24 joints and a forearm root, requiring
+a dedicated native contract rather than the previous 22-joint assumption.
+
+No generator inference, physics rollout, new evaluation dataset or fitting was
+performed for this audit. Diagnostic plots/reports are separate from scientific
+training data. Static nominal contacts and native near-surface vertices cover the same three
+cube faces, but both intersect the object. Next compare finer patches/normals;
+preserve the historical executor until any change is explicitly versioned.

@@ -1,6 +1,6 @@
 # Completed experiments and evidence
 
-Updated 13 October 2026. This index reports saved simulation results.
+Updated 14 October 2026. This index reports saved simulation results.
 The [research protocol](HUG_MONITOR_RESEARCH_PLAN.md) separates the recorded
 research question and pending comparisons from completed experiments.
 The [working paper](paper/working_draft.tex) draws on the evidence below.
@@ -106,6 +106,22 @@ One newly authorized HUG inference and MuJoCo case completes successfully throug
 earlier native proposal and saved-replay trajectory exactly. This is a
 development reproducibility check, not an independent benchmark. The frozen
 predictor was not scored. [Run declaration, results and runtime](HUG_SINGLE_EVAL_2026-10-13.md).
+
+## Static mapping fidelity audit
+
+Read-only source, frame and forward-kinematics checks reuse the existing HUG
+cube and synthetic joint configurations. HUG's coordinate composition agrees
+to numerical precision; nominal mean/max tip errors are 6.704/14.125 mm. Native near-surface vertices
+and nominal Shadow contacts cover the same three cube faces, with penetration
+in both representations; this is coarse coverage rather than contact equality.
+Declared v2 extra closing moves commanded tips another 18.644–32.212 mm.
+ContactGen has reviewed algebra but no measured real output. UniDex's shared
+reference bridge has at most 1.751 mm tip error; its actual released hand asset
+and contact fidelity are unverified. DGA's official 24-joint forearm-root format
+needs a dedicated mapping instead of the handoff's 22-joint assumption.
+These diagnostics establish bounded implementation facts, not four-generator
+equivalence or prediction improvement. No new inference, physics, evaluation
+collection, task labels or fitting occurred. [Audit and evidence](GRASP_MAPPING_FIDELITY.md).
 
 ## Claim boundaries and paper status
 

@@ -20,6 +20,8 @@
 
 ## Research and completed evidence
 
+- [Grasp mapping fidelity audit](GRASP_MAPPING_FIDELITY.md)
+
 - [Research protocol](HUG_MONITOR_RESEARCH_PLAN.md)
 - [Experiment results and evidence index](PAPER_PROGRESS.md)
 - [Fresh HUG single-case CLI check](HUG_SINGLE_EVAL_2026-10-13.md)

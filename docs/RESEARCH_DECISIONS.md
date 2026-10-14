@@ -1394,3 +1394,47 @@ batch, controller change or historical relabeling was performed.
 the now-verified preserved import path. Compatible prediction recording and the
 other generators' declared runtime/translation acceptance checks remain separate
 work before scientific comparisons.
+
+
+## 14 October 2026 — Audit grasp mapping fidelity before collection or training
+
+**Previous plan:** HUG and new ContactGen/UniDexGrasp providers share a canonical
+Shadow proposal boundary; DexGrasp Anything remains an external-worker handoff.
+The user asked to verify that different native grasps are faithfully represented
+before collecting data or training a cross-generator predictor.
+
+**New evidence:** Static checks of the existing HUG cube show correct transform
+composition but approximate pose fidelity: mean tip error 6.704 mm, thumb
+14.125 mm. The declared v2 force-close command moves nominal tips by a further
+18.644–32.212 mm in static FK; this is not measured achieved motion. At the
+unchanged initial cube state, native vertex proximity and nominal Shadow
+collision contacts cover -X/+Y/+Z; both intersect the object, and face coverage
+does not establish matching contact patches. ContactGen
+source/frame logic is consistent, without a real native sample. UniDex's
+hash-pinned Dex reference bridge has maximum 1.751 mm tip error over 112
+synthetic static configurations, but its kinematic certificate excludes surfaces
+and dynamics. Actual UniDex source hand and model-output acceptance remain unrun.
+DGA's pinned generator emits 24 joints rooted at a forearm, requiring explicit
+root-to-palm composition; the 22-joint handoff recommendation is unsuitable as
+an assumed native contract. A dedicated named-joint bridge candidate gives at
+most 0.100 mm tip separation on 65 synthetic static URDF configurations.
+
+**Choice:** Treat coordinate composition, nominal pose/contact preservation,
+controller alterations and achieved physics as separate evidence. Use bounded
+fidelity claims for MANO-to-Shadow retargeting. Keep real native artifacts,
+reference proxies and synthetic algebra tests distinct. Four-source
+generalization remains a proposed question, not an implemented result.
+
+**Implementation status:** Added [the audit](GRASP_MAPPING_FIDELITY.md), static
+reports, guarded diagnostic snapshots and saved-HUG figures under
+`research_artifacts/grasp_mapping_audit_2026-10-14/`. No new model inference,
+physics steps, eval data, task labels, fitting, adapter/controller changes or
+historical relabeling occurred. The existing paper and frozen predictor are
+unchanged. Existing dirty/untracked files and ignored runtimes remain preserved.
+
+**Next check:** Compare finer native MANO/Shadow contact patches and normals
+beyond the completed coarse HUG face coverage; obtain actual native outputs/source assets for the
+remaining providers. Explicitly bind DGA dataset/normalizer, scale, native
+24-joint/root semantics and sampling stage; bind full TTA config if importing
+refined UniDex outputs. Proceed to collection only after declared mapping
+acceptance evidence and a compatible predictor recorder are available.

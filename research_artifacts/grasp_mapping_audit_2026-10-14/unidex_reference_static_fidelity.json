@@ -1,0 +1,92 @@
+{
+  "classification": "static_synthetic_fidelity_audit_not_evaluation_data",
+  "reference_proxy": "/private/tmp/gfp-dex-shadow-source.xml",
+  "reference_raw_sha256": "sha256:39b1f1e1150c9c3821748ba70cfaeaefc2517100d45b5d6d5ef683a7d132de8a",
+  "actual_unidex_generation_hand_present": false,
+  "actual_unidex_generation_hand_tested": false,
+  "simulation_steps": 0,
+  "static_reference_to_target_fk": {
+    "synthetic_pose_count": 112,
+    "certificate_matches": true,
+    "per_tip_max_error_m": {
+      "thumb": 0.00042180063326478784,
+      "index": 9.910722837601153e-17,
+      "middle": 1.1464934308770758e-16,
+      "ring": 1.0109137335799118e-16,
+      "little": 0.0017510834923335965
+    },
+    "overall_max_tip_error_m": 0.0017510834923335965,
+    "mean_all_tip_error_m": 0.0004290945389414861,
+    "max_lfmetacarpal_named_body_origin_difference_m": 0.028256399275208437,
+    "max_lfmetacarpal_collision_box_center_difference_m": 0.0005047918921545048,
+    "source_lfmetacarpal_box_half_size_m": [
+      0.0095,
+      0.0111,
+      0.025
+    ],
+    "target_lfmetacarpal_box_half_size_m": [
+      0.009,
+      0.012,
+      0.02
+    ],
+    "target_limit_rejections": [
+      {
+        "synthetic_state_index": 2,
+        "joints": [
+          "THJ1"
+        ]
+      },
+      {
+        "synthetic_state_index": 3,
+        "joints": [
+          "FFJ3",
+          "FFJ2",
+          "FFJ1",
+          "MFJ3",
+          "MFJ2",
+          "MFJ1",
+          "RFJ3",
+          "RFJ2",
+          "RFJ1",
+          "LFJ3",
+          "LFJ2",
+          "LFJ1",
+          "THJ4"
+        ]
+      }
+    ]
+  },
+  "certificate_blind_spot_measurement": [
+    {
+      "mutation": "capsule_radius",
+      "raw_hash_changed": true,
+      "certificate_unchanged": true
+    },
+    {
+      "mutation": "palm_inertial_mass",
+      "raw_hash_changed": true,
+      "certificate_unchanged": true
+    },
+    {
+      "mutation": "fingertip_site_offset",
+      "raw_hash_changed": true,
+      "certificate_unchanged": false
+    }
+  ],
+  "upstream_pk_vs_mujoco_static_fk": [
+    {
+      "variant": "reference",
+      "synthetic_pose_count": 18,
+      "joint_order_matches": true,
+      "max_body_position_error_m": 1.6584247615180552e-08,
+      "max_rotation_matrix_element_error": 2.2452932502137202e-07
+    },
+    {
+      "variant": "nonidentity_root_offset",
+      "synthetic_pose_count": 18,
+      "joint_order_matches": true,
+      "max_body_position_error_m": 7.141864498843672e-08,
+      "max_rotation_matrix_element_error": 2.245293247993274e-07
+    }
+  ]
+}

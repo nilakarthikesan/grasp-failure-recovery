@@ -1,0 +1,63 @@
+{
+  "schema_version": "contactgen_transform_audit_v1",
+  "audit_date": "2026-10-14",
+  "scope": "algebra-only: existing Shadow URDF static FK and adapter palm-frame composition",
+  "real_contactgen_output_used": false,
+  "contactgen_inference_run": false,
+  "retargeting_optimization_run": false,
+  "physics_stepping_run": false,
+  "evaluation_data_generated": false,
+  "stepping_guard_entry_points": [
+    "mj_step",
+    "mj_step1",
+    "mj_step2"
+  ],
+  "stepping_calls_attempted": 0,
+  "joint_count": 24,
+  "project_root": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction",
+  "project_revision": "7b14f26a7435b42c7a64089b634f3008c1853c74",
+  "shadow_urdf": {
+    "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf",
+    "sha256": "sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de"
+  },
+  "adapter": {
+    "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/proposals/contactgen.py",
+    "sha256": "sha256:eeb2c857cf9cb71a3513e12343cb80b53f246989d246b9ffc57ce7da262baf48"
+  },
+  "audit_script_sha256": "sha256:474508ca289aa1eb40af92264b7ad3346de9bc2bf902e529f73b0f28da5850ec",
+  "runtime": {
+    "executable": "/Users/nilakarthikesan/grasp-failure-prediction/.venv/bin/python",
+    "python_version": "3.12.13 (main, Mar  3 2026, 12:39:30) [Clang 17.0.0 (clang-1700.6.3.2)]",
+    "numpy_version": "2.2.6",
+    "mujoco_version": "3.3.7",
+    "pythonpath": "src:/private/tmp/grasp-partner-integration-deps:/Users/nilakarthikesan/grasp-failure-prediction/.venv/lib/python3.12/site-packages:/private/tmp/grasp-partner-simulation-deps:/private/tmp/grasp-partner-simulation-deps/cmeel.prefix/lib/python3.12/site-packages"
+  },
+  "checks": [
+    {
+      "predefined_wrist_angles_rad": {
+        "WRJ1": 0.0,
+        "WRJ2": 0.0
+      },
+      "other_joint_values": "all zero",
+      "task_points": "five URDF fingertips and five middle links",
+      "maximum_object_frame_composition_residual_m": 5.551115123125783e-17,
+      "object_palm_rotation_determinant": 1.0,
+      "algebra_check_passed": true
+    },
+    {
+      "predefined_wrist_angles_rad": {
+        "WRJ1": 0.15,
+        "WRJ2": -0.2
+      },
+      "other_joint_values": "all zero",
+      "task_points": "five URDF fingertips and five middle links",
+      "maximum_object_frame_composition_residual_m": 1.2098374922832816e-16,
+      "object_palm_rotation_determinant": 1.0000000000000009,
+      "algebra_check_passed": true
+    }
+  ],
+  "limitations": [
+    "This measures transform composition only, not ContactGen MANO-to-Shadow retargeting accuracy.",
+    "No native human grasp, object mesh, contact map, contact preservation, penetration or lift stability was tested."
+  ]
+}

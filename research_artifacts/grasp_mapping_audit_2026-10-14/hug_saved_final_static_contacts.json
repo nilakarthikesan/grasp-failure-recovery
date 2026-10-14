@@ -1,0 +1,124 @@
+{
+  "audit_type": "Static contact/FK reconstruction from saved final qpos with saved source scene; no integration/actuation/stepping",
+  "guarded_integration_apis": [
+    "mj_step",
+    "mj_step1",
+    "mj_step2"
+  ],
+  "fk_time_after_all_kinematic_calls_s": 0.0,
+  "saved_contact_count": 6,
+  "static_reconstructed_contact_count": 6,
+  "palm_vs_final_trace_position_error_m": 2.1348981139872357e-10,
+  "object_vs_final_trace_position_error_m": 0.0,
+  "object_contact_bodies": [
+    "ffdistal",
+    "mfdistal",
+    "rfdistal",
+    "thdistal"
+  ],
+  "contacts": [
+    {
+      "bodies": [
+        "object",
+        "ffdistal"
+      ],
+      "geoms": [
+        "object_geom",
+        "geom:21"
+      ],
+      "distance_m": -0.001107228263691928,
+      "world_position_m": [
+        -0.013314698035242526,
+        -0.05937103886932485,
+        0.18261488168850157
+      ],
+      "touches_object": true
+    },
+    {
+      "bodies": [
+        "object",
+        "mfdistal"
+      ],
+      "geoms": [
+        "object_geom",
+        "geom:27"
+      ],
+      "distance_m": -0.0009221837857951843,
+      "world_position_m": [
+        -0.009808943674457869,
+        -0.03764203723504107,
+        0.17695743852894855
+      ],
+      "touches_object": true
+    },
+    {
+      "bodies": [
+        "lfmiddle",
+        "rfdistal"
+      ],
+      "geoms": [
+        "geom:39",
+        "geom:33"
+      ],
+      "distance_m": -0.0001412699588161561,
+      "world_position_m": [
+        -0.00459057979458906,
+        -0.009913254373908019,
+        0.19014831118179557
+      ],
+      "touches_object": false
+    },
+    {
+      "bodies": [
+        "rfdistal",
+        "lfdistal"
+      ],
+      "geoms": [
+        "geom:33",
+        "geom:40"
+      ],
+      "distance_m": -0.0001876345169343424,
+      "world_position_m": [
+        -0.000816194326926339,
+        -0.01333388078078886,
+        0.1869249858716093
+      ],
+      "touches_object": false
+    },
+    {
+      "bodies": [
+        "object",
+        "rfdistal"
+      ],
+      "geoms": [
+        "object_geom",
+        "geom:33"
+      ],
+      "distance_m": -0.0014976678295007902,
+      "world_position_m": [
+        -0.0017941774348204267,
+        -0.028790214577436045,
+        0.17406079906441868
+      ],
+      "touches_object": true
+    },
+    {
+      "bodies": [
+        "object",
+        "thdistal"
+      ],
+      "geoms": [
+        "object_geom",
+        "geom:45"
+      ],
+      "distance_m": -0.002347859353024902,
+      "world_position_m": [
+        0.01710078572955416,
+        -0.0803398604354409,
+        0.18620525694636503
+      ],
+      "touches_object": true
+    }
+  ],
+  "note": "Contact positions/bodies reconstructed statically. Force values are not reconstructed because final_state omits ctrl/mocap/act state; no native MANO collision rollout has been compared."
+}

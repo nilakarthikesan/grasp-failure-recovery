@@ -90,3 +90,20 @@ The first worker implementation should:
 
 The worker must not use DGA's Isaac Gym success result as this project's task
 label. MuJoCo with `fixed_grasp_lift_v2` remains the common evaluator.
+
+
+## 14 October 2026 audit correction before worker implementation
+
+The native-contract recommendation above is superseded by source verification:
+the pinned DGA generator's `GraspGenURVisualizer` exports translation, 6D
+rotation and **24 joints**, including wrists, using a forearm-rooted URDF.
+Do not drop wrists or assume its root pose is a free palm. Compose its actual
+root-to-palm transform and use a dedicated verified mapping. A static 24-name
+bridge candidate has at most 0.100 mm tip discrepancy on synthetic poses;
+no actual DGA mapping or generated output has been accepted.
+
+The listed smoke command also inherits upstream `dataset.active: real_dex`
+unless explicitly overridden, while this handoff pins a DexGraspNet checkpoint;
+normalizer/dataset and exact object scale must match the selected checkpoint.
+Without `OPT`, that command disables physics-guided sampling. Record the chosen
+stage/configuration explicitly. [Full audit and measured scope](GRASP_MAPPING_FIDELITY.md).

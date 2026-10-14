@@ -1,0 +1,472 @@
+{
+  "audit_type": "Static saved nominal Shadow pose at original initial captured object state; before approach, controller force-close, or lift",
+  "guarded_integration_apis": [
+    "mj_step",
+    "mj_step1",
+    "mj_step2"
+  ],
+  "mujoco_time_after_fk_s": 0.0,
+  "object_initial_state_source": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_grasp_eval_2026-10-13_fresh_cube/output/proposals/hug_cube/sample_0000/native/scene_state.npz",
+  "source_model": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_grasp_eval_2026-10-13_fresh_cube/output/proposals/hug_cube/sample_0000/native/scene.mjb",
+  "nominal_shadow_source": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_grasp_eval_2026-10-13_fresh_cube/output/proposals/hug_cube/sample_0000/proposal.json",
+  "native_mano_source": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_grasp_eval_2026-10-13_fresh_cube/output/proposals/hug_cube/sample_0000/native/proposal.pkl",
+  "native_proposal_sha256": "573cb003458d9d7cfe85b5b4a7877e414257b3e67d5abda04a09bd6d687fa0c2",
+  "initial_object_position_world_m": [
+    -0.025,
+    -0.035,
+    0.02478448906658723
+  ],
+  "initial_object_qpos_xyzw_source_stored_wxyz": [
+    -0.025,
+    -0.035,
+    0.02478448906658723,
+    1.0,
+    3.689423639703606e-17,
+    -9.69260007013459e-19,
+    1.802440729795918e-19
+  ],
+  "initial_object_qpos_change_max_abs": 0.0,
+  "initial_object_position_vs_scene_contract_error_m": 0.0,
+  "nominal_palm_position_error_m": 1.4946834900704541e-16,
+  "nominal_palm_rotation_error_max_abs": 2.7755575615628914e-16,
+  "cube_half_extents_m": [
+    0.025,
+    0.025,
+    0.025
+  ],
+  "face_assignment": "Nearest bounded cube-face rectangle by Euclidean distance; +X,-X,+Y,-Y,+Z,-Z list order breaks edge/corner ties. Also report signed distance to its plane.",
+  "native_distance_definition": "Analytic signed distance to cube surface for existing saved MANO mesh vertices; abs(distance)<=2/5mm defines proximity, negative means vertex inside cube.",
+  "native_region_counts": {
+    "+X": {
+      "total_vertices_nearest_face": 256,
+      "penetrating_vertices": 0,
+      "within_2mm_surface_vertices": 0,
+      "within_5mm_surface_vertices": 0,
+      "deepest_penetration_m": 0.0,
+      "near_2mm_object_coordinate_min_m": null,
+      "near_2mm_object_coordinate_max_m": null
+    },
+    "-X": {
+      "total_vertices_nearest_face": 133,
+      "penetrating_vertices": 54,
+      "within_2mm_surface_vertices": 24,
+      "within_5mm_surface_vertices": 50,
+      "deepest_penetration_m": 0.011121408302997918,
+      "near_2mm_object_coordinate_min_m": [
+        -0.026942662442555075,
+        -0.01713807582429147,
+        0.0007111872767018573
+      ],
+      "near_2mm_object_coordinate_max_m": [
+        -0.023091090498897314,
+        0.018637819682513018,
+        0.0205031242360669
+      ]
+    },
+    "+Y": {
+      "total_vertices_nearest_face": 161,
+      "penetrating_vertices": 48,
+      "within_2mm_surface_vertices": 16,
+      "within_5mm_surface_vertices": 47,
+      "deepest_penetration_m": 0.015213265839276187,
+      "near_2mm_object_coordinate_min_m": [
+        -0.009872667232000497,
+        0.023052408515038675,
+        0.010067033377325977
+      ],
+      "near_2mm_object_coordinate_max_m": [
+        0.021095423642347268,
+        0.02665090946416962,
+        0.021603504248214025
+      ]
+    },
+    "-Y": {
+      "total_vertices_nearest_face": 58,
+      "penetrating_vertices": 0,
+      "within_2mm_surface_vertices": 0,
+      "within_5mm_surface_vertices": 0,
+      "deepest_penetration_m": 0.0,
+      "near_2mm_object_coordinate_min_m": null,
+      "near_2mm_object_coordinate_max_m": null
+    },
+    "+Z": {
+      "total_vertices_nearest_face": 170,
+      "penetrating_vertices": 14,
+      "within_2mm_surface_vertices": 8,
+      "within_5mm_surface_vertices": 28,
+      "deepest_penetration_m": 0.014177582228603665,
+      "near_2mm_object_coordinate_min_m": [
+        -0.01498386556725103,
+        0.01092837321770493,
+        0.02471338169171175
+      ],
+      "near_2mm_object_coordinate_max_m": [
+        0.021023219139877626,
+        0.024452183510205425,
+        0.026934183507221515
+      ]
+    },
+    "-Z": {
+      "total_vertices_nearest_face": 0,
+      "penetrating_vertices": 0,
+      "within_2mm_surface_vertices": 0,
+      "within_5mm_surface_vertices": 0,
+      "deepest_penetration_m": 0,
+      "near_2mm_object_coordinate_min_m": null,
+      "near_2mm_object_coordinate_max_m": null
+    }
+  },
+  "native_total_vertices": 778,
+  "native_total_penetrating_vertices": 116,
+  "native_total_within_2mm_surface_vertices": 48,
+  "native_total_within_5mm_surface_vertices": 125,
+  "shadow_nominal_region_contacts": {
+    "+X": {
+      "hand_object_contact_count": 0,
+      "hand_body_names": []
+    },
+    "-X": {
+      "hand_object_contact_count": 2,
+      "hand_body_names": [
+        "ffdistal",
+        "mfdistal"
+      ]
+    },
+    "+Y": {
+      "hand_object_contact_count": 3,
+      "hand_body_names": [
+        "lfdistal",
+        "rfdistal",
+        "rfmiddle"
+      ]
+    },
+    "-Y": {
+      "hand_object_contact_count": 0,
+      "hand_body_names": []
+    },
+    "+Z": {
+      "hand_object_contact_count": 1,
+      "hand_body_names": [
+        "mfmiddle"
+      ]
+    },
+    "-Z": {
+      "hand_object_contact_count": 0,
+      "hand_body_names": []
+    }
+  },
+  "shadow_nominal_contacts": [
+    {
+      "category": "object_table",
+      "bodies": [
+        "world",
+        "object"
+      ],
+      "geoms": [
+        "table",
+        "object_geom"
+      ],
+      "collision_distance_m": -0.00010775546670638812,
+      "contact_position_world_m": [
+        -0.05,
+        -0.060000000000000005,
+        -0.00010775546670638986
+      ],
+      "contact_position_initial_object_m": [
+        -0.025,
+        -0.025000000000000005,
+        -0.024892244533293615
+      ],
+      "nearest_cube_face": null,
+      "face_signed_plane_distance_m": null,
+      "face_rectangle_distance_m": null
+    },
+    {
+      "category": "object_table",
+      "bodies": [
+        "world",
+        "object"
+      ],
+      "geoms": [
+        "table",
+        "object_geom"
+      ],
+      "collision_distance_m": -0.00010775546670638807,
+      "contact_position_world_m": [
+        0.0,
+        -0.060000000000000005,
+        -0.00010775546670638639
+      ],
+      "contact_position_initial_object_m": [
+        0.025,
+        -0.025000000000000005,
+        -0.02489224453329361
+      ],
+      "nearest_cube_face": null,
+      "face_signed_plane_distance_m": null,
+      "face_rectangle_distance_m": null
+    },
+    {
+      "category": "object_table",
+      "bodies": [
+        "world",
+        "object"
+      ],
+      "geoms": [
+        "table",
+        "object_geom"
+      ],
+      "collision_distance_m": -0.00010775546670638628,
+      "contact_position_world_m": [
+        -0.05,
+        -0.010000000000000002,
+        -0.00010775546670638639
+      ],
+      "contact_position_initial_object_m": [
+        -0.025,
+        0.024999999999999998,
+        -0.02489224453329362
+      ],
+      "nearest_cube_face": null,
+      "face_signed_plane_distance_m": null,
+      "face_rectangle_distance_m": null
+    },
+    {
+      "category": "object_table",
+      "bodies": [
+        "world",
+        "object"
+      ],
+      "geoms": [
+        "table",
+        "object_geom"
+      ],
+      "collision_distance_m": -0.00010775546670638623,
+      "contact_position_world_m": [
+        -1.8024407297959183e-20,
+        -0.010000000000000002,
+        -0.00010775546670638639
+      ],
+      "contact_position_initial_object_m": [
+        0.025,
+        0.024999999999999998,
+        -0.02489224453329362
+      ],
+      "nearest_cube_face": null,
+      "face_signed_plane_distance_m": null,
+      "face_rectangle_distance_m": null
+    },
+    {
+      "category": "hand_self",
+      "bodies": [
+        "palm",
+        "thproximal"
+      ],
+      "geoms": [
+        "geom:13",
+        "geom:42"
+      ],
+      "collision_distance_m": -4.399816017479902e-05,
+      "contact_position_world_m": [
+        0.032752156342953156,
+        -0.0718938315590391,
+        0.1209073466594722
+      ],
+      "contact_position_initial_object_m": [
+        0.05775215634295316,
+        -0.03689383155903909,
+        0.09612285759288497
+      ],
+      "nearest_cube_face": null,
+      "face_signed_plane_distance_m": null,
+      "face_rectangle_distance_m": null
+    },
+    {
+      "category": "hand_object",
+      "bodies": [
+        "object",
+        "ffdistal"
+      ],
+      "geoms": [
+        "object_geom",
+        "geom:21"
+      ],
+      "collision_distance_m": -0.006484095184883825,
+      "contact_position_world_m": [
+        -0.04675795240755809,
+        -0.049251394156730355,
+        0.03409175062301448
+      ],
+      "contact_position_initial_object_m": [
+        -0.02175795240755809,
+        -0.014251394156730351,
+        0.00930726155642725
+      ],
+      "nearest_cube_face": "-X",
+      "face_signed_plane_distance_m": -0.003242047592441913,
+      "face_rectangle_distance_m": 0.003242047592441913
+    },
+    {
+      "category": "hand_object",
+      "bodies": [
+        "mfmiddle",
+        "object"
+      ],
+      "geoms": [
+        "geom:26",
+        "object_geom"
+      ],
+      "collision_distance_m": -0.0017731909800406337,
+      "contact_position_world_m": [
+        -0.048735809595591914,
+        -0.022097741830891214,
+        0.04889789357656692
+      ],
+      "contact_position_initial_object_m": [
+        -0.023735809595591913,
+        0.012902258169108791,
+        0.02411340450997969
+      ],
+      "nearest_cube_face": "+Z",
+      "face_signed_plane_distance_m": -0.000886595490020313,
+      "face_rectangle_distance_m": 0.000886595490020313
+    },
+    {
+      "category": "hand_object",
+      "bodies": [
+        "object",
+        "mfdistal"
+      ],
+      "geoms": [
+        "object_geom",
+        "geom:27"
+      ],
+      "collision_distance_m": -0.011195592675689514,
+      "contact_position_world_m": [
+        -0.04440220366215525,
+        -0.023938365192696563,
+        0.039378081589809724
+      ],
+      "contact_position_initial_object_m": [
+        -0.019402203662155247,
+        0.011061634807303442,
+        0.014593592523222496
+      ],
+      "nearest_cube_face": "-X",
+      "face_signed_plane_distance_m": -0.005597796337844754,
+      "face_rectangle_distance_m": 0.005597796337844754
+    },
+    {
+      "category": "hand_object",
+      "bodies": [
+        "rfmiddle",
+        "object"
+      ],
+      "geoms": [
+        "geom:32",
+        "object_geom"
+      ],
+      "collision_distance_m": -0.003046003865977724,
+      "contact_position_world_m": [
+        -0.03296054900086248,
+        -0.01081519338025217,
+        0.0484980231165206
+      ],
+      "contact_position_initial_object_m": [
+        -0.007960549000862481,
+        0.024184806619747836,
+        0.023713534049933368
+      ],
+      "nearest_cube_face": "+Y",
+      "face_signed_plane_distance_m": -0.0008151933802521653,
+      "face_rectangle_distance_m": 0.0008151933802521653
+    },
+    {
+      "category": "hand_object",
+      "bodies": [
+        "object",
+        "rfdistal"
+      ],
+      "geoms": [
+        "object_geom",
+        "geom:33"
+      ],
+      "collision_distance_m": -0.010348132367555052,
+      "contact_position_world_m": [
+        -0.03192452007393911,
+        -0.015174066183777526,
+        0.027871104623410817
+      ],
+      "contact_position_initial_object_m": [
+        -0.006924520073939108,
+        0.019825933816222475,
+        0.003086615556823587
+      ],
+      "nearest_cube_face": "+Y",
+      "face_signed_plane_distance_m": -0.005174066183777526,
+      "face_rectangle_distance_m": 0.005174066183777526
+    },
+    {
+      "category": "hand_object",
+      "bodies": [
+        "object",
+        "lfdistal"
+      ],
+      "geoms": [
+        "object_geom",
+        "geom:40"
+      ],
+      "collision_distance_m": -0.002612349727292168,
+      "contact_position_world_m": [
+        -0.012093919374805952,
+        -0.011306174863646086,
+        0.032386512402814746
+      ],
+      "contact_position_initial_object_m": [
+        0.01290608062519405,
+        0.023693825136353916,
+        0.007602023336227516
+      ],
+      "nearest_cube_face": "+Y",
+      "face_signed_plane_distance_m": -0.0013061748636460854,
+      "face_rectangle_distance_m": 0.0013061748636460854
+    }
+  ],
+  "shadow_contact_category_counts": {
+    "hand_object": 6,
+    "hand_table": 0,
+    "hand_self": 1,
+    "object_table": 4,
+    "other": 0
+  },
+  "gross_region_comparison": {
+    "native_vertex_regions_within_2mm": [
+      "-X",
+      "+Y",
+      "+Z"
+    ],
+    "native_vertex_regions_within_5mm": [
+      "-X",
+      "+Y",
+      "+Z"
+    ],
+    "native_vertex_penetration_regions": [
+      "-X",
+      "+Y",
+      "+Z"
+    ],
+    "shadow_nominal_compiled_hand_object_contact_regions": [
+      "-X",
+      "+Y",
+      "+Z"
+    ],
+    "shadow_regions_shared_with_native_2mm": [
+      "+Y",
+      "+Z",
+      "-X"
+    ],
+    "native_2mm_regions_without_nominal_shadow_contact": [],
+    "native_5mm_regions_without_nominal_shadow_contact": []
+  },
+  "interpretation_limits": "Vertex proximity/penetration and MuJoCo compiled collision contacts are different measurements and hand surfaces. Face coverage is only a coarse nominal-pose diagnostic; not equality of contact patches, fingertip normals, forces, grasp family, or native MANO physical execution. No after-lift state is used."
+}
