@@ -250,3 +250,28 @@ HUG's overall status remains partial; ContactGen/DGA/UniDex have not advanced.
 Next inspect per-finger grid/band sensitivity and anatomically matched normals
 on the same existing cube. No new HUG sampling, physics/eval data or training
 occurred. Existing adapters, controller, manuscript and predictor are unchanged.
+
+
+## 14 October 2026 — Resume validation before paper writing and training
+
+The user accepted the broader working title, **Evaluating Simulation Diversity
+for Grasp Failure Prediction**, with multiple-generator training as the intended
+comparison and mapping validity as supporting methodology. The latest direction
+defers writing the paper and begins mapping validation before new collection
+or fitting. Keep the earlier HUG diagnostic paper plan and historical protocols
+separate from the proposed one/two/three/four-source training study.
+
+[The HUG continuation](HUG_MAPPING_CONFIRMATION.md) now covers numerical
+placement/joint consistency for 32 distinct existing native poses across four
+objects, eight observation groups and one MANO shape. Mean tip residual is
+6.428 mm, worst individual tip 17.518 mm. The finer-grid cube geometry mismatch
+persists. Little-finger top-face coverage is nearly lost rather than absolutely
+absent at the finest grid. Conditional same-label normals still do not represent
+paired physical contacts. HUG contact fidelity remains unconfirmed.
+
+Artifacts are in research_artifacts/hug_mapping_refinement_2026-10-14. All model
+and mapper/executor/manuscript hashes are preserved; stepping was guarded and
+zero time checked. No new inference, rollout, task label, dataset or fit occurred.
+Next isolate wrist/palm anchoring from morphology and examine more existing
+object surfaces before moving to the next generator. Future model tuning must
+use development/validation data and preserve independent object/source tests.

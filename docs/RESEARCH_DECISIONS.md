@@ -1515,3 +1515,138 @@ historical relabeling occurred. The paper and frozen predictor are unchanged.
 per-finger footprint differences and compare normals only where anatomical
 parts correspond. Relate any acceptance criterion to geometry/the intended
 scientific claim before changing the mapping or moving to the next provider.
+
+
+## 14 October 2026 — Keep failure prediction central and mapping validation foundational
+
+**Previous framing:** A proposed paper opening placed grasp-to-simulator mapping
+in the title and central question. The existing HUG research protocol instead
+asks whether broader simulation coverage improves pre-lift outcome warnings
+more than repeated finger perturbations at equal training-data budgets. Its
+matched coverage comparison remains unexecuted.
+
+**User clarification:** The prediction model and learning from varied simulated
+grasps are the main research focus. Faithful translation of each generator into
+the simulator is essential supporting methodology, rather than the paper's
+primary research question.
+
+**Choice:** Center the broader paper on failure prediction and simulation
+training coverage. Treat four-generator mapping validation as evidence needed
+to interpret the training examples and downstream comparisons. Prediction
+outcomes describe adapted grasps under a declared robot, executor and simulator;
+mapping fidelity alone does not guarantee predictive accuracy.
+
+**Proposed extension, not a frozen experiment protocol:** At equal training-data
+budgets, test whether broader coverage of simulated grasp situations, including
+multiple grasp generators, improves warnings on unfamiliar objects and grasp
+sources. Compare broader single-source coverage, multiple-source coverage and
+additional perturbations of a narrower proposal set with common model, task and
+execution settings. Independent object and held-out-generator evaluation would
+test distinct generalization claims. Broader coverage is not assumed to help;
+source-specific mapping discrepancies must remain available for interpretation.
+
+**Status:** Recorded the user's framing clarification only. The earlier HUG
+protocol, deadline-oriented diagnostic paper plan, working manuscript, historical
+results and predictor are preserved. Four-source validation and cross-generator
+prediction have not been completed. HUG remains the first individual mapping
+case, with contact fidelity unconfirmed. No data generation, inference, physics
+rollout, fitting or controller/adapter changes accompanied this entry.
+
+**Next writing step:** Draft the abstract and introduction around failure
+prediction and the training-coverage hypothesis, explain mapping as a validity
+requirement in the method, and distinguish the intended broader study from the
+completed HUG evidence. Finalize comparison conditions and prediction inputs
+before future collection or fitting.
+
+
+## 14 October 2026 — Accept the prediction title and make multiple-source training explicit
+
+**User decision:** Adopt the broader working title, **Evaluating Simulation
+Diversity for Grasp Failure Prediction**. The user clarified that proposals
+from multiple grasp generators should be explicit in the central question,
+rather than incidental wording inside a general coverage question.
+
+**Proposed question for author review:** Does training a grasp-failure predictor
+on simulated grasps from multiple generators improve generalization to
+unfamiliar objects and grasp configurations compared with single-generator
+training? Held-out-generator evaluation is a separate, stronger transfer check.
+
+**Comparison rationale:** Equal selected training-episode counts are a methods
+control to distinguish source mixing from simply adding more examples. Keep
+predictor settings, input information, task labels and execution settings
+consistent across the source comparison. Keep related proposals and their
+perturbations together in splits. Comparing predictor architectures on matched
+data addresses a different question and can complement the source comparison.
+Published scores on different hands, sensors, tasks or test sets cannot establish
+a direct performance advantage for our predictor.
+
+**Primary-source evidence:** [FFHFlow, Sections 5.1--5.2](https://arxiv.org/html/2407.15161v4)
+already uses a learned evaluator across several generative grasping baselines,
+with heuristic-generated training data. This is a precedent for shared grasp
+scoring, not evidence that our proposed mixed-source trajectory-prediction
+comparison has been performed. [DexDiffuser/DexEvaluator](https://arxiv.org/html/2402.02989v3)
+is a candidate static grasp-scoring comparison, with Allegro candidate-pose
+inputs; [Temporal Visuo-Tactile Learning](https://arxiv.org/html/2610.10283v1)
+is a pre-lift outcome-prediction precedent with a different hand and multimodal
+inputs. Compatibility and reproduction remain to be assessed. This bounded
+review does not establish novelty of multiple-source predictor training.
+
+**Recommendation, not an added implementation commitment:** Complete and
+validate the four current sources before expanding. They permit staged
+single-source/mixed-source comparisons and train-on-three/test-on-one tests.
+An additional source should broaden measured grasp coverage or provide an
+external transfer test; source count alone is not evidence of generality.
+
+**Status and next step:** Title accepted; exact comparative protocol remains
+proposed. Record a prediction-centered opening, then specify compatible
+predictor baselines and independent evaluation groups before any collection
+or fitting. The existing manuscript and historical protocols/results are
+preserved. HUG remains the active individual mapping check. This entry and
+literature review generated no evaluation data, simulation rollout or model fit.
+
+
+## 14 October 2026 — Resume actual HUG validation before drafting or fitting
+
+**User direction:** Begin the multiple-generator prediction project by completing
+mapping validation individually; paper drafting and training follow. The user
+wants progressively better prediction on unfamiliar objects. Broader-source
+training benefit remains a hypothesis, and iterative tuning must use validation
+sets while independent object/source tests stay separate. No final accuracy
+threshold or new collection protocol is frozen by this discussion.
+
+**Implemented evidence:** A provenance inventory finds 32 distinct existing HUG
+poses across four objects and eight observation groups, all with one MANO shape.
+Original 24 named Shadow targets are recovered from each zero-noise closing
+endpoint before force-close. Guarded FK reproduces stored validation and
+independent fixed-root/captured-scene placement to numerical precision, with zero
+joint-limit violations and unchanged object poses. Overall tip mean is 6.428 mm;
+per-case means 5.704--8.305 mm; worst individual tip 17.518 mm. These historical
+families are not new or independent held-out task cases.
+
+A protocol frozen before measurement refines the existing cube on 2, 1 and
+0.5 mm grids and 1/2/5 mm diagnostic bands. Original baselines reproduce exactly.
+Global 2 mm-band occupied-or-near IoU is 0.582946/0.580406/0.578557, supporting
+persistence of the geometry discrepancy over tested grids. At the finest grid,
+little-finger top-face unsigned proximity is nearly lost, not strictly absent:
+native 57 mm^2, target 0.5 mm^2, shared 0.25 mm^2. Conditional matched normals
+retain lost/new/mismatched sets and object-interior nearest-point classifications;
+548 of 748 matched fine-grid 2 mm-band pairs have both nearest points inside
+the cube. They are not physical-contact correspondence evidence.
+
+**Argument and status:** Proper coordinated frame rotations preserve world
+geometry analytically; composition and named-joint/independent-FK checks support
+the implemented mapping policy. Human-wrist/robot-palm anchoring and changed
+finger geometry remain additional assumptions. HUG contact fidelity is
+unconfirmed. The scripts/reports are preserved in
+[the continuation bundle](../research_artifacts/hug_mapping_refinement_2026-10-14/README.md);
+[the HUG note](HUG_MAPPING_CONFIRMATION.md) records the rationale and limitations.
+No new HUG inference, physics, task labels, evaluation dataset, calibration,
+retarget optimization, fitting, provider/controller change or paper edit occurred.
+The frozen predictor SHA-256 stays
+16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb.
+
+**Next check:** Isolate wrist/palm anchoring from morphology and characterize
+per-finger surfaces on additional existing objects. Any calibration and its
+validation cases must remain separate and acceptance criteria must be justified
+before testing. Keep HUG active before advancing providers; predictor collection
+also needs the existing recorder gap resolved before future scoring/training.

@@ -159,3 +159,15 @@ tracked in [the submission checklist](SUBMISSION_CHECKLIST.md).
 The detailed milestone and exploration chronology is preserved in
 [the archived progress record](archive/PAPER_PROGRESS_HISTORY_2026-10-12.md).
 [Dated decisions](RESEARCH_DECISIONS.md) retain why the experiment design changed.
+
+
+## HUG static mapping continuation, 14 October 2026
+
+[The expanded HUG audit](HUG_MAPPING_CONFIRMATION.md) checks 32 existing poses
+and refines the saved cube's surfaces across grid resolutions and anatomical
+parts. Numerical transform/joint consistency is supported within tested scope;
+contact fidelity remains approximate and unconfirmed. These are static
+diagnostics, not new evaluation episodes, prediction results or a completed
+four-generator validation. The working manuscript and frozen predictor remain
+unchanged. The user prioritizes mapping validation before broader collection
+and training; paper drafting is deferred while this validation proceeds.

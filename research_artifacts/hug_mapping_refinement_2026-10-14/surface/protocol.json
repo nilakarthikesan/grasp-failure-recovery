@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-14",
+  "frozen_before_measurement": true,
+  "scope": "HUG only; one existing cube seed-0 saved native and nominal Shadow configuration",
+  "grid_spacing_mm": [2, 1, 0.5],
+  "grid_rule": "Centered square cell grids on all six faces of the actual centered axis-aligned 50 mm cube; excludes face edges",
+  "diagnostic_bands_mm": [1, 2, 5],
+  "bands_are_acceptance_thresholds": false,
+  "global_metric": "Occupied-or-near: inside the globally closed native mesh or any compatible Shadow collider, or globally exterior unsigned nearest-surface distance within band; negative per-geom minimum is not union penetration depth",
+  "anatomical_metric": "Independent per-part unsigned nearest triangle/collider surface proximity within band. Native parts are open triangle subsets and never used for occupancy",
+  "native_part_labels": "Group weights into palm/index/middle/ring/little/thumb; argmax group per vertex; majority vote over three triangle vertices; if all differ, highest mean grouped weight among tied labels; record mixed/tied triangles and query ambiguity",
+  "shadow_part_labels": "Actual finger body prefixes; palm; forearm and wrist separate carrier categories",
+  "paired_normal_queries": "Cube-face cell centers globally exterior to both hands, within the diagnostic band of both globally nearest surfaces, and with equal nearest anatomical labels; report mismatch/lost/new separately",
+  "closest_surface_analysis": "Unsigned closest-point separation and unit geometric normal angle; separate both/one/neither closest point strictly inside cube; normals are not forces or paired contacts",
+  "empty_sets": "Null statistics and undefined IoU rather than zero errors",
+  "required_invariants": ["No mj_step, mj_step1 or mj_step2", "MuJoCo data.time remains zero", "Saved object qpos and world pose unchanged", "Actual object collider and pair filters inspected", "2 mm-grid 2/5 mm global baseline reproduces"],
+  "allowed_operations": ["Read existing native parameters and mesh", "Static MuJoCo forward kinematics", "Deterministic geometric queries", "Diagnostic reports"],
+  "forbidden_operations": ["HUG generator inference", "Physics integration", "Retargeting or calibration optimization", "New grasps, task labels or evaluation dataset", "Predictor fitting", "Existing source/artifact writes"],
+  "native_proposal_sha256": "573cb003458d9d7cfe85b5b4a7877e414257b3e67d5abda04a09bd6d687fa0c2",
+  "mano_asset_sha256": "45d60aa3b27ef9107a7afd4e00808f307fd91111e1cfa35afd5c4a62de264767",
+  "reused_setup_script_sha256": "22d1274568892ec45a665d9a89f135934fe700b29ef82179f22b01606312b04f",
+  "limitations": ["Single existing development grasp", "Skinning labels are anatomical proxies", "No proof of native self-intersection absence", "Collision geometry differs from native surface", "No fidelity pass threshold or physical contact-force equivalence"]
+}

@@ -142,20 +142,103 @@ to native human contacts or to the original HUG evaluation system.
 The current adapter, controller, predictor and historical labels remain
 unchanged. No new execution experiment is part of this confirmation check.
 
+## 14 October continuation: broadened static checks and finer surfaces
+
+The static follow-up uses 32 distinct existing HUG native poses across cube,
+apple, milk box and mug, in eight observation groups. Each object has two scenes
+and four seeds. All share one MANO shape. The Oct 13 cube is a duplicate of one
+of these sources. These are previously inspected development families, not a
+new independent holdout or newly generated evaluation data.
+
+Each native pose is bound by hashes and inference reports to the same recorded
+HUG source/checkpoint. Saved mapping-code hashes match the current code. The
+original Shadow target is recovered from each zero-noise episode's closing
+endpoint at 2.16 s, before force-close: 24 named targets and a world carrier
+pose. The cube's joint values match the current canonical proposal exactly.
+
+Guarded static FK through each captured scene preserves its initial object
+state and simulation time zero. Independent fixed-root URDF task-link positions
+agree with the scene reconstruction within 7.845e-8 m. The reproduced mean-tip
+error agrees with the original saved validation within 9.792e-9 m. Joint-limit
+violations are zero. The floating carrier includes the URDF world-joint's
+1.57079 rad fixed origin; comparing its quaternion directly with the operator
+basis would be an incorrect frame comparison.
+
+Across 160 fingertips, mean native-to-Shadow separation is 6.428 mm. Per-pose
+means range 5.704--8.305 mm; the worst individual tip is 17.518 mm, the milk-box
+scene-001/seed-0 thumb. Object-level means are cube 6.405 mm, apple 5.865 mm,
+milk box 7.000 mm and mug 6.440 mm. These point residuals do not establish contact
+preservation, and the existing 10 mm mean implementation gate remains separate
+from scientific acceptance.
+
+A protocol frozen before the cube refinement specifies 2, 1 and 0.5 mm grids
+and 1, 2 and 5 mm diagnostic bands. The actual centered 50 mm box and all 45
+hand/object collider compatibilities are verified, with no explicit pair or
+body-exclusion overrides. The previous 2 mm grid's 2/5 mm global results
+reproduce exactly. At the 2 mm band, occupied-or-near IoU is 0.582946, 0.580406
+and 0.578557 across the three grids. At 5 mm it is 0.681668, 0.681060 and
+0.681128. The main discrepancy persists; this is stability over tested grids,
+not proof of continuum convergence.
+
+Independent unsigned per-finger proximity uses open native anatomical triangle
+subsets and actual target colliders. It does not invent enclosed finger volumes.
+At the finest grid and 2 mm band, top-face little-finger proximity is nearly
+lost: native 57 mm^2, Shadow 0.5 mm^2, shared 0.25 mm^2. Thus the earlier coarse
+absence finding must be qualified at finer resolution. Native little-finger
++X coverage and target index -Y coverage remain unmatched in the 5 mm sweep.
+
+Normal comparisons now require globally exterior near queries with matching
+anatomical labels and retain unmatched/mismatched queries separately. The fine
+2 mm band contains 748 matching and 84 different-label common queries. Among
+matching pairs, 548 have both closest hand points inside the cube, 100 one
+inside, and 100 neither inside. Median angle is 25.56 degrees over the matching
+subset, versus 59.99 degrees when neither closest point is inside. This shows
+why a small conditional closest-point separation does not establish valid
+physical contact correspondence. Skinning labels, facet normals and deterministic
+grid areas remain geometric proxies; they are not physical contact annotations.
+
+![HUG static validation continuation](../research_artifacts/hug_mapping_refinement_2026-10-14/hug_mapping_validation_progress.png)
+
+### Argument supported by these checks
+
+Let T_AB map coordinates in frame B into frame A; W is world, O object, C camera,
+M native MANO and P target palm. The native object-relative pose is
+`T_OM = inverse(T_WO) * T_WC * T_CM`. Execution composes the saved target as
+`T_WP = T_WO * T_OP`. A common rigid change of world coordinates cancels in the
+object-relative expression. For the proper MANO/operator rotation A,
+`v_operator = A * v_MANO` and `R_Woperator = R_WMANO * transpose(A)` imply
+`R_Woperator * v_operator = R_WMANO * v_MANO`. This explains why coordinated axis
+conversion preserves represented world geometry. Exact joint-name matching and
+independent FK then check that the target model realizes the stored joint policy.
+
+The numerical evidence supports decoding, placement and joint conventions in
+the tested scope. Choosing the Shadow palm as the MANO wrist anchor and fitting
+robot fingers to human vectors are additional morphology assumptions. The
+surface discrepancies demonstrate why those assumptions cannot be justified by
+transform algebra or a successful lift alone. They need separate evidence before
+claiming preservation of the original grasp's contact relationships.
+
+All measurements, frozen protocol, scripts and hashes are in
+[the continuation bundle](../research_artifacts/hug_mapping_refinement_2026-10-14/README.md).
+No generator inference, physics rollout, evaluation-data collection, predictor
+fit, calibration or adapter/controller change accompanied this continuation.
+
 ## Confirmation boundary and next step
 
 Use **native representation confirmed**, **coordinate/joint conversion
 confirmed**, and **grasp/contact fidelity unconfirmed** as separate statements.
 The overall HUG mapping is partially confirmed, not signed off as equivalent.
 
-The completed surface check identifies changed regions. Next check whether
-those per-finger differences persist with finer grids and proximity bands,
-and compare normal directions only where anatomical labels correspond. Use
-the same existing grasp; no new inference or rollout is required. Numerical
-cutoffs must relate to contact geometry and the proposed scientific claim;
-do not promote a mean fingertip threshold or a diagnostic proximity band into
-a universal acceptance criterion. Repeating checks across existing diverse
-native grasps will be needed before generalizing beyond this cube.
+The finer-grid and anatomically matched surface check is complete. Numerical
+transform/joint consistency now covers the 32 saved poses; full contact fidelity
+remains unconfirmed. Next separate the wrist-to-palm anchor assumption from
+finger morphology and characterize per-finger object-relative surfaces on
+additional existing objects. Any proposed calibration must be versioned and
+use different cases from its validation; a criterion must be justified before
+acceptance testing, not selected because this cube passes. Preserve poor native
+proposals and report changed/lost relationships rather than silently repairing
+or removing them. Outcome sensitivity and physical transfer require separate
+future execution evidence. HUG remains active before the next provider.
 
 See [the initial four-source audit](GRASP_MAPPING_FIDELITY.md) for source links
 and existing static measurements. HUG-only test reports and reproducible

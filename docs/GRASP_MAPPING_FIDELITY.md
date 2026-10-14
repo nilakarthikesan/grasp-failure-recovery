@@ -264,9 +264,11 @@ auditing nominal mappings. Any later executor change needs a new protocol and
 comparison with the historical one. A static pose check cannot prove identical
 physical grasp behavior across different hand surfaces and simulators.
 
-The immediate next check is finer contact-patch and normal comparison on the
-existing HUG cube beyond the completed coarse face coverage, then actual native
-artifacts for the remaining sources.
+The HUG-only finer-grid and anatomically matched surface follow-up is complete,
+and numerical transform/joint consistency extends to 32 existing poses; see
+[the continuation](HUG_MAPPING_CONFIRMATION.md). Contact fidelity remains
+unconfirmed. Next inspect the wrist/palm anchor and additional existing object
+surfaces, then actual native artifacts for each remaining source individually.
 This evidence should precede collection or predictor training. The proposed
 cross-generator prediction study remains unrun.
 
