@@ -1,0 +1,11 @@
+{
+  "schema": "hug_exact_buried_driver_independent_review_v1",
+  "original_helper_sha256": "c20380677f727206830e3e87beebd91948009ffb83dc341c53dad2fc5df9baae",
+  "optimized_helper_sha256": "827baf24217e51009d3a557e0e526fe255d94d278ecaaa52ca04d8f34bebca8f",
+  "helper_diff_sha256": "2071af20fb98af8697902226f439c59a36deb185746af2914cb129f15a9314f2",
+  "review_status": "no substantive issue found",
+  "scope": "Read-only comparison of the complete old mesh inside arithmetic and new conditional nearest-triangle query; primitives remain literal original calls. No scientific definition or query/weights change.",
+  "equivalence_argument": "Old signed mesh distance is +distance for insideFalse and -distance for insideTrue, where unsigned nearest-boundary distance is nonnegative. For positive frozen burial tolerance, insideFalse cannot satisfy signed<-tolerance. The new helper computes the identical complete local/halfspace inside array, leaves outside results false, and evaluates the original nearest_parts kernel with identical local coordinates and triangle order only for insideTrue; its predicate distance>tolerance is equivalent to -distance<-tolerance. Normals/point queries and all other old validity rules remain unchanged.",
+  "empirical_scope": "21 manufactured full-field calls including13 invalidity types and mixed mesh interior/boundary/exterior; nine original/static-perturbation records, complete fields/masks/scores/reference sites/weights/coverage exactly equal. This does not prove scientific mapping acceptance or global optimization.",
+  "no_candidate_metrics_run_by_this_review": true
+}

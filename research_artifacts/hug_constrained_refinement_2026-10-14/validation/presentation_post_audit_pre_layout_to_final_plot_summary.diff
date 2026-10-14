@@ -1,0 +1,33 @@
+--- /private/tmp/hug_constrained_validation_runtime_v2_1_2026-10-14/presentation_history/post_audit_pre_layout_revision/plot_summary.py
++++ /private/tmp/hug_constrained_validation_runtime_v2_1_2026-10-14/plot_summary.py
+@@ -40,7 +40,8 @@
+     x = np.arange(6)
+     width = .35
+     colors = ("#2b6cb0", "#c65d1d")
+-    names = ("Original mapping", "Safe returned pose")
++    assert report["selection_source_counts"]["original_fallback"] == 6
++    names = ("Original mapping", "Returned original pose")
+     for z in ax:
+         z.set_xticks(x, labels, rotation=35, ha="right")
+         z.spines[["top", "right"]].set_visible(False)
+@@ -55,8 +56,9 @@
+         ax[2].bar(positions, series["lost" + suffix], width, color=color)
+         ax[2].bar(positions, series["added" + suffix], width, bottom=series["lost" + suffix], color=color, alpha=.55, hatch="///")
+         ax[3].bar(positions, series["flip" + suffix], width, color=color)
+-        for j in range(6):
+-            ax[3].text(positions[j], series["flip" + suffix][j] + .15, "N=" + str(series["eligible" + suffix][j]), ha="center", va="bottom", fontsize=7.5, color=color)
++    for j in range(6):
++        label = "N=" + str(series["eligible0"][j]) + "/" + str(series["eligible1"][j])
++        ax[3].text(x[j], max(series["flip0"][j], series["flip1"][j]) + .15, label, ha="center", va="bottom", fontsize=7.5, color="#333")
+     ax[0].set_title("Native fingertip alignment")
+     ax[0].set_ylabel("Mean error (bars); maximum (marks), mm")
+     ax[0].axhline(10, color="#555", ls="--", lw=1)
+@@ -70,7 +72,7 @@
+     ax[3].set_title("Object-facing direction reversals")
+     ax[3].set_ylabel("Reliable sampled reversals (queries)")
+     ax[3].set_ylim(0, max(series["flip0"] + series["flip1"]) * 1.3 + 2)
+-    ax[3].text(.02, .96, "N = actual eligible queries; domain changes", transform=ax[3].transAxes, fontsize=8, va="top")
++    ax[3].text(.02, .96, "N = original / returned eligible queries", transform=ax[3].transAxes, fontsize=8, va="top")
+     handles, legend = ax[0].get_legend_handles_labels()
+     handles.append(Patch(facecolor="#888", hatch="///", alpha=.55))
+     legend.append("Added proximity (hatched)")

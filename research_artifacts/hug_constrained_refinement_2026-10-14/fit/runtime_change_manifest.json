@@ -1,0 +1,40 @@
+{
+  "schema": "hug_global_constrained_runtime_derivative_manifest_v2_1",
+  "parent_protocol_sha256": "aa3fe3556ee7e838a104e0cf78df69e694344c30604789c4542299d1637aa021",
+  "science_configuration_fields_identical": [
+    "cases",
+    "solver_configuration",
+    "surface_configuration",
+    "direction_configuration",
+    "query_cache_root",
+    "query_cache_sha256",
+    "original_full_distance_root",
+    "full_cache_sha256",
+    "direction_helper_path",
+    "source_sha256",
+    "protected_snapshot_sha256",
+    "protected_source_count",
+    "strict_acceptance_rule_sha256",
+    "compound_objective",
+    "constraint_policy",
+    "candidate_selection",
+    "palm_anchor",
+    "cache_policy",
+    "limitations"
+  ],
+  "scientific_kernel_AST_identical": [
+    "set_pose",
+    "evaluate",
+    "evaluate_tips"
+  ],
+  "unchanged_solver_sha256": "0b29f867337cd11bb9128f5aa6ca92800338543055b286b40873d10f4d74f409",
+  "unchanged_geometry_helpers_sha256": "2e5c3be519fb3d464377f8348329dc7b7f7ac4d8852281cfb26adf48d84d01ac",
+  "unchanged_direction_helper_sha256": "c20380677f727206830e3e87beebd91948009ffb83dc341c53dad2fc5df9baae",
+  "changes": [
+    "Numba active threads per process 1 to 2, maximum pool4 for historical import compatibility",
+    "BLAS/OpenMP thread controls explicitly 1",
+    "Two three-case cohorts to six singleton cohorts",
+    "Runtime/cohort provenance fields only"
+  ],
+  "new_candidate_measurement_executed_by_freezer": false
+}

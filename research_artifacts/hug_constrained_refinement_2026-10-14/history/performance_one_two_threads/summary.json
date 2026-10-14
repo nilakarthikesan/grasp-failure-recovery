@@ -1,0 +1,91 @@
+{
+  "schema": "hug_unchanged_normal_two_thread_parity_summary_v1",
+  "benchmark_sha256": "85f27b67512fb2872be5a56c8cd3ed2bcb514c4e95369336ae42ca4c24829952",
+  "protocol_sha256": "5c0106e4c3450631bb0ba34a6763a53469331f7084342e3db1de8506092738cb",
+  "exact_direction_sha256": "c20380677f727206830e3e87beebd91948009ffb83dc341c53dad2fc5df9baae",
+  "six_original_cases_covered": true,
+  "three_fixed_perturbations_covered": true,
+  "full_fields_reason_masks_scores_eligibility_metadata_exact": true,
+  "fixed_native_sites_targets_weights_and_coverage_exact": true,
+  "fixed_bin_residual_parity": "Follows from identical native targets/weights and candidate scores/validity, with unchanged deterministic elementwise residual helper; not a separately recomputed residual run.",
+  "protected_and_source_hashes_unchanged": true,
+  "guards": {
+    "actual": 0,
+    "selftests": 3,
+    "testing": false
+  },
+  "physics_steps": 0,
+  "new_inference": false,
+  "new_eval_data": false,
+  "constrained_solver_run": false,
+  "AABB_shortcut_activated": false,
+  "timing_scope": "Two repeats each, observed under ongoing V1 host load; descriptive performance, not statistical confidence intervals or fullsolver speed guarantee.",
+  "timing": [
+    {
+      "case": "hug_apple_scene_002_seed_0",
+      "pose": "original",
+      "one_thread_seconds": 0.8438062503701076,
+      "two_thread_seconds": 0.47883902047760785,
+      "observed_speedup": 1.7621919147868754
+    },
+    {
+      "case": "hug_apple_scene_002_seed_0",
+      "pose": "fixed_plus",
+      "one_thread_seconds": 0.7453777710907161,
+      "two_thread_seconds": 0.5236307079903781,
+      "observed_speedup": 1.4234798679996679
+    },
+    {
+      "case": "hug_apple_scene_003_seed_0",
+      "pose": "original",
+      "one_thread_seconds": 1.0844449375290424,
+      "two_thread_seconds": 0.5382215209538117,
+      "observed_speedup": 2.0148672903440175
+    },
+    {
+      "case": "hug_milk_box_scene_000_seed_0",
+      "pose": "original",
+      "one_thread_seconds": 1.2579708959674463,
+      "two_thread_seconds": 0.7281889374135062,
+      "observed_speedup": 1.7275336541580835
+    },
+    {
+      "case": "hug_milk_box_scene_000_seed_0",
+      "pose": "fixed_plus",
+      "one_thread_seconds": 1.4181667499942705,
+      "two_thread_seconds": 0.7585416248766705,
+      "observed_speedup": 1.8695964776156442
+    },
+    {
+      "case": "hug_milk_box_scene_001_seed_0",
+      "pose": "original",
+      "one_thread_seconds": 0.7687038544099778,
+      "two_thread_seconds": 0.44717668753582984,
+      "observed_speedup": 1.7190159412064292
+    },
+    {
+      "case": "hug_mug_scene_002_seed_0",
+      "pose": "original",
+      "one_thread_seconds": 1.316117666545324,
+      "two_thread_seconds": 0.7609163546003401,
+      "observed_speedup": 1.7296482833998161
+    },
+    {
+      "case": "hug_mug_scene_002_seed_0",
+      "pose": "fixed_plus",
+      "one_thread_seconds": 1.2630910000298172,
+      "two_thread_seconds": 0.7385790414409712,
+      "observed_speedup": 1.7101636103368445
+    },
+    {
+      "case": "hug_mug_scene_003_seed_0",
+      "pose": "original",
+      "one_thread_seconds": 1.501794187584892,
+      "two_thread_seconds": 0.8744829790666699,
+      "observed_speedup": 1.717350964552503
+    }
+  ],
+  "minimum_observed_speedup": 1.4234798679996679,
+  "maximum_observed_speedup": 2.0148672903440175,
+  "summed_median_time_ratio": 1.743923954944177
+}

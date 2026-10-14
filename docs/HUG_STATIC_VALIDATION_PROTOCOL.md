@@ -1,6 +1,6 @@
 # HUG static mapping validation and acceptance
 
-14 October 2026. Version 3 of this measurement/acceptance status note. Per-phase
+14 October 2026. Version 4 of this measurement/acceptance status note. Per-phase
 frozen operational protocols and original reports remain immutable. Strict
 encoded-surface acceptance V1 is frozen and applied; approximate predictor-use
 adequacy, independent validation and outcome equivalence remain pending.
@@ -11,16 +11,15 @@ edit occurs. Historical phase descriptions below retain their original scope.
 
 ## Current correction status, 14 October 2026
 
-Native-relative surface fitting and guarded interpolation are implemented on six
-existing noncube poses. The same six coarse/three finer checks still FAIL the
-unchanged strict acceptance rule despite improved objective/whole unsigned IoU.
-Tip/middle errors worsen and some added-region/direction witnesses regress.
-The experimental APIs remain separate from the unchanged production mapper.
-[Correction evidence](HUG_SURFACE_REFINEMENT.md) records settings, histories,
-all cases, roots, checks, numerical assumptions, source hashes and next proposed
-constrained/direction-aware solve. Its 10 mm engineering guard is not a newly
-adopted geometric acceptance allowance. No current result certifies native
-contact/failure-label equivalence or independent predictor adequacy.
+All six saved-grasp fits are complete. The solver returned 0 eligible surface corrections and retained 6 exact original poses. Independent original/final source preflight passes all six; the unchanged six-coarse/three-fine strict mapping audit returns 0 PASS, 9 FAIL and 0 UNRESOLVED.
+
+[The completed constrained/direction-aware solve](HUG_CONSTRAINED_REFINEMENT.md)
+retains the original five-finger caps, strict 10 mm mean and unchanged
+scientific acceptance rule. Original-pose fallback is not a surface repair.
+The earlier staged/interpolated correction remains separate documented
+history. Experimental APIs stay separate from the default mapper; no new
+eval data or other-generator advance occurred. No current result certifies
+native contact/failure-label equivalence or independent predictor adequacy.
 
 ## Completed checks and frozen acceptance, 14 October 2026
 

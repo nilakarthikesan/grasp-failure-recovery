@@ -1,0 +1,35 @@
+{
+  "schema": "hug_constrained_static_solver_manufactured_protocol_v1",
+  "frozen_before_real_case_metrics_UTC": "2026-10-14 14:51:56 UTC",
+  "source_sha256": {
+    "constrained_refinement.py": "0b29f867337cd11bb9128f5aa6ca92800338543055b286b40873d10f4d74f409",
+    "test_constrained_surface_refinement.py": "fabb3db393cf8becafc1ccf8ee24a86b7a068c0dc1c59b816bb11bce00dfb612",
+    "run_manufactured_checks.py": "3c2905d381a521b483b28b8cb8c9c2f29179dd31f1f2ae504a6363e6e072fc29",
+    "SOLVER_API.md": "01d69fc2eabeb0f3c4b0ff5eb0911d9bf847599738aef66811b29a54a8c0dbf2"
+  },
+  "fixed_settings": {
+    "joint_delta_limit_rad": 0.35,
+    "maximum_mean_fingertip_error_m": 0.01,
+    "constraint_scale_m": 0.01,
+    "feasibility_error_allowance_m": 1e-08,
+    "minimum_objective_improvement": 1e-12,
+    "f_scale": 0.2,
+    "maxiter": 120,
+    "ftol": 1e-09,
+    "eps": 1e-05,
+    "evaluation_cache_size": 64,
+    "fingertip_callback_agreement_allowance_m": 1e-12
+  },
+  "direction_cosine_endpoint_allowance": 1e-12,
+  "objective": "Frozen driver residuals, robust soft_l1 f_scale0.2; same native reference for every q",
+  "optimizer": "SLSQP local joint optimization of all24 original wrist/finger targets",
+  "internal_tip_inequalities": "(original individual squared tip error minus candidate individual squared tip error)/constraint_scale_m^2 >=0 for allfive",
+  "internal_mean_inequality": "(0.010 m minus candidate mean tip error)/constraint_scale_m >=0",
+  "final_per_tip_numeric_check": "candidate error norm <=original error norm +1e-8 m, explicit arithmetic assumption, not scientific acceptance budget",
+  "final_mean_check": "computed mean<=0.010 m STRICT with no enlargement",
+  "selection": "Lowest original frozen cost feasible SLSQP major iterate or rawfinal with >1e-12 improvement; never a derivative/linesearch probe; exactoriginal fallback ifnone. Exacttie retains earliermajor. Budgetexhausted feasibleimprovement canbe returned with status explicit. No alpha interpolation.",
+  "scientific_acceptance_rule_unchanged_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4",
+  "scope": "Manufactured solver/API checks only; realcase driver/protocol separate. No sourcegeneration, physics or eval labels",
+  "new_eval_data": false,
+  "physics_steps": 0
+}

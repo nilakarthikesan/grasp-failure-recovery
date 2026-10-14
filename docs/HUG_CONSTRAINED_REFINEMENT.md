@@ -1,15 +1,11 @@
 # HUG fingertip-constrained, direction-aware refinement
 
-14 October 2026. **The new experimental code is implemented; the six real
-saved-grasp fits and independent mapping verdict are pending.** The default
-mapper remains unchanged. The last completed staged correction still failed
-strict preservation in all six cases and three finer repeats; see
-[the previous result](HUG_SURFACE_REFINEMENT.md).
+14 October 2026. **Fingertip constraints and native surface-direction fitting are implemented and tested on all six existing HUG grasps.** All six saved-grasp fits are complete. The solver returned 0 eligible surface corrections and retained 6 exact original poses. Independent original/final source preflight passes all six; the unchanged six-coarse/three-fine strict mapping audit returns 0 PASS, 9 FAIL and 0 UNRESOLVED. The default mapper remains unchanged; this is not HUG mapping sign-off. The previous staged correction remains a separate historical result; see [the previous result](HUG_SURFACE_REFINEMENT.md).
 
 This is joint-constrained method V1, using canonical **runtime V2.1**. Those
 runtime names are separate from the earlier staged surface V2.1/interpolation
-V3.1 method. Only completed results from the canonical run will determine its
-measured geometry result.
+V3.1 method. The completed canonical run and its independently rerun audit below determine
+this scoped development result.
 
 ## What the new code changes
 
@@ -28,7 +24,7 @@ thumb. Final checks report exact nonworsening and nonworsening with a declared
 contact-fidelity tolerance, and the 10 mm mean guard is not enlarged. Starting
 errors remain approximation errors; the constraints do not force exact native
 tip positions. Middle landmarks have no corresponding hard constraint and
-their errors, including regressions, will be reported.
+their errors, including regressions, are reported.
 
 The MANO wrist and Shadow palm POSITION stay aligned. Palm ORIENTATION follows
 the existing q-dependent wrist convention. Carrier translation only compensates
@@ -59,10 +55,10 @@ it is not dropped or reweighted to zero. The source-bound helper reproduces the
 previous original paired eligibility counts and areas in all six cases. This
 checks its implementation, not the candidate mapping result.
 
-## Selection, tests and pending acceptance
+## Selection, tests and independent acceptance
 
 Common settings and selection were frozen before the first constrained fits:
-120 iterations, eps 1e-5 rad, ftol 1e-9 and robust f_scale 0.2. Only major solver
+a 120-iteration budget, eps 1e-5 rad, ftol 1e-9 and robust f_scale 0.2. Only major solver
 iterates and the final raw result can be selected. The lowest-objective feasible
 improvement is retained, with an earlier major iterate preferred on a tie. If
 none qualifies, the exact original target/root is retained. Line-search and
@@ -78,7 +74,7 @@ defensive callback handling. [Frozen implementation evidence](../research_artifa
 records versions and exact source hashes. The installed API and experiment
 solver are byte-identical; these tests are not real-grasp sign-off.
 
-The ongoing canonical runtime uses six independent singleton processes, two
+The completed canonical runtime used six independent singleton processes, two
 active Numba query threads and one BLAS/OpenMP thread per process. Pool capacity
 four permits the preserved geometry library to import before the active mask is
 set to two. Exact field/reference parity was checked on six original poses and
@@ -86,11 +82,40 @@ three fixed static perturbations. An earlier capacity-two launch stopped at
 import before any case or solve. Earlier incomplete searches and an unexecuted
 faster-helper preparation remain separate history, not scientific results.
 
-After all six fits finish, independent source preflight will recompute every
-original/final fingertip error, physical/trust bounds, root convention and
-recorded candidate selection. The unchanged six-coarse/three-fine audit then
-uses the original 1/2/5 mm bands, query cells, anatomical definitions, normal
-eligibility, numerical allowances and strict acceptance rule.
+Independent source preflight recomputed every original/final fingertip
+error, physical/trust bounds and root convention, and checked the recorded
+candidate selection. It did not independently recompute all historical
+objectives. The complete nine-resolution audit used the original 1/2/5 mm
+bands, query cells, anatomical definitions, normal eligibility, numerical
+allowances and strict acceptance rule.
+
+## Completed measured result
+
+All six saved-grasp fits are complete. The solver returned 0 eligible surface corrections and retained 6 exact original poses. Independent original/final source preflight passes all six; the unchanged six-coarse/three-fine strict mapping audit returns 0 PASS, 9 FAIL and 0 UNRESOLVED.
+
+- **hug_apple_scene_002_seed_0**: original_fallback; 0 eligible improving major callbacks; solver status 8 (Positive directional derivative for linesearch), 98 optimizer iterations, budget exhausted False. Mean TIP 5.845 → 5.845 mm; maximum TIP 13.768 → 13.768 mm.
+- **hug_apple_scene_003_seed_0**: original_fallback; 0 eligible improving major callbacks; solver status 8 (Positive directional derivative for linesearch), 91 optimizer iterations, budget exhausted False. Mean TIP 5.866 → 5.866 mm; maximum TIP 13.794 → 13.794 mm.
+- **hug_milk_box_scene_000_seed_0**: original_fallback; 0 eligible improving major callbacks; solver status 9 (Iteration limit reached), 120 optimizer iterations, budget exhausted True. Mean TIP 6.647 → 6.647 mm; maximum TIP 15.163 → 15.163 mm.
+- **hug_milk_box_scene_001_seed_0**: original_fallback; 0 eligible improving major callbacks; solver status 9 (Iteration limit reached), 120 optimizer iterations, budget exhausted True. Mean TIP 8.189 → 8.189 mm; maximum TIP 17.518 → 17.518 mm.
+- **hug_mug_scene_002_seed_0**: original_fallback; 0 eligible improving major callbacks; solver status 9 (Iteration limit reached), 120 optimizer iterations, budget exhausted True. Mean TIP 6.609 → 6.609 mm; maximum TIP 15.878 → 15.878 mm.
+- **hug_mug_scene_003_seed_0**: original_fallback; 0 eligible improving major callbacks; solver status 9 (Iteration limit reached), 120 optimizer iterations, budget exhausted True. Mean TIP 6.609 → 6.609 mm; maximum TIP 15.945 → 15.945 mm.
+
+Exact-original fallback means that case was not repaired. A raw improvement
+which violates any fingertip cap is refused; the original source proposal
+stays in the audit. Stored callback sequence numbers are distinct from
+the optimizer iteration counter. Nonconvergence and budget exhaustion do
+not prove global infeasibility of a faithful mapping.
+
+[The independent report](../research_artifacts/hug_constrained_refinement_2026-10-14/validation/REPORT.md)
+records all five fingertip and middle errors, raw refusals, whole/per-part
+proximity bounds, actual normal domains and signed witnesses.
+[The complete summary](../research_artifacts/hug_constrained_refinement_2026-10-14/validation/summary.json)
+and [bound evidence](../research_artifacts/hug_constrained_refinement_2026-10-14/results_manifest.json)
+preserve all six cases and nine resolutions.
+
+![Per-finger native position errors](../research_artifacts/hug_constrained_refinement_2026-10-14/validation/constrained_fingertip_errors.png)
+
+![Independent mapping measurements](../research_artifacts/hug_constrained_refinement_2026-10-14/validation/constrained_candidate_tradeoffs.png)
 
 Lower fitting error or passing fingertip guards cannot establish strict
 preservation. Definite lost/added area and reliable sampled direction reversals

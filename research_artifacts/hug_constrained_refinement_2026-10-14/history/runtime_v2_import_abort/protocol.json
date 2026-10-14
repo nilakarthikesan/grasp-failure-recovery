@@ -1,0 +1,209 @@
+{
+  "schema": "hug_global_constrained_surface_protocol_runtime_v2",
+  "frozen_utc": "2026-10-14T15:40:33.323105+00:00",
+  "before_first_real_candidate_metrics": false,
+  "root_review_required_before_execution": true,
+  "scope": "Six original saved seed-0 HUG grasps, six independent singleton CPU cohorts. All scientific settings, original seeds, sites, exact geometry, constraints, objective and selection are unchanged from V1. No inference, eval episodes, physics, task labels or training.",
+  "cases": [
+    {
+      "source_inventory_index": 8,
+      "native_sha256": "0b99bf1919f6d2c06b76361a2c710474c333d83a3ee750a25fb90490cd3b765c",
+      "densities_mm": [
+        2
+      ]
+    },
+    {
+      "source_inventory_index": 12,
+      "native_sha256": "2a1f9fd42435e90b5f3b9684c4fa1a7af92e2bcf60723cdc04ed7413a7d368d2",
+      "densities_mm": [
+        2
+      ]
+    },
+    {
+      "source_inventory_index": 16,
+      "native_sha256": "9b543c10c9c647f6c0986954381dff9e24aa4aaec338433b0b71b5f7458ce731",
+      "densities_mm": [
+        2
+      ]
+    },
+    {
+      "source_inventory_index": 20,
+      "native_sha256": "52ec7441c108f7a9704535c63611ff9d9da3d5f2871b57396b33fdb1e73a7d8b",
+      "densities_mm": [
+        2
+      ]
+    },
+    {
+      "source_inventory_index": 24,
+      "native_sha256": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+      "densities_mm": [
+        2
+      ]
+    },
+    {
+      "source_inventory_index": 28,
+      "native_sha256": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+      "densities_mm": [
+        2
+      ]
+    }
+  ],
+  "allowed_cohorts": [
+    [
+      8
+    ],
+    [
+      12
+    ],
+    [
+      16
+    ],
+    [
+      20
+    ],
+    [
+      24
+    ],
+    [
+      28
+    ]
+  ],
+  "cohort_filename_policy": "candidate_cohort_8.json through candidate_cohort_28.json, one case per declared singleton cohort, with noncolliding partial files. Merge requires all six unique original hashes and a common reviewed runtime protocol/source/helper.",
+  "solver_configuration": {
+    "joint_delta_limit_rad": 0.35,
+    "maximum_mean_fingertip_error_m": 0.01,
+    "constraint_scale_m": 0.01,
+    "feasibility_error_allowance_m": 1e-08,
+    "minimum_objective_improvement": 1e-12,
+    "f_scale": 0.2,
+    "maxiter": 120,
+    "ftol": 1e-09,
+    "eps": 1e-05,
+    "evaluation_cache_size": 64,
+    "fingertip_callback_agreement_allowance_m": 1e-12
+  },
+  "surface_configuration": {
+    "near_band_m": 0.01,
+    "near_sites": 192,
+    "broad_sites": 64,
+    "near_mass": 0.9,
+    "distance_scale_m": 0.002,
+    "closest_vector_weight": 1.0,
+    "normal_weight": 0.0,
+    "anchor_scale_m": 0.01,
+    "anchor_weight": 0.25,
+    "joint_delta_limit_rad": 0.35,
+    "joint_weight": 0.05,
+    "max_nfev": 60,
+    "diff_step": 0.0001,
+    "ftol": 1e-05,
+    "xtol": 1e-05,
+    "gtol": 1e-05,
+    "loss": "soft_l1",
+    "f_scale": 0.2
+  },
+  "direction_configuration": {
+    "bins_per_part": 64,
+    "score_weight": 1.0,
+    "invalid_penalty": 2.0,
+    "fixed_mass_per_part": 0.16666666666666666,
+    "score_endpoint_arithmetic_allowance": 1e-12,
+    "native_and_baseline_eligibility": "Fixed original 5 mm common-same-label exterior, unique normal/point/label, unburied, both closest points outside actual visible object under literal old normal protocol. No eligible sites means unavailable part, with no mass redistribution.",
+    "candidate_eligibility": "Reevaluate actual nearest full-hand part/normal/ties/inside/buried/miss/closest-visual membership at fixed reference bins. Invalid site retains nonzero residual 2.0 instead of being dropped."
+  },
+  "query_cache_root": "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces",
+  "query_cache_sha256": {
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_apple_scene_002_seed_0_density2mm_queries.npz": "fd3500b5902969e941aa81eabe9e1ec345a489098a31fe438ba65f02ce714980",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_apple_scene_003_seed_0_density2mm_queries.npz": "8d032590372a532da4eb62e7abb161553e459223d29764b229e168c4e1e6f5e0",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_milk_box_scene_000_seed_0_density2mm_queries.npz": "291618ec92db0c4e5b1dd857d4ffba8e556efc7a2a8feb3068b89eae9276ce17",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_milk_box_scene_001_seed_0_density2mm_queries.npz": "999a927e524ab6030e104443ac48659cc89a199080d98b1afbeb4bd6781af7e2",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_mug_scene_002_seed_0_density2mm_queries.npz": "2b405e6db66bc8ac4cd89227768bf8727bea8c64d1d2cafd24a2795f241ca754",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_mug_scene_003_seed_0_density2mm_queries.npz": "3375410e0b77554bba816e13e3a0f32620df9850d370634e8366187e8b48bfbb"
+  },
+  "original_full_distance_root": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral",
+  "full_cache_sha256": {
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_milk_box_scene_001_seed_0_density2mm_full_current.npz": "3c856dcf431ac34b171017db46ab9305759d4a084164cce9f04ff2b66cad803a",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_002_seed_0_density2mm_full_current.npz": "3516644c43d78e2df25eea75a8688b4738800f43e90be03d41696649caf17a89",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_apple_scene_003_seed_0_density2mm_full_current.npz": "92613f6b786541ec3258b018a60f0fa80866b6a737c3c01bcd8f6c36338c162d",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_milk_box_scene_000_seed_0_density2mm_full_current.npz": "7e24fb9877f01f657023a016c5c9a6ccef584c0ccfdf3f3d935ee3d8f8add629",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_003_seed_0_density2mm_full_current.npz": "53f7f95300612c331145b396d789cd1cc56d60cc14db0cbbd0b14e886a25407e",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_apple_scene_002_seed_0_density2mm_full_current.npz": "666e99575cbf58963723f8e872cf6df7c49d3dcfcee363c6cceb944d4f8c6ffb"
+  },
+  "direction_helper_path": "/private/tmp/hug_constrained_validation_2026-10-14/exact_direction.py",
+  "implementation_sha256": {
+    "/private/tmp/hug_constrained_refinement_runtime_v2_2026-10-14/constrained_refinement.py": "0b29f867337cd11bb9128f5aa6ca92800338543055b286b40873d10f4d74f409",
+    "/private/tmp/hug_constrained_refinement_runtime_v2_2026-10-14/run_constrained_refinement.py": "c16c73d0546454a0c6a44ee928821fcfb15d4d74ee9cb36263376471068daf96",
+    "/private/tmp/hug_constrained_refinement_runtime_v2_2026-10-14/geometry_helpers.py": "2e5c3be519fb3d464377f8348329dc7b7f7ac4d8852281cfb26adf48d84d01ac",
+    "/private/tmp/hug_constrained_refinement_runtime_v2_2026-10-14/merge_cohorts.py": "0290a847546326407e8d227c058ed77f806f8b447f12360057f26807292d8d7f",
+    "/private/tmp/hug_constrained_validation_2026-10-14/exact_direction.py": "c20380677f727206830e3e87beebd91948009ffb83dc341c53dad2fc5df9baae"
+  },
+  "source_sha256": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/existing_hug_inventory.json": "5fc28832494c54c7822543a00ea735ab47e1d44d944ff50fc26712eb27536fcb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/static_saved_hug_fk.json": "04ebe393388193cf4ac256ea0fa0f61d8f2869805618d339c2572673f7445ae8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_palm_object_validation_2026-10-14/surfaces/audit_other_surfaces.py": "b235f8b88b5ecb0fc2bc842c3fdb4a17d4c2eb526f321a449169dcbc3cc27bdd",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/orientation/check_orientation.py": "344b491bf1538d6f451a4a14f0f757d9f8dc37808c7aace64449e8102c47a4f8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/orientation/protocol.json": "22ef5c539c4298589937312218272ea1d41bd1eae9a87e66b45f068dcbce0134",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/acceptance/acceptance_rule.json": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf": "29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/hug/assets/mano_models/models/MANO_RIGHT.pkl": "45d60aa3b27ef9107a7afd4e00808f307fd91111e1cfa35afd5c4a62de264767"
+  },
+  "protected_snapshot_sha256": "d1f97309f366962ee3b32c11d24cc576870899f37dbb8837080ea15fcbb9c530",
+  "protected_source_count": 114,
+  "source_branch_commit": "d577818",
+  "strict_acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4",
+  "compound_objective": "Fixed original six-part near/broad quadrature, native unsigned distances and closest-point vectors with the prior settings; each part mass 1/6. Actual native-relative facing-score residual uses normalized per-part weights and fixed 1/sqrt(6) scale; invalid residual is 2.0 before weighting, fixed length, native-away scores retained. Original all-ten anchor residual 0.25/10mm/sqrt(30); original full-24 joint regularizer 0.05/0.35rad/sqrt(24). Concatenate distance, closest-vector, facing, anchor and joint blocks. Equivalent soft-L1 cost with f_scale 0.2.",
+  "constraint_policy": "Internal SLSQP: every tip squared error is at most its ORIGINAL squared error; mean error at most .010 m. Final per-tip norm allows only 10 nm explicit arithmetic error, while computed mean stays strictly at most .010 m. Actual source-URDF bounds intersect original q +/- .35 rad. No clipping or replacing constraints with a loss.",
+  "candidate_selection": "Lowest frozen-objective FEASIBLE SLSQP major iterate or raw-final; finite-difference and line-search probes cannot be selected. Shared pre-metric policy. If none improves original by 1e-12, retain EXACT original q/root. Record each major feasibility/cost, raw-final refusal, selected iteration and convergence/budget separately.",
+  "palm_anchor": "Native wrist equals Shadow palm POSITION. Original carrier rotation and world-operator/base q-dependent palm-rotation convention maintained; carrier translation compensates ONLY changed wrist-to-palm offset. Literal original root when q is original. No object/hand scaling or arbitrary shift.",
+  "cache_policy": "Fresh solver/model data per case. Full residual LRU 64 and FK-tip LRU 64; original/overlap full-versus-cheap tip components agree within 1e-12 m. Constraint derivatives use FK-only callback. Final state/surface/direction/FK fields are recomputed freshly OUTSIDE solver cache.",
+  "numba_threads_per_process": 2,
+  "progress_full_evaluation_interval": 25,
+  "guarded_APIs": [
+    "mj_step",
+    "mj_step1",
+    "mj_step2"
+  ],
+  "guards_active_after_all_imports_and_end_cohort": true,
+  "settings_identical_across_cases": true,
+  "limitations": [
+    "Local nonsmooth constrained optimization is neither a global optimum nor proof of feasibility/infeasibility of strict morphology mapping.",
+    "Actual mesh/analytic normals are fitted only at declared original paired-eligible bins. Other lost/new/unavailable/tied/penetrating regions remain separate required scientific audit evidence.",
+    "Fixed part mass never redistributes missing normal evidence; absence cannot become PASS.",
+    "Closest-part distances can include buried collider interfaces; normal eligibility excludes buried features. No exact globally accessible contact boundary proof.",
+    "Conditional arithmetic assumptions and lack of exhaustive self-intersection proof remain; numerical constraint allowance is not a scientific mapping margin.",
+    "Objective improvement or engineering passage cannot certify strict contact states, forces, failure labels or unseen objects.",
+    "Six development poses from one MANO shape are not independent held-out validation.",
+    "Original default mapper, predictor, manuscript and runtime assets remain unchanged. No new eval data authorized."
+  ],
+  "runtime_protocol_version": 2,
+  "before_first_runtime_v2_candidate_metrics": true,
+  "prior_runtime_v1_callback_metrics_already_observed": true,
+  "new_scientific_protocol": false,
+  "scientific_settings_predeclared_under_parent_protocol": "aa3fe3556ee7e838a104e0cf78df69e694344c30604789c4542299d1637aa021",
+  "runtime_environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "2",
+    "OMP_DYNAMIC": "FALSE",
+    "MKL_DYNAMIC": "FALSE"
+  },
+  "maximum_concurrent_processes": 6,
+  "parent_runtime_protocol_path": "/private/tmp/hug_constrained_refinement_2026-10-14/protocol.json",
+  "parent_runtime_protocol_sha256": "aa3fe3556ee7e838a104e0cf78df69e694344c30604789c4542299d1637aa021",
+  "runtime_only_change": true,
+  "scientific_settings_unchanged_from_parent": true,
+  "scientific_kernel_AST_identical": [
+    "set_pose",
+    "evaluate",
+    "evaluate_tips"
+  ],
+  "parent_execution_preservation": "V1 source/protocol/logs are preserved byte-for-byte. Its interruption, if authorized, is recorded separately; no V1 probes or partial records are merged into V2. Each V2 case starts at original q with fresh model/solver/cache.",
+  "candidate_schema": "hug_global_constrained_surface_candidate_v1",
+  "thread_parity_report_path": "/private/tmp/hug_numba_two_thread_verification_2026-10-14/benchmark.json",
+  "thread_parity_report_sha256": "85f27b67512fb2872be5a56c8cd3ed2bcb514c4e95369336ae42ca4c24829952",
+  "thread_parity_protocol_path": "/private/tmp/hug_numba_two_thread_verification_2026-10-14/protocol.json",
+  "thread_parity_protocol_sha256": "5c0106e4c3450631bb0ba34a6763a53469331f7084342e3db1de8506092738cb"
+}

@@ -1,0 +1,12 @@
+{
+  "schema": "hug_manufactured_selection_test_import_abort_v1",
+  "failed_environment": {
+    "NUMBA_NUM_THREADS": 2
+  },
+  "error": "Frozen imported surface library temporarily requests four Numba threads; pool capacity two rejects import.",
+  "stage": "module import before tests or case loading",
+  "candidate_metrics_computed": false,
+  "new_solver_runs": false,
+  "new_eval_data": false,
+  "resolution": "Reran unchanged test and wrapper with NUMBA_NUM_THREADS=4; driver active-mask 2 remains an independent runtime setting."
+}

@@ -1,0 +1,19 @@
+--- V2 preserved wrapper
++++ V2.1 runtime amendment binding wrapper
+@@ -79,6 +79,7 @@
+     cp=sha(args.candidate);candidate=read(args.candidate);assert candidate['schema']=='hug_global_constrained_surface_candidate_v1';v3=False;v2=True;targets={c['native_sha256']:c for c in candidate['cases']};assert len(targets)==len(candidate['cases'])==6
+     assert candidate['protocol_sha256']==protocol['candidate_protocol_expected_sha256']
+     assert candidate['runtime_protocol_version']==protocol['candidate_runtime_protocol_version']
++    assert candidate['runtime_amendment']==protocol['candidate_runtime_amendment']
+     candidate_protocol_file=args.candidate.parent/'protocol.json';assert sha(candidate_protocol_file)==candidate['protocol_sha256']
+     assert sha(args.candidate.parent/'run_constrained_refinement.py')==candidate['script_sha256']
+     assert sha(args.candidate.parent/'merge_cohorts.py')==candidate['merge_script_sha256']
+@@ -89,7 +90,7 @@
+     for file,h in candidate_protocol['source_sha256'].items():assert sha(file)==h,file
+     cohorts=candidate['cohort_provenance'];assert [x['cohort_case_indices'] for x in cohorts]==candidate_protocol['allowed_cohorts'];assert candidate_protocol['allowed_cohorts']==[[8],[12],[16],[20],[24],[28]];bound_cases=[]
+     for cohort in cohorts:
+-        assert sha(cohort['path'])==cohort['sha256'];cohort_report=read(cohort['path']);assert cohort_report['protocol_sha256']==candidate['protocol_sha256'];assert cohort_report['runtime_protocol_version']==protocol['candidate_runtime_protocol_version'];assert cohort_report['guards']['actual']==0 and cohort_report['guards']['selftests']==3 and cohort_report['physics_steps']==0;assert len(cohort_report['cases'])==len(cohort['cohort_case_indices'])==1;assert [x['source_inventory_index'] for x in cohort_report['cases']]==cohort['cohort_case_indices'];bound_cases.extend(cohort_report['cases'])
++        assert sha(cohort['path'])==cohort['sha256'];cohort_report=read(cohort['path']);assert cohort_report['protocol_sha256']==candidate['protocol_sha256'];assert cohort_report['runtime_protocol_version']==protocol['candidate_runtime_protocol_version'];assert cohort_report['runtime_amendment']==protocol['candidate_runtime_amendment'];assert cohort_report['guards']['actual']==0 and cohort_report['guards']['selftests']==3 and cohort_report['physics_steps']==0;assert len(cohort_report['cases'])==len(cohort['cohort_case_indices'])==1;assert [x['source_inventory_index'] for x in cohort_report['cases']]==cohort['cohort_case_indices'];bound_cases.extend(cohort_report['cases'])
+     assert candidate['guards']['actual']==0 and candidate['guards']['selftests']==18
+     assert {x['native_sha256'] for x in bound_cases}==set(targets) and len(bound_cases)==6
+     assert all(x==targets[x['native_sha256']] for x in bound_cases)

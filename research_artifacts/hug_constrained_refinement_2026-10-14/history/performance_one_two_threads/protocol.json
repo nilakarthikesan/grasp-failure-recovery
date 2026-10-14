@@ -1,0 +1,48 @@
+{
+  "schema": "hug_unchanged_normal_numba_two_thread_protocol_v1",
+  "frozen_utc": "2026-10-14T15:36:07.890776+00:00",
+  "source_sha256": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/existing_hug_inventory.json": "5fc28832494c54c7822543a00ea735ab47e1d44d944ff50fc26712eb27536fcb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/static_saved_hug_fk.json": "04ebe393388193cf4ac256ea0fa0f61d8f2869805618d339c2572673f7445ae8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_palm_object_validation_2026-10-14/surfaces/audit_other_surfaces.py": "b235f8b88b5ecb0fc2bc842c3fdb4a17d4c2eb526f321a449169dcbc3cc27bdd",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/orientation/check_orientation.py": "344b491bf1538d6f451a4a14f0f757d9f8dc37808c7aace64449e8102c47a4f8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/orientation/protocol.json": "22ef5c539c4298589937312218272ea1d41bd1eae9a87e66b45f068dcbce0134",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/acceptance/acceptance_rule.json": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf": "29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/hug/assets/mano_models/models/MANO_RIGHT.pkl": "45d60aa3b27ef9107a7afd4e00808f307fd91111e1cfa35afd5c4a62de264767",
+    "/private/tmp/hug_constrained_refinement_2026-10-14/constrained_refinement.py": "0b29f867337cd11bb9128f5aa6ca92800338543055b286b40873d10f4d74f409",
+    "/private/tmp/hug_constrained_refinement_2026-10-14/run_constrained_refinement.py": "cd84406a8ca6d4574bb87cd7b7a9d1d0ba134a2237fcb64cd408e69b9f45934c",
+    "/private/tmp/hug_constrained_refinement_2026-10-14/geometry_helpers.py": "2e5c3be519fb3d464377f8348329dc7b7f7ac4d8852281cfb26adf48d84d01ac",
+    "/private/tmp/hug_constrained_refinement_2026-10-14/merge_cohorts.py": "69c0a105774dac28b0d31da9a68395f51cea1ee26b4796d649e6436d7c04bb36",
+    "/private/tmp/hug_constrained_validation_2026-10-14/exact_direction.py": "c20380677f727206830e3e87beebd91948009ffb83dc341c53dad2fc5df9baae",
+    "/private/tmp/hug_constrained_refinement_2026-10-14/protocol.json": "aa3fe3556ee7e838a104e0cf78df69e694344c30604789c4542299d1637aa021",
+    "/private/tmp/hug_constrained_refinement_2026-10-14/protected_hashes.json": "d1f97309f366962ee3b32c11d24cc576870899f37dbb8837080ea15fcbb9c530",
+    "/private/tmp/hug_numba_two_thread_verification_2026-10-14/benchmark_two_threads.py": "e3e6c5f84d3615769426b0147bf8e2d27c9219038378a1646c29f108a2033615"
+  },
+  "timing_repeats": 2,
+  "thread_variants": [
+    1,
+    2
+  ],
+  "logical_cpu_count": 10,
+  "perturb_inventory_indices": [
+    8,
+    16,
+    24
+  ],
+  "perturb_offset_rad": 0.02,
+  "perturb_policy": "All24joint qoriginal+0.02*alternatingsign, clippedactualURDF; fixedcarrierR, palmposcompensated, zero-time FK; deterministic staticbenchmark only",
+  "normal_domains": "Every original shared-eligible query and every fixed reference bin for all6 baselines; firstapple/milk/mug fixedperturbedposes. Samefullfield/mask/score/metadata equality unchanged original helper threads1vs2, includingNaNs. Originalreference quadrature/coverage unchanged.",
+  "thread_scope": "Only numba.set_num_threads(1 vs2) changes within process; membership helper remains original object. Fullnormalfields+fixednativequadrature+coverage exactly equal includingNaNs. NoAABBcode imported/activated.",
+  "declared_environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "ongoing_V1_mutated": false,
+  "solver_run": false,
+  "physics_steps": 0,
+  "new_eval_data": false,
+  "new_inference": false
+}

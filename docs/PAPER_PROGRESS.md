@@ -283,3 +283,33 @@ predictor remain unchanged. No new generator inference, eval episode/label,
 training or other-generator validation occurs. This is implementation progress
 toward supporting mapping validity, not a completed multi-generator prediction
 study or independent generalization result.
+
+
+## 14 October 2026 — Joint fingertip/direction fitting and unchanged audit completed
+
+All six saved-grasp fits are complete. The solver returned 0 eligible surface corrections and retained 6 exact original poses. Independent original/final source preflight passes all six; the unchanged six-coarse/three-fine strict mapping audit returns 0 PASS, 9 FAIL and 0 UNRESOLVED.
+
+The isolated 24-joint constrained API and native-facing objective are
+implemented. Each fingertip must retain at most its original native error
+plus the separately declared 10 nm engineering arithmetic allowance; the
+computed mean remains ≤10 mm. Invalid fixed direction sites retain penalties,
+native-away targets are preserved, missing part mass is not redistributed,
+and no successful-lift filter is used. Fifty new manufactured tests and all
+120 installed new/prior surface API checks pass. These are implementation
+checks, not full geometric equivalence. The default mapper is not promoted.
+
+Final independent FK/source checks and the nine unchanged static surface
+audits are complete. Optimizer nonconvergence/refusal is neither proof of
+global infeasibility nor a native grasp-failure label. Preserve the frozen
+1/2/5 mm rule, query cells, numerical assumptions, all source poor proposals
+and each versioned result. Incomplete/import-aborted/unexecuted histories
+and unused performance helpers remain separate. All 114 protected original
+bytes, predictor and manuscript match; the new API/test are separately
+bound. No new inference, physical eval data, outcome labels, training or
+other-generator work occurred. [Completed evidence](HUG_CONSTRAINED_REFINEMENT.md).
+
+Next technical work, if authorized, is a separately frozen constraint-feasible
+refinement or a documented change of the mapping/embodiment claim followed
+by appropriate validation. Do not loosen acceptance or call a fallback a
+repair. Contact/failure-label equivalence, unseen-object validation and
+predictor adequacy remain unresolved or untested.

@@ -1,0 +1,39 @@
+{
+  "schema": "hug_constrained_selection_audit_manufactured_v1",
+  "script_sha256": "52b7e866f9cafa8a6669a1e940391f2f83d2a600ce9bd6d35e712c9206a811e3",
+  "wrapper_sha256": "3d3b1e496f650763af1a838329aaba614d360a0ac26d4c313a7ffc8eed9888e6",
+  "tests": [
+    {
+      "case": "major_minimum_over_better_but_infeasible_iterate",
+      "passed": true,
+      "selected_source": "major_iteration"
+    },
+    {
+      "case": "raw_final_lower_minimum",
+      "passed": true,
+      "selected_source": "raw_final"
+    },
+    {
+      "case": "raw_cost_tie_keeps_earliest_major",
+      "passed": true,
+      "selected_source": "major_iteration"
+    },
+    {
+      "case": "no_eligible_exact_original_fallback",
+      "passed": true,
+      "selected_source": "original_fallback"
+    },
+    {
+      "case": "wrong_selected_trace_rejected",
+      "passed": true
+    },
+    {
+      "case": "infeasible_candidate_false_eligible_flag_rejected",
+      "passed": true
+    }
+  ],
+  "physics_steps": 0,
+  "new_eval_data": false,
+  "new_solver_runs": false,
+  "objective_trace_truth_not_assumed_geometric_ground_truth": true
+}

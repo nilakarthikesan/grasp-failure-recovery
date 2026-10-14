@@ -1,0 +1,78 @@
+{
+  "schema": "hug_final_post_audit_presentation_revision_v1",
+  "completed_utc": "2026-10-14T17:50:21.672388+00:00",
+  "canonical_candidate_protocol_sha256": "e42b74b787a8a1a5b5a661596466fe66b24c14eea39db25ad039fda2a462b8ff",
+  "canonical_wrapper_protocol_sha256": "9f0e0833c80a5b36f0ad21f629ecb84cf399f0e2e7669436eb3b93e561faf8f5",
+  "canonical_wrapper_sha256": "19685bb29081af9c8a2b43f9598f034ab2070f7aac7468b0137b4203d2143513",
+  "candidate_sha256": "2f08c21dcd076db361c0cac95f4efd4c228674057ee2d8224a9075775dbaab7b",
+  "measurement_rule_or_candidate_changed": false,
+  "revision_scope": "Presentation only after completed frozen candidate and independent audits. Add recorded raw refusal diagnostics and literal selection counts; use Returned original pose label; combine denominator labels N=original/returned to avoid overlap; explain exact-original arccos residual as roundoff. Summary raw values remain unchanged by final layout revision.",
+  "original_preparation_metadata_sha256": "1103c6b4b101d6770fdfd5f76c8278c0577a2b70a8411575dd3e411c2f91316b",
+  "binding_addendum_metadata_sha256": "838eb9ba80fc859779b92a11a3cf729c7ebe68545b59681dfbebb5dd1bf0ef50",
+  "historical_addendum_script_hashes_recovered_exact": true,
+  "historical_pre_layout_outputs_preserved": true,
+  "scripts": {
+    "build_summary.py": {
+      "final_sha256": "a4a7633c4983bb843974c49b9dd12963070f802bcd8d5bb6714b68858ebbe8a9",
+      "AST_PARSE": "PASS",
+      "prior_versions": {
+        "binding_addendum": {
+          "preserved_script": "presentation_history/hash_recovered_binding_addendum/build_summary.py",
+          "preserved_sha256": "e715c0805a5a33aa23756c2cf7634287aaea78314981087e9722dbd43ec79bd9",
+          "diff": "presentation_binding_addendum_to_final_build_summary.diff",
+          "diff_sha256": "1ae2e1b57fc926866b731dabcc7691579d52824d89f5b25594b88846c1f688d1"
+        },
+        "post_audit_pre_layout": {
+          "preserved_script": "presentation_history/post_audit_pre_layout_revision/build_summary.py",
+          "preserved_sha256": "a4a7633c4983bb843974c49b9dd12963070f802bcd8d5bb6714b68858ebbe8a9",
+          "diff": "presentation_post_audit_pre_layout_to_final_build_summary.diff",
+          "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    "plot_summary.py": {
+      "final_sha256": "d1dfd427820e0cd37e9b00267218172e7fe3a98d1c8dd992382c4a492ea8f267",
+      "AST_PARSE": "PASS",
+      "prior_versions": {
+        "binding_addendum": {
+          "preserved_script": "presentation_history/hash_recovered_binding_addendum/plot_summary.py",
+          "preserved_sha256": "939f6ac52c86c25ac67719808fd939674f8a44b122bc3ca085727ed7afb2c49b",
+          "diff": "presentation_binding_addendum_to_final_plot_summary.diff",
+          "diff_sha256": "a8aadbdc1abfb5af65492f49d1db47a04d192c318ebdb5e592d51300b3e48e5f"
+        },
+        "post_audit_pre_layout": {
+          "preserved_script": "presentation_history/post_audit_pre_layout_revision/plot_summary.py",
+          "preserved_sha256": "b7dfa82c528101e0ccec9ed9de49b867047fc6c94ff7ae4880d3058b1d45473b",
+          "diff": "presentation_post_audit_pre_layout_to_final_plot_summary.diff",
+          "diff_sha256": "225ded4ffe0e1885993a4ba9c547f863df3d9d465dabfe48991c57ee52fef805"
+        }
+      }
+    },
+    "build_report.py": {
+      "final_sha256": "94cd77b7cdfca9fff303c397c29c9e730ae141eb6a52f88b66a0ac5c3c0b9f01",
+      "AST_PARSE": "PASS",
+      "prior_versions": {
+        "binding_addendum": {
+          "preserved_script": "presentation_history/hash_recovered_binding_addendum/build_report.py",
+          "preserved_sha256": "4bf69a52b0d90bcd5e92dcdf5f51b321a9ae9ccc354d80cdf89fade5ae1fcaf4",
+          "diff": "presentation_binding_addendum_to_final_build_report.diff",
+          "diff_sha256": "1e5775cbce51d9bfe88f206dcd03e5412be229e8d1ae411a1274463ca9cb647f"
+        },
+        "post_audit_pre_layout": {
+          "preserved_script": "presentation_history/post_audit_pre_layout_revision/build_report.py",
+          "preserved_sha256": "fc3550f4ea87067886d6bf0b5438ebec414c6e85de804893cb5a4894221ae60e",
+          "diff": "presentation_post_audit_pre_layout_to_final_build_report.diff",
+          "diff_sha256": "1c90e9c4fc27eac2acca3fe6c2994883a33d149105bb85eeaca9c6a1cb7e680e"
+        }
+      }
+    }
+  },
+  "outputs": {
+    "summary.json": "79939c693a8a1c533d5b2b255769f22ce72bbfa85cc2bd072f9d302df81f62c4",
+    "REPORT.md": "a69cb454f04abdfe9ceb707f73d36b27ceca5908496d52df689c476ffbdaac96",
+    "report_metadata.json": "07ccd83b09b17afea149854ca903a26d20e1b78bd8ee04b7e6812e0ee003b7da",
+    "figure_metadata.json": "d266ca1615adae684b1251074a864780f6f2499f8c4ee6299240e00391f27b46",
+    "constrained_candidate_tradeoffs.png": "488ad43403a872c0abea8ead3d766235c275a96c7c48738b6e5c2e71534045b5",
+    "constrained_fingertip_errors.png": "0743e693354c277cbdb7de1fadba235601487e92e84d787fc05c6311b9b6db4e"
+  }
+}

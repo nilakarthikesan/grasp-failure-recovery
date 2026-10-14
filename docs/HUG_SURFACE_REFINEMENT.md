@@ -133,3 +133,15 @@ Future prediction results must state whether they concern the documented
 mapped-Shadow execution pipeline or each generator's native embodiment. Static
 mapper optimization is not predictor training, and no new eval collection or
 model fitting was performed.
+
+
+## 14 October 2026 — Completed constrained continuation
+
+All six saved-grasp fits are complete. The solver returned 0 eligible surface corrections and retained 6 exact original poses. Independent original/final source preflight passes all six; the unchanged six-coarse/three-fine strict mapping audit returns 0 PASS, 9 FAIL and 0 UNRESOLVED.
+
+[Fingertip and native-direction method/evidence](HUG_CONSTRAINED_REFINEMENT.md)
+supersedes the proposed next solve as a completed development attempt. The
+previous method and its results above remain separate history. The same
+acceptance rule, domains and numerical assumptions apply. No default mapper
+promotion, new eval data, predictor training or next-generator advance
+follows from this result.

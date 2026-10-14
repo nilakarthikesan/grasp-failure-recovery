@@ -1,0 +1,51 @@
+--- /private/tmp/hug_constrained_validation_2026-10-14/exact_direction.py
++++ /private/tmp/hug_exact_buried_acceleration_2026-10-14/exact_direction_buried.py
+@@ -30,6 +30,39 @@
+     assert np.isfinite(score).all() and np.isfinite(dist).all() and np.isfinite(cp).all()
+     return {'distance_m':dist,'distance_by_part_m':bypart,'part_index':part,'closest_object_m':cp,'outward_normal':n,'score':score,'valid':valid,'reason_masks':reasons,'nearest_triangle_index':ix,'tie_count':count,'visual_closest_membership':membership,'visual_membership_diagnostic':mem,'whole_hand_winding':winding}
+ 
++
++BURIAL_AUDIT = {'mesh_checks':0, 'mesh_points':0, 'mesh_exterior_skipped':0,
++                'mesh_interior_exact_distance_points':0, 'primitive_checks':0,
++                'primitive_points':0}
++
++def reset_burial_audit():
++    for key in BURIAL_AUDIT: BURIAL_AUDIT[key]=0
++
++def exact_buried_membership(g, points, tolerance):
++    """Literal old negative-depth predicate, with exterior mesh work omitted.
++
++    Compute the COMPLETE old local-coordinate/halfspace matrix before selecting
++    points. For old inside=False, signed distance is nonnegative and cannot be
++    below -tolerance. For old inside=True, retain the same exact triangle kernel,
++    coordinate values and triangle order; -distance < -tol iff distance > tol.
++    No AABB rejection or halfspace-distance approximation is performed.
++    Analytic primitive checks remain the original geom_query verbatim.
++    """
++    if g['kind']!=mujoco.mjtGeom.mjGEOM_MESH:
++        BURIAL_AUDIT['primitive_checks']+=1;BURIAL_AUDIT['primitive_points']+=len(points)
++        signed,_,_=a.geom_query(g,points)
++        return signed < -tolerance
++    local=(points-g['pos'])@g['R']
++    inside=np.max(local@g['equations'][:,:3].T+g['equations'][:,3],axis=1)<=1e-10
++    result=np.zeros(len(points),bool)
++    BURIAL_AUDIT['mesh_checks']+=1;BURIAL_AUDIT['mesh_points']+=len(points)
++    BURIAL_AUDIT['mesh_exterior_skipped']+=int((~inside).sum())
++    BURIAL_AUDIT['mesh_interior_exact_distance_points']+=int(inside.sum())
++    if inside.any():
++        distance,_,_=a.nearest_parts(local[inside],g['tri'],np.zeros(len(g['tri']),np.int64),1)
++        result[inside]=distance[:,0]>tolerance
++    return result
++
+ def mapped_direction_fields(points,object_normals,hand_geoms,visual_triangles,p,expected_part=None):
+     """Actual nearest compiled collider normal plus full prior eligibility.
+ 
+@@ -57,7 +90,7 @@
+                 cc,bb,fa,pm=o.triangle_candidates(localq,g['tri'],np.zeros(len(g['tri']),np.int64),tn,np.abs(signed[ii]),localcp,localn,p['tie_distance_tolerance_m'],p['normal_vector_difference_tolerance']);facet[ii]|=fa|pm
+             else:primitive[ii]|=o.primitive_ambiguous(g,q[ii],gcp[ii],p['tie_distance_tolerance_m'])
+         j=np.flatnonzero(chosen!=g['id'])
+-        if len(j):ss,_,_=a.geom_query(g,cp[j]);buried[j]|=ss< -p['tie_distance_tolerance_m']
++        if len(j):buried[j]|=exact_buried_membership(g,cp[j],p['tie_distance_tolerance_m'])
+     assert np.all(count>0)
+     membership,mem=o.visual_membership(cp,visual_triangles,p)
+     unexpanded={'query_inside_hand':inside,'query_on_hand_boundary':dist<=p['query_boundary_tolerance_m'],'outside_5mm_band':dist>.005,'competing_normal':amb,'multiple_closest_points':pa,'competing_part':(bits&(bits-1))!=0,'mapped_mesh_competing_facet':facet,'mapped_analytic_edge_corner_axis':primitive,'buried_closest_point':buried,'closest_inside_or_on_visual':membership<=0}

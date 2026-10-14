@@ -1,0 +1,32 @@
+--- /private/tmp/hug_constrained_validation_runtime_v2_1_2026-10-14/presentation_history/hash_recovered_binding_addendum/build_report.py
++++ /private/tmp/hug_constrained_validation_runtime_v2_1_2026-10-14/build_report.py
+@@ -21,6 +21,8 @@
+         "# HUG constrained refinement: independent static audit",
+         "",
+         "Date: 2026-10-14. Scope: the same six saved HUG development grasps on apple, milk box and mug, using their original native predictions, meshes, frames, commands and query cells. This artifact contains static geometry checks. It generates no evaluation episodes, generator proposals, outcomes, labels or training data.",
++        "",
++        f"The constrained solver returns {s['selection_source_counts']['original_fallback']} exact-original fallbacks and {s['returned_surface_correction_count']} accepted surface corrections. A lower raw fit cost does not satisfy the fingertip constraints and is not deployed. The original production mapping and its surface issue remain unchanged.",
+         "",
+         f"The final source preflight passes for all six cases: every fingertip error is at most its original error plus the predeclared 10 nm arithmetic allowance, and the actual mean fingertip error is at most 10 mm. The unchanged strict mapping rule returns **{n['PASS']} PASS, {n['FAIL']} FAIL and {n['UNRESOLVED']} UNRESOLVED** across six original coarse and three fine resolutions. Engineering preflight and mapping acceptance are separate claims.",
+         "",
+@@ -48,10 +50,19 @@
+         iterations = selection["major_iteration"]
+         selected = selection["source"] + (f" {iterations}" if iterations is not None else "")
+         palm_change = c["declared_palm_geometric_change"]
+-        lines.append(f"- **{c['case_id']}**: mean TIP {fmt(old['mean_fingertip_error_m']*1000)} → {fmt(new['mean_fingertip_error_m']*1000)} mm; maximum TIP {fmt(old['maximum_fingertip_error_m']*1000)} → {fmt(new['maximum_fingertip_error_m']*1000)} mm; mean middle {fmt(old['mean_middle_error_m']*1000)} → {fmt(new['mean_middle_error_m']*1000)} mm. Same-stratum distance MAE {fmt(bd['fixed_quadrature_unsigned_distance_mae_m']*1000)} → {fmt(cd['fixed_quadrature_unsigned_distance_mae_m']*1000)} mm and closest-point mean error {fmt(bd['fixed_quadrature_closest_point_mean_error_m']*1000)} → {fmt(cd['fixed_quadrature_closest_point_mean_error_m']*1000)} mm. Fixed-bin invalid normals {bin0} → {bin1} of {cd['normal_bin_count']}; selected {selected}, {selection['eligible_major_count']} eligible major iterates, solver success {selection['solver_success']}, budget exhausted {selection['budget_exhausted']}. Declared palm orientation changes {fmt(palm_change['rotation_angle_degrees'])}°, with position delta {palm_change['position_delta_m']:.3g} m.")
++        if selection["source"] == "original_fallback":
++            assert all(v == 0 for v in palm_change["WRJ_delta_rad"].values())
++            palm_text = "The returned exact-original pose preserves palm orientation"
++        else:
++            palm_text = f"Declared palm orientation changes {fmt(palm_change['rotation_angle_degrees'])}°"
++        lines.append(f"- **{c['case_id']}**: mean TIP {fmt(old['mean_fingertip_error_m']*1000)} → {fmt(new['mean_fingertip_error_m']*1000)} mm; maximum TIP {fmt(old['maximum_fingertip_error_m']*1000)} → {fmt(new['maximum_fingertip_error_m']*1000)} mm; mean middle {fmt(old['mean_middle_error_m']*1000)} → {fmt(new['mean_middle_error_m']*1000)} mm. Same-stratum distance MAE {fmt(bd['fixed_quadrature_unsigned_distance_mae_m']*1000)} → {fmt(cd['fixed_quadrature_unsigned_distance_mae_m']*1000)} mm and closest-point mean error {fmt(bd['fixed_quadrature_closest_point_mean_error_m']*1000)} → {fmt(cd['fixed_quadrature_closest_point_mean_error_m']*1000)} mm. Fixed-bin invalid normals {bin0} → {bin1} of {cd['normal_bin_count']}; selected {selected}, {selection['eligible_major_count']} eligible major iterates, solver success {selection['solver_success']}, budget exhausted {selection['budget_exhausted']}. {palm_text}, with position delta {palm_change['position_delta_m']:.3g} m.")
++        raw = c["raw_fit_recorded_refusal_diagnostics"]
++        if raw is not None:
++            lines.append(f"  Rejected raw fit: reported objective reduction {fmt(raw['fraction_objective_reduction_from_same_version_baseline'] * 100, 1)}%; largest reported TIP worsening {fmt(max(raw['tip_error_increase_m']) * 1000)} mm; {sum(not x for x in raw['allowance_individual_tip_nonworsening_pass'])}/5 individual caps fail. These are recorded callback values, not an independent full-grid audit of the rejected pose.")
+     lines += [
+         "",
+         "All five TIP errors and all five middle errors, in thumb/index/middle/ring/little order, are retained in `summary.json`. Raw final refusal reasons, selection refusals, convergence messages and actual callback counts are preserved; no unsuccessful original proposal is removed.",
++        "The unrounded rotation-angle diagnostic in `summary.json` is an arccos readout after removing the common operator serialization. Mug B has a roughly 1.7 × 10⁻⁶ degree floating-point residual even though its returned q/root and both WRJ targets are exactly original. This residual is numerical roundoff, not a physical palm-orientation change.",
+         "",
+         "## Full original-grid preservation measurements",
+         "",

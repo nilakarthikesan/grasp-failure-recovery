@@ -1,21 +1,38 @@
 # HUG constrained refinement evidence
 
-Implementation checkpoint, 14 October 2026. The isolated API and 50 new
-manufactured tests are implemented; the installed API plus the existing
-surface-refinement/guard tests pass all 120 checks. These are mathematical/API
-checks, not certification of saved-grasp geometry.
+14 October 2026. All six saved-grasp fits are complete. The solver returned 0 eligible surface corrections and retained 6 exact original poses. Independent original/final source preflight passes all six; the unchanged six-coarse/three-fine strict mapping audit returns 0 PASS, 9 FAIL and 0 UNRESOLVED.
 
-The canonical joint-constrained experiment uses the six existing seed-0 HUG
-apple/milk-box/mug proposals under runtime V2.1, protocol e42b74b787a8a1a5b5a661596466fe66b24c14eea39db25ad039fda2a462b8ff.
-Its complete fits and unchanged independent six-coarse/three-fine audit are
-**PENDING** at this checkpoint. No result from an incomplete search is accepted.
+[The method](../../docs/HUG_CONSTRAINED_REFINEMENT.md), [independent report](validation/REPORT.md)
+and [all-case summary](validation/summary.json) distinguish engineering
+source checks, candidate selection and strict scientific mapping acceptance.
+A retained original is an explicit refusal, not a corrected mapping.
 
-[Implementation evidence](implementation/manifest.json) binds the frozen API,
-tests, settings and manufactured verification. The experimental API is identical
-to the frozen solver used by the running experiment. The default mapper and
-grasp-eval do not invoke it. No new generator inference, physical evaluation
-episode, task label, predictor training or other-generator mapping occurs.
+`implementation/` preserves the earlier implementation-only checkpoint,
+whose pending status was accurate at its checkpoint. Its immutable manifest
+binds the isolated API, 50 new manufactured tests and 120 installed API checks.
+`fit/` preserves complete canonical runtime V2.1 singleton reports, the merged
+candidate and all recorded major-callback histories, compressed byte-exact.
+[The clarified fit report](fit/REPORT_COUNTER_CLARIFIED.md) is the reader
+version. The original draft/report and its manifest remain byte-exact;
+a separately bound note corrects only the wording of the 120-iteration
+budget. Actual solver iterations and major callbacks are separate counters.
+The pre-audit fit summary retains its then-pending audit status; the completed
+independent result is in `validation/summary.json`.
+`validation/` holds the independent all-six preflight and full nine-resolution
+reports, unchanged rule, summary, scripts and diagnostic figures. `direction/`
+retains the actual normal helper, manufactured fixtures and baseline parity.
+`history/` preserves interrupted, import-aborted and unexecuted versions plus
+separate measured performance fixtures; none is pooled into mapping results.
 
-The completed experiment and independent reports will be added separately.
-Historical protocols and incomplete runtime preparations will retain their
-status; no previous scientific result is rewritten or pooled.
+[results_manifest.json](results_manifest.json) hashes all stored evidence.
+[compression_bindings.json](compression_bindings.json) binds the full original
+canonical report/log bytes to compressed copies. Licensed source assets,
+saved scene binaries and query arrays stay in their existing runtime paths.
+Frozen scripts retain the recorded absolute input paths; adapting paths
+requires a separately recorded reproduction configuration.
+
+All 114 original protected source/model/paper/input bytes remain unchanged;
+the installed new API/test are separately bound. Canonical fit guard selftests
+total 18, with zero actual physics calls; the independent guards also report
+zero. No inference, eval episode, outcome/label, predictor training or advance
+to another generator occurred. The default mapper does not invoke this API.
