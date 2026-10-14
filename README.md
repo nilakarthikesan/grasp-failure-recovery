@@ -39,8 +39,12 @@ see [Running the project](docs/RUNNING_THE_PROJECT.md).
 
 ## Grasp proposal sources
 
-HUG remains the reference generator. A shared proposal contract also supports
-trusted saved Shadow poses and pinned DexGraspNet sample replay.
+HUG remains the reference generator. The shared proposal contract also supports
+ContactGen through MANO retargeting and UniDexGrasp through verified Shadow
+translation, with isolated inference workers. Those new workers have not yet
+run an inference or simulation acceptance check. See
+[provider integration and status](docs/CONTACTGEN_AND_UNIDEXGRASP.md).
+Trusted saved Shadow poses and pinned DexGraspNet sample replay remain available.
 The [unified evaluation command](docs/GRASP_EVAL_CLI.md) validates, runs, resumes
 and inspects declared experiments. See [DexGraspNet replay](docs/DEXGRASPNET_REPLAY.md)
 for the imported dataset and its execution limits.

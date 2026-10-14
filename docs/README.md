@@ -4,6 +4,8 @@
 
 - [Unified multi-provider evaluation command](GRASP_EVAL_CLI.md)
 - [Pinned DexGraspNet replay](DEXGRASPNET_REPLAY.md)
+- [ContactGen and UniDexGrasp integration](CONTACTGEN_AND_UNIDEXGRASP.md)
+- [DexGrasp Anything GPU-worker handoff](DEXGRASP_ANYTHING_CLOUD_HANDOFF.md)
 - [External provider worker contract](GRASP_PROVIDER_WORKERS.md)
 
 - [Setup, simulation commands and replay](RUNNING_THE_PROJECT.md)

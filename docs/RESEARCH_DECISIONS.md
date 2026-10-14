@@ -1306,3 +1306,53 @@ and replay are local under
 incomplete launch is at `runs/partner_eval_2026-10-13_hug_cube/`. This check
 establishes usable shared execution of an existing HUG-derived target, not
 new predictor accuracy or generalization.
+
+
+## 13 October 2026 — Add ContactGen and UniDexGrasp without collecting evaluations
+
+**Previous plan:** The handoff identified source-translation checks and compatible
+velocity/command recording before expanding provider evaluation. HUG is the
+reference generator; DexGrasp Anything has a pinned external-worker handoff.
+
+**New evidence and user direction:** The user specified four proposal sources:
+HUG, DexGrasp Anything, ContactGen and UniDexGrasp, and explicitly deferred all
+evaluation-data generation. Official ContactGen source at
+`1aea2b6ce498ec90c4af0dd4c5fbdd4a23db761a` generates contact representations,
+runs its MANO optimization solver and exports meshes. Official UniDexGrasp at
+`36c9bfcf7cedc987dd15e2384c548e51d5aadc21` exposes IPDF/Glow proposal generation
+separately from its learned execution policy. Source links and native contracts
+are recorded in [the integration guide](CONTACTGEN_AND_UNIDEXGRASP.md).
+
+**Choice and implemented status:** Add `contactgen_mano_shadow_v1` through the
+existing MANO/Dex Retargeting path and `unidexgrasp_shadow_v1` through the existing
+named Shadow mapping. Both have isolated, explicitly invoked model workers and
+native-output import adapters. ContactGen accepts only refined right MANO output,
+checks the original metric mesh/centering and preserves the existing wrist-origin
+palm-placement policy. UniDexGrasp verifies the actual external source hand's
+effective palm/finger kinematics against the pinned DexGraspNet reference before
+reusing that mapping, composes the actual source palm offset and enforces the
+2 mm fingertip FK gate. Its worker implements IPDF+Glow before TTA, not its
+learned policy. Source, input, checkpoint, configuration and native-output
+identities are preserved; pickle asset hashes are checked before model loading.
+
+**Scientific status:** This is provider implementation, not a new experiment or
+result. No fresh ContactGen/UniDexGrasp inference, MuJoCo rollout, acceptance
+case, fitting or evaluation collection was run. Synthetic temporary unit fixtures
+are not generator outputs or evaluation data. Existing HUG/DexGrasp Anything
+specification hashes, frozen model, scientific protocol versions and historical
+evidence are preserved. The generic predictor recorder/export gap remains.
+
+**Implementation verification:** 72 focused tests pass; the two existing
+rollout tests are explicitly excluded, and an autouse test-run guard fails any
+MuJoCo stepping call. Tests use synthetic temporary fixtures, with generator and
+pose translation boundaries mocked where appropriate. Both worker help paths
+succeed without model loading, eight Python files parse, and the frozen model
+hash remains `16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb`.
+Existing provider hashes remain unchanged. Trimesh 4.12.2 is used only from a
+temporary test dependency directory; the original recorded runtime is preserved.
+
+**Next check:** When the user requests generation, supply compatible external
+runtime/checkpoint/hand assets and declare one source/frame/geometry acceptance
+check from each generator before collecting a larger batch. Fresh GPU execution
+and physical suitability remain unverified. Reconcile the final agreed scientific
+comparison separately; adding providers does not establish prediction improvement.

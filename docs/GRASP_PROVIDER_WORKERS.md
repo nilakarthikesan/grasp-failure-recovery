@@ -1,8 +1,10 @@
 # External grasp-provider worker contract
 
 `generate-grasp-proposals` supports isolated model environments without adding
-their CUDA or framework dependencies to the MuJoCo environment. Provider IDs
-and immutable configuration are registered in
+their CUDA or framework dependencies to the MuJoCo environment. ContactGen and
+UniDexGrasp have concrete isolated workers and native-output adapters; see [their integration guide](CONTACTGEN_AND_UNIDEXGRASP.md) for source
+pins, frame contracts and unrun acceptance checks. Provider IDs and immutable
+configuration are registered in
 `src/grasp_failure_prediction/proposals/configs/providers.yaml`.
 
 ## Command worker

@@ -88,9 +88,15 @@ This is a dataset-replay execution check, not a trained predictor evaluation.
 [gate evidence](../research_artifacts/dexgraspnet_replay_gate_v1/README.md).
 
 The generic v2 output lacks velocity and commanded-target histories required
-by the existing predictor exporter. Fresh non-HUG model inference and compatible
-prediction-data recording remain implementation work. No model improvement is
+by the existing predictor exporter. The fresh DexGrasp Anything worker and
+compatible prediction-data recording remain implementation work. No model improvement is
 established by importing these proposals.
+
+ContactGen MANO and UniDexGrasp Shadow adapters and isolated inference workers
+are also implemented on the working branch. Their unit fixtures are synthetic;
+fresh inference, model-output acceptance and simulation checks have not run.
+No evaluation data was generated for this implementation.
+[Implementation scope and contracts](CONTACTGEN_AND_UNIDEXGRASP.md).
 
 ## Claim boundaries and paper status
 

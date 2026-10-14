@@ -180,3 +180,19 @@ four main-text pages, deadline 15 October 2026 at 11:59 PM CDT. Verify the live
 call before acting. Nila has OpenReview; Enoch's activation is not confirmed.
 See [submission tasks](SUBMISSION_CHECKLIST.md). No submission or acceptance has
 been completed or verified.
+
+
+## 13 October 2026 continuation — four-source integration, generation deferred
+
+The user redirected the immediate implementation work to four proposal sources:
+HUG, DexGrasp Anything (in progress), ContactGen and UniDexGrasp. ContactGen's
+MANO adapter/isolated worker and UniDexGrasp's verified Shadow adapter/isolated
+IPDF+Glow worker are implemented. Their native contract and runtime requirements
+are in [the integration guide](CONTACTGEN_AND_UNIDEXGRASP.md).
+
+The user explicitly deferred evaluation-data generation. No new generator
+inference, physical evaluation, acceptance case or research dataset was run for
+this implementation. Unit fixtures are synthetic and temporary. Fresh GPU
+runtime acceptance, physical suitability and the predictor-recording gap remain
+pending. Continue on the same branch and preserve the manuscript and historical
+results. Do not interpret the implementation as a completed scientific comparison.

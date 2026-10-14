@@ -410,6 +410,14 @@ def load_local_provider(
         return SavedShadowProposalProvider(spec, project_root=project_root)
     if spec.provider_id == "dexgraspnet_saved_record_v1":
         return DexGraspNetReplayProvider(spec, project_root=project_root)
+    if spec.provider_id == "contactgen_mano_shadow_v1":
+        from .contactgen import ContactGenProposalProvider
+
+        return ContactGenProposalProvider(spec, project_root=project_root)
+    if spec.provider_id == "unidexgrasp_shadow_v1":
+        from .unidexgrasp import UniDexGraspProposalProvider
+
+        return UniDexGraspProposalProvider(spec, project_root=project_root)
     raise ValueError(
         f"provider {spec.provider_id!r} has no built-in local adapter; "
         "use --external-command or --endpoint"
