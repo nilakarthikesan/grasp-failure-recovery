@@ -13,7 +13,7 @@ dex_urdf_shadow_identity_v1:
     - {role: source_asset, location: third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf, sha256: "sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de", availability: repository}
     - {role: target_asset, location: third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf, sha256: "sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de", availability: repository}
     - {role: joint_mapping, location: configs/shadow_identity_mapping_v1.yaml, sha256: "sha256:046b1d1ed87323d81df0fbecf866a1121de03909e5fe7b97d0ddf44a0c2b843a", availability: repository}
-    - {role: implementation, location: src/grasp_failure_prediction/proposals/translation.py, sha256: "sha256:2d583cb04439515f96d3a734d65ea046d342a1c96122aa2e4fcf8d382c688ffb", availability: repository}
+    - {role: implementation, location: src/grasp_failure_prediction/proposals/translation.py, sha256: "sha256:b21e7dceb8c704974f644747d4552374045889a9f57b5f41a3ecc9864b576436", availability: repository}
 
 mano_right_to_shadow_hand_right_v1:
   schema_version: translation_strategy_spec_v1
@@ -31,3 +31,21 @@ mano_right_to_shadow_hand_right_v1:
     - {role: retargeter_config, location: dex_retargeting/configs/teleop/shadow_hand_right.yml, sha256: "sha256:e12e9aa5c8f51010793bfa04f3d92ea998b51b8503e5e61330ca8db194f7bf0e", availability: python_package}
     - {role: implementation, location: src/grasp_failure_prediction/evaluation/retargeting.py, sha256: "sha256:a6631a0f0d20f6ef94c389529b7d6d677a8a8cd9f8e923efff19ccfee26aa4ff", availability: repository}
     - {role: implementation, location: src/grasp_failure_prediction/integrations/hug_frames.py, sha256: "sha256:cd7ad9b8df1d5d6adad70e949a9c7f21ad448a25710a54f47e1ffa95fa28562a", availability: repository}
+
+dexgraspnet_shadow_to_shadow_hand_right_v1:
+  schema_version: translation_strategy_spec_v1
+  strategy_id: dexgraspnet_shadow_to_shadow_hand_right_v1
+  strategy_kind: verified_kinematic_mapping
+  source_hand_model_id: dexgraspnet_shadow_mjcf_bd1b13d
+  target_hand_model_id: shadow_hand_right
+  source_root_link: robot0:palm
+  target_root_link: palm
+  source_asset_hash: sha256:39b1f1e1150c9c3821748ba70cfaeaefc2517100d45b5d6d5ef683a7d132de8a
+  target_asset_hash: sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de
+  joint_mapping_path: configs/dexgraspnet_shadow_mapping_v1.yaml
+  maximum_mean_fingertip_error_m: 0.002
+  evidence:
+    - {role: source_asset, location: PKU-EPIC/DexGraspNet@bd1b13d:grasp_generation/mjcf/shadow_hand_wrist_free.xml, sha256: "sha256:39b1f1e1150c9c3821748ba70cfaeaefc2517100d45b5d6d5ef683a7d132de8a", availability: external_licensed}
+    - {role: target_asset, location: third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf, sha256: "sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de", availability: repository}
+    - {role: joint_mapping, location: configs/dexgraspnet_shadow_mapping_v1.yaml, sha256: "sha256:99cca5c6eeffbf802d1b59a78ae43f39f6fdf9bcb08a17181e2867a2b646336f", availability: repository}
+    - {role: implementation, location: src/grasp_failure_prediction/proposals/dexgraspnet.py, sha256: "sha256:14105198f255bb5940b03878ba076e543503a7c8a7f0b2dfea842215e8f620f8", availability: repository}

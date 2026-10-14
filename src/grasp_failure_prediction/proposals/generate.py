@@ -92,6 +92,7 @@ def _validate_requirements(
     available.add("object_geometry")
     if request.provider_input_path is not None:
         available.add("saved_shadow_record")
+        available.add("provider_input")
     if request.observation_path is not None:
         observation = _project_input(project_root, request.observation_path, "observation")
         observation_files = {

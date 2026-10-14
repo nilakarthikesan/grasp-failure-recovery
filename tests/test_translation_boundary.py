@@ -14,7 +14,7 @@ from grasp_failure_prediction.proposals.generate import generate_proposals
 from grasp_failure_prediction.proposals.execution import run_proposal_case
 from grasp_failure_prediction.proposals.geometry_inputs import prepare_geometry_inputs
 from grasp_failure_prediction.proposals.registry import load_provider_registry
-from grasp_failure_prediction.proposals.schema import GraspProposal
+from grasp_failure_prediction.proposals.schema import GraspProposal, RigidTransform
 from grasp_failure_prediction.proposals.translation import (
     NativeHandPose,
     SyntheticShadowRecordDecoder,
@@ -22,6 +22,7 @@ from grasp_failure_prediction.proposals.translation import (
     load_translation_registry,
     translate_native_pose,
 )
+from grasp_failure_prediction.proposals.dexgraspnet import SOURCE_JOINT_NAMES, _euler_xyz_matrix
 from test_object_assets import write_box_mesh
 from test_grasp_proposals import GEOMETRY_HASH, _request
 
@@ -83,14 +84,49 @@ def test_changed_mapping_evidence_fails_closed(monkeypatch):
     assert exc.value.code == "mapping_evidence_hash_mismatch"
 
 
-def test_provider_classification_license_metadata_and_disabled_dexgraspnet():
+def test_provider_classification_license_metadata_and_enabled_dexgraspnet_replay():
     registry = load_provider_registry()
     saved = registry.resolve("shadow_saved_record_v1")
     assert saved.kind == "dataset_replay"
     assert saved.provenance.code.status == "verified"
     dex = registry.resolve("dexgraspnet_saved_record_v1")
-    assert dex.kind == "dataset_replay" and not dex.enabled
-    assert "saved-record semantics" in dex.unsupported_reason
+    assert dex.kind == "dataset_replay" and dex.enabled
+    assert dex.provenance.dataset.identifier == "CC-BY-NC-4.0"
+    assert dex.provenance.checkpoint.status == "not_applicable"
+    assert dex.translation_strategy_id == "dexgraspnet_shadow_to_shadow_hand_right_v1"
+
+
+def test_dexgraspnet_named_joint_mapping_uses_evidenced_signs_and_zero_wrist():
+    values = {name: (index + 1) / 100.0 for index, name in enumerate(SOURCE_JOINT_NAMES)}
+    native = NativeHandPose(
+        source_hand_model_id="dexgraspnet_shadow_mjcf_bd1b13d",
+        source_root_link="robot0:palm",
+        object_to_root=RigidTransform(
+            translation_m=(0.1, -0.2, 0.3),
+            quaternion_xyzw=(0.0, 0.0, 0.0, 1.0),
+        ),
+        joint_targets_rad=values,
+    )
+    translated = translate_native_pose(
+        native, "dexgraspnet_shadow_to_shadow_hand_right_v1"
+    )
+    assert len(translated.joint_targets_rad) == 24
+    assert translated.joint_targets_rad["WRJ2"] == 0.0
+    assert translated.joint_targets_rad["WRJ1"] == 0.0
+    assert translated.joint_targets_rad["FFJ4"] == -values["robot0:FFJ3"]
+    assert translated.joint_targets_rad["MFJ4"] == -values["robot0:MFJ3"]
+    assert translated.joint_targets_rad["RFJ4"] == values["robot0:RFJ3"]
+    assert translated.joint_targets_rad["THJ2"] == -values["robot0:THJ1"]
+    assert translated.joint_targets_rad["THJ1"] == -values["robot0:THJ0"]
+
+
+def test_dexgraspnet_static_xyz_euler_conversion():
+    np.testing.assert_allclose(_euler_xyz_matrix((0.0, 0.0, 0.0)), np.eye(3))
+    np.testing.assert_allclose(
+        _euler_xyz_matrix((np.pi / 2, 0.0, 0.0)),
+        [[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
+        atol=1e-12,
+    )
 
 
 def test_geometry_inputs_are_deterministic_and_content_sensitive(tmp_path):
@@ -175,4 +211,10 @@ def test_rejected_proposal_never_constructs_rollout_runner(tmp_path, monkeypatch
     with pytest.raises(ProposalRejected) as exc:
         run_proposal_case(case_path, tmp_path / "run", project_root=tmp_path, record_video=False)
     assert exc.value.rejection.code == "palm_implausibly_distant"
-    assert not (tmp_path / "run").exists()
+    rejection_path = tmp_path / "run/rejection.json"
+    assert rejection_path.is_file()
+    rejection = json.loads(rejection_path.read_text())
+    assert rejection["rejection"]["code"] == "palm_implausibly_distant"
+    assert rejection["rejection"]["task_label"] is None
+    assert not (tmp_path / "run/result.json").exists()
+    assert not (tmp_path / "run/trajectory.npz").exists()

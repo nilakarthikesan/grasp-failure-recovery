@@ -1,6 +1,6 @@
 # Multi-Provider Grasp Translation Plan
 
-**Status:** Milestones 1 and 2 implemented locally; provider integrations remain gated
+**Status:** Milestones 1 through 3 implemented locally; fresh GPU inference remains gated
 **Date:** 12 October 2026; revised 13 October 2026
 **Implementation branch:** `codex/multi-provider-translation`
 
@@ -28,17 +28,26 @@ provider kind, translation strategy, source revision, and license statuses.
 The environment, controller, scorer, execution protocol, and dependency extras
 are unchanged.
 
-DexGraspNet is deliberately registered as disabled `dataset_replay`. No licensed
-saved record, exact official saved-record schema, audited object-scale binding,
-or exact source-Shadow mapping is present locally. The implementation therefore
-does not claim DexGraspNet integration and does not infer transforms, signs,
-offsets, scales, or license terms. DexGrasp Anything retains only the preexisting
-generic external canonical-proposal contract; its native translation and GPU
-checkpoint integration are not implemented or validated.
+DexGraspNet is registered as an enabled `dataset_replay` against the official
+release pinned at `bd1b13d7248729af117e1d46aaa6266b147a3c7b`. The importer
+verifies the bundled record, object mesh, and source-hand hashes before opening
+the official object-array format. The mapping converts the documented free palm
+pose and 22 source joints into the canonical palm pose and 24 named target
+joints. A source-versus-target FK gate measured 0.429 mm mean and 1.722 mm
+maximum fingertip residual on the first record, below the registered 2 mm bound.
+The licensed CC BY-NC inputs remain in ignored local storage.
 
-Still blocked are all real DexGraspNet replay acceptance tests, fresh non-HUG
-checkpoint inference, GPU/container characterization, provider-native visual
-comparison, and the ten-proposal/manual physics gates. Scene preflight currently
+The first ten official mug records completed the local gate: seven physical
+rollouts reported `approach_collision`, one reported `failed_acquisition`, and
+two were preserved as unlabeled `shadow_joint_limit_violation` rejections. This
+shows that the free-space DexGraspNet grasp distribution is not automatically
+compatible with the fixed vertical tabletop approach. The adapter does not move,
+clip, or optimize proposals to improve evaluation outcomes. DexGrasp Anything
+retains only the preexisting generic external canonical-proposal contract; its
+native GPU checkpoint integration is not implemented or validated.
+
+Still blocked are fresh non-HUG checkpoint inference, GPU/container
+characterization, and provider-native rendered comparison. Scene preflight currently
 has structured joint and implausible-distance rejection; registered tolerances
 for table penetration, object penetration, pre-grasp collision, and full
 approach-path collision remain proposed work rather than implemented evidence.

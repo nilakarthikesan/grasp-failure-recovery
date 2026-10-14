@@ -48,29 +48,29 @@ dexgrasp_anything_shadow_v1:
   approach_semantics: fixed_world_negative_z
   translation_strategy_id: unsupported_pending_official_mapping
   provenance:
-    source_revision: unaudited
+    source_revision: 86353d710ca71d0f547f0d8b15cc8ca959c78163
     source_location: https://github.com/4DVLab/DexGrasp-Anything
-    code: {status: unverified, evidence: official release not pinned in this repository, redistribution: unknown}
-    checkpoint: {status: unverified, evidence: no checkpoint is available locally, redistribution: unknown}
-    dataset: {status: unverified, evidence: training provenance has not been audited, redistribution: unknown}
-    object_assets: {status: unverified, evidence: object asset license has not been audited, redistribution: unknown}
+    code: {status: verified, identifier: MIT, evidence: official LICENSE at pinned source revision, redistribution: allowed}
+    checkpoint: {status: unverified, evidence: "HF GaussionZhong/Dexgraspanyting@b24637c DexGraspNet.pth sha256:f7675d8eb93b3978b2c2d72ec9f54ead6b936d1dd307e07605daa0c02bcac14f; separate artifact license absent", redistribution: unknown}
+    dataset: {status: verified, identifier: CC-BY-NC-4.0, evidence: checkpoint is published for the DexGraspNet training configuration, redistribution: restricted}
+    object_assets: {status: verified, identifier: CC-BY-NC-4.0, evidence: official DexGraspNet source and project page, redistribution: restricted}
 
 dexgraspnet_saved_record_v1:
   schema_version: proposal_provider_spec_v1
   provider_id: dexgraspnet_saved_record_v1
   kind: dataset_replay
-  enabled: false
-  unsupported_reason: exact official saved-record semantics, licensed record, and audited Shadow mapping are unavailable
+  enabled: true
+  adapter: grasp_failure_prediction.proposals.providers:DexGraspNetReplayProvider
   embodiment_id: shadow_hand_right
-  execution: external
-  required_inputs: [object_geometry, saved_provider_record]
+  execution: local
+  required_inputs: [object_geometry, provider_input]
   compatible_execution_protocols: [fixed_grasp_lift_v2]
   approach_semantics: fixed_world_negative_z
-  translation_strategy_id: unsupported_pending_official_mapping
+  translation_strategy_id: dexgraspnet_shadow_to_shadow_hand_right_v1
   provenance:
-    source_revision: unaudited
+    source_revision: bd1b13d7248729af117e1d46aaa6266b147a3c7b
     source_location: https://github.com/PKU-EPIC/DexGraspNet
-    code: {status: unverified, evidence: official release not pinned in this repository, redistribution: unknown}
+    code: {status: verified, identifier: CC-BY-NC-4.0, evidence: official repository README at pinned revision, redistribution: restricted}
     checkpoint: {status: not_applicable, evidence: replay path does not run a checkpoint, redistribution: not_applicable}
-    dataset: {status: unverified, evidence: no licensed saved record is available locally, redistribution: restricted}
-    object_assets: {status: unverified, evidence: no redistributable official fixture is available locally, redistribution: restricted}
+    dataset: {status: verified, identifier: CC-BY-NC-4.0, evidence: official repository README and project page, redistribution: restricted}
+    object_assets: {status: verified, identifier: CC-BY-NC-4.0, evidence: official bundled sample object with pinned hash, redistribution: restricted}

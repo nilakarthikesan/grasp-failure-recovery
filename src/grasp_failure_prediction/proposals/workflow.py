@@ -20,7 +20,7 @@ from grasp_failure_prediction.evaluation.schema import (
 )
 
 from .artifacts import load_proposal, load_request
-from .execution import run_proposal_case
+from .execution import ProposalRejected, run_proposal_case
 from .generate import _validate_requirements, generate_proposals
 from .registry import load_provider_registry
 from .schema import (
@@ -296,34 +296,62 @@ def run_experiment(
             )
             run_root = output / "runs" / evaluation.case_id
             result_path = run_root / "result.json"
+            rejection_path = run_root / "rejection.json"
             if resume and result_path.is_file():
                 result = json.loads(result_path.read_text(encoding="utf-8"))
+            elif resume and rejection_path.is_file():
+                rejection = json.loads(rejection_path.read_text(encoding="utf-8"))
+                result = {
+                    "case_id": evaluation.case_id,
+                    "provider_id": rejection["provider_id"],
+                    "status": rejection["rejection"]["status"],
+                    "success": None,
+                    "failure_type": None,
+                    "rejection_code": rejection["rejection"]["code"],
+                }
             else:
                 if resume:
                     _archive_incomplete(run_root)
-                model = run_proposal_case(
-                    case_path,
-                    run_root,
-                    record_video=use_video,
-                    verify_native_artifacts=experiment.verify_native_artifacts,
-                    project_root=project,
-                )
-                result = model.model_dump(mode="json")
+                try:
+                    model = run_proposal_case(
+                        case_path,
+                        run_root,
+                        record_video=use_video,
+                        verify_native_artifacts=experiment.verify_native_artifacts,
+                        project_root=project,
+                    )
+                    result = model.model_dump(mode="json")
+                except ProposalRejected as exc:
+                    result = {
+                        "case_id": evaluation.case_id,
+                        "provider_id": manifest.provider_id,
+                        "status": exc.rejection.status,
+                        "success": None,
+                        "failure_type": None,
+                        "rejection_code": exc.rejection.code,
+                    }
             results.append(
                 {
                     "case_id": evaluation.case_id,
                     "provider_id": result["provider_id"],
                     "success": result["success"],
                     "failure_type": result.get("failure_type"),
-                    "result": f"runs/{evaluation.case_id}/result.json",
+                    "status": result.get("status", "completed"),
+                    "rejection_code": result.get("rejection_code"),
+                    "result": (
+                        f"runs/{evaluation.case_id}/result.json"
+                        if result["success"] is not None
+                        else f"runs/{evaluation.case_id}/rejection.json"
+                    ),
                 }
             )
     summary = {
         "schema_version": "grasp_eval_experiment_result_v1",
         "experiment_id": experiment.experiment_id,
         "case_count": len(results),
-        "success_count": sum(bool(item["success"]) for item in results),
-        "failure_count": sum(not bool(item["success"]) for item in results),
+        "success_count": sum(item["success"] is True for item in results),
+        "failure_count": sum(item["success"] is False for item in results),
+        "rejection_count": sum(item["success"] is None for item in results),
         "results": results,
     }
     (output / "experiment_result.json").write_text(
