@@ -460,3 +460,19 @@ retargeter requires zero distortion. Approximate predictor-use adequacy and
 independent validation remain untested. No other provider acceptance, new
 inference, dynamics, eval data/labels, fitting or production/manuscript change
 occurred.
+
+
+## 14 October 2026 — HUG surface correction remains a development candidate
+
+[The concrete correction](HUG_SURFACE_REFINEMENT.md) adds native-relative surface
+fitting and a guarded target selection on six existing HUG poses. Geometric
+objective and whole unsigned proximity improve, but fingertip/middle residuals
+worsen, some added regions/directions regress, and unchanged strict preservation
+still FAILS on all six cases and three finer repeats. Correct frames/joints/FK
+remain distinct from human-to-Shadow morphology preservation.
+
+The new APIs are explicit static research tools; the default mapper is unchanged.
+No native poor proposal is deleted or repaired toward a success target. No new
+eval data, inference, physics, task labels, predictor training or manuscript edit
+occurs. HUG remains active, other generators await their individual audits, and
+the multi-generator predictor claim still needs independent later evidence.

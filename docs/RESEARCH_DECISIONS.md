@@ -1870,3 +1870,76 @@ use successful lifts to hide changed native relations. New independent
 cases/outcome sensitivity require later scope; no new inference, physics, eval
 records/labels, model fit, production mapper/collider/controller change or
 manuscript edit occurred. Existing predictor and paper hashes remain unchanged.
+
+
+## 14 October 2026 — Surface-aware HUG correction is implemented but not accepted
+
+**Previous plan and authorization:** Address retained native/Shadow relationship
+witnesses before moving to another generator. The user asks to fix HUG and keeps
+new eval collection deferred. This authorizes static mapper development on saved
+inputs; it does not authorize new inference, rollouts, task labels or fitting a
+prediction model.
+
+**Implemented correction and evidence:** Frozen V2.1 adds fixed native-relative
+unsigned distances and closest-point vector residuals, near/broad area quadrature,
+weak original landmark/joint regularization, source-URDF limits and a 0.35 rad
+trust domain. Wrist then finger stages run actual compiled time-zero FK on the
+same six saved grasps. Native poor relationships remain targets. All 36 stages
+improve their objective but all six raw targets exceed the existing 10 mm mean
+fingertip guard. Frozen V3.1 uses a common [1,.5,.25,.125,.0625,.03125,0] joint
+backtracking rule and a consistent original-relative full-pose cost. Five cases
+select .5 and second milk selects .25; guarded mean tips are 8.458–9.290 mm and
+costs decrease 10.527–21.471%. Tip/middle errors still worsen on every case.
+
+The declared MANO-wrist/Shadow-palm POSITION stays fixed. WRJ articulation changes
+palm ORIENTATION 0.501–1.355 degrees under the existing q-dependent convention;
+carrier translation only compensates this articulation. No arbitrary object/hand
+shift, scaling, carrier-rotation fit or source edit occurs.
+
+Independent unchanged six-coarse/three-fine audits verify actual final geometry,
+source joints/root chain, interpolation and fingertip guard. All nine strict
+surface statuses remain conditional FAIL. Whole 2 mm centroid IoU improves on
+all six coarse cases (.243–.273 to .294–.395); six-part lost-area lower-bound sums
+also decrease. First-milk added-area sum regresses 84.28→102.14 mm². Reliable
+2 mm sign counters first apple 2/28→3/34, first milk 3/39→6/77, second milk 1/18→2/36
+retain changing eligibility domains; counts are not comparable error rates.
+178 original cell witnesses replay as 65 retained definite changes, 13 definite
+equal states and 100 unresolved cells. Uncertainty is not a repair certificate.
+
+**Choice and status:** Keep the default mapper/grasp-eval unchanged; preserve
+this as a versioned development correction, not validated native-equivalent
+geometry. Add separate explicit static APIs with validation and callback/audit
+protection. Seventy manufactured tests pass, and eleven valid frozen/API
+comparisons reproduce targets and all diagnostics exactly. Stored engineering
+assessments reproduce all six guarded selections exactly; neither check claims
+a six-geometry API rerun. A default local solver can improve loss while remaining
+on the wrong side in a manufactured case; the test records this limitation.
+[Report](HUG_SURFACE_REFINEMENT.md) and [evidence](../research_artifacts/hug_surface_refinement_2026-10-14/README.md)
+retain the full case/part/resolution results and regressions.
+
+The strict zero-change rule remains unchanged and is not a universal approximate
+retargeter standard. Independent distance intervals remain ambiguous on some
+band-boundary cells even with identical distance functions. Removing known
+counterexamples would not automatically establish continuous full-domain PASS;
+normal feature bounds and adequate evidence remain required. Current failure
+does not prove that every possible Shadow target must fail. Native-contact
+forces/outcomes, unseen-object validation and predictor adequacy are unresolved
+or untested, rather than inferred from solver/engineering success.
+
+**Versions and preservation:** Raw V2.1 protocol 8d2fd666… and guard V3.1
+59e04a7a… bind unchanged source inputs; independent wrapper 0c293119… applies the
+old strict rule 87da8d6c…. Preserve unexecuted V1/V2 and V3 binding-key abort before
+case loading separately; no historical report is rewritten. Selected exact-byte
+gzip reports, scripts, protocol manifests, source/root/witness checks and scientific
+figures are published without raw licensed assets/checkpoints/scratch arrays.
+110 original protected source/model/paper hashes and original inputs remain
+unchanged. Integration API guards record zero actual steps; no new HUG inference,
+eval data/labels, predictor training, default mapper/collider/controller change
+or manuscript edit occurs.
+
+**Proposed next check:** A global surface objective with the existing fingertip
+condition constrained during solving and reliable native-relative orientation
+features could target the remaining relationships. Freeze settings and preserve
+bad native states, ties/unavailable domains and the same independent audit.
+This next solver is not implemented or guaranteed here. No new collection or
+four-generator sign-off follows from the measured development improvement.

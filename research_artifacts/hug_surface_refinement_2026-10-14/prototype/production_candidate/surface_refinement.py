@@ -1,0 +1,229 @@
+"""Experimental bounded static, proposal-relative surface refinement.
+
+The evaluator supplied by the caller runs time-zero FK on actual colliders.
+It returns unsigned part distances, closest points, facing scores and anchors.
+All targets are native proposal relationships, including poor relationships.
+No contact-quality reward or task success objective is present.
+This opt-in development API is not a grasp-eval execution path or a mapping
+acceptance certificate. A lower objective can retain or add relationship
+counterexamples; the independent geometric checks must still be applied.
+
+This derivative adds API validation and defensive callback copies only. The
+frozen experiment's objective, weights and solver settings are unchanged.
+"""
+from dataclasses import dataclass
+from typing import Callable
+import numpy as np
+from scipy.optimize import least_squares
+
+
+@dataclass(frozen=True)
+class RefinementConfig:
+    near_band_m: float = 0.010
+    near_sites: int = 192
+    broad_sites: int = 64
+    near_mass: float = 0.9
+    distance_scale_m: float = 0.002
+    closest_vector_weight: float = 1.0
+    normal_weight: float = 0.0
+    anchor_scale_m: float = 0.010
+    anchor_weight: float = 0.25
+    joint_delta_limit_rad: float = 0.35
+    joint_weight: float = 0.05
+    max_nfev: int = 60
+    diff_step: float = 1e-4
+    ftol: float = 1e-5
+    xtol: float = 1e-5
+    gtol: float = 1e-5
+    loss: str = "soft_l1"
+    f_scale: float = 0.2
+
+    def __post_init__(self):
+        positive = ('near_band_m','distance_scale_m','anchor_scale_m',
+                    'joint_delta_limit_rad','diff_step','ftol','xtol','gtol','f_scale')
+        for name in positive:
+            value=getattr(self,name)
+            if (isinstance(value,(bool,np.bool_)) or not isinstance(value,(int,float,np.integer,np.floating))
+                or not np.isfinite(value) or value <= 0):
+                raise ValueError(f'{name} must be positive and finite')
+        for name in ('closest_vector_weight','normal_weight','anchor_weight','joint_weight'):
+            value=getattr(self,name)
+            if (isinstance(value,(bool,np.bool_)) or not isinstance(value,(int,float,np.integer,np.floating))
+                or not np.isfinite(value) or value < 0):
+                raise ValueError(f'{name} must be nonnegative and finite')
+        if (isinstance(self.near_mass,(bool,np.bool_))
+            or not isinstance(self.near_mass,(int,float,np.integer,np.floating))
+            or not np.isfinite(self.near_mass) or not 0 < self.near_mass < 1):
+            raise ValueError('near_mass must lie strictly between zero and one')
+        for name in ('near_sites','broad_sites','max_nfev'):
+            value=getattr(self,name)
+            if isinstance(value,bool) or not isinstance(value,(int,np.integer)) or value < 1:
+                raise ValueError(f'{name} must be a positive integer')
+        if self.loss != 'soft_l1':
+            raise ValueError('this frozen objective implements soft_l1 only')
+
+
+def area_quantile_sites(mask: np.ndarray, areas: np.ndarray, count: int):
+    """Deterministic quadrature over ordered cells; repeats carry their mass.
+
+    Duplicate indices represent quantile bins hitting the same triangle. They
+    are intentional, not independent observations; each bin has equal mass.
+    This is an optimization quadrature, not an uncertainty certificate.
+    """
+    mask=np.asarray(mask,bool);areas=np.asarray(areas,float)
+    if mask.ndim!=1 or areas.shape!=mask.shape or not np.isfinite(areas).all() or np.any(areas<=0):
+        raise ValueError('positive finite area vector matching a one-dimensional mask required')
+    if isinstance(count,bool) or not isinstance(count,(int,np.integer)) or count < 1:
+        raise ValueError('positive integer quadrature count required')
+    eligible = np.flatnonzero(mask)
+    if not len(eligible):
+        return np.empty(0, dtype=np.int64)
+    total = float(areas[eligible].sum())
+    if not np.isfinite(total) or total <= 0:
+        raise ValueError("positive finite query areas required")
+    levels = (np.arange(count) + 0.5) * total / count
+    chosen = np.searchsorted(np.cumsum(areas[eligible]), levels)
+    return eligible[np.minimum(chosen, len(eligible)-1)]
+
+
+def select_sites(native_distance, original_distance, areas, config):
+    """Choose fixed near/broad quadrature; ``areas`` are square millimetres.
+
+    Query order is frozen by the caller. Repeated indices retain quadrature
+    mass and are not independent surface observations.
+    """
+    native_distance=np.asarray(native_distance,float)
+    original_distance=np.asarray(original_distance,float)
+    areas=np.asarray(areas,float)
+    if (native_distance.ndim!=1 or len(native_distance)==0
+        or native_distance.shape != original_distance.shape or areas.shape != native_distance.shape):
+        raise ValueError("part distances and areas must share a vector shape")
+    if (not np.isfinite(native_distance).all() or not np.isfinite(original_distance).all()
+        or np.any(native_distance<0) or np.any(original_distance<0)):
+        raise ValueError("nonnegative finite exact part distances required")
+    near = (native_distance <= config.near_band_m) | (original_distance <= config.near_band_m)
+    ni = area_quantile_sites(near, areas, config.near_sites)
+    bi = area_quantile_sites(np.ones(len(areas), bool), areas, config.broad_sites)
+    if len(ni):
+        weights = np.r_[np.full(len(ni), config.near_mass/len(ni)),
+                        np.full(len(bi), (1-config.near_mass)/len(bi))]
+        return np.r_[ni, bi], weights, {"near_bin_count":len(ni), "broad_bin_count":len(bi),
+             "near_source_cell_count":int(near.sum()), "near_source_area_mm2":float(areas[near].sum())}
+    return bi, np.full(len(bi), 1/len(bi)), {"near_bin_count":0, "broad_bin_count":len(bi),
+             "near_source_cell_count":0, "near_source_area_mm2":0.}
+
+
+def refine_part(
+    initial_q: np.ndarray,
+    physical_bounds: np.ndarray,
+    native_distances: np.ndarray,
+    native_closest_points: np.ndarray,
+    native_facing: np.ndarray,
+    normal_eligible: np.ndarray,
+    query_weights: np.ndarray,
+    original_anchor_positions: np.ndarray,
+    evaluate: Callable,
+    config: RefinementConfig = RefinementConfig(),
+):
+    """Solve one anatomical part, returning a proposal and honest diagnostics.
+
+    ``evaluate(q)`` must return distances, closest points, facing and anchors
+    at the preselected fixed sites. The caller freezes the declared palm anchor
+    and joints outside this correction group, and certifies groups do not
+    overlap. A group may contain wrist or finger joints; q-dependent carrier
+    compensation must retain the declared placement convention.
+    ``accepted`` means lower frozen objective with numerical/trust checks,
+    not mapping fidelity acceptance. Budget exhaustion is recorded explicitly.
+    Initial targets must be feasible within the actual supplied bounds, without
+    silently clipping source values. The callback receives a read-only copy of
+    each candidate, and invalid callback geometry raises ValueError.
+    """
+    q0 = np.asarray(initial_q, float).copy()
+    if q0.ndim!=1 or len(q0)==0 or not np.isfinite(q0).all():
+        raise ValueError('initial targets must be a nonempty finite joint vector')
+    limits = np.array(physical_bounds, dtype=float, copy=True)
+    if limits.shape != (len(q0), 2) or not np.isfinite(limits).all() or np.any(limits[:,0]>=limits[:,1]):
+        raise ValueError("physical joint bounds must be finite Nx2")
+    if np.any(q0 < limits[:,0]) or np.any(q0 > limits[:,1]):
+        raise ValueError("initial targets exceed actual source URDF bounds")
+    lo = np.maximum(limits[:,0], q0-config.joint_delta_limit_rad)
+    hi = np.minimum(limits[:,1], q0+config.joint_delta_limit_rad)
+    if np.any(lo >= hi):
+        raise ValueError("empty bounded correction domain")
+    native_distances = np.array(native_distances, dtype=float, copy=True)
+    native_closest_points = np.array(native_closest_points, dtype=float, copy=True)
+    native_facing = np.array(native_facing, dtype=float, copy=True)
+    normal_eligible = np.array(normal_eligible, dtype=bool, copy=True)
+    weights = np.array(query_weights, dtype=float, copy=True)
+    if (native_distances.ndim!=1 or len(native_distances)==0 or native_distances.shape != weights.shape
+        or not np.isfinite(weights).all() or np.any(weights <= 0) or not np.isclose(weights.sum(),1)):
+        raise ValueError("positive normalized fixed-site quadrature required")
+    anchor0 = np.array(original_anchor_positions, dtype=float, copy=True)
+    if (native_closest_points.shape!=(len(weights),3) or native_facing.shape!=weights.shape
+        or normal_eligible.shape!=weights.shape or anchor0.ndim!=2 or anchor0.shape[1]!=3 or len(anchor0)==0
+        or not np.isfinite(native_distances).all() or np.any(native_distances<0)
+        or not np.isfinite(native_closest_points).all() or not np.isfinite(native_facing).all()
+        or not np.isfinite(anchor0).all()):
+        raise ValueError('native geometry and anchor arrays have invalid shapes or nonfinite values')
+    sqrtw = np.sqrt(weights)
+    nw = sqrtw[normal_eligible]
+    if len(nw):
+        nw = nw / np.linalg.norm(nw)
+    calls = 0
+
+    def components(q):
+        nonlocal calls
+        calls += 1
+        callback_q=np.array(q,dtype=float,copy=True)
+        callback_q.setflags(write=False)
+        distance, closest, facing, anchors = evaluate(callback_q)
+        distance=np.asarray(distance,float);closest=np.asarray(closest,float)
+        facing=np.asarray(facing,float);anchors=np.asarray(anchors,float)
+        if distance.shape!=weights.shape or closest.shape!=native_closest_points.shape or facing.shape!=weights.shape or anchors.shape!=anchor0.shape:
+            raise ValueError('static evaluator arrays do not match frozen reference shapes')
+        if not np.isfinite(distance).all() or not np.isfinite(closest).all() or not np.isfinite(facing).all() or not np.isfinite(anchors).all():
+            raise ValueError("nonfinite static geometry evaluation")
+        if np.any(distance<0):
+            raise ValueError("static evaluator distances must be unsigned and nonnegative")
+        return {
+            "distance": sqrtw*(distance-native_distances)/config.distance_scale_m,
+            "closest_vector": config.closest_vector_weight*sqrtw[:,None]*(closest-native_closest_points)/config.distance_scale_m/np.sqrt(3),
+            "facing": config.normal_weight*nw*(facing[normal_eligible]-native_facing[normal_eligible]),
+            "anchor": config.anchor_weight*(anchors-anchor0).ravel()/config.anchor_scale_m/np.sqrt(anchor0.size),
+            "joint": config.joint_weight*(q-q0)/config.joint_delta_limit_rad/np.sqrt(len(q0)),
+        }
+
+    def residual(q):
+        return np.concatenate([v.ravel() for v in components(q).values()])
+
+    def cost(r):
+        z=(r/config.f_scale)**2
+        return float(config.f_scale**2*np.sum(np.sqrt(1+z)-1))
+
+    before = components(q0)
+    r0 = np.concatenate([v.ravel() for v in before.values()])
+    solution = least_squares(residual, q0, bounds=(lo,hi), loss=config.loss,
+        f_scale=config.f_scale, max_nfev=config.max_nfev, diff_step=config.diff_step,
+        ftol=config.ftol, xtol=config.xtol, gtol=config.gtol)
+    candidate = solution.x.copy()
+    after = components(candidate)
+    r1 = np.concatenate([v.ravel() for v in after.values()])
+    good = (np.isfinite(candidate).all() and np.all(candidate >= lo-1e-9)
+        and np.all(candidate <= hi+1e-9) and cost(r1) < cost(r0)-1e-12)
+    returned = candidate if good else q0
+    return returned, {
+        "accepted_objective_improvement":bool(good),
+        "does_not_mean_mapping_acceptance":True,
+        "solver_success":bool(solution.success), "solver_status":int(solution.status),
+        "solver_message":str(solution.message), "nfev":int(solution.nfev),
+        "njev":int(solution.njev or 0), "geometry_evaluations_including_audit":calls,
+        "before_robust_cost":cost(r0), "after_robust_cost":cost(r1),
+        "before_component_sse":{k:float(np.dot(v.ravel(),v.ravel())) for k,v in before.items()},
+        "after_component_sse":{k:float(np.dot(v.ravel(),v.ravel())) for k,v in after.items()},
+        "maximum_abs_joint_delta_rad":float(np.max(np.abs(returned-q0))),
+        "original_qpos_rad":q0.tolist(), "raw_candidate_qpos_rad":candidate.tolist(),
+        "returned_qpos_rad":returned.tolist(), "active_trust_bound_count":int(np.sum(
+             np.minimum(np.abs(candidate-lo),np.abs(candidate-hi)) < 1e-5)),
+        "bounded_domain_rad":np.column_stack([lo,hi]).tolist(),
+        "native_normal_eligible_site_count":int(normal_eligible.sum()),
+    }

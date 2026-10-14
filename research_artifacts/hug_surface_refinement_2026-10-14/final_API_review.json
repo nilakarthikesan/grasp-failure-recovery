@@ -1,0 +1,24 @@
+{
+  "schema": "hug_surface_refinement_final_API_review_v1",
+  "date": "2026-10-14",
+  "review_scope": "Independent read-only source/test/doc review; no geometry execution or new test run.",
+  "status": "CLEAR",
+  "substantive_findings": [],
+  "reviewed_sha256": {
+    "src/grasp_failure_prediction/evaluation/surface_refinement.py": "0a6672bd5dd49822098dc50e3f5bd36a0a8b63ffca66f0cbf0a1b732eee672f3",
+    "src/grasp_failure_prediction/evaluation/surface_refinement_guard.py": "fa92824a256b99d30747edd7f5e909e7c5b9a1c6c09b781f2050006d84dc786f",
+    "tests/test_surface_refinement.py": "3cf15f6d5ba21c84697c67982a403c61023f25b08cab1719545bf1e092a630ea",
+    "tests/test_surface_refinement_guard.py": "4afb2341fc8f7a67df338a67c808276b58562508d6d4d696577d8716649dd34d",
+    "docs/HUG_SURFACE_REFINEMENT.md": "972c55f9dcad235e8eb9ab24837c87301888265503ab1680111dfdafbb6ce943"
+  },
+  "default_mapper_and_grasp_eval_unchanged": true,
+  "scientific_acceptance_not_granted": true,
+  "known_limitations": [
+    "Local minima can improve objective while preserving wrong approach side.",
+    "Measured experiment disables normal fitting.",
+    "Pure API relies on declared static geometry callbacks.",
+    "All nine frozen strict mapping domains remain FAIL."
+  ],
+  "new_eval_data": false,
+  "physics_steps": 0
+}

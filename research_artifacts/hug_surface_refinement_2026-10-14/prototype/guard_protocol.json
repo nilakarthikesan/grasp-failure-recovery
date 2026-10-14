@@ -1,0 +1,50 @@
+{
+  "schema": "hug_static_surface_refinement_derivative_guard_protocol_v3_1",
+  "frozen_utc": "2026-10-14T13:55:44.094338+00:00",
+  "before_first_guard_metrics": true,
+  "raw_v2_report_sha256": "fd9b891b888f07b1c1a4dd8a69000463c4e69487c3d301c774fc498f835a3fae",
+  "raw_protocol_sha256": "8d2fd666757aee85a9f38be5404b3a5418b0521504509b2b6525c9c8648f6dfc",
+  "guard_configuration": {
+    "alphas": [
+      1.0,
+      0.5,
+      0.25,
+      0.125,
+      0.0625,
+      0.03125,
+      0.0
+    ],
+    "maximum_mean_fingertip_error_m": 0.01,
+    "minimum_objective_improvement": 1e-12,
+    "joint_delta_limit_rad": 0.35
+  },
+  "source_sha256": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/existing_hug_inventory.json": "5fc28832494c54c7822543a00ea735ab47e1d44d944ff50fc26712eb27536fcb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/static_saved_hug_fk.json": "04ebe393388193cf4ac256ea0fa0f61d8f2869805618d339c2572673f7445ae8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_palm_object_validation_2026-10-14/surfaces/audit_other_surfaces.py": "b235f8b88b5ecb0fc2bc842c3fdb4a17d4c2eb526f321a449169dcbc3cc27bdd",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/pose_validation.py": "1136cdfe80c405031e7060c5f31dd3a0270400314e6ff5aa7a4630c487cdea75",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/case_runner.py": "61aeef7a7125fa7698549cfbfc440a4f8374daf289bdddd87deaafe8ce108b11",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf": "29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/hug/assets/mano_models/models/MANO_RIGHT.pkl": "45d60aa3b27ef9107a7afd4e00808f307fd91111e1cfa35afd5c4a62de264767",
+    "/private/tmp/hug_surface_refinement_2026-10-14/candidate_targets.json": "fd9b891b888f07b1c1a4dd8a69000463c4e69487c3d301c774fc498f835a3fae",
+    "/private/tmp/hug_surface_refinement_2026-10-14/protocol.json": "8d2fd666757aee85a9f38be5404b3a5418b0521504509b2b6525c9c8648f6dfc"
+  },
+  "implementation_sha256": {
+    "/private/tmp/hug_surface_refinement_2026-10-14/surface_refinement.py": "780389fd0095927b1bdc5692aa1d8985b8a0919fd45a12ea08c2c77f820100ca",
+    "/private/tmp/hug_surface_refinement_2026-10-14/run_refinement.py": "6041a1509d4dab3fdf194506c403ef6b9475cde450356bff0746f3a558a1c2fd",
+    "/private/tmp/hug_surface_refinement_2026-10-14/guarded_refinement.py": "96afd7cfb3756593406f592ad3340e28cabd676f3c9c2fc2abf08aa7144b4391",
+    "/private/tmp/hug_surface_refinement_2026-10-14/apply_guard.py": "31dfca85a3e4d7fc6aa4af42d7fde502c13434b608002e5dcd87a4760adb6e7e"
+  },
+  "selection": "First/largest alpha in fixed list satisfying existingmeanTIP<=10mm and lowercompoundobjective1e-12; original q/rootfallback ifnone. No new optimization, no new scientificgate.",
+  "compound_objective": "Same original6partselectedquerysites/weights/nativeclosestpoints and distances. Sixparts equalmass1/6 each. Distance residualsqrt(weight)*(um-un)/2mm. Closestvector residualsqrt(weight)*(cp_m-cp_n)/2mm/sqrt(3),weight1.0. Original all10 task-link anchor residualweight0.25*(x-x0)/10mm/sqrt(30). Original full24q regularizerweight0.05*(q-q0)/0.35rad/sqrt(24). SciPy soft_l1 equivalent cost fscale0.2 squared sum(sqrt(1+(r/fscale)^2)-1). Thisfullposeobjective isrecomputedforbaselineandallinterpolants; do notcompare rawstagecosts.",
+  "protected_inputs_snapshot_sha256": "c24924922c38b26f9ddbb6c042402fec868aac52767076421cd8a774b699d9c9",
+  "scope": "Static derivative only of unchanged6rawtranslationtargets on same originalgrasps. No generator inference, physics, evaluationepisodes, labels or modeltraining.",
+  "limitations": [
+    "Engineeringguard permits documented approximate anatomy; it isnot scientificmappingacceptance.",
+    "Guardedcandidate canstillfail frozen strict surfaceproximity/orientationrule; independent same-grid audit required.",
+    "Unsigned/openpartand percolliderclosestpointproxy doesnot certifyexteriorcontact oroutcomes.",
+    "Alpha variesautomatically viafixedcommonalgorithm butobjectiveweights/sites/tolerancesnot tuned percase.",
+    "RawV2all6candidates refused existingfingertipguard are retainedverbatim."
+  ],
+  "revision_before_first_guard_metrics": "Correctdriver lookupraw_v2_report_sha256 vs mistypedkey. Prior run abortedat initialbindingcheck beforecases/metrics. Objective/alpha/config/sourcefields unchanged."
+}

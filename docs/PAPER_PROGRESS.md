@@ -247,3 +247,22 @@ before collection/training. Original manuscript and predictor are unchanged; no
 drafting, new inference, rollout, eval dataset/label or model fit occurred.
 Multi-generator predictor training and generalization remain the central
 intended study, with this fidelity result supporting its validity boundary.
+
+
+## HUG correction development, 14 October 2026
+
+[The implemented static correction](HUG_SURFACE_REFINEMENT.md) adds native-relative
+surface distances/closest-point vectors and a guarded joint correction. Six
+existing apple/milk/mug grasps receive lower fitting costs and improved whole
+unsigned proximity, but fingertip/middle accuracy worsens and some added-region
+and direction witnesses regress. All six raw candidates violate the existing
+fingertip limit; guarded derivatives respect it. Independent unchanged strict
+acceptance still FAILS all six cases and three finer repeats.
+
+The experimental API and 70 manufactured tests are implemented; the default
+mapper is not replaced. Source/hand/controller/model/manuscript and old inputs
+remain preserved. These are static development derivatives, not new generator
+eval data, task labels, prediction fits or independent generalization evidence.
+A constrained native-relative direction-aware solve remains proposed. The
+central multi-generator failure-prediction study has not yet been trained or
+validated by these mapping diagnostics.

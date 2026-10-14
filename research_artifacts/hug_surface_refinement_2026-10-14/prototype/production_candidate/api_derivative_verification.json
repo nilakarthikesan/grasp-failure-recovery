@@ -1,0 +1,96 @@
+{
+  "schema": "hug_static_api_validation_derivative_v1",
+  "status": "PASS",
+  "pytest_exit_code": 0,
+  "manufactured_test_case_count": 70,
+  "manufactured_parity_case_count": 11,
+  "parity": [
+    {
+      "case": "default_local_side_basin",
+      "returned_joint_targets_exact": true,
+      "all_diagnostic_fields_exact": true
+    },
+    {
+      "case": "represented_side_change",
+      "returned_joint_targets_exact": true,
+      "all_diagnostic_fields_exact": true
+    },
+    {
+      "case": "physical_bound",
+      "returned_joint_targets_exact": true,
+      "all_diagnostic_fields_exact": true
+    },
+    {
+      "case": "local_trust_bound",
+      "returned_joint_targets_exact": true,
+      "all_diagnostic_fields_exact": true
+    },
+    {
+      "case": "baseline_no_improvement",
+      "returned_joint_targets_exact": true,
+      "all_diagnostic_fields_exact": true
+    },
+    {
+      "case": "native_away_normal",
+      "returned_joint_targets_exact": true,
+      "all_diagnostic_fields_exact": true
+    },
+    {
+      "case": "guard_full",
+      "returned_joint_targets_exact": true,
+      "all_diagnostic_fields_exact": true
+    },
+    {
+      "case": "guard_half",
+      "returned_joint_targets_exact": true,
+      "all_diagnostic_fields_exact": true
+    },
+    {
+      "case": "guard_all_tip_bad",
+      "returned_joint_targets_exact": true,
+      "all_diagnostic_fields_exact": true
+    },
+    {
+      "case": "guard_all_objective_bad",
+      "returned_joint_targets_exact": true,
+      "all_diagnostic_fields_exact": true
+    },
+    {
+      "case": "guard_baseline_tip_bad",
+      "returned_joint_targets_exact": true,
+      "all_diagnostic_fields_exact": true
+    }
+  ],
+  "scope": "Manufactured pure-API inputs only; this derivative was not rerun on all six saved grasp geometries.",
+  "new_eval_data": false,
+  "physics_steps": 0,
+  "source_hashes_before_and_after_unchanged": true,
+  "source_hashes": {
+    "surface_refinement.py": "780389fd0095927b1bdc5692aa1d8985b8a0919fd45a12ea08c2c77f820100ca",
+    "guarded_refinement.py": "96afd7cfb3756593406f592ad3340e28cabd676f3c9c2fc2abf08aa7144b4391",
+    "production_candidate/surface_refinement.py": "0a6672bd5dd49822098dc50e3f5bd36a0a8b63ffca66f0cbf0a1b732eee672f3",
+    "production_candidate/surface_refinement_guard.py": "fa92824a256b99d30747edd7f5e909e7c5b9a1c6c09b781f2050006d84dc786f",
+    "test_surface_refinement.py": "3cf15f6d5ba21c84697c67982a403c61023f25b08cab1719545bf1e092a630ea",
+    "test_guarded_refinement.py": "4afb2341fc8f7a67df338a67c808276b58562508d6d4d696577d8716649dd34d"
+  },
+  "versions": {
+    "python": "3.12.13",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "pytest": "9.1.1"
+  },
+  "changes": [
+    "Explicit experimental/static-only docstrings and acceptance caveats.",
+    "Reject boolean numeric settings and metrics; freeze mutable alpha input as a tuple.",
+    "Validate nonempty unsigned site domains and reject negative evaluator distances.",
+    "Reject out-of-bound input targets without clipping, including tiny infeasible excess.",
+    "Copy source reference arrays and provide read-only copied callback joint vectors.",
+    "Snapshot returned guard assessments so reused dictionaries cannot rewrite history.",
+    "Remove unused asdict import; objective, default values and solver settings unchanged."
+  ],
+  "limitations": [
+    "A local objective improvement can leave an opposite-side geometric relationship unchanged.",
+    "Fingertip guard and objective improvement are engineering checks, not geometric fidelity acceptance.",
+    "No production grasp-eval execution path imports these modules automatically."
+  ]
+}

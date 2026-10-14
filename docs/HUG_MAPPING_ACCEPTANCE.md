@@ -258,3 +258,21 @@ later protocol ingredients.
 All acceptance definitions above are project choices derived from the declared
 claim. The papers support their measurement rationale; they do not certify the
 choice or require zero distortion for all research uses.
+
+
+## 14 October 2026 — Correction application and certificate limitation
+
+[The tested surface-aware correction](HUG_SURFACE_REFINEMENT.md) still FAILS
+this unchanged rule on all six coarse cases and three finer repeats. Passing
+its existing fingertip engineering guard and improving an internal fitting
+objective cannot substitute for this acceptance application. The original and
+candidate results remain separate immutable records.
+
+Independent Lipschitz intervals are conservative: a cell crossing a band
+boundary may remain ambiguous even if native and mapped distance functions are
+identical. The present interval construction can refute equality using definite
+counterexamples but need not certify equality after all such witnesses disappear.
+Coupled difference/feature certificates or finer admissible evidence would need
+separate methods and frozen versions. Continuous orientation also requires its
+own feature-stability/variation bounds. This clarifies the existing PASS evidence
+requirement; it changes no threshold, domain, prior status or frozen rule.

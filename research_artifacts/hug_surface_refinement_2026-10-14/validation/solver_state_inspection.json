@@ -1,0 +1,75 @@
+{
+  "schema": "hug_static_solver_state_inspection_v1",
+  "source_sha256": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/retargeting.py": "a6631a0f0d20f6ef94c389529b7d6d677a8a8cd9f8e923efff19ccfee26aa4ff",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/case_runner.py": "61aeef7a7125fa7698549cfbfc440a4f8374daf289bdddd87deaafe8ce108b11",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/noisy_rollouts.py": "384f930f5b38bb62ddf52d3883557d9d7cddfcfadb0d5a45ce87d13a255f0295",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/view_pose.py": "a724ca00c5d4a62b3a6c41d21e26defb8ebcc615450e0f09589455b505279f99",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps/dex_retargeting/seq_retarget.py": "72cc74f1a0ff91fafc9421d3d6766a7dd2279b0964e0b376718ec385fbb94482",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps/dex_retargeting/optimizer.py": "6b816d65c81f2e959ea6b76876bb03c2b768be95064a1b4b9e1563d36262cdf8"
+  },
+  "findings": [
+    {
+      "claim": "Existing saved/live case path builds a fresh retargeter before each retarget call. No cross-case solver-state defect established in those paths.",
+      "evidence": [
+        {
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/case_runner.py",
+          "lines": [
+            369,
+            370
+          ]
+        },
+        {
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/noisy_rollouts.py",
+          "line": 221
+        },
+        {
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/view_pose.py",
+          "lines": [
+            23,
+            24
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "SeqRetargeting initializes last_qpos to physical range midpoint, warm-updated on each retarget invocation. Production wrapper uses 20 repeated solves on a single proposal, filter=None, scale=1.0.",
+      "evidence": [
+        {
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/retargeting.py",
+          "lines": [
+            136,
+            139,
+            142,
+            159,
+            161
+          ]
+        },
+        {
+          "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps/dex_retargeting/seq_retarget.py",
+          "lines": [
+            35,
+            128,
+            138
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "Generic retargeter instances are stateful when deliberately reused. This is library streaming design and an API risk for a future batch path, not a demonstrated error in recorded per-case runs.",
+      "scope": "Read-only code inspection; no new repeat/multistart solver experiment."
+    },
+    {
+      "claim": "Previously recorded independent static reference report reproduced all32 stored_current targets with current_recomputed exactly. The presently observed surface discrepancy cannot be assigned to source target replay or cross-case history on this evidence.",
+      "evidence": "research_artifacts/hug_geometry_reference_validation_2026-10-14/reference/summary.json"
+    }
+  ],
+  "actual_solver_runs_this_inspection": 0,
+  "physics_steps": 0,
+  "new_eval_data": false,
+  "production_changes": false,
+  "limitations": [
+    "No proof of all optimizer initialization choices yielding one global optimum.",
+    "Morphology, visible-vs-collision approximation, retargeting objective and surface preservation remain separate from correct replay of target q."
+  ]
+}

@@ -390,3 +390,38 @@ simulator pipeline with independent adequacy validation. Do not repeat completed
 checks, loosen the frozen rule to pass HUG, advance other providers as accepted,
 or begin collection/training from this static result. Preserve inspected
 development cases as development evidence and all historical records.
+
+
+## 14 October 2026 — Surface-aware HUG correction tested; no promotion
+
+The user authorized repairing the failed mapping while retaining the no-new-eval
+constraint. [The correction report](HUG_SURFACE_REFINEMENT.md) records a frozen
+native-relative surface/closest-point refiner and a separately frozen guard.
+All six raw candidates exceed the existing 10 mm mean fingertip limit; all six
+guarded candidates satisfy it at 8.458–9.290 mm, with 10.527–21.471% lower fitting
+cost. Fingertip/middle accuracy nevertheless worsens on every case.
+
+Independent same-grid checks on six existing grasps plus three finer repeats
+still FAIL the unchanged strict surface rule in all nine domains. Coarse whole
+2 mm unsigned IoU and lost-area bounds improve, but first-milk added proximity
+and several eligible direction counterexamples regress. Original witness replay
+retains 65 definite changes of 178; uncertainty is not acceptance. Palm POSITION
+is fixed; palm ORIENTATION follows the q-dependent source-hand convention and
+changes 0.501–1.355 degrees. No free object/hand alignment or scaling is fitted.
+
+New experimental APIs and 70 manufactured tests are implemented separately from
+the unchanged default mapper/grasp-eval. Eleven frozen/API comparisons and all-six
+stored engineering-assessment selection replay match exactly; this is not an
+API rerun of six geometry solves. The versioned bundle preserves frozen modules,
+raw refused and guarded targets, all nine audits, input/protocol hashes,
+pre-metric/aborted histories and figures. All 110 original protected files,
+model, manuscript and old input hashes remain unchanged; integration guards
+record zero physics steps. No inference, eval episodes/labels or training ran.
+
+HUG is not signed off as contact/failure-label equivalent and the next generator
+is not accepted by this result. Proposed next work is a global surface solve
+with fingertip constraints and reliable native-relative direction terms,
+followed by the unchanged audit. Do not tune acceptance to these development
+cases. No current evidence proves strict preservation globally impossible or
+approximate predictor adequacy. Preserve the current paper path and existing
+untracked/ignored files; continue on codex/project-work.

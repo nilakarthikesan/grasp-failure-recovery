@@ -22,6 +22,7 @@
 
 - [Grasp mapping fidelity audit](GRASP_MAPPING_FIDELITY.md)
 - [HUG individual mapping confirmation](HUG_MAPPING_CONFIRMATION.md)
+- [HUG surface-aware correction and independent validation](HUG_SURFACE_REFINEMENT.md)
 
 - [Research protocol](HUG_MONITOR_RESEARCH_PLAN.md)
 - [Experiment results and evidence index](PAPER_PROGRESS.md)

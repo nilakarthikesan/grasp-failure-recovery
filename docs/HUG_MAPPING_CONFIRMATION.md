@@ -590,3 +590,28 @@ training is authorized by this static audit.
 See [the four-source audit](GRASP_MAPPING_FIDELITY.md) for original papers and
 source-specific contracts. HUG remains the active mapping case before the other
 generators.
+
+
+## 14 October 2026 continuation — tested surface-aware correction
+
+[The correction and independent audit](HUG_SURFACE_REFINEMENT.md) now implement a
+native-relative surface/closest-point refinement on the six existing noncube
+cases. All raw candidates violate the old fingertip guard; the frozen guarded
+derivative meets it at 8.458–9.290 mm and improves fitting cost 10.527–21.471%.
+Fingertip/middle accuracy nonetheless worsens on every case. Some added-region
+and sampled orientation checks regress despite improved whole unsigned proximity.
+
+All six coarse and three finer strict statuses remain FAIL under the unchanged
+rule and numerical assumptions. Numerical convention/joint/independent FK checks
+pass. Palm position is fixed; q-dependent palm orientation changes 0.501–1.355°.
+65 of the 178 old cell witnesses remain definite changed relationships, including
+the original apple middle-finger 1 mm loss. This is a concrete development improvement,
+not a completed fidelity repair or failure-label equivalence result.
+
+New experimental static APIs and tests are isolated from the unchanged default
+mapper/grasp-eval. No new inference, physics, eval data/labels, predictor training
+or manuscript edit occurs; old source/model/paper/input hashes remain preserved.
+Next proposed technical work constrains fingertip placement during a global solve
+and adds reliable native-relative direction terms. It needs a new frozen solver
+version and the same independent audit, without adjusting acceptance to pass
+these already inspected cases. HUG is not ready for a full mapping sign-off.
