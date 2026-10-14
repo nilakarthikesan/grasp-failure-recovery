@@ -29,6 +29,7 @@ from grasp_failure_prediction.evaluation.scoring import score_trace
 
 from .artifacts import load_proposal, proposal_content_hash
 from .registry import load_provider_registry
+from .preflight import load_preflight_registry
 from .schema import (
     EvaluationCaseV2,
     ProposalArtifactReferences,
@@ -130,9 +131,14 @@ def _validate_pose(proposal) -> tuple[NamedJointPose, ProposalExecutionValidatio
 
 
 def _scene_preflight(proposal) -> None:
+    preflight = load_preflight_registry().resolve("shadow_proposal_preflight_v1")
     translation = np.asarray(proposal.object_to_palm.translation_m, dtype=np.float64)
-    if float(np.linalg.norm(translation)) > 0.5:
-        _reject("scene_preflight", "palm_implausibly_distant", "palm is more than 0.5 m from the object frame")
+    if float(np.linalg.norm(translation)) > preflight.maximum_object_to_palm_distance_m:
+        _reject(
+            "scene_preflight",
+            "palm_implausibly_distant",
+            "palm exceeds the registered maximum distance from the object frame",
+        )
 
 
 def _write_artifacts(
@@ -146,6 +152,7 @@ def _write_artifacts(
     outcome,
     runner,
     video: Path | None,
+    provider_spec,
 ) -> ProposalExecutionResult:
     trajectory = output / "trajectory.npz"
     final_state = output / "final_state.npz"
@@ -204,11 +211,11 @@ def _write_artifacts(
         provider_id=proposal.provider.id,
         provider_config_hash=proposal.provider.config_hash,
         provider_metadata=ResolvedProviderMetadata(
-            kind=resolved.provider_spec.kind,
-            translation_strategy_id=resolved.provider_spec.translation_strategy_id,
-            source_revision=resolved.provider_spec.provenance.source_revision,
+            kind=provider_spec.kind,
+            translation_strategy_id=provider_spec.translation_strategy_id,
+            source_revision=provider_spec.provenance.source_revision,
             license_statuses={
-                name: getattr(resolved.provider_spec.provenance, name).status
+                name: getattr(provider_spec.provenance, name).status
                 for name in ("code", "checkpoint", "dataset", "object_assets")
             },
         ),
@@ -323,9 +330,6 @@ def run_proposal_case(
         resolved.execution_protocol,
         control_timestep_s=runner.control_timestep_s,
     )
-    # Attach the already resolved provider spec for provenance reporting without
-    # changing the evaluator's environment/protocol resolution contract.
-    object.__setattr__(resolved, "provider_spec", spec)
     result = _write_artifacts(
         output,
         resolved=resolved,
@@ -336,6 +340,7 @@ def run_proposal_case(
         outcome=outcome,
         runner=runner,
         video=Path("rollout.mp4") if record_video else None,
+        provider_spec=spec,
     )
     print(json.dumps({
         "case_id": result.case_id,

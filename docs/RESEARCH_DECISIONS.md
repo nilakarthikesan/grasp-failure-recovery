@@ -213,6 +213,35 @@ explicitly. Distinguish measured results from interpretations and proposals.
 Link the paper to the evidence used for each claim. This convention is the
 ongoing documentation requirement; this turn did not launch new experiments.
 
+## 13 October 2026 — Implement the evidence-backed translation boundary first
+
+- **Previous plan:** Add DexGraspNet saved-record replay after hardening the
+  provider boundary and geometry inputs.
+- **New evidence:** The repository contains the pinned right-Shadow URDF, the
+  existing tested HUG/Dex Retargeting conversion, and project-authored saved
+  Shadow fixtures. It does not contain a licensed DexGraspNet record, an exact
+  official saved-record contract, an audited object-scale binding, or an
+  authoritative mapping from the released source hand to this evaluator's
+  pinned Shadow asset.
+- **Choice:** Implement the strict reusable boundary and deterministic geometry
+  inputs, register the existing HUG strategy and exact same-asset Shadow mapping,
+  and fail closed for unsupported source models. Register DexGraspNet as disabled
+  `dataset_replay` with the missing evidence stated explicitly. Do not invent a
+  transform or describe the project-authored synthetic fixture as DexGraspNet.
+- **Implementation status:** Implemented on `codex/multi-provider-translation`.
+  Provider classification and license status appear in resolved results;
+  pre-rollout rejections carry a null task label; seeded object-frame point
+  clouds and manifests are content-addressed. The environment, controller,
+  scorer, and execution protocol were not changed.
+- **Evidence:** Focused translation/provider/object tests pass, including exact
+  named-joint mapping, changed-evidence rejection, deterministic point bytes,
+  manifest sensitivity, disabled-provider metadata, and no-outcome rejection
+  semantics. The full-suite result is recorded with the implementation commit.
+- **Next check:** Obtain an authorized redistributable or externally mounted
+  DexGraspNet record plus its exact official schema, source asset, coordinate and
+  scale semantics, then add a provider-specific decoder and run the visual and
+  physics acceptance gate before enabling it.
+
 ## 12 October 2026 Adding an interchangeable grasp-proposal boundary
 
 The active evaluator previously coupled fresh inference, HUG pickle loading,

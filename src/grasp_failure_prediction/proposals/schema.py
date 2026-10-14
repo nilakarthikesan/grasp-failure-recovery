@@ -302,7 +302,9 @@ class ProposalExecutionResult(StrictModel):
     proposal_id: str = Field(pattern=ID_PATTERN)
     provider_id: str = Field(pattern=ID_PATTERN)
     provider_config_hash: str = Field(pattern=SHA256_PATTERN)
-    provider_metadata: ResolvedProviderMetadata
+    # Optional only for backward loading of eval_result_v2 artifacts written
+    # before provider classification was added. New executions always populate it.
+    provider_metadata: ResolvedProviderMetadata | None = None
     proposal_hash: str = Field(pattern=SHA256_PATTERN)
     generation_seed: int = Field(ge=0, le=2**32 - 1)
     proposal_sample_index: int = Field(ge=0)

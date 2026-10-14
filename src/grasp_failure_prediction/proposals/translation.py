@@ -17,7 +17,7 @@ from grasp_failure_prediction.evaluation.registry import Registry, RegistryError
 from grasp_failure_prediction.evaluation.retargeting import ShadowHandRetargeter
 from grasp_failure_prediction.evaluation.schema import SHA256_PATTERN, StrictModel
 
-from .schema import RigidTransform
+from .schema import ProposalPreflightRejection, RigidTransform
 
 
 class MappingEvidence(StrictModel):
@@ -95,6 +95,12 @@ class NativeDecoder(Protocol):
 class TranslationError(ValueError):
     def __init__(self, code: str, message: str):
         self.code = code
+        self.rejection = ProposalPreflightRejection(
+            status="translation_failed",
+            stage="translation",
+            code=code,
+            message=message,
+        )
         super().__init__(message)
 
 

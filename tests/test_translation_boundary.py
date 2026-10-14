@@ -5,9 +5,13 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+import yaml
 
 from grasp_failure_prediction.evaluation.object_assets import load_object_geometry
 from grasp_failure_prediction.proposals.execution import ProposalRejected, _scene_preflight, _validate_pose
+from grasp_failure_prediction.proposals.artifacts import load_proposal, proposal_content_hash, write_proposal
+from grasp_failure_prediction.proposals.generate import generate_proposals
+from grasp_failure_prediction.proposals.execution import run_proposal_case
 from grasp_failure_prediction.proposals.geometry_inputs import prepare_geometry_inputs
 from grasp_failure_prediction.proposals.registry import load_provider_registry
 from grasp_failure_prediction.proposals.schema import GraspProposal
@@ -19,6 +23,7 @@ from grasp_failure_prediction.proposals.translation import (
     translate_native_pose,
 )
 from test_object_assets import write_box_mesh
+from test_grasp_proposals import GEOMETRY_HASH, _request
 
 
 def _asset(root: Path) -> Path:
@@ -57,6 +62,25 @@ def test_named_shadow_decoder_and_identity_mapping_are_exact():
     with pytest.raises(TranslationError) as exc:
         translate_native_pose(bad, "dex_urdf_shadow_identity_v1")
     assert exc.value.code == "native_joint_set_mismatch"
+    assert exc.value.rejection.status == "translation_failed"
+    assert exc.value.rejection.task_label is None
+
+
+def test_changed_mapping_evidence_fails_closed(monkeypatch):
+    fixture = Path(__file__).parent / "fixtures/provider_saved_cube.json"
+    native = SyntheticShadowRecordDecoder().decode(fixture)
+
+    class ChangedDigest:
+        def hexdigest(self):
+            return "0" * 64
+
+    monkeypatch.setattr(
+        "grasp_failure_prediction.proposals.translation.hashlib.sha256",
+        lambda content: ChangedDigest(),
+    )
+    with pytest.raises(TranslationError) as exc:
+        translate_native_pose(native, "dex_urdf_shadow_identity_v1")
+    assert exc.value.code == "mapping_evidence_hash_mismatch"
 
 
 def test_provider_classification_license_metadata_and_disabled_dexgraspnet():
@@ -101,3 +125,54 @@ def test_structured_rejections_have_null_task_label_and_precede_rollout():
     assert rejection.stage == "scene_preflight"
     assert rejection.code == "palm_implausibly_distant"
     assert rejection.task_label is None
+
+
+def test_preflight_tolerance_is_registered_and_hashed():
+    from grasp_failure_prediction.evaluation.schema import canonical_sha256
+    from grasp_failure_prediction.proposals.preflight import load_preflight_registry
+
+    registry = load_preflight_registry()
+    spec = registry.resolve("shadow_proposal_preflight_v1")
+    assert spec.maximum_object_to_palm_distance_m == 0.5
+    assert registry.config_hash(spec.preflight_id) == canonical_sha256(spec)
+
+
+def test_rejected_proposal_never_constructs_rollout_runner(tmp_path, monkeypatch):
+    manifest = generate_proposals(_request(tmp_path), tmp_path / "proposals", project_root=tmp_path)
+    entry = manifest.proposals[0]
+    proposal_path = tmp_path / "proposals" / entry.proposal_path
+    proposal = load_proposal(proposal_path)
+    proposal = proposal.model_copy(update={
+        "object_to_palm": proposal.object_to_palm.model_copy(update={"translation_m": (1.0, 0.0, 0.0)})
+    })
+    write_proposal(proposal_path, proposal)
+    case = {
+        "schema_version": "eval_case_v2",
+        "case_id": "rejected_before_rollout",
+        "environment": {"id": "adroit_shadow_tabletop_v2"},
+        "embodiment": {"id": "shadow_hand_right"},
+        "execution_protocol": {"id": "fixed_grasp_lift_v2"},
+        "object": {"id": "object01", "mass_kg": 0.18, "friction_profile_id": "nominal_v1"},
+        "grasp": {
+            "id": proposal.proposal_id,
+            "proposal_path": str(Path("proposals") / entry.proposal_path),
+            "expected_proposal_hash": proposal_content_hash(proposal),
+        },
+        "initial_condition": {
+            "id": "centered_upright",
+            "object_position_m": [0.0, 0.0, 0.03],
+            "object_orientation_xyzw": [0.0, 0.0, 0.0, 1.0],
+        },
+        "motion_profile_id": "nominal_lift_v1",
+        "seed": 19,
+    }
+    case_path = tmp_path / "case.yaml"
+    case_path.write_text(yaml.safe_dump(case, sort_keys=False))
+    monkeypatch.setattr(
+        "grasp_failure_prediction.proposals.execution._runner_class",
+        lambda resolved: pytest.fail("rollout runner constructed for rejected proposal"),
+    )
+    with pytest.raises(ProposalRejected) as exc:
+        run_proposal_case(case_path, tmp_path / "run", project_root=tmp_path, record_video=False)
+    assert exc.value.rejection.code == "palm_implausibly_distant"
+    assert not (tmp_path / "run").exists()
