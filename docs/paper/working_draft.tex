@@ -8,54 +8,68 @@
 \setlength{\parindent}{0pt}
 \newcommand{\projecturl}{https://github.com/nilakarthikesan/grasp-failure-recovery}
 
-\title{Evaluating Simulation Diversity for Grasp Failure Warnings}
+\title{Evaluating Simulation Diversity for Grasp Failure Prediction}
 \author{Working draft: authorship and affiliations to be confirmed}
-\date{12 October 2026}
+\date{14 October 2026}
 
 \begin{document}
 \maketitle
 
+% BEGIN GFP SECTION abstract
 \begin{abstract}
-Simulation can generate labeled grasp attempts, but additional disturbed attempts
-need not cover the conditions that cause prediction errors. We study a fixed
-Shadow Hand grasp, lift and hold task using HUG proposals and MuJoCo execution.
-A logistic outcome predictor trained from cube and apple closing histories
-flags 187 of 202 failures and 22 of 58 successes in a retrospective development
-test. A frozen evaluation on fresh objects exposes a mug executor collision.
-After a separately versioned clearance correction, the unchanged predictor
-warns on all 23 completed mug checks, including all 20 successes, across three
-finger disturbance bounds. Both wrist commands in every successful mug lie
-outside the original training ranges; reconstructed wrist terms push all 20
-scores toward failure. This is an input and score diagnostic, not isolated
-physical causation. A static check also finds no eligible mug configuration
-among the eight wrist command pairs observed in training under the declared
-clearance gate. Across eight subsequent frozen pairs of unfamiliar wrist
-configurations, all 13 successes and three task failures trigger alerts.
-Six pairs succeed at both settings, yet no warning clears. One changed task
-label crosses the lift cutoff by a submillimeter amount. Wrist terms change
-scores without establishing an improvement. We
-specify a subsequent comparison of broader HUG observation and proposal coverage against
-additional finger noise at matched training counts and class proportions.
-That comparison remains unexecuted. Current results establish a reliability
-problem and a constraint on its diagnosis, not improved transfer, slip timing
-or recovery.
+Grasp-failure predictors trained on simulated attempts may encounter unfamiliar
+objects and configurations whose coverage depends on the grasp proposal source.
+We investigate whether training with proposals from multiple generators improves
+generalization relative to single-generator training, using HUG, ContactGen,
+DexGrasp Anything and UniDexGrasp as candidate sources for a common Shadow Hand
+task in MuJoCo. Before collecting comparison data, we audit each source's native
+representation, coordinate conversion, articulation and object-relative surface
+geometry, separating mapping fidelity from eventual task success.
+Completed HUG development checks support numerical reconstruction and kinematic
+composition, but reject strict surface preservation across six detailed cases
+and three finer repeats; a constrained correction accepts no fitted candidate
+and retains all six original poses. Historical HUG prediction diagnostics also
+show that useful failure ranking can coexist with warnings on successful
+unfamiliar attempts. The multiple-generator training comparison and independent
+generalization evaluation remain unexecuted, so improved prediction is a
+hypothesis rather than a reported result.
 \end{abstract}
+% END GFP SECTION abstract
 
-\section{Question and relation to prior work}
-A useful grasp warning must distinguish a failed task from a successful attempt
-in an unfamiliar configuration. Our research question is:
+
+% BEGIN GFP SECTION introduction
+\section{Introduction}
+Simulation makes it practical to collect labeled grasp attempts for training an
+outcome predictor. The resulting training distribution depends on which grasps
+are proposed, how those proposals are translated to the simulated hand, and how
+the hand executes them. A predictor exposed to several proposal sources might
+encounter a broader range of grasp configurations than one trained from a single
+source. Broader coverage need not improve prediction: additional sources can
+introduce redundant examples or different translation errors.
+
+Our central research question is:
 \begin{quote}
-At a fixed number of simulated training attempts, does broader coverage of
-HUG-generated grasp situations improve pre-lift outcome warnings on unfamiliar
-objects and scenes more than additional finger-command perturbations of a
-smaller set of grasps?
+Does training a grasp-failure predictor on simulated grasps from multiple
+generators improve generalization to unfamiliar objects and grasp configurations
+compared with single-generator training?
 \end{quote}
-We distinguish the completed frozen-model diagnostic from the proposed training
-comparison. The former motivates the question; it does not answer it.
-The wrist diagnostic remains a coverage subgroup, not an isolated causal result.
-The target remains eventual grasp, lift and hold completion from the closing
-prefix, rather than slip onset or a certified stable-grip decision.
+We propose comparisons using one, two, three and four proposal sources under a
+common hand, task, execution protocol and predictor specification. Matched
+selected training counts distinguish source diversity from supplying more
+examples; they are an experimental control rather than the research question.
+Object-held-out and generator-held-out tests address distinct generalization
+claims. These comparisons have not yet been executed.
 
+HUG, ContactGen, DexGrasp Anything and UniDexGrasp supply different native
+representations and generation stages \cite{hug,contactgen,dga,unidex}.
+Their published grasp-quality results do not certify our translations.
+We audit each proposal against its own declared native configuration before
+interpreting simulator outcomes. Mapping validation supports the prediction
+study: it neither requires every proposal to succeed nor guarantees downstream
+generalization. The target is eventual grasp, lift and hold completion from a
+closing prefix, rather than slip onset or a certified stable-grip decision.
+
+\subsection{Related work}
 Failure prediction and recovery are established topics. Gilday et al. combine
 sensor-based grasp prediction with wrist-driven recovery and discuss errors on
 novel objects using different successful grasp modes \cite{gilday}. FIPER
@@ -65,9 +79,9 @@ generative robot policies \cite{fiper}. SAFE studies multitask failure detection
 visual and language shifts, and reports that adding more perturbations does
 not uniformly help \cite{safecast}. These results motivate controlled diversity
 comparisons, not a claim that nuisance warnings or augmentation are new ideas.
-Our candidate contribution is a reproducible, embodiment-specific investigation
-of which simulated variations improve warnings at a matched training-data
-budget. No new algorithm or real-world transfer result is claimed.
+Our proposed contribution is a controlled study of multi-source simulation
+coverage for failure prediction, supported by explicit embodiment-specific
+mapping audits. No new algorithm or real-world transfer result is claimed.
 
 Pick-success models already test targeted data coverage: Amazon's Robin study
 compares broader pick locations with an equal-sized collection
@@ -79,10 +93,138 @@ scope review; wrist-feature contributions alone do not demonstrate its remedy.
 
 Recent proprioceptive work also learns a hand-local grasp-readiness score
 alongside reactive control \cite{blindreflex}. We therefore do not claim that
-command-relative features or pre-lift monitoring are new; our candidate
-contribution concerns a controlled HUG collection and representation comparison.
+command-relative features or pre-lift monitoring are new; our proposed
+contribution concerns source-diversity and representation comparisons in a
+common simulation task.
+% END GFP SECTION introduction
 
-\section{Execution, labels and predictor}
+% BEGIN GFP SECTION mapping_common
+\section{Grasp sources and simulator mapping}
+\subsection{Validation framework}
+Each source record identifies its input geometry, physical scale, coordinate
+frames, hand assets, checkpoint, configuration and output stage. We first
+reconstruct the native proposal and independently check transformation,
+joint-order and forward-kinematic consistency. We then compare native and
+translated configurations in a shared object frame, reporting per-finger
+landmark errors, object proximity, penetration, lost and added near-surface
+regions, and reliable surface-direction comparisons. Visual and collision
+surfaces are distinct references, with unmatched regions and sampling uncertainty
+retained in every report.
+
+Numerical decoding, geometric preservation and execution adequacy are separate
+claims. Agreement of joints or fingertips does not establish equivalent
+collision surfaces, contact forces or task outcomes. Poor native proposals
+remain in the audit; successful lifting is not a mapping acceptance criterion.
+Thresholds and sampling assumptions are declared explicitly, and inspected
+development cases are distinguished from later independent validation.
+Our common executor differs from source-specific policies and quality tests.
+
+For the current HUG development audit, a frozen strict encoded-surface claim
+is refuted by a positive same-part lost/added proximity-area lower bound or a
+reliable object-facing sign reversal, under declared numerical assumptions.
+An absent sampled reversal cannot certify continuous normal agreement. That
+claim defines strict preservation, not a universal tolerance for all useful
+retargeters. An approximate simulator-pipeline claim would require separately
+justified distortion budgets and independent adequacy evidence; it cannot
+retroactively turn the recorded HUG failures into passes.
+
+Provider audits and their evidence-backed manuscript subsections can proceed
+in parallel. Shared retargeters, assets, measurement code and execution settings
+are versioned dependencies: a change requires reviewing affected audits.
+The current phase uses static reconstruction of saved inputs and manufactured
+checks. It generates no new evaluation episodes, physical outcome labels or
+training data. Actual-native validation remains pending where authentic source
+outputs or assets have not been established.
+% END GFP SECTION mapping_common
+
+% BEGIN GFP SECTION hug
+\subsection{HUG}
+HUG supplies MANO hand hypotheses from observations \cite{hug}. Our conversion
+places the native wrist at the Shadow palm position and retargets object-relative
+landmarks through Dex Retargeting \cite{dex}. Native and target hands have
+different surface geometry, so numerical reconstruction and correct forward
+kinematics are necessary but insufficient evidence of grasp preservation.
+
+All 32 saved native exports reconstruct exactly in the recorded 3D audit;
+this does not assert all-32 camera-projection equivalence. Detailed surface
+measurements on six existing apple, milk-box and mug development cases, together
+with three finer repeats, reject the declared strict preservation claim.
+Definite lost/added proximity regions and reliable sampled orientation reversals
+remain counterexamples. The nine resolutions are repeated measurements of six
+grasps, not nine independent physical failures.
+
+An experimental local fit adds five individual fingertip nonworsening
+constraints, a separate strict 10 mm mean-error guard and native-relative facing
+targets, including away-facing targets. Final engineering assessment separately
+declares a 10 nm arithmetic allowance; original tip errors are approximation
+errors, rather than scientific acceptance margins. None of the six fits provides
+an eligible improving candidate; each returns its exact original joint/root pose.
+Independent source checks pass, while the unchanged surface audit returns zero
+PASS and nine FAIL. Pointwise orientation separately has seven FAIL and two
+UNRESOLVED results. This is not a repaired mapping or evidence of global
+infeasibility. Physical contact and failure-label preservation remain unconfirmed.
+% END GFP SECTION hug
+
+% BEGIN GFP SECTION contactgen
+\subsection{ContactGen}
+ContactGen predicts object-centric contact, hand-part and direction maps,
+then optimizes a human hand pose \cite{contactgen}. Our worker retains refined
+MANO vertices and joint frames. The adapter restores vertex-mean object
+centering, applies the declared mesh-to-object transform, constructs thumb-first
+landmarks and uses the MANO-to-Shadow path shared with HUG. The shaped wrist
+origin comes from joint frame 0 rather than optimized translation alone.
+
+Current static checks support transform composition at two prescribed wrist
+states, with residual at most $1.21\times10^{-16}$ m. This is algebraic evidence;
+no authentic native ContactGen proposal has been validated in the current audit.
+Independent pose/shape reconstruction and translated surface fidelity remain
+pending. The current worker also needs preservation of sampled input points and
+predicted contact/part/direction maps before a contact-to-native solver claim
+can be substantiated. ContactGen's bone-local direction ray is distinct from an
+actual surface normal. HUG's measured errors are not ContactGen results.
+% END GFP SECTION contactgen
+
+% BEGIN GFP SECTION dexgrasp_anything
+\subsection{DexGrasp Anything}
+DexGrasp Anything uses a diffusion model with physical constraints
+\cite{dga}. The pinned implementation exports a denormalized articulated
+Shadow configuration containing translation, a 6D rotation representation and
+24 joints, including both wrists. The root is the forearm; conversion must
+compose the actual wrist-dependent forearm-to-palm transform and preserve
+normalization, scale and the selected sampling/optimization stage.
+
+A dedicated static bridge candidate was examined on zero and 64 deterministic
+joint configurations, with maximum fingertip separation of 0.100 mm. This is
+synthetic kinematic evidence, not native proposal validation. The source-specific
+decoder, inference worker and accepted registered mapping remain pending.
+The older 22-finger/free-palm assumption is not the pinned source contract.
+Collision-surface fidelity and actual generated-output preservation have not
+been established. Native quality tests are separate from our common task labels.
+% END GFP SECTION dexgrasp_anything
+
+% BEGIN GFP SECTION unidexgrasp
+\subsection{UniDexGrasp}
+UniDexGrasp separates diverse pose generation from a goal-conditioned execution
+policy \cite{unidex}. Our worker exports the pre-adaptation IPDF/Glow proposal
+stage; it does not reproduce the complete learned execution system. The adapter
+inverts canonicalization, composes input-to-object and the actual source palm
+offset, and maps 22 named finger articulations into 24 target joints with fixed
+target wrists. Raw and adapted outputs remain distinct stages.
+
+The available DexGraspNet-reference kinematic bridge was checked on 112 synthetic
+configurations, with maximum fingertip discrepancy of 1.751 mm. Two corner
+configurations exceed target limits and are rejected rather than clipped.
+This reference certificate is not validation of UniDexGrasp's actual generation
+hand asset or a real native proposal, neither of which has been established in
+the current evidence. The certificate does not cover collision surfaces,
+friction or inertia, so reference FK agreement cannot certify contact fidelity.
+% END GFP SECTION unidexgrasp
+
+\section{Historical HUG execution and predictor reference}
+The following protocol and fitted predictor describe the completed HUG-only
+development study. They motivate the broader question but are not mixed-source
+training results. Controller versions and their original labels remain distinct;
+the common prospective protocol must be declared before new collection.
 \paragraph{Grasp source and simulation.}
 HUG supplies grasp hypotheses from rendered RGB-D observations \cite{hug}.
 Dex Retargeting maps the proposed human hand pose to an articulated right
@@ -131,7 +273,7 @@ consistent splits. Outcomes, contacts, object truth, identities, injected noise
 metadata and future samples are excluded from inputs. An alert is a model
 prediction, not a physical failure or a controller intervention.
 
-\section{Completed evidence}
+\section{Historical HUG development evidence}
 \paragraph{Original pilot.}
 Sixteen proposals in four observation families from a cube and a HUG apple
 produce 1,040 attempts: 444 successes, 596 failures and no runtime errors.
@@ -281,56 +423,60 @@ the operating-point false alarms, but also prevents concluding that the scores
 contain no information. Threshold selection from these diagnostic outcomes
 would not constitute fresh evaluation.
 
-\section{Planned comparison and decision criteria}
-\paragraph{Completed wrist diagnostic.}
-The declared eight-pair diagnostic is now complete. Review the full inventory,
-including changed outcomes, before choosing a training remedy. Compare
-alerts, logits and wrist/nonwrist
-terms in pairs where both actual tasks succeed; report all other outcome pairs
-separately. Two out-of-range wrists test sensitivity, not familiar versus
-unfamiliar coverage. No alert change may also reflect saturated probabilities.
-This development diagnostic cannot demonstrate improvement to a frozen model.
+% BEGIN GFP SECTION planned_comparison
+\section{Planned multiple-generator comparison}
+\paragraph{Status and validity gate.}
+The source-diversity study remains proposed. Native mapping claims and their
+limits must be documented before collecting comparison labels. The current
+HUG strict-preservation failures and other providers' missing actual-native
+evidence cannot be presented as completed four-source validation. A declared
+approximate-pipeline study needs its own justified adequacy checks.
 
-\paragraph{First diagnose simpler explanations.}
-Declare development calibration/threshold and representation comparisons before
-larger collection. Include original inputs, a wrist-removed reference and a
-target-relative representation from existing joints, velocities and command
-errors. This does not add sensors; tracking error is not a unique contact or
-stability measurement. These comparisons have not run. Already inspected data
-remain retrospective development evidence.
+\paragraph{Compare source count and source identity.}
+Compare predictors trained from one, two, three and four proposal generators.
+With four sources there are 15 nonempty source subsets: four single-source,
+six two-source, four three-source and one four-source condition. Evaluating
+only one nested source chain would confound source count with generator identity.
+Whether to execute all subsets or preregister a feasible balanced subset remains
+an experimental-design choice, not a completed experiment. Matched selected
+training counts control for added data; source diversity does not itself imply
+better coverage or improved prediction.
 
-\paragraph{Then test training coverage.}
-Compare additional finger-noise repetitions of a smaller grasp set with an
-equally sized cohort covering more HUG observations and proposals. Keep the
-allowed training-object pool, corrected executor, task definitions and model
-family fixed; declare class selection and fit normalization on training only.
-Safe wrist coverage may be part of the broader strategy and a declared subgroup.
-Several changed axes support a collection-strategy result, not wrist causality.
-Freeze sampling rules, source identities and quotas before collection and
-fitting, without using prediction scores. Retain generated, selected and
-excluded counts and actual applied
-perturbations. Equal selected counts do not imply equal inference or collection
-cost. If matched cohorts cannot be formed, amend the design before fitting.
+Keep the canonical hand, physical object pool, task/executor and labels,
+predictor inputs/architecture and tuning budget consistent. Declare source
+quotas, class-mixture handling and grouping before collection; fit normalization
+on training only. Retain inference cost, generated/selected/rejected counts and
+mapping refusal reasons. An adapter rejection is not a physical task-failure
+label. The generic provider recorder still needs the closing velocity and
+applied-command fields needed by the historical predictor; input compatibility
+must be established before using that predictor as a reference.
 
-Declare one common fresh holdout of objects, postures and source families
-outside training and validation; freeze both fitted models before scoring.
-Also report the original frozen predictor as a reference, whose smaller
-training budget does not itself isolate the diversity effect. Improvement
-must assess false warnings among successful tasks together with missed
-completed failures under validation-selected operating rules. Preserve the
-original model's 0.5 threshold as a historical reference; do not retune on the
-fresh test. Report
-numerators, denominators, object/posture breakdowns and uncertainty respecting
-shared families. No failures means undefined failure recall; a few failures
-cannot establish broad noninferiority. Neither warning on everything nor
-clearing everything satisfies both objectives. No such comparison is completed.
-A separately validation-fitted calibration reference would test whether coverage
-training adds value beyond adjusting score calibration. Any mapping or threshold
-must be fitted on separate validation data, with the current diagnostic result
-preserved and the common fresh test untouched. No calibration is fitted here.
+\paragraph{Generalization and baselines.}
+Use one independent object-held-out evaluation pool across conditions; keep
+related observation/proposal families and their disturbances in the same split.
+Held-out-generator evaluation is a separate transfer question. Tune operating
+points and calibration on validation only, freeze models before test scoring,
+and report false warnings on successful tasks together with missed failures,
+ranking, calibration and uncertainty respecting shared families. Undefined
+failure recall when a group has no failures remains explicit.
 
+Use the same predictor specification for the primary source-diversity ablation.
+Architecture comparisons and compatible external predictors answer additional
+questions; published scores on different tasks/hands/test sets are not direct
+baselines. The original logistic predictor and its 0.5 threshold remain a
+historical reference, not evidence for the new comparison. Neither always-warning
+nor always-clearing behavior meets both objectives. No source mixture, new
+predictor, calibration or fresh holdout has been fitted or scored in this phase.
+% END GFP SECTION planned_comparison
+
+% BEGIN GFP SECTION limitations
 \section{Limitations and evidence availability}
-Our completed diagnostic concerns one hand, fixed task definitions and reused
+The four-source training/generalization comparison remains unexecuted and
+actual-native mapping validation is incomplete for three sources. HUG
+retargeting preserves neither all proximity relationships nor all reliable
+directions under the declared strict development claim. These limitations
+cannot be hidden by numerical/FK passage or successful task outcomes.
+Our historical predictor diagnostic concerns one hand, fixed task definitions and reused
 mug cases under a corrected executor. Simulation contact fidelity, real-world
 transfer, usable warning lead time and prediction-driven recovery are untested.
 The task target is eventual grasp, lift and hold completion, not impending
@@ -357,11 +503,34 @@ HUG's apple asset retains its CC BY 4.0 attribution and pinned revision in the
 geometry provenance record. No public real-world failure dataset has been
 imported for these quantitative results.
 
+The latest static mapping records are in \path{hug_constrained_refinement_2026-10-14}.
+The manuscript grows alongside provider-specific audit reports; parallel prose
+updates do not modify frozen experimental inputs or turn pending tests into results.
+% END GFP SECTION limitations
+
+% BEGIN GFP SECTION bibliography
 \begin{thebibliography}{99}
 \bibitem{hug}
 K. Y. Wu, T. Zhou, I. Tu, B. Yan, I. Guzey, D. Fouhey, D. Shan, and L. Pinto.
 \emph{Human Universal Grasping}. arXiv:2606.17054, 2026.
 \url{https://arxiv.org/abs/2606.17054}.
+
+\bibitem{contactgen}
+S. Liu, Y. Zhou, J. Yang, S. Gupta, and S. Wang.
+\emph{ContactGen: Generative Contact Modeling for Grasp Generation}.
+ICCV, 2023. \url{https://arxiv.org/abs/2310.03740}.
+
+\bibitem{dga}
+Y. Zhong, Q. Jiang, J. Yu, and Y. Ma.
+\emph{DexGrasp Anything: Towards Universal Robotic Dexterous Grasping
+with Physics Awareness}.
+CVPR, 2025. \url{https://arxiv.org/abs/2503.08257v2}.
+
+\bibitem{unidex}
+Y. Xu et al.
+\emph{UniDexGrasp: Universal Robotic Dexterous Grasping via Learning
+Diverse Proposal Generation and Goal-Conditioned Policy}.
+CVPR, 2023. \url{https://arxiv.org/abs/2303.00938v2}.
 
 \bibitem{dex}
 Y. Qin, W. Yang, B. Huang, K. Van Wyk, H. Su, X. Wang, Y.-W. Chao, and D. Fox.
@@ -416,4 +585,6 @@ Anthropomorphic Robotic Hands}.
 arXiv:2609.31323v1, 2026, preprint.
 \url{https://arxiv.org/html/2609.31323v1}.
 \end{thebibliography}
+% END GFP SECTION bibliography
+
 \end{document}

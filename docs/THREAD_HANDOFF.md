@@ -480,3 +480,34 @@ refinement or a documented change of the mapping/embodiment claim followed
 by appropriate validation. Do not loosen acceptance or call a fallback a
 repair. Contact/failure-label equivalence, unseen-object validation and
 predictor adequacy remain unresolved or untested.
+
+
+## 14 October 2026 — Latest: parallel provider audits and one coordinated paper
+
+The latest user instruction supersedes the earlier sequential provider order:
+prepare three ContactGen/DexGrasp Anything/UniDexGrasp handoffs so the user can
+start their chats concurrently; keep all contributions in the existing working
+paper. [Start here](PARALLEL_GENERATOR_VALIDATION_HANDOFF.md). Each provider file
+contains a copy-paste prompt, exact file ownership, status/blockers and paper
+update procedure. User-owned chats have not been created automatically.
+
+The manuscript remains docs/paper/working_draft.tex in the codex/project-work
+checkout. Abstract/introduction and mapping subsections now reflect the accepted
+multi-generator failure-prediction direction. Historical HUG numbers remain
+exact; mixed-source training/generalization results remain unexecuted. Compile
+succeeded. All paper writers use scripts/update_paper_section.py, which locks,
+rereads and atomically replaces one owned block with a verified section hash.
+Twelve installed concurrency/refusal tests pass. Coordinator owns shared
+sections, ledgers, mapping/simulator dependencies and Git staging/commits/pushes.
+
+HUG's last run remains 0 accepted corrections,6 exact originals,9 strict FAIL;
+source checks pass, contact/failure-label equivalence is unconfirmed. The other
+three sources currently lack validated real native outputs/actual source-hand
+evidence; their threads first inventory saved inputs, audit/repair unique
+provider code and document honest scoped results. No new eval data, physics,
+predictor training or fresh generator inference ran in this handoff/writing task.
+The old HUG source snapshot's paper hash describes that completed phase; the
+new authorized manuscript revision is separately recorded in
+research_artifacts/parallel_validation_coordination_2026-10-14/.
+Preserve previous run records, assets, existing untracked files and this paper
+path. Do not rerun unchanged HUG audits or loosen its rule to obtain a PASS.

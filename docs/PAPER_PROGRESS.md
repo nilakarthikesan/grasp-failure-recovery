@@ -313,3 +313,47 @@ refinement or a documented change of the mapping/embodiment claim followed
 by appropriate validation. Do not loosen acceptance or call a fallback a
 repair. Contact/failure-label equivalence, unseen-object validation and
 predictor adequacy remain unresolved or untested.
+
+
+## 14 October 2026 — Parallel provider validation and shared-paper writing authorized
+
+**Previous plan and new user decision:** Individual audits had been sequenced
+behind HUG. The user requests three handoffs for concurrent ContactGen,
+DexGrasp Anything and UniDexGrasp validation, plus simultaneous updates to the
+same manuscript, including abstract/introduction. This supersedes the earlier
+sequential provider order. No new eval data is requested or generated.
+
+**Evidence and coordination choice:** The completed HUG batch already used six
+concurrent fits and two audit groups; expensive mesh queries share the host's
+CPU. Separate chats advance provider-specific code/contracts and writing in
+parallel, but do not add compute hardware. Shared MANO mapping affects HUG and
+ContactGen; shared Shadow bridges, assets and measurement code can affect other
+audits. Give each provider unique code/tests/evidence/report ownership, reserve
+shared dependencies and Git operations for the coordinator, and bind each run's
+actual scientific dependency closure. Evolving prose is recorded separately.
+
+**Implemented:** Three ready-to-paste provider handoffs and a common coordination
+guide are saved. The same existing paper now has marked source-specific blocks,
+an updated multi-generator prediction abstract/introduction, supporting mapping
+methods and a proposed one/two/three/four-source comparison. Its accepted title
+is Evaluating Simulation Diversity for Grasp Failure Prediction. A lock/reread/
+section-hash editor merges owned subsections without losing other writers'
+changes; all 12 installed tests pass, including concurrent subprocess updates.
+The standalone manuscript compiles successfully with the desktop compiler.
+Historical HUG numerical result text is preserved exactly.
+
+**Measured status and remaining work:** HUG accepted no correction and still
+FAILS the unchanged strict claim at six coarse/three fine resolutions. These
+are nine repeated static comparisons, not nine physical failures. ContactGen
+and UniDexGrasp have synthetic/reference implementation evidence; DexGrasp
+Anything needs its dedicated decoder/worker/registration. No actual-native
+validation is claimed for those three. Missing authentic outputs/assets are
+blockers to full native verification; synthetic fixtures cannot replace them.
+Source diversity improving predictor generalization remains a hypothesis.
+
+**Provenance:** Today's explicitly authorized manuscript revision follows the
+completed HUG run and does not rewrite that run's old paper/source snapshot.
+All prior scientific bundles and results remain immutable; shared model and
+simulation inputs/code remain unchanged. No fresh inference, integration,
+eval episodes, task labels or predictor fitting occurs in this writing phase.
+[Parallel handoffs](PARALLEL_GENERATOR_VALIDATION_HANDOFF.md).

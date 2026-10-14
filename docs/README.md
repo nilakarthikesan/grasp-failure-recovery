@@ -51,3 +51,12 @@ changes. The [commit review](archive/COMMIT_REVIEW_2026-10-12.md) explains how a
 The [Panda training specification](PART_I_TRAINING_SPEC.md) documents supporting
 implementation retained in `part1/`; it is separate from the evaluated
 HUG/Shadow Hand predictor.
+
+
+## Parallel generator validation and shared manuscript
+
+[Coordination and three thread prompts](PARALLEL_GENERATOR_VALIDATION_HANDOFF.md)
+assign independent ContactGen, DexGrasp Anything and UniDexGrasp audits, shared
+dependency ownership and locked subsection updates to the existing paper.
+The prediction-centered opening and provider methods are drafted; actual-native
+validation and mixed-source training remain pending where stated.

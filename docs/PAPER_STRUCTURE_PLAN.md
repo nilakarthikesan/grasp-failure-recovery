@@ -1,4 +1,39 @@
-# Paper structure and writing plan for Sim2Real2Field
+# Paper structure and writing plan
+
+## Current direction, 14 October 2026 — parallel audits and prediction-centered paper
+
+The user authorizes parallel individual validation of ContactGen, DexGrasp
+Anything and UniDexGrasp, with HUG/shared dependencies coordinated in the main
+chat. The accepted working title is **Evaluating Simulation Diversity for
+Grasp Failure Prediction**. The central question is whether training on proposals
+from multiple generators improves generalization to unfamiliar objects and
+grasp configurations relative to single-generator training. Mapping validity
+supports this prediction study; it is not the sole research contribution.
+
+The [working manuscript](paper/working_draft.tex) now contains an updated
+abstract/introduction and source-specific mapping/verification subsections,
+with completed HUG evidence and explicit missing actual-native evidence for the
+other three sources. Historical HUG predictor/executor results are preserved as
+development motivation. The one/two/three/four-source comparison remains
+proposed, with matched training counts as a methods control and generator
+identity separated from count. No training or new evaluation data occurs here.
+
+Current structure: introduction/related work; common mapping validity method;
+HUG/ContactGen/DexGrasp Anything/UniDexGrasp subsections; historical HUG execution
+and development diagnostics; planned multiple-source training/generalization
+comparison; limitations/evidence; references. Provider threads maintain only
+their owned marked subsections using the shared lock/hash editor. The coordinator
+owns abstract/introduction, common claims, bibliography and global ledgers.
+[Assignments and coordination](PARALLEL_GENERATOR_VALIDATION_HANDOFF.md).
+
+This is a growing research draft, not a completed comparison or submission-ready
+PDF. The earlier diagnostic-only workshop plan below remains a dated alternative.
+The broader direction supersedes its HUG-only research-question and exclusion of
+four-generator work; it does not change the workshop's page/template rules or
+claim future findings as completed. Final submission scope/format must be chosen
+from evidence actually completed at submission time.
+
+## Historical diagnostic-only submission plan (preserved)
 
 Updated 14 October 2026. Target: the CoRL 2026 Sim2Real2Field workshop,
 Late-Breaking track. The authors chose to aim for the 15 October deadline with

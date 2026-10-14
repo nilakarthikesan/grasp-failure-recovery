@@ -1,0 +1,419 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,booktabs}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\urlstyle{same}
+\setlength{\parskip}{0.25em}
+\setlength{\parindent}{0pt}
+\newcommand{\projecturl}{https://github.com/nilakarthikesan/grasp-failure-recovery}
+
+\title{Evaluating Simulation Diversity for Grasp Failure Warnings}
+\author{Working draft: authorship and affiliations to be confirmed}
+\date{12 October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Simulation can generate labeled grasp attempts, but additional disturbed attempts
+need not cover the conditions that cause prediction errors. We study a fixed
+Shadow Hand grasp, lift and hold task using HUG proposals and MuJoCo execution.
+A logistic outcome predictor trained from cube and apple closing histories
+flags 187 of 202 failures and 22 of 58 successes in a retrospective development
+test. A frozen evaluation on fresh objects exposes a mug executor collision.
+After a separately versioned clearance correction, the unchanged predictor
+warns on all 23 completed mug checks, including all 20 successes, across three
+finger disturbance bounds. Both wrist commands in every successful mug lie
+outside the original training ranges; reconstructed wrist terms push all 20
+scores toward failure. This is an input and score diagnostic, not isolated
+physical causation. A static check also finds no eligible mug configuration
+among the eight wrist command pairs observed in training under the declared
+clearance gate. Across eight subsequent frozen pairs of unfamiliar wrist
+configurations, all 13 successes and three task failures trigger alerts.
+Six pairs succeed at both settings, yet no warning clears. One changed task
+label crosses the lift cutoff by a submillimeter amount. Wrist terms change
+scores without establishing an improvement. We
+specify a subsequent comparison of broader HUG observation and proposal coverage against
+additional finger noise at matched training counts and class proportions.
+That comparison remains unexecuted. Current results establish a reliability
+problem and a constraint on its diagnosis, not improved transfer, slip timing
+or recovery.
+\end{abstract}
+
+\section{Question and relation to prior work}
+A useful grasp warning must distinguish a failed task from a successful attempt
+in an unfamiliar configuration. Our research question is:
+\begin{quote}
+At a fixed number of simulated training attempts, does broader coverage of
+HUG-generated grasp situations improve pre-lift outcome warnings on unfamiliar
+objects and scenes more than additional finger-command perturbations of a
+smaller set of grasps?
+\end{quote}
+We distinguish the completed frozen-model diagnostic from the proposed training
+comparison. The former motivates the question; it does not answer it.
+The wrist diagnostic remains a coverage subgroup, not an isolated causal result.
+The target remains eventual grasp, lift and hold completion from the closing
+prefix, rather than slip onset or a certified stable-grip decision.
+
+Failure prediction and recovery are established topics. Gilday et al. combine
+sensor-based grasp prediction with wrist-driven recovery and discuss errors on
+novel objects using different successful grasp modes \cite{gilday}. FIPER
+explicitly distinguishes benign unfamiliar observations from failures in
+generative robot policies \cite{fiper}. SAFE studies multitask failure detection
+\cite{safe}; SAFECAST investigates contrast-set training and calibration under
+visual and language shifts, and reports that adding more perturbations does
+not uniformly help \cite{safecast}. These results motivate controlled diversity
+comparisons, not a claim that nuisance warnings or augmentation are new ideas.
+Our candidate contribution is a reproducible, embodiment-specific investigation
+of which simulated variations improve warnings at a matched training-data
+budget. No new algorithm or real-world transfer result is claimed.
+
+Pick-success models already test targeted data coverage: Amazon's Robin study
+compares broader pick locations with an equal-sized collection
+\cite{robin}. Vision and touch also support after-closing, before-lift outcome
+prediction across diverse objects \cite{calandra}. These precedents motivate
+checking measurements, calibration and baseline comparisons before attributing
+our errors to wrist coverage. The proposed training comparison remains under
+scope review; wrist-feature contributions alone do not demonstrate its remedy.
+
+Recent proprioceptive work also learns a hand-local grasp-readiness score
+alongside reactive control \cite{blindreflex}. We therefore do not claim that
+command-relative features or pre-lift monitoring are new; our candidate
+contribution concerns a controlled HUG collection and representation comparison.
+
+\section{Execution, labels and predictor}
+\paragraph{Grasp source and simulation.}
+HUG supplies grasp hypotheses from rendered RGB-D observations \cite{hug}.
+Dex Retargeting maps the proposed human hand pose to an articulated right
+Shadow Hand \cite{dex}; MuJoCo supplies physics \cite{mujoco}. We use HUG
+proposals and selected development assets, not official benchmark grasp labels
+or a HUG-Bench evaluation. A fixed sequence approaches, closes, settles, lifts
+and holds through force-limited position servos. Physics steps are 2 ms;
+recorded control intervals are 40 ms. We train an outcome predictor, not the
+grasp controller. Initial RGB-D is saved; there is no online image stream among
+the predictor inputs.
+
+\paragraph{What noise means.}
+The original \path{fixed_grasp_lift_v2} protocol adds an episode-constant
+bias to 22 finger targets during designated closing and subsequent phases.
+For a fixed draw $\boldsymbol\xi\sim\mathcal U([-1,1]^{22})$ and bound
+$a\in\{0,0.15,0.60\}$ radians,
+\[
+ \mathbf u_t=\operatorname{clip}_{[\mathbf l,\mathbf h]}
+ (\mathbf u_t^{\rm nominal}+a\boldsymbol\xi).
+\]
+The two wrist biases are zero. Requested offsets, clipped targets and measured
+motion are distinct saved fields. This varies commands, not object identity,
+obstacles, observation noise or a validated hardware error distribution.
+Nonzero bounds share paired draws within a proposal and repetition. Noise can
+improve or harm the grasp; the executed outcome determines its label.
+
+\paragraph{Success and failure.}
+A completed attempt has $y=1$ when the frozen scorer records qualifying contact,
+peak lift at least 0.14 m, at least 2 s of consecutive HOLD samples above the
+initial object center plus 0.12 m, final height loss at most 0.02 m, no approach
+table collision and no timeout. Otherwise a completed task has $y=0$.
+Setup errors and runtime clearance stops have null labels and remain outside
+task-outcome metrics. Labels describe task completion, not physical slip onset;
+threshold-adjacent acquisitions and category precedence are audited separately.
+
+\paragraph{Causal inputs and fitting.}
+Twenty closing samples from 2.20 through 2.96 s precede the first LIFT sample
+at 3.00 s. Each contains 24 joint positions, 24 velocities and 24 applied targets.
+Last value, mean, population standard deviation and last-minus-first change
+produce 288 statistics; 269 are active under training-only normalization.
+L2 logistic regression predicts success, with
+$p_{\rm failure}=1-p_{\rm success}$ and an alert at $p_{\rm failure}\geq0.5$.
+Validation log loss selects $\lambda=0.1$ from
+$\{0.001,0.01,0.1,1\}$. Commands-only and training-prevalence baselines use
+consistent splits. Outcomes, contacts, object truth, identities, injected noise
+metadata and future samples are excluded from inputs. An alert is a model
+prediction, not a physical failure or a controller intervention.
+
+\section{Completed evidence}
+\paragraph{Original pilot.}
+Sixteen proposals in four observation families from a cube and a HUG apple
+produce 1,040 attempts: 444 successes, 596 failures and no runtime errors.
+Training, validation and test contain 520, 260 and 260 whole trajectories,
+respectively, grouped by observation family. Both geometries occur in training;
+the test is one reserved apple observation family. Splits were selected after
+collection and inspection, so results are retrospective development evidence.
+Failures comprise 590 acquisitions, two missing-contact tasks and four
+scorer-defined drops, insufficient for a slip forecasting benchmark.
+
+On this test, state plus command features attain failure AUROC 0.8523, versus
+0.6419 for commands alone; log loss is 0.3771 and Brier score 0.1170.
+At the fixed threshold the full model detects 187/202 failures, misses 15,
+and falsely warns on 22/58 successes. The commands-only model warns on
+192/202 failures and 52/58 successes. Better ranking than this ablation does
+not establish reliable deployment or calibrated physical probabilities.
+
+\paragraph{Fresh evaluation and executor correction.}
+With model, normalization, threshold and v2 execution frozen, 2,080 new attempts
+produce 659 successes and 1,421 failures. AUROC is 0.9173 on fresh cube/apple
+scenes and 0.5588 on pooled new milk-carton/mug attempts. Geometry, mass and
+failure composition change together; this is not an isolated object-shape
+comparison. All 520 mugs collide during approach before the prediction cutoff,
+so mug false alarms on successes cannot be estimated from this batch.
+
+The Shadow forearm does not fit the original mug poses. Version
+\path{fixed_grasp_lift_v3_table_clearance} changes wrist configuration and
+compensates the carrier transform to preserve intended world palm and finger
+geometry. Its nominal table clearance is 10 mm; a runtime guard checks an
+actual 1 mm margin every physics step. This is a controller correction, not
+prediction-triggered recovery. Checks planned before scoring contain 24 mugs
+and three controls. Twenty-six finish without table contact; one high-noise
+mug stops at about 2.858 s, before a full prediction prefix, and stays unscored.
+The frozen model is then scored offline against all completed recordings.
+
+\begin{table}[ht]
+\centering
+\caption{Completed corrected mugs under the unchanged predictor. Noise is a
+requested finger bias bound. Related attempts share eight proposals and two
+observation families. A warning on a success is a false alarm.}
+\begin{tabular}{lrrrr}
+\toprule
+Bound (rad) & Successes & False alarms & Failures & Detected failures\\
+\midrule
+0.00 & 7 & 7 & 1 & 1\\
+0.15 & 8 & 8 & 0 & 0\\
+0.60 & 5 & 5 & 2 & 2\\
+\midrule
+Total & 20 & 20 & 3 & 3\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All 23 mugs trigger alerts. Detecting 3/3 failures while warning on 20/20
+successes is not useful discrimination at this threshold. Failure recall at
+0.15 rad is undefined because no failures occur. These checks reuse controller
+development cases; they are not an untouched benchmark. Independent arithmetic
+reproduces all 26 model scores within $1.11\times10^{-16}$, with original
+recordings and frozen model sources unchanged.
+
+\paragraph{Wrist coverage and score attribution.}
+Original training-only statistics exactly reproduce the saved normalization.
+Both last wrist commands in all 20 successful mugs lie outside training ranges:
+WRJ2 spans $[-0.2039,-0.1764]$ rad in training versus
+$[-0.1464,+0.1745]$ in successful mugs; WRJ1 spans
+$[-0.0394,-0.0146]$ versus $[-0.5312,-0.0817]$.
+Net wrist terms reduce the success logit in every successful mug. Their share
+of absolute weighted feature contributions has median 75.5\% and range
+31.0\% to 86.9\%, excluding the intercept. This describes saved linear score
+arithmetic, not a percentage of physical causation. Fingers also contribute;
+object, proposals and controller changed together. Removing wrist features
+or collecting more wrist data has not been shown to improve performance.
+
+\paragraph{Static feasibility constraint.}
+Before new rollouts, we check the eight distinct last wrist-command pairs
+observed in the 520 training episodes against the eight declared mug proposals,
+preserving intended world palm and finger geometry. None of the 64 combinations
+meets the declared 10 mm nominal table-clearance gate; table clearances range
+from $-65.211$ to $+0.187$ mm. All eight stored corrected postures revalidate
+at 10.001 to 10.042 mm. These are static kinematic checks with physics stepping
+blocked. They do not establish dynamic safety or rule out every point of a
+continuous wrist range. A comparison using these stored training pairs cannot
+honestly contrast familiar and unfamiliar safe mug wrist commands.
+
+\paragraph{First frozen wrist pair.}
+We freeze eight feasible pairs using geometry and training distance alone,
+requiring at least 0.02 rad Euclidean command separation. A uses the nearest
+eligible candidate in a deterministic bounded search; B retains the previously
+corrected pose. Both settings remain outside training command ranges in every
+selected case. The first eligible pair in the declared order is executed first,
+with zero noise and separately versioned explicit v4 execution. It rejects
+any substituted pose before motion and retains the existing runtime guard,
+task parameters, scorer and predictor.
+
+For this mug proposal, A commands $(0.113628,-0.202077)$ rad at the two wrist
+joints and B $(0.099084,-0.226802)$ rad, a combined separation of 0.028686 rad.
+Both tasks succeed, with peak lifts 0.146208 and 0.146077 m and the required
+2 s hold. The frozen predictor warns on both: failure scores
+0.9999999871 and 0.9999999785, with success logits $-18.169261$ and $-17.655064$.
+The B-minus-A logit change is $+0.514197$, comprising $+0.529098$ in wrist terms
+and $-0.014901$ elsewhere. A is slightly nearer the original command
+distribution under the declared scaled distance, yet receives the higher
+failure score. Training distance is not the learned decision function.
+
+Applied finger command histories are identical. Nominal palm/finger paths
+agree within $1.67\times10^{-16}$ m; actual maximum paired palm and finger
+geometry differences are 0.05890 and 0.35723 mm. Independent replay reproduces
+all saved states bitwise across 6,520 physics substeps, with no table contact.
+The scoring report and execution declaration are preserved; a disclosed
+auditor-only code amendment finalizes geometry and rounding checks after its
+initial hash was declared. It changes no executed treatment or model input.
+This both-success pair demonstrates persistent false warnings under a small
+safe wrist change, not an improvement or a familiar-versus-unfamiliar contrast.
+No failures occur in this initial pair, so its failure recall is undefined.
+These v4 records remain separate from the earlier v3 checks.
+
+\paragraph{Completion of the remaining declared pairs.}
+The remaining seven pairs run once per posture without changing poses, noise,
+model, normalization or threshold. All 14 complete: 11 successes and three
+scorer-defined failed acquisitions, with no clearance stops. Every attempt
+triggers an alert. Five new pairs succeed at both settings, one fails at both,
+and one fails in A but succeeds in B. Including the preserved first pair gives
+16 attempts, 13 successful false alarms and three detected failures; all six
+both-success pairs warn at both settings. No alternative attempt is selected
+after observing results.
+
+The outcome-changing scene 003 seed 2 pair is cutoff-adjacent. A peaks at
+0.139963979 m, only 0.036021 mm below the 0.14 m requirement, while B peaks at
+0.140204587 m. Their peak lifts differ by 0.240608 mm; both satisfy qualifying
+contact and the sampled 2 s HOLD measure. Original labels remain failure and
+success. This crossing does not demonstrate slipping, dropping or a dramatic
+recovery. The other two failed acquisitions peak at approximately 0.1304 and
+0.1302 m. All three failures belong to two proposal families.
+
+Manual probabilities match within $1.39\times10^{-17}$, original training
+normalization reproduces bitwise, and independent replay reproduces all saved
+states across 45,640 new physics substeps without table contact. Applied finger
+commands and nominal world paths remain identical within each pair. Actual
+closing-window palm and finger geometry differences reach 0.458 and 4.116 mm;
+the largest occurs in the both-failed pair. These are not pure input
+interventions or independent new object conditions.
+
+At the fixed threshold the predictor behaves like an always-warn rule on these
+cases. Descriptive failure AUROC is 0.9091 for the new batch and 0.8974 for all
+16, based on only three related failures. This ranking signal does not repair
+the operating-point false alarms, but also prevents concluding that the scores
+contain no information. Threshold selection from these diagnostic outcomes
+would not constitute fresh evaluation.
+
+\section{Planned comparison and decision criteria}
+\paragraph{Completed wrist diagnostic.}
+The declared eight-pair diagnostic is now complete. Review the full inventory,
+including changed outcomes, before choosing a training remedy. Compare
+alerts, logits and wrist/nonwrist
+terms in pairs where both actual tasks succeed; report all other outcome pairs
+separately. Two out-of-range wrists test sensitivity, not familiar versus
+unfamiliar coverage. No alert change may also reflect saturated probabilities.
+This development diagnostic cannot demonstrate improvement to a frozen model.
+
+\paragraph{First diagnose simpler explanations.}
+Declare development calibration/threshold and representation comparisons before
+larger collection. Include original inputs, a wrist-removed reference and a
+target-relative representation from existing joints, velocities and command
+errors. This does not add sensors; tracking error is not a unique contact or
+stability measurement. These comparisons have not run. Already inspected data
+remain retrospective development evidence.
+
+\paragraph{Then test training coverage.}
+Compare additional finger-noise repetitions of a smaller grasp set with an
+equally sized cohort covering more HUG observations and proposals. Keep the
+allowed training-object pool, corrected executor, task definitions and model
+family fixed; declare class selection and fit normalization on training only.
+Safe wrist coverage may be part of the broader strategy and a declared subgroup.
+Several changed axes support a collection-strategy result, not wrist causality.
+Freeze sampling rules, source identities and quotas before collection and
+fitting, without using prediction scores. Retain generated, selected and
+excluded counts and actual applied
+perturbations. Equal selected counts do not imply equal inference or collection
+cost. If matched cohorts cannot be formed, amend the design before fitting.
+
+Declare one common fresh holdout of objects, postures and source families
+outside training and validation; freeze both fitted models before scoring.
+Also report the original frozen predictor as a reference, whose smaller
+training budget does not itself isolate the diversity effect. Improvement
+must assess false warnings among successful tasks together with missed
+completed failures under validation-selected operating rules. Preserve the
+original model's 0.5 threshold as a historical reference; do not retune on the
+fresh test. Report
+numerators, denominators, object/posture breakdowns and uncertainty respecting
+shared families. No failures means undefined failure recall; a few failures
+cannot establish broad noninferiority. Neither warning on everything nor
+clearing everything satisfies both objectives. No such comparison is completed.
+A separately validation-fitted calibration reference would test whether coverage
+training adds value beyond adjusting score calibration. Any mapping or threshold
+must be fitted on separate validation data, with the current diagnostic result
+preserved and the common fresh test untouched. No calibration is fitted here.
+
+\section{Limitations and evidence availability}
+Our completed diagnostic concerns one hand, fixed task definitions and reused
+mug cases under a corrected executor. Simulation contact fidelity, real-world
+transfer, usable warning lead time and prediction-driven recovery are untested.
+The task target is eventual grasp, lift and hold completion, not impending
+physical slip. Prior literature already studies nuisance warnings and diversity;
+a distinct scientific contribution still requires a convincing controlled
+comparison or informative negative finding. Static feasibility constrains that
+comparison and should not be replaced by unsafe or mismatched trials.
+
+The \href{\projecturl}{repository} preserves original protocols, training
+partitions, fitted coefficients, predictions and hash-bound artifacts in
+\path{research_artifacts/}. Relevant bundles are
+\path{object_scene_pilot_v1}, \path{task_outcome_baseline_v1},
+\path{fresh_object_scene_eval_v1}, \path{corrected_mug_model_diagnostic_v1},
+\path{mug_wrist_input_diagnostic_v1}, \path{wrist_pose_feasibility_v1},
+\path{wrist_pair_selection_v1}, \path{wrist_pair_diagnostic_v1} and
+\path{wrist_pair_remaining_v1}.
+The historical \path{wrist_comparison_plan_v1} remains frozen as the source
+declaration; current progress is recorded separately rather than rewriting it.
+Raw trajectories remain local rather than constituting a public dataset release.
+\href{../PAPER_PROGRESS.md}{The evidence index} and
+\href{../RESEARCH_DECISIONS.md}{dated decision history} document how acquisition
+labels, unseen-object errors and controller audits changed our question.
+HUG's apple asset retains its CC BY 4.0 attribution and pinned revision in the
+geometry provenance record. No public real-world failure dataset has been
+imported for these quantitative results.
+
+\begin{thebibliography}{99}
+\bibitem{hug}
+K. Y. Wu, T. Zhou, I. Tu, B. Yan, I. Guzey, D. Fouhey, D. Shan, and L. Pinto.
+\emph{Human Universal Grasping}. arXiv:2606.17054, 2026.
+\url{https://arxiv.org/abs/2606.17054}.
+
+\bibitem{dex}
+Y. Qin, W. Yang, B. Huang, K. Van Wyk, H. Su, X. Wang, Y.-W. Chao, and D. Fox.
+\emph{AnyTeleop: A General Vision-Based Dexterous Robot Arm-Hand Teleoperation
+System}. Robotics: Science and Systems, 2023.
+\url{https://yzqin.github.io/anyteleop/}. Retargeting software:
+\url{https://github.com/dexsuite/dex-retargeting}.
+
+\bibitem{mujoco}
+E. Todorov, T. Erez, and Y. Tassa.
+\emph{MuJoCo: A physics engine for model-based control}. IEEE/RSJ IROS, 2012.
+\url{https://www.roboti.us/lab/papers/TodorovIROS12.pdf}.
+
+\bibitem{gilday}
+K. Gilday, T. George-Thuruthel, and F. Iida.
+\emph{Predictive Learning of Error Recovery with a Sensorized Passivity-Based
+Soft Anthropomorphic Hand}. Advanced Intelligent Systems, 5:2200390, 2023.
+\url{https://doi.org/10.1002/aisy.202200390}.
+
+\bibitem{robin}
+S. Li, A. Keipour, K. Jamieson, N. Hudson, C. Swan, and K. Bekris.
+\emph{Large-Scale Package Manipulation via Learned Metrics of Pick Success}.
+Robotics: Science and Systems, 2023.
+\url{https://arxiv.org/abs/2305.10272}.
+
+\bibitem{calandra}
+R. Calandra, A. Owens, M. Upadhyaya, W. Yuan, J. Lin, E. H. Adelson, and S. Levine.
+\emph{The Feeling of Success: Does Touch Sensing Help Predict Grasp Outcomes?}
+Conference on Robot Learning, 2017.
+\url{https://proceedings.mlr.press/v78/calandra17a.html}.
+
+\bibitem{fiper}
+R. R\"omer, A. Kobras, L. Worbis, and A. P. Schoellig.
+\emph{Failure Prediction at Runtime for Generative Robot Policies}.
+NeurIPS, 2025. \url{https://arxiv.org/abs/2510.09459}.
+
+\bibitem{safe}
+Q. Gu, Y. Ju, S. Sun, I. Gilitschenski, H. Nishimura, M. Itkina, and F. Shkurti.
+\emph{SAFE: Multitask Failure Detection for Vision-Language-Action Models}.
+NeurIPS, 2025. \url{https://vla-safe.github.io/}.
+
+\bibitem{safecast}
+H. Rajaprakash, A. Prajapati, R. Xue, A. Anwar, and J. Thomason.
+\emph{SAFECAST: Robust Failure Detection for VLA Policies with Contrast-Set
+Training and Calibration}. arXiv:2608.04246, 2026, preprint.
+\url{https://arxiv.org/abs/2608.04246}.
+
+\bibitem{blindreflex}
+A. Alexiev et al.
+\emph{See to Reach, Feel to Grasp: Learning A Blind Grasp Reflex for
+Anthropomorphic Robotic Hands}.
+arXiv:2609.31323v1, 2026, preprint.
+\url{https://arxiv.org/html/2609.31323v1}.
+\end{thebibliography}
+\end{document}
