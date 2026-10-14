@@ -222,3 +222,28 @@ normal/sampling-uncertainty checks and an externally justified independent
 validation design remain pending. No new inference, physics, eval data/labels,
 training, production mapper change or manuscript edit occurs. This is supporting
 mapping evidence, not a completed multi-generator predictor study.
+
+
+## HUG scoped acceptance result, 14 October 2026
+
+[Completed orientation and sampling checks](HUG_MAPPING_CONFIRMATION.md) reveal
+preserved numerical decoding/conversion but changed native finger/object
+relationships. All 32 saved native 3D exports reconstruct exactly. The six
+detailed cases and three finer repeats have definite same-part proximity changes
+under explicit conditional numerical allowances; some apple/milk query sites
+also reverse object-facing orientation. These are static geometry witnesses, not
+new eval outcomes or failure-prediction results.
+
+[Acceptance V1](HUG_MAPPING_ACCEPTANCE.md) defines numerical PASS, strict
+declared-band geometric PASS/FAIL/UNRESOLVED and separately untested outcome
+adequacy. Current HUG fails the strict preservation claim in all nine detailed
+resolutions while numerical conversion passes within scope. The rule is a scoped
+project definition, not a universal paper standard; approximate retargeter
+usefulness needs its own justified budget/independent validation. The existing
+mapper and native poor proposals remain unchanged.
+
+Next resolve the mapping-version/research-claim choice against these witnesses
+before collection/training. Original manuscript and predictor are unchanged; no
+drafting, new inference, rollout, eval dataset/label or model fit occurred.
+Multi-generator predictor training and generalization remain the central
+intended study, with this fidelity result supporting its validity boundary.

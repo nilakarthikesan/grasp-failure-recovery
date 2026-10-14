@@ -1799,3 +1799,74 @@ hashes remain unchanged. No new HUG inference, physics rollout, eval
 dataset/label, fit, production mapper/controller/collider change or manuscript
 edit occurs. Predictor SHA remains
 16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb.
+
+
+## 14 October 2026 — HUG orientation, uncertainty and scoped acceptance completed
+
+**Previous plan and authorization:** Finish surface orientation and sampling
+uncertainty on existing HUG grasps, then define acceptable mapping. The user
+explicitly prohibits new eval data. Keep poor source proposals and separate
+mapping status from task failure.
+
+**Measured evidence:** All 32 saved MANO 3D exports reconstruct exactly (778
+vertices/21 landmarks/wrist rotation/1,552 capped faces); camera projection
+remains the original representative-cube scope. Six previously selected seed-0
+noncube cases plus three finer repeats receive object-facing normal checks and
+full triangle-radius bounds. Eligible exterior/same-part normals change sign in
+retained apple/milk sites, with independent source/current replay of middle/ring
+witnesses. Mean angles are conditional geometric descriptions, not contact
+forces or an acceptance margin. Coarse sampling misses some fine sign reversals;
+no continuous angular certificate is supplied.
+
+The old area density leaves maximum centroid radii 5.627 mm coarse/4.551 mm
+fine. At a 2 mm band, unresolved whole-hand area is 8.611–16.821% coarse and
+5.121–9.779% fine. Nevertheless positive-area same-part lost/added proximity
+survives cell-radius accounting in all six cases and three finer repeats; 178
+auditable cells bind source/protocol/rule hashes. Results are unchanged across
+assumed 1/10/100 nm arithmetic allowances, which are conditional budgets rather
+than formal floating-point proofs. Open anatomical surfaces and per-collider
+boundary distances retain their literal scope; occupancy/normals/physical
+contacts do not inherit these bounds. Carriers lack native reference and are
+excluded from the six-part gate.
+
+**Choice and definition:** Freeze [strict scoped acceptance
+V1](HUG_MAPPING_ACCEPTANCE.md) before reading new reports (rule SHA
+87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4). Numerical
+guards must pass. Strict 1/2/5 mm same-part band preservation fails on a
+definite positive-area loss/addition or reliable pointwise facing-state
+reversal. PASS needs complete equal-state/domain evidence; unknowns remain
+UNRESOLVED. This zero-change condition defines a strict preservation claim, not
+a universal acceptable-error budget for approximate morphology conversion.
+Papers motivate separate geometry/outcome reporting but supply no HUG-to-Shadow
+certificate. An approximate predictor pipeline needs an externally justified
+distortion budget and independent validation; none is invented from development
+scores.
+
+**Result and limits:** Numerical conversion passes in recorded scope; strict
+relationship preservation FAILS conditionally in all nine detailed resolutions.
+Full physical contact equivalence remains UNRESOLVED; failure-label equivalence,
+independent validation and predictor adequacy remain NOT_TESTED. These statuses
+are not eval outcome labels. Keep the existing production mapper and original
+bad proposals unchanged while recording the failed strict claim. The checks and
+definition are completed, rather than continuing to say all geometry is merely
+unmeasured.
+
+**Version history and verification:** Preserve sampling V1 incomplete far-cache
+regression pilot and final V2; preserve orientation V1 pre-metric
+nearest-candidate amendment and unchanged final V2 after a missing-export
+partial run. No scientific threshold or source/q/geometry is tuned. Six
+manufactured sampling tests, 100 independent analytic-strip checks,
+sign/tie/member tests, orientation witness replay and all
+source/protocol/cache/110 protected hashes pass; guards show zero actual
+integration, time/object/nominal states unchanged. [Versioned
+evidence](../research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/README.md)
+includes selected reports, figures, scripts and frozen rules, without raw
+licensed assets or scratch arrays.
+
+**Next check:** Specify a new version of retargeting against retained
+anatomical-region witnesses, or adopt an explicit narrower mapped-simulator
+claim with a justified approximation contract. Do not loosen this strict rule or
+use successful lifts to hide changed native relations. New independent
+cases/outcome sensitivity require later scope; no new inference, physics, eval
+records/labels, model fit, production mapper/collider/controller change or
+manuscript edit occurred. Existing predictor and paper hashes remain unchanged.

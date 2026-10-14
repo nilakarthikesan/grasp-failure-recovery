@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/private/tmp/hug_sampling_checks_2026-10-14/check_sampling.py", line 84, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/private/tmp/hug_sampling_checks_2026-10-14/check_sampling.py", line 60, in main
+    oldsd=old['shadow_distance_by_part_m'];valid=np.isfinite(oldsd);reg=float(np.max(np.abs(sd[valid]-oldsd[valid])));assert reg<1e-12
+                                                                                                                             ^^^^^^^^^
+AssertionError

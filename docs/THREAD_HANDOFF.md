@@ -353,3 +353,40 @@ margins and freeze independent unseen-object/observation validation; inspected
 poses are development evidence. HUG stays active before other providers. No new
 inference, dynamics, eval data/labels, training, production change or manuscript
 edit occurred. Protected model/code/paper and original inputs remain unchanged.
+
+
+## 14 October 2026 — Orientation/uncertainty finished; strict HUG preservation fails
+
+Latest authorized static phase is complete.
+[Findings](HUG_MAPPING_CONFIRMATION.md), [acceptance
+definition](HUG_MAPPING_ACCEPTANCE.md) and [evidence
+bundle](../research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/README.md)
+cover six fixed noncube cases/three finer repeats and all-32 native MANO
+decoding. All native 3D vertices/landmarks/rotations and capped faces
+reconstruct exactly; 32-camera reprojection is not claimed.
+
+Frozen strict declared-band rule predates new metrics,
+SHA87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4.
+Positive-area definite same-part losses/additions cause conditional FAIL in all
+six cases and three finer repeats; 178 cell witnesses remain auditable. Reliable
+sampled facing/away reversals supply pointwise orientation failures. Numerical
+conversion still passes in tested scope. Full continuous contact, failure-label
+and predictor adequacy are not certified. No average IoU/angle/tip threshold or
+lift-success gate is adopted; ambiguity cannot become a pass.
+
+Sampling operational V2 d2103f7f… and orientation V2 22ef5c53… preserve
+incomplete/pre-metric versions separately. Exact query/area order, band
+regressions, zero-time/q/object guards, all sibling input bindings and 110
+protected code/model/paper hashes pass. Conditional cell bounds use explicit
+assumed 1/10/100 nm allowances, not formal arithmetic certificates. Distance
+bounds do not extend to normals/occupancy/contact forces; carriers are
+unavailable natively and outside the six-part gate. No new inference/eval
+data/labels, physics, training, production mapper/collider/controller change or
+manuscript edit occurred.
+
+Next work is a versioned mapping improvement targeted at retained finger/region
+differences, or an explicit narrower claim about a documented approximate
+simulator pipeline with independent adequacy validation. Do not repeat completed
+checks, loosen the frozen rule to pass HUG, advance other providers as accepted,
+or begin collection/training from this static result. Preserve inspected
+development cases as development evidence and all historical records.

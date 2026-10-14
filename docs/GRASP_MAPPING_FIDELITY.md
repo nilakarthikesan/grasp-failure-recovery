@@ -440,3 +440,23 @@ implemented measurements from proposed margins/independent validation. Numerical
 conversion is supported; cross-hand contact and failure-label equivalence remain
 unconfirmed. No other generator acceptance, inference, physics, eval dataset,
 model fit or production/manuscript change occurred.
+
+
+## 14 October 2026 — HUG orientation/uncertainty acceptance result
+
+[The HUG continuation](HUG_MAPPING_CONFIRMATION.md) completes all-32 exact
+native 3D decoding and object-facing normal/cell-radius proximity checks on the
+six fixed noncube cases with three finer repeats. [Strict acceptance
+V1](HUG_MAPPING_ACCEPTANCE.md) was frozen before new metrics: numerical
+conversion passes within scope; definite same-part lost/added relationships
+conditionally FAIL the strict declared-band claim in all nine resolutions.
+Reliable apple/milk sampled facing-state reversals add point witnesses; missing
+flips or stable means cannot certify continuous orientation.
+
+This is an implemented approximate HUG-to-Shadow mapping with quantified
+distortion, not validated native-contact or failure-label equivalence. The rule
+defines a strict project claim and does not establish that every useful
+retargeter requires zero distortion. Approximate predictor-use adequacy and
+independent validation remain untested. No other provider acceptance, new
+inference, dynamics, eval data/labels, fitting or production/manuscript change
+occurred.

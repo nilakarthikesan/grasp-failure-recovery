@@ -1,0 +1,119 @@
+{
+  "schema": "hug_existing_conditional_sampling_bounds_v2",
+  "frozen_utc": "2026-10-14T12:48:44.167991+00:00",
+  "scope": "Only existing native HUG plus original stored nominal Shadow poses; visual triangle area quadrature derivatives, no inference, eval, rollout, label, retarget fitting, training or production edit.",
+  "cases": [
+    {
+      "object_id": "hug_apple",
+      "observation_group_id": "sha256:26705a9bdce55bc69c741c7f8491175085fb3fb93eceb84e24c69e4120dc28b6",
+      "native_sha256": "0b99bf1919f6d2c06b76361a2c710474c333d83a3ee750a25fb90490cd3b765c",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_0/proposal.pkl",
+      "source_inventory_index": 8,
+      "case_id": "hug_apple_scene_002_seed_0",
+      "densities_mm": [
+        2,
+        1
+      ]
+    },
+    {
+      "object_id": "hug_apple",
+      "observation_group_id": "sha256:c6fbd5c38ae501c3452ad2b596e1d5d0c61fb46304df0ab43590cf7720fc613c",
+      "native_sha256": "2a1f9fd42435e90b5f3b9684c4fa1a7af92e2bcf60723cdc04ed7413a7d368d2",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_0/proposal.pkl",
+      "source_inventory_index": 12,
+      "case_id": "hug_apple_scene_003_seed_0",
+      "densities_mm": [
+        2
+      ]
+    },
+    {
+      "object_id": "hug_milk_box",
+      "observation_group_id": "sha256:d289acefecbfa26ba895e1446bdbe74898442d3d8ea1840dc65f46e6c32208bb",
+      "native_sha256": "9b543c10c9c647f6c0986954381dff9e24aa4aaec338433b0b71b5f7458ce731",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_0/proposal.pkl",
+      "source_inventory_index": 16,
+      "case_id": "hug_milk_box_scene_000_seed_0",
+      "densities_mm": [
+        2,
+        1
+      ]
+    },
+    {
+      "object_id": "hug_milk_box",
+      "observation_group_id": "sha256:1301c8e97e16409a8209c8053047a9d03d337fb696552b5bc541e2ac51e1b6c0",
+      "native_sha256": "52ec7441c108f7a9704535c63611ff9d9da3d5f2871b57396b33fdb1e73a7d8b",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_0/proposal.pkl",
+      "source_inventory_index": 20,
+      "case_id": "hug_milk_box_scene_001_seed_0",
+      "densities_mm": [
+        2
+      ]
+    },
+    {
+      "object_id": "hug_mug",
+      "observation_group_id": "sha256:25ac5ecfb667d98aeabc060b069640a74805148a800669404d666c70c094bd98",
+      "native_sha256": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_0/proposal.pkl",
+      "source_inventory_index": 24,
+      "case_id": "hug_mug_scene_002_seed_0",
+      "densities_mm": [
+        2,
+        1
+      ]
+    },
+    {
+      "object_id": "hug_mug",
+      "observation_group_id": "sha256:95ec9fd1d841d0aaa699c5fc9d5ee219f6a26a02dddaabc4e4ac3a43f0ef60a7",
+      "native_sha256": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/proposal.pkl",
+      "source_inventory_index": 28,
+      "case_id": "hug_mug_scene_003_seed_0",
+      "densities_mm": [
+        2
+      ]
+    }
+  ],
+  "bands_mm": [
+    1,
+    2,
+    5
+  ],
+  "numerical_allowances_m": [
+    1e-08,
+    1e-09,
+    1e-07
+  ],
+  "primary_allowance_m": 1e-08,
+  "numeric_budget_status": "Explicit assumed uniform closest-distance evaluation plus cell/transform arithmetic bound; sensitivity 1/10/100nm. These budgets are NOT formal floating-point forward-error certificates and NOT inferred global bounds from manufactured finite tests. Continuum area intervals are conditional on chosen budget.",
+  "geometry_bound": "Maximum centroid\u2192threevertex distance covers every point of each convex child triangle in exact arithmetic; unsigned distance to any fixed surface set is 1-Lipschitz. Whole/part mapped boundary is fixed union of allpercolliderboundarysurfaces (not necessarilyexteriorunionboundary).",
+  "area_bounds": "Definite prox: d+r+epsilon<=tau; possible: max(0,d-r-epsilon)<=tau. Lower area complete definitecells; upper completepossiblecells. Shareddef=Ndef&Mdef; poss=Nposs&Mposs. Lostdef=Ndef&~Mposs; poss=Nposs&~Mdef; newreverse. IoU/retention conservative ratios onlywhere lowerdenominator>0. Independentpartareas mayoverlap.",
+  "query_coverage": "Rebuild actual compiled disabledvisualmeshtriangle cells exactlymatching original midpointqueryorder q andweights. No collisionhullsubstitution/overlapexclusions. Degenerate originalfaces exclusion preserved; coverage bound excludes those faces and normaldiscontinuities.",
+  "cache_sha256": {
+    "visual_reference_surfaces/hug_apple_scene_002_seed_0_density1mm_queries.npz": "d380472c38be758cfdfec36995675da464483c67f3ae6c4fa48581da0c1e79a5",
+    "visual_reference_surfaces/hug_apple_scene_002_seed_0_density2mm_queries.npz": "fd3500b5902969e941aa81eabe9e1ec345a489098a31fe438ba65f02ce714980",
+    "visual_reference_surfaces/hug_apple_scene_003_seed_0_density2mm_queries.npz": "8d032590372a532da4eb62e7abb161553e459223d29764b229e168c4e1e6f5e0",
+    "visual_reference_surfaces/hug_milk_box_scene_000_seed_0_density1mm_queries.npz": "7bbfb83da541fac1111431d2d83800d1df839cd722ba212af727538e66133f52",
+    "visual_reference_surfaces/hug_milk_box_scene_000_seed_0_density2mm_queries.npz": "291618ec92db0c4e5b1dd857d4ffba8e556efc7a2a8feb3068b89eae9276ce17",
+    "visual_reference_surfaces/hug_milk_box_scene_001_seed_0_density2mm_queries.npz": "999a927e524ab6030e104443ac48659cc89a199080d98b1afbeb4bd6781af7e2",
+    "visual_reference_surfaces/hug_mug_scene_002_seed_0_density1mm_queries.npz": "80e518b96dbd1b0e74134f12310b9fbd6fcf4d26537de87903639dc88a0a3adb",
+    "visual_reference_surfaces/hug_mug_scene_002_seed_0_density2mm_queries.npz": "2b405e6db66bc8ac4cd89227768bf8727bea8c64d1d2cafd24a2795f241ca754",
+    "visual_reference_surfaces/hug_mug_scene_003_seed_0_density2mm_queries.npz": "3375410e0b77554bba816e13e3a0f32620df9850d370634e8366187e8b48bfbb"
+  },
+  "inventory_sha256": "5fc28832494c54c7822543a00ea735ab47e1d44d944ff50fc26712eb27536fcb",
+  "fk_sha256": "04ebe393388193cf4ac256ea0fa0f61d8f2869805618d339c2572673f7445ae8",
+  "mano_asset_sha256": "45d60aa3b27ef9107a7afd4e00808f307fd91111e1cfa35afd5c4a62de264767",
+  "previous_query_library_sha256": "b235f8b88b5ecb0fc2bc842c3fdb4a17d4c2eb526f321a449169dcbc3cc27bdd",
+  "script_sha256": "09019ec33d82fcbf033b5cc29d5cf964155ef4a55b7eeb541f8f06c18e65e58f",
+  "cell_library_sha256": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+  "limitations": [
+    "Nine existing development resolutions of six fixednoncubeproposals, one MANO shape; no independentvalidationset/populationconfidenceinterval.",
+    "Area-density is not diameter guarantee; skinnycells maywide ambiguityeven ifsmall area.",
+    "All distances refer to currentrepresentedfixed geometry; boundsdo notinclude native/Shadowanatomical modelerror, collider-vsvisual discrepancy, sourceinference, handposecalibration or actualphysicalcontact.",
+    "Numericalallowancesexplicitconditional assumptions, notformalgloballyprovedclosestpoint error.",
+    "DistanceLipschitz doesnotcertify angularnormalcontinuity, occupancy/windingmembership, contactforce or successlabels.",
+    "Intervalscomputed onsurfacecellareas notintersectionvolume. Samplequeries aredeterministicquadrature, notindependent statisticalobservations.",
+    "Mappedunion ofpercolliderboundarysurfaces canincludeinternalburiedinterfaces; notexactexteriorunionSDF."
+  ],
+  "superseded_protocol_sha256": "8aebf8d90d36449df41e772215a5dd3f73b4c3e21cd755f800bec91f38a657a3",
+  "amendment_before_any_complete_case_report": "Preserve V1 pilot stopped at regression assertion: old5mm broadphase produces incomplete finite perpartminima fartherthan5mm when analyticprimitive wasqueried andclosermesh skipped. Compare fullcurrentdistances onlytooldfinitewithin5mm, assert all1/2/5mmband masksidentical; keep fullnewdistancesforLipshitzbounds. No metricbands/criteria/caseselection/poses changed. Alsoalign ephemeral exchange filenames/keys withorientation. No pilotmetrics were completed."
+}

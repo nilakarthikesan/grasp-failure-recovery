@@ -1,14 +1,43 @@
-# HUG static mapping validation: measurements and proposed acceptance
+# HUG static mapping validation and acceptance
 
-14 October 2026. Version 1 of the HUG validation measurement framework.
-Operational static protocols are frozen separately before their measurements.
-Overall geometric acceptance margins and independent validation remain proposed.
-No production mapper, collider, executor, model, manuscript or evaluation
-recording is changed by this documentation. HUG remains the active generator. Static derivatives of already saved
-poses are permitted; new HUG inference, physics steps, task labels, collection
-and training remain outside this phase.
+14 October 2026. Version 2 of the measurement/acceptance status note. Per-phase
+frozen operational protocols and original reports remain immutable. Strict
+encoded-surface acceptance V1 is now frozen and applied; approximate
+predictor-use adequacy, independent validation and outcome equivalence remain
+pending. These are static derivatives of existing poses: no new HUG inference,
+eval data, physics, fitting, production change or manuscript edit.
 
-## Implemented measurement scope as of 14 October 2026
+## Completed checks and frozen acceptance, 14 October 2026
+
+[The orientation/uncertainty
+bundle](../research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/README.md)
+implements object-facing sampled normals, valid/tied/buried/inside/lost/new
+denominators and cell-radius Lipschitz proximity-area intervals for the six
+fixed cases and three finer repeats. The all-32 native parameter reconstruction
+matches every 3D vertex/landmark/rotation and face index exactly; all-32 camera
+projection is not claimed.
+
+[Acceptance V1](HUG_MAPPING_ACCEPTANCE.md) is now frozen for the strict
+declared-band encoded-surface relationship claim. Numerical conversion passes
+within checked scope; definite anatomical changes fail strict preservation in
+all six cases and three finer repeats under explicit conditional numerical
+allowances. Sampled normal sign reversals provide additional pointwise
+witnesses. The choice is a definition of strict preservation, not a universal
+approximate-retargeting tolerance or an imported paper standard. No
+data-dependent tip/IoU/angle margin is adopted.
+
+Conditional distance bounds cover the full retained visual triangle domain (zero
+original degenerate faces excluded), but do not prove a formal arithmetic error
+bound, continuous angular agreement, exact solid/intersection volume, physical
+contact or outcome equivalence. Those stronger claims remain unresolved or
+untested. Independent unseen-object validation and approximate predictor-use
+distortion budgets still require separately justified protocols. No inference,
+new eval data, dynamics, fit, production change or manuscript edit occurs. The
+earlier sections describe measurement definitions and historical/proposed work;
+this completed-status section supersedes their pending orientation/cell-bound
+entries.
+
+## Earlier geometry/reference measurement scope, 14 October 2026
 
 [The current evidence
 bundle](../research_artifacts/hug_geometry_reference_validation_2026-10-14/README.md)
@@ -27,12 +56,11 @@ carrier domains; numerical/source-hash guards and preserved protocol amendments.
 These methods report different denominators and uncertainty. Generic query-count
 p95 values are not area-weighted p95.
 
-Still proposed or incomplete: object-facing normal compatibility;
-cell-diameter/Lipschitz sampling ambiguity bounds; exact continuous
-intersection/volume and globally accessible union-boundary certificates;
-externally justified overall geometric acceptance margins; independent
-unseen-object/observation validation; execution/failure-label sensitivity and
-physical transfer. No arbitrary value is promoted to acceptance because these
+At the preceding phase, object-facing normals and cell-radius bounds remained
+pending; the completed-status section above now records those results. Exact
+continuous intersection/volume, accessible union-boundary certificates,
+approximate adequacy budgets, independent validation, execution/failure-label
+sensitivity and physical transfer remain unresolved or untested. No arbitrary value is promoted to acceptance because these
 development cases pass. The requirements below define the reporting framework
 and future work; this document does not assert that every metric has been
 implemented.
@@ -41,8 +69,8 @@ Original reference metadata mislabeled captured-scene bounds as physical limits;
 the standalone correction preserves the historical report, verifies
 full-precision source XML clamping and discloses decimal scene excess. Static
 diagnostics do not authorize or certify a production rollout. Frozen operational
-protocols and superseded pilots remain separate; the scientific acceptance
-protocol is not yet frozen.
+protocols and superseded pilots remain separate. Strict declared-band acceptance
+is now frozen; approximate adequacy and independent execution protocols are not.
 
 ## What can be established now
 

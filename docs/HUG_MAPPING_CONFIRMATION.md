@@ -4,11 +4,11 @@
 reuse saved cube/apple/milk-box/mug proposals; no new grasp-generator inference,
 physics rollout, evaluation dataset or predictor training occurs in these audits.
 
-**Current conclusion:** The native representation, coordinate conversion and
-joint conventions are confirmed for the checked boundaries. Human-to-Shadow
-grasp preservation is approximate and has not earned full confirmation. Keep
-HUG as the active mapping case before reviewing ContactGen, DexGrasp Anything
-and UniDexGrasp individually.
+**Current conclusion:** Native reconstruction and coordinate/joint conversion
+pass within checked scope. Strict same-part surface-relationship preservation
+fails in all six detailed cases under explicit numerical assumptions. Continuous
+physical contact and failure-label equivalence remain unconfirmed. HUG stays
+active before ContactGen, DexGrasp Anything and UniDexGrasp.
 
 ## What HUG produces
 
@@ -434,29 +434,159 @@ exactly. Stepping guards, zero-time/object invariants, mathematical sanity
 checks and protected code/model/manuscript/input hashes pass. No numerical or
 surface score is adopted as a scientific acceptance threshold.
 
+## 14 October continuation: orientation, cell uncertainty and acceptance
+
+[The new evidence
+bundle](../research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/README.md)
+completes object-facing normal measurements and cell-radius proximity bounds on
+the same six seed-0 noncube development poses, with the three already declared
+finer first-group repeats. These are nine quadrature resolutions, not nine
+independent proposals. A supplemental static MANO reconstruction now covers all
+32 saved native exports. No new HUG proposal inference, retarget optimization,
+physics rollout, eval record/label or fitting occurs.
+
+### Native reconstruction now covers all 32 saved proposals
+
+The pinned official MANO wrapper reconstructs every saved pose/shape on CPU: all
+778 vertices, 21 landmarks and wrist rotation elements match exactly for all 32
+distinct proposals; all 1,552 capped face indices match. The original float32
+representation allowances are reused, with actual residuals zero. This is
+saved-parameter hand FK, not HUG generator inference. Camera reprojection
+remains the separate original representative-cube check.
+Production/model/manuscript and licensed assets remain hash unchanged.
+
+### Orientation states sometimes change
+
+At common visible-object queries, compatibility is minus the dot product of
+outward hand and object normals. Positive denotes facing/opposed normals,
+negative away/aligned normals, and the numerical deadzone denotes uncertainty.
+Native/mapped exterior and same-nearest-part matching, unique features, object
+membership, tied normals, buried target points, lost/new regions and missing
+references remain explicit. Normals describe encoded surfaces, not forces.
+Closed oriented topology supports winding under declared assumptions; exhaustive
+self-intersection checks are not supplied.
+
+At the 2 mm band, six coarse conditional outside-object regions have
+area-weighted mean native/mapped hand-normal differences 19.537–28.720 degrees.
+The eligible areas are only 36.648–206.876 mm², so these means cannot establish
+full-region preservation. Fine apple reveals four facing-to-away and six
+away-to-facing query sites, versus zero and two at coarse density. Fine milk
+reveals one and three. The fine apple mean angle is 25.677 versus coarse 20.426
+degrees. Mug's absence of sampled sign flips at this band is not a continuous
+orientation pass.
+
+Independent replay verifies two fine-apple witnesses from original
+source/current geometry: middle compatibility +0.185621 to -0.052533; ring
+-0.031983 to +0.382560. Point/distance agreement is within 1e-12 m and
+normal/score elements within 1e-12 (dimensionless), with unique features,
+exterior queries and both closest points outside the visible object. Introduced
+facing can repair a poor native relation and still change it. Witness counts and
+centroid weights do not certify continuous changed-normal area; distance
+Lipschitz bounds cannot bound nearest-feature angular discontinuities.
+
+![Object-facing geometric orientation](../research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/orientation/object_facing_orientation.png)
+
+### Spatial uncertainty does not explain away the proximity changes
+
+The prior visual child triangles are reconstructed in exact query/weight order.
+Each centroid radius is its maximum distance to the three vertices, covering the
+whole convex triangle. For fixed-set unsigned distance d, radius r and assumed
+numerical allowance epsilon, every cell distance lies within
+[max(0,d-r-epsilon), d+r+epsilon] in real arithmetic, conditional on epsilon
+bounding arithmetic/query error. Definite/possible near masks give conservative
+shared/lost/new area and ratio intervals. These are spatial bounds, not
+statistical confidence intervals.
+
+At the 2 mm band, coarse median cell radii are 1.292–1.487 mm, with maximum
+5.627 mm; finer medians are 0.649–0.760 mm, maximum 4.551 mm. Small triangle
+area alone therefore does not ensure small spatial error. Unresolved whole-hand
+relationships occupy 8.611–16.821% of the entire coarse visible surface and
+5.121–9.779% in finer repeats. Stable centroid IoU estimates coexist with wide
+conditional area bounds.
+
+Nevertheless every detailed case contains definite same-part lost or added
+proximity cells under the assumed 1/10/100 nm allowances. An apple middle-finger
+cell of area 1.038163 mm² has native distance at most 0.936781 mm and mapped
+distance at least 1.909627 mm throughout the cell under the primary 10 nm
+allowance: a definite lost 1 mm-band relationship. Another example is the coarse
+first mug's index at 2 mm: lost-area lower bound 221.85 mm² and added-area lower
+bound 245.15 mm². Independent anatomical areas overlap and are not summed. There
+are 178 selected auditable cells with source/cell/protocol hashes.
+
+The numerical allowances are explicit assumptions, not a formal global
+floating-point certificate inferred from finite tests. Their sensitivity does
+not change which parts have definite mismatches. Distances to individual target
+collider surfaces may include buried interfaces and mapped whole-hand
+diagnostics include carriers. Native carrier references are unavailable and
+excluded from the six-part acceptance gate. Signed occupancy, continuous
+penetration, physical contacts and normals do not inherit these
+unsigned-distance bounds.
+
+![Sampling uncertainty and resolved changes](../research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/sampling_uncertainty.png)
+
+### Acceptable mapping is now an explicit scoped contract
+
+[The acceptance definition](HUG_MAPPING_ACCEPTANCE.md) and frozen rule
+distinguish numerical correctness, strict same-part surface relationships and
+later failure-label adequacy. The rule was frozen before reading these new
+measurements; the already inspected cases remain development evidence. At the
+declared 1/2/5 mm bands, a positive-area definite lost/added same-part cell or a
+reliable sampled orientation sign reversal fails strict preservation. PASS
+requires complete certified equal relationships, including valid orientation
+coverage; unavailable or ambiguous required evidence remains UNRESOLVED. Zero
+detected changes alone cannot become PASS. No average tip/IoU/angle or
+successful-lift threshold is used. This defines the strict claim, not a
+universal zero-error requirement for every useful retargeter.
+
+The [machine-readable
+application](../research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/acceptance/acceptance_application.json)
+reports numerical conversion PASS within recorded scope, strict geometric
+preservation FAIL in all six detailed cases and three finer repeats conditional
+on the numerical assumptions, continuous physical-contact equivalence
+UNRESOLVED, and outcome/predictor adequacy/independent generalization
+NOT_TESTED. HUG has a correctly implemented approximate conversion with measured
+distortion; it has not earned acceptance as a contact- or
+failure-label-equivalent mapping.
+
+### Verified versions and scientific limits
+
+Sampling V1 stopped before a case report on an overstrict comparison against
+incomplete old far-distance broad-phase values. Frozen V2 retains exact 1/2/5 mm
+decisions and compares old distances only where complete within 5 mm.
+Orientation V1 was amended before saved-case measurements to cover
+native-near/target-far candidate features; frozen V2 uses the exact mapped
+minimum plus tie allowance. A missing-sibling-export partial V2 run is separate
+from the completed unchanged rerun. All histories and original metrics remain
+intact.
+
+Six manufactured sampling tests, 100 independent exact strip-area checks,
+rotated-box sign/tie/membership tests, independently replayed orientation
+witnesses, all protocol/library/input hashes, zero-time/object/qpos invariants
+and 110 protected source/model/paper hashes pass. All nine orientation sibling
+bindings match the final sampling V2 protocol and original query caches. No
+licensed asset, checkpoint, scene binary or scratch query array is published. No
+mapper, collider, controller, frozen predictor or manuscript changed.
+
 ## Confirmation boundary and next step
 
-Use **native representation confirmed**, **coordinate/joint conversion confirmed
-within tested scope**, and **grasp/contact fidelity approximate and
-unconfirmed** as separate conclusions. The HUG mapping is not signed off as
-contact- or outcome-equivalent.
+Native reconstruction now passes on all 32 saved inputs; coordinate/joint
+conversion passes within tested scope. Strict declared-band anatomical
+surface-relationship preservation fails on all six detailed development cases
+under the explicit numerical allowances. Continuous contact and failure-label
+equivalence remain unconfirmed. HUG is not signed off as a faithfully preserved
+native grasp.
 
-The object-cause investigation and fixed-reference comparison are complete in
-the declared development scope. No tested scale/frame bug or reference advantage
-across the measured surfaces justifies a production replacement. Keep the
-current mapper and all poor native proposals. [The static validation
-framework](HUG_STATIC_VALIDATION_PROTOCOL.md) distinguishes implemented
-measurements from proposed scientific acceptance.
-
-Next complete object-facing normal compatibility and spatial sampling
-uncertainty on these saved cases, then justify geometric acceptance margins from
-the intended claim and resolution/approximation limits before freezing an
-independent validation plan. Existing inspected objects/poses cannot become
-holdout evidence by relabeling them. A claim about preserved failure labels
-additionally needs separately authorized execution/outcome-sensitivity evidence.
-Version any later mapper, collider or executor change; do not rewrite historical
-results. HUG remains active before other providers, new eval collection and
-predictor training.
+The requested orientation and sampling checks and scoped acceptance definition
+are complete. The current production mapper stays unchanged while its measured
+limitations are recorded. Next use the retained finger/region witnesses to
+specify a versioned retargeting improvement against the frozen contract, or
+explicitly adopt a narrower research claim about the documented
+retargeted-simulator pipeline. Approximate adequacy needs a separately justified
+distortion budget and independent validation, not a threshold selected to make
+these cases pass. Outcome sensitivity and new unseen-object tests remain future
+work; inspected cases are not a holdout. No new eval collection or predictor
+training is authorized by this static audit.
 
 See [the four-source audit](GRASP_MAPPING_FIDELITY.md) for original papers and
-source-specific contracts. All evidence phases remain separate and linked above.
+source-specific contracts. HUG remains the active mapping case before the other
+generators.
