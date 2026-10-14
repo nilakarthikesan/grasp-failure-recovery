@@ -1650,3 +1650,61 @@ per-finger surfaces on additional existing objects. Any calibration and its
 validation cases must remain separate and acceptance criteria must be justified
 before testing. Keep HUG active before advancing providers; predictor collection
 also needs the existing recorder gap resolved before future scoring/training.
+
+
+## 14 October 2026 — HUG anchor and other-object surfaces; compute deferred
+
+**Previous plan and user direction:** Separate HUG's wrist/palm assumption from
+finger morphology and check the other existing objects before the next provider.
+The user explicitly prohibits new eval data and asks whether renting GPU compute
+would help reach larger research counts.
+
+**Implemented evidence:** Guarded diagnostics on 32 saved poses reproduce the
+MANO-wrist/Shadow-palm origin within 1.429e-16 m. The actual wrist body is 34 mm
+away by URDF; native/Shadow palm-to-finger-base proxy distances are 95.351/93.889
+mm. A shared translation explains 14.61% of fingertip squared residuals and
+4.29% across ten task points. The MCP-proxy-derived mean increases mean tip
+error to 10.371 mm. No offset is applied or claimed as calibrated.
+
+Six fixed existing seed-0 cases cover both groups of apple, milk box and mug.
+V1 maximum-edge sampling was not executed; v2 area-density sampling was run,
+then an independent review found retained abutting internal collider seams.
+A frozen v3 outward-probe correction removes those interfaces; v2 script,
+protocol and report remain preserved as a superseded pilot. V4 adds separately
+frozen actual visual-triangle queries. The final families are not pooled and
+historical cube results remain unchanged. At a 2 mm proximity band, unsigned
+IoU is 0.195--0.290 on collision queries and 0.243--0.273 on visual queries.
+Actual lost/new per-finger regions persist on the visible surface. Shadow
+unsigned distances query per-collider surfaces, potentially buried at penetrated
+sites; occupancy and globally exterior matched normals stay distinct.
+
+Reverse collision-to-visual area-weighted distances for first groups average
+4.42/2.76/2.12 mm for apple/milk/mug. This proves the sampled geometric reference
+surfaces differ, not that a specific decomposition-gap cause or outcome effect
+is established. Sampling is area weighted, not a uniform spatial grid or a
+convergence proof. The 32/six cases are inspected development evidence from
+one MANO shape. No numerical score is adopted as a scientific acceptance gate.
+
+**Choice and status:** The implemented placement policy is supported; exact
+human-to-robot contact preservation is unconfirmed. Keep HUG active. Review
+object collision approximation and declare anatomical/contact objectives with
+separate calibration/validation groups before a versioned mapper change. Retain
+poor native grasps; do not repair/filter them into successes. All reports,
+scripts and protocol hashes are in
+[the new bundle](../research_artifacts/hug_palm_object_validation_2026-10-14/README.md).
+Primitive/triangle/winding checks, old cube regression and zero-time/input-hash
+invariants pass. No inference, physics integration, task labels, new evaluation
+dataset, fitting, collider/mapper/controller change or paper edit occurs.
+Predictor hash remains
+16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb.
+
+**Compute recommendation, not an experiment:** GPU rental could help later
+generator inference/refinement; the current CPU MuJoCo runner and NumPy/SciPy
+logistic baseline do not automatically benefit. A GPU simulation backend would
+need separate compatibility/numerical validation. Benchmark successful proposals
+per minute, refinement time, peak VRAM and CPU rollouts before selecting hardware
+after new collection is authorized. No rental, provisioning or spending occurs.
+Independent objects/observations/generators and grouped held-out comparisons
+matter more than repeated episode counts; larger counts or source variety do
+not guarantee prediction improvement. Resolve the previously documented recorder
+gap before future predictor collection/scoring.

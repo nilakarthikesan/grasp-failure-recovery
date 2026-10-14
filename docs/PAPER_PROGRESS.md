@@ -171,3 +171,21 @@ diagnostics, not new evaluation episodes, prediction results or a completed
 four-generator validation. The working manuscript and frozen predictor remain
 unchanged. The user prioritizes mapping validation before broader collection
 and training; paper drafting is deferred while this validation proceeds.
+
+
+## HUG wrist/palm and existing-object surfaces, 14 October 2026
+
+[The static continuation](HUG_MAPPING_CONFIRMATION.md) checks wrist/palm anchors
+on 32 saved poses and finger surfaces on six existing apple/milk-box/mug cases.
+The declared anchor is realized; Shadow's separate wrist body is 34 mm away by
+design. One shared translation explains 14.61% of tip squared residuals.
+Native/target proximity differs on corrected collision-union and actual visual
+surface queries. Object collision and visual boundaries also differ and require
+separate review. These are geometric diagnostics with one MANO shape, not
+physical contact equivalence or new independent evaluation/training data.
+
+HUG remains partially confirmed and active. Acceptance criteria, collider
+review and separate calibration/validation groups precede any revised mapper
+or new collection. Production code, executor, frozen predictor and manuscript
+are unchanged; no paper drafting or model fitting occurred. GPU rental remains
+a future benchmark-based recommendation, not a provisioned run.

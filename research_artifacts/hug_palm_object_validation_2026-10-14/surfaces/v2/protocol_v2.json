@@ -1,0 +1,87 @@
+{
+  "schema": "hug_existing_non_cube_surface_diagnostic_v2",
+  "frozen_utc": "2026-10-14T10:20:35.172602+00:00",
+  "scope": "Existing HUG native MANO mesh and original 24 nominal Shadow targets recovered before force-close at initial object state; no new proposal inference, physics rollout, evaluation data, predictor fit, calibration, scale/pose adjustment or source quality selection.",
+  "case_selection": "Seed 0 of both preexisting observation groups for apple, milk box, mug in inventory source order. Six fixed cases, neither selected nor excluded by geometry or outcome.",
+  "cases": [
+    {
+      "object_id": "hug_apple",
+      "observation_group_id": "sha256:26705a9bdce55bc69c741c7f8491175085fb3fb93eceb84e24c69e4120dc28b6",
+      "native_sha256": "0b99bf1919f6d2c06b76361a2c710474c333d83a3ee750a25fb90490cd3b765c",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_0/proposal.pkl",
+      "source_inventory_index": 8
+    },
+    {
+      "object_id": "hug_apple",
+      "observation_group_id": "sha256:c6fbd5c38ae501c3452ad2b596e1d5d0c61fb46304df0ab43590cf7720fc613c",
+      "native_sha256": "2a1f9fd42435e90b5f3b9684c4fa1a7af92e2bcf60723cdc04ed7413a7d368d2",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_0/proposal.pkl",
+      "source_inventory_index": 12
+    },
+    {
+      "object_id": "hug_milk_box",
+      "observation_group_id": "sha256:d289acefecbfa26ba895e1446bdbe74898442d3d8ea1840dc65f46e6c32208bb",
+      "native_sha256": "9b543c10c9c647f6c0986954381dff9e24aa4aaec338433b0b71b5f7458ce731",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_0/proposal.pkl",
+      "source_inventory_index": 16
+    },
+    {
+      "object_id": "hug_milk_box",
+      "observation_group_id": "sha256:1301c8e97e16409a8209c8053047a9d03d337fb696552b5bc541e2ac51e1b6c0",
+      "native_sha256": "52ec7441c108f7a9704535c63611ff9d9da3d5f2871b57396b33fdb1e73a7d8b",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_0/proposal.pkl",
+      "source_inventory_index": 20
+    },
+    {
+      "object_id": "hug_mug",
+      "observation_group_id": "sha256:25ac5ecfb667d98aeabc060b069640a74805148a800669404d666c70c094bd98",
+      "native_sha256": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_0/proposal.pkl",
+      "source_inventory_index": 24
+    },
+    {
+      "object_id": "hug_mug",
+      "observation_group_id": "sha256:95ec9fd1d841d0aaa699c5fc9d5ee219f6a26a02dddaabc4e4ac3a43f0ef60a7",
+      "native_sha256": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/proposal.pkl",
+      "source_inventory_index": 28
+    }
+  ],
+  "resolutions": {
+    "all_cases_area_density_mm": 2,
+    "repeat_first_source_order_group_each_object_area_density_mm": 1
+  },
+  "diagnostic_bands_mm": [
+    1,
+    2,
+    5
+  ],
+  "query_domain": "Deterministic area-weighted triangle centroids after midpoint subdivision of every active object per-geom compiled mesh convex hull until every child area <= density_mm\u00b2. Density is sqrt(maximum triangle query weight), not a uniform spatial grid or maximum edge guarantee. Actual centered box faces only for cube regression. Query centroid strictly inside another active object hull removed; coincident outward faces assigned to lower geom id. No random surface samples. This approximates exposed collision-union surface, not disabled visual mesh or exact clipped union.",
+  "interior_filter_tolerance_m": 1e-10,
+  "query_area": "Exact source triangle area divided by 4^subdivision level; sum retained query weights. Report actual min/mean/p95/max weights and child-edge distributions. Interior overlap removal at centroids is density dependent; report discarded and retained area.",
+  "native_anatomical_labels": "Grouped MANO skinning argmax per vertex; triangle vertex-majority with average grouped weights as deterministic tie breaker. Open per-part triangle subsets for unsigned proximity; no enclosed native finger meshes. Closed whole MANO mesh winding occupancy kept separately.",
+  "shadow_geometry": "Actual analytic sphere/box/cylinder distances and each compiled mesh geom convex hull, with object collision masks, body exclusions and explicit-pair overrides checked. Carrier labels kept separate. Per-geom union occupancy, not a whole-hand hull or exact interior-depth score.",
+  "proximity": "Independent per-part unsigned distance <= each fixed diagnostic band. Report native, Shadow, shared, lost native, new Shadow area and IoU. Labels are proxies and geometric regions are not physical contacts.",
+  "normals": "Only globally exterior queries (outside closed native mesh and every compatible target collider), separated >1e-8 m, near both surfaces in the band. Compare native closest oriented triangle and target nearest analytic/per-geom hull normal only if nearest anatomical labels match. Report different labels and unmatched queries separately; classify closest points inside object collider union.",
+  "sanity": "Known triangle projection/edges; closed hull vertex-halfspace checks, unit normals, primitive distance checks; numba accelerated exact triangle query versus prior numpy routine; native closed mesh topology/winding checks; original FK object/joint positions reproduce prior report; cube seed-0 legacy 2 mm occupied-or-near baseline must reproduce.",
+  "guards": [
+    "mj_step",
+    "mj_step1",
+    "mj_step2"
+  ],
+  "invariants": "Guards before scene/model load; time remains zero; initial object qpos and world pose unchanged; original 24 targets preserved; provenance hashes verified before and after; historical artifacts untouched.",
+  "source_inventory_sha256": "5fc28832494c54c7822543a00ea735ab47e1d44d944ff50fc26712eb27536fcb",
+  "source_fk_report_sha256": "04ebe393388193cf4ac256ea0fa0f61d8f2869805618d339c2572673f7445ae8",
+  "prior_geometry_script_sha256": "22d1274568892ec45a665d9a89f135934fe700b29ef82179f22b01606312b04f",
+  "prior_refinement_script_sha256": "a638a636effe678450526b90db852ddaa59e95184b8d76417906316ec70ac304",
+  "limitations": [
+    "Six existing development cases from one shared MANO shape, not an independent holdout; seed 0 restriction is fixed before metrics.",
+    "Decomposed compiled collision hulls may differ from visual object concavity; mug collider union has meaningful concavity but is an approximation.",
+    "Centroid overlap exclusion and thresholds produce density-dependent area estimates, not uniform spatial resolution or proven continuum convergence. Skinny facets can have longer edges than density_mm.",
+    "Skinning and body-prefix labels and facet normals are anatomical/geometric proxies; native self-intersection may affect winding occupancy.",
+    "Unsigned proximity can occur inside the object or hand. Whole-hand occupancy and closest-point inside-object classifications are reported separately.",
+    "No physical contact forces, task-outcome sensitivity, original HUG-system equivalence or acceptance gate established."
+  ],
+  "superseded_protocol_sha256": "2e6092eb965ccd8368115fbc3efe091795e60345c379d38f4d372d455a261438",
+  "amendment_before_any_surface_metrics": "Replace maximum-edge midpoint subdivision with deterministic area-density midpoint subdivision to bound runtime on skinny object facets. Original v1 remains preserved and was not executed."
+}

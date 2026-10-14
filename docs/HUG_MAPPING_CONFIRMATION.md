@@ -223,23 +223,125 @@ All measurements, frozen protocol, scripts and hashes are in
 No generator inference, physics rollout, evaluation-data collection, predictor
 fit, calibration or adapter/controller change accompanied this continuation.
 
+## 14 October continuation: wrist/palm and other existing objects
+
+The [new evidence bundle](../research_artifacts/hug_palm_object_validation_2026-10-14/README.md)
+checks all 32 existing poses for anchors and anatomical proxies, and both
+existing seed-0 groups for apple, milk box and mug for finger surfaces. No
+inference, physics rollout, evaluation case, label or fitting is performed.
+The original targets and initial objects are held fixed; poor native proposals
+are retained. These are development diagnostics with one MANO shape.
+
+### Wrist-to-palm placement
+
+The saved native MANO wrist and selected Shadow palm origin agree within
+1.429e-16 m. Shadow's actual named wrist body is 34 mm away, matching the URDF
+WRJ1 origin. Equating the two wrist body names would therefore test a different
+placement policy. The measured anchor confirms implementation of the declared
+policy, not exact anatomical equivalence.
+
+Explicit nonthumb finger-base proxies use native landmarks 5/9/13/17 and actual
+Shadow FFJ3/MFJ3/RFJ3/LFJ3 joint anchors. Mean native wrist-to-base-centroid
+distance is 95.351 mm, versus 93.889 mm from Shadow palm and 127.866 mm from
+its wrist body. Native index-to-little base span is 73.136 mm, Shadow 66.517 mm.
+Transverse, longitudinal and signed cross-product proxy directions differ by
+5.385/6.441/7.778 degrees on average. These points and directions are declared
+proxies, not ground-truth identical tissue regions or an identified correction.
+Open skinning-assigned palm bounds include cap/seam vertices and must not be
+interpreted as anatomical palm thickness.
+
+Residual decomposition separates a common translation from differential point
+errors without moving any pose. One shared fingertip mean explains 14.61% of
+squared tip error: mean separation 6.428 to 6.156 mm after algebraic subtraction.
+Separate per-case means explain 17.35%. Differential thumb/little means remain
+11.785/9.789 mm. Across all ten task points, a shared mean explains only 4.29%.
+The MCP-proxy-derived shift differs from the tip-derived shift by 8.237 mm and
+increases mean tip separation to 10.371 mm when subtracted algebraically.
+Thus one placement translation alone is not a complete explanation. This does
+not identify every cause, rule out a revised mapping, or validate calibration.
+
+![HUG anchor diagnostic](../research_artifacts/hug_palm_object_validation_2026-10-14/hug_anchor_diagnostic_2026-10-14.png)
+
+### Finger surfaces on apple, milk box and mug
+
+The six cases are fixed before measurement by source order, with seed 0 in
+each existing group. Each object's captured active collision geoms are used
+individually: 2 for apple, 7 for milk box and 15 for mug. Actual disabled visual
+mesh triangles provide a separate reference. Anatomical labels remain proxies;
+open native finger subsets are used only for unsigned proximity.
+
+Collision-union sampling v3 excludes interior/duplicate queries and rejects
+outward probes entering another hull. This corrects exactly abutting opposite
+normal interfaces retained by the preserved v2 pilot. V1 was not executed;
+v2 is superseded for these collision metrics. V4 queries actual visual triangles
+as an additional metric family, without replacing v3. Protocols and executed
+script hashes are preserved; old published cube evidence is not rewritten.
+
+All cases use deterministic midpoint subdivision with maximum child area
+4 mm^2, repeated at 1 mm^2 for the first group of each object. This is an area
+density, not uniform spacing or a maximum edge guarantee. Samples carry actual
+area weights. At the 2 mm proximity band, whole-hand unsigned proximity IoU
+ranges 0.195--0.290 on collision queries and 0.243--0.273 on visual queries.
+Occupied-or-near IoU is 0.380--0.449 and 0.441--0.512 respectively. These metric
+families include penetration and cannot be pooled or called mapping accuracy.
+Shadow unsigned distance is to individual collider surfaces and may approach
+buried collider interfaces at overlapped, penetrated sites; it is not exact
+distance to the exterior hand-union boundary. Occupancy is separately measured.
+
+Visual-surface unsigned IoU changes from coarse to finer density by -0.00798
+for apple, +0.000000605 for milk box and +0.000145 for mug. The discrepancy
+persists across those tested densities; this is not a convergence proof.
+For the first mug group, native/Shadow index proximity areas are 1,601.7/1,444.8
+mm^2 but share 275.1 mm^2. Little-finger areas are 660.3/1,124.4 mm^2 and share
+160.7 mm^2. Apple little fingers share about 39 mm^2 in each group despite
+native areas 203/214 and target areas 305/311 mm^2. These show lost and new
+anatomical proximity regions on the visible object, not actual contact forces.
+Exterior normal comparisons retain same/different labels and nearest-point
+inside-object categories; conditioning on shared proximity cannot certify
+correspondence or justify filtering poor native grasps.
+
+Collision and visual object surfaces are also different. First-group reverse
+collision-to-visual area-weighted distances average 4.42/2.76/2.12 mm for
+apple/milk/mug, with maxima 36.47/27.35/9.99 mm. This establishes a separate
+object-geometry fidelity question; it does not prove a single cause such as
+decomposition gaps or show whether the differing surfaces affect this grasp's
+outcome. Audit that approximation before attributing all proximity differences
+to retargeting. No collider or nominal mapping was changed.
+
+![Other saved HUG objects](../research_artifacts/hug_palm_object_validation_2026-10-14/surfaces/hug_other_objects_native_shadow.png)
+
+The figure displays actual native triangles and nominal target colliders at
+identical camera, limits and metric scale per pair. Individual gray convex
+hulls include overlap; this is not an exact clipped collision-union rendering.
+
+Primitive/triangle/winding checks pass; accelerated triangle queries agree
+with the prior NumPy routine within roundoff and the old cube baselines
+reproduce exactly. All six static poses reproduce prior FK exactly. Guards
+prevent stepping, time stays zero, object state and targets stay fixed, and
+recorded inputs, production code, frozen predictor and manuscript retain
+their hashes. Optional query arrays are diagnostic derivatives kept locally,
+not evaluation data or new training examples.
+
 ## Confirmation boundary and next step
 
 Use **native representation confirmed**, **coordinate/joint conversion
 confirmed**, and **grasp/contact fidelity unconfirmed** as separate statements.
 The overall HUG mapping is partially confirmed, not signed off as equivalent.
 
-The finer-grid and anatomically matched surface check is complete. Numerical
-transform/joint consistency now covers the 32 saved poses; full contact fidelity
-remains unconfirmed. Next separate the wrist-to-palm anchor assumption from
-finger morphology and characterize per-finger object-relative surfaces on
-additional existing objects. Any proposed calibration must be versioned and
-use different cases from its validation; a criterion must be justified before
-acceptance testing, not selected because this cube passes. Preserve poor native
-proposals and report changed/lost relationships rather than silently repairing
-or removing them. Outcome sensitivity and physical transfer require separate
-future execution evidence. HUG remains active before the next provider.
+The wrist/palm and other-object checks are complete in the measured scope.
+Numerical placement/joint consistency is supported; actual cross-hand contact
+fidelity remains unconfirmed. Next inspect the collision-versus-visual object
+approximation and declare which anatomical object relationships a proposed
+retargeter must preserve. Use separate development/calibration and validation
+groups, with a justified acceptance criterion frozen before testing. The saved
+cases above are already inspected development evidence, not a fresh holdout.
+Version any later collider, mapper or executor change rather than rewriting
+historical results. Preserve poor native proposals and report changed/lost
+relationships. Outcome sensitivity and physical transfer require separately
+authorized future execution evidence. HUG remains active before the next
+provider; no evaluation collection or training starts with this static audit.
 
 See [the initial four-source audit](GRASP_MAPPING_FIDELITY.md) for source links
-and existing static measurements. HUG-only test reports and reproducible
-diagnostics belong under `research_artifacts/hug_mapping_confirmation_2026-10-14/`.
+and existing static measurements. Versioned HUG reports and reproducible
+scripts remain in the initial confirmation, finer-grid refinement and latest
+palm/object validation bundles; the links above identify each evidence phase.

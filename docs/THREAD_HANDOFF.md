@@ -275,3 +275,32 @@ zero time checked. No new inference, rollout, task label, dataset or fit occurre
 Next isolate wrist/palm anchoring from morphology and examine more existing
 object surfaces before moving to the next generator. Future model tuning must
 use development/validation data and preserve independent object/source tests.
+
+
+## 14 October 2026 — HUG wrist/palm and other existing objects checked
+
+Latest user direction: finish HUG's wrist-to-palm and finger surfaces on other
+existing objects before advancing providers; do not generate new eval data.
+[The new static bundle](../research_artifacts/hug_palm_object_validation_2026-10-14/README.md)
+covers 32 anchor cases and six seed-0 apple/milk-box/mug surface cases. The
+declared MANO-wrist/Shadow-palm placement matches exactly; the actual wrist
+body is 34 mm away by URDF. A shared translation explains only 14.61% of tip
+squared residuals and is not applied as calibration.
+
+Changed finger proximity persists on both corrected collision-union v3 and
+actual visual-triangle v4 references. V2 retained abutting internal interfaces
+and is preserved as a superseded pilot, never pooled with final v3/v4. Actual
+collision surfaces also differ from visual ones, so investigate that object
+approximation before attributing all discrepancies to retargeting. Details,
+protocols, hashes and scientific figures are in [the HUG note](HUG_MAPPING_CONFIRMATION.md).
+
+HUG contact fidelity remains unconfirmed. Next declare the contact-preservation
+objective and separate calibration/validation groups while reviewing collider
+approximation. No inference, rollout, new task label/dataset, training, production
+mapper/controller/collider change or manuscript edit occurred. Frozen predictor
+hash remains unchanged. Optional static query arrays stay local and uncommitted.
+
+GPU compute may help future generation; current MuJoCo mj_step and the logistic
+predictor run on CPU. No compute was rented. Benchmark actual runtime/VRAM and
+rollout bottlenecks after mapping validation and new-collection authorization;
+independent object/source coverage matters more than repeated episode count.

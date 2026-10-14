@@ -1,0 +1,31 @@
+"""Frozen v4 visual-reference metric family; v3 collision results preserved."""
+from pathlib import Path
+import hashlib,json,pickle,time,warnings
+import numpy as np
+import audit_other_surfaces as a
+OUT=Path(__file__).parent/'visual_reference_surfaces';ROOT=Path('/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction');START=time.perf_counter()
+pfile=OUT/'protocol_v4.json';ph=a.sha(pfile);p=json.loads(pfile.read_text());prior=ROOT/'research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals';ip=prior/'existing_hug_inventory.json';fp=prior/'static_saved_hug_fk.json';assert a.sha(ip)==p['source_inventory_sha256'] and a.sha(fp)==p['source_fk_report_sha256'];assert a.sha(Path(__file__).parent/'protocol_v3.json')==p['collision_family_protocol_sha256']
+index=json.loads(ip.read_text());fk=json.loads(fp.read_text());fm={c['native_sha256']:c for c in fk['cases']}
+expected=json.loads((ROOT/'research_artifacts/hug_mapping_refinement_2026-10-14/surface/protocol.json').read_text())['mano_asset_sha256'];assert a.sha(a.ASSET)==expected
+with warnings.catch_warnings():warnings.simplefilter('ignore');asset=pickle.loads(a.ASSET.read_bytes(),encoding='latin1')
+weights=np.asarray(asset['weights']);gw=np.column_stack([weights[:,ids].sum(1) for ids in a.GROUPS.values()])
+records=[];seen=set()
+for planned in p['cases']:
+ c=index['modern_cases'][planned['source_inventory_index']];assert c['native']['sha256']==planned['native_sha256'];meta,tri,labels,norm,hand,objs,m,d,initial,objadr,pos,R=a.load_case(c,gw,fm);nominal=d.qpos.copy();vtlist=[];degenerate=0;facecount=0
+ for v in meta['disabled_visual_geoms']:
+  g=v['id'];mid=int(m.geom_dataid[g]);va=int(m.mesh_vertadr[mid]);nv=int(m.mesh_vertnum[mid]);fa=int(m.mesh_faceadr[mid]);nf=int(m.mesh_facenum[mid]);vertices=m.mesh_vert[va:va+nv].astype(float);faces=m.mesh_face[fa:fa+nf].astype(int);assert faces.min()>=0 and faces.max()<nv
+  vv=(vertices@d.geom_xmat[g].reshape(3,3).T+d.geom_xpos[g]-pos)@R;vt=vv[faces];length=np.linalg.norm(np.cross(vt[:,1]-vt[:,0],vt[:,2]-vt[:,0]),axis=1);good=length>1e-15;degenerate+=int((~good).sum());facecount+=len(vt);vtlist.append(vt[good])
+ assert len(vtlist)==1;vt=np.concatenate(vtlist);meta['visual_reference']={'disabled_visual_mesh_count':len(vtlist),'compiled_visual_face_count':facecount,'excluded_near_zero_area_triangle_count':degenerate,'actual_triangle_table':True,'whole_object_convex_hull_substitution':False,'visual_surface_area_mm2':float(a.tri_info(vt)[1].sum()*1e6),'closest_point_inside_object_semantics':'active collision hull union, not visual-mesh occupancy'};meta['resolutions']={};first=c['object_id'] not in seen;seen.add(c['object_id']);levels=[2,1] if first else [2]
+ for density in levels:
+  tick=time.perf_counter();q,area,qn,depths=a.subdivide(vt,density/1000);assert area.max()<=density*density*(1+1e-12);edge=np.repeat(np.linalg.norm(vt-np.roll(vt,1,axis=1),axis=2).max(1)*1000/(2.**np.asarray(depths)),4**np.asarray(depths));print(json.dumps({'progress':'visual_query_surface','object':c['object_id'],'density_mm':density,'queries':len(q),'area_mm2':float(area.sum())}),flush=True)
+  result,arrays=a.compare(q,area,tri,labels,norm,hand,objs);result['area_density_mm']=density;result['visual_query_surface']={'area_mm2':float(area.sum()),'query_weight_mm2':a.stats(area),'child_max_edge_mm':a.stats(edge),'source_triangle_subdivision_depth_range':[min(depths),max(depths)]};result['runtime_seconds']=time.perf_counter()-tick;meta['resolutions'][str(density)]=result;caseid=c['object_id']+'_'+Path(c['native']['path']).parent.name;np.savez_compressed(OUT/f'{caseid}_density{density}mm_queries.npz',**arrays,visual_triangle_outward_normal=qn)
+  assert d.time==0 and np.array_equal(d.qpos,nominal) and np.array_equal(d.qpos[objadr:objadr+7],initial)
+  print(json.dumps({'progress':'visual_resolution_complete','object':c['object_id'],'density_mm':density,'seconds':result['runtime_seconds']}),flush=True)
+ if first:
+  cq,ca,cn,cgid,cm=a.object_queries(objs,2);dd,_,_=a.nearest_parts(cq,vt,np.zeros(len(vt),np.int64),1);distance=dd[:,0]*1000
+  meta['collision_to_visual_reverse_reference']={'query_density_mm':2,'collision_query_count':len(cq),'collision_exposed_sample_area_mm2':float(ca.sum()),'unsigned_distance_mm':a.stats(distance,ca),'collision_sample_area_beyond_visual_band_mm2':{str(b):float(ca[distance>b].sum()) for b in [1,2,5]},'source_collision_query_protocol':'v3 outward-probe exterior predicate; true geometric union can include narrow gap walls absent from visual mesh'}
+ for file,h in meta['input_sha256'].items():assert a.sha(file)==h
+ meta['static_invariants']['all_static_qpos_unchanged']=True;records.append(meta);a.write(OUT/f'{c["object_id"]}_{Path(c["native"]["path"]).parent.name}.json',meta)
+assert a.sha(pfile)==ph and a.sha(ip)==p['source_inventory_sha256'] and a.sha(fp)==p['source_fk_report_sha256'] and a.sha(a.ASSET)==expected
+report={'schema':p['schema'],'protocol_sha256':ph,'script_sha256':a.sha(__file__),'query_library_script_sha256':a.sha(a.__file__),'runtime_seconds':time.perf_counter()-START,'runtime_versions':{'python':a.sys.version.split()[0],'numpy':np.__version__,'scipy':a.scipy.__version__,'mujoco':a.mujoco.__version__,'numba':a.numba.__version__},'input_provenance':{'inventory_sha256':a.sha(ip),'prior_fk_sha256':a.sha(fp),'licensed_mano_asset_sha256':expected,'raw_asset_copied':False},'collision_family_protocol_sha256':p['collision_family_protocol_sha256'],'guarded_integration_apis':p['guards'],'guards_before_scene_model_load':True,'physics_steps':0,'new_inference':False,'new_evaluation_data':False,'calibration':False,'retarget_optimizer':False,'scope':p['scope'],'metric_family':'actual compiled disabled object visual surface; separate from collision-union boundary measurements','cases':records,'limitations':p['limitations'],'interpretation':'Native-to-target per-finger geometric relationship changes measured on the source visual surface are separate from collision-union approximation changes. Both are static diagnostics, preserve poor source proposals and remain distinct from physical contacts or scientific acceptance.'}
+a.write(OUT/'hug_visual_reference_surfaces.json',report);print(json.dumps({'completed':True,'seconds':report['runtime_seconds']}),flush=True)

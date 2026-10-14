@@ -1,0 +1,32 @@
+from pathlib import Path
+import json,hashlib
+OUT=Path(__file__).parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+collision=json.loads((OUT/'hug_other_object_surfaces.json').read_text());visual=json.loads((OUT/'visual_reference_surfaces/hug_visual_reference_surfaces.json').read_text());pc=json.loads((OUT/'protocol_v3.json').read_text());pv=json.loads((OUT/'visual_reference_surfaces/protocol_v4.json').read_text());pathbyhash={c['native_sha256']:c['native_path'] for c in pc['cases']}
+keepcoverage=lambda d:{k:d[k] for k in ['native_area_mm2','shadow_area_mm2','intersection_area_mm2','lost_native_area_mm2','new_shadow_area_mm2','jaccard','native_retention']}
+def condensed(case):
+ result={'object_id':case['object_id'],'source_case':Path(pathbyhash[case['native_sha256']]).parent.name,'native_sha256':case['native_sha256'],'initial_object_state_and_nominal_targets_preserved':case['static_invariants'],'resolutions':{}}
+ for density,res in case['resolutions'].items():
+  row={'query_count':res['query_count'],'native_occupancy_area_mm2':res['native_winding_occupancy']['area_mm2'],'shadow_occupancy_area_mm2':res['shadow_any_collider_occupancy']['area_mm2'],'bands':{}}
+  if 'object_query_surface' in res:row['query_surface']=res['object_query_surface']
+  else:row['query_surface']=res['visual_query_surface']
+  for band,b in res['bands'].items():
+   nr=b['exterior_nearest_labels'];same=nr['common_same_label'];row['bands'][band]={'whole_hand_unsigned_near':keepcoverage(b['whole_hand_unsigned_near']),'occupied_or_near':keepcoverage(b['occupied_or_near']),'per_finger_unsigned':{part:keepcoverage(b['independent_per_part_unsigned'][part]) for part in ['thumb','index','middle','ring','little']},'same_label_exterior_normals':same,'different_label_exterior_count':nr['common_different_label']['query_count'],'native_exterior_near_unmatched_area_mm2':nr['native_near_shadow_not_exterior_near_area_mm2'],'shadow_exterior_near_unmatched_area_mm2':nr['shadow_near_native_not_exterior_near_area_mm2']}
+  result['resolutions'][density]=row
+ if '1' in case['resolutions']:
+  coarse=case['resolutions']['2'];fine=case['resolutions']['1'];result['fine_minus_coarse']={'native_occupancy_area_mm2':fine['native_winding_occupancy']['area_mm2']-coarse['native_winding_occupancy']['area_mm2'],'shadow_occupancy_area_mm2':fine['shadow_any_collider_occupancy']['area_mm2']-coarse['shadow_any_collider_occupancy']['area_mm2'],'bands':{}}
+  for band in ['1','2','5']:
+   result['fine_minus_coarse']['bands'][band]={'unsigned_whole_hand_jaccard':fine['bands'][band]['whole_hand_unsigned_near']['jaccard']-coarse['bands'][band]['whole_hand_unsigned_near']['jaccard'],'occupied_or_near_jaccard':fine['bands'][band]['occupied_or_near']['jaccard']-coarse['bands'][band]['occupied_or_near']['jaccard'],'per_finger':{part:{k:fine['bands'][band]['independent_per_part_unsigned'][part][k]-coarse['bands'][band]['independent_per_part_unsigned'][part][k] for k in ['native_area_mm2','shadow_area_mm2','intersection_area_mm2','lost_native_area_mm2','new_shadow_area_mm2']} for part in ['thumb','index','middle','ring','little']}}
+ if 'collision_to_visual_reverse_reference' in case:result['collision_to_visual_reverse_reference']=case['collision_to_visual_reverse_reference']
+ return result
+summary={'schema':'hug_other_object_surface_results_summary_v1','script_sha256':sha(__file__),'scope':'Same six preexisting seed-0 HUG poses; two diagnostic query domains kept separate. Each has 2mm area-density samples and first-group 1mm repeats, with1/2/5mm proximity bands. Density is sqrt(maximum query triangle area), not uniform maximum-edge spacing.','inputs':{'collision_report_sha256':sha(OUT/'hug_other_object_surfaces.json'),'visual_report_sha256':sha(OUT/'visual_reference_surfaces/hug_visual_reference_surfaces.json')},'collision_union_v3':{'protocol_sha256':collision['protocol_sha256'],'cases':[condensed(c) for c in collision['cases']]},'actual_visual_surface_v4':{'protocol_sha256':visual['protocol_sha256'],'cases':[condensed(c) for c in visual['cases']]},'collision_minus_visual_same_case_2mm_band':[],'interpretation':'Unsigned per-finger proximity changes persist on the actual source visual surface as well as collision-union boundary. Occupancy remains separate and normal comparisons condition on globally exterior, matching nearest anatomy. Geometric changes retain original poor proposals and are not physical-contact, equivalence, predictive-accuracy or acceptance evidence.','phase_history':'v2 diagnostic superseded for collision-union metrics because exactly abutting hull seams were retained. v3 adds outward-probe removal. v4 is a separate visual-reference metric family, not a supersession of v3.'}
+for cc,vc in zip(collision['cases'],visual['cases'],strict=True):
+ assert cc['native_sha256']==vc['native_sha256'];c=cc['resolutions']['2'];v=vc['resolutions']['2'];summary['collision_minus_visual_same_case_2mm_band'].append({'object_id':cc['object_id'],'native_sha256':cc['native_sha256'],'unsigned_whole_hand_jaccard_difference':c['bands']['2']['whole_hand_unsigned_near']['jaccard']-v['bands']['2']['whole_hand_unsigned_near']['jaccard'],'occupied_or_near_jaccard_difference':c['bands']['2']['occupied_or_near']['jaccard']-v['bands']['2']['occupied_or_near']['jaccard'],'collision_exposed_sample_area_mm2':c['object_query_surface']['retained_union_surface_area_mm2'],'visual_sample_area_mm2':v['visual_query_surface']['area_mm2']})
+for domain,report in [('collision_union_v3',collision),('actual_visual_surface_v4',visual)]:
+ summary[domain]['six_case_jaccard_ranges_density2mm']={band:{kind:[min(c['resolutions']['2']['bands'][band][kind]['jaccard'] for c in report['cases']),max(c['resolutions']['2']['bands'][band][kind]['jaccard'] for c in report['cases'])] for kind in ['whole_hand_unsigned_near','occupied_or_near']} for band in ['1','2','5']}
+(OUT/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+for domain in ['collision_union_v3','actual_visual_surface_v4']:
+ print(domain,summary[domain]['six_case_jaccard_ranges_density2mm']['2'])
+ for c in summary[domain]['cases']:
+  print(c['object_id'],c['source_case'],'IoU',c['resolutions']['2']['bands']['2']['whole_hand_unsigned_near']['jaccard'],'fine delta',c.get('fine_minus_coarse',{}).get('bands',{}).get('2',{}).get('unsigned_whole_hand_jaccard'))
+  if 'collision_to_visual_reverse_reference' in c:print('reverse',c['collision_to_visual_reverse_reference'])

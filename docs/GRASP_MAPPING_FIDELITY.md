@@ -267,10 +267,16 @@ physical grasp behavior across different hand surfaces and simulators.
 The HUG-only finer-grid and anatomically matched surface follow-up is complete,
 and numerical transform/joint consistency extends to 32 existing poses; see
 [the continuation](HUG_MAPPING_CONFIRMATION.md). Contact fidelity remains
-unconfirmed. Next inspect the wrist/palm anchor and additional existing object
-surfaces, then actual native artifacts for each remaining source individually.
-This evidence should precede collection or predictor training. The proposed
-cross-generator prediction study remains unrun.
+unconfirmed. Wrist/palm proxies on all 32 poses and surfaces on six existing
+apple/milk-box/mug cases are now checked; see the new section in
+[the HUG note](HUG_MAPPING_CONFIRMATION.md). A common translation does not
+explain the residuals, and native/target surface proximity differs on both
+collision and visual references. The object collision approximation itself
+also differs from the visual mesh. Next audit that geometry and define a
+contact-preservation objective and separate calibration/validation groups
+before changing HUG's mapper. HUG remains active before advancing providers.
+The proposed cross-generator prediction study remains unrun; no new evaluation
+data or fitting accompanied these static checks.
 
 ## Audit artifacts and reproduction
 
