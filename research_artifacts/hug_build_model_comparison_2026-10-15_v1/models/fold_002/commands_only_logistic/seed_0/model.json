@@ -1,0 +1,95 @@
+{
+  "artifacts": {
+    "model.npz": "sha256:c6b8c6070855f3d26800786eb788ddcc4101b404981e0d55633e379b0d51c8b7",
+    "normalizer.npz": "sha256:1df87c17942b09278cd788fa7033965f48cb38b8ef5270c69178845fa744ea42"
+  },
+  "input_contract": {
+    "control_timestep_s": 0.04,
+    "dtype": "float32",
+    "excluded_features": [
+      "requested targets",
+      "contacts",
+      "diagnostics",
+      "full simulator state",
+      "object state/properties",
+      "outcome/failure labels",
+      "mapping/filter status",
+      "native/mapped pose metadata",
+      "phase/time",
+      "provenance/seeds"
+    ],
+    "features": 1440,
+    "fields": [
+      "hand_qpos",
+      "hand_qvel",
+      "applied_target_rad"
+    ],
+    "flatten_order": "time-major, then field, then joint",
+    "history_steps": 20,
+    "joint_names": [
+      "WRJ2",
+      "WRJ1",
+      "FFJ4",
+      "FFJ3",
+      "FFJ2",
+      "FFJ1",
+      "MFJ4",
+      "MFJ3",
+      "MFJ2",
+      "MFJ1",
+      "RFJ4",
+      "RFJ3",
+      "RFJ2",
+      "RFJ1",
+      "LFJ5",
+      "LFJ4",
+      "LFJ3",
+      "LFJ2",
+      "LFJ1",
+      "THJ5",
+      "THJ4",
+      "THJ3",
+      "THJ2",
+      "THJ1"
+    ],
+    "prediction_time_s": 2.96,
+    "protocol_id": "hug_grasp_approach_close_prefix_v1"
+  },
+  "kind": "commands_only_logistic",
+  "schema_version": "hug_recorded_predictor_v1",
+  "seed": 0,
+  "selection": {
+    "candidates": [
+      {
+        "converged": true,
+        "iterations": 102,
+        "regularization": 0.001,
+        "validation_log_loss": 1.3884160947669593
+      },
+      {
+        "converged": true,
+        "iterations": 49,
+        "regularization": 0.01,
+        "validation_log_loss": 0.8214495264189451
+      },
+      {
+        "converged": true,
+        "iterations": 25,
+        "regularization": 0.1,
+        "validation_log_loss": 0.2855041465522734
+      },
+      {
+        "converged": true,
+        "iterations": 13,
+        "regularization": 1.0,
+        "validation_log_loss": 0.6577384298458029
+      }
+    ],
+    "seed_effect": "deterministic fit",
+    "selected_candidate": 2,
+    "selection_metric": "validation_log_loss"
+  },
+  "selection_sha256": "sha256:92109c2eed38aef8d135b78a502fad6eabc8b824d317b93c1e08cdc8d340a452",
+  "training_episode_ids_sha256": "sha256:111db08decc9cd54b16a206d0d27114a99ebd850d997582988d6dbf75421a85f",
+  "validation_episode_ids_sha256": "sha256:a94af8f9f897bae7502d45919114c50f38a662cc8236ff6276b8c9428ab900c1"
+}

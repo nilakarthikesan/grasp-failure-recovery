@@ -1,0 +1,96 @@
+{
+  "artifacts": {
+    "model.npz": "sha256:1b8f3b0a97afaa8c32a00d3b0de29ea1ace6448e465bec52e60762c50c02d222",
+    "normalizer.npz": "sha256:dbb570f96d69d9d415a45c35d4b3ecdc4a0564062f68655f55d6e2427ef8816d"
+  },
+  "input_contract": {
+    "control_timestep_s": 0.04,
+    "dtype": "float32",
+    "excluded_features": [
+      "requested targets",
+      "contacts",
+      "diagnostics",
+      "full simulator state",
+      "object state/properties",
+      "outcome/failure labels",
+      "mapping/filter status",
+      "native/mapped pose metadata",
+      "phase/time",
+      "provenance/seeds"
+    ],
+    "features": 1440,
+    "fields": [
+      "hand_qpos",
+      "hand_qvel",
+      "applied_target_rad"
+    ],
+    "flatten_order": "time-major, then field, then joint",
+    "history_steps": 20,
+    "joint_names": [
+      "WRJ2",
+      "WRJ1",
+      "FFJ4",
+      "FFJ3",
+      "FFJ2",
+      "FFJ1",
+      "MFJ4",
+      "MFJ3",
+      "MFJ2",
+      "MFJ1",
+      "RFJ4",
+      "RFJ3",
+      "RFJ2",
+      "RFJ1",
+      "LFJ5",
+      "LFJ4",
+      "LFJ3",
+      "LFJ2",
+      "LFJ1",
+      "THJ5",
+      "THJ4",
+      "THJ3",
+      "THJ2",
+      "THJ1"
+    ],
+    "prediction_time_s": 2.96,
+    "protocol_id": "hug_grasp_approach_close_prefix_v1"
+  },
+  "kind": "small_gru",
+  "schema_version": "hug_recorded_predictor_v1",
+  "seed": 1,
+  "selection": {
+    "candidates": [
+      {
+        "epochs": 50,
+        "hidden_size": 16,
+        "learning_rate": 0.001,
+        "validation_log_loss": 1.37188628261964
+      },
+      {
+        "epochs": 50,
+        "hidden_size": 16,
+        "learning_rate": 0.003,
+        "validation_log_loss": 1.7220147495057003
+      },
+      {
+        "epochs": 50,
+        "hidden_size": 32,
+        "learning_rate": 0.001,
+        "validation_log_loss": 0.9333430897130407
+      },
+      {
+        "epochs": 50,
+        "hidden_size": 32,
+        "learning_rate": 0.003,
+        "validation_log_loss": 2.17627886936637
+      }
+    ],
+    "input_size": 72,
+    "selected_candidate": 2,
+    "selection_metric": "validation_log_loss",
+    "torch_version": "2.11.0"
+  },
+  "selection_sha256": "sha256:6b8089db8118e20c6c895eea853ac5376f18e8dc7948c15b16ede5e43bcbdb5b",
+  "training_episode_ids_sha256": "sha256:9f8bcfb0c87120e97d3a36b55b52350adbbe3a40d7653132b26bcdf2c0ee1fad",
+  "validation_episode_ids_sha256": "sha256:8c564150b6dd9c0f0be01e1d9e9adc38000fbdf18d251b0be52bed0b96aa259b"
+}

@@ -1,0 +1,96 @@
+{
+  "artifacts": {
+    "model.npz": "sha256:9e355e9c51b66457e138cb74a81f727583c37dc99c64e4295884a4b013c15ccd",
+    "normalizer.npz": "sha256:dbb570f96d69d9d415a45c35d4b3ecdc4a0564062f68655f55d6e2427ef8816d"
+  },
+  "input_contract": {
+    "control_timestep_s": 0.04,
+    "dtype": "float32",
+    "excluded_features": [
+      "requested targets",
+      "contacts",
+      "diagnostics",
+      "full simulator state",
+      "object state/properties",
+      "outcome/failure labels",
+      "mapping/filter status",
+      "native/mapped pose metadata",
+      "phase/time",
+      "provenance/seeds"
+    ],
+    "features": 1440,
+    "fields": [
+      "hand_qpos",
+      "hand_qvel",
+      "applied_target_rad"
+    ],
+    "flatten_order": "time-major, then field, then joint",
+    "history_steps": 20,
+    "joint_names": [
+      "WRJ2",
+      "WRJ1",
+      "FFJ4",
+      "FFJ3",
+      "FFJ2",
+      "FFJ1",
+      "MFJ4",
+      "MFJ3",
+      "MFJ2",
+      "MFJ1",
+      "RFJ4",
+      "RFJ3",
+      "RFJ2",
+      "RFJ1",
+      "LFJ5",
+      "LFJ4",
+      "LFJ3",
+      "LFJ2",
+      "LFJ1",
+      "THJ5",
+      "THJ4",
+      "THJ3",
+      "THJ2",
+      "THJ1"
+    ],
+    "prediction_time_s": 2.96,
+    "protocol_id": "hug_grasp_approach_close_prefix_v1"
+  },
+  "kind": "small_gru",
+  "schema_version": "hug_recorded_predictor_v1",
+  "seed": 2,
+  "selection": {
+    "candidates": [
+      {
+        "epochs": 50,
+        "hidden_size": 16,
+        "learning_rate": 0.001,
+        "validation_log_loss": 0.7176552794367408
+      },
+      {
+        "epochs": 50,
+        "hidden_size": 16,
+        "learning_rate": 0.003,
+        "validation_log_loss": 0.8497178193827701
+      },
+      {
+        "epochs": 50,
+        "hidden_size": 32,
+        "learning_rate": 0.001,
+        "validation_log_loss": 1.2003788534979236
+      },
+      {
+        "epochs": 50,
+        "hidden_size": 32,
+        "learning_rate": 0.003,
+        "validation_log_loss": 2.3533056007408275
+      }
+    ],
+    "input_size": 72,
+    "selected_candidate": 0,
+    "selection_metric": "validation_log_loss",
+    "torch_version": "2.11.0"
+  },
+  "selection_sha256": "sha256:8c0d9a8105240f2444dec3bf00877161dc0e80b7f609871c296fc3224b71a022",
+  "training_episode_ids_sha256": "sha256:9f8bcfb0c87120e97d3a36b55b52350adbbe3a40d7653132b26bcdf2c0ee1fad",
+  "validation_episode_ids_sha256": "sha256:8c564150b6dd9c0f0be01e1d9e9adc38000fbdf18d251b0be52bed0b96aa259b"
+}

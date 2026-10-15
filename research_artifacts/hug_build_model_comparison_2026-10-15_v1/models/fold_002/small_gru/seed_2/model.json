@@ -1,0 +1,96 @@
+{
+  "artifacts": {
+    "model.npz": "sha256:9600b3b1a2ea772b1e0bc5f9c894205bd48e4b3b3219750e36b936d7b7974b8e",
+    "normalizer.npz": "sha256:811334d23263d3714bff97c281390a2a41d220a2a091df407d471664dfbce84a"
+  },
+  "input_contract": {
+    "control_timestep_s": 0.04,
+    "dtype": "float32",
+    "excluded_features": [
+      "requested targets",
+      "contacts",
+      "diagnostics",
+      "full simulator state",
+      "object state/properties",
+      "outcome/failure labels",
+      "mapping/filter status",
+      "native/mapped pose metadata",
+      "phase/time",
+      "provenance/seeds"
+    ],
+    "features": 1440,
+    "fields": [
+      "hand_qpos",
+      "hand_qvel",
+      "applied_target_rad"
+    ],
+    "flatten_order": "time-major, then field, then joint",
+    "history_steps": 20,
+    "joint_names": [
+      "WRJ2",
+      "WRJ1",
+      "FFJ4",
+      "FFJ3",
+      "FFJ2",
+      "FFJ1",
+      "MFJ4",
+      "MFJ3",
+      "MFJ2",
+      "MFJ1",
+      "RFJ4",
+      "RFJ3",
+      "RFJ2",
+      "RFJ1",
+      "LFJ5",
+      "LFJ4",
+      "LFJ3",
+      "LFJ2",
+      "LFJ1",
+      "THJ5",
+      "THJ4",
+      "THJ3",
+      "THJ2",
+      "THJ1"
+    ],
+    "prediction_time_s": 2.96,
+    "protocol_id": "hug_grasp_approach_close_prefix_v1"
+  },
+  "kind": "small_gru",
+  "schema_version": "hug_recorded_predictor_v1",
+  "seed": 2,
+  "selection": {
+    "candidates": [
+      {
+        "epochs": 50,
+        "hidden_size": 16,
+        "learning_rate": 0.001,
+        "validation_log_loss": 0.9832025365002898
+      },
+      {
+        "epochs": 50,
+        "hidden_size": 16,
+        "learning_rate": 0.003,
+        "validation_log_loss": 1.1595217265920101
+      },
+      {
+        "epochs": 50,
+        "hidden_size": 32,
+        "learning_rate": 0.001,
+        "validation_log_loss": 0.8978950035557935
+      },
+      {
+        "epochs": 50,
+        "hidden_size": 32,
+        "learning_rate": 0.003,
+        "validation_log_loss": 1.7178991830507
+      }
+    ],
+    "input_size": 71,
+    "selected_candidate": 2,
+    "selection_metric": "validation_log_loss",
+    "torch_version": "2.11.0"
+  },
+  "selection_sha256": "sha256:297f9c682e9546940067f971100b40febce4a4f118fbc25ed80a22a4e3bf194a",
+  "training_episode_ids_sha256": "sha256:111db08decc9cd54b16a206d0d27114a99ebd850d997582988d6dbf75421a85f",
+  "validation_episode_ids_sha256": "sha256:a94af8f9f897bae7502d45919114c50f38a662cc8236ff6276b8c9428ab900c1"
+}

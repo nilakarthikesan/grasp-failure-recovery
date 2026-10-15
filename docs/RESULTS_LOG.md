@@ -461,3 +461,28 @@ Five models×3seeds×4folds=60slots; at most4candidates each, fixed0.5warning
 threshold, validation logloss selection only. GRU50epochs and logistic400iteration
 caps remain as committed before task labels. No real fitting has occurred at
 this declaration. Learned models must be frozen before reserve HUG/task outcomes.
+
+
+## 15 October 2026 — Phase 4 real fixed model comparison
+
+Frozen fitting declaration/HEAD064bfb3, protocolSHA4e6668494b0d4bd51e991ad6c7a5b50cf997c369bf1c1aa90148455b3fff1c2d.
+All60model/fold/seed slots completed:5kinds×4heldcategories×3trainingseeds,
+zero skips/errors,7.564s,zero integration attempts. Model/readback artifacts,
+train-only normalizers, validation-only candidate selections and held predictions
+are saved and hash-bound. Start/endGitcommit agree; no tuning/split/threshold
+changes were made. Logistic/prevalence seed repetitions are deterministic, not
+independent experiments.
+
+Unweighted mean of the fourfold×three-seed failureAUROCs (descriptive; no
+confidence interval or test-driven model selection): training_prevalence0.500000,
+commands_only_logistic0.401080, summary_logistic0.593973,
+full_history_logistic0.492607, small_gru0.399216. Corresponding logloss means:
+0.855108,1.112681,1.369674,1.506852,0.873559. Summary-logistic fixedthreshold0.5
+has mean failurerecall0.376702 and successfalsewarningrate0.327614. Its AUROC by
+heldobject: apple0.745040,cube0.811111,milk0.254525,mug0.565217. These uneven
+results do not establish reliable category transfer or calibrated deployment.
+
+No test result selects the primary reserve model or threshold: summary_logistic
+and0.5were fixed before reserve outcomes. All60completed bundles will be frozen
+and evaluated as declared; no reserve-based refit/selection is allowed. The
+learned target remains final task outcome from beforelift, not slip onset.

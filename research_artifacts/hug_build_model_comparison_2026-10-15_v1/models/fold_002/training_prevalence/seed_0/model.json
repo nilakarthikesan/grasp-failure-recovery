@@ -1,0 +1,69 @@
+{
+  "artifacts": {
+    "model.npz": "sha256:e6b2b906dc33b04044466f3ce9b9a9f0f02dbf503b7218a674fee4954ed29e6b",
+    "normalizer.npz": "sha256:e4055f38fa92cedd7a63d73a06646e7ae37fd6bc98802ab3b8bd5f48e00a2938"
+  },
+  "input_contract": {
+    "control_timestep_s": 0.04,
+    "dtype": "float32",
+    "excluded_features": [
+      "requested targets",
+      "contacts",
+      "diagnostics",
+      "full simulator state",
+      "object state/properties",
+      "outcome/failure labels",
+      "mapping/filter status",
+      "native/mapped pose metadata",
+      "phase/time",
+      "provenance/seeds"
+    ],
+    "features": 1440,
+    "fields": [
+      "hand_qpos",
+      "hand_qvel",
+      "applied_target_rad"
+    ],
+    "flatten_order": "time-major, then field, then joint",
+    "history_steps": 20,
+    "joint_names": [
+      "WRJ2",
+      "WRJ1",
+      "FFJ4",
+      "FFJ3",
+      "FFJ2",
+      "FFJ1",
+      "MFJ4",
+      "MFJ3",
+      "MFJ2",
+      "MFJ1",
+      "RFJ4",
+      "RFJ3",
+      "RFJ2",
+      "RFJ1",
+      "LFJ5",
+      "LFJ4",
+      "LFJ3",
+      "LFJ2",
+      "LFJ1",
+      "THJ5",
+      "THJ4",
+      "THJ3",
+      "THJ2",
+      "THJ1"
+    ],
+    "prediction_time_s": 2.96,
+    "protocol_id": "hug_grasp_approach_close_prefix_v1"
+  },
+  "kind": "training_prevalence",
+  "schema_version": "hug_recorded_predictor_v1",
+  "seed": 0,
+  "selection": {
+    "candidates": [],
+    "p_success": 0.703125,
+    "selection_metric": "none; training prevalence"
+  },
+  "selection_sha256": "sha256:12cd06c0d0b765e5668a37187c320061d015d21fcf63eb3ddf8a6fbe8a1c41c8",
+  "training_episode_ids_sha256": "sha256:111db08decc9cd54b16a206d0d27114a99ebd850d997582988d6dbf75421a85f",
+  "validation_episode_ids_sha256": "sha256:a94af8f9f897bae7502d45919114c50f38a662cc8236ff6276b8c9428ab900c1"
+}
