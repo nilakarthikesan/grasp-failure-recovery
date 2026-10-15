@@ -2674,3 +2674,22 @@ explicit shape identity and follow-up protocol are in preparation; no actual
 build has run. The missing Trimesh dependency was installed as5.1.1 without
 changing NumPy/other dependencies; pin and qualify its mass-property API before
 the builder freeze. No scientific acceptance threshold or HUG output changes.
+
+## 2026-10-15 — Separate generated-hand provenance from transfer validity
+
+Measured: the literal exported-shape hand built once under freeze a8cc986 and
+protocol fc93126d, with one neutral MANO forward, sixteen bone meshes and both
+upstream collision variants. Total producer mass is 0.4 kg to floating-point
+precision. No MuJoCo model, forward or integration was executed. The original
+declaration's parent preflight refusal is preserved separately; it never
+launched a builder. Corrected only the classification of committed code versus
+hash-bound ignored runtime assets.
+
+Decision: construction establishes provenance, not kinematic, geometric or
+physical validity. Independently verify the saved producer trace and all 19
+generated asset hashes, then freeze a separate audit of saved development
+grasps 20/28. Keep the original HUG shape, skin, frames, full query fields and
+acceptance limits. Joint-anchor/rotation transfer and collision-surface
+preservation receive separate verdicts. Collection/training stay disabled.
+Status: build complete; independent readback and actual native audit pending at
+this entry. No manuscript edits.

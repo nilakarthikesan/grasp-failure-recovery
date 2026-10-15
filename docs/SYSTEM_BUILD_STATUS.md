@@ -55,8 +55,8 @@ caps and retain all previously passing fields in both development cases.
 Milk's definite failures change 530 to 529 through one newly unresolved tuple;
 mug resolves four prior unknowns while all 3183 definite failures persist.
 Neither is faithful-transfer admission. The user's MANOSim reference is the
-next priority: its native HUG hand shape matches our source bytes and permits
-direct MANO joint transfer. Static pose qualification and separate collision
+next priority: its nominal hand shape file matches HUG's source file and provides
+an explicit native MANO joint interface. Static pose qualification and separate collision
 approximation measurements are being built; simulator realism remains unproved.
 
 The first native test now refuses before all forwards because the actual grasp
@@ -65,6 +65,14 @@ the same values, exactly consistent with BF16 rounding. A shape-matched hand
 must be built from those literal parameters before posing or collider testing;
 the canonical hand is not silently substituted. No native fidelity result or
 new task data follows from that refusal.
+
+The exact exported-shape hand has now built successfully using the pinned
+right-only MANOSim builder. Independent saved-data readback verifies 1,832 input
+bindings, all 19 generated assets, exact beta equality and 91 producer arrays.
+The raw mass is 0.4 kg; raw and serialized inertia checks pass. This stage used
+one neutral MANO forward, zero MuJoCo models/forwards and zero integration.
+Native pose and collider-field validation are the next separate experiment;
+this build receipt does not establish faithful transfer or simulator realism.
 
 ## Beginning of the system: decision and evidence boundary
 

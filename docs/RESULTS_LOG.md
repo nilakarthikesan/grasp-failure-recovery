@@ -890,3 +890,22 @@ historical geometry/provider inputs before creating an output directory or
 launching a worker. Preserved the original declaration and explicit refusal.
 Corrected only committed-code selection; all1832 input hashes remain required.
 New `build_protocol_v2.json` and107-pass controls precede the first actual build.
+
+### 2026-10-15 — Exact exported-shape MANOSim build and independent readback
+
+Executed once at a8cc986 under active protocol fc93126db674f6653614a89269616fda65e816928db361a6c98f97ac4739406f:
+COMPLETE in 2.55 s wall time, one neutral MANO forward, zero MuJoCo model/forward
+or integration, zero generation/retarget attempts. Produced the literal shape,
+two XMLs and sixteen OBJ assets. Builder report SHA178b66db3881b202ace1163cf8a3af1c957c811a04e16ddf00a1fe133cdceb31;
+generated shape SHA4ffb005c8ce6636506c2bfee215d3c0e3dc3a561fc4206a8a9cbec27f3b33937.
+
+Independent readback (SHAfda553cf728540c582ae5733cdd4d42e1281c062418c5d722f95c1aa9697e838)
+verifies all 1,832 bindings before/after, 19 assets, 35 inventoried files and 91
+saved arrays without model/FK/geometry execution. Native beta in both records
+equals generated NPY and actual producer input; neutral pose/mean are zero.
+Producer mass is exactly 0.4 kg, all raw/XML inertias pass positive-eigenvalue
+and physical triangle checks. XML mass sums to 0.399999780 kg after serialization;
+OBJ rounding is at most 0.499306 micrometres. These are provenance and basic
+asset checks, not dynamic calibration. Pose/surface fidelity remain NOT_RUN.
+Tracked receipts are under `manosim_native_transfer_2026-10-15_v2/build_run_v1`;
+derived geometry stays ignored and byte-bound. Collection/training stay paused.
