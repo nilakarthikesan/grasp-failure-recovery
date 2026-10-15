@@ -121,7 +121,9 @@ def _lowest_world_z(model: mujoco.MjModel, data: mujoco.MjData, geom: int) -> fl
         mesh = int(model.geom_dataid[geom])
         start = int(model.mesh_vertadr[mesh])
         count = int(model.mesh_vertnum[mesh])
-        return center + float(np.min(model.mesh_vert[start : start + count] @ row))
+        return center + float(np.min(np.einsum(
+            "ij,j->i", model.mesh_vert[start : start + count], row, optimize=False
+        )))
     if kind == mujoco.mjtGeom.mjGEOM_BOX:
         support = np.abs(row) @ size
     elif kind == mujoco.mjtGeom.mjGEOM_SPHERE:

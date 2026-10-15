@@ -255,7 +255,7 @@ def _write_artifacts(
     return result
 
 
-def run_proposal_case(
+def _run_proposal_case(
     case_path: str | Path,
     output_dir: str | Path,
     *,
@@ -263,26 +263,39 @@ def run_proposal_case(
     record_video: bool = True,
     verify_native_artifacts: bool = False,
     project_root: str | Path | None = None,
+    recording_context=None,
 ) -> ProposalExecutionResult:
     project = Path(project_root or ".").resolve()
     output = Path(output_dir)
     _ensure_empty_output(output)
     case = load_execution_case(case_path)
+    if recording_context is not None:
+        recording_context.bind(case=case)
     resolved = resolve_case(case)
+    if recording_context is not None:
+        recording_context.bind(resolved=resolved)
     _validate_case_configuration(case)
     geometry = _resolve_object_geometry(case, project)
+    if recording_context is not None:
+        recording_context.bind(geometry=geometry)
     proposal_path = (project / case.grasp.proposal_path).resolve()
     if not proposal_path.is_relative_to(project):
         raise ValueError("proposal path escapes the project root")
+    if recording_context is not None:
+        recording_context.bind(proposal_path=proposal_path)
     proposal = load_proposal(
         proposal_path,
         expected_hash=case.grasp.expected_proposal_hash,
-        verify_native_artifacts=verify_native_artifacts,
+        verify_native_artifacts=verify_native_artifacts or recording_context is not None,
     )
+    if recording_context is not None:
+        recording_context.bind(proposal=proposal)
     if proposal.proposal_id != case.grasp.id:
         raise ValueError("proposal ID does not match the evaluation case")
     providers = load_provider_registry()
     spec = providers.resolve(proposal.provider.id, proposal.provider.config_hash)
+    if recording_context is not None:
+        recording_context.bind(provider_spec=spec)
     if proposal.object.id != case.object.id:
         raise ValueError("proposal object ID does not match the evaluation case")
     if proposal.object.geometry_content_hash != _geometry_content_hash(geometry):
@@ -295,6 +308,8 @@ def run_proposal_case(
         raise ValueError("provider is incompatible with the selected execution protocol")
     if proposal.approach_semantics != spec.approach_semantics:
         raise ValueError("proposal approach semantics do not match its provider registry entry")
+    if recording_context is not None:
+        recording_context.validate_inputs()
     try:
         pose, validation = _validate_pose(proposal)
         _scene_preflight(proposal)
@@ -311,6 +326,8 @@ def run_proposal_case(
         _write_json(output / "rejection.json", artifact.model_dump(mode="json"))
         raise
     runner_type = _runner_class(resolved)
+    if recording_context is not None:
+        runner_type = recording_context.runner_class(runner_type)
     runner = runner_type(
         resolved.execution_protocol,
         default_dex_urdf_root(),
@@ -318,6 +335,8 @@ def run_proposal_case(
         control_timestep_s=resolved.environment.simulator.control_timestep_s,
         object_geometry=geometry,
     )
+    if recording_context is not None:
+        recording_context.bind(runner=runner)
     initial = case.initial_condition
     object_xyzw = np.asarray(initial.object_orientation_xyzw, dtype=np.float64)
     object_xyzw /= np.linalg.norm(object_xyzw)
@@ -330,6 +349,9 @@ def run_proposal_case(
     palm_position, palm_quaternion = _world_palm(case, proposal)
     output.mkdir(parents=True, exist_ok=True)
     shutil.copy2(proposal_path, output / "proposal.json")
+    if recording_context is not None:
+        recording_context.verify_bindings()
+        recording_context.execution_started = True
     trace = _execute(
         runner,
         pose,
@@ -344,6 +366,8 @@ def run_proposal_case(
         resolved.execution_protocol,
         control_timestep_s=runner.control_timestep_s,
     )
+    if recording_context is not None:
+        recording_context.bind(trace=trace, outcome=outcome)
     result = _write_artifacts(
         output,
         resolved=resolved,
@@ -356,13 +380,53 @@ def run_proposal_case(
         video=Path("rollout.mp4") if record_video else None,
         provider_spec=spec,
     )
-    print(json.dumps({
-        "case_id": result.case_id,
-        "provider_id": result.provider_id,
-        "success": result.success,
-        "failure_type": result.failure_type,
-        "output": str(output),
-    }, indent=2))
+    if recording_context is None:
+        _print_result(result, output)
+    return result
+
+
+def _print_result(result: ProposalExecutionResult, output: Path) -> None:
+    print(json.dumps({"case_id": result.case_id, "provider_id": result.provider_id,
+                      "success": result.success, "failure_type": result.failure_type,
+                      "output": str(output)}, indent=2))
+
+
+def run_proposal_case(
+    case_path: str | Path,
+    output_dir: str | Path,
+    *,
+    viewer: bool = False,
+    record_video: bool = True,
+    verify_native_artifacts: bool = False,
+    project_root: str | Path | None = None,
+    recording_schema: str | None = None,
+) -> ProposalExecutionResult:
+    """Execute normally, or explicitly opt into the versioned HUG recorder.
+
+    Opt-in failures preserve a null-outcome attempt before re-raising the
+    original error. The default path retains existing artifacts and behavior.
+    """
+    options = dict(viewer=viewer, record_video=record_video,
+                   verify_native_artifacts=verify_native_artifacts, project_root=project_root)
+    if recording_schema is None:
+        return _run_proposal_case(case_path, output_dir, **options)
+    from .prediction_recording import HugPredictionRecording, RECORDING_SCHEMA
+    if recording_schema != RECORDING_SCHEMA:
+        raise ValueError(f"unsupported prediction recording schema: {recording_schema}")
+    output, project = Path(output_dir), Path(project_root or ".").resolve()
+    _ensure_empty_output(output)
+    context = HugPredictionRecording(case_path, output, project)
+    try:
+        result = _run_proposal_case(case_path, context.stage_output, recording_context=context, **options)
+        context.complete(context.trace, context.outcome)
+    except Exception as error:
+        try:
+            context.fail(error)
+        except Exception as persistence_error:
+            if hasattr(error, "add_note"):
+                error.add_note(f"prediction attempt persistence also failed: {persistence_error}")
+        raise
+    _print_result(result, output)
     return result
 
 
@@ -374,6 +438,8 @@ def main() -> None:
     parser.add_argument("--viewer", action="store_true")
     parser.add_argument("--no-video", dest="record_video", action="store_false")
     parser.add_argument("--verify-native-artifacts", action="store_true")
+    parser.add_argument("--recording-schema", choices=["hug_prediction_recording_v1"],
+                        help="Opt in to HUG-only aligned observables and null-outcome refusal/runtime records")
     parser.set_defaults(record_video=True)
     args = parser.parse_args()
     run_proposal_case(
@@ -383,6 +449,7 @@ def main() -> None:
         record_video=args.record_video,
         verify_native_artifacts=args.verify_native_artifacts,
         project_root=args.project_root,
+        recording_schema=args.recording_schema,
     )
 
 

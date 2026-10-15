@@ -132,6 +132,7 @@ class HugProposalProvider:
     def __init__(self, spec: ProviderSpec, *, project_root: Path, hug_root: Path, checkpoint: Path):
         self.spec = spec
         self.project_root = project_root
+        self.adapter_root = Path(__file__).resolve().parents[3]
         self.hug_root = hug_root.resolve()
         self.checkpoint = checkpoint.resolve()
         if not self.hug_root.is_dir():
@@ -174,7 +175,7 @@ class HugProposalProvider:
                 stale.unlink(missing_ok=True)
             command = [
                 sys.executable,
-                str(self.project_root / "scripts" / "infer_sim_observation.py"),
+                str(self.adapter_root / "scripts" / "infer_sim_observation.py"),
                 "--hug-root", str(self.hug_root),
                 "--observation", str(native),
                 "--checkpoint", str(self.checkpoint),
@@ -241,7 +242,7 @@ class HugProposalProvider:
                     id=self.spec.provider_id,
                     config_hash=registry_hash,
                     code_revision=str(report.get("hug_code_commit") or "unknown"),
-                    adapter_code_revision=_code_revision(self.project_root),
+                    adapter_code_revision=_code_revision(self.adapter_root),
                     checkpoint_hash="sha256:" + str(report["checkpoint_sha256"]),
                 ),
                 generation=GenerationRecord(seed=sample_seed, sample_index=sample_index),
