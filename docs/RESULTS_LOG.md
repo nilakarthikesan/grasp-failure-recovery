@@ -376,3 +376,26 @@ bounded validation-only tuning budget.25manufactured controls pass, including
 tiny synthetic persistence/GRU checks. These are software results, not scientific
 model performance. Their real-data execution remains later in Phase3/4. No
 manuscript files changed.
+
+
+## 15 October 2026 — Phase 2 bounded fresh pilot
+
+Frozen source/protocol74eaeed; proposal/scenario freeze0ba5beb. Pilot completed
+all20declared slots without integrity/runtime errors:16physical completions,
+4approach refusals with null outcomes. Physical labels are8successes,
+7failed_acquisition and1drop. Exactly52160task steps; no retries/replacements.
+Nominal closed-state filter cohort32:11accepted,16rejected,5unreachable NOT_RUN;
+120960close+filter steps, no numerical errors. Filter status never became a task
+label and both accepted/rejected schedules were retained.
+
+Strict causal export includes16prefixes(8success/8failure), excludes4refusals,
+and binds four geometries/sixcaptures/twelveproposal families. Each X is20
+endpoints from2.20..2.96s at25Hz,24joints×(qpos,qvel,appliedtarget),1440float32
+features. Raw requested commands/contacts/fullstate/physics properties/provenance
+are excluded from X. The complete observables/diagnostics remain local and hashed.
+
+Per-object planned5each: apple2success/3failed_acquisition; milk1success/
+3failed_acquisition/1drop; mug1failed_acquisition/4null plannerrefusals; cube5success.
+These are pilot engineering measurements, not held-out model performance.
+Source/protocol gates unchanged. The predeclared256slot study remains separately
+authorized after integrity inspection, with no attempt to repair class balance.
