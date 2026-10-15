@@ -87,6 +87,18 @@ joint poses fixed. Current production hand/controller/data remain unchanged;
 collection and training stay blocked. Static checks do not establish physical
 simulator realism.
 
+The saved construction diagnostic now reproduces the original skin reference
+exactly and reproduces actual compiled collider fields within 4.12 nm with
+identical classification masks. With validated poses fixed, the rigid surrogate
+has zero lost/one added relationship per case before cross-bone face removal;
+dropping 311 such faces increases lost counts to 7/256. Upstream hulls change
+these to the measured 5/200 lost plus 11/22 added. This local sequential result
+identifies collision construction as the next repair target. It does not
+qualify any counterfactual surface for dynamic simulation. All 1,914 inputs and
+38 artifacts are independently verified. The user is choosing whether the final
+predictor targets the native MANO hand or the current Shadow robot; that choice
+determines the next production hand/controller/data implementation.
+
 ## Beginning of the system: decision and evidence boundary
 
 The executable chain is rendered RGB-D/calibration → pretrained HUG MANO output

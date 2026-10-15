@@ -2752,3 +2752,38 @@ generation, optimization, physics, training and task labels. New full geometry
 stays in the existing ignored runs directory; tracked reports preserve every
 write-time hash. Source review and actual measurements remain pending at this
 entry. Manuscript files stay untouched.
+
+## 2026-10-15 — Surface loss is localized to collider construction
+
+Measured: saved-geometry protocol f5d80b06 completes both cases at freeze
+790d0d5, with nine scans each and zero model, FK-engine, physics, generator,
+retargeting or training calls. Original skinned reference distances reproduce
+exactly; removing the fourteen wrist-closure faces changes no required
+relationship in these two object-query domains. This is a local observation,
+not a general claim about open versus closed hand models.
+
+Conditional on the rigid neutral-motion surrogate, retaining all source faces
+gives zero lost/one added relationship in each case. Removing 311 cross-bone
+faces increases lost/added to 7/1 for milk and 256/1 for mug. Upstream owner-cloud
+hulls then produce 5/11 and 200/22, matching the prior compiled collider fields.
+All sixteen owner clouds have zero orphan vertices in this measured asset.
+The neutral-LBS surrogate separately leaves 472/1,093 unresolved relationships
+and zero/three definite discrepancies. Effects remain sequential and nonadditive.
+
+Final literal OBJ/XML placement with saved compiled body frames matches actual
+compiled distance fields within 1.203e-9 m / 4.116e-9 m and exactly matches their
+field masks. Quantization changes one mug unresolved relationship but not its
+222 definite discrepancies. Candidate relabeling changes some mug distances
+without changing either case's classification masks; float32 versus float64
+target-face labeling agrees. These controls rule out coordinate transfer or
+serialization as an explanation of the measured millimetre-scale gaps.
+
+Decision: a native collision repair must preserve joint-spanning surface
+connections and validate actual compiled collision geometry, rather than only
+export a detailed visual OBJ. The present diagnostic surfaces are not dynamic
+hand models. Keep all original gates and the production Shadow controller
+unchanged. A native MANO predictor and a Shadow predictor describe different
+physical systems and datasets; the target-hand choice is now explicitly pending
+with the user before a production-hand change. Collection/training stay closed.
+Independent readback verifies 1,914 bindings and 38 artifacts with no new
+geometry queries (receipt 964e55f9). Physical calibration remains outstanding.

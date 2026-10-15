@@ -986,3 +986,47 @@ a64aeee9 preparation was never executed; final identity guards and partial
 receipt publication are bound in active `protocol_v2.json` SHA
 f5d80b06df40bb900861d4fa310e999e099ed468bb527e16af0838c8a671dbf7 (1,914
 bindings). No geometry queries have run before this final declaration.
+
+### 2026-10-15 — Construction diagnostic completed and independently verified
+
+Executed active f5d80b06 at 790d0d596d62cfaedf4d2c81059345a02f8a2bc4.
+Both cases complete: 13.79/25.77 s parent wall time; nine scans each;
+220,961,176 / 524,157,616 pre-query triangle-point work units, within bounds.
+All model, MANO import, FK, physics, generation, retarget and training counters
+remain zero. Native reference distance error is exactly zero and all masks
+match before subsequent stages run. The posed uncapped source also has zero
+definite or unresolved required relationships in these query domains.
+
+Ordered stage lost/added/unresolved counts (milk; mug):
+
+- Native reference: 0/0/0; 0/0/0.
+- Posed uncapped source: 0/0/0; 0/0/0.
+- Neutral-LBS surrogate: 0/0/472; 0/3/1,093.
+- Rigid neutral surrogate: 0/1/418; 0/1/957.
+- Cross-bone faces removed, fixed target labels: 7/1/472; 256/1/1,264.
+- Same geometry with upstream owner-part labels: 7/1/472; 256/1/1,264.
+- Saved pre-OBJ owner-cloud hulls: 5/11/540; 200/22/2,159.
+- OBJ decimal serialization: 5/11/540; 200/22/2,158.
+- Literal XML plus saved compiled body frames: 5/11/540; 200/22/2,158.
+
+Target denominators remain 341,721 / 804,343. These transitions are conditional,
+nonadditive construction comparisons, not task scores. Fourteen closure faces
+and 311 cross-bone faces are distinct operations. All owner vertices already
+occur in retained triangles (zero orphan vertices); float64/float32 target face
+labels agree. Owner-part relabeling changes some mug distances but neither
+case's classification masks. Quantization affects one unresolved mug tuple;
+it does not explain the definite failures.
+
+Final source replay versus actual compiled mesh fields differs by at most
+1.2025921e-9 m / 4.1157555e-9 m with identical masks. No compiler-specific
+attribution is made. Independent saved-array verification checks all 1,914
+bindings before/after, 60 Git blobs, 38 artifacts, raw/tracked scalar copies,
+all masks/denominators/witnesses and construction arithmetic (max residual
+5.55e-17 m), without model/FK/distance queries. Receipt
+`run_v1/independent_readback.json` SHA964e55f90bdaea6af2f2b316ac36aa19e0e508bbdb038737b0fb3bc36d96c546;
+report SHA2556931a8b5e60568ed2569eff57270103fb033be37350d5103cca5579fc1214.
+
+The evidence supports a joint-spanning collider repair with fixed validated
+poses. It does not admit these diagnostic surfaces as dynamic hands or release
+collection/training. Production target remains unchanged while the user
+clarifies native MANO versus Shadow; physical calibration is still pending.
