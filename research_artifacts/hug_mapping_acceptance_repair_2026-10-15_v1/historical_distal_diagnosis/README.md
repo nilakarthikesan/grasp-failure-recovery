@@ -1,0 +1,13 @@
+# Historical distal collision geometry diagnosis
+
+The captured models reuse one compiled `f_distal_pst` mesh for index, middle, ring and little distal links. All four stored models have identical local middle/ring/little vertex sets:2,691 vertices, matching the source visual OBJ within1.017nm. The URDF intentionally uses that visual file for index collision, while the other three declare a distinct526-vertex collision OBJ. This supports the basename-alias diagnosis, separately from transform rounding.
+
+**The6.9446mm symmetric vertex-set discrepancy is not collision-boundary distortion.** It only supplies an upper bound on convex-hull Hausdorff distance and is sensitive to interior vertices and tessellation. The numerical global convex-solid Hausdorff comparison is24.512338718µm: old-to-declared24.512338718µm and declared-to-old19.193627495µm. Every1065 old and526 declared convex-hull extreme vertex was checked against every opposite hull triangle when outside; inside points have zero distance. Distance to a convex set is convex, so these extreme-vertex maxima bound the full convex solids. This is a numerical calculation, not a directed-rounding certificate. It does not establish how these differences affect contact forces or grasp outcomes.
+
+The initial independent support-plane calculation provides matching lower witnesses. A separate math.fsum recount verifies64 saved plane witnesses and their supporting target vertices; maximum target-plane residual was3.714e−18m. Seven point/triangle/hull manufactured controls validate the finite global-distance implementation; six earlier controls validate the support-plane method.
+
+`protocol.json` froze all four unique historical MJBs and four distal links before the source/asset diagnosis. `result.json` and `local_arrays.npz` preserve that result. The separately frozen `hull_distance_protocol.json` and `hull_distance_result.json` record the authorized global-distance extension. All earlier results remain unchanged. Four MJBs were read without creating MjData or calling FK; zero physics steps, new grasps or eval data were produced.
+
+The initial matrix-based plane evaluation emitted NumPy matmul warning categories, retained in run.log. Its selected witnesses were independently recounted with scalar math.fsum and target containment checked. The global hull-distance calculation avoids that matrix product and emitted no warnings. No unverified causal explanation for the earlier warnings is asserted.
+
+This diagnosis does not turn historical native-preservation failures into passes, does not establish a new anatomical tolerance, and does not validate dynamic contact equivalence.

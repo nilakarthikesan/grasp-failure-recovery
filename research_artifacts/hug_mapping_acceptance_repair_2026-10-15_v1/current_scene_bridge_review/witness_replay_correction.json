@@ -1,0 +1,9 @@
+{
+  "scope": "Reviewer-only arithmetic replay correction; no primary evidence/code/criteria changes.",
+  "initial_failure": "Reviewer expected V1 clamped far solver margin. The actually bound constraint_core is the preserved V2 unclamped far search guidance, with unchanged literal lower/upper/pass predicates.",
+  "correction": "Use d-(radius+allowance)-band in far solver-margin replay only. Literal acceptance replay is unchanged.",
+  "initial_script_sha256": "ee2b42c05871d7bb711ed32bb7cac53b8a6901d488e225b8fb4b201c53cf4cf5",
+  "corrected_script_sha256": "1e33dc6625029fb6e24ae036653ffc63649aa8324e660ff8f5552e23b19f7d99",
+  "failed_log": "/private/tmp/hug_current_scene_bridge_review_2026-10-15_v1/witness_initial_replay_failure.log",
+  "geometry_calls": 0
+}

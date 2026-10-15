@@ -1,0 +1,59 @@
+{
+  "schema": "hug_exact_eligibility_guidance_preexecution_review_v1",
+  "approved_for_bounded_execution": true,
+  "bindings": {
+    "/private/tmp/hug_feasible_eligibility_2026-10-15_v1/eligibility_case.py": "8b4f4149ddff604f9e6dad6c91902664b6eb0650029da2c037057ee02155aecb",
+    "/private/tmp/hug_feasible_eligibility_2026-10-15_v1/extended_policy.py": "4e9c08b92a87ba68d7f9584a6803df28a2c30d5fcb21e568d4a6cc24c33d4dce",
+    "/private/tmp/hug_feasible_eligibility_2026-10-15_v1/feasible_eligibility_solver.py": "c04bebe8644ed8e9525c7af9175f67ae0f5eaf7b1ed11531c19c53799d172b89",
+    "/private/tmp/hug_feasible_eligibility_2026-10-15_v1/run_eligibility.py": "e335dff4261916ef346f27c0066af65fac5cf9169b40fe397094cf331cfe4078",
+    "/private/tmp/hug_eligibility_independent_review_2026-10-15_v1/test_eligibility_guidance.py": "20367d643ec477472395c97a9c3ffc73759e966632d84170e81b0b68f9bdc569",
+    "/private/tmp/hug_eligibility_independent_review_2026-10-15_v1/test_eligibility_guidance_initial.py": "79d32208d0ff7db16c3ccddebb9cb27bfb5deda23b46351139193b68cc3ceb6d",
+    "/private/tmp/hug_eligibility_independent_review_2026-10-15_v1/manufactured_controls_initial.log": "d14c7777f1ed897bd513ef755aa6590ea0379143f05fe7eb3f30609421d73cd7",
+    "/private/tmp/hug_eligibility_independent_review_2026-10-15_v1/manufactured_controls.log": "b8dab58c25fbd57f80568feb5b6f799da5754156ea60a3fda4f788f83f7e1fe1",
+    "/private/tmp/hug_feasible_path_2026-10-15_v1/protocol.json": "3818465924b0c7c9cc117bcb95d645f4a1a962905363b2abeeaebfb46e06b931",
+    "/private/tmp/hug_feasible_path_independent_review_2026-10-15_v1/output_review_v2.json": "7bcab7a105a98592b27e107ef6c96b9cb4c15ebb15a73a4475d5851897622a8c",
+    "/private/tmp/hug_feasible_path_2026-10-15_v1/pilot/20/result.json": "5505bfbd0ff081498fba58a191a0a7327b109b1d144b6bb07037acd2c30c8c0a",
+    "/private/tmp/hug_feasible_path_2026-10-15_v1/pilot/28/result.json": "c0ae3b8a32d66c5143db358a4815bb3ad5e565e05372b5543623d68305d9e423"
+  },
+  "source_review_checks": [
+    "Previous feasible-path solver is byte-identical after its sole policy import change; every accepted-step actual hard and literal exact gate remains.",
+    "The extra visual guidance uses actual globally nearest mapped cp, reproducing per-part minima then PARTS argmin, original visual unsigned distance/AABB/winding and boundary threshold.",
+    "Mesh facet guidance reproduces both levels of the old predicate: global-near component, then local mesh cp/normal conflicting triangles. The global row is min_g max(gd-(D+tie), local_min_conflict_distance-(gd+tie)).",
+    "Inclusive floating ties retain the original parenthesized addition; manufactured cancellation counterexample demonstrates why subtraction order matters.",
+    "A finite positive 1m ceiling cannot hide any nonpositive conflicting distance gap. It is search scaling, not a scientific tolerance.",
+    "Only fixed pooled-eligible orientation rows are hard in the two new blocks; old masks, original caps/domain and exact rank/predicates remain unchanged.",
+    "Driver reconstructs both fixed pooled reference and current accepted start before solve, compares old exact rank/pass/eligibility/tip vectors and the complete original raw-margin prefix, and refuses a start with any new hard-margin violation.",
+    "Driver source hashes checked before and after; frozen canonical pose overlay retained; no new native inference or physics permitted."
+  ],
+  "manufactured_controls": {
+    "passed": 14,
+    "nested_mesh_predicate_combinations": 32,
+    "runtime": "plain Python AST extraction of declared source functions; no simulator imports or actual HUG inputs",
+    "source_and_log_bound": true,
+    "preparation_history": "Initial test/log preserved. One manufactured cancellation-sign premise at distance .001 was false; corrected test uses .05 where the positive cancellation difference exists. No implementation or acceptance rule changed for that correction."
+  },
+  "runtime_preflight_required": {
+    "case_indices": [
+      20,
+      28
+    ],
+    "states_per_case": [
+      "fixed pooled reference",
+      "previous accepted feasible-path state"
+    ],
+    "must_reproduce_old_exact_fields": true,
+    "must_reproduce_original_raw_prefix": true,
+    "must_pass_new_fixed_hard_margins_before_solve": true,
+    "driver_extra_exact_checks_per_case": 2,
+    "solver_maximum_exact_checks_per_case": 96
+  },
+  "limitations": [
+    "Added margins are piecewise guidance; feature and conflict membership switches remain nonsmooth.",
+    "A zero added margin can still be excluded by the historical inclusive boundary; unchanged literal exact gates decide acceptance.",
+    "Other orientation eligibility safeguards remain enforced by exact checks, not all by this surrogate.",
+    "Retained witness improvement is not full-grid mapping validity, native outcome equivalence or a production promotion."
+  ],
+  "new_real_geometry_queries": 0,
+  "new_FK": 0,
+  "new_eval_data": false
+}

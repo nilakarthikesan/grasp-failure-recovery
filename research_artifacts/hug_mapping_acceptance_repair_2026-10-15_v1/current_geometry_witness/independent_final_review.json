@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "scope": "Final independent read-only review of frozen prospective controls and saved assembled-scene/current-witness outputs. PASS denotes consistency and the explicitly scoped engineering result, not strict native equivalence.",
+  "bindings": {
+    "/private/tmp/hug_current_scene_bridge_review_2026-10-15_v1/scene_v2_output_review.json": "8f586e309283bff83a0ccaa9cd3db4410b24b32be076f609339abc9dac880943",
+    "/private/tmp/hug_current_scene_bridge_review_2026-10-15_v1/witness_output_review.json": "1ccee246b1b768abfa64521656b74ed930f06818b8b0092a035754541ee5e461",
+    "/private/tmp/hug_current_geometry_witness_2026-10-15_v1/saved_output_summary.json": "b1a8bf32e245578968b890e7a3138553236d6b0494b5c436741607fa0cb88b58",
+    "/private/tmp/hug_current_scene_bridge_review_2026-10-15_v1/scene_v1_output_review.json": "24a1c4913ea96aec05927c192544a64706552f1e1bae3d035e695acb0fb4cb5d",
+    "/private/tmp/hug_current_scene_bridge_review_2026-10-15_v1/inertia_precision_patch_review.json": "61a42d933be634cbfa9a96e028fe03dc7af0b4c371c0da6cc541ced88b32d6b5",
+    "/private/tmp/hug_current_scene_bridge_review_2026-10-15_v1/scene_v2_preexecution_delta_review.json": "872995ea6384d28c2bd24de05c4c0398f2d545c87d39f81a1d3556540219fdf9",
+    "/private/tmp/hug_current_scene_bridge_review_2026-10-15_v1/witness_post_inertia_preexecution_delta_review.json": "a6426537178e72dab5cf4df8fd439518721c1bc9c2918f339df2286acb245fbc",
+    "/private/tmp/hug_current_scene_bridge_review_2026-10-15_v1/witness_replay_correction.json": "4f7fc34c8c2be5a5176e3297b633804e82b7abf998d6863ba5dc649a83f86537"
+  },
+  "scene_initial_v1": {
+    "passes": 24,
+    "total": 32,
+    "failed_indices": [
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "sole_failing_gate": "object tensor max-entry error5.8290679780686235e-12 kg*m^2 exceeded frozen1e-12"
+  },
+  "scene_corrected_v2": {
+    "passes": 32,
+    "total": 32,
+    "literal_source_joint_limits_all_pass": true,
+    "maximum_object_tensor_error_kg_m2": 6.505213034913027e-19,
+    "unchanged_inertia_gate_kg_m2": 1e-12,
+    "static_forward_calls": 128,
+    "physics_steps": 0,
+    "claim": "Static input realization of32 saved legacy nominal joint commands in current assembled native-frame Shadow scene path, including current geometry and controller/weld/table configuration."
+  },
+  "witness_originals": {
+    "poses": 6,
+    "proximity_rows": 178,
+    "definite_lost": 98,
+    "definite_added": 80,
+    "orientation_rows": 134,
+    "preserved": 2,
+    "valid_opposite_within_source_band": 123,
+    "invalid_eligibility_or_outside_source_band": 9
+  },
+  "witness_experiments": {
+    "poses": 2,
+    "proximity_rows": 36,
+    "definite_changes": 22,
+    "unresolved": 11,
+    "preserved": 3,
+    "orientation_rows": 17,
+    "preserved_orientation": 4,
+    "valid_opposite": 13,
+    "literal_historical_tipcaps_both_pass": true
+  },
+  "witness_scope": {
+    "row_evaluations": 365,
+    "static_forward_calls": 32,
+    "physics_steps": 0,
+    "all_eight_contain_retained_native_relationship_mismatches": true,
+    "not_full_grid_measurement": true,
+    "not_total_area_improvement": true,
+    "original_comparisons_include_frame_and_geometry_changes": true
+  },
+  "independent_saved_checks": {
+    "scene_v1": 9263,
+    "scene_v2": 9263,
+    "witness": 389,
+    "summary_comparisons": 80
+  },
+  "reviewer_real_geometry_or_FK_calls": 0,
+  "reviewer_manufactured_inertia_only_model_compilations": 6,
+  "new_eval_data": false,
+  "native_equivalence_accepted": false,
+  "physics_or_servo_tracking_accepted": false,
+  "fresh_retargeter_or_new_profile_validated": false,
+  "historical_results_rewritten": false,
+  "reviewer_correction": "Initial witness arithmetic checker expected obsolete clamped far search surrogate. Preserved failed code/log and corrected solely the diagnostic surrogate replay; literal predicate replay unchanged."
+}

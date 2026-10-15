@@ -1,0 +1,21 @@
+test_collision_order_or_local_frame_fault_detected (test_bridge_reference.Controls.test_collision_order_or_local_frame_fault_detected) ... ok
+test_fixed_xml_all_frames_match_current_compiled (test_bridge_reference.Controls.test_fixed_xml_all_frames_match_current_compiled) ... ok
+test_floating_carrier_replaces_fixed_origin (test_bridge_reference.Controls.test_floating_carrier_replaces_fixed_origin) ... ok
+test_literal_source_limit_one_ulp_is_not_accepted (test_bridge_reference.Controls.test_literal_source_limit_one_ulp_is_not_accepted) ... ok
+test_mesh_basename_collision_and_shapes (test_bridge_reference.Controls.test_mesh_basename_collision_and_shapes) ... FAIL
+test_named_order_permutation_is_invariant (test_bridge_reference.Controls.test_named_order_permutation_is_invariant) ... ok
+test_quaternion_order_fault_detected (test_bridge_reference.Controls.test_quaternion_order_fault_detected) ... ok
+test_wrong_values_or_namespace_detected (test_bridge_reference.Controls.test_wrong_values_or_namespace_detected) ... ok
+
+======================================================================
+FAIL: test_mesh_basename_collision_and_shapes (test_bridge_reference.Controls.test_mesh_basename_collision_and_shapes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/hug_current_execution_bridge_2026-10-15_v1/test_bridge_reference.py", line 70, in test_mesh_basename_collision_and_shapes
+    self.assertTrue(result['passed'],result)
+AssertionError: False is not true : {'count_rows': [{'link': 'forearm', 'source_count': 1, 'compiled_count': 0, 'passed': False}, {'link': 'linkA', 'source_count': 1, 'compiled_count': 1, 'passed': True}, {'link': 'linkB', 'source_count': 1, 'compiled_count': 1, 'passed': True}], 'geometry_rows': [{'source_link': 'linkA', 'source_collision_ordinal': 0, 'compiled_geom_id': 1, 'source_kind': 'box', 'compiled_kind': 6, 'contype': 1, 'conaffinity': 1, 'margin_m': 0.0, 'gap_m': 0.0, 'correspondence': 'source_collision_ordinal_within_same_named_body', 'shape_type_matches': True, 'position_error_m': 2.7755575615628914e-17, 'rotation_matrix_max_error': 4.440892098500626e-16, 'size_error_m': 0.0, 'passed': True}, {'source_link': 'linkB', 'source_collision_ordinal': 0, 'compiled_geom_id': 2, 'source_kind': 'mesh', 'compiled_kind': 7, 'contype': 1, 'conaffinity': 1, 'margin_m': 0.0, 'gap_m': 0.0, 'correspondence': 'source_collision_ordinal_within_same_named_body', 'shape_type_matches': True, 'mesh': {'mesh_id': 1, 'compiled_vertex_count': 8, 'graph_support_vertex_count': 8, 'graph_contains_all_full_hull_extreme_vertex_indices': True, 'graph_support_indices': [6, 2, 0, 4, 5, 1, 7, 3]}, 'source_mesh_path': '/private/var/folders/5c/qvpjlkk540l8xcslbx1br_8w0000gn/T/tmp6lt2kvf6/shadow_hand/two/shared.obj', 'source_scale': [1.0, 1.0, 1.0], 'symmetric_source_compiled_vertex_set_error_m': 7.742870951869882e-10, 'hull_bound_reason': 'convex hulls of mutually close finite vertex sets are at most that Hausdorff distance apart, conditional on compiled graph retaining full hull extrema', 'passed': True}], 'source_collision_count': 3, 'matched_collision_count': 2, 'passed': False, 'convex_hull_not_visual_triangle_mesh_equivalence': True}
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.038s
+
+FAILED (failures=1)

@@ -1,0 +1,19 @@
+"""Saved-report arithmetic only; no simulator/geometry imports."""
+from pathlib import Path
+import hashlib,json
+H=Path(__file__).resolve().parent;A=Path('/private/tmp/hug_current_scene_bridge_2026-10-15_v1');sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def main():
+ old=json.loads((A/'results.json').read_text());new=json.loads((H/'results.json').read_text());p=json.loads((H/'protocol.json').read_text());oldp=json.loads((A/'protocol.json').read_text());assert p['engineering_tolerances']==oldp['engineering_tolerances'] and p['object_inertia_mass_absolute_tolerance']==oldp['object_inertia_mass_absolute_tolerance']
+ assert sha(A/'scene_checks.py')==sha(H/'scene_checks.py')
+ keys=['native_sha256','object_id','geometry_content_hash','source_scene_binding','current_runner_class','current_environment_hash','current_execution_protocol_hash','native_frame_reference','actual_helper_palm_world','helper_vs_independent_position_error_m','helper_vs_independent_rotation_matrix_max_error','independent_root_world','actual_root_position_m','actual_root_quaternion_wxyz','actual_world_palm','source_root_position_error_m','source_root_rotation_matrix_error','staged_palm_position_error_m','staged_palm_rotation_matrix_error','current_root_change_from_historical_saved_m','current_root_rotation_change_from_historical_max_entry','literal_source_joint_limit_rows','all_literal_source_joint_limits_pass','current_joint_metadata','named_q_and_controller_inputs_exact','current_hand_body_virtual_link_checks','current_hand_collision_checks','current_controller_and_table_checks','current_declared_timing_options_match','actual_static_forward_calls']
+ rows=[];checks=0
+ for a,b in zip(old['cases'],new['cases'],strict=True):
+  assert a['index']==b['index'];assert sha(a['path'])==a['sha256'] and sha(b['path'])==b['sha256'];x=json.loads(Path(a['path']).read_text());y=json.loads(Path(b['path']).read_text());same={key:x[key]==y[key] for key in keys}
+  for key in ['command_path','command_sha256','row_index','joint_names','qpos_rad','root_position_m','root_quaternion_wxyz']:same['literal_command.'+key]=x['literal_command'][key]==y['literal_command'][key]
+  for key in x['current_object_checks']:
+   if key not in ('inertia_tensor_max_error_kg_m2','passed'):same['object.'+key]=x['current_object_checks'][key]==y['current_object_checks'][key]
+  assert all(same.values()),(a['index'],[k for k,v in same.items() if not v]);checks+=len(same)
+  rows.append({'source_inventory_index':a['index'],'native_sha256':x['native_sha256'],'object_id':x['object_id'],'old_case_sha256':a['sha256'],'new_case_sha256':b['sha256'],'same_fields_exact':same,'prior_complete_pass':a['passed'],'corrected_complete_pass':b['passed'],'prior_inertia_max_error_kg_m2':x['current_object_checks']['inertia_tensor_max_error_kg_m2'],'corrected_inertia_max_error_kg_m2':y['current_object_checks']['inertia_tensor_max_error_kg_m2']})
+ result={'schema':'hug_scene_precision_repair_saved_comparison_v1','original_protocol_sha256':old['protocol_sha256'],'corrected_protocol_sha256':new['protocol_sha256'],'original_result_sha256':sha(A/'results.json'),'corrected_result_sha256':sha(H/'results.json'),'unchanged_checker_sha256':sha(H/'scene_checks.py'),'same_acceptance_criteria':True,'exact_saved_field_comparisons':checks,'all_recorded_noninertia_fields_identical':True,'case_rows':rows,'prior_pass_count':sum(c['passed'] for c in old['cases']),'corrected_pass_count':sum(c['passed'] for c in new['cases']),'maximum_corrected_inertia_tensor_error_kg_m2':max(r['corrected_inertia_max_error_kg_m2'] for r in rows),'fresh_geometry_queries':0,'fresh_FK':0,'physics_steps':0,'historical_results_rewritten':False}
+ (H/'saved_version_comparison.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items() if k!='case_rows'}))
+if __name__=='__main__':main()

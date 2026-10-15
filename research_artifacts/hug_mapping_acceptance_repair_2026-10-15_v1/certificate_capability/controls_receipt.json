@@ -1,0 +1,60 @@
+{
+  "schema": "paired_triangle_identity_manufactured_controls_v1",
+  "passed": true,
+  "test_count": 25,
+  "source_bindings": {
+    "/private/tmp/hug_certificate_repair_2026-10-15_v1/identity_certificate.py": "8d8c0fd25d1e4f41cd2ed10ee7a49305bcc4fa883c56034eaeb4b8aba6f3b88d",
+    "/private/tmp/hug_certificate_repair_2026-10-15_v1/test_identity_certificate.py": "c72761c2f169545a1f14b5364e90b1e54b60f204dd23b89204b60feacdf10bcd",
+    "/private/tmp/hug_certificate_repair_2026-10-15_v1/controls_final.log": "17568258bd86488b2de010476aeaab8d21da2059921c42fdcdb2477591f6799f"
+  },
+  "threshold_crossing_example": {
+    "schema": "paired_triangle_structural_certificate_v1",
+    "status": "PASS_STRUCTURAL_IDENTITY_ON_DECLARED_DOMAIN",
+    "distance_identity": true,
+    "normal_domain_identity": true,
+    "historical_C2_acceptance": false,
+    "real_HUG_Shadow_acceptance": false,
+    "threshold_predicates_identical_for_all_declared_bands": true,
+    "zero_lost_and_added_area_on_declared_domain": true,
+    "continuous_normal_proofs": [
+      {
+        "query_cell": 0,
+        "source_carrier_face": 0,
+        "target_carrier_face": 0,
+        "object_face": 0,
+        "continuous_facing_sign": 1,
+        "normal_identity_proof": "same oriented carrier face under identical proper rotation",
+        "query_plane_distance_squared_min": "1/64",
+        "query_plane_distance_squared_max": "289/16384",
+        "strict_feature_and_exterior_coverage": true
+      }
+    ],
+    "source_hash": "2fb444c3628505df77fe2938eeef80c97888dd3839ce5ea961246df4e7f512cf",
+    "target_hash": "2fb444c3628505df77fe2938eeef80c97888dd3839ce5ea961246df4e7f512cf",
+    "domain_hash": "5ac4d03c5c69de68095d1fc906af38927062ef41597fb9fd00e9a7f6f2a365fc",
+    "target_domain_hash": "5ac4d03c5c69de68095d1fc906af38927062ef41597fb9fd00e9a7f6f2a365fc",
+    "bands_exact": [
+      "1152921504606847/1152921504606846976",
+      "1152921504606847/576460752303423488",
+      "5764607523034235/1152921504606846976",
+      "1/16",
+      "33/256"
+    ],
+    "proof_scope": "Exactly the supplied oriented query triangles; all arithmetic proofs use exact rational values of encoded inputs. Not a full-object domain claim.",
+    "distance_basis": "Bijection preserves every labelled oriented triangle and common transform, hence the represented sets and their distance functions are equal. Threshold equality holds even on band-crossing cells."
+  },
+  "missing_normal_domain_example": {
+    "schema": "paired_triangle_structural_certificate_v1",
+    "status": "UNPROVED",
+    "distance_identity": true,
+    "normal_domain_identity": false,
+    "historical_C2_acceptance": false,
+    "real_HUG_Shadow_acceptance": false,
+    "threshold_predicates_identical_for_all_declared_bands": true,
+    "reason": "normal-domain coverage missing"
+  },
+  "scope": "Manufactured encoded geometry only; no real HUG/Shadow queries, poses, inference, simulator, episodes or evaluation data.",
+  "historical_C2_acceptance": false,
+  "actual_HUG_Shadow_acceptance": false,
+  "physics_steps": 0
+}

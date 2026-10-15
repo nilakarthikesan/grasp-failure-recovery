@@ -1,0 +1,11 @@
+# Current assembled scene bridge — corrected inertia representation
+
+All32 existing HUG native-frame plus saved nominal Shadow command cases pass this prospective static source/scene/input realization contract. The run uses four current registered hand+object scenes, eight captured object poses, original assets, the actual native-world palm helper and static root/joint/mocap/servo placement. Independent source XML kinematics, collision mesh support, object visual triangle connectivity and captured scene contracts provide the references.
+
+The copied object's valid full inertia tensor is now represented by a symmetric eigensolver as explicit principal moments and a proper quaternion at17-digit precision. Original asset files, content hashes, masses, poses and intended tensors are unchanged. The prior24/32 run remains in the separate v1 archive; its eight milk inertia-only failures are not rewritten.
+
+The checker source and all numerical acceptance bounds are unchanged, including1e−12 kg m² for inertia reconstruction. The corrected maximum inertia error is6.505213034913027e−19 kg m². Saved-report comparison verifies1,440 exact equalities across recorded non-inertia fields: original named commands, native frames, roots, hand FK/colliders, object geometry/mass/placement, controller and table. This isolates the observed pass-count change to the numerical inertia representation.
+
+The run performed128 static forwards and zero physics steps, inference calls, retarget solves or new eval data generation. Static input realization is not proof that MANO and Shadow surfaces coincide, that a bad native grasp becomes good, or that the robot tracks the targets during execution. Native geometric fidelity, retained surface counterexamples, contact outcomes, force closure and prediction generalization remain separate questions. Historical strict surface failures are unchanged.
+
+`protocol.json`/`authorization.json` bind the prospective run; `cases/` contains full measurements; `results.json` summarizes the scoped32/32 pass. `saved_version_comparison.json` is post-run saved-array arithmetic only. Sixteen manufactured scene controls were rerun on the corrected current source before freezing. Repository precision-import regressions are archived separately with their implementation patch and independent review.

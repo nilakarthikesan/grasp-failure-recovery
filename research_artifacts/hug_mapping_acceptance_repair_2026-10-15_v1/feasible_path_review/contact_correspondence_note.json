@@ -1,0 +1,60 @@
+{
+  "schema": "hug_contact_correspondence_source_note_v1",
+  "bindings": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_palm_object_validation_2026-10-14/surfaces/audit_other_surfaces.py": "b235f8b88b5ecb0fc2bc842c3fdb4a17d4c2eb526f321a449169dcbc3cc27bdd",
+    "/private/tmp/hug_collision_contract_review_2026-10-15_v1/compiled_contract.json": "a77c8c565216b3f545897ff4ea77aef5a8c9c600e1364ec2437dfac458028151"
+  },
+  "observed_source_rules": [
+    "Native vertices use argmax of summed MANO skinning weights in six anatomical groups; triangles use majority vertex labels, then group mean weights to break ties.",
+    "Shadow collision components use known body-name prefixes; forearm and wrist are separate groups; the fallback branch assigns palm.",
+    "All six saved compiled scenes have only the actual palm body entering that fallback. No current label-assignment implementation defect is established."
+  ],
+  "saved_compiled_checks": [
+    {
+      "source_index": 8,
+      "fallback_to_palm_bodies": [
+        "palm"
+      ]
+    },
+    {
+      "source_index": 12,
+      "fallback_to_palm_bodies": [
+        "palm"
+      ]
+    },
+    {
+      "source_index": 16,
+      "fallback_to_palm_bodies": [
+        "palm"
+      ]
+    },
+    {
+      "source_index": 20,
+      "fallback_to_palm_bodies": [
+        "palm"
+      ]
+    },
+    {
+      "source_index": 24,
+      "fallback_to_palm_bodies": [
+        "palm"
+      ]
+    },
+    {
+      "source_index": 28,
+      "fallback_to_palm_bodies": [
+        "palm"
+      ]
+    }
+  ],
+  "supported_claim": "These rules implement a declared coarse anatomical correspondence for distance and orientation diagnostics.",
+  "unsupported_claims": [
+    "No evidence here establishes one-to-one homologous material patches between MANO skin and Shadow collision components.",
+    "Part-label preservation alone does not establish physical contact or native outcome equivalence.",
+    "Individual collider-component boundaries, exposed union accessibility and MuJoCo pairwise contact outputs are different geometric/physical references."
+  ],
+  "next_algorithm_scope": "Keep original labels/criteria frozen during the feasible-path correction; do not reinterpret failed rows as accepted by changing correspondence mid-fit.",
+  "new_geometry_queries": 0,
+  "new_FK": 0,
+  "new_eval_data": false
+}

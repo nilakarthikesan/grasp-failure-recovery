@@ -1,0 +1,23 @@
+test_bridge_reference (unittest.loader._FailedTest.test_bridge_reference) ... ERROR
+
+======================================================================
+ERROR: test_bridge_reference (unittest.loader._FailedTest.test_bridge_reference)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_bridge_reference
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/hug_current_execution_bridge_2026-10-15_v1/test_bridge_reference.py", line 11, in <module>
+    from grasp_failure_prediction.evaluation.pose_validation import load_shadow_model
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/__init__.py", line 3, in <module>
+    from .schema import EvaluationCase, EvaluationResult, canonical_sha256
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/schema.py", line 10, in <module>
+    from pydantic import BaseModel, ConfigDict, Field, field_validator
+ModuleNotFoundError: No module named 'pydantic'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

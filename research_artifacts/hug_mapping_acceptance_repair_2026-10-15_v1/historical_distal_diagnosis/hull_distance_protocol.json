@@ -1,0 +1,28 @@
+{
+  "schema": "hug_distal_convex_solid_hausdorff_protocol_v1",
+  "frozen": true,
+  "source_urdf": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf",
+  "bindings": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/existing_hug_inventory.json": "5fc28832494c54c7822543a00ea735ab47e1d44d944ff50fc26712eb27536fcb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf": "29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+    "/private/tmp/hug_historical_distal_diagnosis_2026-10-15_v1/diagnose.py": "2ed0ecae02192280174dfe4a4c5764e6c5e811fe4e70d4ace74c857b9968cc5b",
+    "/private/tmp/hug_historical_distal_diagnosis_2026-10-15_v1/controls.log": "be1c91df142cb4d9dd0c3e6f29388e37b9c732522853cab749cf1401450957b6",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_000000/scene.mjb": "36bac1d4e361031909d2271319a94fce1dfbd9249ac3ccb815f7e5ab342774d5",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_000520/scene.mjb": "5b785d4b81ba1bfdc2c78e1c0bdeda15e1e928114ed65c8c4046ef5e3560cde8",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001040/scene.mjb": "d9dbe859f2a7bc6934011b5fa4c4f55b31f21bd6b5bd1d2f8af3aacbc4443bb6",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001560/scene.mjb": "3b36e1826b962cc229d3f822cdf13b9f0d37de66749faf68b955aa1ef652dc2d",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_distal_pst.obj": "04d7ddc2166089b0c670806c1d1eb4b47b8f8c48428c00581b0fe64d59d4e5f8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/collision/f_distal_pst.obj": "60fc4387b60b9362cdbc5b40d8f3869247cc5049de75fc6e7e7ae32cf8e87e33",
+    "/private/tmp/hug_historical_distal_diagnosis_2026-10-15_v1/result.json": "8b6b6e312558d40177934c804f8b411ca5ab52bc2cf4e0b219e69da231bbd957",
+    "/private/tmp/hug_historical_distal_diagnosis_2026-10-15_v1/local_arrays.npz": "1c4359cb1c4e2b5d683ce56827c742354f9e501218cb42c83046331313691a93",
+    "/private/tmp/hug_historical_distal_diagnosis_2026-10-15_v1/hull_distance.py": "f25783e7e566338ec5b57e7fc4cbb1c1e4c0f2171cce0da5ce87ff606d5ca43f",
+    "/private/tmp/hug_historical_distal_diagnosis_2026-10-15_v1/hull_distance_controls.log": "a9060f1b85a03a972be37d44d4694c9fbad9d4d3fda7f471ba9963b309c22a83",
+    "/private/tmp/hug_historical_distal_diagnosis_2026-10-15_v1/witness_review.json": "3a5f588b67c7b8840b3b1dbd151d0aa53eefb0653f35ed1f55a0057c16fbe7e8"
+  },
+  "controls": 7,
+  "fixed_scope": "All extreme vertices of one old distal set and declared collision convex hull, both directions; first require all12 old middle/ring/little local vertex sets equal across four historical MJBs, and all three source collision sets equal.",
+  "method": "Point-to-all-hull-triangle Euclidean minimum for outside vertices, zero inside; max over all extreme vertices yields convex-solid Hausdorff. No interval arithmetic claim.",
+  "root_authorized": true,
+  "new_models_or_FK": 0,
+  "no_new_eval_data": true
+}

@@ -1,0 +1,15 @@
+# A reachable structural-identity certificate
+
+This standalone helper adds a genuine positive-proof route for **identical encoded triangle surfaces on an explicit declared query domain**. It preserves all historical sources/results and does not run a HUG proposal, simulator, inference, fit or eval.
+
+`identity_certificate.py` uses exact rational arithmetic over the supplied finite numbers. A complete vertex/face bijection must preserve coordinates, oriented connectivity, labels and a common exactly proper rigid transform. This proves that the represented labelled surfaces and distance fields coincide, so every declared positive threshold predicate coincides even where a cell crosses the threshold. It avoids treating identical fields as independent uncertain intervals.
+
+A distance proof alone is not full PASS. The implemented continuous normal-domain proof deliberately supports only outward closed tetrahedral hand/object surfaces and supplied oriented query triangles strictly inside one object facet. It proves carrier-face projection stays in the face interior over each whole query cell, every competitor plane has a strictly larger distance bound (including the10nm tie safeguard), query points are exterior to the hand, closest points are exterior to the object, and facing scores stay outside the1e−6 deadzone. Convexity and exact rational inequalities extend the vertex checks over the entire triangular cell. A common proper rotation preserves the oriented normal identity.
+
+The helper refuses unsupported geometry, missing coverage, feature ambiguity and changed correspondences. Exact rotation verification is intentionally restrictive: a decimal matrix that is only approximately orthonormal is UNPROVED even if it was intended to represent a valid rotation. This is incompleteness, not a tolerance fitted to pass examples. Full PASS applies only to the supplied query triangles, not the whole object by implication. Larger or different geometry needs a separately implemented proof capability.
+
+25 manufactured controls pass, including a real threshold-crossing identity, nontrivial common rotation/translation, vertex/face permutation, and rejection of changed geometry/labels/winding/connectivity/transforms, missing or incomplete domains, competing features, a facing deadzone after exterior tests, and degeneracy. The result always retains `historical_C2_acceptance=false` and `real_HUG_Shadow_acceptance=false`.
+
+**What this repairs:** positive-certifier reachability for a precisely declared controlled geometry/domain. **What it does not repair:** actual MANO/Shadow anatomical correspondence, existing strict failures, current mapper quality, dynamic execution or predictor validity. It is not a drop-in PASS branch for the historical evaluator.
+
+`controls_receipt.json` binds the final25-test source/log and includes full positive/negative example outputs. `ENGINEERING_CONTRACT.md` defines the separately supportable static Shadow-command realization claim and its remaining current-code bridge requirements.

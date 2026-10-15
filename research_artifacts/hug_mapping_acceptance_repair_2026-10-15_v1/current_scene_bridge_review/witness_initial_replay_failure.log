@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/private/tmp/hug_current_scene_bridge_review_2026-10-15_v1/review_witness_outputs.py", line 22, in <module>
+    near(w['proximity']['solver_margin'],(margin-1e-9)/.001,'surface surrogate')
+  File "/private/tmp/hug_current_scene_bridge_review_2026-10-15_v1/review_witness_outputs.py", line 16, in near
+    a=np.asarray(a);b=np.asarray(b);ck(a.shape==b.shape and np.max(np.abs(a-b),initial=0)<=eps,msg)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/hug_current_scene_bridge_review_2026-10-15_v1/review_witness_outputs.py", line 13, in ck
+    if not bool(x):raise AssertionError(msg)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: surface surrogate

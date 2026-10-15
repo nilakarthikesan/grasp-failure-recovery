@@ -1,0 +1,32 @@
+{
+  "schema": "paired_triangle_identity_independent_source_review_v1",
+  "passed": true,
+  "bindings": {
+    "/private/tmp/hug_certificate_repair_2026-10-15_v1/identity_certificate.py": "8d8c0fd25d1e4f41cd2ed10ee7a49305bcc4fa883c56034eaeb4b8aba6f3b88d",
+    "/private/tmp/hug_certificate_repair_2026-10-15_v1/test_identity_certificate.py": "c72761c2f169545a1f14b5364e90b1e54b60f204dd23b89204b60feacdf10bcd",
+    "/private/tmp/hug_certificate_repair_2026-10-15_v1/controls_receipt.json": "f3ed2c3a791308af239b127232266fc75f3eabd2f84025f3cbcb761819ae984a",
+    "/private/tmp/hug_certificate_repair_2026-10-15_v1/controls_final.log": "17568258bd86488b2de010476aeaab8d21da2059921c42fdcdb2477591f6799f"
+  },
+  "checks": [
+    "Full bijective vertex/face correspondence preserves every labelled oriented triangle; identical proper encoded transform yields identical distance fields.",
+    "Exact Fraction arithmetic uses the actual encoded numeric inputs, so no closeness tolerance is silently treated as identity.",
+    "Outward complete tetrahedra establish closed convex hand/object support-plane geometry for this deliberately limited normal proof.",
+    "Strict barycentric interior at every query vertex establishes whole-triangle projection into the carrier interior by convexity.",
+    "Affine signed heights have extrema at query vertices; positive lower height certifies hand exterior and boundary clearance throughout the cell.",
+    "Each competing triangle distance is bounded below by its supporting plane; the rational separated_squared test implies strict distance separation including tie allowance.",
+    "The object support plane certifies projected closest points are exterior with the existing boundary safeguard; carrier/object normal dot product is constant and outside the deadzone.",
+    "Every supplied query cell must pass; empty/missing/partial invalid coverage cannot yield full domain PASS.",
+    "Manufactured controls cover actual threshold crossing, exact equality, nontrivial common transform, permutation, geometry/connectivity/label/winding changes, ties, tangency and missing coverage.",
+    "Historical C2 and actual HUG/Shadow acceptance remain explicitly false even for manufactured structural PASS."
+  ],
+  "authored_manufactured_controls_passed": 25,
+  "independent_review_method": "Source and mathematical implication review; supplied manufactured control identities checked without rerunning scene or geometry.",
+  "limitations": [
+    "Full normal proof supports only complete outward tetrahedral hand/object solids and supplied query triangles.",
+    "Exact encoded orthonormality intentionally rejects approximate decimal rotations.",
+    "This is a separate structural identity proof, not a change to the historical nine-grid certificate or proof for nonidentical MANO and Shadow surfaces."
+  ],
+  "new_real_geometry_queries": 0,
+  "new_FK": 0,
+  "new_eval_data": false
+}

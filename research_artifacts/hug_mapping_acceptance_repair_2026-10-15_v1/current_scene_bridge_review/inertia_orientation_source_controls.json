@@ -1,0 +1,42 @@
+{
+  "numpy_imported": false,
+  "mujoco_version": "3.3.7",
+  "scope": "Six manufactured inertial-only XML compilations; no saved source objects, MjData, forwards or integration.",
+  "cases": [
+    {
+      "orientation_attribute": "quat=\"1 0 0 0\"",
+      "accepted": false,
+      "error": "XML Error: fullinertia and inertial orientation cannot both be specified\nElement 'inertial', line 1\n"
+    },
+    {
+      "orientation_attribute": "euler=\".2 .3 .4\"",
+      "accepted": false,
+      "error": "XML Error: fullinertia and inertial orientation cannot both be specified\nElement 'inertial', line 1\n"
+    },
+    {
+      "orientation_attribute": "axisangle=\"0 0 1 .2\"",
+      "accepted": false,
+      "error": "XML Error: fullinertia and inertial orientation cannot both be specified\nElement 'inertial', line 1\n"
+    },
+    {
+      "orientation_attribute": "xyaxes=\"1 0 0 0 1 0\"",
+      "accepted": false,
+      "error": "XML Error: fullinertia and inertial orientation cannot both be specified\nElement 'inertial', line 1\n"
+    },
+    {
+      "orientation_attribute": "zaxis=\"0 0 1\"",
+      "accepted": false,
+      "error": "XML Error: fullinertia and inertial orientation cannot both be specified\nElement 'inertial', line 1\n"
+    },
+    {
+      "orientation_attribute": "",
+      "accepted": true,
+      "compiled_iquat": [
+        0.11797009634430695,
+        0.7334428966950683,
+        0.07648361838226321,
+        0.6650525015179046
+      ]
+    }
+  ]
+}

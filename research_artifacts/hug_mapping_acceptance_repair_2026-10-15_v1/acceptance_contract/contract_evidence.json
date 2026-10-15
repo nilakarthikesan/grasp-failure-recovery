@@ -1,0 +1,1014 @@
+{
+  "schema": "hug_acceptance_contract_review_v1",
+  "source_bindings": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/acceptance/acceptance_rule.json": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/acceptance/evaluate_acceptance.py": "9197506d9c5e3fce8ff96e0201d6e29c70f33490c5edfdb21b7cdee91bef3edb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/cell_intervals.py": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/sampling_uncertainty.json": "91102356153a2ce6a617cefe9d3fc24cc83506233c2866d2d5e50272c2552284",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/protocol.json": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/orientation/protocol.json": "22ef5c539c4298589937312218272ea1d41bd1eae9a87e66b45f068dcbce0134",
+    "/private/tmp/hug_surface_constraints_review_2026-10-15_v1/identity_interval_control.json": "5fe36404cfc676889778c4a871b985e97ef1a368031a59a0239ba602565d7ee7"
+  },
+  "primary_epsilon_m": 1e-08,
+  "truth_table": [
+    {
+      "native_class": "far",
+      "mapped_class": "far",
+      "lost_lower_mask": false,
+      "lost_upper_mask": false,
+      "added_lower_mask": false,
+      "added_upper_mask": false,
+      "zero_both_upper": true
+    },
+    {
+      "native_class": "far",
+      "mapped_class": "ambiguous",
+      "lost_lower_mask": false,
+      "lost_upper_mask": false,
+      "added_lower_mask": false,
+      "added_upper_mask": true,
+      "zero_both_upper": false
+    },
+    {
+      "native_class": "far",
+      "mapped_class": "near",
+      "lost_lower_mask": false,
+      "lost_upper_mask": false,
+      "added_lower_mask": true,
+      "added_upper_mask": true,
+      "zero_both_upper": false
+    },
+    {
+      "native_class": "ambiguous",
+      "mapped_class": "far",
+      "lost_lower_mask": false,
+      "lost_upper_mask": true,
+      "added_lower_mask": false,
+      "added_upper_mask": false,
+      "zero_both_upper": false
+    },
+    {
+      "native_class": "ambiguous",
+      "mapped_class": "ambiguous",
+      "lost_lower_mask": false,
+      "lost_upper_mask": true,
+      "added_lower_mask": false,
+      "added_upper_mask": true,
+      "zero_both_upper": false
+    },
+    {
+      "native_class": "ambiguous",
+      "mapped_class": "near",
+      "lost_lower_mask": false,
+      "lost_upper_mask": false,
+      "added_lower_mask": false,
+      "added_upper_mask": true,
+      "zero_both_upper": false
+    },
+    {
+      "native_class": "near",
+      "mapped_class": "far",
+      "lost_lower_mask": true,
+      "lost_upper_mask": true,
+      "added_lower_mask": false,
+      "added_upper_mask": false,
+      "zero_both_upper": false
+    },
+    {
+      "native_class": "near",
+      "mapped_class": "ambiguous",
+      "lost_lower_mask": false,
+      "lost_upper_mask": true,
+      "added_lower_mask": false,
+      "added_upper_mask": false,
+      "zero_both_upper": false
+    },
+    {
+      "native_class": "near",
+      "mapped_class": "near",
+      "lost_lower_mask": false,
+      "lost_upper_mask": false,
+      "added_lower_mask": false,
+      "added_upper_mask": false,
+      "zero_both_upper": true
+    }
+  ],
+  "proximity_zero_upper_iff": "Every positive-area cell is certified-near in both fields or certified-far in both fields; neither field is ambiguous.",
+  "fixed_native_ambiguity_theorem": "If native possible=true and definite=false on a positive-area cell, zero lost upper requires mapped definite=true, which implies mapped possible=true and hence added upper>0. No mapped pose can make both separate-field upper bounds zero for that fixed cell.",
+  "scope_of_impossibility": "The fixed independent-bound certificate, not geometric equivalence, morphology reachability or all possible validation methods.",
+  "current_saved_grid_count": 9,
+  "saved_grids_with_native_only_certificate_blocker": 9,
+  "saved_report_rows": [
+    {
+      "case_id": "hug_apple_scene_002_seed_0",
+      "source_inventory_index": 8,
+      "density_mm": 2,
+      "source_report_cache_sha256": "fd3500b5902969e941aa81eabe9e1ec345a489098a31fe438ba65f02ce714980",
+      "required_part_band_checks": 18,
+      "blocked_part_band_checks": 13,
+      "native_ambiguity_precludes_zero_upper_certificate_for_any_mapped_pose": true,
+      "blocked_checks": [
+        {
+          "part": "index",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 18.284949025181042,
+          "native_ambiguous_cell_count": 12
+        },
+        {
+          "part": "middle",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 452.9420385502519,
+          "native_ambiguous_cell_count": 270
+        },
+        {
+          "part": "ring",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 452.2877973989258,
+          "native_ambiguous_cell_count": 249
+        },
+        {
+          "part": "little",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 243.43091801908585,
+          "native_ambiguous_cell_count": 137
+        },
+        {
+          "part": "index",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 93.38606548819368,
+          "native_ambiguous_cell_count": 49
+        },
+        {
+          "part": "middle",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 518.0666285789198,
+          "native_ambiguous_cell_count": 296
+        },
+        {
+          "part": "ring",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 515.5669423773099,
+          "native_ambiguous_cell_count": 279
+        },
+        {
+          "part": "little",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 279.49910080205996,
+          "native_ambiguous_cell_count": 156
+        },
+        {
+          "part": "thumb",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 10.247640969140125,
+          "native_ambiguous_cell_count": 3
+        },
+        {
+          "part": "index",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 259.7582409629308,
+          "native_ambiguous_cell_count": 136
+        },
+        {
+          "part": "middle",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 488.0532443922331,
+          "native_ambiguous_cell_count": 276
+        },
+        {
+          "part": "ring",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 532.7834934332259,
+          "native_ambiguous_cell_count": 286
+        },
+        {
+          "part": "little",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 271.5435570984354,
+          "native_ambiguous_cell_count": 147
+        }
+      ],
+      "max_single_part_band_ambiguous_area_mm2": 532.7834934332259
+    },
+    {
+      "case_id": "hug_apple_scene_002_seed_0",
+      "source_inventory_index": 8,
+      "density_mm": 1,
+      "source_report_cache_sha256": "d380472c38be758cfdfec36995675da464483c67f3ae6c4fa48581da0c1e79a5",
+      "required_part_band_checks": 18,
+      "blocked_part_band_checks": 11,
+      "native_ambiguity_precludes_zero_upper_certificate_for_any_mapped_pose": true,
+      "blocked_checks": [
+        {
+          "part": "middle",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 265.25729186313254,
+          "native_ambiguous_cell_count": 618
+        },
+        {
+          "part": "ring",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 263.0852262265215,
+          "native_ambiguous_cell_count": 568
+        },
+        {
+          "part": "little",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 143.6869612567689,
+          "native_ambiguous_cell_count": 325
+        },
+        {
+          "part": "index",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 33.274496238380145,
+          "native_ambiguous_cell_count": 81
+        },
+        {
+          "part": "middle",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 271.2284668823425,
+          "native_ambiguous_cell_count": 599
+        },
+        {
+          "part": "ring",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 259.1465326644244,
+          "native_ambiguous_cell_count": 557
+        },
+        {
+          "part": "little",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 143.15172488480636,
+          "native_ambiguous_cell_count": 305
+        },
+        {
+          "part": "index",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 135.21204015573764,
+          "native_ambiguous_cell_count": 275
+        },
+        {
+          "part": "middle",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 232.98712539004566,
+          "native_ambiguous_cell_count": 539
+        },
+        {
+          "part": "ring",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 259.6793602796888,
+          "native_ambiguous_cell_count": 553
+        },
+        {
+          "part": "little",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 139.2314357453269,
+          "native_ambiguous_cell_count": 300
+        }
+      ],
+      "max_single_part_band_ambiguous_area_mm2": 271.2284668823425
+    },
+    {
+      "case_id": "hug_apple_scene_003_seed_0",
+      "source_inventory_index": 12,
+      "density_mm": 2,
+      "source_report_cache_sha256": "8d032590372a532da4eb62e7abb161553e459223d29764b229e168c4e1e6f5e0",
+      "required_part_band_checks": 18,
+      "blocked_part_band_checks": 14,
+      "native_ambiguity_precludes_zero_upper_certificate_for_any_mapped_pose": true,
+      "blocked_checks": [
+        {
+          "part": "index",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 166.29445070737512,
+          "native_ambiguous_cell_count": 91
+        },
+        {
+          "part": "middle",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 480.20691529954104,
+          "native_ambiguous_cell_count": 291
+        },
+        {
+          "part": "ring",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 432.8276845087105,
+          "native_ambiguous_cell_count": 250
+        },
+        {
+          "part": "little",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 252.7237382082117,
+          "native_ambiguous_cell_count": 144
+        },
+        {
+          "part": "thumb",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 31.57866706083331,
+          "native_ambiguous_cell_count": 13
+        },
+        {
+          "part": "index",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 207.26978377277507,
+          "native_ambiguous_cell_count": 106
+        },
+        {
+          "part": "middle",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 535.2931680147217,
+          "native_ambiguous_cell_count": 305
+        },
+        {
+          "part": "ring",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 495.8505846285568,
+          "native_ambiguous_cell_count": 273
+        },
+        {
+          "part": "little",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 307.0896677071174,
+          "native_ambiguous_cell_count": 174
+        },
+        {
+          "part": "thumb",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 284.8820918599615,
+          "native_ambiguous_cell_count": 155
+        },
+        {
+          "part": "index",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 246.64570635030094,
+          "native_ambiguous_cell_count": 135
+        },
+        {
+          "part": "middle",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 490.78075645844956,
+          "native_ambiguous_cell_count": 282
+        },
+        {
+          "part": "ring",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 523.4266145959268,
+          "native_ambiguous_cell_count": 278
+        },
+        {
+          "part": "little",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 309.3193039658486,
+          "native_ambiguous_cell_count": 163
+        }
+      ],
+      "max_single_part_band_ambiguous_area_mm2": 535.2931680147217
+    },
+    {
+      "case_id": "hug_milk_box_scene_000_seed_0",
+      "source_inventory_index": 16,
+      "density_mm": 2,
+      "source_report_cache_sha256": "291618ec92db0c4e5b1dd857d4ffba8e556efc7a2a8feb3068b89eae9276ce17",
+      "required_part_band_checks": 18,
+      "blocked_part_band_checks": 13,
+      "native_ambiguity_precludes_zero_upper_certificate_for_any_mapped_pose": true,
+      "blocked_checks": [
+        {
+          "part": "thumb",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 194.787761325887,
+          "native_ambiguous_cell_count": 145
+        },
+        {
+          "part": "middle",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 394.1813894416987,
+          "native_ambiguous_cell_count": 210
+        },
+        {
+          "part": "ring",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 633.086028821598,
+          "native_ambiguous_cell_count": 384
+        },
+        {
+          "part": "little",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 493.72747064669926,
+          "native_ambiguous_cell_count": 295
+        },
+        {
+          "part": "thumb",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 311.702573519507,
+          "native_ambiguous_cell_count": 193
+        },
+        {
+          "part": "middle",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 431.7952163105115,
+          "native_ambiguous_cell_count": 231
+        },
+        {
+          "part": "ring",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 827.1022291897515,
+          "native_ambiguous_cell_count": 475
+        },
+        {
+          "part": "little",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 585.5237996162825,
+          "native_ambiguous_cell_count": 342
+        },
+        {
+          "part": "thumb",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 549.9005701515725,
+          "native_ambiguous_cell_count": 283
+        },
+        {
+          "part": "index",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 32.79574034791938,
+          "native_ambiguous_cell_count": 16
+        },
+        {
+          "part": "middle",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 399.18738393446347,
+          "native_ambiguous_cell_count": 216
+        },
+        {
+          "part": "ring",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 785.0529183935035,
+          "native_ambiguous_cell_count": 431
+        },
+        {
+          "part": "little",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 495.7234590588157,
+          "native_ambiguous_cell_count": 277
+        }
+      ],
+      "max_single_part_band_ambiguous_area_mm2": 827.1022291897515
+    },
+    {
+      "case_id": "hug_milk_box_scene_000_seed_0",
+      "source_inventory_index": 16,
+      "density_mm": 1,
+      "source_report_cache_sha256": "7bbfb83da541fac1111431d2d83800d1df839cd722ba212af727538e66133f52",
+      "required_part_band_checks": 18,
+      "blocked_part_band_checks": 13,
+      "native_ambiguity_precludes_zero_upper_certificate_for_any_mapped_pose": true,
+      "blocked_checks": [
+        {
+          "part": "thumb",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 74.53454129517773,
+          "native_ambiguous_cell_count": 167
+        },
+        {
+          "part": "middle",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 231.8659057714865,
+          "native_ambiguous_cell_count": 474
+        },
+        {
+          "part": "ring",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 398.7097115335655,
+          "native_ambiguous_cell_count": 816
+        },
+        {
+          "part": "little",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 334.8378275689432,
+          "native_ambiguous_cell_count": 668
+        },
+        {
+          "part": "thumb",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 179.19370231956214,
+          "native_ambiguous_cell_count": 408
+        },
+        {
+          "part": "middle",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 248.0006826994779,
+          "native_ambiguous_cell_count": 505
+        },
+        {
+          "part": "ring",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 437.187118221377,
+          "native_ambiguous_cell_count": 888
+        },
+        {
+          "part": "little",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 306.2568071486362,
+          "native_ambiguous_cell_count": 614
+        },
+        {
+          "part": "thumb",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 281.7244817766469,
+          "native_ambiguous_cell_count": 530
+        },
+        {
+          "part": "index",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 4.10763641159324,
+          "native_ambiguous_cell_count": 5
+        },
+        {
+          "part": "middle",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 192.08797572401173,
+          "native_ambiguous_cell_count": 395
+        },
+        {
+          "part": "ring",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 415.4149255060054,
+          "native_ambiguous_cell_count": 834
+        },
+        {
+          "part": "little",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 273.33247159621106,
+          "native_ambiguous_cell_count": 544
+        }
+      ],
+      "max_single_part_band_ambiguous_area_mm2": 437.187118221377
+    },
+    {
+      "case_id": "hug_milk_box_scene_001_seed_0",
+      "source_inventory_index": 20,
+      "density_mm": 2,
+      "source_report_cache_sha256": "999a927e524ab6030e104443ac48659cc89a199080d98b1afbeb4bd6781af7e2",
+      "required_part_band_checks": 18,
+      "blocked_part_band_checks": 12,
+      "native_ambiguity_precludes_zero_upper_certificate_for_any_mapped_pose": true,
+      "blocked_checks": [
+        {
+          "part": "thumb",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 21.93219471742516,
+          "native_ambiguous_cell_count": 15
+        },
+        {
+          "part": "middle",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 455.1672518112964,
+          "native_ambiguous_cell_count": 261
+        },
+        {
+          "part": "ring",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 573.2441738176683,
+          "native_ambiguous_cell_count": 324
+        },
+        {
+          "part": "little",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 688.6059241325463,
+          "native_ambiguous_cell_count": 365
+        },
+        {
+          "part": "thumb",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 54.91885929993291,
+          "native_ambiguous_cell_count": 44
+        },
+        {
+          "part": "middle",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 569.7252017382647,
+          "native_ambiguous_cell_count": 307
+        },
+        {
+          "part": "ring",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 692.8041271800394,
+          "native_ambiguous_cell_count": 377
+        },
+        {
+          "part": "little",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 775.532985835199,
+          "native_ambiguous_cell_count": 407
+        },
+        {
+          "part": "thumb",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 445.538069901432,
+          "native_ambiguous_cell_count": 256
+        },
+        {
+          "part": "middle",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 560.0292184854463,
+          "native_ambiguous_cell_count": 305
+        },
+        {
+          "part": "ring",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 775.5016237189095,
+          "native_ambiguous_cell_count": 412
+        },
+        {
+          "part": "little",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 587.9893447511297,
+          "native_ambiguous_cell_count": 338
+        }
+      ],
+      "max_single_part_band_ambiguous_area_mm2": 775.532985835199
+    },
+    {
+      "case_id": "hug_mug_scene_002_seed_0",
+      "source_inventory_index": 24,
+      "density_mm": 2,
+      "source_report_cache_sha256": "2b405e6db66bc8ac4cd89227768bf8727bea8c64d1d2cafd24a2795f241ca754",
+      "required_part_band_checks": 18,
+      "blocked_part_band_checks": 18,
+      "native_ambiguity_precludes_zero_upper_certificate_for_any_mapped_pose": true,
+      "blocked_checks": [
+        {
+          "part": "palm",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 783.471726093926,
+          "native_ambiguous_cell_count": 406
+        },
+        {
+          "part": "thumb",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 1087.5500798372639,
+          "native_ambiguous_cell_count": 490
+        },
+        {
+          "part": "index",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 2122.069330646342,
+          "native_ambiguous_cell_count": 1121
+        },
+        {
+          "part": "middle",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 2374.2012258025306,
+          "native_ambiguous_cell_count": 1214
+        },
+        {
+          "part": "ring",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 2124.7288129265507,
+          "native_ambiguous_cell_count": 1077
+        },
+        {
+          "part": "little",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 863.5807859781104,
+          "native_ambiguous_cell_count": 434
+        },
+        {
+          "part": "palm",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 1050.5729458912533,
+          "native_ambiguous_cell_count": 519
+        },
+        {
+          "part": "thumb",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 1306.8159283584048,
+          "native_ambiguous_cell_count": 571
+        },
+        {
+          "part": "index",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 2772.497994685856,
+          "native_ambiguous_cell_count": 1427
+        },
+        {
+          "part": "middle",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 2692.130672497353,
+          "native_ambiguous_cell_count": 1319
+        },
+        {
+          "part": "ring",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 2471.7606705294847,
+          "native_ambiguous_cell_count": 1213
+        },
+        {
+          "part": "little",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 1083.279623282574,
+          "native_ambiguous_cell_count": 529
+        },
+        {
+          "part": "palm",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 1360.5086938131603,
+          "native_ambiguous_cell_count": 639
+        },
+        {
+          "part": "thumb",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 1295.4877542049267,
+          "native_ambiguous_cell_count": 574
+        },
+        {
+          "part": "index",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 2410.3187392498726,
+          "native_ambiguous_cell_count": 1225
+        },
+        {
+          "part": "middle",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 2043.4534415242324,
+          "native_ambiguous_cell_count": 954
+        },
+        {
+          "part": "ring",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 2132.6892338831603,
+          "native_ambiguous_cell_count": 982
+        },
+        {
+          "part": "little",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 1163.5271146886853,
+          "native_ambiguous_cell_count": 575
+        }
+      ],
+      "max_single_part_band_ambiguous_area_mm2": 2772.497994685856
+    },
+    {
+      "case_id": "hug_mug_scene_002_seed_0",
+      "source_inventory_index": 24,
+      "density_mm": 1,
+      "source_report_cache_sha256": "80e518b96dbd1b0e74134f12310b9fbd6fcf4d26537de87903639dc88a0a3adb",
+      "required_part_band_checks": 18,
+      "blocked_part_band_checks": 18,
+      "native_ambiguity_precludes_zero_upper_certificate_for_any_mapped_pose": true,
+      "blocked_checks": [
+        {
+          "part": "palm",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 453.3203501756103,
+          "native_ambiguous_cell_count": 925
+        },
+        {
+          "part": "thumb",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 676.5680802406114,
+          "native_ambiguous_cell_count": 1173
+        },
+        {
+          "part": "index",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 1332.729416860171,
+          "native_ambiguous_cell_count": 2568
+        },
+        {
+          "part": "middle",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 1475.6546124454255,
+          "native_ambiguous_cell_count": 2944
+        },
+        {
+          "part": "ring",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 1332.312313782002,
+          "native_ambiguous_cell_count": 2616
+        },
+        {
+          "part": "little",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 534.3890165247227,
+          "native_ambiguous_cell_count": 1031
+        },
+        {
+          "part": "palm",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 506.21998396960475,
+          "native_ambiguous_cell_count": 1017
+        },
+        {
+          "part": "thumb",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 636.305644732324,
+          "native_ambiguous_cell_count": 1115
+        },
+        {
+          "part": "index",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 1400.7352224405477,
+          "native_ambiguous_cell_count": 2725
+        },
+        {
+          "part": "middle",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 1334.1695190969494,
+          "native_ambiguous_cell_count": 2592
+        },
+        {
+          "part": "ring",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 1243.0342267401047,
+          "native_ambiguous_cell_count": 2437
+        },
+        {
+          "part": "little",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 549.8122205500529,
+          "native_ambiguous_cell_count": 1063
+        },
+        {
+          "part": "palm",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 696.5162496393766,
+          "native_ambiguous_cell_count": 1269
+        },
+        {
+          "part": "thumb",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 652.0844121637745,
+          "native_ambiguous_cell_count": 1164
+        },
+        {
+          "part": "index",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 1282.776193286707,
+          "native_ambiguous_cell_count": 2480
+        },
+        {
+          "part": "middle",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 912.7536772047592,
+          "native_ambiguous_cell_count": 1740
+        },
+        {
+          "part": "ring",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 1038.8455556866543,
+          "native_ambiguous_cell_count": 1914
+        },
+        {
+          "part": "little",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 558.6348980817007,
+          "native_ambiguous_cell_count": 1103
+        }
+      ],
+      "max_single_part_band_ambiguous_area_mm2": 1475.6546124454255
+    },
+    {
+      "case_id": "hug_mug_scene_003_seed_0",
+      "source_inventory_index": 28,
+      "density_mm": 2,
+      "source_report_cache_sha256": "3375410e0b77554bba816e13e3a0f32620df9850d370634e8366187e8b48bfbb",
+      "required_part_band_checks": 18,
+      "blocked_part_band_checks": 18,
+      "native_ambiguity_precludes_zero_upper_certificate_for_any_mapped_pose": true,
+      "blocked_checks": [
+        {
+          "part": "palm",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 547.7502259129569,
+          "native_ambiguous_cell_count": 290
+        },
+        {
+          "part": "thumb",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 1144.6652025593153,
+          "native_ambiguous_cell_count": 517
+        },
+        {
+          "part": "index",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 2622.025197830513,
+          "native_ambiguous_cell_count": 1384
+        },
+        {
+          "part": "middle",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 1939.7151388407015,
+          "native_ambiguous_cell_count": 1004
+        },
+        {
+          "part": "ring",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 2055.2569220958194,
+          "native_ambiguous_cell_count": 1027
+        },
+        {
+          "part": "little",
+          "band_mm": 1,
+          "native_ambiguous_area_mm2": 771.8161724297571,
+          "native_ambiguous_cell_count": 406
+        },
+        {
+          "part": "palm",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 774.0169363672621,
+          "native_ambiguous_cell_count": 404
+        },
+        {
+          "part": "thumb",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 1347.7866849937975,
+          "native_ambiguous_cell_count": 589
+        },
+        {
+          "part": "index",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 3022.6126762827143,
+          "native_ambiguous_cell_count": 1551
+        },
+        {
+          "part": "middle",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 2283.6618716792063,
+          "native_ambiguous_cell_count": 1139
+        },
+        {
+          "part": "ring",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 2403.520723536378,
+          "native_ambiguous_cell_count": 1169
+        },
+        {
+          "part": "little",
+          "band_mm": 2,
+          "native_ambiguous_area_mm2": 959.0483623870509,
+          "native_ambiguous_cell_count": 484
+        },
+        {
+          "part": "palm",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 1061.1195993114557,
+          "native_ambiguous_cell_count": 517
+        },
+        {
+          "part": "thumb",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 1252.8195072495837,
+          "native_ambiguous_cell_count": 560
+        },
+        {
+          "part": "index",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 2107.1217828674617,
+          "native_ambiguous_cell_count": 1074
+        },
+        {
+          "part": "middle",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 1951.0431921076975,
+          "native_ambiguous_cell_count": 877
+        },
+        {
+          "part": "ring",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 1944.079170770014,
+          "native_ambiguous_cell_count": 892
+        },
+        {
+          "part": "little",
+          "band_mm": 5,
+          "native_ambiguous_area_mm2": 967.983071004788,
+          "native_ambiguous_cell_count": 485
+        }
+      ],
+      "max_single_part_band_ambiguous_area_mm2": 3022.6126762827143
+    }
+  ],
+  "evaluator_strict_assignments": [
+    {
+      "line": 37,
+      "expression": "'FAIL' if prox == 'FAIL' or point == 'FAIL' else 'UNRESOLVED'",
+      "string_constants": [
+        "FAIL",
+        "UNRESOLVED"
+      ]
+    }
+  ],
+  "evaluator_orientation_coverage_assignments": [
+    {
+      "line": 34,
+      "value": "UNRESOLVED"
+    }
+  ],
+  "full_strict_pass_reachable_in_frozen_evaluator": false,
+  "frozen_rule_changed": false,
+  "real_geometry_queries": 0,
+  "FK_calls": 0,
+  "new_proposals": 0,
+  "new_eval_data": false,
+  "physics_steps": 0
+}

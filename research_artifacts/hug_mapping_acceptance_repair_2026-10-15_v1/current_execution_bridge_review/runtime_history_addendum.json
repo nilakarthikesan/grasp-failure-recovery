@@ -1,0 +1,36 @@
+{
+  "schema": "hug_bridge_runtime_history_review_v1",
+  "passed": true,
+  "scope": "Preparation/runtime history disclosure and finite saved result review, not additional execution.",
+  "bindings": {
+    "/private/tmp/hug_current_execution_bridge_2026-10-15_v1/results.json": "a0fda9b3335ef5a5227b06412a54db4a4320c8db078f4e7172bcd635d2c53169",
+    "/private/tmp/hug_current_execution_bridge_2026-10-15_v1/protocol.json": "8079905870fef15d64206c565c5fa2024d0e56768e30ef68a716933ce62aa8e0",
+    "/private/tmp/hug_current_execution_bridge_2026-10-15_v1/run.log": "554a6d796105e2af6dbef892a86f187d3e9d7c9aea79f85290eb1a6575568eba",
+    "/private/tmp/hug_current_execution_bridge_2026-10-15_v1/run_current_runtime.log": "15908beb837299708acefde4cd27dc606334ef7e979479be0becdeeee742ec6e",
+    "/private/tmp/hug_current_execution_bridge_2026-10-15_v1/run_verified_runtime.log": "0f3ab14c0c5a04a5675886d58b093213bde82bb57e026e5734c26b9fcd16ef22",
+    "/private/tmp/hug_current_execution_bridge_2026-10-15_v1/declared_runtime_control_receipt.json": "b7623f5f0824ae1dd191a3793a2a09bbfe23b33e85506d239e93e13ce853267b",
+    "/private/tmp/hug_current_execution_bridge_2026-10-15_v1/manufactured_controls_declared_runtime.log": "9cce70e1a07d3b05257256f5290222968d518ca8ec7f19f9775378c11b20b5d8"
+  },
+  "failed_attempts": [
+    {
+      "log": "run.log",
+      "reason": "Frozen NumPy version assertion rejected the prepended-dependency runtime before model construction.",
+      "real_model_loads": 0
+    },
+    {
+      "log": "run_current_runtime.log",
+      "reason": "Missing pydantic while importing production code; no model constructor reached.",
+      "real_model_loads": 0
+    }
+  ],
+  "declared_runtime_synthetic_controls": {
+    "count": 11,
+    "passed": true,
+    "timing": "Rerun during the actual static bridge, not before the original preexecution approval. Original synthetic controls used dependency-prepended NumPy; final real run uses declared NumPy2.2.6/MuJoCo3.3.7.",
+    "primary_disclosed": true
+  },
+  "warning_disclosure": "The successful log contains NumPy matmul divide/overflow/invalid RuntimeWarning categories. Their numerical cause was not established by this review. Stored arrays/scalars used by review were finite, JSON export forbids nonfinite values, and mesh nearest-neighbor computations require finite point data. No claim of rigorous floating-point certification is made.",
+  "code_and_tolerances_changed_to_pass": false,
+  "extra_reviewer_real_geometry_queries": 0,
+  "output_review_sha256": "51890108d40be37336c1279ee4a461eba026d84faec912de855d3c95d26c7e2b"
+}

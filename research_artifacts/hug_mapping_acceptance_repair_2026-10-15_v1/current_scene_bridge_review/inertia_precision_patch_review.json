@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "scope": "Independent production-source delta/math/control review before applying fullinertia precision correction; no saved-case geometry/FK.",
+  "bindings": {
+    "/private/tmp/hug_object_inertia_precision_fix_2026-10-15_v1/production.patch": "abc9833312bf3b76735832d8fdd0929a1ed85b2b16589b9da9e1844b74533a77",
+    "/private/tmp/hug_object_inertia_precision_fix_2026-10-15_v1/object_assets.py.before": "02554eb96235ac77d3301d983e5f97d55e5ad5c6637a35315b9494f7b9ea54f9",
+    "/private/tmp/hug_object_inertia_precision_fix_2026-10-15_v1/object_assets.py.proposed": "66a39d05d65278c1da886b8816a2fd928b271462dc81454aa87f7a87bfc9594b",
+    "/private/tmp/hug_object_inertia_precision_fix_2026-10-15_v1/test_object_assets.py.before": "a907438b1367f21e41e23012ef708411b892a1b8a3cc6afc3ec9c266f0df157f",
+    "/private/tmp/hug_object_inertia_precision_fix_2026-10-15_v1/test_object_assets.py.proposed": "93807a3972a2434120db6ce70e2c607d3d2c369c2257acdac2bbdeecc395d309",
+    "/private/tmp/hug_object_inertia_precision_fix_2026-10-15_v1/controls.log": "06a6cf77da23ddb79591d8217c097ff3afbe79692c38e97c413472e1b9117adf",
+    "/private/tmp/hug_object_inertia_precision_fix_2026-10-15_v1/controls_receipt.json": "097fcc6b79278875b96cc4eaad591e22dde60229ccf8d4c7dc80ea2b8145c9e7",
+    "/private/tmp/hug_current_scene_bridge_review_2026-10-15_v1/inertia_orientation_source_controls.json": "49e423f50ce499761e34734c930c888b5ccf40406b9e71a1549ab66fce2bb1ac"
+  },
+  "findings": [
+    "Symmetric tensor uses the documented xx yy zz xy xz yz layout; eigh columns form its eigenframe. Descending permutation and one-axis sign correction preserve the reconstructed tensor and provide a proper quaternion frame.",
+    "Only copied fullinertia is replaced by full-precision diaginertia and quaternion; original source bytes/content hashes, mass, inertial position, mesh geometry and diagonal-inertia path remain unchanged.",
+    "Original load_object_geometry compiles source before append, so MuJoCo physical validity and triangle inequalities remain prerequisites.",
+    "Six independent inertial-only manufactured XML compilations confirm every explicit inertial orientation attribute conflicts with fullinertia and is rejected by MuJoCo3.3.7 before append; validated fullinertia cannot leave a competing accepted orientation attribute.",
+    "Twenty primary static controls pass in the declared NumPy2.2.6/MuJoCo3.3.7 runtime. New controls measure physical tensor equivalence, including repeated eigenvalues; a principal-frame quaternion is not uniquely determined.",
+    "No numerical acceptance threshold changes; first 32-case scene result remains immutable. Corrected compiled scene requires a new bound rerun before any engineering acceptance."
+  ],
+  "reviewer_manufactured_xml_compilations": 6,
+  "reviewer_saved_case_geometry_calls": 0,
+  "reviewer_static_forward_calls": 0,
+  "reviewer_physics_steps": 0,
+  "engineering_gate_inertia_tensor_kg_m2": 1e-12,
+  "no_native_equivalence_or_dynamic_acceptance": true
+}

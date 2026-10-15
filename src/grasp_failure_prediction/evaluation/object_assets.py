@@ -1,6 +1,6 @@
 """Resolve and import a bounded, content-addressed rigid-object MJCF asset.
 
-Native XML mesh and inertial frames are preserved. Compiled MuJoCo mesh
+Native XML mesh frames and inertia tensors are preserved. Compiled MuJoCo mesh
 centering/principal-axis transforms must never be reapplied to the raw meshes.
 """
 
@@ -186,6 +186,39 @@ def load_object_geometry(
                                   root.attrib["model"], bounds, source, tuple(mesh_paths), collisions)
 
 
+def _canonicalize_full_inertia(inertial: ET.Element) -> None:
+    """Preserve a validated source tensor in an explicit principal frame.
+
+    MuJoCo's small-matrix eigensolver can stop before a supplied full tensor
+    round-trips at double precision. Convert only the copied object's tensor,
+    using a symmetric eigensolver and full-precision XML numbers. This changes
+    its numerical representation, not its mass or intended inertia tensor.
+    Original source bytes and the content hash remain untouched. An existing
+    diagonal inertia and its explicitly declared orientation are left alone.
+    """
+    if "fullinertia" not in inertial.attrib:
+        return
+    values = np.asarray([float(v) for v in inertial.attrib["fullinertia"].split()])
+    if values.shape != (6,) or not np.all(np.isfinite(values)):
+        raise ValueError("full object inertia must contain six finite values")
+    xx, yy, zz, xy, xz, yz = values
+    tensor = np.array([[xx, xy, xz], [xy, yy, yz], [xz, yz, zz]])
+    principal, axes = np.linalg.eigh(tensor)
+    if not np.all(np.isfinite(principal)) or np.any(principal <= 0):
+        raise ValueError("full object inertia must be positive definite")
+    order = np.argsort(principal)[::-1]
+    principal, axes = principal[order], axes[:, order]
+    # Eigenvector signs are arbitrary. A proper frame is required for a
+    # quaternion; flipping one eigenvector leaves the reconstructed tensor.
+    if np.linalg.det(axes) < 0:
+        axes[:, -1] *= -1
+    quaternion = np.empty(4, dtype=np.float64)
+    mujoco.mju_mat2Quat(quaternion, np.ascontiguousarray(axes).reshape(9))
+    del inertial.attrib["fullinertia"]
+    inertial.set("diaginertia", " ".join(format(float(x), ".17g") for x in principal))
+    inertial.set("quat", " ".join(format(float(x), ".17g") for x in quaternion))
+
+
 def append_object_geometry(
     scene: ET.Element, worldbody: ET.Element, geometry: ResolvedObjectGeometry,
 ) -> ET.Element:
@@ -214,6 +247,9 @@ def append_object_geometry(
         asset.append(copied)
     body = deepcopy(source_body)
     body.set("name", "object")
+    inertial = body.find("inertial")
+    assert inertial is not None
+    _canonicalize_full_inertia(inertial)
     freejoint = body.find("freejoint")
     assert freejoint is not None
     freejoint.set("name", "object_free")

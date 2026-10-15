@@ -1,6 +1,8 @@
 # New-thread handoff: grasp failure project
 
-> **Latest continuation, 15 October 2026:** Read the
+> **Current HUG status, 15 October 2026:** [Static simulator-input acceptance](HUG_MAPPING_ACCEPTANCE_REPAIR.md) passes all 32 saved nominal commands through the current scene. Strict native MANO surface preservation still fails. Read the latest continuation at the end of this file before resuming. No new eval data.
+
+> **Earlier continuation, 15 October 2026:** Read the
 > [HUG direct surface-constraint study](HUG_SURFACE_CONSTRAINT_MAPPING_STUDY.md)
 > and [parallel-provider coordination guide](PARALLEL_GENERATOR_VALIDATION_HANDOFF.md).
 > Direct palm/finger constraints and a separate guidance correction are complete.
@@ -592,3 +594,11 @@ Read [HUG_MAPPING_PROCESS_REPAIR.md](HUG_MAPPING_PROCESS_REPAIR.md). Production 
 Experimental 30D placement adds independent root rotation with verified zero-rotation identity/Jacobians. Two finite pilots remain negative; a real search/selection mismatch was fixed by making previously passing proximity/orientation and necessary eligibility guidance hard constraints. Endpoints remain infeasible at 25 iterations. The final 21-step maximum dyadic check selects λ=1/16 for both cases 20/28, preserves original fingertip caps/passing/eligible rows, and improves worst normalized severity 9.283423→9.104737 and 8.002982→7.573550. No failed row becomesPASS;12/13 and22/1 proximity/orientation failures remain. Both new poses are experimental, not production/global/full-grid validation. Nine historical strictFAILs remain unchanged.
 
 Next engineering work is feasible protected step acceptance inside the object-aware fitter, followed by unchanged independent full-field/uncertainty checks for genuinely eligible replacements. Do not repeat unmodified 25-iteration broad fits, claim impossibility from iteration limits, loosen criteria or generate eval data. Keep Shadow, all original caps and the selected executed-Shadow label target. No inference, integration, labels or training occurred. A contemplated endpoint projection was canceled unexecuted; an explicitly frozen old loader insulated the experiment from concurrent shared-source edits. All versions/results/reviews are archived under research_artifacts/hug_mapping_process_repair_2026-10-15_v1. Preserve other-provider work and the open paper path. Commit/publish authorization remains active on codex/project-work; no new branch/PR.
+
+## Latest continuation — 2026-10-15: scoped HUG simulator-input acceptance
+
+Read [HUG_MAPPING_ACCEPTANCE_REPAIR.md](HUG_MAPPING_ACCEPTANCE_REPAIR.md) before restarting fitting. The current complete static scene contract passes all 32 existing nominal HUG-derived Shadow commands: native frames, source joints/limits/FK, colliders, captured object state and static controls. A source-tensor precision fix resolves the first bridge's eight milk inertia-only failures without changing its numerical gate.
+
+This accepts the declared retargeted-Shadow input representation on these saved commands. It does **not** accept strict native MANO surface preservation, fresh retargeter profiles, dynamic tracking or prediction generalization. The old evaluator could not issue full positive certification; genuine native counterexamples remain on current geometry. Do not keep optimizing solely until that frozen implementation says PASS. Keep its original criteria/results.
+
+The new feasible-step and eligibility-guidance fit improves existing20/28 while preserving original tip guards, but both candidates retain definite surface counterexamples and are not promoted. The current witness replay covers365 retained records across six original and two experimental poses; it is not a full-grid or held-out study. The retargeter default stays historical. Future data must identify actual Shadow execution and preserve native/retargeter/command/geometry/executor provenance. No eval collection, native inference, new proposals, physics integration or training ran. Continue on `codex/project-work` and preserve other-provider work.
