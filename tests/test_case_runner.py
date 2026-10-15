@@ -26,6 +26,7 @@ from grasp_failure_prediction.evaluation.retargeting import (
 from grasp_failure_prediction.integrations.hug_frames import MANO_TO_OPERATOR_RIGHT
 from grasp_failure_prediction.evaluation.schema import EvaluationCase
 from grasp_failure_prediction.evaluation.registry import RegistryError
+from grasp_failure_prediction.evaluation.mapping_fidelity import MappingFidelityRefused
 from test_evaluation_schema import valid_case
 from test_retargeting import synthetic_hug_prediction
 
@@ -45,21 +46,12 @@ def write_test_case(root: Path, *, bad_hash: bool = False) -> Path:
     return case_path
 
 
-def test_one_case_command_writes_valid_result_bundle(tmp_path) -> None:
+def test_saved_case_does_not_publish_result_without_native_fidelity(tmp_path) -> None:
     case_path = write_test_case(tmp_path)
     output = tmp_path / "run"
-    result = run_case(
-        case_path,
-        output,
-        inference=False,
-        record_video=False,
-        project_root=tmp_path,
-    )
-    assert result.status == "completed"
-    assert (output / "result.json").is_file()
-    payload = json.loads((output / "result.json").read_text())
-    assert payload["resolved_execution"]["execution_protocol_id"] == "fixed_grasp_lift_v2"
-    assert payload["artifacts"]["video"] is None
+    with pytest.raises(MappingFidelityRefused):
+        run_case(case_path,output,inference=False,record_video=False,project_root=tmp_path)
+    assert not output.exists()
 
 
 def test_hash_mismatch_fails_before_output_or_simulation(tmp_path) -> None:
@@ -83,7 +75,7 @@ def test_saved_proposal_mode_requires_prediction_path(tmp_path) -> None:
     case_path = tmp_path / "case.yaml"
     case_path.write_text(yaml.safe_dump(payload, sort_keys=False), encoding="utf-8")
 
-    with pytest.raises(ValueError, match="saved-proposal mode requires"):
+    with pytest.raises(MappingFidelityRefused, match="missing_fidelity_evidence"):
         run_case(
             case_path,
             tmp_path / "run",
@@ -93,29 +85,14 @@ def test_saved_proposal_mode_requires_prediction_path(tmp_path) -> None:
         )
 
 
-def test_repeated_case_produces_identical_trajectory(tmp_path) -> None:
+def test_repeated_unqualified_cases_are_refused_without_rollouts(tmp_path) -> None:
     case_path = write_test_case(tmp_path)
     first_output = tmp_path / "first"
     second_output = tmp_path / "second"
-    run_case(
-        case_path,
-        first_output,
-        inference=False,
-        record_video=False,
-        project_root=tmp_path,
-    )
-    run_case(
-        case_path,
-        second_output,
-        inference=False,
-        record_video=False,
-        project_root=tmp_path,
-    )
-    first = np.load(first_output / "trajectory.npz")
-    second = np.load(second_output / "trajectory.npz")
-    assert set(first.files) == set(second.files)
-    for key in first.files:
-        np.testing.assert_array_equal(first[key], second[key])
+    for output in (first_output,second_output):
+        with pytest.raises(MappingFidelityRefused):
+            run_case(case_path,output,inference=False,record_video=False,project_root=tmp_path)
+        assert not output.exists()
 
 
 def test_case_inference_isolated_from_existing_proposal(tmp_path, monkeypatch) -> None:

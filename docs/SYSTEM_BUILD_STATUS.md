@@ -4,6 +4,23 @@ The user assigns the manuscript outside this repository. Build work must not
 edit `docs/paper` or maintain manuscript progress. Continue on the existing
 `codex/project-work` checkout; preserve unrelated dirty work and old experiments.
 
+## Mapping fidelity is the current prerequisite
+
+The user's renewed decision on 15 October is to repair and validate transfer
+before more task-data collection or predictor training. Prior numerical passes,
+completed rollouts and trained models remain historical results; they do not
+qualify the native-to-Shadow surface claim. New collection admission must refuse
+before filters or task execution if native-surface fidelity is unqualified.
+Static diagnosis remains available. Simulator gap experiments follow the mapping
+verdict, rather than being evidence that a failed mapping works.
+
+The independent-static solver profile fixes a measured objective/gradient and
+state-reuse defect. It is an explicitly separate mapping strategy for validation,
+not an accepted replacement for the legacy mapping. Surface fidelity still needs
+its own verdict under the unchanged acceptance rule. The next bounded static
+check covers all native-definite near/far relationships in the saved development
+grids, preserving previous passing regions as well as previously failed ones.
+
 ## Beginning of the system: decision and evidence boundary
 
 The executable chain is rendered RGB-D/calibration → pretrained HUG MANO output

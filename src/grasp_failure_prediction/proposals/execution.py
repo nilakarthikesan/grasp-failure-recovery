@@ -328,6 +328,11 @@ def _run_proposal_case(
     runner_type = _runner_class(resolved)
     if recording_context is not None:
         runner_type = recording_context.runner_class(runner_type)
+    elif proposal.provider.id == "hug_mano_shadow_v1":
+        # Legacy output layout is preserved, but it cannot bypass the current
+        # scientific admission rule by omitting prediction-recording mode.
+        from grasp_failure_prediction.evaluation.mapping_fidelity import require_fidelity_pass
+        require_fidelity_pass()
     runner = runner_type(
         resolved.execution_protocol,
         default_dex_urdf_root(),

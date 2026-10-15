@@ -1,0 +1,116 @@
+hug_mano_shadow_v1:
+  schema_version: proposal_provider_spec_v1
+  provider_id: hug_mano_shadow_v1
+  kind: model
+  adapter: grasp_failure_prediction.proposals.providers:HugProposalProvider
+  embodiment_id: shadow_hand_right
+  execution: local_or_external
+  required_inputs: [rgb, depth_m, intrinsics, object_mask, selection_uv, scene_contract]
+  compatible_execution_protocols: [fixed_grasp_lift_v2]
+  approach_semantics: fixed_world_negative_z
+  maximum_mean_fingertip_error_m: 0.01
+  translation_strategy_id: mano_right_to_shadow_hand_right_v1
+  provenance:
+    source_revision: externally_supplied_and_reported_per_proposal
+    source_location: https://github.com/KevinyWu/hug
+    code: {status: unverified, evidence: external checkout is hashed at runtime, redistribution: unknown}
+    checkpoint: {status: unverified, evidence: external checkpoint hash is recorded per proposal, redistribution: restricted}
+    dataset: {status: unverified, evidence: no training dataset is distributed by this repository, redistribution: unknown}
+    object_assets: {status: unverified, evidence: observation geometry is content-addressed per request, redistribution: unknown}
+
+shadow_saved_record_v1:
+  schema_version: proposal_provider_spec_v1
+  provider_id: shadow_saved_record_v1
+  kind: dataset_replay
+  adapter: grasp_failure_prediction.proposals.providers:SavedShadowProposalProvider
+  embodiment_id: shadow_hand_right
+  execution: local
+  required_inputs: [object_geometry, saved_shadow_record]
+  compatible_execution_protocols: [fixed_grasp_lift_v2]
+  approach_semantics: fixed_world_negative_z
+  translation_strategy_id: dex_urdf_shadow_identity_v1
+  provenance:
+    source_revision: project_authored_v1
+    source_location: tests/fixtures/provider_saved_cube.json
+    code: {status: verified, identifier: MIT, evidence: repository LICENSE, redistribution: allowed}
+    checkpoint: {status: not_applicable, evidence: no learned checkpoint is used, redistribution: not_applicable}
+    dataset: {status: not_applicable, evidence: project-authored synthetic record only, redistribution: not_applicable}
+    object_assets: {status: verified, identifier: project-authored, evidence: synthetic fixture geometry, redistribution: allowed}
+
+dexgrasp_anything_shadow_v1:
+  schema_version: proposal_provider_spec_v1
+  provider_id: dexgrasp_anything_shadow_v1
+  kind: model
+  embodiment_id: shadow_hand_right
+  execution: external
+  required_inputs: [object_mesh, object_point_cloud]
+  compatible_execution_protocols: [fixed_grasp_lift_v2]
+  approach_semantics: fixed_world_negative_z
+  translation_strategy_id: unsupported_pending_official_mapping
+  provenance:
+    source_revision: 86353d710ca71d0f547f0d8b15cc8ca959c78163
+    source_location: https://github.com/4DVLab/DexGrasp-Anything
+    code: {status: verified, identifier: MIT, evidence: official LICENSE at pinned source revision, redistribution: allowed}
+    checkpoint: {status: unverified, evidence: "HF GaussionZhong/Dexgraspanyting@b24637c DexGraspNet.pth sha256:f7675d8eb93b3978b2c2d72ec9f54ead6b936d1dd307e07605daa0c02bcac14f; separate artifact license absent", redistribution: unknown}
+    dataset: {status: verified, identifier: CC-BY-NC-4.0, evidence: checkpoint is published for the DexGraspNet training configuration, redistribution: restricted}
+    object_assets: {status: verified, identifier: CC-BY-NC-4.0, evidence: official DexGraspNet source and project page, redistribution: restricted}
+
+dexgraspnet_saved_record_v1:
+  schema_version: proposal_provider_spec_v1
+  provider_id: dexgraspnet_saved_record_v1
+  kind: dataset_replay
+  enabled: true
+  adapter: grasp_failure_prediction.proposals.providers:DexGraspNetReplayProvider
+  embodiment_id: shadow_hand_right
+  execution: local
+  required_inputs: [object_geometry, provider_input]
+  compatible_execution_protocols: [fixed_grasp_lift_v2]
+  approach_semantics: fixed_world_negative_z
+  translation_strategy_id: dexgraspnet_shadow_to_shadow_hand_right_v1
+  provenance:
+    source_revision: bd1b13d7248729af117e1d46aaa6266b147a3c7b
+    source_location: https://github.com/PKU-EPIC/DexGraspNet
+    code: {status: verified, identifier: CC-BY-NC-4.0, evidence: official repository README at pinned revision, redistribution: restricted}
+    checkpoint: {status: not_applicable, evidence: replay path does not run a checkpoint, redistribution: not_applicable}
+    dataset: {status: verified, identifier: CC-BY-NC-4.0, evidence: official repository README and project page, redistribution: restricted}
+    object_assets: {status: verified, identifier: CC-BY-NC-4.0, evidence: official bundled sample object with pinned hash, redistribution: restricted}
+
+contactgen_mano_shadow_v1:
+  schema_version: proposal_provider_spec_v1
+  provider_id: contactgen_mano_shadow_v1
+  kind: model
+  adapter: grasp_failure_prediction.proposals.contactgen:ContactGenProposalProvider
+  embodiment_id: shadow_hand_right
+  execution: local_or_external
+  required_inputs: [object_geometry, provider_input]
+  compatible_execution_protocols: [fixed_grasp_lift_v2]
+  approach_semantics: fixed_world_negative_z
+  maximum_mean_fingertip_error_m: 0.01
+  translation_strategy_id: mano_right_to_shadow_hand_right_v1
+  provenance:
+    source_revision: 1aea2b6ce498ec90c4af0dd4c5fbdd4a23db761a
+    source_location: https://github.com/stevenlsw/contactgen
+    code: {status: unverified, evidence: official source has no repository-wide license at the pinned revision; source is supplied externally, redistribution: unknown}
+    checkpoint: {status: unverified, evidence: ContactGen and hand-SDF checkpoint hashes are verified and recorded per worker request; separate artifact terms unverified, redistribution: unknown}
+    dataset: {status: unverified, evidence: official implementation uses GRAB; no dataset is distributed or loaded by this adapter, redistribution: restricted}
+    object_assets: {status: unverified, evidence: caller-supplied metric object mesh and licensed MANO assets are hashed externally, redistribution: restricted}
+
+unidexgrasp_shadow_v1:
+  schema_version: proposal_provider_spec_v1
+  provider_id: unidexgrasp_shadow_v1
+  kind: model
+  adapter: grasp_failure_prediction.proposals.unidexgrasp:UniDexGraspProposalProvider
+  embodiment_id: shadow_hand_right
+  execution: local_or_external
+  required_inputs: [object_geometry, provider_input]
+  compatible_execution_protocols: [fixed_grasp_lift_v2]
+  approach_semantics: fixed_world_negative_z
+  maximum_mean_fingertip_error_m: 0.002
+  translation_strategy_id: dexgraspnet_shadow_to_shadow_hand_right_v1
+  provenance:
+    source_revision: 36c9bfcf7cedc987dd15e2384c548e51d5aadc21
+    source_location: https://github.com/PKU-EPIC/UniDexGrasp
+    code: {status: verified, identifier: CC-BY-NC-4.0, evidence: official repository README at pinned source revision, redistribution: restricted}
+    checkpoint: {status: unverified, evidence: IPDF and GraspGlow checkpoint hashes are verified and recorded per worker request; separate artifact terms unverified, redistribution: unknown}
+    dataset: {status: verified, identifier: CC-BY-NC-4.0, evidence: official repository README licenses the work and dataset; no dataset is distributed by this adapter, redistribution: restricted}
+    object_assets: {status: unverified, evidence: caller-supplied point cloud and external Shadow source model are hash-bound and kinematically checked, redistribution: unknown}

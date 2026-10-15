@@ -347,6 +347,11 @@ def run_case(
     case = load_case(case_path)
     resolved = resolve_case(case)
     _validate_case_configuration(case)
+    # This legacy HUG entry point used only the landmark engineering guard.
+    # Stop before inference/capture/task execution while native fidelity is
+    # unqualified. Static mapping and scene-construction APIs remain available.
+    from grasp_failure_prediction.evaluation.mapping_fidelity import require_fidelity_pass
+    require_fidelity_pass()
     object_geometry = _resolve_object_geometry(case, project)
     if inference:
         if hug_root is None or checkpoint is None:

@@ -14,10 +14,17 @@ import yaml
 from pydantic import Field, model_validator
 
 from grasp_failure_prediction.evaluation.registry import Registry, RegistryError
-from grasp_failure_prediction.evaluation.retargeting import ShadowHandRetargeter
+from grasp_failure_prediction.evaluation.retargeting import (
+    LEGACY_RETARGETING_PROFILE, STATIC_RETARGETING_PROFILE,
+    SUPPORTED_OPTIMIZER_STATUSES, ShadowHandRetargeter,
+)
 from grasp_failure_prediction.evaluation.schema import SHA256_PATTERN, StrictModel
 
 from .schema import ProposalPreflightRejection, RigidTransform
+
+
+LEGACY_MANO_STRATEGY = "mano_right_to_shadow_hand_right_v1"
+STATIC_MANO_STRATEGY = "mano_right_to_shadow_hand_right_static_v2"
 
 
 class MappingEvidence(StrictModel):
@@ -41,6 +48,7 @@ class TranslationStrategySpec(StrictModel):
     target_asset_hash: str = Field(pattern=SHA256_PATTERN)
     joint_mapping_path: str | None = None
     retargeter_id: str | None = None
+    retargeting_profile: Literal["legacy_shadow_vector_v1", "independent_static_shadow_vector_v2"] | None = None
     maximum_mean_fingertip_error_m: float | None = Field(default=None, gt=0.0)
     evidence: tuple[MappingEvidence, ...]
 
@@ -61,6 +69,16 @@ class TranslationStrategySpec(StrictModel):
                 raise ValueError("verified mapping requires a registered residual threshold")
         elif self.retargeter_id is None or self.maximum_mean_fingertip_error_m is None:
             raise ValueError("official retargeter requires ID and residual threshold")
+        if self.strategy_kind != "official_retargeter" and self.retargeting_profile is not None:
+            raise ValueError("retargeting profiles apply only to official retargeter strategies")
+        if self.strategy_id == LEGACY_MANO_STRATEGY and self.retargeting_profile not in (None, LEGACY_RETARGETING_PROFILE):
+            raise ValueError("historical MANO strategy must retain its legacy retargeting profile")
+        if self.strategy_id == STATIC_MANO_STRATEGY and (
+                self.strategy_kind != "official_retargeter" or self.retargeting_profile != STATIC_RETARGETING_PROFILE
+                or self.retargeter_id != "dex_retargeting_vector_shadow_right_static_v2"):
+            raise ValueError("static-v2 MANO strategy requires its explicit profile and retargeter identity")
+        if self.retargeting_profile == STATIC_RETARGETING_PROFILE and self.strategy_id != STATIC_MANO_STRATEGY:
+            raise ValueError("static-v2 retargeting requires its separately versioned MANO strategy")
         return self
 
 
@@ -169,7 +187,10 @@ def _official_mano_retargeter(strategy_id: str):
     spec = load_translation_registry().resolve(strategy_id)
     if spec.strategy_kind != "official_retargeter" or spec.source_hand_model_id != "mano_right_hug_landmarks_v1":
         raise TranslationError("strategy_kind_mismatch", "MANO decoder requires the registered official retargeter")
-    retargeter = ShadowHandRetargeter()
+    retargeter = ShadowHandRetargeter(
+        profile=spec.retargeting_profile or LEGACY_RETARGETING_PROFILE,
+        require_optimizer_status=True,
+    )
     config_digest = "sha256:" + hashlib.sha256(retargeter.config_path.read_bytes()).hexdigest()
     recorded = next(item.sha256 for item in spec.evidence if item.role == "retargeter_config")
     if config_digest != recorded:
@@ -178,11 +199,16 @@ def _official_mano_retargeter(strategy_id: str):
 
 
 def translate_mano_with_official_retargeter(grasp: Any, strategy_id: str):
+    """Solve a fresh proposal with explicit profile and mandatory solver status.
+
+    This fresh-input boundary does not provide legacy replay's unchecked solver
+    fallback. A returned pose is not a native fidelity certificate.
+    """
     return _official_mano_retargeter(strategy_id).retarget(grasp)
 
 
 def translate_mano_with_mapping_record(grasp: Any, strategy_id: str):
-    """Observe a fresh legacy solve without changing its objective or commands.
+    """Observe a fresh explicitly selected solve without changing its objective.
 
     Refused solves retain their partial raw/status trace. The caller must save
     the record before handling refusal; it must never assign a physical label.
@@ -203,7 +229,7 @@ def translate_mano_with_mapping_record(grasp: Any, strategy_id: str):
     # or unavailable statuses cannot qualify a new proposal for collection.
     statuses = record.get("optimizer_status_codes", [])
     status_ok = (len(statuses) == retargeter.optimizer_iterations
-                 and all(type(code) is int and code > 0 for code in statuses))
+                 and all(type(code) is int and code in SUPPORTED_OPTIMIZER_STATUSES for code in statuses))
     record["optimizer_status_gate_passed"] = status_ok
     if pose is not None and not status_ok:
         record.update(mapping_status="refused_invalid_retarget",

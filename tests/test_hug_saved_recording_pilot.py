@@ -48,7 +48,11 @@ def fake_result(*, failure=None):
 
 
 @pytest.fixture
-def frozen(tmp_path):
+def frozen(tmp_path, monkeypatch):
+    # Manufactured transaction tests start after scientific admission. The real
+    # gate remains unmocked in test_hug_fidelity_admission.py.
+    from grasp_failure_prediction.evaluation import mapping_fidelity
+    monkeypatch.setattr(mapping_fidelity, "require_fidelity_pass", lambda *args, **kwargs: None)
     evidence, raw = tmp_path / "portable", tmp_path / "ignored_raw"
     evidence.mkdir()
     inventory = []
@@ -202,7 +206,17 @@ def test_cli_bootstraps_existing_dependencies_before_guarded_input_failure(froze
     receipt.update(protocol_sha256=pilot.sha(evidence / "protocol.json"))
     pilot.write(evidence / "authorization.json", receipt)
     Path(protocol["inventory"]).write_text("{}")  # guarantees stop before any attempt
-    code = """import mujoco, runpy
+    code = """import importlib.util, mujoco, runpy, sys
+from pathlib import Path
+# The subprocess tests dependency bootstrap after admission, using synthetic
+# records. Load only the lightweight gate file; importing evaluation/__init__
+# before the pilot bootstrap would itself require the missing Pydantic runtime.
+name = 'grasp_failure_prediction.evaluation.mapping_fidelity'
+spec = importlib.util.spec_from_file_location(name, Path('src/grasp_failure_prediction/evaluation/mapping_fidelity.py'))
+mapping_fidelity = importlib.util.module_from_spec(spec)
+sys.modules[name] = mapping_fidelity
+spec.loader.exec_module(mapping_fidelity)
+mapping_fidelity.require_fidelity_pass = lambda *args, **kwargs: None
 def forbidden(*args, **kwargs):
     raise RuntimeError('physics forbidden in CLI bootstrap regression')
 for name in ('mj_step','mj_step1','mj_step2'):

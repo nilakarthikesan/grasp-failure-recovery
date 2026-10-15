@@ -1,0 +1,238 @@
+"""Fail-closed native-decoder and reusable hand-translation boundary."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from importlib.resources import files
+import hashlib
+import json
+from pathlib import Path
+from typing import Any, Literal, Protocol
+
+import numpy as np
+import yaml
+from pydantic import Field, model_validator
+
+from grasp_failure_prediction.evaluation.registry import Registry, RegistryError
+from grasp_failure_prediction.evaluation.retargeting import (
+    LEGACY_RETARGETING_PROFILE, STATIC_RETARGETING_PROFILE,
+    SUPPORTED_OPTIMIZER_STATUSES, ShadowHandRetargeter,
+)
+from grasp_failure_prediction.evaluation.schema import SHA256_PATTERN, StrictModel
+
+from .schema import ProposalPreflightRejection, RigidTransform
+
+
+LEGACY_MANO_STRATEGY = "mano_right_to_shadow_hand_right_v1"
+STATIC_MANO_STRATEGY = "mano_right_to_shadow_hand_right_static_v2"
+
+
+class MappingEvidence(StrictModel):
+    role: Literal["source_asset", "target_asset", "joint_mapping", "retargeter_config", "implementation"]
+    location: str = Field(min_length=1)
+    sha256: str = Field(pattern=SHA256_PATTERN)
+    availability: Literal["repository", "python_package", "external_licensed"]
+
+
+class TranslationStrategySpec(StrictModel):
+    schema_version: Literal["translation_strategy_spec_v1"]
+    strategy_id: str = Field(min_length=1)
+    strategy_kind: Literal[
+        "exact_kinematic_mapping", "verified_kinematic_mapping", "official_retargeter"
+    ]
+    source_hand_model_id: str = Field(min_length=1)
+    target_hand_model_id: Literal["shadow_hand_right"]
+    source_root_link: str = Field(min_length=1)
+    target_root_link: Literal["palm"]
+    source_asset_hash: str | None = Field(default=None, pattern=SHA256_PATTERN)
+    target_asset_hash: str = Field(pattern=SHA256_PATTERN)
+    joint_mapping_path: str | None = None
+    retargeter_id: str | None = None
+    retargeting_profile: Literal["legacy_shadow_vector_v1", "independent_static_shadow_vector_v2"] | None = None
+    maximum_mean_fingertip_error_m: float | None = Field(default=None, gt=0.0)
+    evidence: tuple[MappingEvidence, ...]
+
+    @model_validator(mode="after")
+    def complete_strategy(self):
+        roles = {item.role for item in self.evidence}
+        if not {"target_asset", "implementation"}.issubset(roles):
+            raise ValueError("translation strategy requires target-asset and implementation evidence")
+        if self.strategy_kind in {"exact_kinematic_mapping", "verified_kinematic_mapping"}:
+            if self.source_asset_hash is None or self.joint_mapping_path is None:
+                raise ValueError("kinematic mapping requires source asset hash and joint mapping")
+            if not {"source_asset", "joint_mapping"}.issubset(roles):
+                raise ValueError("kinematic mapping requires source-asset and joint-mapping evidence")
+            if (
+                self.strategy_kind == "verified_kinematic_mapping"
+                and self.maximum_mean_fingertip_error_m is None
+            ):
+                raise ValueError("verified mapping requires a registered residual threshold")
+        elif self.retargeter_id is None or self.maximum_mean_fingertip_error_m is None:
+            raise ValueError("official retargeter requires ID and residual threshold")
+        if self.strategy_kind != "official_retargeter" and self.retargeting_profile is not None:
+            raise ValueError("retargeting profiles apply only to official retargeter strategies")
+        if self.strategy_id == LEGACY_MANO_STRATEGY and self.retargeting_profile not in (None, LEGACY_RETARGETING_PROFILE):
+            raise ValueError("historical MANO strategy must retain its legacy retargeting profile")
+        if self.strategy_id == STATIC_MANO_STRATEGY and (
+                self.strategy_kind != "official_retargeter" or self.retargeting_profile != STATIC_RETARGETING_PROFILE
+                or self.retargeter_id != "dex_retargeting_vector_shadow_right_static_v2"):
+            raise ValueError("static-v2 MANO strategy requires its explicit profile and retargeter identity")
+        if self.retargeting_profile == STATIC_RETARGETING_PROFILE and self.strategy_id != STATIC_MANO_STRATEGY:
+            raise ValueError("static-v2 retargeting requires its separately versioned MANO strategy")
+        return self
+
+
+def load_translation_registry() -> Registry[TranslationStrategySpec]:
+    resource = files(__package__).joinpath("configs", "translations.yaml")
+    with resource.open("r", encoding="utf-8") as handle:
+        raw = yaml.safe_load(handle)
+    if not isinstance(raw, dict):
+        raise RegistryError("translation registry must contain a mapping")
+    entries = {}
+    for strategy_id, payload in raw.items():
+        spec = TranslationStrategySpec.model_validate(payload)
+        if spec.strategy_id != strategy_id:
+            raise RegistryError(f"translation key {strategy_id!r} does not match embedded ID")
+        entries[strategy_id] = spec
+    return Registry(entries)
+
+
+@dataclass(frozen=True)
+class NativeHandPose:
+    source_hand_model_id: str
+    source_root_link: str
+    object_to_root: RigidTransform
+    joint_targets_rad: dict[str, float]
+    payload: Any = None
+
+
+@dataclass(frozen=True)
+class TranslatedHandPose:
+    object_to_palm: RigidTransform
+    joint_targets_rad: dict[str, float]
+    validation_metrics: dict[str, float | int | str | bool]
+
+
+class NativeDecoder(Protocol):
+    def decode(self, path: Path) -> NativeHandPose: ...
+
+
+class TranslationError(ValueError):
+    def __init__(self, code: str, message: str):
+        self.code = code
+        self.rejection = ProposalPreflightRejection(
+            status="translation_failed",
+            stage="translation",
+            code=code,
+            message=message,
+        )
+        super().__init__(message)
+
+
+class SyntheticShadowRecordDecoder:
+    """Decode the project-authored strict named-Shadow replay record."""
+
+    schema_version = "shadow_saved_record_v1"
+
+    def decode(self, path: Path) -> NativeHandPose:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if payload.get("schema_version") != self.schema_version:
+            raise TranslationError("native_schema_unsupported", "saved Shadow record has the wrong schema version")
+        return NativeHandPose(
+            source_hand_model_id="shadow_hand_right_dex_urdf_7304c7f",
+            source_root_link="palm",
+            object_to_root=RigidTransform.model_validate(payload["object_to_palm"]),
+            joint_targets_rad={str(k): float(v) for k, v in payload["joint_targets_rad"].items()},
+        )
+
+
+def translate_native_pose(native: NativeHandPose, strategy_id: str) -> TranslatedHandPose:
+    spec = load_translation_registry().resolve(strategy_id)
+    if native.source_hand_model_id != spec.source_hand_model_id or native.source_root_link != spec.source_root_link:
+        raise TranslationError("source_hand_mismatch", "native source hand/root does not match translation strategy")
+    if spec.strategy_kind not in {"exact_kinematic_mapping", "verified_kinematic_mapping"}:
+        raise TranslationError("strategy_input_unsupported", "official retargeter requires native landmark payload")
+    mapping_resource = files(__package__).joinpath(spec.joint_mapping_path)
+    mapping_digest = "sha256:" + hashlib.sha256(mapping_resource.read_bytes()).hexdigest()
+    recorded = next(item.sha256 for item in spec.evidence if item.role == "joint_mapping")
+    if mapping_digest != recorded:
+        raise TranslationError("mapping_evidence_hash_mismatch", "registered joint mapping evidence changed")
+    with mapping_resource.open("r", encoding="utf-8") as handle:
+        mapping = yaml.safe_load(handle)
+    joint_mapping = mapping["joint_mapping"]
+    if set(native.joint_targets_rad) != set(joint_mapping):
+        raise TranslationError("native_joint_set_mismatch", "native named joint set does not match exact mapping")
+    target_values = {
+        str(name): float(value)
+        for name, value in mapping.get("target_constants_rad", {}).items()
+    }
+    for source, rule in joint_mapping.items():
+        if isinstance(rule, str):
+            target, multiplier, offset = rule, 1.0, 0.0
+        else:
+            target = str(rule["target"])
+            multiplier = float(rule.get("multiplier", 1.0))
+            offset = float(rule.get("offset_rad", 0.0))
+        if target in target_values:
+            raise TranslationError("target_joint_duplicated", f"target joint {target!r} is assigned more than once")
+        target_values[target] = multiplier * native.joint_targets_rad[source] + offset
+    return TranslatedHandPose(
+        object_to_palm=native.object_to_root,
+        joint_targets_rad=target_values,
+        validation_metrics={"translation_strategy_id": strategy_id, "mapping_kind": spec.strategy_kind},
+    )
+
+
+def _official_mano_retargeter(strategy_id: str):
+    spec = load_translation_registry().resolve(strategy_id)
+    if spec.strategy_kind != "official_retargeter" or spec.source_hand_model_id != "mano_right_hug_landmarks_v1":
+        raise TranslationError("strategy_kind_mismatch", "MANO decoder requires the registered official retargeter")
+    retargeter = ShadowHandRetargeter(
+        profile=spec.retargeting_profile or LEGACY_RETARGETING_PROFILE,
+        require_optimizer_status=True,
+    )
+    config_digest = "sha256:" + hashlib.sha256(retargeter.config_path.read_bytes()).hexdigest()
+    recorded = next(item.sha256 for item in spec.evidence if item.role == "retargeter_config")
+    if config_digest != recorded:
+        raise TranslationError("retargeter_evidence_hash_mismatch", "official retargeter configuration changed")
+    return retargeter
+
+
+def translate_mano_with_official_retargeter(grasp: Any, strategy_id: str):
+    """Solve a fresh proposal with explicit profile and mandatory solver status.
+
+    This fresh-input boundary does not provide legacy replay's unchecked solver
+    fallback. A returned pose is not a native fidelity certificate.
+    """
+    return _official_mano_retargeter(strategy_id).retarget(grasp)
+
+
+def translate_mano_with_mapping_record(grasp: Any, strategy_id: str):
+    """Observe a fresh explicitly selected solve without changing its objective.
+
+    Refused solves retain their partial raw/status trace. The caller must save
+    the record before handling refusal; it must never assign a physical label.
+    """
+    from grasp_failure_prediction.evaluation.fresh_mapping_qualification import capture_solve
+
+    retargeter = _official_mano_retargeter(strategy_id)
+    pose, record = capture_solve(retargeter, grasp)
+    record.update(
+        schema_version="hug_mapping_record_v1",
+        translation_strategy_id=strategy_id,
+        fresh_instance_per_proposal=True,
+        joint_limits_rad=retargeter.joint_limits.tolist(),
+        mapping_status="ok" if pose is not None else "refused_invalid_retarget",
+        outcome=None,
+    )
+    # A positive budget termination is recorded, not called convergence. Failed
+    # or unavailable statuses cannot qualify a new proposal for collection.
+    statuses = record.get("optimizer_status_codes", [])
+    status_ok = (len(statuses) == retargeter.optimizer_iterations
+                 and all(type(code) is int and code in SUPPORTED_OPTIMIZER_STATUSES for code in statuses))
+    record["optimizer_status_gate_passed"] = status_ok
+    if pose is not None and not status_ok:
+        record.update(mapping_status="refused_invalid_retarget",
+                      refusal_reason="optimizer termination status unavailable or failed")
+        pose = None
+    return pose, record

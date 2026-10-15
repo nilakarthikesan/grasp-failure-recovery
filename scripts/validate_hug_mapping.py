@@ -17,6 +17,14 @@ import numpy as np
 import mujoco
 
 
+def _exit_code(records, require_fidelity=False):
+    """Keep numerical diagnostic exits; explicit strict admission adds code 3."""
+    if any(c['runtime'] and c['runtime']['static_input_gate']=='FAIL' for c in records):return 1
+    if any(c['runtime'] and c['runtime']['static_input_gate']=='INCOMPLETE' for c in records):return 2
+    if require_fidelity and (not records or any(not c.get('fidelity',{}).get('collection_admitted',False) for c in records)):return 3
+    return 0
+
+
 def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project',type=Path,default=Path(__file__).resolve().parents[1])
@@ -24,6 +32,9 @@ def main(argv=None):
     parser.add_argument('--output',type=Path,required=True,help='new JSON report; existing files are never overwritten')
     parser.add_argument('--prepare-protocol',type=Path,help='write a source/input-bound static run declaration and stop before geometry checks')
     parser.add_argument('--protocol',type=Path,help='verify this predeclared static run before measurement')
+    parser.add_argument('--require-fidelity',action='store_true',help='also require real native-surface fidelity admission; no supported positive certifier exists today')
+    parser.add_argument('--fidelity-evidence',type=Path,help='optional immutable fidelity evidence JSON; numerical PASS alone is insufficient')
+    parser.add_argument('--fidelity-geometry-bindings',type=Path,help='JSON native_hand/mapped_hand/object file-to-hash closures for evidence identity checks')
     sub=parser.add_subparsers(dest='mode',required=True)
     saved=sub.add_parser('saved');saved.add_argument('--inventory',type=Path);saved.add_argument('--indices',type=int,nargs='+')
     saved.add_argument('--evidence-only',action='store_true',help='verify old evidence without recomputing geometry')
@@ -37,6 +48,7 @@ def main(argv=None):
             if directory not in sys.path:sys.path.append(directory)
     sys.path.insert(0,str(root/'src'))
     from grasp_failure_prediction.evaluation import mapping_validation as mv
+    from grasp_failure_prediction.evaluation import mapping_fidelity as mf
     from grasp_failure_prediction.evaluation import pose_validation as pv
     from grasp_failure_prediction.evaluation.retargeting import RetargetedHandPose,camera_landmarks_to_wrist,reference_vectors
     from grasp_failure_prediction.integrations.hug import load_hug_prediction
@@ -46,6 +58,9 @@ def main(argv=None):
     entries=json.loads(inventory.read_text())['modern_cases']
     selected=args.indices if args.mode=='saved' and args.indices is not None else list(range(len(entries))) if args.mode=='saved' else []
     declaration={'schema_version':'hug_mapping_static_run_protocol_v1','mode':args.mode,'indices':selected,
+                 'require_fidelity':args.require_fidelity,
+                 'fidelity_evidence':str(args.fidelity_evidence.resolve()) if args.fidelity_evidence else None,
+                 'fidelity_geometry_bindings':str(args.fidelity_geometry_bindings.resolve()) if args.fidelity_geometry_bindings else None,
                  'native':str(args.native.resolve()) if args.mode=='proposal' else None,
                  'mapping_record':str(args.mapping_record.resolve()) if args.mode=='proposal' else None,
                  'output':str(output),'evidence_only':args.evidence_only if args.mode=='saved' else False,
@@ -55,7 +70,8 @@ def main(argv=None):
                  'runtime':{'python':sys.version,'numpy':np.__version__,'mujoco':mujoco.__version__}}
     if args.prepare_protocol:
         from xml.etree import ElementTree as ET
-        paths=[Path(__file__).resolve(),Path(mv.__file__),Path(pv.__file__),inventory,
+        paths=[Path(__file__).resolve(),Path(mv.__file__),Path(mf.__file__),Path(pv.__file__),inventory,
+               mf.DEFAULT_ACCEPTANCE_RULE,root/'tests/test_mapping_fidelity.py',
                root/'src/grasp_failure_prediction/evaluation/retargeting.py',
                root/'tests/test_mapping_validation.py',
                root/'src/grasp_failure_prediction/integrations/hug.py',root/'src/grasp_failure_prediction/integrations/hug_projection.py',
@@ -77,6 +93,14 @@ def main(argv=None):
             paths.extend([args.native,args.mapping_record]);paths.extend(path for path in args.observation.iterdir() if path.is_file())
             value=json.loads(args.mapping_record.read_text());config=value.get('provenance',{}).get('config_path')
             if config:paths.append(Path(config))
+        if args.fidelity_evidence:
+            paths.append(args.fidelity_evidence)
+            value=json.loads(args.fidelity_evidence.read_text())
+            paths.extend(Path(name) for name in value.get('artifact_bindings',{}))
+        if args.fidelity_geometry_bindings:
+            paths.append(args.fidelity_geometry_bindings)
+            for bindings in json.loads(args.fidelity_geometry_bindings.read_text()).values():
+                paths.extend(Path(name) for name in bindings)
         declaration['bindings']={str(path.resolve()):mv.sha(path) for path in paths}
         path=args.prepare_protocol;path.parent.mkdir(parents=True,exist_ok=True)
         with path.open('x') as handle:json.dump(declaration,handle,indent=2,allow_nan=False);handle.write('\n')
@@ -147,11 +171,22 @@ def main(argv=None):
             match=next((i for i,c in enumerate(entries) if c['native']['sha256'].removeprefix('sha256:')==digest),None)
             records.append(dict(native=str(args.native.resolve()),native_sha256=digest,mapping_record_sha256=mv.sha(args.mapping_record),
                                 runtime=runtime,historical=mv.historical_evidence(root,match,digest) if match is not None else {'checks':{},'scope':'new native identity; historical qualification does not transfer'}))
+    geometry=json.loads(args.fidelity_geometry_bindings.read_text()) if args.fidelity_geometry_bindings else None
+    for case in records:
+        mapped=args.mapping_record if args.mode=='proposal' else Path(entries[case['index']]['stored_shadow_command']['path'])
+        case['fidelity']=mf.assess_fidelity_evidence(args.fidelity_evidence,native_path=case['native'],mapped_path=mapped,
+            geometry_bindings=geometry,numerical_report=case['runtime'])
     report=dict(schema_version=mv.SCHEMA,mode=args.mode,cases=records,counts=counts,
                 implementation_sha256={str(Path(mv.__file__).resolve()):mv.sha(mv.__file__),str(Path(__file__).resolve()):mv.sha(__file__)},
                 historical_evidence_does_not_qualify_current_mapping=True,physical_execution_or_large_collection_qualified=False)
     gates=[case['runtime']['static_input_gate'] if case['runtime'] else 'NOT_RUN' for case in records]
     report['final_verdict']='FAIL' if 'FAIL' in gates else 'PASS_WITH_CAVEATS' if gates and all(g=='PASS' for g in gates) else 'INCOMPLETE'
+    report['numerical_final_verdict']=report['final_verdict']
+    fidelity=[case['fidelity']['fidelity_status'] for case in records]
+    report['native_fidelity_status']='FAIL' if 'FAIL' in fidelity else 'PASS' if fidelity and all(v=='PASS' for v in fidelity) else 'UNRESOLVED'
+    report['fidelity_collection_admitted']=bool(records) and all(c['fidelity']['collection_admitted'] for c in records)
+    report['fidelity_required_for_execution']=True
+    report['supported_continuous_certifiers']=list(mf.SUPPORTED_CONTINUOUS_CERTIFIERS)
     report['protocol_sha256']=mv.sha(args.protocol) if args.protocol else None
     report['predeclared_run']=frozen is not None
     if frozen:
@@ -160,18 +195,18 @@ def main(argv=None):
         report['bindings']=frozen['bindings']
     output.parent.mkdir(parents=True,exist_ok=True)
     with output.open('x') as handle:json.dump(report,handle,indent=2,allow_nan=False);handle.write('\n')
-    lines=['# HUG mapping validation',f"Final verdict: **{report['final_verdict']}**.",
+    lines=['# HUG mapping validation',f"Numerical verdict: **{report['final_verdict']}**.",
+           f"Native-surface fidelity: **{report['native_fidelity_status']}**; collection admitted: **{report['fidelity_collection_admitted']}**.",
            'Scope: static simulator inputs. Contact/tracking remain measurements; native fidelity and large collection are unqualified.','']
     for case in records:
         label=case.get('index',case['native_sha256'][:12]);runtime=case['runtime']
-        lines.append(f"- Case {label}: {runtime['static_input_gate'] if runtime else 'NOT_RUN'}.")
+        lines.append(f"- Case {label}: numerical {runtime['static_input_gate'] if runtime else 'NOT_RUN'}; fidelity {case['fidelity']['fidelity_status']}.")
         if runtime:
             for name,row in runtime['checks'].items():lines.append(f"  - {name}: {row['status']} ({row['origin']}).")
         for name,row in case['historical'].get('checks',{}).items():lines.append(f"  - Historical {name}: {row['status']} (hash-bound; not recomputed).")
     with output.with_suffix('.md').open('x') as handle:handle.write('\n'.join(lines)+'\n')
     print(json.dumps({'report':str(output),'cases':len(records),'counts':counts,'runtime_gates':[c['runtime']['static_input_gate'] if c['runtime'] else 'NOT_RUN' for c in records]}))
-    if any(c['runtime'] and c['runtime']['static_input_gate']=='FAIL' for c in records):return 1
-    return 2 if any(c['runtime'] and c['runtime']['static_input_gate']=='INCOMPLETE' for c in records) else 0
+    return _exit_code(records,args.require_fidelity)
 
 
 if __name__=='__main__':raise SystemExit(main())

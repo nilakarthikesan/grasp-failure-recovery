@@ -1,7 +1,7 @@
 """Opt-in HUG proposal execution transaction for prediction_recording_v1.
 
 This adds no controller, mapper, scorer, collection quota or train/test split.
-The caller must apply its declared mapping gate before a collection is run.
+Execution requires native-surface fidelity independently of numerical mapping.
 """
 
 from __future__ import annotations
@@ -69,6 +69,7 @@ def _code_files() -> dict[Path, str]:
         "proposals/configs/preflight.yaml", "proposals/configs/providers.yaml",
         "evaluation/runner.py", "evaluation/recorded_runner.py", "evaluation/prediction_recording.py",
         "evaluation/scoring.py", "evaluation/retargeting.py", "evaluation/pose_validation.py",
+        "evaluation/mapping_fidelity.py",
         "evaluation/object_assets.py", "evaluation/case_runner.py", "evaluation/scene_contracts.py",
         "evaluation/registry.py", "evaluation/schema.py", "integrations/hug.py",
         "evaluation/configs/environments.yaml", "evaluation/configs/execution_protocols.yaml",
@@ -191,7 +192,23 @@ class HugPredictionRecording:
     def runner_class(self, registered):
         if registered is not ActuatedShadowRunner:
             raise ValueError("recording mode requires the unchanged registered ActuatedShadowRunner")
+        self.require_fidelity_for_execution()
         return CheckedRecordedShadowRunner
+
+    def require_fidelity_for_execution(self) -> None:
+        """Refuse before runner creation; static input inspection stays usable."""
+        from grasp_failure_prediction.evaluation.mapping_fidelity import MappingFidelityRefused, require_fidelity_pass
+        references = [] if self.proposal is None else [item for item in self.proposal.native_artifacts
+                                                       if item.role == "mapping_fidelity_evidence"]
+        reference = None
+        if len(references) == 1 and self.proposal_path is not None:
+            item = references[0]
+            reference = {"path": str(self.proposal_path.parent / item.path), "sha256": item.sha256}
+        try:
+            require_fidelity_pass(reference, mapped_path=self.proposal_path)
+        except MappingFidelityRefused as error:
+            raise RecordingAdmissionError(MappingStatus.REFUSED_GUARD, "native_surface_fidelity_unqualified",
+                                          str(error)) from error
 
     def verify_bindings(self) -> None:
         for path, expected in {**self.source_files, **self.input_files, **self.asset_files}.items():

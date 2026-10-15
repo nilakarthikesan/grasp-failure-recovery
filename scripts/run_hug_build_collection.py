@@ -48,6 +48,7 @@ SOURCE_FILES = (
     "src/grasp_failure_prediction/evaluation/approach_execution.py",
     "src/grasp_failure_prediction/evaluation/table_clearance.py",
     "src/grasp_failure_prediction/evaluation/mapping_validation.py",
+    "src/grasp_failure_prediction/evaluation/mapping_fidelity.py",
     "src/grasp_failure_prediction/evaluation/pose_validation.py",
     "src/grasp_failure_prediction/evaluation/retargeting.py",
     "src/grasp_failure_prediction/evaluation/scoring.py",
@@ -505,6 +506,7 @@ def collect(output,authorization,condition):
         verify(json.loads(pilot.read_text())["raw_artifact_bindings"])
         extra[str(pilot)]=sha(pilot)
     authorized(output,authorization,"collect_"+condition,extra_bindings=extra,quota=quota)
+    _require_collection_fidelity(generated)
     raw=Path(protocol["raw_output"])/condition
     if raw.exists() or (output/(condition+"_summary.json")).exists():
         raise FileExistsError("collection cannot retry, overwrite or replace attempts")
@@ -561,6 +563,21 @@ def collect(output,authorization,condition):
     report["raw_artifact_bindings"]={str(p):sha(p) for p in sorted(raw.rglob("*")) if p.is_file()}
     write(output/(condition+"_summary.json"),report)
     return report
+
+
+def _require_collection_fidelity(generated):
+    """Numerical admission never authorizes more HUG-to-Shadow task data.
+
+    The continuous native-surface claim currently has no implemented positive
+    prover. Keep static diagnostics usable, but refuse before filters, task
+    runners, output publication or physics. Historical results stay unchanged.
+    """
+    from grasp_failure_prediction.evaluation.mapping_fidelity import require_row_fidelity
+    for proposal in generated["proposals"]:
+        if proposal["mapping_status"] == "ok":
+            path=Path(proposal["proposal_path"])
+            require_row_fidelity(proposal,native_path=path.parent/"native/proposal.pkl",mapped_path=path,
+                numerical_report=proposal.get("mapping_validation"))
 
 
 def _case_and_context(protocol,proposal_row,work):
@@ -680,6 +697,9 @@ def _null_attempt(protocol,proposal,scenario,directory,*,mapping,code,status):
 
 
 def _collect_attempt(protocol,proposal,scenario,directory,filter_record):
+    if proposal.get("mapping_status") != "ok":
+        raise ValueError("refused or unresolved mappings cannot enter physical collection")
+    _require_collection_fidelity({"proposals":[proposal]})
     from grasp_failure_prediction.evaluation import scoring
     from grasp_failure_prediction.evaluation.approach_execution import ApproachPlanningRejected
     from grasp_failure_prediction.evaluation.prediction_recording import write_incomplete_attempt,load_attempt
@@ -749,6 +769,7 @@ class _ClosedStateReached(Exception):pass
 
 
 def _run_filters(protocol,generated,directory):
+    _require_collection_fidelity(generated)
     from grasp_failure_prediction.proposals.physics_filter import filter_closed_grasp,PhysicsFilterGeometry,load_physics_filter_spec
     from grasp_failure_prediction.evaluation.approach_execution import ApproachPlanningRejected
     from run_hug_saved_recording_pilot import _save_partial

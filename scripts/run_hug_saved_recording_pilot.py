@@ -566,6 +566,8 @@ def run(output: Path, authorization_path: Path, *, executor=execute_attempt) -> 
     for directory in protocol.get("dependency_dirs", []):
         if directory not in sys.path:
             sys.path.append(directory)
+    from grasp_failure_prediction.evaluation.mapping_fidelity import require_fidelity_pass
+    require_fidelity_pass()
     from grasp_failure_prediction.evaluation.prediction_recording import write_incomplete_attempt
     from grasp_failure_prediction.prediction.recorded_dataset import PrefixSpec, export_recorded_dataset, load_recorded_dataset
     raw_output = Path(protocol["raw_output"])

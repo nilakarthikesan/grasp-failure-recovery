@@ -649,3 +649,40 @@ commands in HUG_FAILURE_MODE_AUDIT_V1.md and HUG_CUTOFF_SENSITIVITY_V1.md.
 Every input/source/fold/model binding must match before execution. The optional
 historical-refit v2 declaration is preparation only; no new historical optimizer
 run was needed or performed. Original historical artifacts remain unchanged.
+
+
+## 15 October 2026 — Versioned solver repair and native-fidelity admission
+
+The new mano_right_to_shadow_hand_right_static_v2 strategy selects the existing
+independent-static profile: temporal-gradient inconsistency removed, state reset
+per proposal, smoothing disabled and vector scale1.0. Legacy mapping identity
+remains unchanged. Fresh translation calls now reject failed, missing or unknown
+optimizer statuses; positive codes1–6 include budget stops and do not prove
+convergence or contact preservation. No native-surface positive result is claimed.
+
+New fidelity admission separates numerical realization from the unchanged native
+surface rule. No real MANO-to-Shadow continuous positive verifier is implemented;
+missing, sampled, capped-witness and self-declared PASS evidence cannot admit
+collection. The bounded collector, filters/direct attempt entry, opt-in recorder,
+default HUG proposal execution, legacy HUG case runner and saved pilot refuse
+before physics when unqualified. Static diagnostics remain usable. Raw runner
+and standalone approach-study APIs are not a universal physics firewall; none
+are being executed. Refusals do not become negative task labels.
+
+Final combined controls:226passed in5.70s, zero integration calls, in Python3.12.13,
+NumPy2.2.6, MuJoCo3.3.7 and Pydantic2.13.5. Receipt:
+research_artifacts/hug_mapping_admission_2026-10-15_v1/final_combined_checks.json.
+An initial combined run had189passes/8failures because the old manufactured
+saved-pilot tests expected post-admission execution. Their explicit admission
+mocks preserve transaction tests; separate unmocked tests verify actual refusal,
+including persisted not_executed/null-outcome metadata. Both receipts are kept.
+
+A separate current-geometry full-field diagnostic is frozen before measurement:
+cases20/28, four saved poses,19174+45484cells,341721+804343native-definite
+relationships,600s and48staticforwards per case. It rechecks complete saved
+fields, including baseline-passing regions, under unchanged bands/caps and0
+physics/retarget/inference budget. Orientation full coverage remainsNOT_RUN,
+so this audit cannot certifyPASS. A qualified current-scene30Dadapter and any
+subsequent constraint-exchange repair require their own source/protocol freeze.
+No new task data, inference, labels or predictor fits were produced. Paper files
+remain untouched.

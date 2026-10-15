@@ -189,6 +189,10 @@ def generated(prepared,monkeypatch):
         bindings={str(prepared.output/"preparation.json"):driver.sha(prepared.output/"preparation.json"),
                   str(prepared.output/"generation.json"):driver.sha(prepared.output/"generation.json")},quota=20))
     prepared.pilot_auth=auth
+    # These manufactured controller/recording tests exercise post-admission
+    # behavior. The real fail-closed boundary is tested without this mock in
+    # test_hug_fidelity_admission.py; synthetic rows are not fidelity evidence.
+    monkeypatch.setattr(driver,"_require_collection_fidelity",lambda generated:None)
     return prepared
 
 

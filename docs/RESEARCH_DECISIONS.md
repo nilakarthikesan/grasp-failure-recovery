@@ -2479,3 +2479,31 @@ The32prospective reserve plannerrefusals have null outcomes and yield60explicit
 model skips. Recording these limits does not lower anygate or redefine success.
 SYSTEM_BUILD_STATUS now carries the implementation reason, evidence and limit;
 no manuscript or originalscientific artifact was edited.
+
+
+## 2026-10-15 — Make faithful transfer a prerequisite again
+
+Previous work established numerical realization and then collected mapped-Shadow
+task labels, while the separate native-surface acceptance rule remained failed.
+The user now requires mapping repair and evidence before additional collection
+or predictor training. Preserve those historical datasets and their limitations;
+do not reinterpret them as faithful native-HUG outcomes.
+
+Implemented: expose the existing independent-static solver correction as
+`mano_right_to_shadow_hand_right_static_v2`, retain the legacy mapping identity,
+and require recognized optimizer termination status on fresh translations.
+Numerical consistency is not surface fidelity. New high-level HUG task admission
+refuses before filters/runners when fidelity is unqualified; no supported
+continuous MANO-to-Shadow positive certifier exists yet. Missing or self-asserted
+PASS evidence cannot release collection. Static diagnostics remain available.
+
+Measured implementation controls so far:47 solver/translation tests and80
+fidelity/admission/recording/orchestration tests pass in the pinned runtime,
+with zero physics-integration calls. These are code controls, not native-contact
+validation. The forthcoming separately frozen current-geometry surface audit
+must inspect all native-definite near/far relationships in the saved development
+grids, including previously passing regions. Its measurements and any new
+candidate optimization remain pending at this decision. No new inference,
+task-data collection or predictor training is authorized by numerical PASS;
+simulator gap experiments follow a distinct mapping verdict. Paper files remain
+outside this system-build task.

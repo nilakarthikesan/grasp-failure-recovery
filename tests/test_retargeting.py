@@ -133,6 +133,7 @@ def test_default_profile_preserves_historical_solver_settings_and_reports_them()
     assert not evidence.low_pass_filter_enabled
     assert evidence.refinement_calls == 20
     assert evidence.optimizer_status_codes is None
+    assert retargeter.require_optimizer_status is False
 
 
 def test_static_profile_maps_a_b_a_independently_of_call_order() -> None:
@@ -216,3 +217,53 @@ def test_static_profile_preserves_positive_budget_status_without_calling_it_conv
     monkeypatch.setattr(retargeter._retargeting.optimizer, "opt", SimpleNamespace(last_optimize_result=lambda: 5))
     pose = retargeter.retarget(grasp)
     assert pose.retargeting_provenance.optimizer_status_codes == (5,) * 20
+
+
+@pytest.mark.parametrize("status", [-1, 0, True, None, 7, 999])
+def test_live_legacy_rejects_failed_missing_or_unknown_status_but_replay_is_unchanged(monkeypatch, status) -> None:
+    grasp, _ = synthetic_hug_prediction()
+    live = ShadowHandRetargeter(require_optimizer_status=True)
+    replay = ShadowHandRetargeter()
+    calls = []
+    def fallback(_):
+        calls.append(True)
+        return np.zeros(len(live.joint_names))
+    for target in (live, replay):
+        monkeypatch.setattr(target._retargeting, "retarget", fallback)
+        monkeypatch.setattr(target._retargeting.optimizer, "opt", SimpleNamespace(last_optimize_result=lambda: status))
+    with pytest.raises(RetargetingError, match="termination status"):
+        live.retarget(grasp)
+    assert len(calls) == 1
+    pose = replay.retarget(grasp)
+    assert len(calls) == 21
+    assert pose.retargeting_provenance.profile_id == LEGACY_RETARGETING_PROFILE
+    assert pose.retargeting_provenance.optimizer_status_codes is None
+
+
+def test_live_legacy_reports_all_supported_budget_stops_without_reset_or_objective_change(monkeypatch) -> None:
+    grasp, _ = synthetic_hug_prediction()
+    live = ShadowHandRetargeter(require_optimizer_status=True)
+    monkeypatch.setattr(live._retargeting, "retarget", lambda _: np.zeros(len(live.joint_names)))
+    monkeypatch.setattr(live._retargeting.optimizer, "opt", SimpleNamespace(last_optimize_result=lambda: 6))
+    monkeypatch.setattr(live._retargeting, "reset", lambda: pytest.fail("legacy fresh status checks changed initialization"))
+    pose = live.retarget(grasp)
+    assert pose.retargeting_provenance.optimizer_status_codes == (6,) * 20
+    assert pose.retargeting_provenance.temporal_norm_delta == .004
+    assert not pose.retargeting_provenance.reset_before_proposal
+
+
+def test_static_status_enforcement_cannot_be_disabled(monkeypatch) -> None:
+    grasp, _ = synthetic_hug_prediction()
+    target = ShadowHandRetargeter(profile=STATIC_RETARGETING_PROFILE, require_optimizer_status=False)
+    assert target.require_optimizer_status is True
+    target.require_optimizer_status = False  # The profile itself still mandates the gate.
+    monkeypatch.setattr(target._retargeting, "retarget", lambda _: np.zeros(len(target.joint_names)))
+    monkeypatch.setattr(target._retargeting.optimizer, "opt", SimpleNamespace(last_optimize_result=lambda: -4))
+    with pytest.raises(RetargetingError, match="failed with termination status"):
+        target.retarget(grasp)
+
+
+@pytest.mark.parametrize("value", [1, None, "yes"])
+def test_status_policy_must_be_explicit_boolean(value) -> None:
+    with pytest.raises(RetargetingError, match="must be a boolean"):
+        ShadowHandRetargeter(require_optimizer_status=value)

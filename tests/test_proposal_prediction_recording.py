@@ -67,6 +67,9 @@ def fake_execute(runner, *args):
 
 @pytest.fixture
 def bundle(tmp_path, monkeypatch):
+    # Transaction tests start after scientific admission and use a manufactured
+    # runner. Separate admission tests retain the real fidelity refusal gate.
+    monkeypatch.setattr(recording.HugPredictionRecording,"require_fidelity_for_execution",lambda self:None)
     native = tmp_path / "proposals/sample/native"
     native.mkdir(parents=True)
     for name in ("rgb.png", "depth.png", "object_mask.png"):
@@ -156,6 +159,10 @@ def test_opt_in_records_aligned_observables_hashes_labels_and_export(bundle):
 
 
 def test_default_execution_keeps_legacy_layout_and_does_not_enable_recorder(bundle, monkeypatch):
+    from grasp_failure_prediction.evaluation import mapping_fidelity
+    # Exercise legacy layout after a manufactured admission; real HUG default
+    # admission refuses independently in test_hug_fidelity_admission.py.
+    monkeypatch.setattr(mapping_fidelity,"require_fidelity_pass",lambda *args,**kwargs:None)
     monkeypatch.setattr(execution, "_runner_class", lambda resolved: FakeRecordedRunner)
     monkeypatch.setattr(recording, "HugPredictionRecording", lambda *a, **k: pytest.fail("default mode enabled recorder"))
     execution.run_proposal_case(bundle.case_path, bundle.root / "legacy", project_root=bundle.root, record_video=False)
@@ -171,6 +178,14 @@ def test_native_verification_is_forced_even_when_optional_flag_false(bundle):
     metadata, _, arrays = load_attempt(bundle.root / "run/prediction_recording")
     assert metadata.mapping.status.value == "setup_error" and metadata.outcome is None and arrays is None
     assert not (bundle.root / "run/result.json").exists()
+
+
+def test_default_hug_execution_cannot_omit_recorder_to_bypass_fidelity(bundle,monkeypatch):
+    from grasp_failure_prediction.evaluation.mapping_fidelity import MappingFidelityRefused
+    monkeypatch.setattr(execution,"_execute",lambda *args:pytest.fail("unqualified HUG task executed"))
+    with pytest.raises(MappingFidelityRefused):
+        execution.run_proposal_case(bundle.case_path,bundle.root/"legacy_refused",project_root=bundle.root,record_video=False)
+    assert not (bundle.root/"legacy_refused/result.json").exists()
 
 
 def test_structured_rejection_is_preserved_and_never_labelled(bundle):

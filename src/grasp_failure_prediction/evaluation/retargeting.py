@@ -16,6 +16,9 @@ from grasp_failure_prediction.integrations.hug_frames import MANO_TO_OPERATOR_RI
 LEGACY_RETARGETING_PROFILE = "legacy_shadow_vector_v1"
 STATIC_RETARGETING_PROFILE = "independent_static_shadow_vector_v2"
 RETARGETING_PROFILES = frozenset({LEGACY_RETARGETING_PROFILE, STATIC_RETARGETING_PROFILE})
+# Installed NLopt success/stop/budget codes. Budget stops are observable returns,
+# not a claim of convergence or geometric fidelity.
+SUPPORTED_OPTIMIZER_STATUSES = frozenset({1, 2, 3, 4, 5, 6})
 
 
 class RetargetingError(ValueError):
@@ -129,12 +132,18 @@ class ShadowHandRetargeter:
         urdf_root: str | Path | None = None,
         *,
         profile: str = LEGACY_RETARGETING_PROFILE,
+        require_optimizer_status: bool = False,
     ) -> None:
         # Keep the historical profile explicit and unchanged until a versioned
         # pipeline selects the independent static solver.
         if profile not in RETARGETING_PROFILES:
             raise RetargetingError(f"unknown retargeting profile: {profile!r}")
+        if type(require_optimizer_status) is not bool:
+            raise RetargetingError("require_optimizer_status must be a boolean")
         self.profile = profile
+        # Bare legacy construction preserves historical replay semantics. Every
+        # fresh translation requests status checks; static v2 cannot disable them.
+        self.require_optimizer_status = require_optimizer_status or profile == STATIC_RETARGETING_PROFILE
         try:
             from dex_retargeting.constants import (
                 HandType,
@@ -201,10 +210,10 @@ class ShadowHandRetargeter:
             self._retargeting.reset()
         status_reader = None
         status_codes: list[int] = []
-        if reset_before_proposal:
+        if reset_before_proposal or self.require_optimizer_status:
             status_reader = getattr(self._retargeting.optimizer.opt, "last_optimize_result", None)
             if not callable(status_reader):
-                raise RetargetingError("static retargeting requires optimizer termination status")
+                raise RetargetingError("fresh/static retargeting requires optimizer termination status")
         qpos = None
         for _ in range(self.optimizer_iterations):
             qpos = np.asarray(
@@ -215,12 +224,14 @@ class ShadowHandRetargeter:
                 try:
                     status = status_reader()
                 except Exception as exc:
-                    raise RetargetingError("could not read static optimizer termination status") from exc
+                    raise RetargetingError("could not read fresh/static optimizer termination status") from exc
                 if isinstance(status, (bool, np.bool_)) or not isinstance(status, (int, np.integer)):
-                    raise RetargetingError("static optimizer returned an invalid termination status")
+                    raise RetargetingError("fresh/static optimizer returned an invalid termination status")
                 status_codes.append(int(status))
                 if status <= 0:
-                    raise RetargetingError(f"static optimizer failed with termination status {status}")
+                    raise RetargetingError(f"fresh/static optimizer failed with termination status {status}")
+                if int(status) not in SUPPORTED_OPTIMIZER_STATUSES:
+                    raise RetargetingError(f"fresh/static optimizer returned an unsupported termination status {status}")
                 # Positive codes include iteration/time limits; preserving the
                 # code does not assert convergence or scientific acceptance.
         assert qpos is not None
@@ -251,6 +262,6 @@ class ShadowHandRetargeter:
                 temporal_norm_delta=float(self._retargeting.optimizer.norm_delta),
                 reset_before_proposal=reset_before_proposal,
                 refinement_calls=self.optimizer_iterations,
-                optimizer_status_codes=tuple(status_codes) if reset_before_proposal else None,
+                optimizer_status_codes=tuple(status_codes) if status_reader is not None else None,
             ),
         )
