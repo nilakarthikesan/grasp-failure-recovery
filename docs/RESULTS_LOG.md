@@ -909,3 +909,16 @@ OBJ rounding is at most 0.499306 micrometres. These are provenance and basic
 asset checks, not dynamic calibration. Pose/surface fidelity remain NOT_RUN.
 Tracked receipts are under `manosim_native_transfer_2026-10-15_v2/build_run_v1`;
 derived geometry stays ignored and byte-bound. Collection/training stay paused.
+
+### 2026-10-15 — Freeze exact-shape native pose and collider-field audit
+
+Independent source review and 135 manufactured checks pass, integration calls
+zero. Native protocol SHA070d05931626b226e9e808ce44e0f407af64cb666316ebf70f290bb042af56d7
+binds 1,879 inputs, including all 30 raw build artifacts and exact generated
+shape/report provenance. Only saved development cases 20/28 are admitted, both
+mesh and capsule variants, 600 seconds / 200 static forwards / two CPU MANO
+forwards / two complete field scans per case. The first hard stop prevents the
+second case. Original 5 micrometre reconstruction/anchor and 1e-6 rotation
+comparison limits, cell grids, part labels and surface predicates are unchanged.
+Collection, training and fidelity admission remain disabled. Actual measurements
+and independent saved-array readback are pending at this freeze.
