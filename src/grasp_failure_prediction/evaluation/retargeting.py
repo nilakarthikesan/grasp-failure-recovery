@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import hashlib
 from pathlib import Path
 from typing import Sequence
 
@@ -12,8 +13,28 @@ from grasp_failure_prediction.integrations.hug import HugGraspPrediction
 from grasp_failure_prediction.integrations.hug_frames import MANO_TO_OPERATOR_RIGHT
 
 
+LEGACY_RETARGETING_PROFILE = "legacy_shadow_vector_v1"
+STATIC_RETARGETING_PROFILE = "independent_static_shadow_vector_v2"
+RETARGETING_PROFILES = frozenset({LEGACY_RETARGETING_PROFILE, STATIC_RETARGETING_PROFILE})
+
+
 class RetargetingError(ValueError):
     """Raised when coordinate conversion or joint mapping is invalid."""
+
+
+@dataclass(frozen=True)
+class RetargetingProvenance:
+    """Actual solver settings used for one proposal; independent of fit quality."""
+
+    profile_id: str
+    config_path: str
+    config_sha256: str
+    vector_scaling: float
+    low_pass_filter_enabled: bool
+    temporal_norm_delta: float
+    reset_before_proposal: bool
+    refinement_calls: int
+    optimizer_status_codes: tuple[int, ...] | None
 
 
 @dataclass(frozen=True)
@@ -25,6 +46,7 @@ class RetargetedHandPose:
     landmarks_wrist_m: np.ndarray
     reference_vectors_m: np.ndarray
     T_camera_wrist: np.ndarray
+    retargeting_provenance: RetargetingProvenance | None = None
 
 
 def _validate_rigid_transform(transform: np.ndarray) -> np.ndarray:
@@ -102,7 +124,17 @@ def default_dex_urdf_root() -> Path:
 class ShadowHandRetargeter:
     """Load the official Shadow config and retarget one HUG prediction."""
 
-    def __init__(self, urdf_root: str | Path | None = None) -> None:
+    def __init__(
+        self,
+        urdf_root: str | Path | None = None,
+        *,
+        profile: str = LEGACY_RETARGETING_PROFILE,
+    ) -> None:
+        # Keep the historical profile explicit and unchanged until a versioned
+        # pipeline selects the independent static solver.
+        if profile not in RETARGETING_PROFILES:
+            raise RetargetingError(f"unknown retargeting profile: {profile!r}")
+        self.profile = profile
         try:
             from dex_retargeting.constants import (
                 HandType,
@@ -128,6 +160,7 @@ class ShadowHandRetargeter:
             RobotName.shadow, RetargetingType.vector, HandType.right
         )
         self.config_path = Path(config_path)
+        self.config_sha256 = hashlib.sha256(self.config_path.read_bytes()).hexdigest()
         self._retargeting = RetargetingConfig.load_from_file(config_path).build()
         # The packaged Shadow configuration targets streaming teleoperation and
         # therefore smooths each frame and enlarges vectors by 1.2. Evaluation
@@ -135,6 +168,12 @@ class ShadowHandRetargeter:
         # filtering and preserve its metric hand dimensions.
         self._retargeting.filter = None
         self._retargeting.optimizer.scaling = 1.0
+        if profile == STATIC_RETARGETING_PROFILE:
+            # Installed Dex adds this temporal term to its gradient without
+            # adding the corresponding scalar loss. Independent static inputs
+            # need no temporal prior; zero removes that inconsistent term while
+            # leaving Dex's kinematic objective and Jacobian untouched.
+            self._retargeting.optimizer.norm_delta = 0.0
         self.optimizer_iterations = 20
 
     @property
@@ -155,12 +194,35 @@ class ShadowHandRetargeter:
         landmarks = landmarks @ MANO_TO_OPERATOR_RIGHT.T
         indices = self._retargeting.optimizer.target_link_human_indices
         vectors = reference_vectors(landmarks, indices)
+        reset_before_proposal = self.profile == STATIC_RETARGETING_PROFILE
+        if reset_before_proposal:
+            # Warm-start only the repeated solves within this proposal. A
+            # previous independent grasp must not become its initial condition.
+            self._retargeting.reset()
+        status_reader = None
+        status_codes: list[int] = []
+        if reset_before_proposal:
+            status_reader = getattr(self._retargeting.optimizer.opt, "last_optimize_result", None)
+            if not callable(status_reader):
+                raise RetargetingError("static retargeting requires optimizer termination status")
         qpos = None
         for _ in range(self.optimizer_iterations):
             qpos = np.asarray(
                 self._retargeting.retarget(vectors.astype(np.float32)),
                 dtype=np.float64,
             )
+            if status_reader is not None:
+                try:
+                    status = status_reader()
+                except Exception as exc:
+                    raise RetargetingError("could not read static optimizer termination status") from exc
+                if isinstance(status, (bool, np.bool_)) or not isinstance(status, (int, np.integer)):
+                    raise RetargetingError("static optimizer returned an invalid termination status")
+                status_codes.append(int(status))
+                if status <= 0:
+                    raise RetargetingError(f"static optimizer failed with termination status {status}")
+                # Positive codes include iteration/time limits; preserving the
+                # code does not assert convergence or scientific acceptance.
         assert qpos is not None
         if qpos.shape != (len(self.joint_names),) or not np.all(np.isfinite(qpos)):
             raise RetargetingError("Dex Retargeting returned an invalid joint vector")
@@ -180,4 +242,15 @@ class ShadowHandRetargeter:
             landmarks_wrist_m=landmarks,
             reference_vectors_m=vectors,
             T_camera_wrist=np.asarray(grasp.T_camera_wrist, dtype=np.float64).copy(),
+            retargeting_provenance=RetargetingProvenance(
+                profile_id=self.profile,
+                config_path=str(self.config_path),
+                config_sha256=self.config_sha256,
+                vector_scaling=float(self._retargeting.optimizer.scaling),
+                low_pass_filter_enabled=self._retargeting.filter is not None,
+                temporal_norm_delta=float(self._retargeting.optimizer.norm_delta),
+                reset_before_proposal=reset_before_proposal,
+                refinement_calls=self.optimizer_iterations,
+                optimizer_status_codes=tuple(status_codes) if reset_before_proposal else None,
+            ),
         )

@@ -1,0 +1,75 @@
+{
+  "schema": "hug-retargeter-state-probe-plan-v1",
+  "frozen_at_utc": "2026-10-15T08:14:34.610237+00:00",
+  "root_authorized": true,
+  "root_instruction": "Run bounded saved-input A-B-A and central-difference gradient check now; indices8 and28; exactly freshA, freshB, reusedA-B-A (five outputs), then fixed gradient probe; no inference/physics. Report before selecting default.",
+  "saved_inputs": {
+    "8": {
+      "checkpoint_sha256": "515b5c3bc7987739aec019e754c15df5fbf3eff9daefb93924da098ae4bd1eae",
+      "hug_code_commit": "8d1c52d4c24bfae5a369e32e3f134f5601a02630",
+      "inference_report_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_0/inference_report.json",
+      "inference_report_sha256": "4bfaa4da3ce27d4f121985ed298b8f171f437f96792d654d1cc86af102b5ea34",
+      "input_tensor_hash": "sha256:32189851a541584784134221f54323192761d8e27ad60170aba8669bb865c698",
+      "object_name": "hug_apple",
+      "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_0/proposal.pkl",
+      "real_hug_inference_passed": true,
+      "recorded_proposal_hash_matches": true,
+      "seed": 0,
+      "sha256": "0b99bf1919f6d2c06b76361a2c710474c333d83a3ee750a25fb90490cd3b765c"
+    },
+    "28": {
+      "checkpoint_sha256": "515b5c3bc7987739aec019e754c15df5fbf3eff9daefb93924da098ae4bd1eae",
+      "hug_code_commit": "8d1c52d4c24bfae5a369e32e3f134f5601a02630",
+      "inference_report_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/inference_report.json",
+      "inference_report_sha256": "63a26fa002622df0d8fa57776cad862d519dc07f6da5b1214ab841b871050017",
+      "input_tensor_hash": "sha256:0398b8454f334d86377256397aec74b4ada957de844d41fb150f5f20c3f93c52",
+      "object_name": "hug_mug",
+      "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/proposal.pkl",
+      "real_hug_inference_passed": true,
+      "recorded_proposal_hash_matches": true,
+      "seed": 0,
+      "sha256": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea"
+    }
+  },
+  "input_sha256": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/existing_hug_inventory.json": "5fc28832494c54c7822543a00ea735ab47e1d44d944ff50fc26712eb27536fcb",
+    "/private/tmp/hug_retargeter_state_audit_2026-10-15_v1/run_probe.py": "76c744136706d667c20ca5c857fd0581a749432d1a2858a4b02066bdda7c81f1",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/retargeting.py": "a6631a0f0d20f6ef94c389529b7d6d677a8a8cd9f8e923efff19ccfee26aa4ff",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/integrations/hug.py": "48e9e62cace4add358b546f3d15cff19535463714613ad22eb955d6fb278dd5a",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/integrations/hug_frames.py": "cd7ad9b8df1d5d6adad70e949a9c7f21ad448a25710a54f47e1ffa95fa28562a",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf": "29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps/dex_retargeting/seq_retarget.py": "72cc74f1a0ff91fafc9421d3d6766a7dd2279b0964e0b376718ec385fbb94482",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps/dex_retargeting/optimizer.py": "6b816d65c81f2e959ea6b76876bb03c2b768be95064a1b4b9e1563d36262cdf8",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps/dex_retargeting/retargeting_config.py": "498427e26c34ec68127ee3986a0c650e428151b28f7c60dfbac69a502a49e526",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps/dex_retargeting/robot_wrapper.py": "2e73d2a8353145b3c5385a5acd4a145c3be1c0281a163960ca804a4ffba2e93a",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps/dex_retargeting/constants.py": "677d409b3e8aa6d149c8cb4b8782508707fd4f817cdf79a08ecb07eeda527c9d",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps/dex_retargeting/configs/teleop/shadow_hand_right.yml": "e12e9aa5c8f51010793bfa04f3d92ea998b51b8503e5e61330ca8db194f7bf0e",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_0/proposal.pkl": "0b99bf1919f6d2c06b76361a2c710474c333d83a3ee750a25fb90490cd3b765c",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/proposal.pkl": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea"
+  },
+  "dex_optimizer_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps/dex_retargeting/optimizer.py",
+  "mapping_calls": [
+    "fresh_A",
+    "fresh_B",
+    "reused_A1",
+    "reused_B",
+    "reused_A2"
+  ],
+  "iterations_per_mapping": 20,
+  "maximum_seq_retarget_calls": 100,
+  "wall_budget_seconds": 120,
+  "gradient_probe": {
+    "state": "joint-limit midpoint(float32) + alternating signed0.1*joint-range",
+    "last_qpos": "joint-limit midpoint(float32)",
+    "source_index": 8,
+    "central_difference_step_rad": 1e-05,
+    "callback_evaluations": 50,
+    "norm_delta_zero_control": "same fixed state/scalar with temporal term disabled in memory; no fit"
+  },
+  "failure_policy": "Abort and preserve log on error or timeout; no additional starts or automatic retry.",
+  "new_inference": false,
+  "new_eval_data": false,
+  "physics_steps": 0,
+  "surface_queries": 0,
+  "production_changed": false
+}

@@ -486,6 +486,75 @@ assigns no new tolerance or retrospective pass. The current experiment supports
 a more precise diagnosis, not a successful pose repair or complete mapping
 validation; production mapping and evaluation-data restrictions remain intact.
 
+\paragraph{Numerical repair and complete palm-pose search.}
+A code-level diagnosis identified a mismatch between the production objective
+and the surface contract: ten hand-landmark vectors are optimized without the
+object, while acceptance tests object-relative surfaces. Earlier surface fits
+also held the floating root orientation fixed while varying joints and palm
+translation. Neither an accurate landmark conversion nor a fixed-anchor
+obstruction resolves the full retargeting problem.
+
+Two reproducible numerical defects were repaired in a separately versioned,
+opt-in static profile. A reused solver retained the previous independent
+proposal's initialization; a saved A--B--A check changed A by up to
+0.192417\,rad. The installed dependency also supplied a temporal gradient term
+absent from its scalar loss. Resetting between proposals and removing that
+inconsistent term yields bitwise-identical repeat mappings and a numerical
+loss/gradient discrepancy of $1.08\times10^{-11}$ at the checked state.
+The wrapper now refuses failed or unavailable optimizer status and records its
+effective settings. Sixteen focused tests and independent source/output review
+pass. However, four of ten source-URDF fingertip discrepancies worsen on the two
+saved inputs. These are reliability repairs, not a geometry-accepted mapper;
+the historical default is retained. Existing single-case paths create fresh
+instances, so state leakage does not explain their prior surface failures.
+
+A new experimental solver adds three independent world root-rotation
+coordinates to the prior 27-dimensional state, compensating root translation
+to retain the requested palm position. Thirteen manufactured controls pass;
+zero-rotation states reproduce the original and pooled scene states bitwise,
+and the saved-case Jacobian discrepancy is at most
+$1.59\times10^{-12}$\,m per scaled coordinate. Eight solver controls pass.
+With unchanged original fingertip caps and surface predicates, a frozen
+milk-box-B/mug-B pilot uses exactly two starts per case and bounded calls.
+All four starts stop at 25 iterations; 3,284 raw callbacks and 23 exact checks
+produce no eligible improvement, retaining the two prior pooled poses.
+The experiment uses 6,780 static forward calls and zero integration steps.
+Its negative result neither proves global infeasibility nor creates a new
+full-grid measurement. A concurrently edited scene loader is explicitly
+excluded through a verified frozen-module overlay, so the result remains
+bound to the historical geometry rather than silently mixing versions.
+
+The search also relaxed every surface inequality through one epigraph slack,
+allowing improvement of a failing region at the expense of protected passing
+regions. Exact selection then refused those tradeoffs. A separately frozen
+repair gives protected proximity, orientation and necessary eligibility-guidance
+rows zero slack coefficient while retaining the prior inward search buffers.
+The exact additional eligibility and final surface checks are unchanged.
+Sixteen helper tests and eight independent solver controls pass. One pooled
+start per case, capped at 25 iterations, uses 1,632 raw callbacks and 12 exact
+checks but again retains both prior poses. At the saved terminal states,
+milk-box B still violates three fingertip caps and one hard proximity
+inequality; mug B violates all five fingertip caps. Neither is a converged
+constrained solution. Fixing the search policy therefore does not establish
+surface preservation or global infeasibility.
+
+A final, separately frozen deterministic step check tests at most 21 dyadic
+fractions of each protected-fit endpoint displacement from its pooled reference.
+Both select a one-sixteenth step after five fingertip checks and five exact
+checks each, including a fresh recheck. All original individual fingertip caps
+hold, with minimum slack 115.88 and 57.55\,$\mu$m respectively; no previously
+passing surface or eligible direction row is lost. The worst normalized
+retained violation decreases from 9.283423 to 9.104737 for milk-box B and
+8.002982 to 7.573550 for mug B. No failed row becomes a pass: 12/13 and 22/1
+proximity/orientation failures remain. These mixed normalized values are
+severity diagnostics, not universal metric errors. Forty-four static forward
+calls and zero integration steps establish a small protected improvement, not
+complete mapping acceptance. This motivates feasible step acceptance inside
+the object-aware fitter; the general algorithm and untouched-object validation
+remain future work. Neither new poses nor numerical reliability fixes are
+promoted to the production default, and no new evaluation data or training is
+generated. The historical nine strict failures retain their original scope.
+
 % END GFP SECTION hug
 
 % BEGIN GFP SECTION contactgen

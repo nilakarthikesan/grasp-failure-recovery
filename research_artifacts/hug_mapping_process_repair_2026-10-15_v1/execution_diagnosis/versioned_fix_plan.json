@@ -1,0 +1,38 @@
+{
+  "status": "PROPOSED_VERSIONED_OPTION_NOT_IMPLEMENTED",
+  "production_default_changed": false,
+  "proposed_policy_id": "mano_shadow_static_vector_consistent_v2",
+  "choices_requiring_preexecution_freeze": [
+    "Explicit scalar objective and matching gradient; static quadratic prior coefficient or exactzero",
+    "Per-input initialization/reset and no hidden previous proposal state",
+    "Optimizer fixed budget, convergence status, fallback reason, effective bounds and dtype",
+    "World root policy and proper camera/object bindings",
+    "Every native/mapped/commanded/achieved pose stage separately identified"
+  ],
+  "manifest_fields": [
+    "policy_id",
+    "project_source_hashes",
+    "actual_dependency_module_paths_and_sha256",
+    "package_versions",
+    "configuration_bytes_sha256",
+    "effective_scale_filter_regularizer",
+    "initial_qpos",
+    "iteration_and_evaluation_budget",
+    "termination_status",
+    "native_export_hash",
+    "MANO_asset_hash",
+    "Shadow_asset_closure_hash",
+    "object_geometry_reference_hash",
+    "camera_and_object_transforms",
+    "joint_order",
+    "nominal_pose_hash",
+    "execution_protocol_hash"
+  ],
+  "execution_integrity_changes": [
+    "Require scientific mean-tip gate in saved/fresh modes equally",
+    "Require world transform for world-faithful HUG execution; explicit separate debug replay if absent",
+    "Mark gate/debug scope and solver refusal in result; no task label for pre-execution refusal"
+  ],
+  "acceptance": "No new geometric tolerance; corrected static baseline still requires same saved-case mapping diagnostics.",
+  "no_data_generation": true
+}

@@ -1,0 +1,9 @@
+{
+  "stage": "read-only final hash replay before issuing final receipt",
+  "reason": "Concurrent authorized pose_validation.py edit changed the path after the completed old-module kinematic preflight.",
+  "failed_path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/pose_validation.py",
+  "expected_sha256": "1136cdfe80c405031e7060c5f31dd3a0270400314e6ff5aa7a4630c487cdea75",
+  "reviewer_geometry_or_FK_calls": 0,
+  "final_receipt_issued": false,
+  "remedy": "Use explicitly declared exact-byte frozen import overlay; do not overwrite live concurrent source or reinterpret preflight."
+}

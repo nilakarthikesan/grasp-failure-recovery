@@ -1,0 +1,9 @@
+# Fixed-endpoint segment check
+
+This single finite follow-up checks only the two already saved hard-protected SE3 optimizer endpoints (cases20 and28). It uses the frozen sequence `pooled + 2^-k * (terminal - pooled)`, k=0..20. Original domain and fingertip caps gate each exact retained-surface check. The first descending-lambda candidate preserving every pooled orientation-eligible and passed surface row while strictly improving the existing diagnostic rank is freshly checked once. No further optimization, new starts, new native grasps, physics steps, or eval data were used.
+
+Both cases selected lambda1/16 after5 tip-FK checks and5 exact surface checks including fresh replay each. Total elapsed7.82s and44 static MuJoCo forwards including reconstruction. Original cap slack remains positive, no previously passed or eligible row is lost, and the worst normalized retained violation decreases (case20:9.283423→9.104737;case28:8.002982→7.573550). No retained row newly passes. Both still fail all-witness feasibility; no full-grid audit was run and no mapping acceptance or production promotion is claimed.
+
+`protocol.json` was frozen after independent source review and seven pure schedule/gate controls, before actual evaluation. It binds both saved input result files and the inherited source/asset closure with the frozen pose-module overlay. `case_20.json` and `case_28.json` contain every examined state, refusal, exact record, source reference and fresh selected recheck. `outcome_details.json` is a saved-only descriptive calculation. k=0 uses declared interpolation arithmetic; it is not claimed bitwise identical to the saved endpoint.
+
+The earlier four-endpoint optimizer-restoration proposal remained unexecuted and is separate; this study is a finite two-endpoint line check. No additional stage is authorized by this artifact.

@@ -1,0 +1,118 @@
+{
+  "schema": "hug_se3_and_static_solver_independent_source_review_v1",
+  "source_review_passed": true,
+  "pilot_execution_precondition": "The author kinematic preflight must pass on exact rebound sources before any fit. The initial preflight stopped at the changed shared-retargeting hash before geometry; preserve that history.",
+  "bindings": {
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/se3_math.py": "8e7035fcdd26a13083de37155303c0dd0811a1f26365a5d9bf7cd2df899d949f",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/se3_case.py": "b462f717dbfa408b852db929ab4ac18eef6b62028a6c5a225ad2d32cd0d05351",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/se3_solver.py": "7f0e9b9c41b8b9723e389b258c4f0c85e73b522eb819b4098a6540877bc3ae58",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/run_pilot.py": "b410bba6725816993af26b2a0784072f82239f61bb63c54c43b2d24a031baeb6",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/test_se3_math.py": "dab25e0562958dddfc70af929c8834f2e53c5e56936a09a8bda0ad1da192be35",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/manufactured_tests.log": "03469ef65b0f0dae2a6a9edf63037fd4b0322b62da6c8024cec4a155e28b978a",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/test_se3_solver.py": "f429eaa575da05efd8627102470f285b8581f02c414fa464574b78af1d97b4f4",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/solver_controls.log": "eb78212704e00f3d93d6544826ad5c73c6f2a2398fc758a54423c378fc9fc2cb",
+    "/private/tmp/hug_retargeter_state_audit_2026-10-15_v1/retargeting.py.proposed": "f577ebd92a691efcad4c3f20de5372cd8a876b303407b5dac5be4e6348fb81d9",
+    "/private/tmp/hug_retargeter_state_audit_2026-10-15_v1/test_retargeting.py.proposed": "f1a24cd6a739bb53ecfe8b8912860da9a10af6bdd338f599cf8aeb70b253b893",
+    "/private/tmp/hug_retargeter_state_audit_2026-10-15_v1/implementation_change_plan.json": "ff49d539b38d8d565227e57df91db499589a2dfe1a700a6808e3054c5a69dc18",
+    "/private/tmp/hug_retargeter_state_audit_2026-10-15_v1/implementation_tests.log": "33e16b4f4abfe59fd93367738c341ba461e133f99d426b66df2876fb95b6fd2e"
+  },
+  "checks": [
+    {
+      "id": "SO3",
+      "passed": true,
+      "finding": "Exp(world omega) left multiplies the original root quaternion; zero omega retains exact quaternion bytes."
+    },
+    {
+      "id": "rotation_Jacobian",
+      "passed": true,
+      "finding": "The derivative is -skew(current world tip-minus-palm) times J_left(omega) times .025. Taylor coefficients around zero match the SO3 derivative."
+    },
+    {
+      "id": "translation",
+      "passed": true,
+      "finding": "Root translation is recomputed from the actual joint- and rotation-dependent palm offset to the requested anchor plus world displacement."
+    },
+    {
+      "id": "joint_Jacobian",
+      "passed": true,
+      "finding": "The inherited world tip Jacobian minus palm Jacobian accounts for anchor compensation; the .005I translation block and rotation block give 30 coordinates."
+    },
+    {
+      "id": "zero_identity",
+      "passed": true,
+      "finding": "Zero omega delegates to the historical 27D function, including original root bytes at the zero state. Actual scene byte identity awaits the numerical preflight."
+    },
+    {
+      "id": "rotation_domain",
+      "passed": true,
+      "finding": "Three independent rotation-vector components are bounded by 15 degrees each. Maximum vector norm is sqrt(3) times 15 degrees. This is a search domain, not an acceptance tolerance."
+    },
+    {
+      "id": "translation_domain",
+      "passed": true,
+      "finding": "The original reach-derived translation AABB remains conservative after rotation because chain reach is rotation invariant. The literal decoded shift is also checked."
+    },
+    {
+      "id": "surface_rules",
+      "passed": true,
+      "finding": "Inherited raw and exact orientation predicates are retained; decode, domain and root provenance change. Retained witnesses do not replace full-grid acceptance."
+    },
+    {
+      "id": "solver_cache",
+      "passed": true,
+      "finding": "The complete 30D float64 state is the cache key. A raw probe cannot be selected without an exact checkpoint."
+    },
+    {
+      "id": "selection",
+      "passed": true,
+      "finding": "Only frozen starts, major iterates and terminals are eligible after exact checks. Original tip caps, mean guard and physical/search bounds remain literal. Pooled orientation eligibility and passing rows are protected."
+    },
+    {
+      "id": "terminal",
+      "passed": true,
+      "finding": "Fresh selected checks compare rank and complete predicate vectors, recheck protected masks, and use a fresh pooled fallback with updated provenance if needed."
+    },
+    {
+      "id": "budget",
+      "passed": true,
+      "finding": "The 1800 raw and 60 exact limits include raw work inside exact checks; two calls are reserved for final checks. Two starts have 25 iterations each. The 180-second limit is a cooperative search stop; reconstruction and reserved terminal work are separate."
+    },
+    {
+      "id": "driver",
+      "passed": true,
+      "finding": "The driver verifies hashes before and after execution, binds exact original caps, rejects existing output paths and asserts zero physics."
+    },
+    {
+      "id": "static_profile",
+      "passed": true,
+      "finding": "The optional static profile sets norm_delta to zero and resets before each proposal while preserving the legacy default. Twenty within-proposal calls remain declared. Upstream silent RuntimeError fallback remains a limitation."
+    },
+    {
+      "id": "static_metadata",
+      "passed": true,
+      "finding": "Profile, configuration SHA and effective scale, filter, norm, reset and call settings are reported. This is not complete dependency-source or convergence provenance."
+    },
+    {
+      "id": "test_scope",
+      "passed": true,
+      "finding": "Saved logs report 13 manufactured SO3 tests, eight manufactured solver tests and 12 repository retargeting tests passing. This reviewer did not duplicate saved-case numerical tests."
+    }
+  ],
+  "blocking_code_issues": [],
+  "suggestions_applied": [
+    "Decoded shift AABB guard before exact checks",
+    "Fresh protected-mask and predicate-vector checks",
+    "Fresh fallback predicate identity"
+  ],
+  "not_claimed": [
+    "No mapping fidelity PASS",
+    "No pose-fit result",
+    "No global feasibility or convergence certificate",
+    "No native outcome equivalence"
+  ],
+  "reviewer_new_geometry_queries": 0,
+  "reviewer_new_FK": 0,
+  "reviewer_new_fit": false,
+  "physics_steps": 0,
+  "new_eval_data": false
+}

@@ -1,0 +1,35 @@
+{
+  "schema": "hug_se3_frozen_pose_loader_receipt_v1",
+  "passed": true,
+  "excluded_live_paths": [
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/pose_validation.py"
+  ],
+  "bindings": {
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/frozen_imports/pose_validation.py": "1136cdfe80c405031e7060c5f31dd3a0270400314e6ff5aa7a4630c487cdea75",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/launch_frozen_pilot.py": "e9caabf567a07f0e2a51f5421e48d7e24e4f65b87c5a72b6934cc6a80b0af729",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/frozen_import_control.json": "b7809e3b6d1420cf2c6df8811bedd70cc4b83276f6b044718a307a5b4bec8f00"
+  },
+  "frozen_canonical_module": "grasp_failure_prediction.evaluation.pose_validation",
+  "frozen_module_sha256": "1136cdfe80c405031e7060c5f31dd3a0270400314e6ff5aa7a4630c487cdea75",
+  "matches_completed_preflight_source_exactly": true,
+  "live_observed_sha256_informational_only": "4e24589df54cee771f6cab4cbd7a4f48a6dd6e90c2d6ebe0dd93b26ae4ebddf4",
+  "reason": "Concurrent authorized shared loader changes must not alter the completed historical-geometry preflight or pilot method. Live edit left untouched and excluded from pilot execution closure.",
+  "resource_resolution": "Frozen pose source does not reference __file__. Every pose-helper URDF is caller-supplied. default_dex_urdf_root remains in the live hash-bound retargeting module at its original checkout path; import-only control verifies the exact expected URDF.",
+  "import_only_control": {
+    "passed": true,
+    "loaded_pose_path": "/private/tmp/hug_se3_mapping_2026-10-15_v1/frozen_imports/pose_validation.py",
+    "loaded_pose_sha256": "1136cdfe80c405031e7060c5f31dd3a0270400314e6ff5aa7a4630c487cdea75",
+    "historical_case_and_auditor_use_frozen_function_objects": true,
+    "default_URDF_unchanged": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf",
+    "numba_threads": 2,
+    "scene_instantiations": 0,
+    "FK_calls": 0,
+    "geometry_queries": 0,
+    "physics_steps": 0
+  },
+  "new_scene_instantiations": 0,
+  "new_FK": 0,
+  "new_geometry_queries": 0,
+  "new_eval_data": false,
+  "physics_steps": 0
+}

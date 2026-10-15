@@ -1,13 +1,20 @@
 from __future__ import annotations
 
+from dataclasses import replace
+from types import SimpleNamespace
+import hashlib
+
 import numpy as np
 import pytest
 
 from grasp_failure_prediction.evaluation.retargeting import (
     RetargetingError,
+    LEGACY_RETARGETING_PROFILE,
+    STATIC_RETARGETING_PROFILE,
     ShadowHandRetargeter,
     camera_landmarks_to_wrist,
     reorder_for_mujoco,
+    reference_vectors,
 )
 from grasp_failure_prediction.integrations.hug import normalize_hug_prediction
 from grasp_failure_prediction.integrations.hug_frames import MANO_TO_OPERATOR_RIGHT
@@ -106,3 +113,106 @@ def test_stock_adroit_joint_convention_is_rejected() -> None:
             )
     finally:
         env.close()
+
+
+def test_unknown_retargeting_profile_is_rejected_before_runtime_loading() -> None:
+    with pytest.raises(RetargetingError, match="unknown retargeting profile"):
+        ShadowHandRetargeter(profile="not-a-profile")
+
+
+def test_default_profile_preserves_historical_solver_settings_and_reports_them() -> None:
+    grasp, _ = synthetic_hug_prediction()
+    retargeter = ShadowHandRetargeter()
+    pose = retargeter.retarget(grasp)
+    evidence = pose.retargeting_provenance
+    assert evidence.profile_id == LEGACY_RETARGETING_PROFILE
+    assert evidence.temporal_norm_delta == 4e-3
+    assert not evidence.reset_before_proposal
+    assert evidence.config_sha256 == hashlib.sha256(retargeter.config_path.read_bytes()).hexdigest()
+    assert evidence.vector_scaling == 1.0
+    assert not evidence.low_pass_filter_enabled
+    assert evidence.refinement_calls == 20
+    assert evidence.optimizer_status_codes is None
+
+
+def test_static_profile_maps_a_b_a_independently_of_call_order() -> None:
+    grasp_a, local = synthetic_hug_prediction()
+    other_local = local.copy()
+    # Change the finger configuration, not merely its camera-frame pose.
+    for base in (1, 5, 9, 13, 17):
+        for offset in range(1, 4):
+            other_local[base + offset] += [0.002 * offset, -0.004 * offset, 0.006 * offset]
+    transform = grasp_a.T_camera_wrist
+    grasp_b = replace(grasp_a, landmarks_3d=other_local @ transform[:3, :3].T + transform[:3, 3])
+    fresh_a = ShadowHandRetargeter(profile=STATIC_RETARGETING_PROFILE).retarget(grasp_a)
+    fresh_b = ShadowHandRetargeter(profile=STATIC_RETARGETING_PROFILE).retarget(grasp_b)
+    reused = ShadowHandRetargeter(profile=STATIC_RETARGETING_PROFILE)
+    first_a = reused.retarget(grasp_a)
+    after_a_b = reused.retarget(grasp_b)
+    final_a = reused.retarget(grasp_a)
+    np.testing.assert_array_equal(first_a.qpos, fresh_a.qpos)
+    np.testing.assert_array_equal(after_a_b.qpos, fresh_b.qpos)
+    np.testing.assert_array_equal(final_a.qpos, fresh_a.qpos)
+    evidence = final_a.retargeting_provenance
+    assert evidence.profile_id == STATIC_RETARGETING_PROFILE
+    assert evidence.reset_before_proposal
+    assert evidence.temporal_norm_delta == 0.0
+    assert len(evidence.optimizer_status_codes) == reused.optimizer_iterations
+    assert all(code > 0 for code in evidence.optimizer_status_codes)
+    assert reused._retargeting.num_retargeting == reused.optimizer_iterations
+
+
+def test_static_profile_actual_dex_gradient_matches_its_scalar_objective() -> None:
+    grasp, _ = synthetic_hug_prediction()
+    retargeter = ShadowHandRetargeter(profile=STATIC_RETARGETING_PROFILE)
+    optimizer = retargeter._retargeting.optimizer
+    landmarks = camera_landmarks_to_wrist(grasp.landmarks_3d, grasp.T_camera_wrist)
+    landmarks = landmarks @ MANO_TO_OPERATOR_RIGHT.T
+    vectors = reference_vectors(landmarks, optimizer.target_link_human_indices).astype(np.float32)
+    limits = retargeter.joint_limits
+    last = limits.mean(axis=1).astype(np.float32)
+    direction = np.where(np.arange(len(last)) % 2 == 0, 1.0, -1.0)
+    x = last.astype(float) + direction * 0.1 * (limits[:, 1] - limits[:, 0])
+    objective = optimizer.get_objective_function(vectors, np.array([], dtype=np.float32), last)
+    analytic = np.zeros_like(x)
+    objective(x, analytic)
+    step = 1e-5
+    numerical = np.empty_like(x)
+    for i in range(len(x)):
+        plus, minus = x.copy(), x.copy()
+        plus[i] += step
+        minus[i] -= step
+        numerical[i] = (objective(plus, np.array([])) - objective(minus, np.array([]))) / (2 * step)
+    np.testing.assert_allclose(analytic, numerical, atol=2e-7, rtol=1e-5)
+
+
+@pytest.mark.parametrize("status", [-1, 0])
+def test_static_profile_refuses_upstream_failed_status_even_if_pose_is_finite(monkeypatch, status) -> None:
+    grasp, _ = synthetic_hug_prediction()
+    retargeter = ShadowHandRetargeter(profile=STATIC_RETARGETING_PROFILE)
+    calls = []
+    def stale_pose(_):
+        calls.append(True)
+        return np.zeros(len(retargeter.joint_names))
+    monkeypatch.setattr(retargeter._retargeting, "retarget", stale_pose)
+    monkeypatch.setattr(retargeter._retargeting.optimizer, "opt", SimpleNamespace(last_optimize_result=lambda: status))
+    with pytest.raises(RetargetingError, match="failed with termination status"):
+        retargeter.retarget(grasp)
+    assert len(calls) == 1
+
+
+def test_static_profile_refuses_runtime_without_status_introspection(monkeypatch) -> None:
+    grasp, _ = synthetic_hug_prediction()
+    retargeter = ShadowHandRetargeter(profile=STATIC_RETARGETING_PROFILE)
+    monkeypatch.setattr(retargeter._retargeting.optimizer, "opt", object())
+    with pytest.raises(RetargetingError, match="requires optimizer termination status"):
+        retargeter.retarget(grasp)
+
+
+def test_static_profile_preserves_positive_budget_status_without_calling_it_convergence(monkeypatch) -> None:
+    grasp, _ = synthetic_hug_prediction()
+    retargeter = ShadowHandRetargeter(profile=STATIC_RETARGETING_PROFILE)
+    monkeypatch.setattr(retargeter._retargeting, "retarget", lambda _: np.zeros(len(retargeter.joint_names)))
+    monkeypatch.setattr(retargeter._retargeting.optimizer, "opt", SimpleNamespace(last_optimize_result=lambda: 5))
+    pose = retargeter.retarget(grasp)
+    assert pose.retargeting_provenance.optimizer_status_codes == (5,) * 20

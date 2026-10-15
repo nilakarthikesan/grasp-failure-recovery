@@ -1,0 +1,49 @@
+{
+  "schema": "hug_protected_solver_independent_preexecution_review_v1",
+  "passed": true,
+  "source_bindings": {
+    "/private/tmp/hug_se3_protected_fit_2026-10-15_v1/protected_solver.py": "bf541fe82e4fccc0520e44490dedad282bbdc43977da21a57680eaaa34224d93",
+    "/private/tmp/hug_se3_protected_fit_2026-10-15_v1/protected_surface_policy.py": "812f40293fe54ba47ee3bc44009278194996013147c456ffe0203758355ab2cf",
+    "/private/tmp/hug_se3_protected_fit_2026-10-15_v1/run_protected.py": "056de306e1048b97ad679b201ce495a1df2a77d0215fd6cac8da1db2dbb4416a",
+    "/private/tmp/hug_se3_protected_fit_2026-10-15_v1/launch_protected.py": "12abf7d6305b7d3d92bb3832c37f3cdd5851f2d90356f074ababc3c716be161c",
+    "/private/tmp/hug_se3_protected_review_2026-10-15_v1/test_protected_solver.py": "4bf925fdbe6501a5bf9bade3beca2d3ef06da6f94ef966a8097b72fc5a8f24e5",
+    "/private/tmp/hug_se3_protected_review_2026-10-15_v1/solver_controls.log": "648b9873671d80db12edc5f76bfa543f3b7f1aada590bae559fdf20628eae349",
+    "/private/tmp/hug_se3_protected_review_2026-10-15_v1/test_protected_solver_initial.py": "a22a293bc4877659395ec8f1b2df7a820c4f749d82c78557d0f91413afc2cb09",
+    "/private/tmp/hug_se3_protected_review_2026-10-15_v1/solver_controls_initial_failure.log": "219ce39ed70162f8bba7277275940aff0fc23b15674277d1dc400c7053c6cf3c",
+    "/private/tmp/hug_se3_protected_review_2026-10-15_v1/frozen_import_control.json": "b7809e3b6d1420cf2c6df8811bedd70cc4b83276f6b044718a307a5b4bec8f00",
+    "/private/tmp/hug_se3_protected_review_2026-10-15_v1/static_review.json": "0c8df4d89422a2a821bb8413137dead2b80223113d0040bb984e95be97525345"
+  },
+  "manufactured_control_count": 8,
+  "manufactured_control_status": "PASS",
+  "import_only_control": {
+    "passed": true,
+    "loaded_pose_path": "/private/tmp/hug_se3_mapping_2026-10-15_v1/frozen_imports/pose_validation.py",
+    "loaded_pose_sha256": "1136cdfe80c405031e7060c5f31dd3a0270400314e6ff5aa7a4630c487cdea75",
+    "historical_case_and_auditor_use_frozen_function_objects": true,
+    "default_URDF_unchanged": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf",
+    "numba_threads": 2,
+    "scene_instantiations": 0,
+    "FK_calls": 0,
+    "geometry_queries": 0,
+    "physics_steps": 0
+  },
+  "reviewed_method": "Hard constraints use no epigraph slack on pooled-passing proximity/sign/band/boundary rows or pooled-eligible part/exterior guidance; all literal exact gates remain unchanged. One pooled start, 25iterations,1000raw/30exact calls and original30D domain.",
+  "limitations": [
+    "Guidance does not encode full tie/burial/visual-membership eligibility.",
+    "Fixed offsets remove search-only buffers and are not exact arithmetic certificates at strict boundaries.",
+    "Far unclamped guidance has the same positive-band feasible set, not identical residual magnitudes.",
+    "No optimizer success or retained-row improvement is a full-grid/native-fidelity certificate."
+  ],
+  "test_correction_history": [
+    {
+      "initial_result": "7PASS/1FAIL",
+      "cause": "Manufactured conflict optimizer approaches x=.3 hard boundary, but literal exact floating-point gate can reject a value just above it; test incorrectly required an accepted improvement.",
+      "correction": "Preserved initial source/log. Final test requires unchanged exact protection and optimizer terminal near the hard boundary; permits the documented original-reference fallback. No solver/helper/scientific thresholds changed."
+    }
+  ],
+  "actual_research_scene_instantiations": 0,
+  "actual_research_geometry_queries": 0,
+  "actual_research_FK_calls": 0,
+  "physics_steps": 0,
+  "new_eval_data": false
+}

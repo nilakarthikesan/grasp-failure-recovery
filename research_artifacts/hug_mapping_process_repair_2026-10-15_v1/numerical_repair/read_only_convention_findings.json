@@ -1,0 +1,124 @@
+{
+  "evidence_type": "read-only source and saved-array arithmetic; no fits",
+  "native_origin_checks": [
+    {
+      "source_inventory_index": 8,
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_0/proposal.pkl",
+      "native_sha256": "0b99bf1919f6d2c06b76361a2c710474c333d83a3ee750a25fb90490cd3b765c",
+      "landmark0_minus_T_camera_wrist_translation_m": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "source_inventory_index": 12,
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_0/proposal.pkl",
+      "native_sha256": "2a1f9fd42435e90b5f3b9684c4fa1a7af92e2bcf60723cdc04ed7413a7d368d2",
+      "landmark0_minus_T_camera_wrist_translation_m": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "source_inventory_index": 16,
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_0/proposal.pkl",
+      "native_sha256": "9b543c10c9c647f6c0986954381dff9e24aa4aaec338433b0b71b5f7458ce731",
+      "landmark0_minus_T_camera_wrist_translation_m": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "source_inventory_index": 20,
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_0/proposal.pkl",
+      "native_sha256": "52ec7441c108f7a9704535c63611ff9d9da3d5f2871b57396b33fdb1e73a7d8b",
+      "landmark0_minus_T_camera_wrist_translation_m": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "source_inventory_index": 24,
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_0/proposal.pkl",
+      "native_sha256": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+      "landmark0_minus_T_camera_wrist_translation_m": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "source_inventory_index": 28,
+      "native_path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/proposal.pkl",
+      "native_sha256": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+      "landmark0_minus_T_camera_wrist_translation_m": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "axis_convention": "MANO_TO_OPERATOR_RIGHT exactly equals installed OPERATOR2MANO_RIGHT.T",
+  "config_correspondence": {
+    "human_origins": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "human_tasks": [
+      4,
+      8,
+      12,
+      16,
+      20,
+      2,
+      6,
+      10,
+      14,
+      18
+    ],
+    "robot_origins": [
+      "palm",
+      "palm",
+      "palm",
+      "palm",
+      "palm",
+      "palm",
+      "palm",
+      "palm",
+      "palm",
+      "palm"
+    ],
+    "robot_tasks": [
+      "thtip",
+      "fftip",
+      "mftip",
+      "rftip",
+      "lftip",
+      "thmiddle",
+      "ffmiddle",
+      "mfmiddle",
+      "rfmiddle",
+      "lfmiddle"
+    ],
+    "stock_vector_scaling": 1.2,
+    "production_vector_scaling": 1.0
+  },
+  "production_entrypoints_fresh_instance": [
+    "evaluation/case_runner.py:run_case",
+    "proposals/translation.py:translate_mano_with_official_retargeter"
+  ],
+  "fixed_anchor": "HUG wrist translation used as Shadow palm position; deliberate anatomical correspondence, not a verified equality of surfaces",
+  "new_profile_is_not_surface_repair": true
+}

@@ -1,0 +1,57 @@
+{
+  "schema": "hug_se3_protected_independent_preexecution_review_v1",
+  "passed": true,
+  "bindings": {
+    "/private/tmp/hug_se3_protected_fit_2026-10-15_v1/protected_surface_policy.py": "4e52b91915ed11e01d3ba2502a6977176b3091bb3bdede70e0c9158c32447d0e",
+    "/private/tmp/hug_se3_protected_fit_2026-10-15_v1/protected_solver.py": "bf541fe82e4fccc0520e44490dedad282bbdc43977da21a57680eaaa34224d93",
+    "/private/tmp/hug_se3_protected_fit_2026-10-15_v1/run_protected.py": "056de306e1048b97ad679b201ce495a1df2a77d0215fd6cac8da1db2dbb4416a",
+    "/private/tmp/hug_se3_protected_fit_2026-10-15_v1/launch_protected.py": "12abf7d6305b7d3d92bb3832c37f3cdd5851f2d90356f074ababc3c716be161c",
+    "/private/tmp/hug_se3_protected_fit_2026-10-15_v1/test_protected_surface_policy.py": "dcb7ab58558ac3a8c9e98122ae3143cf71b44a45b2dade75a827bafabe66c159",
+    "/private/tmp/hug_se3_protected_fit_2026-10-15_v1/helper_tests.log": "8a5c419978214177d5e4a1b672e72317fed3f8b6975ca110726aedbdda8f7bc1",
+    "/private/tmp/hug_se3_protected_fit_2026-10-15_v1/import_control.json": "b7809e3b6d1420cf2c6df8811bedd70cc4b83276f6b044718a307a5b4bec8f00",
+    "/private/tmp/hug_se3_protected_review_2026-10-15_v1/test_protected_solver.py": "06a7be7d2e6fa6b77f235c47be906586a65b517a446ff5931832cbcd8e6d4040",
+    "/private/tmp/hug_se3_protected_review_2026-10-15_v1/solver_controls.log": "648b9873671d80db12edc5f76bfa543f3b7f1aada590bae559fdf20628eae349",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/frozen_imports/pose_validation.py": "1136cdfe80c405031e7060c5f31dd3a0270400314e6ff5aa7a4630c487cdea75",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/se3_case.py": "b462f717dbfa408b852db929ab4ac18eef6b62028a6c5a225ad2d32cd0d05351",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/se3_math.py": "8e7035fcdd26a13083de37155303c0dd0811a1f26365a5d9bf7cd2df899d949f",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/pilot/20/result.json": "77a04c6bd06ddb809cc3027995df7b0e74cd3f608e1dbdb4cf780a4d531814c0",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/pilot/28/result.json": "ec64469be4bb0855df4797e46b9ac0a7f77dbff66a21fc46b053711102587d78"
+  },
+  "source_review": [
+    "Mask is pooled-reference only: passed proximity, three inequalities per passed orientation record, two guidance inequalities per eligible orientation record.",
+    "All offsets are zero. Existing 1nm and 1e-8 inward search buffers remain on every row. A buffered-infeasible reference is refused, not silently exempted.",
+    "Epigraph slack coefficient and its analytic Jacobian column are zero on hard rows and one on remaining rows. Joint derivatives are unchanged.",
+    "Solver uses one fixed pooled start,25 iterations,1000 raw/30 exact maximum,2 reserved terminal checks and180s cooperative search stop.",
+    "All original exact caps, mean, physical/search domain, full eligibility and passed-row preservation remain acceptance gates. Raw probes cannot be selected. Fresh selected check and pooled fallback retain exact predicate checks.",
+    "Driver uses the reviewed frozen pose-module overlay and does not load the concurrently edited live pose module.",
+    "Far guidance stays unclamped; for positive bands the feasible set matches literal far classification. Nonsmooth facet/tie/burial/membership constraints remain covered by exact gates, not fully by raw inequalities."
+  ],
+  "test_evidence": {
+    "helper_manufactured_controls_passed": 16,
+    "independent_solver_controls_passed": 8,
+    "frozen_import_smoke_passed": true,
+    "tests_rerun_by_this_reviewer": false
+  },
+  "reference_array_checks": [
+    {
+      "index": 20,
+      "hard_count": 36,
+      "soft_count": 53,
+      "buffered_hard_minimum": 0.018740485608177947,
+      "new_geometry": false
+    },
+    {
+      "index": 28,
+      "hard_count": 7,
+      "soft_count": 25,
+      "buffered_hard_minimum": 0.06087407802093477,
+      "new_geometry": false
+    }
+  ],
+  "preparation_history": "The first unbuffered-policy toy failure used faithfully buffered manufactured margins. A yet earlier unexecuted draft omitted buffers; that draft is not the executed failure evidence. Initial helper/test attempts are preserved separately. Final policy retains buffers and restores the meaningful accepted-improvement assertion.",
+  "scope": "Pre-execution implementation review only; not a mapping validity result or global feasibility claim. Root must freeze final protocol/source bindings before fitting.",
+  "reviewer_new_geometry": 0,
+  "reviewer_new_FK": 0,
+  "reviewer_new_fit": false,
+  "new_eval_data": false
+}

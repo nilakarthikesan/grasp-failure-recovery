@@ -1,0 +1,36 @@
+{
+  "schema": "hug_protected_solver_static_review_v1",
+  "scope": "Source-only independent review before actual execution; final PASS pending actual helper and eight manufactured controls.",
+  "reviewed_sources": {
+    "/private/tmp/hug_se3_protected_fit_2026-10-15_v1/protected_solver.py": "bf541fe82e4fccc0520e44490dedad282bbdc43977da21a57680eaaa34224d93",
+    "/private/tmp/hug_se3_protected_fit_2026-10-15_v1/run_protected.py": "056de306e1048b97ad679b201ce495a1df2a77d0215fd6cac8da1db2dbb4416a",
+    "/private/tmp/hug_se3_protected_fit_2026-10-15_v1/launch_protected.py": "12abf7d6305b7d3d92bb3832c37f3cdd5851f2d90356f074ababc3c716be161c"
+  },
+  "findings": [
+    "Thirty-dimensional complete state keys retained; surface finite differences remain bounded to original state bounds.",
+    "Epigraph column uses frozen per-margin slack coefficients; state Jacobian retains derivatives of hard rows.",
+    "Single pooled zero-rotation start; original baseline is measured but is not a second optimization start.",
+    "Raw work inside exact checks is included in the 1000 raw budget; 30 exact budget has two reserved terminal/fallback executions.",
+    "Exact source cap/mean/domain gate, pooled orientation eligibility and every pooled literal passed surface row remain required for candidate selection.",
+    "Raw probes cannot be selected; final fresh predicate-vector, rank and protection check retains fallback provenance.",
+    "Frozen pose import overlay preserved; no production code changes."
+  ],
+  "saved_reference_checks": {
+    "20": {
+      "proximity_rows": 14,
+      "orientation_rows": 15,
+      "hard_raw_rows": 36,
+      "minimum_hard_raw_margin": 0.018740485608177947
+    },
+    "28": {
+      "proximity_rows": 22,
+      "orientation_rows": 2,
+      "hard_raw_rows": 7,
+      "minimum_hard_raw_margin": 0.06087407802093477
+    }
+  },
+  "limits": "Raw sign/part/exterior guidance does not encode every exact tie/burial/visual-membership eligibility condition. Hard raw rows guide search; final exact gates remain authoritative. Success of a bounded optimizer is not scientific mapping validation.",
+  "scene_instantiations": 0,
+  "geometry_queries": 0,
+  "physics_steps": 0
+}

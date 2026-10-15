@@ -1,0 +1,72 @@
+{
+  "schema": "hug_surface_search_selection_alignment_diagnosis_v1",
+  "finding": "All P+5O raw surface residuals were relaxed by the same positive epigraph slack, while passing and eligible reference records were protected only at exact candidate selection. This permits the optimizer to spend already-correct relationships while improving its surrogate, then reject the result. It is a search-policy mismatch, not proof that better mapping is impossible.",
+  "bindings": {
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/se3_solver.py": "7f0e9b9c41b8b9723e389b258c4f0c85e73b522eb819b4098a6540877bc3ae58",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/pilot_protocol.json": "596f1c3ee859a980bb7a09f07d96ce06b7f60389cd5c1fb2afec04687f30dbf2",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/pilot/20/result.json": "77a04c6bd06ddb809cc3027995df7b0e74cd3f608e1dbdb4cf780a4d531814c0",
+    "/private/tmp/hug_se3_mapping_2026-10-15_v1/pilot/28/result.json": "ec64469be4bb0855df4797e46b9ac0a7f77dbff66a21fc46b053711102587d78",
+    "/private/tmp/hug_se3_independent_review_2026-10-15_v1/pilot_output_review.json": "d6b005c1c8f06baa533712458cb28d39e5566102820862939214230e787e9a37"
+  },
+  "raw_layout": [
+    "P proximity",
+    "O sign",
+    "O band",
+    "O query-boundary",
+    "O nearest-part guidance",
+    "O exterior guidance"
+  ],
+  "reference_scope": "Existing pooled reference only, matching the frozen pilot selection gate. Original-or-pooled union would be a new stronger guard.",
+  "hard_mask": [
+    "passed pooled proximity rows",
+    "all three orientation margins for passed pooled orientation rows",
+    "both eligibility guidance margins for pooled eligible orientation rows"
+  ],
+  "hard_residuals": "Unbuffered literal margins, divided by .001 where measured in metres. No slack coefficient. Do not subtract the old inward surrogate buffers on protected rows.",
+  "soft_residuals": "Existing buffered raw surface residuals plus epigraph slack for remaining rows.",
+  "limitations": [
+    "The two guidance margins are only necessary eligibility conditions, not all facet/tie/burial/visual-membership predicates.",
+    "Greater-than predicates still need the unchanged exact gates, because a numerical nonnegative solver constraint can sit exactly at a strict boundary.",
+    "Synthetic helper controls and frozen new protocol are required before any new fitting."
+  ],
+  "saved_reference_mask_controls": [
+    {
+      "index": 20,
+      "P": 14,
+      "O": 15,
+      "hard_count": 36,
+      "soft_count": 53,
+      "minimum_hard_unbuffered_margin": 0.01874049560817795,
+      "negative_hard_margins": 0
+    },
+    {
+      "index": 28,
+      "P": 22,
+      "O": 2,
+      "hard_count": 7,
+      "soft_count": 25,
+      "minimum_hard_unbuffered_margin": 0.060874088020934775,
+      "negative_hard_margins": 0
+    }
+  ],
+  "saved_exact_selection_refusals": [
+    {
+      "index": 20,
+      "refused_checkpoints": 14,
+      "checkpoints_losing_passed_proximity": 14,
+      "checkpoints_losing_passed_orientation": 14,
+      "checkpoints_losing_orientation_eligibility": 14
+    },
+    {
+      "index": 28,
+      "refused_checkpoints": 3,
+      "checkpoints_losing_passed_proximity": 0,
+      "checkpoints_losing_passed_orientation": 3,
+      "checkpoints_losing_orientation_eligibility": 3
+    }
+  ],
+  "new_geometry_queries": 0,
+  "new_FK": 0,
+  "new_optimization": false,
+  "historical_results_unchanged": true
+}
