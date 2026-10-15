@@ -841,3 +841,33 @@ This supports inspecting a direct native MANO pose path. It is not a measured
 pose-transfer or collision-surface PASS. The corrected Shadow translator's
 separate audit source/tests are prepared but unexecuted while native MANOSim
 qualification takes priority. No new collection or predictor training resumes.
+
+## 15 October 2026 — Native MANOSim v1 refuses an exact shape mismatch
+
+The once-only native qualification frozen at df3623c stops in case20 before any
+model or geometry execution. Case28 is NOT_RUN. Every actual static-forward,
+parametric-MANO-forward, collider query/scan, HUG-generator, retarget and physics
+counter is zero. There are no pose/field arrays and no numerical fidelity verdict.
+The error is `Native/upstream shape identity differs`.
+Protocol: d93b5f5b65a5ec224ca4922b766ad90de2a6eb0502e67384e812019f6b28cad4.
+Independent receipt e05ff183dfdd7b7c8333ca8f46033a80638b0f48d48878832b187e22e78b8d5a
+verifies all443bindings, runtime, source freeze and failure artifacts without
+native model execution. Evidence: research_artifacts/manosim_native_transfer_2026-10-15_v1/run_v1/.
+
+A subsequent hash-checked data-only read of the two fixed native records finds
+identical float32 beta values in both:
+[-2.375,-1.25,-2.046875,-0.8515625,1.65625,-1.3515625,-1.8515625,-0.671875,-1.6875,-1.2109375].
+They differ from the nominal shared shape file by at most0.005000114440917969
+in beta space. All ten values exactly equal round-to-nearest-even BF16 rounding
+of the nominal file, represented again as float32. This is an observed numerical
+relationship, not proof of which checkpoint/export operation caused it. The
+source inference code prefers a slim BF16 checkpoint and uses fixed_betas.
+
+The shared upstream/HUG shape-file hash therefore did not prove identity of the
+actual exported grasp shape. Preserve the refusal; do not substitute nominal
+betas or widen the shape gate. Next build a distinct MANOSim hand using the exact
+saved beta values through the pinned right-only upstream builder. Freeze and
+verify those generated assets before a separate native pose/surface audit.
+Upstream configuration values stay fixed; per-bone masses/inertias naturally
+recompute from the generated shape. No native build or follow-up audit has run
+at this entry. Collection/training remain paused; manuscript files are untouched.

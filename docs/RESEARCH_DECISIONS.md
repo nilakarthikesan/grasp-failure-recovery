@@ -2648,3 +2648,29 @@ forwards and two complete collider-variant scans. Every artifact gets a write-ti
 hash. Decoded skin geometry stays ignored/local under the existing asset policy;
 its digest remains auditable. Actual measurements and independent saved-array
 verification are pending at this freeze. Manuscript files remain untouched.
+
+
+## 2026-10-15 — Use the literal exported hand shape, not the nominal shape file
+
+Native v1's exact shape gate correctly refuses before all model/geometry work.
+Although local HUG and upstream MANOSim nominal shape files have identical bytes,
+the two saved grasp records contain different, mutually identical beta values.
+All ten equal BF16 round-to-nearest-even versions of the nominal values, stored
+as float32. Do not claim the numerical match proves checkpoint provenance.
+
+Choice: retain the exported HUG poses, shape and original surface references
+literally. Generate a separately named native MANOSim hand with those exact
+betas via the pinned upstream right-only builder, preserving configuration
+rules. Require one predeclared neutral MANO forward, no MuJoCo/native posing or
+task execution, and seal the two XMLs/sixteen bone meshes/shape/producer traces by
+hash. Generated geometry remains local/ignored under the existing asset policy.
+Only after build verification may a separately frozen two-case audit use those
+exact assets. Shape-specific masses/inertias are derived outputs, not asserted
+identical to the nominal hand. The adapter's canonical default remains strict;
+generated shape identity must be explicit and bind the producer receipt.
+
+Status: v1 refusal and independent443-binding readback are complete. New builder,
+explicit shape identity and follow-up protocol are in preparation; no actual
+build has run. The missing Trimesh dependency was installed as5.1.1 without
+changing NumPy/other dependencies; pin and qualify its mass-property API before
+the builder freeze. No scientific acceptance threshold or HUG output changes.

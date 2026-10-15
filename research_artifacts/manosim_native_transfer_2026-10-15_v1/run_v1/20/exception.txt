@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v1/run_native_transfer.py", line 204, in worker
+    case=module.AuditCase(index,p,output,guard_reinstall=block);block();value=case.run()
+                                                                              ^^^^^^^^^^
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v1/audit_case.py", line 198, in run
+    arrays,receipt=decode.decode_native(self.source['native']['path'],self.source['frame_files']['T_world_camera.npy']['path'],
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v1/native_decode.py", line 193, in decode_native
+    if not np.array_equal(beta,np.asarray(shape,np.float32).reshape(1,10)):raise ValueError('Native/upstream shape identity differs')
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Native/upstream shape identity differs

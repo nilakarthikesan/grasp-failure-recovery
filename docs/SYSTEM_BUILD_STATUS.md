@@ -59,6 +59,13 @@ next priority: its native HUG hand shape matches our source bytes and permits
 direct MANO joint transfer. Static pose qualification and separate collision
 approximation measurements are being built; simulator realism remains unproved.
 
+The first native test now refuses before all forwards because the actual grasp
+betas differ from the nominal shared shape file. The two inspected exports use
+the same values, exactly consistent with BF16 rounding. A shape-matched hand
+must be built from those literal parameters before posing or collider testing;
+the canonical hand is not silently substituted. No native fidelity result or
+new task data follows from that refusal.
+
 ## Beginning of the system: decision and evidence boundary
 
 The executable chain is rendered RGB-D/calibration → pretrained HUG MANO output

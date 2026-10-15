@@ -1,0 +1,96 @@
+{
+  "HEAD_remained_fixed": true,
+  "active_protocol_sha256": "d93b5f5b65a5ec224ca4922b766ad90de2a6eb0502e67384e812019f6b28cad4",
+  "actual_execution_status": "HARD_STOP",
+  "artifact_inventory": {
+    "research_artifacts/manosim_native_transfer_2026-10-15_v1/run_v1/20/exception.txt": {
+      "bytes": 1380,
+      "sha256": "80a9b5bbb92cb3003823b8b06ab7b1503de84a222294f4eba6c9c741d679d125"
+    },
+    "research_artifacts/manosim_native_transfer_2026-10-15_v1/run_v1/20/result.json": {
+      "bytes": 1465,
+      "sha256": "0555b0efddc5ba218a2a5196bef65e1bcdd00991989551c43a6f4c7d39d82f3f"
+    },
+    "research_artifacts/manosim_native_transfer_2026-10-15_v1/run_v1/case_20.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "research_artifacts/manosim_native_transfer_2026-10-15_v1/run_v1/report.json": {
+      "bytes": 1100,
+      "sha256": "47586d27f178cd85b522cc298a86fec24bc65c99185c7b226819119d5f399ccd"
+    },
+    "research_artifacts/manosim_native_transfer_2026-10-15_v1/run_v1/started.json": {
+      "bytes": 513,
+      "sha256": "abc4baec384857c89e37327778c9080c75f818c2bd5f09141f120806ea75e99c"
+    }
+  },
+  "cases": [
+    {
+      "case_counts": {
+        "collider_point_queries": 0,
+        "full_field_variant_scans": 0,
+        "parametric_mano_forwards": 0
+      },
+      "counts": {
+        "HUG_generator_attempts": 0,
+        "official_retarget_attempts": 0,
+        "physics_step_attempts": 0,
+        "static_forwards": 0
+      },
+      "failure": {
+        "message": "Native/upstream shape identity differs",
+        "type": "ValueError"
+      },
+      "independent_GS_Exp64_parent_FK": "NOT_RUN_NO_SAVED_ARRAYS",
+      "independent_pose_comparison": "NOT_RUN_NO_SAVED_ARRAYS",
+      "independent_surface_predicates": "NOT_RUN_NO_SAVED_ARRAYS",
+      "index": 20,
+      "kinematic_gate": "NOT_RUN",
+      "physical_outcome": null,
+      "status": "HARD_STOP_BEFORE_PARAMETRIC_OR_STATIC_FORWARD",
+      "surface_gate": "NOT_RUN"
+    },
+    {
+      "index": 28,
+      "kinematic_gate": "NOT_RUN",
+      "physical_outcome": null,
+      "status": "NOT_RUN_EARLIER_CASE_HARD_STOP",
+      "surface_gate": "NOT_RUN"
+    }
+  ],
+  "declared_parametric_device": "cpu",
+  "freeze_commit": "df3623cc80879e9ed4faa9a3ee2bffa307b8cedd",
+  "frozen_git_blobs_verified": true,
+  "generated_utc": "2026-10-15T16:17:44.963189+00:00",
+  "input_source_bindings_verified_before_and_after": 443,
+  "interpretation": "Byte-identical default shape assets do not establish per-proposal shape equality. The refused input yields no kinematic or surface-fidelity result for either native; no PASS or simulator comparison is inferred.",
+  "limits_used": false,
+  "native_fidelity_accepted": false,
+  "new_collection_or_training_allowed": false,
+  "no_model_or_FK_or_geometry_execution": true,
+  "no_new_solves_or_physics_or_inference_or_training": true,
+  "no_task_labels": true,
+  "numerical_pose_limits": {
+    "anchor_m": 5e-06,
+    "rotation_element": 1e-06
+  },
+  "production_promotion": false,
+  "raw_geometry_policy": "No new decoded native geometry was produced; existing ignored decoded-reference path policy was retained",
+  "runtime_metadata_verified": {
+    "executable": "/Users/nilakarthikesan/grasp-failure-prediction/.venv/bin/python",
+    "mujoco": "3.3.7",
+    "numba": "0.67.0",
+    "numpy": "2.2.6",
+    "python": "3.12.13",
+    "scipy": "1.17.1",
+    "torch": "2.11.0"
+  },
+  "schema_version": "manosim_native_static_failed_pilot_independent_readback_v1",
+  "shape_failure_scope": "Frozen code reports saved native beta differs from the pinned upstream myhand shape. No native beta values were independently read or recomputed by this verifier.",
+  "shared_default_shape_sha256": "3e9a85085ae67f36745ce647b904acb4e3620e8ac46378755498291fcf010ddf",
+  "status": "VERIFIED_HARD_STOP_NO_NATIVE_MEASUREMENTS",
+  "upstream_commit_verified": "c96e2d5cd70838a2b025b60b85a7e4e06af1b3ac",
+  "verified_measurement_npz_count": 0,
+  "verifier_source_sha256": "7e73c423e730b812d1ada9e6d8b758f8e4cd99c021b8c1ed2d0d953f3c136967",
+  "verifier_source_text": "\"\"\"Read-only failed-pilot receipt verification; no model/geometry imports.\"\"\"\nfrom datetime import datetime,timezone\nimport hashlib\nimport importlib.metadata\nimport json\nfrom pathlib import Path\nimport platform\nimport subprocess\nimport sys\nimport numpy as np\nROOT=Path('/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction')\nBASE=ROOT/'research_artifacts/manosim_native_transfer_2026-10-15_v1'\nOUT=BASE/'run_v1'\nFREEZE='df3623cc80879e9ed4faa9a3ee2bffa307b8cedd'\nPROTOCOL='d93b5f5b65a5ec224ca4922b766ad90de2a6eb0502e67384e812019f6b28cad4'\n\ndef sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()\ndef read(path):return json.loads(Path(path).read_text())\ndef require(condition,message):\n if not condition:raise AssertionError(message)\ndef verify_bindings():\n require(subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip()==FREEZE,'HEAD changed')\n require(sha(BASE/'protocol.json')==PROTOCOL,'active protocol changed')\n p=read(BASE/'protocol.json');require(len(p['bindings'])==443,'binding count')\n for file,digest in p['bindings'].items():require(sha(file)==digest,'Bound source/input changed: '+file)\n for file in (BASE/'protocol.json',BASE/'run_native_transfer.py',BASE/'audit_case.py',BASE/'native_decode.py',Path(p['adapter_source'])):\n  blob=subprocess.check_output(['git','-C',str(ROOT),'show',FREEZE+':'+str(file.relative_to(ROOT))])\n  require(hashlib.sha256(blob).hexdigest()==sha(file),'Git source/protocol blob changed: '+str(file))\n return p\n\np=verify_bindings();started=read(OUT/'started.json');report=read(OUT/'report.json')\nrequire(started['freeze_commit']==report['freeze_commit']==FREEZE,'execution commit identity')\nrequire(started['protocol_sha256']==report['protocol_sha256']==PROTOCOL,'execution protocol identity')\nrequire(started['budgets']==p['budgets'],'actual start quota')\nrequire(report['status']=='HARD_STOP','observed failed protocol status')\nrequire([r['index'] for r in report['cases']]==[20,28],'fixed case order')\nrequire(report['cases'][0]['status']=='ERROR' and report['cases'][0]['returncode']==1,'first case error')\nrequire(report['cases'][1]['status']=='NOT_RUN','second case retained NOT_RUN')\nfor key in ('native_fidelity_accepted','production_promotion','new_collection_or_training_allowed'):\n require(report[key] is False,'No production admission')\nrow=report['cases'][0];artifact_inventory={}\nfor key in ('result','log'):\n file=ROOT/row[key];require(sha(file)==row[key+'_sha256'],'outer '+key+' hash')\n artifact_inventory[str(file.relative_to(ROOT))]=dict(sha256=sha(file),bytes=file.stat().st_size)\nr=read(ROOT/row['result'])\nrequire(r['status']=='HARD_STOP' and r['freeze_commit']==FREEZE and r['protocol_sha256']==PROTOCOL,'failed case identity')\nrequire(r['failure']==dict(type='ValueError',message='Native/upstream shape identity differs'),'shape admission failure')\nrequire(r['measurement'] is None and r['artifacts']==[],'No completed measurement/artifact claims')\nrequire(all(value==0 for value in r['counts'].values()),'No static/physics/generator/retarget attempts')\nrequire(all(value==0 for value in r['case_counts'].values()),'No parametric forward/scans/queries')\nrequire(not list(OUT.rglob('*.npz')),'No saved numeric measurement arrays should exist')\nrequire(not (OUT/'28').exists(),'Second native was not started')\nexception=OUT/'20/exception.txt';text=exception.read_text()\nrequire('decode_native' in text and 'Native/upstream shape identity differs' in text,'Preserved failure traceback')\nartifact_inventory[str(exception.relative_to(ROOT))]=dict(sha256=sha(exception),bytes=exception.stat().st_size)\nfor file in (OUT/'started.json',OUT/'report.json'):\n artifact_inventory[str(file.relative_to(ROOT))]=dict(sha256=sha(file),bytes=file.stat().st_size)\n# Inspect installed distribution metadata only. Do not import MuJoCo, Torch,\n# MANO, the adapter, the case bridge, or any numerical geometry implementation.\nv3=read(p['v3_protocol'])\nfor directory in v3['dependency_dirs']:\n if directory not in sys.path:sys.path.append(directory)\nmetadata={package:importlib.metadata.version(package) for package in ('mujoco','scipy','torch','numba')}\ncurrent_runtime=dict(python=platform.python_version(),numpy=np.__version__,executable=sys.executable,**metadata)\nfor key,value in current_runtime.items():require(p['runtime'][key]==value,'Runtime metadata mismatch '+key)\nrequire(p['runtime']['parametric_device']=='cpu','Declared parametric device')\n# The shared default shape file remains byte-identical. This is not evidence\n# that the individual saved proposal beta equals that shape: the run refused it.\nshape=Path(p['manosim_root'])/'assets/mano_rhand_shape.npy'\nrequire(sha(shape)==p['shared_shape_sha256'],'Upstream shape file changed')\nupstream=subprocess.check_output(['git','-C',p['manosim_root'],'rev-parse','HEAD'],text=True).strip()\nrequire(upstream==p['upstream_commit'],'Upstream checkout commit changed')\npublic=[Path(file) for file in p['measurement_sources'] if Path(file).is_relative_to(Path(p['manosim_root']))]\nsubprocess.run(['git','-C',p['manosim_root'],'diff','--quiet','HEAD','--',*[str(file.relative_to(p['manosim_root'])) for file in public]],check=True)\nverify_bindings()\nreceipt=dict(schema_version='manosim_native_static_failed_pilot_independent_readback_v1',generated_utc=datetime.now(timezone.utc).isoformat(),\n status='VERIFIED_HARD_STOP_NO_NATIVE_MEASUREMENTS',freeze_commit=FREEZE,active_protocol_sha256=PROTOCOL,\n input_source_bindings_verified_before_and_after=443,frozen_git_blobs_verified=True,HEAD_remained_fixed=True,\n runtime_metadata_verified=current_runtime,declared_parametric_device='cpu',upstream_commit_verified=upstream,\n actual_execution_status='HARD_STOP',cases=[dict(index=20,status='HARD_STOP_BEFORE_PARAMETRIC_OR_STATIC_FORWARD',\n  failure=r['failure'],counts=r['counts'],case_counts=r['case_counts'],kinematic_gate='NOT_RUN',surface_gate='NOT_RUN',\n  independent_GS_Exp64_parent_FK='NOT_RUN_NO_SAVED_ARRAYS',independent_pose_comparison='NOT_RUN_NO_SAVED_ARRAYS',\n  independent_surface_predicates='NOT_RUN_NO_SAVED_ARRAYS',physical_outcome=None),\n  dict(index=28,status='NOT_RUN_EARLIER_CASE_HARD_STOP',kinematic_gate='NOT_RUN',surface_gate='NOT_RUN',physical_outcome=None)],\n verified_measurement_npz_count=0,artifact_inventory=artifact_inventory,shared_default_shape_sha256=sha(shape),\n shape_failure_scope='Frozen code reports saved native beta differs from the pinned upstream myhand shape. No native beta values were independently read or recomputed by this verifier.',\n interpretation='Byte-identical default shape assets do not establish per-proposal shape equality. The refused input yields no kinematic or surface-fidelity result for either native; no PASS or simulator comparison is inferred.',\n numerical_pose_limits=dict(anchor_m=5e-6,rotation_element=1e-6),limits_used=False,\n no_model_or_FK_or_geometry_execution=True,no_new_solves_or_physics_or_inference_or_training=True,\n no_task_labels=True,native_fidelity_accepted=False,production_promotion=False,new_collection_or_training_allowed=False,\n raw_geometry_policy='No new decoded native geometry was produced; existing ignored decoded-reference path policy was retained',\n verifier_source_sha256=sha(__file__),verifier_source_text=Path(__file__).read_text())\noutput=Path('/private/tmp/manosim_native_v1_failed_independent_readback.json')\nwith output.open('x') as handle:json.dump(receipt,handle,sort_keys=True,indent=2,allow_nan=False);handle.write('\\n')\nprint(json.dumps(dict(receipt_sha256=sha(output),status=receipt['status'],bindings=443,measurement_npz_count=0,runtime_metadata=current_runtime)))\n"
+}
