@@ -1,0 +1,37 @@
+"""Real historical API integration with all distance/field methods disabled."""
+from pathlib import Path
+import hashlib,importlib.util,json,sys
+from datetime import datetime,timezone
+import numpy as np
+ROOT=Path('/private/tmp/dga_component_constraints_20261015_v1');OLD=Path('/private/tmp/dga_surface_preserving_20261015_v1')
+def sha(p):return 'sha256:'+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def module(n,p):
+ s=importlib.util.spec_from_file_location(n,p);m=importlib.util.module_from_spec(s);sys.modules[n]=m;s.loader.exec_module(m);return m
+def main():
+ policy=json.loads((OLD/'implementation_policy_frozen_v1.json').read_text());paths=policy['code_paths'];sys.path.insert(0,str(Path(policy['repository'])/'src'))
+ profile=module('historical_frame_profile',paths['profile']);base=profile.original;audit=module('historical_frame_audit',paths['independent_fk']);geometry=module('historical_frame_geometry',paths['backend']);legacy=module('historical_frame_legacy',paths['surface_fit']);mesh=module('historical_frame_mesh',paths['native_helper']);Context=module('historical_frame_context',ROOT/'optimizer/mapping_context.py').MappingContext;core=module('historical_frame_core',ROOT/'optimizer/component_corrector.py')
+ report=json.loads((OLD/'results/surface_fit_report.json').read_text());prior=json.loads(Path(policy['prior_validation']['path']).read_text());free=json.loads(Path(policy['free_palm_report']['path']).read_text());free_by={r['global_sample_index']:r for r in free['records']}
+ if sha(OLD/'results/fit_poses.npz')!=report['arrays']['sha256']:raise ValueError('Historicalarrays changed')
+ with np.load(OLD/'results/fit_poses.npz',allow_pickle=False) as z:arr={k:z[k] for k in z.files}
+ with np.load(ROOT/'optimizer/shared_fitting_queries_v1/fitting_queries.npz',allow_pickle=False) as z:points=z['queries_object_m']
+ records=[]
+ for i,g in enumerate([1,3]):
+  row=prior['records'][g];old=report['records'][i];manifest,raws,_=profile.load_multidex_raw_export(row['native_manifest']['path'],expected_object_id='object01',expected_geometry_hash=policy['geometry_content_hash']);raw=raws[row['within_batch_sample_index']]
+  if raw.tobytes()!=arr['source_hand_qpos'][i].tobytes():raise ValueError('Historicalnative changed')
+  ref=json.loads(Path(row['mapping_reference']['path']).read_text());npz=Path(row['mapping_reference']['path']).parent/ref['arrays']['path']
+  ctx=Context(raw33=raw,object_from_input=manifest.object_from_input,source_urdf=policy['source_hand_urdf'],target_urdf=policy['target_hand_urdf'],target_assets_root=policy['target_assets_root'],source_runtime_npz=npz,source_sample_index=row['within_batch_sample_index'],queries_object_m=points,base=base,audit=audit,geometry=geometry,legacy=legacy,mesh_helper=mesh)
+  def forbidden(*a,**kw):raise AssertionError('FIELD_OR_DISTANCE_QUERY_FORBIDDEN_IN_FRAME_ONLY_SMOKE')
+  for method in ['source_fields','target_fields','palm_signed_fields']:setattr(ctx.backend,method,forbidden)
+  q=dict(old['target_joint_targets_rad']);delta=arr['source_palm_from_target_palm'][i].copy();x=np.r_[[q[n] for n in ctx.fingers],delta[:3,3]*1000,old['palm_displacement']['optimizer_rotation_vector_rad']]
+  state={'variables':x,'q':q,'palm':arr['object_from_target_palm'][i].copy(),'root':arr['object_from_target_root_world'][i].copy(),'forearm':arr['object_from_target_forearm'][i].copy(),'delta':delta};ctx.certify_payload(state);caps=core.landmark_caps(old['fixed_palm_engineering_reference'],free_by[g]['metrics'])
+  if not core.landmark_feasible(state,caps):raise ValueError('Exact oldfree frame-only newguard refused')
+  finger=ctx.make_state(x,state,'index');palm=ctx.make_state(x,state,'palm')
+  if not all(core.domain_valid(v) for v in [state,finger,palm]):raise ValueError('Actual frame callbackflags')
+  if finger['palm'].tobytes()!=state['palm'].tobytes():raise ValueError('Exact finger-only palm cache changed')
+  ctx.verify_immutable_source();records.append({'global_sample_index':g,'status':'PASS_REAL_HISTORICAL_FRAMES_ONLY','strict_named24_and_original_wrists':True,'all28_landmark_guard':True,'target_fk_max_entry':state['target_fk_max_entry'],'palm_chain_max_entry':state['palm_chain_max_entry'],'sourceforearm_match_max_entry':float(np.max(np.abs(ctx.source_root-arr['object_from_source_forearm'][i]))),'sourcepalm_match_max_entry':float(np.max(np.abs(ctx.source_palm-arr['object_from_source_palm'][i]))),'backend_field_dispatch_counts':ctx.query_counts})
+ if {'torch','mujoco','isaacgym','envs','pybullet'}&set(sys.modules):raise ValueError('Forbiddenimports')
+ result={'schema_version':'dga_component_real_historical_frames_only_smoke_v1','status':'PASS','created_at_utc':datetime.now(timezone.utc).isoformat(),'code_sha256':sha(__file__),'context_sha256':sha(ROOT/'optimizer/mapping_context.py'),'core_sha256':sha(ROOT/'optimizer/component_corrector.py'),'records':records,'historical_binding':{'report':sha(OLD/'results/surface_fit_report.json'),'arrays':sha(OLD/'results/fit_poses.npz')},'new_candidate_fields':0,'new_geometry_distance_queries':0,'fit_calls':0,'sealed_native_outcomes_accessed':False,'interpretation':'Actualpinnedsource/targetXML andhistoricalsourceFP32meshes constructed; every backendfield/distance API overridden to raise before framecertification. No new fitting/closest queries.'}
+ p=ROOT/'optimizer/historical_frames_only_smoke_v1.json'
+ with p.open('x') as f:json.dump(result,f,indent=2,allow_nan=False);f.write('\n')
+ print(json.dumps({'report':str(p),'sha256':sha(p),'records':records}))
+if __name__=='__main__':main()

@@ -446,3 +446,10 @@ The shared mapping section now records the independently verified fingertip mesh
 ## 15 October 2026 — HUG implementation diagnosis and two protected improvements
 
 Updated the owned HUG subsection in the existing canonical paper to separate numerical reliability, object-aware retargeting and full surface acceptance. Added measured static-profile state/gradient repairs, missing root-rotation capability, protected-search mismatch and bounded negative fits. The final dyadic step check improves worst retained severity on saved milk-box B and mug B while preserving all original tip caps and previously passing/eligible rows. No failing row crosses into PASS; sign-off remains incomplete. No new full-grid or independent-object result is asserted. Original criteria/default/historical nine FAILs remain unchanged; no new eval data/training. [Report](HUG_MAPPING_PROCESS_REPAIR.md) and [evidence](../research_artifacts/hug_mapping_process_repair_2026-10-15_v1/). Other provider sections remain owned by their concurrent threads.
+
+<!-- dga-acceptance-feasibility-2026-10-15-v2 -->
+## 15 October 2026 — DGA acceptance boundary resolved for two required poses
+
+Updated only the owned DGA paper section with exact interval palm-occupancy obstructions under original guards, new unchanged-angle row 6 failures, verified distal mesh differences and the bounded band-fitting result. The paper distinguishes impossibility for two named poses from global DGA impossibility, empty-set palm passes from direction preservation, and real-arithmetic theorem scope from arbitrary floating implementations. DGA remains unaccepted; no target/criteria/domain change, physics, new native inference, evaluation data or training. [Evidence-backed report](DGA_ACCEPTANCE_FEASIBILITY_AUDIT.md). Compilation is recorded after the desktop compiler check.
+
+DGA feasibility-audit compilation confirmed with the desktop compiler; whole-source SHA-256 `df888372e6f08bed01b376fe61a09cee2ebbff2ef909b70f0862ba404ba8ef61`. The exact source snapshot and receipt are preserved in the new study archive; unrelated manuscript sections and the open paper path remain unchanged.

@@ -1,0 +1,69 @@
+"""Actual helper controls with synthetic callbacks; no optimizer/mesh calls."""
+from datetime import datetime,timezone
+import hashlib,importlib.util,json,sys,unittest
+from pathlib import Path
+import numpy as np
+sys.dont_write_bytecode=True
+P=Path('/private/tmp/dga_feasible_surface_20261015_v1/fit_feasible_surface.py')
+s=importlib.util.spec_from_file_location('feasible_backtracking_under_independent_test',P);m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+SOURCE=np.zeros((2,8))
+def current(value=.5):
+ x=np.zeros(28);x[1]=-0.;fields=np.full((2,8),value)
+ return {'variables':x,'fields':fields,'surface_loss':float((fields*fields).mean(axis=0).sum()),'feasible':True}
+def guard_all(x):return {'variables':x.copy(),'feasible':True}
+class GuardedActualControls(unittest.TestCase):
+ def test_every_positive_guard_before_fields_and_all_alpha_minimum(self):
+  c=current();proposal=c['variables'].copy();proposal[0]=1.;inspected=[];queried=[]
+  def guard(x):inspected.append(x[0]);return {'variables':x.copy(),'feasible':bool(x[0]<=.1),'refusal_reason':'toyhardcap'}
+  def evaluate(st):
+   self.assertTrue(st['feasible']);self.assertLessEqual(st['variables'][0],.1);queried.append(st['variables'][0]);return np.full((2,8),.5-st['variables'][0])
+  selected,log=m.guarded_backtracking(c,proposal,guard,evaluate,SOURCE)
+  self.assertEqual(inspected,list(m.ALPHAS[:-1]));self.assertEqual(log['selected_alpha'],1/16);self.assertEqual(len(queried),7);self.assertEqual(len(log['alphas']),12)
+  self.assertTrue(all(not r['surface_evaluated'] for r in log['alphas'][:4]));self.assertFalse(log['alphas'][-1]['surface_evaluated']);self.assertEqual(selected['variables'][0],.0625)
+ def test_minimum_all_alphas_is_not_first_surface_nonincrease(self):
+  c=current(.25);p=c['variables'].copy();p[0]=1.
+  selected,log=m.guarded_backtracking(c,p,guard_all,lambda st:np.full((2,8),abs(st['variables'][0]-.25)),SOURCE)
+  self.assertEqual(log['selected_alpha'],.25);self.assertEqual(selected['surface_loss'],0.);self.assertTrue(all(r['surface_evaluated'] for r in log['alphas'][:-1]))
+ def test_exact_cost_ties_reuse_current_object_and_cache(self):
+  c=current();p=np.ones(28);raw=c['variables'].tobytes();cache=c['fields'].tobytes();queries=[]
+  selected,log=m.guarded_backtracking(c,p,guard_all,lambda st:(queries.append(1) or c['fields'].copy()),SOURCE)
+  self.assertIs(selected,c);self.assertEqual(log['selected_alpha'],0.);self.assertTrue(log['accepted_fields_are_cached']);self.assertEqual(len(queries),11);self.assertEqual(c['variables'].tobytes(),raw);self.assertEqual(c['fields'].tobytes(),cache)
+ def test_worse_surface_candidates_never_replace_feasible_current(self):
+  c=current(0.);p=np.ones(28)
+  selected,log=m.guarded_backtracking(c,p,guard_all,lambda st:np.ones((2,8)),SOURCE)
+  self.assertIs(selected,c);self.assertEqual(log['selected_alpha'],0.);self.assertTrue(all(r.get('training_nonincrease') is False for r in log['alphas'][:-1]))
+ def test_nonfinite_proposal_has_zero_guard_and_field_calls(self):
+  c=current();p=np.ones(28);p[0]=np.nan;calls=[]
+  selected,log=m.guarded_backtracking(c,p,lambda x:(calls.append('guard') or guard_all(x)),lambda st:(calls.append('fields') or np.ones((2,8))),SOURCE)
+  self.assertIs(selected,c);self.assertEqual(calls,[]);self.assertEqual(len(log['alphas']),12);self.assertEqual(log['selected_alpha'],0.)
+ def test_hard_refusal_never_evaluates_even_if_fields_would_be_better(self):
+  c=current();calls=[];p=np.ones(28)
+  selected,log=m.guarded_backtracking(c,p,lambda x:{'variables':x.copy(),'feasible':False,'refusal_reason':'maxpassesSSEfails'},lambda st:(calls.append(1) or np.zeros((2,8))),SOURCE)
+  self.assertIs(selected,c);self.assertFalse(calls);self.assertTrue(all(r['guard_checked_before_surface'] for r in log['alphas'][:-1]))
+ def test_current_without_feasibility_or_exact_cache_refuses(self):
+  for kind in ('notfeasible','nofields','noloss'):
+   c=current()
+   if kind=='notfeasible':c['feasible']=False
+   elif kind=='nofields':del c['fields']
+   else:del c['surface_loss']
+   with self.assertRaises(ValueError):m.guarded_backtracking(c,np.zeros(28),guard_all,lambda st:np.zeros((2,8)),SOURCE)
+ def test_nonfinite_surface_fields_abort_without_adopting(self):
+  c=current();raw=c['variables'].tobytes();fields=c['fields'].tobytes()
+  with self.assertRaises(ValueError):m.guarded_backtracking(c,np.ones(28),guard_all,lambda st:np.full((2,8),np.nan),SOURCE)
+  self.assertEqual(raw,c['variables'].tobytes());self.assertEqual(fields,c['fields'].tobytes())
+ def test_equal_best_positive_alphas_use_fixed_larger_alpha_order(self):
+  c=current();selected,log=m.guarded_backtracking(c,np.ones(28),guard_all,lambda st:np.full((2,8),.25),SOURCE)
+  self.assertEqual(log['selected_alpha'],1.);self.assertEqual(sum(r['adopted'] for r in log['alphas']),1);self.assertEqual(selected['variables'][0],1.)
+ def test_mutating_guard_or_field_callback_is_detected(self):
+  c=current()
+  def malicious(st):c['fields'][0,0]=1.;return np.zeros((2,8))
+  with self.assertRaises(ValueError):m.guarded_backtracking(c,np.ones(28),guard_all,malicious,SOURCE)
+def main():
+ out=Path(__file__).with_name('actual_guarded_backtracking_controls_receipt_v3.json')
+ if out.exists():raise FileExistsError(out)
+ before='sha256:'+hashlib.sha256(P.read_bytes()).hexdigest();result=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(GuardedActualControls))
+ if before!='sha256:'+hashlib.sha256(P.read_bytes()).hexdigest():raise ValueError('Fitter changed during controls')
+ r={'schema_version':'dga_feasible_actual_backtracking_independent_controls_v1','implementation_revision':'v3_same_controls_on_final_stable_prefit_source','created_at_utc':datetime.now(timezone.utc).isoformat(),'status':'PASS' if result.wasSuccessful() else 'FAIL','tests':result.testsRun,'errors':len(result.errors),'failures':len(result.failures),'code_sha256':'sha256:'+hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'fitter_sha256':before,'prior_failure':'V1toyguard returned numpy.bool_, correctly refused by strict isTrue guard contract; changed only syntheticfixture bool conversion. Production code unchanged by reviewer; V1script/failedreceipt retained. V2passedonintermediatecode; V3rechecksfinalstablecodewithouttestlogicchange.','scope':'Actual guarded_backtracking helper with synthetic28variable states/callback fields only. No real source/candidate fields, geometryqueries, optimizer, inference, GPU, physics, evaluation labels or model training. Main XMLguard semantics reviewed separately.'}
+ out.write_text(json.dumps(r,indent=2)+'\n')
+ if not result.wasSuccessful():raise SystemExit(1)
+if __name__=='__main__':main()

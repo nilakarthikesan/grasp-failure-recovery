@@ -1,0 +1,158 @@
+#!/usr/bin/env python3
+"""New bounded development retarget: positions only, fixed palm/wrists.
+
+The source native grasps/rejections stay immutable. This is neither unchanged
+native generation nor scientific contact acceptance. No geometry queries,
+physics, model/checkpoint import, training, object attraction or contact success.
+"""
+import argparse
+from datetime import datetime,timezone
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import sys
+import time
+import numpy as np
+from scipy.optimize import least_squares
+import scipy
+sys.dont_write_bytecode=True
+
+POLICY_ID='dga_multidex_bounded_position_retarget_development_v1'
+FINGERS=('ff','mf','rf','lf','th')
+SOLVER={'method':'trf','jac':'3-point','loss':'linear','max_nfev':200,'ftol':1e-12,'xtol':1e-12,'gtol':1e-12}
+
+def digest(p):
+ h=hashlib.sha256()
+ with Path(p).open('rb') as f:
+  for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
+ return 'sha256:'+h.hexdigest()
+def bound_json(p,h):
+ if digest(p)!=h:raise ValueError('Bound dependency changed: '+str(p))
+ return json.loads(Path(p).read_text())
+def module(name,path):
+ s=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(s);sys.modules[name]=m;s.loader.exec_module(m);return m
+
+def require_policy(p):
+ expected={'schema_version':POLICY_ID,'status':'FROZEN_PREOPTIMIZATION','global_sample_indices':[1,3],
+  'row_count':2,'source_profile_id':'dga_multidex_official_unguided_v1',
+  'palm_policy':'fixed_actual_source_object_from_palm','wrist_policy':'both_original_values_preserved',
+  'objective':'unweighted_sum_squared_common_finger_link_origin_displacement_m2',
+  'initialization':'explicit_target_box_projection_diagnostic_start_only','final_clipping':False,
+  'scientific_acceptance_threshold':None,'approximate_contact_adequacy':'UNRESOLVED','execution_eligible':False,
+  'algebra_atol':1e-9,'solver':SOLVER,'finger_order':list(FINGERS),'starts_per_finger':1,
+  'surface_queries':0,'object_contact_objective_terms':0,'physics_steps':0,'native_inference_calls':0}
+ if any(p.get(k)!=v for k,v in expected.items()):raise ValueError('Not the frozen bounded development retarget policy')
+
+def limits(robot,names):
+ return np.array([[robot['joints'][n]['limit']['lower'],robot['joints'][n]['limit']['upper']] for n in names],dtype=float)
+def outside(robot,q):
+ return [{'joint':n,'value_rad':float(v),'range_rad':[robot['joints'][n]['limit']['lower'],robot['joints'][n]['limit']['upper']]} for n,v in q.items() if not robot['joints'][n]['limit']['lower']<=v<=robot['joints'][n]['limit']['upper']]
+def palm_relative(frames,names):
+ inverse=np.linalg.inv(frames['palm'])
+ return np.stack([(inverse@frames[n])[:3,3] for n in names])
+def diagnostic_projection(q,names,bounds):
+ result=dict(q);initial=np.minimum(np.maximum(np.array([q[n] for n in names]),bounds[:,0]),bounds[:,1])
+ for n,v in zip(names,initial):result[n]=float(v)
+ return result,[{'joint':n,'original_rad':q[n],'diagnostic_initial_rad':float(v)} for n,v in zip(names,initial) if float(v)!=q[n]]
+
+def solve_fingers(source_frames,target_model,qsource,independent_fk):
+ """One feasible start per independent finger; no object enters the objective."""
+ allnames=[n for n in qsource if not n.startswith('WRJ')]
+ qfit,projection=diagnostic_projection(qsource,allnames,limits(target_model,allnames))
+ logs=[]
+ for finger in FINGERS:
+  names=[n for n in qsource if n.startswith(finger.upper())]
+  links=sorted(n for n in source_frames if n in target_model['links'] and n.startswith(finger))
+  desired=palm_relative(source_frames,links)
+  bounds=limits(target_model,names);initial=np.array([qfit[n] for n in names]);calls=[0]
+  def residual(x):
+   calls[0]+=1;q=dict(qfit);q.update(zip(names,x.tolist()))
+   actual=palm_relative(independent_fk(target_model,q),links)
+   return (actual-desired).reshape(-1)
+  before=residual(initial);solved=least_squares(residual,initial,bounds=(bounds[:,0],bounds[:,1]),**SOLVER)
+  qfit.update((n,float(v)) for n,v in zip(names,solved.x))
+  after=residual(solved.x)
+  logs.append({'finger':finger,'joint_names':names,'common_link_names':links,'initial_q':initial.tolist(),
+   'fitted_q':solved.x.tolist(),'objective_before_m2':float(before@before),'objective_after_m2':float(after@after),
+   'solver_success':bool(solved.success),'solver_status':int(solved.status),'solver_message':str(solved.message),
+   'reported_nfev':int(solved.nfev),'actual_residual_calls_including_finite_difference':calls[0],
+   'optimality':float(solved.optimality),'active_mask':solved.active_mask.tolist(),
+   'claim':'Achieved feasible local fit only; not a certified global optimum or minimum achievable error'})
+ if any(not np.isfinite(v) for v in qfit.values()) or outside(target_model,qfit):raise ValueError('Final solver state is not strictly target-domain-valid; no clipping/repair allowed')
+ if qfit['WRJ2']!=qsource['WRJ2'] or qfit['WRJ1']!=qsource['WRJ1']:raise ValueError('A fixed wrist changed')
+ return qfit,projection,logs
+
+def main(a):
+ if a.output.exists():raise FileExistsError('Never overwrite prior/native/development evidence')
+ p=bound_json(a.policy,a.policy_sha256);require_policy(p)
+ for path,h in p['dependency_sha256'].items():
+  if digest(path)!=h:raise ValueError('Dependency changed before fit: '+path)
+ if digest(__file__)!=p['code_hashes']['retarget_fit']:raise ValueError('Current fit code was not frozen')
+ sys.path.insert(0,str(Path(p['repository'])/'src'))
+ profile=module('retarget_multidex_profile',p['code_paths']['profile']);base=profile.original
+ audit=module('retarget_independent_fk',p['code_paths']['independent_fk'])
+ prior=bound_json(p['prior_validation']['path'],p['prior_validation']['sha256'])
+ source=audit.model(Path(p['source_hand_urdf']));target=audit.model(Path(p['target_hand_urdf']))
+ st=base.DGAHandTree(Path(p['source_hand_urdf']),base.SOURCE_URDF_SHA256);tt=base.DGAHandTree(Path(p['target_hand_urdf']),base.TARGET_URDF_SHA256)
+ names=base.SOURCE_JOINT_NAMES;sourcezero=audit.independent_fk(source,dict.fromkeys(names,0.));targetzero=audit.independent_fk(target,dict.fromkeys(names,0.))
+ C={n:sourcezero[n][:3,:3].T@targetzero[n][:3,:3] for n in set(sourcezero)&set(targetzero)}
+ records=[];arrays={k:[] for k in ['source_hand_qpos','target_joint_values','object_from_source_forearm','object_from_palm','object_from_target_root_world','object_from_target_forearm']}
+ started=time.monotonic()
+ for global_index in p['global_sample_indices']:
+  if time.monotonic()-started>p['maximum_wall_seconds']:raise RuntimeError('Development fit wall budget exceeded')
+  old=prior['records'][global_index];nr=old['native_manifest'];bound_json(nr['path'],nr['sha256'])
+  manifest,rawvalues,verified=profile.load_multidex_raw_export(nr['path'],expected_object_id='object01',expected_geometry_hash=p['geometry_content_hash'])
+  row=rawvalues[old['within_batch_sample_index']].copy();original_bytes=row.tobytes();qs=dict(zip(names,row[9:].tolist(),strict=True))
+  if qs!=old['joint_targets_rad'] or old['source_limit_violations'] or outside(source,qs):raise ValueError('Fixed source-valid originals changed')
+  if any(x['joint'].startswith('WRJ') for x in outside(target,qs)):raise ValueError('Fixed wrist target domain infeasible; no wrist changes allowed')
+  sf=audit.independent_fk(source,qs);checked_source=st.forward(qs)
+  srcerror=max(float(np.max(np.abs(sf[n]-checked_source[n]))) for n in sf)
+  native_root=np.eye(4);native_root[:3,:3]=base.rotation_from_6d(row[3:9]);native_root[:3,3]=row[:3]
+  native_root=base.proper_transform(np.asarray(manifest.object_from_input)@native_root)
+  palm=base.proper_transform(native_root@sf['palm'])
+  qfit,projection,logs=solve_fingers(sf,target,qs,audit.independent_fk)
+  tf=audit.independent_fk(target,qfit);check_target=tt.forward(qfit)
+  targeterror=max(float(np.max(np.abs(tf[n]-check_target[n]))) for n in tf)
+  targetroot=base.proper_transform(palm@np.linalg.inv(tf['palm']));targetforearm=base.proper_transform(targetroot@tf['forearm'])
+  palmerror=float(np.max(np.abs(targetroot@tf['palm']-palm)))
+  common=sorted(n for n in sf if n in tf and n.startswith(FINGERS));sourcep=palm_relative(sf,common);targetp=palm_relative(tf,common)
+  errors=np.linalg.norm(targetp-sourcep,axis=1);objective=float(np.sum((targetp-sourcep)**2))
+  independent_objective=float(sum(np.linalg.norm((targetroot@check_target[n])[:3,3]-(native_root@checked_source[n])[:3,3])**2 for n in common))
+  if max(srcerror,targeterror,palmerror,abs(independent_objective-objective))>p['algebra_atol']:raise ValueError('Independent frozen engineering verification failed')
+  if row.tobytes()!=original_bytes or not np.array_equal(row,rawvalues[old['within_batch_sample_index']]):raise ValueError('Original raw values changed')
+  before=audit.independent_fk(target,qs)
+  positions={n:{'unchanged_angle_error_m':float(np.linalg.norm((palm@np.linalg.inv(before['palm'])@before[n])[:3,3]-(native_root@sf[n])[:3,3])),
+   'fitted_error_m':float(error),'raw_frame_rotation_after_rad':audit.rotation_distance((native_root@sf[n])[:3,:3],(targetroot@tf[n])[:3,:3]),
+   'fixed_zero_gauge_rotation_after_rad':audit.rotation_distance((native_root@sf[n])[:3,:3]@C[n],(targetroot@tf[n])[:3,:3])} for n,error in zip(common,errors)}
+  records.append({'global_sample_index':global_index,'batch_index':old['batch_index'],'within_batch_sample_index':old['within_batch_sample_index'],'seed':old['seed'],'native_manifest':nr,'raw_output_sha256':manifest.output.sha256,
+   'raw33_row_sha256':'sha256:'+hashlib.sha256(original_bytes).hexdigest(),'original_joint_targets_rad':qs,
+   'target_joint_targets_rad':qfit,'original_mapping_status':old['mapping_status'],'original_source_limit_violations':old['source_limit_violations'],
+   'original_target_limit_violations':old['target_limit_violations'],'final_target_limit_violations':outside(target,qfit),
+   'diagnostic_initial_projection':projection,'projection_is_not_native_or_accepted_output':True,'solver_logs':logs,
+   'objective_m2':objective,'independent_objective_m2':independent_objective,'maximum_link_origin_error_m':float(errors.max()),
+   'mean_link_origin_error_m':float(errors.mean()),'common_link_count':len(common),'per_common_link':positions,
+   'independent_verification':{'source_fk_max_entry':srcerror,'target_fk_max_entry':targeterror,'palm_matrix_max_entry':palmerror},
+   'source_reference_prior_status':{'native_default':old['native_default_runtime_reconstruction']['status'],'declared_fp32':old['fp32_mapping_reference_reconstruction']['status']},
+   'target_root_link':'world','both_original_wrists_preserved':True,'source_palm_preserved':True,
+   'stage':'new_bounded_position_retarget_development_only','execution_eligible':False,'scientific_acceptance':'UNRESOLVED'})
+  for key,value in [('source_hand_qpos',row),('target_joint_values',np.array([qfit[n] for n in names])),('object_from_source_forearm',native_root),('object_from_palm',palm),('object_from_target_root_world',targetroot),('object_from_target_forearm',targetforearm)]:arrays[key].append(value)
+ for path,h in p['dependency_sha256'].items():
+  if digest(path)!=h:raise ValueError('Dependency changed during fit: '+path)
+ if {'torch','mujoco','isaacgym','envs','pybullet'}&set(sys.modules):raise ValueError('Forbidden model/simulator import')
+ a.output.mkdir(parents=True);npz=a.output/'fit_poses.npz';np.savez(npz,global_sample_indices=np.asarray(p['global_sample_indices'],dtype=np.int64),**{k:np.stack(v) for k,v in arrays.items()})
+ report={'schema_version':POLICY_ID,'status':'COMPLETE_DEVELOPMENT_LOCAL_FITS_NO_ACCEPTANCE','policy_sha256':a.policy_sha256,
+  'created_at_utc':datetime.now(timezone.utc).isoformat(),'source_profile_id':p['source_profile_id'],'records':records,
+  'arrays':{'path':npz.name,'sha256':digest(npz)},'prior_validation':p['prior_validation'],'original_accounting':prior['accounting'],
+  'original_surface_selection':prior['surface_selection'],'runtime':{'numpy':np.__version__,'scipy':scipy.__version__},
+  'solver':SOLVER,'dependency_sha256':p['dependency_sha256'],'execution_eligible':False,
+  'scope':{'objective':'Unweighted squared positions of all common finger-link origins in fixed palm coordinates; duplicate coincident pivots are retained by declared all-link convention.',
+   'solver':'Finite feasible local solution; no global optimum or reachability lower-bound claim.',
+   'originals':'Native poses, original domain rejects and empty valid-output surface selection remain unchanged.',
+   'surfaces':'NOT_TESTED','contact_preservation':'NOT_TESTED','approximate_contact_adequacy':'UNRESOLVED','scientific_acceptance_threshold':None},
+  'zero_step_evidence':{'native_inference_calls':0,'checkpoint_loads':0,'physics_steps':0,'surface_queries':0,'triangle_operations':0,'object_contact_objective_terms':0,'training_calls':0}}
+ out=a.output/'retarget_fit_report.json';out.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n')
+ print(json.dumps({'report':str(out),'sha256':digest(out),'arrays_sha256':digest(npz),'cases':[{'global_sample_index':r['global_sample_index'],'objective_m2':r['objective_m2'],'max_origin_error_m':r['maximum_link_origin_error_m'],'target_domain_valid':not r['final_target_limit_violations']} for r in records],'execution_eligible':False}))
+
+if __name__=='__main__':
+ c=argparse.ArgumentParser();c.add_argument('--policy',required=True,type=Path);c.add_argument('--policy-sha256',required=True);c.add_argument('--output',required=True,type=Path);main(c.parse_args())

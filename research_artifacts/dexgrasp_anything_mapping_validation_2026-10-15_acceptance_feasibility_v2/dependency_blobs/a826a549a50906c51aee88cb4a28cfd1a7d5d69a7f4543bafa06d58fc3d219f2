@@ -1,0 +1,104 @@
+"""Tiny manufactured backend controls only; no native pose/asset measurements."""
+import unittest
+from types import SimpleNamespace
+import numpy as np
+import surface_backend as b
+
+
+class BackendControls(unittest.TestCase):
+    def surface(self,z=0.):
+        return b.TriangleSurface(np.array([[0.,0,z],[1.,0,z],[0.,1,z]]),np.array([[0,1,2]]))
+
+    def backend(self):
+        robot={'joints':{name:{'limit':{'lower':-1.,'upper':1.}} for name in b.JOINTS}}
+        # Noncommuting palm and link transforms expose root/palm order errors.
+        P=np.array([[0.,-1.,0.,.2],[1.,0.,0.,.1],[0.,0.,1.,.3],[0.,0.,0.,1.]])
+        L=np.array([[1.,0.,0.,.4],[0.,0.,-1.,.5],[0.,1.,0.,.6],[0.,0.,0.,1.]])
+        fk=SimpleNamespace(independent_fk=lambda robot,q:{'palm':P,'link':L})
+        source=[(p,'link',self.surface()) for p in b.PARTS]
+        target=[(p,'link',self.surface()) for p in b.PARTS]
+        return b.SurfaceBackend(source_surfaces=source,target_surfaces=target,target_robot=robot,
+                                independent_fk_module=fk),P,L
+
+    def test_face_edge_vertex_distances(self):
+        s=self.surface();p=np.array([[.2,.2,.3],[.7,.7,0.],[-.2,-.3,0.]])
+        q=s.query(p,2.,return_witnesses=True)
+        np.testing.assert_allclose(q['distance_m'],[.3,np.sqrt(.08),np.sqrt(.13)],atol=1e-14)
+        np.testing.assert_allclose(q['closest_m'],[[.2,.2,0],[.5,.5,0],[0,0,0]],atol=1e-14)
+        self.assertFalse(q['normal_reliable_exterior'].any())
+
+    def test_large_triangle_sphere_search_complete(self):
+        s=b.TriangleSurface(np.array([[-100.,-100.,0.],[100.,-100.,0.],[0.,100.,0.]]),np.array([[0,1,2]]))
+        self.assertAlmostEqual(s.query(np.array([[0.,0.,.001]]),.004)[0],.001)
+
+    def test_degenerate_closed_segments_retained(self):
+        s=b.TriangleSurface(np.array([[0.,0,0],[1.,0,0],[2.,0,0]]),np.array([[0,1,2]]))
+        r=s.query(np.array([[.7,.2,0]]),1.,return_witnesses=True)
+        self.assertAlmostEqual(r['distance_m'][0],.2)
+        self.assertTrue(np.isnan(r['encoded_facet_normal']).all())
+
+    def test_cap_is_censored_not_contact(self):
+        r=self.surface().query(np.array([[.2,.2,.004],[.2,.2,.01]]),.004,return_witnesses=True)
+        np.testing.assert_array_equal(r['distance_m'],[.004,.004])
+        self.assertTrue(r['censored'].all())
+        self.assertTrue((r['triangle_id']==-1).all())
+
+    def test_tree_matches_bruteforce_fixture(self):
+        rng=np.random.default_rng(1927)
+        v=rng.uniform(-.1,.1,(90,3));faces=np.arange(90).reshape(-1,3)
+        s=b.TriangleSurface(v,faces);p=rng.uniform(-.1,.1,(25,3));cap=.02
+        expected=[]
+        for point in p:
+            distances,_=b.closest_triangle_pairs(np.repeat(point[None,:],len(faces),axis=0),v[faces])
+            expected.append(min(cap,float(distances.min())))
+        np.testing.assert_allclose(s.query(p,cap),expected,rtol=0,atol=1e-14)
+
+    def test_requested_parts_and_misses_preserved(self):
+        backend,_,_=self.backend();p=np.array([[.2,.2,.01],[.2,.2,.001]])
+        r=backend.source_fields(p,.004,parts=['thumb','index'],return_witnesses=True)
+        self.assertEqual(r['distance_m'].shape,(2,2))
+        np.testing.assert_array_equal(r['censored'][0],[True,True])
+        np.testing.assert_allclose(r['distance_m'][1],[.001,.001])
+        self.assertEqual(r['parts'],('thumb','index'))
+
+    def test_palm_root_composition_and_local_queries(self):
+        backend,P,L=self.backend()
+        W=np.array([[0.,0.,1.,-.3],[0.,1.,0.,.2],[-1.,0.,0.,.4],[0.,0.,0.,1.]])
+        object_from_link=W@np.linalg.inv(P)@L
+        point=(object_from_link@np.array([.2,.2,.001,1.]))[:3][None,:]
+        d=backend.target_fields(np.zeros(24),W,point,.004,parts=['index'])
+        self.assertAlmostEqual(d[0,0],.001,places=13)
+        with self.assertRaises(ValueError):
+            backend.target_fields(np.ones(24)*1.000001,W,point,.004)
+        bad=W.copy();bad[0,0]+=.01
+        with self.assertRaises(ValueError):backend.target_fields(np.zeros(24),bad,point,.004)
+
+    def test_nonfinite_and_invalid_faces_refuse(self):
+        with self.assertRaises(ValueError):self.surface().query([[np.nan,0,0]],.004)
+        with self.assertRaises(ValueError):self.surface().query([[0,0,0]],np.inf)
+        with self.assertRaises(ValueError):b.TriangleSurface([[0,0,0]],np.array([[0,0,1]]))
+
+    def test_union_inside_distance_ignores_abutting_wall(self):
+        box=b._union_reference.Collider
+        boxes=[box(0,'box','palm',np.array([1.,1.,1.]),np.array([-1.,0,0]),np.eye(3)),
+               box(1,'box','palm',np.array([1.,1.,1.]),np.array([1.,0,0]),np.eye(3))]
+        patches=b._union.boundary_patches(boxes)
+        r=b._union.union_query(np.array([[0.,0,0],[0.,0,2.]]),boxes,patches)
+        np.testing.assert_allclose(r['signed_distance_m'],[-1.,1.],atol=1e-14)
+        # At the abutting member wall min(member SDF)=0, true union=-1.
+        self.assertAlmostEqual(min(x.query(np.array([[0.,0,0]]))['signed_distance_m'][0] for x in boxes),0.)
+
+    def test_signed_field_separate_from_unsigned(self):
+        backend,_,_=self.backend();box=b._union_reference.Collider
+        backend.source_boxes=[box(0,'box','palm',np.ones(3),np.zeros(3),np.eye(3))]
+        backend.target_boxes=backend.source_boxes
+        backend.source_patches=b._union.boundary_patches(backend.source_boxes)
+        backend.target_patches=backend.source_patches
+        p=np.array([[0.,0.,0.],[0.,0.,2.]])
+        source,target=backend.palm_signed_fields(np.eye(4),np.eye(4),p,.004,return_witnesses=True)
+        np.testing.assert_allclose(source['unclipped_signed_distance_m'],[-1.,1.])
+        np.testing.assert_allclose(target['signed_distance_m'],[-.004,.004])
+        self.assertTrue(target['censored'].all())
+
+
+if __name__=='__main__':unittest.main()

@@ -1,0 +1,75 @@
+"""Manufactured controls for prospective holdout coverage/classification."""
+import unittest
+import numpy as np
+import measure_palm_holdout as m
+
+
+def result(d):
+ d=np.asarray(d,dtype=float);n=len(d)
+ return {'signed_distance_m':d,'unsigned_distance_m':np.abs(d),
+ 'inside_union':d<0,'outside_union':d>0,'numerically_boundary':d==0,
+ 'normal_reliable_for_palm_union':np.zeros(n,dtype=bool),
+ 'normal':np.tile([0.,0.,1.],(n,1)),'normal_patch_margin_m':np.zeros(n),
+ 'different_normal_competitor_gap_m':np.zeros(n),'closest_cube_signed_distance_m':np.ones(n)}
+
+
+class HoldoutControls(unittest.TestCase):
+ def test_new_fraction_full_cell_cover(self):
+  for h in (1.,.5,.25):
+   p,n,face,area,rho=m.cube_grid(h)
+   self.assertAlmostEqual(area*len(p),.015)
+   self.assertAlmostEqual(rho,np.sqrt(181)*(h*.001)/15)
+   # Any cell corner is at most this radius from its prescribed query.
+   self.assertAlmostEqual(max(np.hypot(x-2/5,y-1/3) for x in (0,1) for y in (0,1))*h*.001,rho)
+   self.assertTrue(np.isfinite(p).all());self.assertEqual(len(np.unique(face)),6)
+
+ def test_certified_lost_and_new_are_fail(self):
+  a=result([.0001,.004]);b=result([.004,.0001]);normal=np.tile([0.,0,1.],(2,1))
+  r=m.summarize(a,b,normal,.00001,1.,[.5])['bands']['0.5']
+  self.assertEqual(r['strict_nearset_preservation_status'],'FAIL')
+  self.assertEqual(r['area_intervals']['lost_native']['lower_m2'],1.)
+  self.assertEqual(r['area_intervals']['new_mapped']['lower_m2'],1.)
+
+ def test_no_counterexample_with_uncertainty_never_pass(self):
+  a=result([.0005]);r=m.summarize(a,a,np.array([[0.,0,1.]]),.0001,1.,[.5])
+  self.assertEqual(r['bands']['0.5']['strict_nearset_preservation_status'],'UNRESOLVED')
+  self.assertEqual(r['bands']['0.5']['normal_point_comparison_count'],0)
+
+ def test_occupancy_detects_signed_difference(self):
+  a=result([-.003,.003]);b=result([.003,-.003]);n=np.tile([0.,0,1.],(2,1))
+  r=m.summarize(a,b,n,.0001,1.,[.5])['occupancy_and_exclusion']
+  self.assertEqual(r['occupancy_preservation_status'],'FAIL')
+  self.assertEqual(r['occupancy_difference_area_intervals']['lost_native']['lower_m2'],1.)
+  self.assertEqual(r['occupancy_difference_area_intervals']['new_mapped']['lower_m2'],1.)
+
+ def test_cell_coverage_pass_possible_only_for_bounded_relationship(self):
+  a=result([.004]);r=m.summarize(a,a,np.array([[0.,0,1.]]),.0001,1.,[.5])
+  self.assertEqual(r['bands']['0.5']['strict_nearset_preservation_status'],'PASS')
+  self.assertEqual(r['occupancy_and_exclusion']['occupancy_preservation_status'],'PASS')
+
+ def test_status_combination_does_not_hide_fail(self):
+  self.assertEqual(m.coverage_status(['UNRESOLVED','PASS']),'PASS')
+  self.assertEqual(m.coverage_status(['PASS','FAIL']),'FAIL')
+  self.assertEqual(m.combine_status(['PASS','UNRESOLVED']),'UNRESOLVED')
+
+ def test_grouped_normal_near_orthogonality_not_reversal_certificate(self):
+  a=result([.0002]);b=result([.0002]);normal=np.array([[0.,0.,1.]])
+  for r in (a,b):
+   r['normal_reliable_for_palm_union'][:]=True
+   r['normal_patch_margin_m'][:]=1.
+   r['different_normal_competitor_gap_m'][:]=1.
+  a['normal']=np.array([[1.,0.,0.]])
+  b['normal']=np.array([[-1e-6,np.sqrt(1-1e-12),0.]])
+  r=m.summarize(a,b,normal,1e-6,1.,[.5])['bands']['0.5']
+  self.assertEqual(r['normal_full_cell_orientation_reversal_lower_area_m2'],0.)
+  b['normal']=np.array([[-1.,0.,0.]])
+  r=m.summarize(a,b,normal,1e-6,1.,[.5])['bands']['0.5']
+  self.assertEqual(r['normal_full_cell_orientation_reversal_lower_area_m2'],1.)
+
+ def test_invalid_query_arithmetic_refuses_before_classification(self):
+  r=result([.001]);r['closest_m']=np.array([[0.,0.,0.]])
+  m.verify_query_result(r,1)
+  r['unsigned_distance_m'][0]=np.nan
+  with self.assertRaises(ValueError):m.verify_query_result(r,1)
+
+if __name__=='__main__':unittest.main()

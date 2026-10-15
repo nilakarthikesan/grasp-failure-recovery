@@ -1,0 +1,1241 @@
+{
+  "schema_version": "dga_multidex_bounded_position_retarget_development_v1",
+  "status": "COMPLETE_DEVELOPMENT_LOCAL_FITS_NO_ACCEPTANCE",
+  "policy_sha256": "sha256:abb1ed9b58b0b83f39dd33d0bce2b5cfcf64a11466ccbe0295ac24c80dcf31ea",
+  "created_at_utc": "2026-10-15T04:43:44.551442+00:00",
+  "source_profile_id": "dga_multidex_official_unguided_v1",
+  "records": [
+    {
+      "global_sample_index": 1,
+      "batch_index": 0,
+      "within_batch_sample_index": 1,
+      "seed": 20261023,
+      "native_manifest": {
+        "path": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/native_manifest.json",
+        "sha256": "sha256:ef66deab9955aac031ff26d5362da6ade673d4f1129797b1c5125e14b6150a13"
+      },
+      "raw_output_sha256": "sha256:12b0fcc2bbbba843c557758fa86ef73987e6dab867a0c4403204b3e7bef1a864",
+      "raw33_row_sha256": "sha256:629c09c325c21d94d8eb43ed7df3e486d8bf8ec8006795094244b10513f78fb5",
+      "original_joint_targets_rad": {
+        "WRJ2": -0.0026386918142069504,
+        "WRJ1": -0.0034941275564817076,
+        "FFJ4": -0.3448263077478231,
+        "FFJ3": 0.23772405405605213,
+        "FFJ2": 0.4292345481087345,
+        "FFJ1": 0.2841063294803625,
+        "MFJ4": 0.23668550423860246,
+        "MFJ3": 0.2944585466712546,
+        "MFJ2": 0.5841625392325156,
+        "MFJ1": 0.410910644311846,
+        "RFJ4": -0.18482319853472085,
+        "RFJ3": 0.7061388497610377,
+        "RFJ2": 0.413784096379759,
+        "RFJ1": 0.37667566853505363,
+        "LFJ5": 0.09543682998829439,
+        "LFJ4": 0.39766849549173067,
+        "LFJ3": 1.4871674507332955,
+        "LFJ2": 0.05318763007830185,
+        "LFJ1": 0.04327634811211567,
+        "THJ5": 0.2027786048047009,
+        "THJ4": 1.2348653555513351,
+        "THJ3": 0.2152548864278181,
+        "THJ2": 0.3494732113771164,
+        "THJ1": 0.4614231139421463
+      },
+      "target_joint_targets_rad": {
+        "WRJ2": -0.0026386918142069504,
+        "WRJ1": -0.0034941275564817076,
+        "FFJ4": -0.3448263077478231,
+        "FFJ3": 0.23772405405605213,
+        "FFJ2": 0.4292345481087345,
+        "FFJ1": 0.2841063294803625,
+        "MFJ4": 0.23668550423860246,
+        "MFJ3": 0.2944585466712546,
+        "MFJ2": 0.5841625392325156,
+        "MFJ1": 0.410910644311846,
+        "RFJ4": -0.18482319853472085,
+        "RFJ3": 0.7061388497610377,
+        "RFJ2": 0.413784096379759,
+        "RFJ1": 0.37667566853505363,
+        "LFJ5": 0.09759444182838284,
+        "LFJ4": 0.34906585039899996,
+        "LFJ3": 1.4884336589946814,
+        "LFJ2": 0.05179420665836613,
+        "LFJ1": 0.04312051951932392,
+        "THJ5": 0.2006207944181326,
+        "THJ4": 1.2217304763999999,
+        "THJ3": 0.20943951023899998,
+        "THJ2": 0.3546391390787526,
+        "THJ1": 0.45720552485768856
+      },
+      "original_mapping_status": "REJECTED_TARGET_LIMIT",
+      "original_source_limit_violations": [],
+      "original_target_limit_violations": [
+        {
+          "joint": "LFJ4",
+          "native_value_rad": 0.39766849549173067,
+          "lower_rad": -0.349065850399,
+          "upper_rad": 0.349065850399
+        },
+        {
+          "joint": "THJ4",
+          "native_value_rad": 1.2348653555513351,
+          "lower_rad": 0.0,
+          "upper_rad": 1.2217304764
+        },
+        {
+          "joint": "THJ3",
+          "native_value_rad": 0.2152548864278181,
+          "lower_rad": -0.209439510239,
+          "upper_rad": 0.209439510239
+        }
+      ],
+      "final_target_limit_violations": [],
+      "diagnostic_initial_projection": [
+        {
+          "joint": "LFJ4",
+          "original_rad": 0.39766849549173067,
+          "diagnostic_initial_rad": 0.349065850399
+        },
+        {
+          "joint": "THJ4",
+          "original_rad": 1.2348653555513351,
+          "diagnostic_initial_rad": 1.2217304764
+        },
+        {
+          "joint": "THJ3",
+          "original_rad": 0.2152548864278181,
+          "diagnostic_initial_rad": 0.209439510239
+        }
+      ],
+      "projection_is_not_native_or_accepted_output": true,
+      "solver_logs": [
+        {
+          "finger": "ff",
+          "joint_names": [
+            "FFJ4",
+            "FFJ3",
+            "FFJ2",
+            "FFJ1"
+          ],
+          "common_link_names": [
+            "ffdistal",
+            "ffknuckle",
+            "ffmiddle",
+            "ffproximal",
+            "fftip"
+          ],
+          "initial_q": [
+            -0.3448263077478231,
+            0.23772405405605213,
+            0.4292345481087345,
+            0.2841063294803625
+          ],
+          "fitted_q": [
+            -0.3448263077478231,
+            0.23772405405605213,
+            0.4292345481087345,
+            0.2841063294803625
+          ],
+          "objective_before_m2": 2.9987331087216883e-33,
+          "objective_after_m2": 2.9987331087216883e-33,
+          "solver_success": true,
+          "solver_status": 1,
+          "solver_message": "`gtol` termination condition is satisfied.",
+          "reported_nfev": 1,
+          "actual_residual_calls_including_finite_difference": 11,
+          "optimality": 2.366096497835792e-18,
+          "active_mask": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "claim": "Achieved feasible local fit only; not a certified global optimum or minimum achievable error"
+        },
+        {
+          "finger": "mf",
+          "joint_names": [
+            "MFJ4",
+            "MFJ3",
+            "MFJ2",
+            "MFJ1"
+          ],
+          "common_link_names": [
+            "mfdistal",
+            "mfknuckle",
+            "mfmiddle",
+            "mfproximal",
+            "mftip"
+          ],
+          "initial_q": [
+            0.23668550423860246,
+            0.2944585466712546,
+            0.5841625392325156,
+            0.410910644311846
+          ],
+          "fitted_q": [
+            0.23668550423860246,
+            0.2944585466712546,
+            0.5841625392325156,
+            0.410910644311846
+          ],
+          "objective_before_m2": 1.695985616951134e-32,
+          "objective_after_m2": 1.695985616951134e-32,
+          "solver_success": true,
+          "solver_status": 1,
+          "solver_message": "`gtol` termination condition is satisfied.",
+          "reported_nfev": 1,
+          "actual_residual_calls_including_finite_difference": 11,
+          "optimality": 8.042114667873699e-18,
+          "active_mask": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "claim": "Achieved feasible local fit only; not a certified global optimum or minimum achievable error"
+        },
+        {
+          "finger": "rf",
+          "joint_names": [
+            "RFJ4",
+            "RFJ3",
+            "RFJ2",
+            "RFJ1"
+          ],
+          "common_link_names": [
+            "rfdistal",
+            "rfknuckle",
+            "rfmiddle",
+            "rfproximal",
+            "rftip"
+          ],
+          "initial_q": [
+            -0.18482319853472085,
+            0.7061388497610377,
+            0.413784096379759,
+            0.37667566853505363
+          ],
+          "fitted_q": [
+            -0.18482319853472085,
+            0.7061388497610377,
+            0.413784096379759,
+            0.37667566853505363
+          ],
+          "objective_before_m2": 6.393184635704192e-33,
+          "objective_after_m2": 6.393184635704192e-33,
+          "solver_success": true,
+          "solver_status": 1,
+          "solver_message": "`gtol` termination condition is satisfied.",
+          "reported_nfev": 1,
+          "actual_residual_calls_including_finite_difference": 11,
+          "optimality": 6.24619782819197e-19,
+          "active_mask": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "claim": "Achieved feasible local fit only; not a certified global optimum or minimum achievable error"
+        },
+        {
+          "finger": "lf",
+          "joint_names": [
+            "LFJ5",
+            "LFJ4",
+            "LFJ3",
+            "LFJ2",
+            "LFJ1"
+          ],
+          "common_link_names": [
+            "lfdistal",
+            "lfknuckle",
+            "lfmetacarpal",
+            "lfmiddle",
+            "lfproximal",
+            "lftip"
+          ],
+          "initial_q": [
+            0.09543682998829439,
+            0.349065850399,
+            1.4871674507332955,
+            0.05318763007830185,
+            0.04327634811211567
+          ],
+          "fitted_q": [
+            0.09759444182838284,
+            0.34906585039899996,
+            1.4884336589946814,
+            0.05179420665836613,
+            0.04312051951932392
+          ],
+          "objective_before_m2": 2.1716440206006107e-07,
+          "objective_after_m2": 8.551138777728196e-08,
+          "solver_success": true,
+          "solver_status": 1,
+          "solver_message": "`gtol` termination condition is satisfied.",
+          "reported_nfev": 5,
+          "actual_residual_calls_including_finite_difference": 57,
+          "optimality": 1.908538717114682e-13,
+          "active_mask": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "claim": "Achieved feasible local fit only; not a certified global optimum or minimum achievable error"
+        },
+        {
+          "finger": "th",
+          "joint_names": [
+            "THJ5",
+            "THJ4",
+            "THJ3",
+            "THJ2",
+            "THJ1"
+          ],
+          "common_link_names": [
+            "thbase",
+            "thdistal",
+            "thhub",
+            "thmiddle",
+            "thproximal",
+            "thtip"
+          ],
+          "initial_q": [
+            0.2027786048047009,
+            1.2217304764,
+            0.209439510239,
+            0.3494732113771164,
+            0.4614231139421463
+          ],
+          "fitted_q": [
+            0.2006207944181326,
+            1.2217304763999999,
+            0.20943951023899998,
+            0.3546391390787526,
+            0.45720552485768856
+          ],
+          "objective_before_m2": 3.5486931890157563e-06,
+          "objective_after_m2": 3.5352976181789564e-06,
+          "solver_success": true,
+          "solver_status": 1,
+          "solver_message": "`gtol` termination condition is satisfied.",
+          "reported_nfev": 4,
+          "actual_residual_calls_including_finite_difference": 46,
+          "optimality": 3.0837217741503137e-13,
+          "active_mask": [
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "claim": "Achieved feasible local fit only; not a certified global optimum or minimum achievable error"
+        }
+      ],
+      "objective_m2": 3.620809005956239e-06,
+      "independent_objective_m2": 3.620809005956337e-06,
+      "maximum_link_origin_error_m": 0.001397778755937172,
+      "mean_link_origin_error_m": 0.000156504620466803,
+      "common_link_count": 27,
+      "per_common_link": {
+        "ffdistal": {
+          "unchanged_angle_error_m": 0.0,
+          "fitted_error_m": 3.273069708340169e-17,
+          "raw_frame_rotation_after_rad": 1.3225480416287208e-16,
+          "fixed_zero_gauge_rotation_after_rad": 1.57079
+        },
+        "ffknuckle": {
+          "unchanged_angle_error_m": 1.3877787807814457e-17,
+          "fitted_error_m": 2.893662274657725e-17,
+          "raw_frame_rotation_after_rad": 1.0034599494696957e-16,
+          "fixed_zero_gauge_rotation_after_rad": 1.5707899999999997
+        },
+        "ffmiddle": {
+          "unchanged_angle_error_m": 1.3877787807814457e-17,
+          "fitted_error_m": 1.4304896245381992e-17,
+          "raw_frame_rotation_after_rad": 4.586879079202318e-17,
+          "fixed_zero_gauge_rotation_after_rad": 1.57079
+        },
+        "ffproximal": {
+          "unchanged_angle_error_m": 1.3877787807814457e-17,
+          "fitted_error_m": 2.893662274657725e-17,
+          "raw_frame_rotation_after_rad": 8.666022368107528e-17,
+          "fixed_zero_gauge_rotation_after_rad": 1.57079
+        },
+        "fftip": {
+          "unchanged_angle_error_m": 5.721958498152797e-17,
+          "fitted_error_m": 6.938893903907228e-18,
+          "raw_frame_rotation_after_rad": 1.3225480416287208e-16,
+          "fixed_zero_gauge_rotation_after_rad": 1.57079
+        },
+        "lfdistal": {
+          "unchanged_angle_error_m": 9.98287416757781e-05,
+          "fitted_error_m": 0.0001400648859296639,
+          "raw_frame_rotation_after_rad": 0.04864850045651602,
+          "fixed_zero_gauge_rotation_after_rad": 1.5222196723234978
+        },
+        "lfknuckle": {
+          "unchanged_angle_error_m": 9.999784724945641e-05,
+          "fitted_error_m": 0.00012909409204050476,
+          "raw_frame_rotation_after_rad": 0.048650648033242025,
+          "fixed_zero_gauge_rotation_after_rad": 1.5692847956687663
+        },
+        "lfmetacarpal": {
+          "unchanged_angle_error_m": 5.721958498152797e-17,
+          "fitted_error_m": 5.598946409563485e-17,
+          "raw_frame_rotation_after_rad": 0.9599023804373163,
+          "fixed_zero_gauge_rotation_after_rad": 1.5690247103769805
+        },
+        "lfmiddle": {
+          "unchanged_angle_error_m": 9.988928914227003e-05,
+          "fitted_error_m": 0.00015261582641344485,
+          "raw_frame_rotation_after_rad": 0.04864947910782411,
+          "fixed_zero_gauge_rotation_after_rad": 1.522146031512767
+        },
+        "lfproximal": {
+          "unchanged_angle_error_m": 9.999784724945641e-05,
+          "fitted_error_m": 0.00012909409204050476,
+          "raw_frame_rotation_after_rad": 0.04868040286003616,
+          "fixed_zero_gauge_rotation_after_rad": 1.5221825057087661
+        },
+        "lftip": {
+          "unchanged_angle_error_m": 9.976570012018095e-05,
+          "fitted_error_m": 9.628632216160733e-05,
+          "raw_frame_rotation_after_rad": 0.04864850045651602,
+          "fixed_zero_gauge_rotation_after_rad": 1.5222196723234978
+        },
+        "mfdistal": {
+          "unchanged_angle_error_m": 8.326672684688674e-17,
+          "fitted_error_m": 2.778605206969998e-17,
+          "raw_frame_rotation_after_rad": 1.0088917706712586e-16,
+          "fixed_zero_gauge_rotation_after_rad": 1.57079
+        },
+        "mfknuckle": {
+          "unchanged_angle_error_m": 5.887846720064156e-17,
+          "fitted_error_m": 5.553824967135427e-17,
+          "raw_frame_rotation_after_rad": 9.807759657769732e-17,
+          "fixed_zero_gauge_rotation_after_rad": 1.5707899999999997
+        },
+        "mfmiddle": {
+          "unchanged_angle_error_m": 6.798699777552591e-17,
+          "fitted_error_m": 5.554682103398761e-17,
+          "raw_frame_rotation_after_rad": 1.4674718990944664e-16,
+          "fixed_zero_gauge_rotation_after_rad": 1.57079
+        },
+        "mfproximal": {
+          "unchanged_angle_error_m": 5.887846720064156e-17,
+          "fitted_error_m": 5.553824967135427e-17,
+          "raw_frame_rotation_after_rad": 7.62126784654895e-17,
+          "fixed_zero_gauge_rotation_after_rad": 1.57079
+        },
+        "mftip": {
+          "unchanged_angle_error_m": 1.1527756336890508e-16,
+          "fitted_error_m": 8.326672684688674e-17,
+          "raw_frame_rotation_after_rad": 1.0088917706712586e-16,
+          "fixed_zero_gauge_rotation_after_rad": 1.57079
+        },
+        "rfdistal": {
+          "unchanged_angle_error_m": 1.962615573354719e-17,
+          "fitted_error_m": 0.0,
+          "raw_frame_rotation_after_rad": 1.0666025447736492e-16,
+          "fixed_zero_gauge_rotation_after_rad": 1.57079
+        },
+        "rfknuckle": {
+          "unchanged_angle_error_m": 1.3877787807814457e-17,
+          "fitted_error_m": 5.557210413939996e-17,
+          "raw_frame_rotation_after_rad": 2.8408964808895805e-17,
+          "fixed_zero_gauge_rotation_after_rad": 1.5707899999999997
+        },
+        "rfmiddle": {
+          "unchanged_angle_error_m": 3.1031676915590914e-17,
+          "fitted_error_m": 3.469446951953614e-18,
+          "raw_frame_rotation_after_rad": 1.6002236504163184e-16,
+          "fixed_zero_gauge_rotation_after_rad": 1.57079
+        },
+        "rfproximal": {
+          "unchanged_angle_error_m": 1.3877787807814457e-17,
+          "fitted_error_m": 5.557210413939996e-17,
+          "raw_frame_rotation_after_rad": 6.080386830926646e-17,
+          "fixed_zero_gauge_rotation_after_rad": 1.57079
+        },
+        "rftip": {
+          "unchanged_angle_error_m": 6.206335383118183e-17,
+          "fitted_error_m": 1.4304896245381992e-17,
+          "raw_frame_rotation_after_rad": 1.0666025447736492e-16,
+          "fixed_zero_gauge_rotation_after_rad": 1.57079
+        },
+        "thbase": {
+          "unchanged_angle_error_m": 7.999999999999314e-05,
+          "fitted_error_m": 7.999999999999848e-05,
+          "raw_frame_rotation_after_rad": 1.568638516404866,
+          "fixed_zero_gauge_rotation_after_rad": 1.5692647802575694
+        },
+        "thdistal": {
+          "unchanged_angle_error_m": 8.000000002712056e-05,
+          "fitted_error_m": 0.0010456284861582858,
+          "raw_frame_rotation_after_rad": 0.018989718007423766,
+          "fixed_zero_gauge_rotation_after_rad": 1.5518539288705047
+        },
+        "thhub": {
+          "unchanged_angle_error_m": 7.99999999816642e-05,
+          "fitted_error_m": 0.00048753114596096335,
+          "raw_frame_rotation_after_rad": 1.5706072098324608,
+          "fixed_zero_gauge_rotation_after_rad": 1.557237248257857
+        },
+        "thmiddle": {
+          "unchanged_angle_error_m": 7.99999999816642e-05,
+          "fitted_error_m": 0.00048753114596096335,
+          "raw_frame_rotation_after_rad": 1.564079761366957,
+          "fixed_zero_gauge_rotation_after_rad": 1.553491095240044
+        },
+        "thproximal": {
+          "unchanged_angle_error_m": 7.999999999999314e-05,
+          "fitted_error_m": 7.999999999999848e-05,
+          "raw_frame_rotation_after_rad": 1.5701158241266555,
+          "fixed_zero_gauge_rotation_after_rad": 1.5610102278325082
+        },
+        "thtip": {
+          "unchanged_angle_error_m": 8.000000039601535e-05,
+          "fitted_error_m": 0.001397778755937172,
+          "raw_frame_rotation_after_rad": 0.018989718007423766,
+          "fixed_zero_gauge_rotation_after_rad": 1.5518539288705047
+        }
+      },
+      "independent_verification": {
+        "source_fk_max_entry": 5.551115123125783e-17,
+        "target_fk_max_entry": 1.1102230246251565e-16,
+        "palm_matrix_max_entry": 1.1102230246251565e-16
+      },
+      "source_reference_prior_status": {
+        "native_default": "FAIL",
+        "declared_fp32": "PASS"
+      },
+      "target_root_link": "world",
+      "both_original_wrists_preserved": true,
+      "source_palm_preserved": true,
+      "stage": "new_bounded_position_retarget_development_only",
+      "execution_eligible": false,
+      "scientific_acceptance": "UNRESOLVED"
+    },
+    {
+      "global_sample_index": 3,
+      "batch_index": 1,
+      "within_batch_sample_index": 1,
+      "seed": 20261024,
+      "native_manifest": {
+        "path": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/native_manifest.json",
+        "sha256": "sha256:b781a6b8d346ea153474aae4018ec5c71f0990d165c2b1d1b4c306c88bc1b6d9"
+      },
+      "raw_output_sha256": "sha256:d6dbadada331e35c1188534aaa61131f3eaf7d708bbaaf7f584d7d836a4a2a41",
+      "raw33_row_sha256": "sha256:ebd5b58a6dc17101005a2f6508115aa4416ef1dbf468592f7cc1448c40edcc41",
+      "original_joint_targets_rad": {
+        "WRJ2": -0.0010793694294353173,
+        "WRJ1": -0.0027296547042459096,
+        "FFJ4": -0.4322594472235082,
+        "FFJ3": 0.32494131302048146,
+        "FFJ2": 0.7614207992715705,
+        "FFJ1": 0.26795070440417845,
+        "MFJ4": -0.39172938615647546,
+        "MFJ3": 0.00841634349439957,
+        "MFJ2": 0.4472484302976376,
+        "MFJ1": 0.41442024339839456,
+        "RFJ4": -0.3931264014088054,
+        "RFJ3": 1.10954875006807,
+        "RFJ2": 0.5110693685060763,
+        "RFJ1": 0.4365106815170794,
+        "LFJ5": 0.5867291586178283,
+        "LFJ4": -0.22664809165119415,
+        "LFJ3": 0.8127462135807206,
+        "LFJ2": 0.2703562099272183,
+        "LFJ1": 0.7455966480346832,
+        "THJ5": 0.04016522670350353,
+        "THJ4": 1.0943491300654955,
+        "THJ3": 0.09503744758267985,
+        "THJ2": 0.4040965375176029,
+        "THJ1": 0.21853381395339966
+      },
+      "target_joint_targets_rad": {
+        "WRJ2": -0.0010793694294353173,
+        "WRJ1": -0.0027296547042459096,
+        "FFJ4": -0.34906585039899996,
+        "FFJ3": 0.32413824972998023,
+        "FFJ2": 0.769312585214997,
+        "FFJ1": 0.2627815400747448,
+        "MFJ4": -0.34906585039899996,
+        "MFJ3": 0.007673736563532437,
+        "MFJ2": 0.44962757159673156,
+        "MFJ1": 0.41443477352386343,
+        "RFJ4": -0.34906585039899996,
+        "RFJ3": 1.1098030777581742,
+        "RFJ2": 0.5110040746318079,
+        "RFJ1": 0.4361187120732139,
+        "LFJ5": 0.5858978899574417,
+        "LFJ4": -0.22636761437568942,
+        "LFJ3": 0.8150749084675816,
+        "LFJ2": 0.26912478890844177,
+        "LFJ1": 0.7465137202433099,
+        "THJ5": 0.03963304789954274,
+        "THJ4": 1.0932801788034077,
+        "THJ3": 0.0962476912095521,
+        "THJ2": 0.40570950453335825,
+        "THJ1": 0.21826159107331947
+      },
+      "original_mapping_status": "REJECTED_TARGET_LIMIT",
+      "original_source_limit_violations": [],
+      "original_target_limit_violations": [
+        {
+          "joint": "FFJ4",
+          "native_value_rad": -0.4322594472235082,
+          "lower_rad": -0.349065850399,
+          "upper_rad": 0.349065850399
+        },
+        {
+          "joint": "MFJ4",
+          "native_value_rad": -0.39172938615647546,
+          "lower_rad": -0.349065850399,
+          "upper_rad": 0.349065850399
+        },
+        {
+          "joint": "RFJ4",
+          "native_value_rad": -0.3931264014088054,
+          "lower_rad": -0.349065850399,
+          "upper_rad": 0.349065850399
+        }
+      ],
+      "final_target_limit_violations": [],
+      "diagnostic_initial_projection": [
+        {
+          "joint": "FFJ4",
+          "original_rad": -0.4322594472235082,
+          "diagnostic_initial_rad": -0.349065850399
+        },
+        {
+          "joint": "MFJ4",
+          "original_rad": -0.39172938615647546,
+          "diagnostic_initial_rad": -0.349065850399
+        },
+        {
+          "joint": "RFJ4",
+          "original_rad": -0.3931264014088054,
+          "diagnostic_initial_rad": -0.349065850399
+        }
+      ],
+      "projection_is_not_native_or_accepted_output": true,
+      "solver_logs": [
+        {
+          "finger": "ff",
+          "joint_names": [
+            "FFJ4",
+            "FFJ3",
+            "FFJ2",
+            "FFJ1"
+          ],
+          "common_link_names": [
+            "ffdistal",
+            "ffknuckle",
+            "ffmiddle",
+            "ffproximal",
+            "fftip"
+          ],
+          "initial_q": [
+            -0.349065850399,
+            0.32494131302048146,
+            0.7614207992715705,
+            0.26795070440417845
+          ],
+          "fitted_q": [
+            -0.34906585039899996,
+            0.32413824972998023,
+            0.769312585214997,
+            0.2627815400747448
+          ],
+          "objective_before_m2": 5.776189965405983e-05,
+          "objective_after_m2": 5.769609891587262e-05,
+          "solver_success": true,
+          "solver_status": 1,
+          "solver_message": "`gtol` termination condition is satisfied.",
+          "reported_nfev": 5,
+          "actual_residual_calls_including_finite_difference": 47,
+          "optimality": 3.9103918451228274e-14,
+          "active_mask": [
+            -1,
+            0,
+            0,
+            0
+          ],
+          "claim": "Achieved feasible local fit only; not a certified global optimum or minimum achievable error"
+        },
+        {
+          "finger": "mf",
+          "joint_names": [
+            "MFJ4",
+            "MFJ3",
+            "MFJ2",
+            "MFJ1"
+          ],
+          "common_link_names": [
+            "mfdistal",
+            "mfknuckle",
+            "mfmiddle",
+            "mfproximal",
+            "mftip"
+          ],
+          "initial_q": [
+            -0.349065850399,
+            0.00841634349439957,
+            0.4472484302976376,
+            0.41442024339839456
+          ],
+          "fitted_q": [
+            -0.34906585039899996,
+            0.007673736563532437,
+            0.44962757159673156,
+            0.41443477352386343
+          ],
+          "objective_before_m2": 2.4870046392837506e-05,
+          "objective_after_m2": 2.4865094956790843e-05,
+          "solver_success": true,
+          "solver_status": 1,
+          "solver_message": "`gtol` termination condition is satisfied.",
+          "reported_nfev": 4,
+          "actual_residual_calls_including_finite_difference": 38,
+          "optimality": 3.0724158354731246e-13,
+          "active_mask": [
+            -1,
+            0,
+            0,
+            0
+          ],
+          "claim": "Achieved feasible local fit only; not a certified global optimum or minimum achievable error"
+        },
+        {
+          "finger": "rf",
+          "joint_names": [
+            "RFJ4",
+            "RFJ3",
+            "RFJ2",
+            "RFJ1"
+          ],
+          "common_link_names": [
+            "rfdistal",
+            "rfknuckle",
+            "rfmiddle",
+            "rfproximal",
+            "rftip"
+          ],
+          "initial_q": [
+            -0.349065850399,
+            1.10954875006807,
+            0.5110693685060763,
+            0.4365106815170794
+          ],
+          "fitted_q": [
+            -0.34906585039899996,
+            1.1098030777581742,
+            0.5110040746318079,
+            0.4361187120732139
+          ],
+          "objective_before_m2": 1.548710514356707e-06,
+          "objective_after_m2": 1.548172142170578e-06,
+          "solver_success": true,
+          "solver_status": 1,
+          "solver_message": "`gtol` termination condition is satisfied.",
+          "reported_nfev": 3,
+          "actual_residual_calls_including_finite_difference": 29,
+          "optimality": 1.3123656506136574e-13,
+          "active_mask": [
+            -1,
+            0,
+            0,
+            0
+          ],
+          "claim": "Achieved feasible local fit only; not a certified global optimum or minimum achievable error"
+        },
+        {
+          "finger": "lf",
+          "joint_names": [
+            "LFJ5",
+            "LFJ4",
+            "LFJ3",
+            "LFJ2",
+            "LFJ1"
+          ],
+          "common_link_names": [
+            "lfdistal",
+            "lfknuckle",
+            "lfmetacarpal",
+            "lfmiddle",
+            "lfproximal",
+            "lftip"
+          ],
+          "initial_q": [
+            0.5867291586178283,
+            -0.22664809165119415,
+            0.8127462135807206,
+            0.2703562099272183,
+            0.7455966480346832
+          ],
+          "fitted_q": [
+            0.5858978899574417,
+            -0.22636761437568942,
+            0.8150749084675816,
+            0.26912478890844177,
+            0.7465137202433099
+          ],
+          "objective_before_m2": 4.951357946821069e-08,
+          "objective_after_m2": 2.6525514103041888e-08,
+          "solver_success": true,
+          "solver_status": 1,
+          "solver_message": "`gtol` termination condition is satisfied.",
+          "reported_nfev": 4,
+          "actual_residual_calls_including_finite_difference": 46,
+          "optimality": 3.480190204380988e-13,
+          "active_mask": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "claim": "Achieved feasible local fit only; not a certified global optimum or minimum achievable error"
+        },
+        {
+          "finger": "th",
+          "joint_names": [
+            "THJ5",
+            "THJ4",
+            "THJ3",
+            "THJ2",
+            "THJ1"
+          ],
+          "common_link_names": [
+            "thbase",
+            "thdistal",
+            "thhub",
+            "thmiddle",
+            "thproximal",
+            "thtip"
+          ],
+          "initial_q": [
+            0.04016522670350353,
+            1.0943491300654955,
+            0.09503744758267985,
+            0.4040965375176029,
+            0.21853381395339966
+          ],
+          "fitted_q": [
+            0.03963304789954274,
+            1.0932801788034077,
+            0.0962476912095521,
+            0.40570950453335825,
+            0.21826159107331947
+          ],
+          "objective_before_m2": 3.840000004488929e-08,
+          "objective_after_m2": 2.9887678181834594e-08,
+          "solver_success": true,
+          "solver_status": 1,
+          "solver_message": "`gtol` termination condition is satisfied.",
+          "reported_nfev": 4,
+          "actual_residual_calls_including_finite_difference": 46,
+          "optimality": 2.734679483971859e-13,
+          "active_mask": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "claim": "Achieved feasible local fit only; not a certified global optimum or minimum achievable error"
+        }
+      ],
+      "objective_m2": 8.416577920711892e-05,
+      "independent_objective_m2": 8.416577920712023e-05,
+      "maximum_link_origin_error_m": 0.004975626336338049,
+      "mean_link_origin_error_m": 0.000895077945597105,
+      "common_link_count": 27,
+      "per_common_link": {
+        "ffdistal": {
+          "unchanged_angle_error_m": 3.1031676915590914e-17,
+          "fitted_error_m": 0.004511640442493109,
+          "raw_frame_rotation_after_rad": 0.08321572646624005,
+          "fixed_zero_gauge_rotation_after_rad": 1.4896057383674886
+        },
+        "ffknuckle": {
+          "unchanged_angle_error_m": 2.8609792490763984e-17,
+          "fitted_error_m": 2.861985706806514e-17,
+          "raw_frame_rotation_after_rad": 0.08319359682450828,
+          "fixed_zero_gauge_rotation_after_rad": 1.5725193076897264
+        },
+        "ffmiddle": {
+          "unchanged_angle_error_m": 6.546139416680338e-17,
+          "fitted_error_m": 0.003547441612581158,
+          "raw_frame_rotation_after_rad": 0.08349488341011621,
+          "fixed_zero_gauge_rotation_after_rad": 1.4974342208847895
+        },
+        "ffproximal": {
+          "unchanged_angle_error_m": 2.8609792490763984e-17,
+          "fitted_error_m": 2.861985706806514e-17,
+          "raw_frame_rotation_after_rad": 0.08319747046180476,
+          "fixed_zero_gauge_rotation_after_rad": 1.545843477049339
+        },
+        "fftip": {
+          "unchanged_angle_error_m": 1.0031442548020353e-16,
+          "fitted_error_m": 0.004975626336338049,
+          "raw_frame_rotation_after_rad": 0.08321572646624005,
+          "fixed_zero_gauge_rotation_after_rad": 1.4896057383674886
+        },
+        "lfdistal": {
+          "unchanged_angle_error_m": 9.919204824710742e-05,
+          "fitted_error_m": 4.170050999625327e-05,
+          "raw_frame_rotation_after_rad": 0.0015437471394838702,
+          "fixed_zero_gauge_rotation_after_rad": 1.5709109624961315
+        },
+        "lfknuckle": {
+          "unchanged_angle_error_m": 0.00010000262161450498,
+          "fitted_error_m": 0.00010453608594754599,
+          "raw_frame_rotation_after_rad": 0.0008758340648001479,
+          "fixed_zero_gauge_rotation_after_rad": 1.5713593449227714
+        },
+        "lfmetacarpal": {
+          "unchanged_angle_error_m": 6.938893903907228e-18,
+          "fitted_error_m": 7.531108977247333e-18,
+          "raw_frame_rotation_after_rad": 0.9599055242536333,
+          "fixed_zero_gauge_rotation_after_rad": 1.5714808479432776
+        },
+        "lfmiddle": {
+          "unchanged_angle_error_m": 9.951254822247213e-05,
+          "fitted_error_m": 4.854864612271109e-05,
+          "raw_frame_rotation_after_rad": 0.0008007040920975167,
+          "fixed_zero_gauge_rotation_after_rad": 1.571299818622265
+        },
+        "lfproximal": {
+          "unchanged_angle_error_m": 0.00010000262161450498,
+          "fitted_error_m": 0.00010453608594754599,
+          "raw_frame_rotation_after_rad": 0.0018350404604184896,
+          "fixed_zero_gauge_rotation_after_rad": 1.571381751240747
+        },
+        "lftip": {
+          "unchanged_angle_error_m": 9.884695806891489e-05,
+          "fitted_error_m": 2.395879793062656e-05,
+          "raw_frame_rotation_after_rad": 0.0015437471394838702,
+          "fixed_zero_gauge_rotation_after_rad": 1.5709109624961315
+        },
+        "mfdistal": {
+          "unchanged_angle_error_m": 3.925231146709438e-17,
+          "fitted_error_m": 0.0028770136485846984,
+          "raw_frame_rotation_after_rad": 0.04269546678270961,
+          "fixed_zero_gauge_rotation_after_rad": 1.5383496628486242
+        },
+        "mfknuckle": {
+          "unchanged_angle_error_m": 2.7755575615628914e-17,
+          "fitted_error_m": 2.7758963540648015e-17,
+          "raw_frame_rotation_after_rad": 0.042663535757475585,
+          "fixed_zero_gauge_rotation_after_rad": 1.5712449781968287
+        },
+        "mfmiddle": {
+          "unchanged_angle_error_m": 2.7755575615628914e-17,
+          "fitted_error_m": 0.00191994209484567,
+          "raw_frame_rotation_after_rad": 0.04269490744591708,
+          "fixed_zero_gauge_rotation_after_rad": 1.552356082239529
+        },
+        "mfproximal": {
+          "unchanged_angle_error_m": 2.7755575615628914e-17,
+          "fitted_error_m": 2.7758963540648015e-17,
+          "raw_frame_rotation_after_rad": 0.04266999724318741,
+          "fixed_zero_gauge_rotation_after_rad": 1.5709019645257407
+        },
+        "mftip": {
+          "unchanged_angle_error_m": 3.1031676915590914e-17,
+          "fitted_error_m": 0.003591895011701737,
+          "raw_frame_rotation_after_rad": 0.04269546678270961,
+          "fixed_zero_gauge_rotation_after_rad": 1.5383496628486242
+        },
+        "rfdistal": {
+          "unchanged_angle_error_m": 1.3877787807814457e-17,
+          "fitted_error_m": 0.0008273389535141267,
+          "raw_frame_rotation_after_rad": 0.044061018275728725,
+          "fixed_zero_gauge_rotation_after_rad": 1.609847250513731
+        },
+        "rfknuckle": {
+          "unchanged_angle_error_m": 1.3877787807814457e-17,
+          "fitted_error_m": 2.797913897663062e-17,
+          "raw_frame_rotation_after_rad": 0.04406055100980534,
+          "fixed_zero_gauge_rotation_after_rad": 1.5712752576162645
+        },
+        "rfmiddle": {
+          "unchanged_angle_error_m": 0.0,
+          "fitted_error_m": 0.0008822197625538285,
+          "raw_frame_rotation_after_rad": 0.044060956450014434,
+          "fixed_zero_gauge_rotation_after_rad": 1.6147968534567432
+        },
+        "rfproximal": {
+          "unchanged_angle_error_m": 1.3877787807814457e-17,
+          "fitted_error_m": 2.797913897663062e-17,
+          "raw_frame_rotation_after_rad": 0.04406128490406379,
+          "fixed_zero_gauge_rotation_after_rad": 1.6103422600352215
+        },
+        "rftip": {
+          "unchanged_angle_error_m": 2.7755575615628914e-17,
+          "fitted_error_m": 0.00029218262906646937,
+          "raw_frame_rotation_after_rad": 0.044061018275728725,
+          "fixed_zero_gauge_rotation_after_rad": 1.609847250513731
+        },
+        "thbase": {
+          "unchanged_angle_error_m": 8.000000000000007e-05,
+          "fitted_error_m": 7.9999999999995e-05,
+          "raw_frame_rotation_after_rad": 1.5702641479874735,
+          "fixed_zero_gauge_rotation_after_rad": 1.5704137281698094
+        },
+        "thdistal": {
+          "unchanged_angle_error_m": 7.9999999953751e-05,
+          "fitted_error_m": 5.756684999512321e-05,
+          "raw_frame_rotation_after_rad": 0.0008810500844086979,
+          "fixed_zero_gauge_rotation_after_rad": 1.5708976671269859
+        },
+        "thhub": {
+          "unchanged_angle_error_m": 7.999999994433575e-05,
+          "fitted_error_m": 7.420243732835713e-05,
+          "raw_frame_rotation_after_rad": 1.5705983351495578,
+          "fixed_zero_gauge_rotation_after_rad": 1.570749936281939
+        },
+        "thmiddle": {
+          "unchanged_angle_error_m": 7.999999994433575e-05,
+          "fitted_error_m": 7.420243732835713e-05,
+          "raw_frame_rotation_after_rad": 1.5706702670955157,
+          "fixed_zero_gauge_rotation_after_rad": 1.5708479595682465
+        },
+        "thproximal": {
+          "unchanged_angle_error_m": 8.000000000000007e-05,
+          "fitted_error_m": 7.9999999999995e-05,
+          "raw_frame_rotation_after_rad": 1.5705523451804555,
+          "fixed_zero_gauge_rotation_after_rad": 1.5698615157021367
+        },
+        "thtip": {
+          "unchanged_angle_error_m": 8.000000043813453e-05,
+          "fitted_error_m": 5.2552188846304345e-05,
+          "raw_frame_rotation_after_rad": 0.0008810500844086979,
+          "fixed_zero_gauge_rotation_after_rad": 1.5708976671269859
+        }
+      },
+      "independent_verification": {
+        "source_fk_max_entry": 1.1102230246251565e-16,
+        "target_fk_max_entry": 1.1102230246251565e-16,
+        "palm_matrix_max_entry": 1.1102230246251565e-16
+      },
+      "source_reference_prior_status": {
+        "native_default": "FAIL",
+        "declared_fp32": "PASS"
+      },
+      "target_root_link": "world",
+      "both_original_wrists_preserved": true,
+      "source_palm_preserved": true,
+      "stage": "new_bounded_position_retarget_development_only",
+      "execution_eligible": false,
+      "scientific_acceptance": "UNRESOLVED"
+    }
+  ],
+  "arrays": {
+    "path": "fit_poses.npz",
+    "sha256": "sha256:5c976a08374d3c3c57d6ba59fcf25122bd7df2a0582703e77be612a963e155c2"
+  },
+  "prior_validation": {
+    "path": "/private/tmp/dga_multidex_20261015_v1/static_validation_v1/multidex_validation_report.json",
+    "sha256": "sha256:ccf953b35991353bf1e4dd8a3da49be93779e1d746281bcc95f5cd517da684b0"
+  },
+  "original_accounting": {
+    "REJECTED_SOURCE_LIMIT": 2,
+    "REJECTED_TARGET_LIMIT": 2,
+    "REJECTED_NONFINITE_POSE": 0,
+    "CANDIDATE_ONLY": 0
+  },
+  "original_surface_selection": {
+    "policy": "first_up_to_two_source_and_target_valid_in_global_original_order_no_backfill",
+    "selected_global_indices": [],
+    "selected_count": 0,
+    "backfill_after_prerequisite_failure": false,
+    "all_selected_prerequisites_pass": true
+  },
+  "runtime": {
+    "numpy": "2.2.6",
+    "scipy": "1.17.1"
+  },
+  "solver": {
+    "method": "trf",
+    "jac": "3-point",
+    "loss": "linear",
+    "max_nfev": 200,
+    "ftol": 1e-12,
+    "xtol": 1e-12,
+    "gtol": 1e-12
+  },
+  "dependency_sha256": {
+    "/private/tmp/dga_multidex_20261015_v1/validation/validate_multidex_cohort.py": "sha256:4f1cc1ca32d17354178da2d832974ae1e579202cb2900d46bd6653c62bd1405c",
+    "/private/tmp/dga_multidex_20261015_v1/runner/multidex_profile.py": "sha256:43e311387332d6e1fe856302d10ae125a68a11b913c5f723808c000d623848e3",
+    "/private/tmp/dga_multidex_20261015_v1/validation/multidex_numeric_checks.py": "sha256:0952cc51749ef7962de516d073cda199c899a075813dfc18ab0c2081523ab780",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/cloud/dexgrasp_anything/validate_native_outputs.py": "sha256:febd725533b949693aa0ac21c8f3e02c6dd9926cd3041d6298b666479ff38fe5",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/proposals/dexgrasp_anything.py": "sha256:977634c4dede9d6b45f80ab72047dbf1554caddd4387b6467ca0ff598851dd72",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/scripts/audit_dexgrasp_anything_static.py": "sha256:0e0c52552d8d422a68e5f58097a5ff4b22cab23ed329cd214fe9f3b527c370c5",
+    "/private/tmp/dga_multidex_20261015_v1/runner/inspect_multidex_export.py": "sha256:147199aa92d5cef64e195f79d4f4c8ac8964590fee20120a0618fb475e8517d2",
+    "/private/tmp/dga_multidex_20261015_v1/runner/multidex_smoke_protocol_frozen_v1.json": "sha256:534b0959512c05b688f3c53da55c6458b32eabead53f1b4dfed58f22f811db5d",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/cohort_manifest.json": "sha256:93b7dc6717e7932fadbddd52858d0cc5c64d8beea3460e9b05868187118c153a",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/cohort_generation_log.json": "sha256:991a44f5dab6acfd039bd6c6f8c27b10aa93cb4f714708933d70767f1bc7ecf1",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/native_smoke_input_object01_v1/manifest.json": "sha256:e00f34eb513de1812ad2ab163fc7cb5278e84e88d8c64bb35c3fb160147b4854",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf": "sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/datasets/multidex_shadowhand_ur.py": "sha256:033574fe65e4bbaf62def07913890776d43f107fe48c70089d1b72de093b479f",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/analytic_geometry_contract.json": "sha256:45c1162a4f815d65c43254f2f499f53bde1eecea4d39912d8ce36d2c5cd92a81",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/asset_verifier.py": "sha256:f465b7cc9805ad458a22d6b0fa271cf3a10e680d6610f656954128fbb92b3214",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/checkpoint_metadata_inspector.py": "sha256:f088f43a149de9b8116f8f0a6c8425a3f74152f6fefa22e93d840de90d4ebb9c",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/checkpoint_metadata_safe.json": "sha256:7ae32b75cee0f54062c321c5a40057e90bd286573ec6dd3c0f0312399e834a1f",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/conditioning_manifest.json": "sha256:e00f34eb513de1812ad2ab163fc7cb5278e84e88d8c64bb35c3fb160147b4854",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/config.json": "sha256:b7977cc5fd2554e333f2175cdd8d1ab12fd93910660018bc61ba95207b3c175d",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/dependency_import_gate.json": "sha256:b06281983c248b57524ea6aa9f399893ce9dbe8970de526ca62088814956828c",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/generation_log.json": "sha256:f6c80ad9e43aa879ab07aa5c09c806648d728b6de00d2d3bec7c8031ba55d093",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/mesh.obj": "sha256:e3abe7b101ecc6ebe02e38931674fd7991e445b752dca0d41f51eeaef148cbac",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/native_manifest.json": "sha256:ef66deab9955aac031ff26d5362da6ade673d4f1129797b1c5125e14b6150a13",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/normals.npy": "sha256:20bb8a503d8c0cebf3bf1537328fb08a26577fdd5daa0d7106d548833c681bb4",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/outputs.npz": "sha256:12b0fcc2bbbba843c557758fa86ef73987e6dab867a0c4403204b3e7bef1a864",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/points.npy": "sha256:03d9c6ffd06868427010d5dbc6b5db0edd848f9d62bd0209a970c328554f1d71",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/pre_load_checkpoint_gate.json": "sha256:7e3d9b8442837196c12632a83a26554b66a23bc77e67f1c1eab7e64550e2e01f",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/pre_sampling_freeze.json": "sha256:cc06ab17904fcea2d3a69349d202f4dd7dc50601ce2b9d584efaef4d9ef211d2",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/preflight.json": "sha256:3c5f2b7ff14cd086fc7692178651868d6f8c49153ff851ac895f502c23dd6bff",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/prepare_conditioning_input.py": "sha256:4c79de53e389e11a6903598bdbffcd20bcddb545fae2df33d62f67e43f0ae21d",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/protocol.md": "sha256:534b0959512c05b688f3c53da55c6458b32eabead53f1b4dfed58f22f811db5d",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/rng_after_sampling.json": "sha256:72de86b87edede63aaede1aa5af42539fdb68aed373c9979ae2dbf9d50f19749",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/rng_after_sampling.npz": "sha256:19fdd379361e0a68994fa60548cd0fae0d7f863779d8b373ec059e384892bfc5",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/rng_before_augmentation.json": "sha256:11673febfc92a52398a554b30b703bb6d8a23a086e7a2cc859190eda9d19b1cf",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/rng_before_augmentation.npz": "sha256:f58179dd67ba939f0997d1b85e0a2779c4947a6dd0f972af9d6871cb78e6eed0",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/rng_before_sampling.json": "sha256:c2678cbf7b1bf639640378ec92176ef4ae0bb5f5951511050702ad4d8da7af6f",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/rng_before_sampling.npz": "sha256:33aa2bc7277b9398183cf68a845fd8a16171fedcb607e4548defba62c570a0f3",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/runner.py": "sha256:5a69f9c5d737cd4f595fad87b2346bc8ef3c365035ba4c2abdfb82237707b1e1",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/runtime_after_sampling.json": "sha256:66c64d9d7ced4e2c48eb62743c6da800fa8d71a3fdc6e295b335eedc13a9e813",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/runtime_before_sampling.json": "sha256:66c64d9d7ced4e2c48eb62743c6da800fa8d71a3fdc6e295b335eedc13a9e813",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/runtime_reference.json": "sha256:458e378248ae766d79e3bc51d53741daeb597fdd85cf3fcc17b968fcefd5a62a",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/runtime_reference.npz": "sha256:4d9b7076821905727027ccc71c4c3ed3b92bc9fb823158891d3af1021e85c264",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/sampling_started.json": "sha256:78ecd39a4f1ae50723393a255deeb1d7e062ac7ab16c157d7174fe65e7f87030",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/source_domain_report.json": "sha256:214d6e26fcb4153f410444c6e9a2cbee0b2632ca897b73db937bab1a2f67e583",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/source_evidence.json": "sha256:a88b85eba25ac060a21469b9bf2f8f49bfe203edfcce7cb82fe672becfeb10a3",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/source_hand.urdf": "sha256:932fca7c411ef9ae4e6a8f17a892b3629840b5b5e1254610e0616e184d1f95c7",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/stages.npz": "sha256:c55465b0e7160e3b796234456bdc6594987eb54ae819534dfb25374e7fc920aa",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/verify_dexgrasp_anything_assets.py": "sha256:86bc590d9a14c45df5eb1ff5033db307851856ab688456d6790daf05dd3c30f5",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/evidence_manifest.json": "sha256:25b9bebf50a15eb87b8503fc04384277b787845a9189efcea50e532777b898ad",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/fp32_references/batch_0000_seed20261023/outputs.npz": "sha256:12b0fcc2bbbba843c557758fa86ef73987e6dab867a0c4403204b3e7bef1a864",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/fp32_references/batch_0000_seed20261023/runtime_reference.json": "sha256:fab54ecea274e7f0fd83238547139fa213c3b0482173866c3e5daa50fe54c87f",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/fp32_references/batch_0000_seed20261023/runtime_reference.npz": "sha256:535ce5ede130e6655454ef5b99586bed8138765719bef61682762aaccf15c478",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/fp32_references/batch_0000_seed20261023/reference_provenance.json": "sha256:b536e28a635935e25b8b653a36184ff20d4f40c436c9ef6bb530677d2a3e3ef9",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/forearm.obj": "sha256:6b70d0cf1f910ef703e6cfe904e2f924d70f49d5f8352b025159eefbb27cd784",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/wrist.obj": "sha256:c620fec7d83e0b772a3a6bcf940d72f05c051d99f57a2ce907645f8bd131be82",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/palm.obj": "sha256:974d57c4702769039acb963fb5e31f59fc17fa1791e4f214c327ed1366057e01",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/knuckle.obj": "sha256:60cab4fada578f5e89ad0840aae64e231f7d146e163400b222f3fe092949cc0e",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/F3.obj": "sha256:c4e76bf55f0496c6dc8d63f5eaf0f5682f3bcab4d8d7d53b6bcf3c95bd0775c0",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/F2.obj": "sha256:dfa52fee944ef51e50aa9b8f9a6f81793f1b8fa298b8cfcfa9a10632eb04770f",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/distal_ellipsoid.obj": "sha256:8b7190c06e9867b5826b6f4290c2e0f6aaa3706ad7b841b295f6add87e166cc1",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/F1.obj": "sha256:81e50a0c118750ddeebc9a2a792e5d6b4aeec4eaad5f0a2919c82ba09328b257",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/lfmetacarpal.obj": "sha256:e365e45c31770f80533c6c02cc25436e7a747642c6c28c102efb7461d5dd197c",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/TH3_z.obj": "sha256:3396ce4c0ffbde80a8c96b9d617f5c924f5b721fd95fc35fcb6a86dd336f1251",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/TH2_z.obj": "sha256:a8d22723c07dd7ec0c2b39415383bf84643bbf431d145d8cd1a7fb8f695e8ed0",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/analytic_geometry_contract.json": "sha256:45c1162a4f815d65c43254f2f499f53bde1eecea4d39912d8ce36d2c5cd92a81",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/asset_verifier.py": "sha256:f465b7cc9805ad458a22d6b0fa271cf3a10e680d6610f656954128fbb92b3214",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/checkpoint_metadata_inspector.py": "sha256:f088f43a149de9b8116f8f0a6c8425a3f74152f6fefa22e93d840de90d4ebb9c",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/checkpoint_metadata_safe.json": "sha256:7ae32b75cee0f54062c321c5a40057e90bd286573ec6dd3c0f0312399e834a1f",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/conditioning_manifest.json": "sha256:e00f34eb513de1812ad2ab163fc7cb5278e84e88d8c64bb35c3fb160147b4854",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/config.json": "sha256:853fb8646c7ac189f553539e42c94881b1055c10f71589aea533c5988d589462",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/dependency_import_gate.json": "sha256:b06281983c248b57524ea6aa9f399893ce9dbe8970de526ca62088814956828c",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/generation_log.json": "sha256:451873ee2ca7fbceb34c3e0c4ea53fc234dd63cac56d31070c0d0d3e9ff22b98",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/mesh.obj": "sha256:e3abe7b101ecc6ebe02e38931674fd7991e445b752dca0d41f51eeaef148cbac",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/native_manifest.json": "sha256:b781a6b8d346ea153474aae4018ec5c71f0990d165c2b1d1b4c306c88bc1b6d9",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/normals.npy": "sha256:20bb8a503d8c0cebf3bf1537328fb08a26577fdd5daa0d7106d548833c681bb4",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/outputs.npz": "sha256:d6dbadada331e35c1188534aaa61131f3eaf7d708bbaaf7f584d7d836a4a2a41",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/points.npy": "sha256:03d9c6ffd06868427010d5dbc6b5db0edd848f9d62bd0209a970c328554f1d71",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/pre_load_checkpoint_gate.json": "sha256:7e3d9b8442837196c12632a83a26554b66a23bc77e67f1c1eab7e64550e2e01f",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/pre_sampling_freeze.json": "sha256:46aefa8f28d98815e5e610cc1f4f3721067f8cc6d4ab022150270c40d5baa3ae",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/preflight.json": "sha256:da4b5f1daa4cbeed3e55443670d6f76ec28c4a3d995c4cac98886ca3ebe17e36",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/prepare_conditioning_input.py": "sha256:4c79de53e389e11a6903598bdbffcd20bcddb545fae2df33d62f67e43f0ae21d",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/protocol.md": "sha256:534b0959512c05b688f3c53da55c6458b32eabead53f1b4dfed58f22f811db5d",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/rng_after_sampling.json": "sha256:5a144e5ff9fb80a60061aaac3f8e38f5777d84abf9617f81ca04e9cd75444ee1",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/rng_after_sampling.npz": "sha256:96124b425e01fdfc4bc3ae420a0c7056a3ec92eacf64d67beabb79d732ca7141",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/rng_before_augmentation.json": "sha256:f1cde9cc6e8f4ae7de8e7a6e6be76b7595af3a10e6dcc751d467492230a99d0b",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/rng_before_augmentation.npz": "sha256:37e7c512c63c2d1e505651f355fed50e556470194126bd67e83e4cfc68b3cdb0",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/rng_before_sampling.json": "sha256:7bc597bb78cbff9d97d8c4096b52ae265c0a34018418b820209f7ac701191548",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/rng_before_sampling.npz": "sha256:30d02ea95c65b0122450e7186daff586216cf1478b448af889bff68259ce7e82",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/runner.py": "sha256:5a69f9c5d737cd4f595fad87b2346bc8ef3c365035ba4c2abdfb82237707b1e1",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/runtime_after_sampling.json": "sha256:66c64d9d7ced4e2c48eb62743c6da800fa8d71a3fdc6e295b335eedc13a9e813",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/runtime_before_sampling.json": "sha256:66c64d9d7ced4e2c48eb62743c6da800fa8d71a3fdc6e295b335eedc13a9e813",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/runtime_reference.json": "sha256:b7af6687b46e40e7a130d3669e6dce58729b750c72f31c0a72c60dd16c75caf7",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/runtime_reference.npz": "sha256:83ce8b32c53b21e9f1bfca717ce732156b2a2a14c097a567db55c0a4155507f5",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/sampling_started.json": "sha256:d7bef1f0436aae063f3fd183ffeea2b5b699628a9cf26cec97123b8d0be87c0e",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/source_domain_report.json": "sha256:5f9763e0781088698c02ce14c3a80305114fbcba7a3c52d04b609b4bff9cb2e4",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/source_evidence.json": "sha256:a88b85eba25ac060a21469b9bf2f8f49bfe203edfcce7cb82fe672becfeb10a3",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/source_hand.urdf": "sha256:932fca7c411ef9ae4e6a8f17a892b3629840b5b5e1254610e0616e184d1f95c7",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/stages.npz": "sha256:e22209019c088ab90fe6ac88bb5789b6e5ce410f4d7285ac76e01e00acac5b09",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/verify_dexgrasp_anything_assets.py": "sha256:86bc590d9a14c45df5eb1ff5033db307851856ab688456d6790daf05dd3c30f5",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/evidence_manifest.json": "sha256:9c7fc6191af8d74e1856c2e2adf77f66c555a8500ee391d89e98f80f6ea235d1",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/fp32_references/batch_0001_seed20261024/outputs.npz": "sha256:d6dbadada331e35c1188534aaa61131f3eaf7d708bbaaf7f584d7d836a4a2a41",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/fp32_references/batch_0001_seed20261024/runtime_reference.json": "sha256:bfbc7c0360d692d0bcd3417df2fe687e2b54f2c9413f4539b2ed32c10722f8e8",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/fp32_references/batch_0001_seed20261024/runtime_reference.npz": "sha256:ec8f23a2dc2c24f945e50401f08b30aead3082024a401435c809171d93d256df",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/fp32_references/batch_0001_seed20261024/reference_provenance.json": "sha256:7759195cec466fb7522b35583879237bc296386f6990b26c9cb3585741885531",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_distal_pst.mtl": "sha256:997065356d2a865204443d1cba21d19067369da599e9d3a4bbaa02bfe8ef3360",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_distal_pst.obj": "sha256:04d7ddc2166089b0c670806c1d1eb4b47b8f8c48428c00581b0fe64d59d4e5f8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_knuckle_E3M5.mtl": "sha256:a689c3f677cda3adfa1cabd6f60c7b17770ad6cecc3d9aea57f6be4865ff1510",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_knuckle_E3M5.obj": "sha256:1452690f5f93875665e5b23f022e89fa04f2a6aab6e49ae0112db7821f759792",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_middle_E3M5.mtl": "sha256:997065356d2a865204443d1cba21d19067369da599e9d3a4bbaa02bfe8ef3360",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_middle_E3M5.obj": "sha256:c1c0b460c69894cbef8bc1ab8bfed6112832a20aa77531f3823a4fb8090daeac",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_proximal_E3M5.mtl": "sha256:997065356d2a865204443d1cba21d19067369da599e9d3a4bbaa02bfe8ef3360",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_proximal_E3M5.obj": "sha256:adb5475347a153997da789b0ab46b3b1b945906c9bf6a4e28787150ed3afa8cd",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/forearm_E3M5.mtl": "sha256:5f99cbfe0015ff932b593b00f3d42c1b68928a49ef7d7ec6918c04f48528709d",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/forearm_E3M5.obj": "sha256:67f719d4131da5edd1c43e8a560481087074833e3fe4580f4ffe0ea3d07691fb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/lf_metacarpal_E3M5.mtl": "sha256:997065356d2a865204443d1cba21d19067369da599e9d3a4bbaa02bfe8ef3360",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/lf_metacarpal_E3M5.obj": "sha256:def539fcdefb4399ae69cb4fc5b2c5296b43ec7015c5581c2b90e7643a030a62",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/palm_E3M5.mtl": "sha256:997065356d2a865204443d1cba21d19067369da599e9d3a4bbaa02bfe8ef3360",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/palm_E3M5.obj": "sha256:529d6bcf4f356aeaece8a9c884d98bc399d039fdb2f3174449aeaaf262aa812d",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_distal_pst.mtl": "sha256:997065356d2a865204443d1cba21d19067369da599e9d3a4bbaa02bfe8ef3360",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_distal_pst.obj": "sha256:da8ca3aa9aeceeb6aac940a6db0605cac4014dcd496133080bc5787e217346ce",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_middle_E3M5.mtl": "sha256:997065356d2a865204443d1cba21d19067369da599e9d3a4bbaa02bfe8ef3360",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_middle_E3M5.obj": "sha256:49416cd8b0ca8a976749cc7c954ce56a59fc9e4664c68fc931d14a1a53ffd2ba",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_proximal_E3M5.mtl": "sha256:997065356d2a865204443d1cba21d19067369da599e9d3a4bbaa02bfe8ef3360",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_proximal_E3M5.obj": "sha256:c021a0c066743274d4133d0e85146a3fa3433102616a5e56e2aa18ff602bf996",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/wrist_E3M5.mtl": "sha256:ddf7562276de61678b848d82160baee5c654af0de07c744581a740f2e1b6ba45",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/wrist_E3M5.obj": "sha256:29724f4640064dde710b3725cbd37b0ee1ba8e000b0b5ad402d66bbba284bd29",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/F1.mtl": "sha256:8db8f46b542b1108a4fb9af3b4ef2d2cf49c62cbbb9ce88470708ba1a718b628",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/F2.mtl": "sha256:09eabe15cb0831183a6095d012d6f8bd9a696dcdba3fb25f3cbde345fca6dc06",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/F3.mtl": "sha256:c7512074ecbd9c699f37d2b9d235c287052c2d8106296ff16cf2d8b76f592150",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/TH2_z.mtl": "sha256:9d688de4634aae2b1144fba6ddd0f7a1c92cf4e20c50d338584b16c3fb66ed40",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/TH3_z.mtl": "sha256:337feac17df9c166d8ab4dd5f28df68168e20c1c51f4adf6f6b7a33aef248b42",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/distal_ellipsoid.mtl": "sha256:e23b5279777ea3bcbaeb3a0c748f95a51d1dc3bcce1db8c035a9361512e73a66",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/forearm.mtl": "sha256:73bee2a24d216e837a92012f594d2a5b16bd15353a19fd83492929a5a7be3909",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/knuckle.mtl": "sha256:003254ab78820525fcb4e84367604e16a76d8f8e0275796817b99f56fe4f0cf3",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/lfmetacarpal.mtl": "sha256:ed7ec299ecb5581d5d4173558b1995208d9d35f6b874bb63970a70e545b073de",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/palm.mtl": "sha256:f23215e688d4dbc72ebbec59d1c11eed4d73bbc0bad7fd7d027643580dd53b66",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/meshes/wrist.mtl": "sha256:263b87bfb28882396b4390cdde0de4b1dc1b8d7a8f3e293d59409a3a4a611b3a",
+    "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/urdf/shadowhand.urdf": "sha256:932fca7c411ef9ae4e6a8f17a892b3629840b5b5e1254610e0616e184d1f95c7",
+    "/private/tmp/dga_multidex_20261015_v1/rejected_algebra_v1/audit_domain_rejected_algebra.py": "sha256:f7eaaf7065f26cea7800cd5263f8229be1e53012b7056442e013d03b1f93b354",
+    "/private/tmp/dga_multidex_20261015_v1/rejected_algebra_v1/test_rejected_algebra.py": "sha256:2cdf64cad574ace78946d9f9dae016570e0c883c63987d3dbc65a870a3fd3fde",
+    "/private/tmp/dga_multidex_20261015_v1/static_validation_v1/multidex_validation_report.json": "sha256:ccf953b35991353bf1e4dd8a3da49be93779e1d746281bcc95f5cd517da684b0",
+    "/private/tmp/dga_multidex_20261015_v1/validation/surface_asset_hashes_addendum_v1.json": "sha256:ddfbfa1dbf1a00a74c52451a0e7a49a1c60c371e724e1781ab15455d205d36cc",
+    "/private/tmp/dga_mapping_continuation_20261015_v1/retarget_development_v1/fit_source_valid_multidex.py": "sha256:2c68e39567088b9cf4a93e61ecdd07503d043785e38ff3ecc28d6fc0a879137e",
+    "/private/tmp/dga_mapping_continuation_20261015_v1/retarget_development_v1/test_fit_source_valid_multidex.py": "sha256:5f49ac0606958304589ca529c2aaae6edbb11abd7676d749ff3f92c7202f920a",
+    "/private/tmp/dga_mapping_continuation_20261015_v1/retarget_development_v1/manufactured_test_receipt_v1.json": "sha256:724001c2282c93b48128fb70f655a244984ac935644f86d0108a2b4057daffdb"
+  },
+  "execution_eligible": false,
+  "scope": {
+    "objective": "Unweighted squared positions of all common finger-link origins in fixed palm coordinates; duplicate coincident pivots are retained by declared all-link convention.",
+    "solver": "Finite feasible local solution; no global optimum or reachability lower-bound claim.",
+    "originals": "Native poses, original domain rejects and empty valid-output surface selection remain unchanged.",
+    "surfaces": "NOT_TESTED",
+    "contact_preservation": "NOT_TESTED",
+    "approximate_contact_adequacy": "UNRESOLVED",
+    "scientific_acceptance_threshold": null
+  },
+  "zero_step_evidence": {
+    "native_inference_calls": 0,
+    "checkpoint_loads": 0,
+    "physics_steps": 0,
+    "surface_queries": 0,
+    "triangle_operations": 0,
+    "object_contact_objective_terms": 0,
+    "training_calls": 0
+  }
+}

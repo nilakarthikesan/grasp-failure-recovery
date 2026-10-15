@@ -1,0 +1,212 @@
+"""Separate experimental MultiDex numeric export profile; original pins unchanged.
+
+CPU-only. Reuses original checked kinematics/rotation/palm mapping functions,
+never the DexGraspNet-specific manifest loader. No registry integration.
+"""
+from __future__ import annotations
+import json
+from pathlib import Path
+from typing import Literal
+import numpy as np
+from grasp_failure_prediction.proposals import dexgrasp_anything as original
+
+PROFILE_ID='dga_multidex_official_unguided_v1'
+SOURCE_PROFILE_ID=PROFILE_ID
+CHECKPOINT_SHA256='sha256:036b406af7c02cd2de9eb61da02590f8c5db7e6afe6a842eb36b47f03105945e'
+NORMALIZER_SHA256='sha256:033574fe65e4bbaf62def07913890776d43f107fe48c70089d1b72de093b479f'
+DATASET_NAME='MultiDexShadowHandUR'
+DGAContractError=original.DGAContractError
+
+
+class MultiDexExportManifest(original.DGAExportManifest):
+    schema_version:Literal['dga_multidex_native_export_v1']
+    source_profile_id:Literal[PROFILE_ID]
+    checkpoint_sha256:Literal[CHECKPOINT_SHA256]
+    dataset_name:Literal[DATASET_NAME]
+    normalizer_source_sha256:Literal[NORMALIZER_SHA256]
+    normalize_joints:Literal[True]
+    normalize_translation:Literal[True]
+    evidence_origin:Literal['authentic_saved_native']
+    physical_object_scale:Literal[1.0]
+    sample_count:Literal[2]
+    seed:Literal[20261023,20261024]
+
+
+MultiDexExportManifest.model_rebuild(_types_namespace=globals())
+
+
+def _verify_frozen_bundle(manifest_path,manifest,config,log):
+    """Self-consistency gates; external trusted cohort pins establish provenance."""
+    root=manifest_path.parent
+    required={'native_manifest.json','outputs.npz','source_hand.urdf','config.json','generation_log.json',
+        'preflight.json','runtime_before_sampling.json','runtime_after_sampling.json','runner.py','stages.npz',
+        'source_domain_report.json','pre_sampling_freeze.json','pre_load_checkpoint_gate.json',
+        'checkpoint_metadata_safe.json','checkpoint_metadata_inspector.py','protocol.md',
+        'conditioning_manifest.json','mesh.obj','points.npy','normals.npy'}
+    evidence=json.loads((root/'evidence_manifest.json').read_text())
+    if evidence.get('schema_version')!='dga_multidex_smoke_evidence_v1' or not required.issubset(evidence.get('files',{})):
+        raise original.DGAContractError('native_evidence_incomplete','All required MultiDex evidence must be hash-bound')
+    for name,hash_value in evidence['files'].items():
+        original._verified_child(root,original.DGAFile(path=name,sha256=hash_value))
+    freeze_path=original._verified_child(root,original.DGAFile.model_validate(log['pre_sampling_freeze']))
+    freeze=json.loads(freeze_path.read_text())
+    frozen_required={'preflight.json','protocol.md','runner.py','asset_verifier.py','verify_dexgrasp_anything_assets.py',
+        'checkpoint_metadata_inspector.py','checkpoint_metadata_safe.json','pre_load_checkpoint_gate.json',
+        'conditioning_manifest.json','source_hand.urdf','mesh.obj','points.npy','normals.npy','config.json',
+        'runtime_before_sampling.json','rng_before_augmentation.json','rng_before_augmentation.npz',
+        'rng_before_sampling.json','rng_before_sampling.npz'}
+    if (freeze.get('sample_count')!=2 or freeze.get('seed')!=manifest.seed
+            or freeze.get('native_model_sample_calls_attempted')!=0
+            or not frozen_required.issubset(freeze.get('files',{}))):
+        raise original.DGAContractError('native_freeze_mismatch','Pre-sampling fixed batch binding differs')
+    for name,hash_value in freeze['files'].items():
+        original._verified_child(root,original.DGAFile(path=name,sha256=hash_value))
+    protocol=json.loads((root/'protocol.md').read_text())
+    expected={'schema_version':'dga_multidex_smoke_protocol_v1','status':'FROZEN_PREMEASUREMENT',
+        'source_profile_id':PROFILE_ID,'checkpoint_sha256':CHECKPOINT_SHA256,'dataset_name':DATASET_NAME,
+        'normalizer_source_sha256':NORMALIZER_SHA256,'seeds':[20261023,20261024],
+        'batch_count':2,'batch_size':2,'sample_count':4,'no_early_stop':True,'no_adaptive_additions':True,
+        'generation_matmul_allow_tf32':True,'generation_cudnn_allow_tf32':True}
+    if any(protocol.get(k)!=v for k,v in expected.items()):
+        raise original.DGAContractError('native_protocol_mismatch','Separate frozen MultiDex batch policy required')
+    code=protocol['code_sha256']
+    if (code['profile']!=original.file_sha256(Path(__file__))
+            or code['native_wrapper']!=original.file_sha256(root/'runner.py')
+            or code['checkpoint_inspector']!=original.file_sha256(root/'checkpoint_metadata_inspector.py')):
+        raise original.DGAContractError('native_protocol_mismatch','Current profile/runner/inspector must match frozen bytes')
+    preflight=json.loads((root/'preflight.json').read_text())
+    if (original.file_sha256(root/'protocol.md')!=config.get('protocol_sha256')
+            or preflight.get('protocol_sha256')!=config.get('protocol_sha256')
+            or preflight.get('wrapper_sha256')!=code['native_wrapper']
+            or preflight.get('conditioning_manifest_sha256')!=protocol['conditioning_manifest_sha256']):
+        raise original.DGAContractError('native_protocol_mismatch','Actual preflight/configuration freeze binding differs')
+    gate=json.loads((root/'pre_load_checkpoint_gate.json').read_text())
+    state=config.get('checkpoint_state',{})
+    if (gate.get('status')!='PASS_BEFORE_CHECKPOINT_DESERIALIZATION'
+            or gate.get('all_tensor_shapes_dtypes_exact') is not True
+            or gate.get('all_12_source_schedule_buffers_bitwise_exact') is not True
+            or gate.get('checkpoint_deserializations')!=0
+            or state.get('strict_load') is not True or state.get('missing_keys')!=[] or state.get('unexpected_keys')!=[]
+            or state.get('expected_key_count')!=protocol['expected_model_tensor_count']
+            or state.get('loaded_key_count')!=protocol['expected_model_tensor_count']
+            or state.get('pre_load_metadata_and_schedule_gate')!=gate):
+        raise original.DGAContractError('native_checkpoint_gate_mismatch','Strict pre-load state/schedule gate required')
+    for name in ('runtime_before_sampling.json','runtime_after_sampling.json'):
+        runtime=json.loads((root/name).read_text())
+        if runtime.get('matmul_allow_tf32') is not True or runtime.get('cudnn_allow_tf32') is not True:
+            raise original.DGAContractError('native_precision_mismatch','Preserve generation/default TF32 baseline')
+    return protocol
+
+
+def _load_multidex_raw(manifest_path,*,expected_object_id,expected_geometry_hash,allow_nonfinite_raw):
+    """Verify evidence/config/log/input first; retain raw rows for domain ledger."""
+    manifest_path=Path(manifest_path)
+    manifest=MultiDexExportManifest.model_validate_json(manifest_path.read_bytes())
+    if manifest.joint_names!=list(original.SOURCE_JOINT_NAMES):
+        raise original.DGAContractError('native_joint_order_mismatch','Exact unchanged24-joint runtime order required')
+    if manifest.object_id!=expected_object_id or manifest.geometry_content_hash!=expected_geometry_hash:
+        raise original.DGAContractError('native_object_mismatch','Physical object binding differs')
+    original.proper_transform(manifest.object_from_input)
+    if not np.array_equal(manifest.object_from_input,np.eye(4)):
+        raise original.DGAContractError('native_object_mismatch','Separate physical object01 test requires identity object_from_input')
+    paths={key:original._verified_child(manifest_path.parent,getattr(manifest,key)) for key in
+        ('output','source_hand','object_mesh','point_cloud','normals','configuration','generation_log')}
+    if manifest.source_hand.sha256!=original.SOURCE_URDF_SHA256:
+        raise original.DGAContractError('source_hand_mismatch','Pinned shared source hand required')
+    config=json.loads(paths['configuration'].read_text())
+    config_keys=('source_profile_id','source_commit','checkpoint_sha256','dataset_name','normalizer_source_sha256',
+        'normalize_joints','normalize_translation','physics_guided_sampling','postprocessing','seed','sample_count')
+    if any(k not in config or type(config[k]) is not type(getattr(manifest,k)) or config[k]!=getattr(manifest,k) for k in config_keys):
+        raise original.DGAContractError('native_configuration_mismatch','Atomic MultiDex identity/configuration must agree')
+    if (not isinstance(config.get('optimizer'),dict) or config['optimizer'].get('enabled') is not False
+            or 'actual_model_optimizer' not in config['optimizer'] or config['optimizer']['actual_model_optimizer'] is not None):
+        raise original.DGAContractError('native_configuration_mismatch','Actual optimizer must remain disabled')
+    resolved=config.get('resolved_upstream_config',{})
+    if (resolved.get('dataset',{}).get('active')!=DATASET_NAME or resolved.get('llm',{}).get('enabled') is not False
+            or resolved.get('optimizer','MISSING') is not None or resolved.get('use_dpmsolver') is not False
+            or resolved.get('model',{}).get('scene_model',{}).get('name')!='PointTransformer'):
+        raise original.DGAContractError('native_configuration_mismatch','Resolved MultiDex no-LLM/optimizer/DDPM configuration required')
+    log=json.loads(paths['generation_log'].read_text())
+    expected={'schema_version':'dga_multidex_export_log_v1','source_profile_id':PROFILE_ID,
+        'checkpoint_sha256':CHECKPOINT_SHA256,'dataset_name':DATASET_NAME,'normalizer_source_sha256':NORMALIZER_SHA256,
+        'evidence_origin':manifest.evidence_origin,'configuration_sha256':manifest.configuration.sha256,
+        'output_sha256':manifest.output.sha256,'object_id':manifest.object_id,'geometry_content_hash':manifest.geometry_content_hash,
+        'object_mesh_sha256':manifest.object_mesh.sha256,'point_cloud_sha256':manifest.point_cloud.sha256,
+        'normals_sha256':manifest.normals.sha256,'source_hand_scale':manifest.source_hand_scale,
+        'physical_object_scale':manifest.physical_object_scale,'object_from_input':manifest.object_from_input,
+        'joint_parameter_names':list(original.SOURCE_JOINT_NAMES),'state':manifest.state,
+        'native_inference_executed':True,'native_model_sample_calls':1,'authentic_native_sample_count':2,
+        'checkpoint_deserializations':1,'unfiltered_original_order':True,'physics_steps':0,
+        'evaluation_episodes':0,'task_labels':0,'training_runs':0}
+    if any(log.get(k)!=v for k,v in expected.items()):
+        raise original.DGAContractError('native_log_mismatch','Separate MultiDex log identity/frame binding required')
+    _verify_frozen_bundle(manifest_path,manifest,config,log)
+    with np.load(paths['output'],allow_pickle=False) as z:
+        if set(z.files)!={'hand_qpos'}:raise original.DGAContractError('native_fields_unsupported','Explicit hand_qpos only')
+        raw=z['hand_qpos']
+        if raw.shape!=(2,33) or raw.dtype!=np.dtype('float64'):
+            raise original.DGAContractError('native_input_invalid','Exact original float64 two-row hand_qpos required')
+        values=raw.copy() if allow_nonfinite_raw else original._numeric(raw,(2,33),'hand_qpos')
+    points=np.load(paths['point_cloud'],allow_pickle=False);normals=np.load(paths['normals'],allow_pickle=False)
+    if points.ndim!=2 or points.shape[1:]!=(3,) or len(points)==0:
+        raise original.DGAContractError('native_input_invalid','Nonempty physical Nx3 cloud required')
+    points=original._numeric(points,points.shape,'point cloud');normals=original._numeric(normals,points.shape,'point normals')
+    if np.any(np.max(np.abs(normals),axis=1)<1e-12):
+        raise original.DGAContractError('native_input_invalid','Preserve actual nonzero conditioned normals')
+    return manifest,values,paths
+
+
+def load_multidex_raw_export(manifest_path,*,expected_object_id,expected_geometry_hash):
+    """Strict finite raw export; no joint-domain rejection is suppressed."""
+    return _load_multidex_raw(manifest_path,expected_object_id=expected_object_id,
+        expected_geometry_hash=expected_geometry_hash,allow_nonfinite_raw=False)
+
+
+def load_multidex_raw_ledger(manifest_path,*,expected_object_id,expected_geometry_hash):
+    """Accounting only: preserve nonfinite rows after identical full bundle gates.
+
+    This result is not a decoded pose or eligible candidate. Every row still
+    requires the unchanged strict source decoder and target gate.
+    """
+    return _load_multidex_raw(manifest_path,expected_object_id=expected_object_id,
+        expected_geometry_hash=expected_geometry_hash,allow_nonfinite_raw=True)
+
+
+def load_multidex_export(manifest_path,*,expected_object_id,expected_geometry_hash):
+    manifest,values,paths=load_multidex_raw_export(manifest_path,expected_object_id=expected_object_id,expected_geometry_hash=expected_geometry_hash)
+    poses=[original.decode_dga_hand_pose(row,object_from_input=manifest.object_from_input,source_hand_urdf=paths['source_hand']) for row in values]
+    return manifest,poses
+
+
+def inspect_saved_export(manifest_path,*,expected_object_id,expected_geometry_hash,target_hand_urdf,output):
+    """Candidate-only all-row worker; source/target rejects are not failure labels."""
+    output=Path(output)
+    if output.exists():raise original.DGAContractError('output_exists','Never overwrite existing evidence')
+    manifest,values,paths=load_multidex_raw_export(manifest_path,expected_object_id=expected_object_id,expected_geometry_hash=expected_geometry_hash)
+    records=[]
+    for index,row in enumerate(values):
+        stage='source_domain'
+        try:
+            pose=original.decode_dga_hand_pose(row,object_from_input=manifest.object_from_input,source_hand_urdf=paths['source_hand'])
+            stage='target_domain';record=original.map_dga_candidate(pose,target_hand_urdf=target_hand_urdf)
+            filename='candidate.json';status='CANDIDATE_ONLY'
+        except original.DGAContractError as error:
+            if error.code!='joint_limit_violation':raise
+            filename='rejection.json';status='REJECTED_SOURCE_LIMIT' if stage=='source_domain' else 'REJECTED_TARGET_LIMIT'
+            record={'schema_version':'dga_multidex_mapping_rejection_v1','code':error.code,'message':str(error),
+                'physical_failure_label':None,'joint_targets_rad':dict(zip(original.SOURCE_JOINT_NAMES,row[9:].tolist(),strict=True))}
+        record.update({'source_profile_id':PROFILE_ID,'checkpoint_sha256':CHECKPOINT_SHA256,'dataset_name':DATASET_NAME,
+            'normalizer_source_sha256':NORMALIZER_SHA256,'sample_index':index,'mapping_status':status,
+            'native_manifest_sha256':original.file_sha256(Path(manifest_path)),'evidence_origin':manifest.evidence_origin,
+            'execution_eligible':False,'native_inference_executed':False})
+        records.append((filename,record))
+    output.mkdir(parents=True)
+    for index,(filename,record) in enumerate(records):
+        path=output/f'sample_{index:04d}';path.mkdir();(path/filename).write_text(json.dumps(record,indent=2,allow_nan=False)+'\n')
+    report={'schema_version':'dga_multidex_offline_worker_report_v1','source_profile_id':PROFILE_ID,
+        'sample_count':len(records),'candidate_count':sum(x['mapping_status']=='CANDIDATE_ONLY' for _,x in records),
+        'source_rejection_count':sum(x['mapping_status']=='REJECTED_SOURCE_LIMIT' for _,x in records),
+        'target_rejection_count':sum(x['mapping_status']=='REJECTED_TARGET_LIMIT' for _,x in records),
+        'execution_eligible':False,'scientific_adequacy':'UNRESOLVED','physics_steps':0,'native_inference_executed':False}
+    (output/'inspection_report.json').write_text(json.dumps(report,indent=2,allow_nan=False)+'\n')
+    return report

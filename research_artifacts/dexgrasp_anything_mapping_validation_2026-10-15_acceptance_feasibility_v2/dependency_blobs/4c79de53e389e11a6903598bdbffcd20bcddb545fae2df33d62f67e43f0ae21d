@@ -1,0 +1,178 @@
+#!/usr/bin/env python3
+"""Prepare one exact registered cube conditioning input; never run a simulator."""
+
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+
+import numpy as np
+
+
+CLASSIFICATION = "conditioning_input_only_no_eval_cases_or_labels"
+SEED = 20261014
+POINT_COUNT = 2048
+EXPECTED_GEOMETRY_HASH = "sha256:45c1162a4f815d65c43254f2f499f53bde1eecea4d39912d8ce36d2c5cd92a81"
+SOURCE_ROOT = Path(
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction"
+)
+CONTRACT = {
+    "kind": "legacy_cube_v1",
+    "half_size_m": [0.025, 0.025, 0.025],
+    "base_mass_kg": 0.18,
+    "friction": [1.0, 0.005, 0.0001],
+}
+
+
+def canonical(value):
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
+
+
+def digest(path):
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def exclusive_bytes(path, data):
+    with path.open("xb") as stream:
+        stream.write(data)
+
+
+def main():
+    output = Path(__file__).resolve().parent
+    output_names = (
+        "analytic_geometry_contract.json", "source_evidence.json", "mesh.obj",
+        "points.npy", "normals.npy", "manifest.json",
+    )
+    existing = [name for name in output_names if (output / name).exists()]
+    if existing:
+        raise FileExistsError(f"refusing to overwrite existing conditioning inputs: {existing}")
+    contract_bytes = canonical(CONTRACT)
+    assert "sha256:" + hashlib.sha256(contract_bytes).hexdigest() == EXPECTED_GEOMETRY_HASH
+
+    # Corner order is explicit; triangles below have outward winding.
+    vertices = np.asarray([
+        [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
+        [-1, -1, 1], [1, -1, 1], [1, 1, 1], [-1, 1, 1],
+    ], dtype="<f8") * 0.025
+    faces = np.asarray([
+        [0, 2, 1], [0, 3, 2], [4, 5, 6], [4, 6, 7],
+        [0, 1, 5], [0, 5, 4], [3, 7, 6], [3, 6, 2],
+        [0, 4, 7], [0, 7, 3], [1, 2, 6], [1, 6, 5],
+    ], dtype=np.int64)
+    triangles = vertices[faces]
+    crosses = np.cross(triangles[:, 1] - triangles[:, 0], triangles[:, 2] - triangles[:, 0])
+    double_areas = np.linalg.norm(crosses, axis=1)
+    face_normals = crosses / double_areas[:, None]
+    assert vertices.shape == (8, 3) and faces.shape == (12, 3)
+    assert np.array_equal(vertices.min(axis=0), np.full(3, -0.025))
+    assert np.array_equal(vertices.max(axis=0), np.full(3, 0.025))
+    assert np.array_equal(vertices.max(axis=0) - vertices.min(axis=0), np.full(3, 0.05))
+    assert np.array_equal((vertices.min(axis=0) + vertices.max(axis=0)) / 2, np.zeros(3))
+    assert np.allclose(vertices.mean(axis=0), 0.0, atol=1e-15, rtol=0)
+    assert np.all(double_areas > 0)
+    assert np.allclose(np.linalg.norm(face_normals, axis=1), 1.0, atol=1e-15, rtol=0)
+    assert np.all(np.einsum("ij,ij->i", triangles.mean(axis=1), face_normals) > 0)
+
+    rng = np.random.Generator(np.random.PCG64(SEED))
+    selected = rng.choice(len(triangles), size=POINT_COUNT, p=double_areas / double_areas.sum())
+    uv = rng.random((POINT_COUNT, 2))
+    reflected = uv.sum(axis=1) > 1.0
+    uv[reflected] = 1.0 - uv[reflected]
+    chosen = triangles[selected]
+    points = chosen[:, 0] + uv[:, :1] * (chosen[:, 1] - chosen[:, 0]) + uv[:, 1:] * (chosen[:, 2] - chosen[:, 0])
+    points = np.asarray(points, dtype="<f8")
+    normals = np.asarray(face_normals[selected], dtype="<f8")
+    signed_face_coordinate = np.einsum("ij,ij->i", points, normals)
+    surface_residual = np.max(np.abs(signed_face_coordinate - 0.025))
+    assert points.shape == normals.shape == (POINT_COUNT, 3)
+    assert np.all(np.isfinite(points)) and np.all(np.isfinite(normals))
+    assert np.all(np.abs(points) <= 0.025 + 1e-15)
+    assert surface_residual <= 1e-15
+    assert np.allclose(np.max(np.abs(points), axis=1), 0.025, atol=1e-15, rtol=0)
+    assert np.array_equal(np.sum(normals != 0, axis=1), np.ones(POINT_COUNT, dtype=np.int64))
+    assert np.allclose(np.linalg.norm(normals, axis=1), 1.0, atol=1e-15, rtol=0)
+    assert np.all(signed_face_coordinate > 0)
+
+    source_files = [
+        "src/grasp_failure_prediction/evaluation/runner.py",
+        "src/grasp_failure_prediction/evaluation/case_runner.py",
+        "eval_cases/hug_case_001/case.yaml",
+        "runs/hug_grasp_eval_2026-10-13_fresh_cube/inputs/observation/scene_contract.json",
+        "runs/hug_grasp_eval_2026-10-13_fresh_cube/inputs/observation/scene.xml",
+    ]
+    source_evidence = {
+        "classification": CLASSIFICATION,
+        "object_id": "object01",
+        "source_root": str(SOURCE_ROOT),
+        "files": {
+            name: {"sha256": digest(SOURCE_ROOT / name), "size_bytes": (SOURCE_ROOT / name).stat().st_size}
+            for name in source_files
+        },
+        "interpretation": "Analytic box from registered object01; source_scene_contract binds canonical geometry hash. Historical scene world pose is separate from this object-local input.",
+    }
+    scene_contract = json.loads((SOURCE_ROOT / source_files[3]).read_text())
+    assert scene_contract["object_id"] == "object01"
+    assert scene_contract["geometry_content_hash"] == EXPECTED_GEOMETRY_HASH
+    exclusive_bytes(output / "analytic_geometry_contract.json", contract_bytes)
+    exclusive_bytes(output / "source_evidence.json", canonical(source_evidence) + b"\n")
+    mesh_text = (
+        "# Exact registered object01 cube; metres; object-body frame; scale 1.0\n"
+        f"# {CLASSIFICATION}\n"
+        + "".join("v " + " ".join(f"{value:.8f}" for value in vertex) + "\n" for vertex in vertices)
+        + "".join("f " + " ".join(str(index + 1) for index in face) + "\n" for face in faces)
+    )
+    exclusive_bytes(output / "mesh.obj", mesh_text.encode("ascii"))
+    for name, values in (("points.npy", points), ("normals.npy", normals)):
+        with (output / name).open("xb") as stream:
+            np.save(stream, values, allow_pickle=False)
+
+    file_names = ["prepare_conditioning_input.py", *output_names[:-1]]
+    manifest = {
+        "schema_version": "dga_conditioning_input_manifest_v1",
+        "classification": CLASSIFICATION,
+        "object_id": "object01",
+        "object_geometry_content_hash": EXPECTED_GEOMETRY_HASH,
+        "length_unit": "meter",
+        "coordinate_frame": "mujoco_object_body",
+        "object_scale": 1.0,
+        "object_to_points": {"translation_m": [0.0, 0.0, 0.0], "quaternion_xyzw": [0.0, 0.0, 0.0, 1.0]},
+        "dimensions_m": [0.05, 0.05, 0.05],
+        "bounds_m": [vertices.min(axis=0).tolist(), vertices.max(axis=0).tolist()],
+        "mesh": {"path": "mesh.obj", "vertex_count": 8, "triangle_count": 12, "outward_winding": True},
+        "sampling": {
+            "method": "triangle_area_uniform_reflected_barycentric_v1",
+            "rng": "numpy.random.Generator.PCG64", "seed": SEED,
+            "point_count": POINT_COUNT, "normal_type": "paired_outward_unit_triangle_face",
+            "numpy_version": np.__version__, "dtype": "little_endian_float64",
+            "rescale_applied": False, "recenter_applied": False,
+        },
+        "static_assertions": {
+            "dimensions_50mm_and_center_zero": True,
+            "finite_points_and_unit_face_normals": True,
+            "points_on_cube_surface": True,
+            "max_surface_residual_m": float(surface_residual),
+            "normals_outward": True,
+            "triangle_sample_counts": np.bincount(selected, minlength=12).tolist(),
+            "physics_steps": 0, "native_inference_calls": 0,
+            "evaluation_cases": 0, "task_labels": 0,
+        },
+        "files": {
+            name: {"sha256": digest(output / name), "size_bytes": (output / name).stat().st_size}
+            for name in file_names
+        },
+    }
+    manifest["manifest_content_hash"] = "sha256:" + hashlib.sha256(canonical(manifest)).hexdigest()
+    exclusive_bytes(output / "manifest.json", canonical(manifest) + b"\n")
+    print(json.dumps({
+        "output_directory": str(output),
+        "manifest_file_sha256": digest(output / "manifest.json"),
+        "classification": CLASSIFICATION,
+        "point_count": POINT_COUNT,
+        "max_surface_residual_m": float(surface_residual),
+        "all_static_assertions_passed": True,
+    }, indent=2))
+
+
+if __name__ == "__main__":
+    main()

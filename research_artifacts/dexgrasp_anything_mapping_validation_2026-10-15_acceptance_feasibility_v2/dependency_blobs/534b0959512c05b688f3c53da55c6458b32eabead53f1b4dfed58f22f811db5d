@@ -1,0 +1,127 @@
+{
+  "approximate_contact_adequacy": "UNRESOLVED",
+  "batch_count": 2,
+  "batch_size": 2,
+  "checkpoint_filename": "MultiDex.pth",
+  "checkpoint_metadata_content_sha256": "sha256:c387f959892c4739fdaa059c7589c5e56d16d25d7d07b9753b58f75e05914ff0",
+  "checkpoint_repository_revision": "b24637ce366af4dd75cff723d2b853179155ec29",
+  "checkpoint_sha256": "sha256:036b406af7c02cd2de9eb61da02590f8c5db7e6afe6a842eb36b47f03105945e",
+  "checkpoint_size_bytes": 110490637,
+  "code_hashes": {
+    "adapter": "sha256:977634c4dede9d6b45f80ab72047dbf1554caddd4387b6467ca0ff598851dd72",
+    "cohort_validator": "sha256:4f1cc1ca32d17354178da2d832974ae1e579202cb2900d46bd6653c62bd1405c",
+    "independent_fk": "sha256:0e0c52552d8d422a68e5f58097a5ff4b22cab23ed329cd214fe9f3b527c370c5",
+    "native_helper": "sha256:febd725533b949693aa0ac21c8f3e02c6dd9926cd3041d6298b666479ff38fe5",
+    "numeric_helper": "sha256:0952cc51749ef7962de516d073cda199c899a075813dfc18ab0c2081523ab780",
+    "offline_worker": "sha256:147199aa92d5cef64e195f79d4f4c8ac8964590fee20120a0618fb475e8517d2",
+    "profile": "sha256:43e311387332d6e1fe856302d10ae125a68a11b913c5f723808c000d623848e3",
+    "surface_audit": "sha256:8c3660b9bf734d331abf662f2ca61bf1de361b253cf2154815f50b054ed6a89a",
+    "surface_primitives": "sha256:46934461b616523e9a5db2d26a873796891a8491a305f1bf1f931bd74bd0b408",
+    "validation_tests": "sha256:bc25f00c592845bdbf0360b5a355b98bbf4709528c2f77f4692768b0c0dea863"
+  },
+  "code_sha256": {
+    "checkpoint_inspector": "sha256:f088f43a149de9b8116f8f0a6c8425a3f74152f6fefa22e93d840de90d4ebb9c",
+    "controller": "sha256:768cff1daf02e015fee84ab2bed9d9f830b69c090da6fc7dfed76f67b3ae9dca",
+    "fp32_exporter": "sha256:75405997199502dfbecfd8da11bf987189c6c835997c95f625814a0a4e0f12ae",
+    "multidex_verifier": "sha256:f465b7cc9805ad458a22d6b0fa271cf3a10e680d6610f656954128fbb92b3214",
+    "native_wrapper": "sha256:5a69f9c5d737cd4f595fad87b2346bc8ef3c365035ba4c2abdfb82237707b1e1",
+    "offline_worker": "sha256:147199aa92d5cef64e195f79d4f4c8ac8964590fee20120a0618fb475e8517d2",
+    "profile": "sha256:43e311387332d6e1fe856302d10ae125a68a11b913c5f723808c000d623848e3",
+    "source_verifier": "sha256:86bc590d9a14c45df5eb1ff5033db307851856ab688456d6790daf05dd3c30f5"
+  },
+  "conditioning_manifest_sha256": "sha256:e00f34eb513de1812ad2ab163fc7cb5278e84e88d8c64bb35c3fb160147b4854",
+  "dataset_name": "MultiDexShadowHandUR",
+  "expected_model_tensor_count": 794,
+  "float64_rotation_atol_rad": 1e-09,
+  "float64_translation_atol_m": 1e-09,
+  "frozen_at_utc": "2026-10-15T04:18:17.938452+00:00",
+  "generation_constraints": {
+    "ddpm_steps": 100,
+    "evaluation_episodes": 0,
+    "guidance": false,
+    "joint_clipping": false,
+    "joint_sign_changes": false,
+    "llm_enabled": false,
+    "optimizer": null,
+    "physical_object_scale": 1.0,
+    "physics_steps": 0,
+    "sampler": "DDPM",
+    "source_hand_scale": 1.0,
+    "task_labels": 0,
+    "training_calls": 0
+  },
+  "generation_cudnn_allow_tf32": true,
+  "generation_matmul_allow_tf32": true,
+  "geometry_content_hash": "sha256:45c1162a4f815d65c43254f2f499f53bde1eecea4d39912d8ce36d2c5cd92a81",
+  "interpretation": [
+    "Four outputs provide bounded native examples, not a population validity or success-rate estimate.",
+    "MultiDex is a distinct trained generator variant; its results cannot validate or revise the original DexGraspNet checkpoint.",
+    "Coordinate/FP32-reference gates are engineering identity checks; scientific approximate contact adequacy remains unresolved.",
+    "No positive conservative near-set difference bound does not prove exact surface equivalence."
+  ],
+  "mapping_reference_policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+  "no_adaptive_additions": true,
+  "no_early_stop": true,
+  "normalizer_source_sha256": "sha256:033574fe65e4bbaf62def07913890776d43f107fe48c70089d1b72de093b479f",
+  "object_id": "object01",
+  "preserved_original_results": {
+    "checkpoint": "DexGraspNet.pth",
+    "checkpoint_sha256": "sha256:f7675d8eb93b3978b2c2d72ec9f54ead6b936d1dd307e07605daa0c02bcac14f",
+    "cohort_count": 16,
+    "cohort_source_valid": 0,
+    "original_baseline_manifest_sha256": "sha256:86269f47ca4a8601524c71bc03574b09007374a488533952a8ec18014845692d",
+    "protocols_remain_separate": true,
+    "smoke_count": 2,
+    "smoke_source_valid": 0
+  },
+  "reference_precision_policy": {
+    "NVIDIA_TF32_OVERRIDE": null,
+    "cudnn_allow_tf32": false,
+    "fresh_hand_constructed_after_policy": true,
+    "matmul_allow_tf32": false,
+    "model_generation_policy": "original_baseline_tf32_enabled",
+    "model_sample_calls": 0,
+    "no_new_model_sample": true,
+    "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+    "transform_dtype": "float32"
+  },
+  "run_bounds": {
+    "compute_budget_usd": 1,
+    "gpu_count": 1,
+    "gpu_model": "NVIDIA A40",
+    "image": "pytorch/pytorch@sha256:9bfcfa72b6b244c1fbfa24864eec97fb29cfafc065999e9a9ba913fa1e690a02",
+    "native_job_timeout_seconds": 900,
+    "runtime_overlay_sha256": "sha256:2524a50a6f4bf0533493097de27bd3b0255607df6dfc6c0f9ca5f6d87c9e51de",
+    "verified_live_rate_usd_per_hour": 0.59
+  },
+  "runtime_rotation_atol_rad": 0.0001,
+  "runtime_translation_atol_m": 1e-05,
+  "sample_count": 4,
+  "schema_version": "dga_multidex_smoke_protocol_v1",
+  "seeds": [
+    20261023,
+    20261024
+  ],
+  "source_commit": "86353d710ca71d0f547f0d8b15cc8ca959c78163",
+  "source_profile_id": "dga_multidex_official_unguided_v1",
+  "source_repository": "https://github.com/4DVLab/DexGrasp-Anything",
+  "status": "FROZEN_PREMEASUREMENT",
+  "surface_diagnostics": {
+    "facing_cos_margin": 1e-08,
+    "maximum_exact_triangle_tests": 100000000,
+    "maximum_reference_triangles": 100000,
+    "maximum_wall_seconds": 300,
+    "normal_tie_angle_rad": 1e-07,
+    "numerical_distance_m": 1e-09,
+    "proximity_bands_mm": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "query_spacing_mm": [
+      2.0,
+      1.0
+    ]
+  },
+  "surface_selection_policy": "first_up_to_two_source_and_target_valid_in_global_original_order_no_backfill"
+}

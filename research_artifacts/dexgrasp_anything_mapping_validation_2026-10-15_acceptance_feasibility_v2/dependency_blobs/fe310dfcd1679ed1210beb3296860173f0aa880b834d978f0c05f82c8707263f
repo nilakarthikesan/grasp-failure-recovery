@@ -1,0 +1,87 @@
+import importlib.util,sys
+from pathlib import Path
+import numpy as np
+import pytest
+r=Path(__file__).parent
+s=importlib.util.spec_from_file_location('cc',r/'component_corrector.py');c=importlib.util.module_from_spec(s);sys.modules[s.name]=c;s.loader.exec_module(c)
+s=importlib.util.spec_from_file_location('wq',r/'historical_witness_queries.py');w=importlib.util.module_from_spec(s);s.loader.exec_module(w)
+def fields(n=3):return np.full((n,8),.002,dtype=np.float64)
+def metrics():return {'maximum_site_error_m':0.,'all_site_SSE_m2':0.,'mean_site_error_m':0.,'per_site_error_m':[0.]*28}
+def state(f):return {'variables':np.zeros(28),'fields':f,'strict_domain_valid':True,'original_wrists_preserved':True,'rigid_frames_valid':True,'independent_fk_valid':True,'landmark_metrics':metrics()}
+def test_signed_occupancy_preserves_native_inside_outside_and_boundary():
+ s=np.array([.002,-.002,0.,.002,-.002]);t=np.array([-.001,.001,.001,.001,-.001])
+ assert np.array_equal(c.occupancy_crossing(s,t),[.001,.001,.001,0,0])
+ a=fields(5);b=a.copy();a[:,7]=s;b[:,7]=t
+ m=c.component_metrics(a,b);assert m['declared_palm_occupancy.sign_mismatch_count']==3
+
+def test_unsigned_equal_but_opposite_signed_palm_is_not_equivalent():
+ a=fields();b=a.copy();b[:,7]*=-1;m=c.component_metrics(a,b)
+ assert m['palm.MSE_m2']==0 and m['declared_palm_signed_union.MSE_m2']>0 and m['declared_palm_occupancy.crossing_depth_max_m']>0
+
+def test_component_improvement_cannot_hide_other_part_regression():
+ a=fields();before=a.copy();before[:,0]+=.001;before[:,1]+=.0001;after=before.copy();after[:,0]=a[:,0];after[:,1]+=.0001
+ assert np.sum((after-a)**2)<np.sum((before-a)**2)
+ assert not c.pareto_nonregression(c.component_metrics(a,after),c.component_metrics(a,before))
+
+def test_zero_component_budget_is_exact_and_baseline_feasible():
+ m=c.component_metrics(fields(),fields());assert c.pareto_nonregression(m,m)
+ m2=dict(m);m2['thumb.MSE_m2']=np.nextafter(0.,1.);assert not c.pareto_nonregression(m2,m)
+
+def test_old_free_landmark_guards_prevent_prior_tradeoff():
+ fixed={'maximum_site_error_m':.0049756,'all_site_SSE_m2':8.416e-5};free={'maximum_site_error_m':.0017978,'all_site_SSE_m2':7.3226e-5,'mean_site_error_m':.0015853}
+ caps=c.landmark_caps(fixed,free);st=state(fields());st['landmark_metrics'].update(maximum_site_error_m=.0049064,all_site_SSE_m2=8.4039e-5,mean_site_error_m=.0013465)
+ assert not c.landmark_feasible(st,caps)
+
+def test_true_eligibility_and_current_tie_are_required():
+ s=fields();now=state(fields());now['component_metrics']=c.component_metrics(s,now['fields']);other=dict(now);other['variables']=np.ones(28)
+ assert c.select_strict_candidate(now,[other],c.landmark_caps(metrics(),metrics())) is now
+ other=dict(other,original_wrists_preserved=False);assert not c.accepted_feasible(other,c.landmark_caps(metrics(),metrics()))
+
+@pytest.mark.parametrize('kind',['nan','negative_visual','signed_cap','missing_part'])
+def test_malformed_fields_refused(kind):
+ x=fields()
+ if kind=='nan':x[0,0]=np.nan
+ if kind=='negative_visual':x[0,0]=-.001
+ if kind=='signed_cap':x[0,7]=-.00400001
+ if kind=='missing_part':x=x[:,:7]
+ with pytest.raises(ValueError):c.component_metrics(fields(),x)
+
+def test_historical_witness_direction_and_radius():
+ s=np.full((3,8),np.inf);t=s.copy();s[0,0]=0;t[1,0]=0;s[2,0]=.0005-w.RHO_M/2;t[2,0]=.003
+ groups=dict(w.definite_difference_groups(s,t));assert groups['palm/0.0005/lost'].tolist()==[0] and groups['palm/0.0005/new'].tolist()==[1]
+ assert w.RHO_M==np.sqrt(41)*.00025/7
+
+def test_pooled_balancing_ties_and_coordinate_deduplication():
+ q=np.array([[0.,0.,0.],[1.,0.,0.],[.5,0.,0.]])
+ groups=[{'id':'A','queries_m':q,'indices':np.array([0,1,2])},{'id':'B','queries_m':q,'indices':np.array([0,1,2])}]
+ pts,meta=w.balanced_farthest(groups);assert pts.tolist()==[[0.,0.,0.],[1.,0.,0.],[.5,0.,0.]];assert meta[0]['group_id']=='A' and meta[1]['group_id']=='B'
+
+def test_no_model_or_simulator_imported():
+ assert not {'torch','mujoco','isaacgym','pybullet'}&set(sys.modules)
+
+def test_actual_sqp_core_maintains_all_component_guards_and_cached_baseline():
+ import time
+ names=['FFJ4','FFJ3','FFJ2','FFJ1','MFJ4','MFJ3','MFJ2','MFJ1','RFJ4','RFJ3','RFJ2','RFJ1','LFJ5','LFJ4','LFJ3','LFJ2','LFJ1','THJ5','THJ4','THJ3','THJ2','THJ1']
+ source=fields();initial=state(fields());initial['fields'][:,:7]=.003;before=c.payload_digest(initial);calls=[]
+ def make(x,current,block):
+  st=state(current['fields']);st['variables']=x.copy();return st
+ def evaluate(st,current,block):
+  value=current['fields'].copy();j=c.PARTS.index(block);i=22 if block=='palm' else next(i for i,n in enumerate(names) if n.startswith(c.PREFIX[block]));value[:,j]=.003-.001*st['variables'][i];calls.append(block);return value
+ selected,trace,archive=c.correct(initial,source,np.tile([0.,1.],(28,1)),make,evaluate,c.landmark_caps(metrics(),metrics()),time.monotonic()+10,finger_names=names)
+ assert c.payload_digest(initial)==before and len(trace['blocks'])==12 and calls
+ prior=c.component_metrics(source,initial['fields'])
+ for block in trace['blocks']:
+  assert c.pareto_nonregression(block['accepted_state']['component_metrics'],prior);prior=block['accepted_state']['component_metrics']
+ assert c.strict_pareto_improvement(selected['component_metrics'],c.component_metrics(source,initial['fields']))
+ assert sum(b['new_field_states'] for b in trace['blocks'])==len(calls)==len(archive)
+ assert trace['acceptance_from_objective'] is False and trace['execution_eligible'] is False
+
+def test_inconsistent_landmark_aggregate_cannot_hide_one_large_site():
+ st=state(fields());st['landmark_metrics']['per_site_error_m'][4]=.01
+ assert not c.landmark_feasible(st,{'maximum_site_error_m':.001,'all_site_SSE_m2':1.,'mean_site_error_m':1.})
+
+def test_witness_allowance_refuses_numerical_boundary_as_definite():
+ source=np.full((1,8),np.inf);target=source.copy();source[0,0]=.0005-w.RHO_M-w.EPS_M/2
+ groups=dict(w.definite_difference_groups(source,target));assert len(groups['palm/0.0005/lost'])==0
+ s=np.array([w.RHO_M+w.EPS_M/2]);t=-s
+ assert not any(len(v) for _,v in w.occupancy_groups(s,t))

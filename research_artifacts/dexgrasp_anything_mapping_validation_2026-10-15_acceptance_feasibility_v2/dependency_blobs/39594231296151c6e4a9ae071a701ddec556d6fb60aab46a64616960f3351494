@@ -1,0 +1,75 @@
+import copy,importlib.util,json,sys,time
+from pathlib import Path
+import numpy as np
+import pytest
+ROOT=Path(__file__).parent
+s=importlib.util.spec_from_file_location('free_palm',ROOT/'fit_free_palm.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+
+def test_palm_cannot_disappear_from_site_metric():
+ source=np.array([[0.,0.,0.],[0.,0.,.05],[.01,.01,.07]])
+ target=source.copy();target[1:,0]+=.002
+ untouched=m.errors_mm(source,target,np.zeros(3),np.zeros(3))/1000
+ moved=m.errors_mm(source,target,[-2.,0.,0.],np.zeros(3))/1000
+ assert untouched[0].tolist()==[0.,0.,0.]
+ assert moved[0].tolist()==[-.002,0.,0.]
+ assert m.positional_metrics(untouched)['maximum_site_error_m']<.00200000000001
+ assert m.positional_metrics(moved)['maximum_site_error_m']==.002
+
+def test_manufactured_minimax_counts_palm_and_improves_true_max():
+ source=np.array([[0.,0.,0.],[0.,0.,.05],[.01,.01,.07]])
+ target=source.copy();target[1:,0]+=.002
+ baseline=m.positional_metrics(target-source)
+ result,log=m.optimize_attempt(np.empty(0),np.empty((0,2)),lambda q:target,source,baseline,time.monotonic()+10)
+ error=m.errors_mm(source,target,result.x[:3],result.x[3:6])/1000
+ metrics=m.positional_metrics(error)
+ assert m.nonregression(metrics,baseline)
+ assert metrics['maximum_site_error_m']<.0011
+ assert np.linalg.norm(error[0])>0
+ assert log['reported_iterations']<=200
+
+@pytest.mark.parametrize('candidate',[{'maximum_site_error_m':.0021,'all_site_SSE_m2':1e-6},{'maximum_site_error_m':.001,'all_site_SSE_m2':9e-6}])
+def test_either_true_regression_refuses_candidate(candidate):
+ assert not m.nonregression(candidate,{'maximum_site_error_m':.002,'all_site_SSE_m2':8e-6})
+
+def test_selection_recomputes_metrics_and_keeps_baseline_on_exact_tie():
+ metrics={'maximum_site_error_m':.001,'all_site_SSE_m2':2e-6}
+ records=[{'selection_order':1,'metrics':metrics},{'selection_order':0,'metrics':metrics}]
+ assert min(records,key=m.rank_key)['selection_order']==0
+
+def test_source_palm_target_palm_world_and_true_forearm_are_distinct():
+ repo=Path('/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction')
+ sys.path.insert(0,str(repo/'src'))
+ from grasp_failure_prediction.proposals import dexgrasp_anything as base
+ target=base.DGAHandTree(repo/'third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf',base.TARGET_URDF_SHA256)
+ q=dict.fromkeys(base.SOURCE_JOINT_NAMES,0.);q.update(WRJ2=.12,WRJ1=-.16)
+ before=dict(q);f=target.forward(q)
+ source_palm=np.eye(4);source_palm[:3,3]=[.03,-.02,.07]
+ delta=m.palm_delta([1.,-.5,.2],[.01,-.02,.03]);palm=source_palm@delta
+ world=palm@np.linalg.inv(f['palm']);forearm=world@f['forearm']
+ assert q==before and q['WRJ1']==-.16 and q['WRJ2']==.12
+ assert not np.allclose(palm,source_palm) and not np.allclose(world,forearm)
+ np.testing.assert_allclose(world@f['palm'],palm,atol=1e-14,rtol=0)
+ np.testing.assert_allclose(forearm@np.linalg.inv(f['forearm'])@f['palm'],palm,atol=1e-14,rtol=0)
+
+def policy():
+ return {'schema_version':m.POLICY_ID,'status':'FROZEN_PREOPTIMIZATION','global_sample_indices':[1,3],
+  'row_count':2,'starts_per_row':2,'source_profile_id':'dga_multidex_official_unguided_v1',
+  'objective':'minimum_maximum_euclidean_all_common_finger_origins_plus_palm_error_m',
+  'secondary_guard':'true_all_site_SSE_no_worse_than_previous_fixed_palm_baseline',
+  'maximum_guard':'true_maximum_site_error_no_worse_than_previous_fixed_palm_baseline',
+  'wrists':'both_original_values_preserved_exactly','final_clipping':False,
+  'selection':'minimum_true_maximum_then_true_SSE_then_fixed_start_order',
+  'start_order':['previous_fixed_palm_fit','native_finger_target_box_projection'],
+  'solver':copy.deepcopy(m.SOLVER),'algebra_atol':1e-9,'execution_eligible':False,
+  'scientific_acceptance_threshold':None,'approximate_contact_adequacy':'UNRESOLVED',
+  'surface_queries':0,'object_contact_objective_terms':0,'physics_steps':0,'native_inference_calls':0,
+  'holdout':{'grid_cell_widths_m':[.002,.001],'query_fractions':[1/3,2/3],'patch_radius':'2*sqrt(2)*h/3','bands_m':[.0005,.001,.002],'no_feedback':True},
+  'site_names':['palm']+[str(i) for i in range(27)]}
+
+@pytest.mark.parametrize('field,value',[('starts_per_row',3),('final_clipping',True),('execution_eligible',True),('scientific_acceptance_threshold',.005),('algebra_atol',.002),('surface_queries',1)])
+def test_frozen_protocol_refuses_scope_or_acceptance_change(field,value):
+ p=policy();m.require_policy(p);p[field]=value
+ with pytest.raises(ValueError):m.require_policy(p)
+
+def test_no_model_or_simulator_imported():
+ assert not {'torch','mujoco','isaacgym','envs','pybullet'}&set(sys.modules)

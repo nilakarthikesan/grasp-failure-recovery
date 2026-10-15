@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+"""Hash-gated development harness; reusable MappingContext serves future inputs.
+No actual candidate fields before the parent joint implementation/method freeze.
+"""
+import argparse,hashlib,importlib.util,json,os,sys,time
+from pathlib import Path
+from datetime import datetime,timezone
+import numpy as np
+sys.dont_write_bytecode=True
+
+def sha(p):return 'sha256:'+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def bound(f):
+ if sha(f['path'])!=f['sha256']:raise ValueError('Hash-bound input changed '+f['path'])
+ return json.loads(Path(f['path']).read_text())
+def module(n,p):
+ s=importlib.util.spec_from_file_location(n,p);m=importlib.util.module_from_spec(s);sys.modules[n]=m;s.loader.exec_module(m);return m
+def write(p,v):
+ def default(x):
+  if isinstance(x,np.ndarray):return x.tolist()
+  if isinstance(x,np.generic):return x.item()
+  raise TypeError(type(x).__name__)
+ with p.open('x') as f:json.dump(v,f,indent=2,allow_nan=False,default=default);f.write('\n')
+def require_policy(p):
+ expected={'schema_version':'dga_component_constraint_implementation_v1','status':'FROZEN_BEFORE_REAL_FIELDS','global_sample_indices':[1,3],'source_profile_id':'dga_multidex_official_unguided_v1','outer_sweeps':2,'block_order':['palm','index','middle','ring','little','thumb'],'maximum_new_field_states_per_block':60,'maximum_wall_seconds':600,'CPU_threads':1,'training_cap_m':.004,'maximum_pooled_witnesses':256,'original_600_centers_retained':True,'no_future_holdout_feedback':True,'execution_eligible':False}
+ if any(p.get(k)!=v for k,v in expected.items()):raise ValueError('Parent prospective component method mismatch')
+ if p['scientific_protocol']['sha256']!='sha256:57531e1e79a98f8e6b667bdd9a43e41a5e90ce8bdec35e56a833408baa106375':raise ValueError('Scientificcriteria cannot change')
+
+def main(a):
+ if a.output.exists():raise FileExistsError('Preserve all previous results')
+ p=bound({'path':str(a.policy),'sha256':a.policy_sha256});require_policy(p);bound(p['scientific_protocol']);bound(p['method'])
+ for path,h in p['dependency_sha256'].items():
+  if sha(path)!=h:raise ValueError('Frozen dependency changed '+path)
+ if any(os.environ.get(k)!='1' for k in ['OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS']):raise ValueError('SingleCPU environment required')
+ if a.preflight_only:print(json.dumps({'status':'PASS_HASH_POLICY_ONLY','new_candidate_fields':0,'new_geometry_queries':0}));return
+ modules={n:module('component_'+n,path) for n,path in p['code_paths'].items() if n in ['core','queries','context','legacy','audit','geometry','mesh_helper']}
+ sys.path.insert(0,str(Path(p['repository'])/'src'));profile=module('component_profile',p['code_paths']['profile']);base=profile.original
+ core,witness,Context=modules['core'],modules['queries'],modules['context'].MappingContext
+ legacy,audit,geometry,mesh_helper=(modules[n] for n in ['legacy','audit','geometry','mesh_helper'])
+ prior=bound(p['prior_validation']);v1=bound(p['v1_fit_report']);free=bound(p['free_palm_report']);free_by={x['global_sample_index']:x for x in free['records']}
+ if v1['arrays']['sha256']!=p['v1_pose_arrays']['sha256']:raise ValueError('Exact priorbaseline report/array binding')
+ with np.load(p['v1_pose_arrays']['path'],allow_pickle=False) as z:old={k:z[k] for k in z.files}
+ if old['global_sample_indices'].tolist()!=[1,3] or v1['joint_names']!=list(base.SOURCE_JOINT_NAMES):raise ValueError('Prior source/target row/order binding')
+ pooled,selection=witness.collect(p['historical_witness_archives']);centers,normals=legacy.training_queries();queries=np.concatenate([centers,pooled]);queries.setflags(write=False)
+ a.output.mkdir(parents=True);np.savez(a.output/'fitting_queries.npz',queries_object_m=queries,pooled_witnesses_object_m=pooled)
+ write(a.output/'historical_witness_selection.json',selection)
+ records=[];pose_payloads=[];field_archive={};start=time.monotonic();deadline=start+600
+ for i,g in enumerate([1,3]):
+  row=prior['records'][g];oldrow=v1['records'][i]
+  if oldrow['global_sample_index']!=g or row['source_limit_violations']:raise ValueError('Development sourcevalid identity')
+  manifest,raws,_=profile.load_multidex_raw_export(row['native_manifest']['path'],expected_object_id='object01',expected_geometry_hash=p['geometry_content_hash']);raw=raws[row['within_batch_sample_index']].copy()
+  if raw.dtype!=old['source_hand_qpos'].dtype or raw.tobytes()!=old['source_hand_qpos'][i].tobytes():raise ValueError('Native raw33 payload changed')
+  reference=bound(row['mapping_reference']);refnpz=Path(row['mapping_reference']['path']).parent/reference['arrays']['path']
+  if sha(refnpz)!=reference['arrays']['sha256']:raise ValueError('Source FP32 runtime reference changed')
+  ctx=Context(raw33=raw,object_from_input=np.eye(4),source_urdf=p['source_hand_urdf'],target_urdf=p['target_hand_urdf'],target_assets_root=p['target_assets_root'],source_runtime_npz=refnpz,source_sample_index=row['within_batch_sample_index'],queries_object_m=queries,base=base,audit=audit,geometry=geometry,legacy=legacy,mesh_helper=mesh_helper)
+  if list(ctx.sites)!=p['site_names'] or list(ctx.names)!=p['joint_names']:raise ValueError('Exact all28sites/canonical24names')
+  for value in ctx.backend.dependency_manifest.values():
+   if isinstance(value,dict) and 'path' in value and 'sha256' in value and p['dependency_sha256'].get(value['path'])!=value['sha256']:raise ValueError('Unbound backend dependency')
+  for path,h in ctx.backend.dependency_manifest['target_visual_assets'].items():
+   if p['dependency_sha256'].get(path)!=h:raise ValueError('Unbound target mesh')
+  if not np.array_equal(ctx.source_root,old['object_from_source_forearm'][i]) or not np.array_equal(ctx.source_palm,old['object_from_source_palm'][i]):raise ValueError('Original sourceframes changed')
+  q=dict(oldrow['target_joint_targets_rad']);delta=old['source_palm_from_target_palm'][i].copy();omega=np.array(oldrow['palm_displacement']['optimizer_rotation_vector_rad'])
+  initial={'q':q,'variables':np.r_[[q[n] for n in ctx.fingers],delta[:3,3]*1000,omega],'palm':old['object_from_target_palm'][i].copy(),'root':old['object_from_target_root_world'][i].copy(),'forearm':old['object_from_target_forearm'][i].copy(),'delta':delta}
+  initial=ctx.certify_payload(initial);caps=core.landmark_caps(oldrow['fixed_palm_engineering_reference'],free_by[g]['metrics'])
+  if not core.landmark_feasible(initial,caps):raise ValueError('Exact oldfree baseline fails new strictguard; no tolerance, replacement or fieldquery')
+  if time.monotonic()>deadline:raise TimeoutError('Total600second component budget before initialfields')
+  source=ctx.initialize_source_fields();initial['fields']=ctx.evaluate_fields(initial);initial['component_metrics']=core.component_metrics(source,initial['fields']);initial['field_archive_key']=f'row{g}_initial'
+  field_archive[initial['field_archive_key']]=initial['fields'].copy();field_archive[f'row{g}_source']=source.copy()
+  archive={};selected,trace,archive=core.correct(initial,source,ctx.variable_bounds(caps),ctx.make_state,ctx.evaluate_fields,caps,deadline,archive,finger_names=ctx.fingers)
+  ctx.certify_payload(selected);ctx.verify_immutable_source()
+  if not core.accepted_feasible(selected,caps,initial['component_metrics']):raise ValueError('Independent final strict adoption failed')
+  for key,value in archive.items():field_archive[f'row{g}_{key}']=value
+  field_archive[f'row{g}_selected']=selected['fields'].copy()
+  write(a.output/f'row_{g}_component_trace.json',trace);payload=ctx.export_pose_payload(selected);pose_payloads.append(payload)
+  record={k:oldrow[k] for k in ['global_sample_index','batch_index','within_batch_sample_index','source_profile_id','seed','native_manifest','mapping_reference','raw_output_sha256','raw33_row_sha256','original_joint_targets_rad','original_mapping_status','original_source_limit_violations','original_target_limit_violations','source_reference_prior_status']}
+  record.update(target_joint_targets_rad=dict(selected['q']),final_target_limit_violations=[],both_original_wrists_preserved=True,source_palm_is_immutable_reference=True,target_root_link='world',landmark_limits=caps,baseline=core.state_summary(initial),selected_state=core.state_summary(selected),landmark_metrics=selected['landmark_metrics'],component_metrics=selected['component_metrics'],baseline_component_metrics=initial['component_metrics'],componentwise_nonregression=True,component_strict_improvement=core.strict_pareto_improvement(selected['component_metrics'],initial['component_metrics']),backend_field_dispatch_counts=dict(ctx.query_counts),trace={'path':f'row_{g}_component_trace.json','sha256':sha(a.output/f'row_{g}_component_trace.json')},execution_eligible=False,scientific_acceptance='PENDING_UNCHANGED_FROZEN_HOLDOUT')
+  records.append(record)
+ for path,h in p['dependency_sha256'].items():
+  if sha(path)!=h:raise ValueError('Dependency changed during correction '+path)
+ if {'torch','mujoco','isaacgym','envs','pybullet'}&set(sys.modules):raise ValueError('Forbidden imports')
+ posefile=a.output/'fit_poses.npz';np.savez(posefile,global_sample_indices=np.array([1,3],dtype=np.int64),**{k:np.stack([x[k] for x in pose_payloads]) for k in pose_payloads[0]})
+ fieldsfile=a.output/'component_fields.npz';np.savez_compressed(fieldsfile,queries_object_m=queries,**field_archive)
+ report={'schema_version':'dga_component_constraint_development_report_v1','status':'COMPLETE_PENDING_UNCHANGED_FROZEN_HOLDOUT','created_at_utc':datetime.now(timezone.utc).isoformat(),'source_profile_id':p['source_profile_id'],'joint_names':p['joint_names'],'site_names':p['site_names'],'scientific_protocol':p['scientific_protocol'],'method':p['method'],'implementation_policy_sha256':a.policy_sha256,'records':records,'arrays':{'path':posefile.name,'sha256':sha(posefile)},'component_fields':{'path':fieldsfile.name,'sha256':sha(fieldsfile)},'historical_witness_selection':{'path':'historical_witness_selection.json','sha256':sha(a.output/'historical_witness_selection.json')},'fitting_queries':{'path':'fitting_queries.npz','sha256':sha(a.output/'fitting_queries.npz')},'elapsed_seconds':time.monotonic()-start,'all_accepted_states_componentwise_and_landmark_nonregressing':True,'proposal_workspaces_may_be_landmark_infeasible':True,'no_future_holdout_feedback':True,'holdout_feedback':False,'dependency_sha256':p['dependency_sha256'],'acceptance_from_objective':False,'execution_eligible':False,'scientific_acceptance':'PENDING_UNCHANGED_FROZEN_HOLDOUT','zero_execution':{'native_calls':0,'physics_steps':0,'model_training_calls':0,'evaluation_data_access':0}}
+ write(a.output/'component_fit_report.json',report);print(json.dumps({'report':str(a.output/'component_fit_report.json'),'sha256':sha(a.output/'component_fit_report.json'),'arrays_sha256':sha(posefile),'component_fields_sha256':sha(fieldsfile)}))
+
+if __name__=='__main__':
+ a=argparse.ArgumentParser();a.add_argument('--policy',type=Path,required=True);a.add_argument('--policy-sha256',required=True);a.add_argument('--output',type=Path,required=True);a.add_argument('--preflight-only',action='store_true');main(a.parse_args())

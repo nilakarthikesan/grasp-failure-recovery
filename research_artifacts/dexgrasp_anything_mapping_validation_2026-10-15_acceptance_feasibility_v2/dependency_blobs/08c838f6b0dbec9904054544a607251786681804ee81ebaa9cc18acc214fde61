@@ -1,0 +1,323 @@
+"""Conditional-F64 true-triangle and declared palm-union distance fields.
+
+Pure CPU support for a separately frozen retargeting experiment. Unsigned visual
+distance is to the encoded closed triangles (including open meshes and retained
+interior walls), not a solid/exterior or compiled collision model. A finite cap
+is censoring: a cap value alone must never be classified as a near-band hit.
+The separate palm field is signed distance to the exposed boundary of the union
+of the declared palm boxes, including queries inside that union.
+
+No acceptance threshold, inference, physics, optimizer, or mesh repair is here.
+Bounds in downstream certificates remain conditional on the frozen F64 numerical
+allowance; this implementation is not directed-rounding interval arithmetic.
+"""
+from __future__ import annotations
+import hashlib
+import importlib.util
+from pathlib import Path
+import sys
+import xml.etree.ElementTree as ET
+import numpy as np
+from scipy.spatial import cKDTree
+
+PARTS = ('palm', 'index', 'middle', 'ring', 'little', 'thumb', 'wrist_carrier')
+JOINTS = ('WRJ2','WRJ1','FFJ4','FFJ3','FFJ2','FFJ1','MFJ4','MFJ3','MFJ2','MFJ1',
+          'RFJ4','RFJ3','RFJ2','RFJ1','LFJ5','LFJ4','LFJ3','LFJ2','LFJ1',
+          'THJ5','THJ4','THJ3','THJ2','THJ1')
+# Broadphase inflation is numerical only, never a distance/pose/acceptance gate.
+BROADPHASE_EPS_M = 1e-12
+TRANSFORM_ATOL = 1e-9
+MAX_PAIRS_PER_QUERY_CALL = 20000000
+
+
+def digest(path):
+    h = hashlib.sha256()
+    with Path(path).open('rb') as f:
+        for block in iter(lambda: f.read(1024*1024), b''):
+            h.update(block)
+    return 'sha256:' + h.hexdigest()
+
+
+def _local_module(name, filename):
+    path = Path(__file__).resolve().parent / filename
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+_union_reference = _local_module('palm_union_geometry_reference', 'palm_union_geometry_reference.py')
+_union = _local_module('_dga_surface_palm_box_union', 'palm_box_union.py')
+
+
+def points3(value):
+    value = np.asarray(value, dtype=np.float64)
+    if value.ndim != 2 or value.shape[1] != 3 or not np.isfinite(value).all():
+        raise ValueError('Finite Nx3 coordinates required')
+    return value
+
+
+def proper(value):
+    value = np.asarray(value, dtype=np.float64)
+    if (value.shape != (4,4) or not np.isfinite(value).all()
+        or not np.array_equal(value[3], [0.,0.,0.,1.])
+        or np.max(np.abs(value[:3,:3].T @ value[:3,:3] - np.eye(3))) > TRANSFORM_ATOL
+        or abs(np.linalg.det(value[:3,:3])-1.) > TRANSFORM_ATOL):
+        raise ValueError('Proper finite rigid transform required; no projection')
+    return value
+
+
+def _cap(value):
+    value = float(value)
+    if not np.isfinite(value) or value <= 0:
+        raise ValueError('Positive finite censoring cap required')
+    return value
+
+
+def part_of(link):
+    if link == 'palm': return 'palm'
+    if link == 'wrist': return 'wrist_carrier'
+    for prefix, part in (('ff','index'),('mf','middle'),('rf','ring'),('lf','little'),('th','thumb')):
+        if link.startswith(prefix): return part
+    if link == 'forearm': return None
+    raise ValueError('Unmatched visual-bearing link: ' + link)
+
+
+def closest_triangle_pairs(points, triangles):
+    """Exact closed-triangle formula in real arithmetic, paired Nx3/Nx3x3.
+
+    All three closed segments are tested, plus the orthogonal face projection
+    when its barycentric signs are nonnegative. Exact-zero-area triangles are
+    retained as their segments/points and have no usable facet normal.
+    """
+    p = points3(points)
+    t = np.asarray(triangles, dtype=np.float64)
+    if t.shape != (len(p),3,3) or not np.isfinite(t).all():
+        raise ValueError('Finite paired Nx3x3 triangles required')
+    a,b,c = t[:,0],t[:,1],t[:,2]
+    n = np.cross(b-a,c-a)
+    n2 = np.einsum('ij,ij->i',n,n)
+    best = np.full(len(p),np.inf)
+    foot = np.zeros_like(p)
+    for x,y in ((a,b),(b,c),(c,a)):
+        e=y-x; den=np.einsum('ij,ij->i',e,e)
+        alpha=np.divide(np.einsum('ij,ij->i',p-x,e),den,
+                        out=np.zeros(len(p)),where=den>0)
+        q=x+np.clip(alpha,0.,1.)[:,None]*e
+        d2=np.einsum('ij,ij->i',p-q,p-q)
+        take=d2<best;best[take]=d2[take];foot[take]=q[take]
+    scale=np.divide(np.einsum('ij,ij->i',p-a,n),n2,
+                    out=np.zeros(len(p)),where=n2>0)
+    projection=p-scale[:,None]*n
+    inside=n2>0
+    for x,y in ((a,b),(b,c),(c,a)):
+        inside &= np.einsum('ij,ij->i',np.cross(y-x,projection-x),n)>=0
+    d2=np.einsum('ij,ij->i',p-projection,p-projection)
+    take=inside & (d2<=best);best[take]=d2[take];foot[take]=projection[take]
+    if not np.isfinite(best).all() or not np.isfinite(foot).all():
+        raise ValueError('Nonfinite point-triangle arithmetic')
+    return np.sqrt(np.maximum(0.,best)),foot
+
+
+class TriangleSurface:
+    """Immutable triangle collection with a complete capped center-sphere search."""
+    def __init__(self, vertices, faces, *, label='manufactured'):
+        v=points3(vertices).copy(); f=np.asarray(faces)
+        if (f.dtype.kind not in 'iu' or f.ndim!=2 or f.shape[1]!=3 or not len(f)
+            or f.min()<0 or f.max()>=len(v)):
+            raise ValueError('Nonempty integer Fx3 in-range faces required')
+        self.label=str(label);self.vertices=v;self.faces=f.astype(np.int64,copy=True)
+        self.triangles=v[self.faces]
+        self.centers=self.triangles.mean(axis=1)
+        self.radii=np.linalg.norm(self.triangles-self.centers[:,None,:],axis=2).max(axis=1)
+        self.max_radius=float(self.radii.max())
+        self.lower=v.min(axis=0);self.upper=v.max(axis=0)
+        self.tree=cKDTree(self.centers,copy_data=True)
+        for a in (self.vertices,self.faces,self.triangles,self.centers,self.radii,self.lower,self.upper):
+            a.setflags(write=False)
+
+    def query(self, points, cap_m, *, return_witnesses=False):
+        p=points3(points);cap=_cap(cap_m)
+        d=np.full(len(p),cap);ids=np.full(len(p),-1,dtype=np.int64)
+        foot=np.full_like(p,np.nan);tested=0
+        # Triangle centers lie within radius r of every member point. Therefore
+        # any triangle with distance <= cap is in this query-ball superset.
+        box_distance=np.linalg.norm(np.maximum(np.maximum(self.lower-p,p-self.upper),0.),axis=1)
+        active=np.flatnonzero(box_distance<=cap+BROADPHASE_EPS_M)
+        if len(active):
+            lists=self.tree.query_ball_point(p[active],cap+self.max_radius+BROADPHASE_EPS_M,
+                                             eps=0.,workers=1,return_sorted=True)
+            sizes=np.fromiter((len(v) for v in lists),dtype=np.int64,count=len(lists))
+            tested=int(sizes.sum())
+            if tested>MAX_PAIRS_PER_QUERY_CALL:
+                raise RuntimeError('Frozen capped triangle-pair budget exceeded')
+            if tested:
+                rows=np.repeat(active,sizes)
+                tri_ids=np.concatenate([np.asarray(v,dtype=np.int64) for v in lists if len(v)])
+                # Sharper individual triangle spheres remain a complete filter.
+                delta=p[rows]-self.centers[tri_ids]
+                keep=np.einsum('ij,ij->i',delta,delta)<=(cap+self.radii[tri_ids]+BROADPHASE_EPS_M)**2
+                rows=rows[keep];tri_ids=tri_ids[keep]
+                ds,qs=closest_triangle_pairs(p[rows],self.triangles[tri_ids])
+                minima=np.full(len(p),np.inf);np.minimum.at(minima,rows,ds)
+                # First sorted candidate at the exact computed minimum is a
+                # deterministic witness; this does not certify normal uniqueness.
+                matches=ds==minima[rows]
+                pair=np.full(len(p),len(ds),dtype=np.int64)
+                np.minimum.at(pair,rows[matches],np.flatnonzero(matches))
+                hit=(minima<cap)&(pair<len(ds))
+                d[hit]=minima[hit];ids[hit]=tri_ids[pair[hit]];foot[hit]=qs[pair[hit]]
+        if not return_witnesses:return d
+        normal=np.full_like(p,np.nan);hit=ids>=0
+        if np.any(hit):
+            t=self.triangles[ids[hit]];n=np.cross(t[:,1]-t[:,0],t[:,2]-t[:,0])
+            length=np.linalg.norm(n,axis=1);n=np.divide(n,length[:,None],out=np.full_like(n,np.nan),where=length[:,None]>0)
+            normal[hit]=n
+        return {'distance_m':d,'censored':ids<0,'closest_m':foot,'triangle_id':ids,
+                'encoded_facet_normal':normal,'normal_reliable_exterior':np.zeros(len(p),dtype=bool),
+                'normal_uniqueness_tested':False,'candidate_pair_count':tested,
+                'surface_label':self.label,'cap_m':cap}
+
+
+def _parts(parts):
+    chosen=PARTS if parts is None else tuple(parts)
+    if not chosen or len(set(chosen))!=len(chosen) or any(p not in PARTS for p in chosen):
+        raise ValueError('Nonempty unique requested anatomical parts required')
+    return chosen
+
+
+def _palm_boxes(path, audit):
+    root=ET.parse(path).getroot();links=[v for v in root.findall('link') if v.get('name')=='palm']
+    if len(links)!=1:raise ValueError('Unique palm link required')
+    boxes=[]
+    for i,c in enumerate(links[0].findall('collision')):
+        geometry=c.find('geometry')
+        if geometry is None or len(list(geometry))!=1 or geometry[0].tag!='box':
+            raise ValueError('Palm signed reference requires only declared boxes')
+        size=np.asarray(audit.numbers(geometry[0].get('size')),dtype=np.float64)
+        _,_,T=audit.origin(c.find('origin'))
+        boxes.append(_union_reference.Collider(i,'box','palm',size/2,T[:3,3],T[:3,:3]))
+    if not boxes:raise ValueError('Declared palm collider reference is empty')
+    return boxes
+
+
+class SurfaceBackend:
+    parts=PARTS
+    joints=JOINTS
+    def __init__(self, *, source_surfaces, target_surfaces, target_robot,
+                 independent_fk_module, dependency_manifest=None,
+                 source_boxes=None,target_boxes=None):
+        self.source_surfaces=tuple(source_surfaces)
+        self.target_surfaces=tuple(target_surfaces)
+        self.robot=target_robot;self.fk_module=independent_fk_module
+        self.dependency_manifest=dependency_manifest or {}
+        for group in PARTS:
+            if not any(x[0]==group for x in self.source_surfaces) or not any(x[0]==group for x in self.target_surfaces):
+                raise ValueError('Missing source or target visual part: '+group)
+        if any(j not in self.robot['joints'] for j in JOINTS):raise ValueError('Canonical24 target joints missing')
+        self.limits=np.array([[self.robot['joints'][j]['limit'][v] for v in ('lower','upper')] for j in JOINTS],dtype=np.float64)
+        if not np.isfinite(self.limits).all():raise ValueError('Finite target joint bounds required')
+        self.source_boxes=source_boxes;self.target_boxes=target_boxes
+        self.source_patches=None if source_boxes is None else _union.boundary_patches(source_boxes)
+        self.target_patches=None if target_boxes is None else _union.boundary_patches(target_boxes)
+
+    def _target_frames(self,q24,palm):
+        q=np.asarray(q24,dtype=np.float64)
+        if q.shape!=(24,) or not np.isfinite(q).all():raise ValueError('Finite canonical24 target values required')
+        if np.any(q<self.limits[:,0]) or np.any(q>self.limits[:,1]):
+            raise ValueError('Strict target limit violation; no clipping')
+        relative=self.fk_module.independent_fk(self.robot,dict(zip(JOINTS,q)))
+        P=proper(palm);root=P @ np.linalg.inv(relative['palm'])
+        return {name:root @ T for name,T in relative.items()}
+
+    def source_fields(self,queries_obj,cap_m,*,parts=None,return_witnesses=False):
+        return self._fields(points3(queries_obj),_cap(cap_m),_parts(parts),self.source_surfaces,None,return_witnesses)
+
+    def target_fields(self,q24,object_from_target_palm,queries_obj,cap_m,*,parts=None,return_witnesses=False):
+        frames=self._target_frames(q24,object_from_target_palm)
+        return self._fields(points3(queries_obj),_cap(cap_m),_parts(parts),self.target_surfaces,frames,return_witnesses)
+
+    def _fields(self,p,cap,parts,surfaces,frames,witness):
+        values=np.full((len(p),len(parts)),cap);censored=np.ones_like(values,dtype=bool)
+        link_ids=np.full(values.shape,-1,dtype=np.int64);nearest=np.full((*values.shape,3),np.nan)
+        triangle_ids=np.full(values.shape,-1,dtype=np.int64)
+        for mesh_id,(part,link,surface) in enumerate(surfaces):
+            if part not in parts:continue
+            column=parts.index(part)
+            if frames is None:local=p
+            else:
+                T=frames[link];local=(p-T[:3,3]) @ T[:3,:3]
+            result=surface.query(local,cap,return_witnesses=witness)
+            d=result['distance_m'] if witness else result
+            take=d<values[:,column]
+            values[take,column]=d[take];censored[take,column]=False;link_ids[take,column]=mesh_id
+            if witness:
+                closest=result['closest_m'][take]
+                if frames is not None:closest=closest @ T[:3,:3].T + T[:3,3]
+                nearest[take,column]=closest;triangle_ids[take,column]=result['triangle_id'][take]
+        if not witness:return values
+        return {'distance_m':values,'censored':censored,'parts':parts,'cap_m':cap,
+                'closest_m':nearest,'mesh_id':link_ids,'triangle_id':triangle_ids,
+                'normal_reliable_exterior':np.zeros(values.shape,dtype=bool),
+                'scope':'encoded triangle collection; no visual occupancy/outward-normal claim'}
+
+    def palm_signed_fields(self,source_object_from_palm,target_object_from_palm,queries_obj,cap_m,*,return_witnesses=False):
+        if self.source_boxes is None or self.target_boxes is None:
+            raise ValueError('source_urdf required when building signed palm references')
+        p=points3(queries_obj);cap=_cap(cap_m);results=[]
+        for transform,boxes,patches in ((source_object_from_palm,self.source_boxes,self.source_patches),
+                                        (target_object_from_palm,self.target_boxes,self.target_patches)):
+            T=proper(transform);local=(p-T[:3,3]) @ T[:3,:3]
+            result=_union.union_query(local,boxes,patches)
+            raw=result['signed_distance_m'];result['unclipped_signed_distance_m']=raw.copy()
+            result['signed_distance_m']=np.clip(raw,-cap,cap)
+            result['censored']=np.abs(raw)>=cap;result['cap_m']=cap
+            result['closest_m']=result['closest_m'] @ T[:3,:3].T+T[:3,3]
+            result['normal']=result['normal'] @ T[:3,:3].T
+            result['scope']='declared palm-box union only; conditional F64; no compiled/whole-hand exterior claim'
+            results.append(result if return_witnesses else result['signed_distance_m'])
+        return tuple(results)
+
+
+def build_backend(*,source_runtime_npz,source_sample_index,target_urdf,target_assets_root,
+                  independent_fk_module,mesh_helper_module,source_urdf=None):
+    audit=independent_fk_module;helper=mesh_helper_module
+    robot=audit.model(Path(target_urdf));sample=int(source_sample_index)
+    if sample!=source_sample_index or sample<0:raise ValueError('Nonnegative integer source sample index required')
+    source=[];target=[]
+    with np.load(source_runtime_npz,allow_pickle=False) as data:
+        vertices={key[len('vertices__'):]:key for key in data.files if key.startswith('vertices__')}
+        faces={key[len('faces__'):]:key for key in data.files if key.startswith('faces__')}
+        if not vertices or set(vertices)!=set(faces):raise ValueError('Complete source runtime vertex/face pairs required')
+        for link in sorted(vertices):
+            group=part_of(link)
+            if group is None:continue
+            v=data[vertices[link]]
+            if v.ndim!=3 or v.shape[2]!=3 or sample>=v.shape[0]:raise ValueError('Source runtime sample shape mismatch')
+            source.append((group,link,TriangleSurface(v[sample],data[faces[link]],label='source_runtime:'+link)))
+    declarations=helper.visual_meshes(robot,Path(target_assets_root),audit,source_runtime=False)
+    assets={}
+    for (link,index),item in sorted(declarations.items()):
+        group=part_of(link)
+        if group is None:continue
+        target.append((group,link,TriangleSurface(item['local'],item['faces'],label=f'target_visual:{link}:{index}')))
+        assets[str(Path(item['path']).resolve())]=digest(item['path'])
+    dependencies={'source_runtime_npz':{'path':str(Path(source_runtime_npz).resolve()),'sha256':digest(source_runtime_npz)},
+                  'target_urdf':{'path':str(Path(target_urdf).resolve()),'sha256':digest(target_urdf)},
+                  'target_visual_assets':assets,'source_sample_index':sample,
+                  'excluded_forearm':True,'parts':list(PARTS),'joints':list(JOINTS),
+                  'normal_policy':'No visual exterior/outward/occupancy normal claim',
+                  'source_vertices':'Untouched saved runtime object-frame vertices; no reconstruction/preRotation repeated'}
+    for role,module in (('independent_fk',audit),('mesh_helper',helper)):
+        path=Path(module.__file__).resolve();dependencies[role]={'path':str(path),'sha256':digest(path)}
+    source_boxes=target_boxes=None
+    if source_urdf is not None:
+        source_boxes=_palm_boxes(source_urdf,audit);target_boxes=_palm_boxes(target_urdf,audit)
+        if len(source_boxes)!=1 or len(target_boxes)!=8:raise ValueError('Frozen declared source1/target8 palm box counts changed')
+        dependencies['source_urdf']={'path':str(Path(source_urdf).resolve()),'sha256':digest(source_urdf)}
+    for name in ('surface_backend.py','palm_box_union.py','palm_union_geometry_reference.py'):
+        path=Path(__file__).resolve().parent/name;dependencies[name]={'path':str(path),'sha256':digest(path)}
+    return SurfaceBackend(source_surfaces=source,target_surfaces=target,target_robot=robot,
+                          independent_fk_module=audit,dependency_manifest=dependencies,
+                          source_boxes=source_boxes,target_boxes=target_boxes)

@@ -1,0 +1,38 @@
+import importlib.util,sys
+from pathlib import Path
+import numpy as np
+import pytest
+sys.dont_write_bytecode=True
+p=Path(__file__).with_name('audit_free_palm_visual_v1.py')
+s=importlib.util.spec_from_file_location('holdout',p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+@pytest.mark.parametrize('spacing',[1.,2.])
+def test_full_area_offcenter_and_corner_radius(spacing):
+ points,normals,faces,area,rho=m.offcenter_grid(spacing);h=spacing/1000;side=round(.05/h)
+ assert len(points)==6*side*side
+ assert abs(len(points)*area-.015)<1e-15
+ assert np.allclose(np.linalg.norm(normals,axis=1),1)
+ for axis in range(3):
+  other=[j for j in range(3) if j!=axis]
+  for sign in (-1,1):
+   pts=points[faces==f'{"XYZ"[axis]}{"+" if sign>0 else "-"}']
+   assert np.all(pts[:,axis]==sign*.025)
+   ij=np.floor((pts[:,other]+.025)/h).astype(int)
+   uv=(pts[:,other]+.025)/h-ij
+   assert np.allclose(uv,[1/3,2/3],atol=1e-12,rtol=0)
+   assert len(np.unique(ij,axis=0))==side*side
+   assert np.all((ij>=0)&(ij<side))
+   corners=np.array([[0,0],[1,0],[0,1],[1,1]])
+   maxr=np.linalg.norm((uv[:,None,:]-corners[None,:,:])*h,axis=2).max(axis=1)
+   assert np.allclose(maxr,rho,atol=1e-15,rtol=0)
+   # Every point differs from the historical center in both free coordinates.
+   assert np.all(np.abs(uv-.5)>.1)
+   # Direct manufactured 1-Lipschitz distance field, distance to a plane.
+   direction=np.array([.6,.8]);d=(np.sum(pts[:,other]*direction,axis=-1))+.1
+   cornerd=np.sum((-.025+(ij[:,None,:]+corners)*h)*direction,axis=-1)+.1
+   assert np.all(cornerd>=d[:,None]-rho-1e-15)
+   assert np.all(cornerd<=d[:,None]+rho+1e-15)
+def test_reject_nonpartition():
+ with pytest.raises(ValueError):m.offcenter_grid(3)
+def test_query_terms_are_not_mislabeled_as_centers():
+ result=m.rename_query_fields({'query_center_count':1,'x':[{'both_center_near_area_m2':2}]})
+ assert result=={'query_point_count':1,'x':[{'both_query_points_near_area_m2':2}]}

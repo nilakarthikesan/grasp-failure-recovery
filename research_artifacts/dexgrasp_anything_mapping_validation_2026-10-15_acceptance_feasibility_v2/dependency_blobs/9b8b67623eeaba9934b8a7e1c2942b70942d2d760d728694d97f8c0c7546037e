@@ -1,0 +1,303 @@
+#!/usr/bin/env python3
+"""Frozen native-relative surface-field retargeting; no acceptance by fit loss.
+
+All training distances are to triangle surfaces / declared palm-union boundary.
+No native example is queried until a parent-frozen scientific policy is bound.
+"""
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import importlib.util
+import json
+import os
+from pathlib import Path
+import sys
+import time
+import numpy as np
+import scipy
+from scipy.optimize import least_squares
+from scipy.spatial.transform import Rotation
+sys.dont_write_bytecode=True
+
+POLICY_ID='dga_native_relative_surface_retarget_v1'
+PARTS=('palm','index','middle','ring','little','thumb','wrist_carrier')
+FIELDS=PARTS+('declared_palm_signed_union',)
+BLOCKS=('index','middle','ring','little','thumb','palm')
+PREFIX={'index':'FF','middle':'MF','ring':'RF','little':'LF','thumb':'TH'}
+SOLVER={'method':'trf','jac':'3-point','max_nfev':10,'ftol':1e-8,'xtol':1e-8,'gtol':1e-8}
+CAP_M=.004
+
+def digest(path):
+ h=hashlib.sha256()
+ with Path(path).open('rb') as f:
+  for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
+ return 'sha256:'+h.hexdigest()
+def bound_json(path,expected):
+ if digest(path)!=expected:raise ValueError('Bound dependency changed: '+str(path))
+ return json.loads(Path(path).read_text())
+def module(name,path):
+ s=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(s);sys.modules[name]=m;s.loader.exec_module(m);return m
+def write_json(path,value):
+ with Path(path).open('x') as f:json.dump(value,f,indent=2,allow_nan=False);f.write('\n')
+
+def training_queries():
+ """Six complete 50mm cube faces, 5mm centered cells: exactly600 queries."""
+ h=.005;v=-.025+(np.arange(10)+.5)*h;x,y=np.meshgrid(v,v,indexing='ij');points=[];normals=[]
+ for axis in range(3):
+  other=[k for k in range(3) if k!=axis]
+  for sign in [-1,1]:
+   p=np.zeros((100,3));p[:,axis]=sign*.025;p[:,other[0]]=x.ravel();p[:,other[1]]=y.ravel()
+   n=np.zeros_like(p);n[:,axis]=sign;points.append(p);normals.append(n)
+ return np.concatenate(points),np.concatenate(normals)
+def require_policy(p):
+ expected={'schema_version':POLICY_ID,'status':'FROZEN_PREOPTIMIZATION','global_sample_indices':[1,3],
+  'row_count':2,'source_profile_id':'dga_multidex_official_unguided_v1','starts_per_row':2,
+  'start_order':['previous_fixed_palm_fit','previous_selected_free_palm_fit'],
+  'sweeps':2,'block_order':list(BLOCKS),'solver':SOLVER,'cap_m':CAP_M,'signed_palm_cap_m':CAP_M,
+  'training_query_spacing_m':.005,'training_query_fractions':[.5,.5],'training_query_count':600,
+  'field_names':list(FIELDS),'objective':'sum_equal_field_mean_squared_native_relative_distance_difference_m2',
+  'wrists':'both_original_values_preserved_exactly','strict_target_limits':True,'final_clipping':False,
+  'engineering_guard_reference':'previous_fixed_palm_fit_true_all_site_maximum_and_SSE',
+  'selection':'minimum_verified_surface_field_SSE_then_fixed_candidate_order',
+  'maximum_wall_seconds':600,'CPU_threads':1,'algebra_atol':1e-9,
+  'new_native_inference_calls':0,'physics_steps':0,'training_calls':0,'execution_eligible':False,
+  'holdout_feedback':False,'acceptance_from_objective':False}
+ if any(p.get(k)!=v for k,v in expected.items()):raise ValueError('Not the frozen surface-retarget implementation policy')
+ if not p.get('scientific_protocol',{}).get('sha256'):raise ValueError('Parent scientific protocol must be frozen first')
+ if len(p.get('site_names',[]))!=28 or p['site_names'][0]!='palm':raise ValueError('All27 finger origins and palm are mandatory engineering guard sites')
+
+def field_matrix(values,n,field_count,signed_last=False):
+ a=np.asarray(values)
+ if a.shape!=(n,field_count) or a.dtype.kind not in 'fiu' or not np.isfinite(a).all():raise ValueError('Invalid distance field')
+ lower=np.zeros(field_count)
+ if signed_last:lower[-1]=-CAP_M
+ if np.any(a<lower) or np.any(a>CAP_M):raise ValueError('Backend distance/cap contract violated')
+ return a.astype(np.float64,copy=False)
+def objective_metrics(source,target,names=FIELDS):
+ if source.shape!=target.shape or source.ndim!=2 or len(names)!=source.shape[1]:raise ValueError('Field correspondence mismatch')
+ d=target-source;means=np.mean(d*d,axis=0)
+ return {'sum_field_MSE_m2':float(means.sum()),'per_field':{name:{'MSE_m2':float(means[i]),
+  'maximum_clipped_difference_m':float(np.max(np.abs(d[:,i]))),'source_cap_hit_query_count':int(np.count_nonzero(np.abs(source[:,i])>=CAP_M)),
+  'target_cap_hit_query_count':int(np.count_nonzero(np.abs(target[:,i])>=CAP_M))} for i,name in enumerate(names)},
+  'scope':'Clipped training fields only; cap hits are lower-bound-censored, never interpreted as near or as complete distance-field equivalence.'}
+def residual_vector(source,target):
+ # mm/sqrt(query_count) gives the same equal-field sum MSE, in mm2.
+ return ((target-source)*1000./np.sqrt(len(source))).ravel()
+def landmark_metrics(error_m):
+ distance=np.linalg.norm(error_m,axis=1)
+ return {'maximum_site_error_m':float(distance.max()),'all_site_SSE_m2':float(np.sum(error_m*error_m)),
+  'mean_site_error_m':float(distance.mean()),'per_site_error_m':distance.tolist()}
+def landmark_nonregression(candidate,reference):
+ return candidate['maximum_site_error_m']<=reference['maximum_site_error_m'] and candidate['all_site_SSE_m2']<=reference['all_site_SSE_m2']
+def candidate_rank(c):return (c['surface_objective']['sum_field_MSE_m2'],c['selection_order'])
+def transform_from_variables(source_palm,tmm,omega):
+ delta=np.eye(4);delta[:3,:3]=Rotation.from_rotvec(omega).as_matrix();delta[:3,3]=np.asarray(tmm)/1000.
+ return source_palm@delta,delta
+def variables_from_transform(source_palm,target_palm):
+ if np.array_equal(source_palm,target_palm):return np.zeros(3),np.zeros(3)
+ delta=np.linalg.inv(source_palm)@target_palm
+ return delta[:3,3]*1000.,Rotation.from_matrix(delta[:3,:3]).as_rotvec()
+
+def optimize_blocks(start_q,start_tmm,start_omega,*,finger_names,joint_bounds,translation_limit_mm,
+                    source_fields,evaluate,deadline):
+ """Two fixed sweeps. Each training-only block is retained iff its true SSE
+ does not increase. Every solver terminal, including refused ones, is logged.
+ No landmark/holdout query or success label is used for optimizer feedback.
+ """
+ q=dict(start_q);tmm=np.array(start_tmm,copy=True);omega=np.array(start_omega,copy=True);logs=[]
+ for sweep in range(2):
+  for block in BLOCKS:
+   if time.monotonic()>deadline:raise TimeoutError('Frozen600sec budget exceeded; no partial result is acceptance')
+   if block=='palm':
+    selected=list(FIELDS);indices=list(range(len(FIELDS)));initial=np.r_[tmm,omega]
+    lower=np.r_[[-translation_limit_mm]*3,[-np.pi]*3];upper=np.r_[[translation_limit_mm]*3,[np.pi]*3]
+    names=[]
+   else:
+    selected=[block];indices=[FIELDS.index(block)];names=[n for n in finger_names if n.startswith(PREFIX[block])]
+    initial=np.array([q[n] for n in names]);lower=np.array([joint_bounds[n][0] for n in names]);upper=np.array([joint_bounds[n][1] for n in names])
+   source=source_fields[:,indices];calls=[0]
+   def state(x):
+    cq=dict(q)
+    if block=='palm':return cq,x[:3],x[3:]
+    cq.update(zip(names,x.tolist(),strict=True));return cq,tmm,omega
+   def fields(x):
+    if time.monotonic()>deadline:raise TimeoutError('Frozen600sec budget exceeded')
+    calls[0]+=1;cq,ct,cw=state(x);return evaluate(cq,ct,cw,selected)
+   before=fields(initial);before_metric=objective_metrics(source,before,selected)
+   solved=least_squares(lambda x:residual_vector(source,fields(x)),initial,bounds=(lower,upper),**SOLVER)
+   after=fields(solved.x);after_metric=objective_metrics(source,after,selected)
+   finite=bool(np.isfinite(solved.x).all());strict=finite and bool(np.all(solved.x>=lower) and np.all(solved.x<=upper))
+   adopted=strict and after_metric['sum_field_MSE_m2']<=before_metric['sum_field_MSE_m2']
+   rawq,rawt,raww=state(solved.x)
+   logs.append({'sweep':sweep,'block':block,'field_names':selected,'initial_variables':initial.tolist(),
+    'terminal_variables':solved.x.tolist(),'terminal_target_joint_targets_rad':rawq,
+    'terminal_translation_source_palm_mm':rawt.tolist(),'terminal_rotation_vector_rad':raww.tolist(),
+    'solver_success':bool(solved.success),'solver_status':int(solved.status),'solver_message':str(solved.message),
+    'reported_nfev':int(solved.nfev),'reported_njev':int(solved.njev),'actual_backend_residual_evaluations':calls[0],
+    'before':before_metric,'terminal':after_metric,'adopted_by_training_SSE_guard':adopted,
+    'terminal_strict_variable_bounds':strict,'final_clipping':False,
+    'scope':'Training-objective block selection only; not landmark/scientific/holdout acceptance.'})
+   if adopted:q,tmm,omega=rawq,np.array(rawt,copy=True),np.array(raww,copy=True)
+ return q,tmm,omega,logs
+
+def main(a):
+ if a.output.exists():raise FileExistsError('Never overwrite scientific/native evidence')
+ p=bound_json(a.policy,a.policy_sha256);require_policy(p)
+ scientific=bound_json(p['scientific_protocol']['path'],p['scientific_protocol']['sha256'])
+ if scientific.get('schema_version')!=p['scientific_protocol_schema'] or scientific.get('status')!=p['scientific_protocol_status'] or not str(scientific['status']).startswith('FROZEN'):raise ValueError('Scientific protocol is not the parent frozen version')
+ for path,h in p['dependency_sha256'].items():
+  if digest(path)!=h:raise ValueError('Dependency changed before fit '+path)
+ if digest(__file__)!=p['code_hashes']['surface_fit']:raise ValueError('Unfrozen implementation')
+ if any(os.environ.get(name)!='1' for name in ['OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS']):raise ValueError('Frozen single-thread environment required before NumPy import')
+ if a.preflight_only:
+  print(json.dumps({'status':'PASS_HASH_AND_POLICY_ONLY','dependencies':len(p['dependency_sha256']),'candidate_queries':0,'source_queries':0,'optimization_calls':0}));return
+ sys.path.insert(0,str(Path(p['repository'])/'src'))
+ profile=module('surface_multidex_profile',p['code_paths']['profile']);base=profile.original
+ audit=module('surface_independent_fk',p['code_paths']['independent_fk']);helper=module('surface_mesh_helper',p['code_paths']['native_helper'])
+ geometry=module('surface_geometry_backend',p['code_paths']['backend'])
+ prior=bound_json(p['prior_validation']['path'],p['prior_validation']['sha256'])
+ fixed=bound_json(p['fixed_palm_report']['path'],p['fixed_palm_report']['sha256'])
+ free=bound_json(p['free_palm_report']['path'],p['free_palm_report']['sha256'])
+ fixed_by={r['global_sample_index']:r for r in fixed['records']};free_by={r['global_sample_index']:r for r in free['records']}
+ with np.load(p['free_palm_arrays']['path'],allow_pickle=False) as z:free_arrays={k:z[k] for k in z.files}
+ if free['arrays']['sha256']!=digest(p['free_palm_arrays']['path']) or free_arrays['global_sample_indices'].tolist()!=[1,3] or [r['global_sample_index'] for r in free['records']]!=[1,3]:raise ValueError('Prior free-palm report/array/order binding changed')
+ names=base.SOURCE_JOINT_NAMES;fingers=[n for n in names if not n.startswith('WRJ')]
+ if p['joint_names']!=list(names):raise ValueError('Joint order changed')
+ source_tree=base.DGAHandTree(Path(p['source_hand_urdf']),base.SOURCE_URDF_SHA256)
+ target_tree=base.DGAHandTree(Path(p['target_hand_urdf']),base.TARGET_URDF_SHA256)
+ target_model=audit.model(Path(p['target_hand_urdf']))
+ source_model=audit.model(Path(p['source_hand_urdf']))
+ expected_sites=['palm']+sorted(n for n in source_model['links'] if n in target_model['links'] and n.startswith(('ff','mf','rf','lf','th')))
+ if p['site_names']!=expected_sites:raise ValueError('Exact engineering guard site order changed')
+ joint_bounds={n:(target_model['joints'][n]['limit']['lower'],target_model['joints'][n]['limit']['upper']) for n in fingers}
+ queries,normals=training_queries()
+ records=[];selected_arrays={k:[] for k in ['source_hand_qpos','target_joint_values','object_from_source_forearm','object_from_source_palm','object_from_target_palm','object_from_target_root_world','object_from_target_forearm','source_palm_from_target_palm']}
+ source_archive=[];baseline_archive=[];attempt_archive=[];selected_archive=[]
+ a.output.mkdir(parents=True);deadline=time.monotonic()+600
+ for i,g in enumerate([1,3]):
+  old=prior['records'][g];fr=fixed_by[g];prior_free=free_by[g]
+  if not np.array_equal(free_arrays['target_joint_values'][i],np.array([prior_free['target_joint_targets_rad'][n] for n in names])):raise ValueError('Prior selected target q/order binding changed')
+  manifest,rawvalues,_=profile.load_multidex_raw_export(old['native_manifest']['path'],expected_object_id='object01',expected_geometry_hash=p['geometry_content_hash'])
+  raw=rawvalues[old['within_batch_sample_index']].copy();rawbytes=raw.tobytes();qs=dict(zip(names,raw[9:].tolist(),strict=True))
+  if qs!=old['joint_targets_rad'] or old['source_limit_violations']:raise ValueError('Original source-valid case changed')
+  sf=source_tree.forward(qs);root_source=np.eye(4);root_source[:3,:3]=base.rotation_from_6d(raw[3:9]);root_source[:3,3]=raw[:3]
+  root_source=base.proper_transform(np.asarray(manifest.object_from_input)@root_source);source_palm=base.proper_transform(root_source@sf['palm'])
+  if np.max(np.abs(source_palm-free_arrays['object_from_source_palm'][i]))>1e-9 or not np.array_equal(raw,free_arrays['source_hand_qpos'][i]):raise ValueError('Prior source binding changed')
+  ref=bound_json(old['mapping_reference']['path'],old['mapping_reference']['sha256'])
+  refpath=Path(old['mapping_reference']['path']).parent/ref['arrays']['path']
+  if digest(refpath)!=ref['arrays']['sha256'] or p['dependency_sha256'].get(str(refpath))!=ref['arrays']['sha256']:raise ValueError('Unbound FP32 source visual reference')
+  if old['fp32_mapping_reference_reconstruction']['status']!='PASS':raise ValueError('Source FP32 reference prerequisite')
+  backend=geometry.build_backend(source_runtime_npz=refpath,source_sample_index=old['within_batch_sample_index'],
+   target_urdf=Path(p['target_hand_urdf']),target_assets_root=Path(p['target_assets_root']),
+   independent_fk_module=audit,mesh_helper_module=helper,source_urdf=Path(p['source_hand_urdf']))
+  if tuple(backend.parts)!=PARTS:raise ValueError('Geometry backend part order mismatch')
+  for value in backend.dependency_manifest.values():
+   if isinstance(value,dict) and 'path' in value and 'sha256' in value:
+    if p['dependency_sha256'].get(value['path'])!=value['sha256']:raise ValueError('Backend loaded an unbound dependency')
+  for path,h in backend.dependency_manifest['target_visual_assets'].items():
+   if p['dependency_sha256'].get(path)!=h:raise ValueError('Backend loaded an unbound visual mesh')
+  visual_source=field_matrix(backend.source_fields(queries,CAP_M),600,7)
+  signed_source,signed_dummy=backend.palm_signed_fields(source_palm,source_palm,queries,CAP_M)
+  source_fields=field_matrix(np.column_stack([visual_source,np.asarray(signed_source)]),600,8,signed_last=True)
+  evaluation_counts={'calls':0,'part_query_count':0}
+  def evaluate(q,tmm,omega,selected):
+   if time.monotonic()>deadline:raise TimeoutError('Frozen600sec budget exceeded')
+   evaluation_counts['calls']+=1;evaluation_counts['part_query_count']+=600*len(selected)
+   palm,_=transform_from_variables(source_palm,tmm,omega);visual=[n for n in selected if n in PARTS];columns={}
+   if visual:
+    value=field_matrix(backend.target_fields(np.array([q[n] for n in names]),palm,queries,CAP_M,parts=visual),600,len(visual))
+    columns.update((name,value[:,j]) for j,name in enumerate(visual))
+   if 'declared_palm_signed_union' in selected:
+    sr,ta=backend.palm_signed_fields(source_palm,palm,queries,CAP_M)
+    if not np.array_equal(np.asarray(sr),source_fields[:,-1]):raise ValueError('Source signed reference mutated')
+    columns['declared_palm_signed_union']=np.asarray(ta)
+   value=np.column_stack([columns[name] for name in selected])
+   return field_matrix(value,600,len(selected),signed_last=selected[-1]=='declared_palm_signed_union')
+  sites=p['site_names']
+  def verify(q,tmm,omega):
+   if set(q)!=set(names) or not all(np.isfinite(v) for v in q.values()):raise ValueError('Malformed named q')
+   if any(q[n]!=qs[n] for n in ['WRJ2','WRJ1']):raise ValueError('Original wrist changed')
+   tf=target_tree.forward(q);ind=audit.independent_fk(target_model,q)
+   fkerror=max(float(np.max(np.abs(tf[n]-ind[n]))) for n in tf)
+   palm,delta=transform_from_variables(source_palm,tmm,omega);palm=base.proper_transform(palm);delta=base.proper_transform(delta)
+   root=base.proper_transform(palm@np.linalg.inv(tf['palm']));forearm=base.proper_transform(root@tf['forearm'])
+   error=np.stack([(root@tf[n])[:3,3]-(root_source@sf[n])[:3,3] for n in sites])
+   chain=float(np.max(np.abs(root@tf['palm']-palm)))
+   if max(fkerror,chain)>1e-9:raise ValueError('Independent target FK/palm chain failed')
+   return {'landmark_metrics':landmark_metrics(error),'root':root,'forearm':forearm,'palm':palm,'delta':delta,
+    'target_fk_max_entry':fkerror,'palm_chain_max_entry':chain}
+  old_fixed_q=dict(fr['target_joint_targets_rad']);reference=verify(old_fixed_q,np.zeros(3),np.zeros(3))['landmark_metrics']
+  if abs(reference['all_site_SSE_m2']-fr['objective_m2'])>1e-9:raise ValueError('Fixed-palm engineering baseline differs')
+  baseline_q=dict(prior_free['target_joint_targets_rad']);baseline_t,baseline_w=variables_from_transform(source_palm,free_arrays['object_from_target_palm'][i])
+  baseline_state=verify(baseline_q,baseline_t,baseline_w)
+  if not landmark_nonregression(baseline_state['landmark_metrics'],reference):raise ValueError('Prior free-palm baseline fails old engineering guards')
+  baseline_fields=evaluate(baseline_q,baseline_t,baseline_w,list(FIELDS));baseline_objective=objective_metrics(source_fields,baseline_fields)
+  baseline={'candidate_id':'previous_selected_free_palm_baseline','selection_order':0,'verified_eligible_for_training_selection':True,
+   'target_joint_targets_rad':baseline_q,'translation_source_palm_mm':baseline_t.tolist(),'rotation_vector_rad':baseline_w.tolist(),
+   'surface_objective':baseline_objective,'landmark_metrics':baseline_state['landmark_metrics'],'no_scientific_acceptance':True}
+  candidates=[baseline];attempts=[];fields_per_attempt=[]
+  starts=[('previous_fixed_palm_fit',old_fixed_q,np.zeros(3),np.zeros(3)),
+   ('previous_selected_free_palm_fit',baseline_q,baseline_t,baseline_w)]
+  limit_mm=reference['maximum_site_error_m']*1000.
+  for j,(start_id,start_q,tmm,omega) in enumerate(starts):
+   q,ta,wa,logs=optimize_blocks(start_q,tmm,omega,finger_names=fingers,joint_bounds=joint_bounds,
+    translation_limit_mm=limit_mm,source_fields=source_fields,evaluate=evaluate,deadline=deadline)
+   terminal_fields=evaluate(q,ta,wa,list(FIELDS));obj=objective_metrics(source_fields,terminal_fields)
+   attempt={'candidate_id':start_id,'selection_order':j+1,'start_index':j,'target_joint_targets_rad':q,
+    'translation_source_palm_mm':ta.tolist(),'rotation_vector_rad':wa.tolist(),'surface_objective':obj,'block_history':logs,
+    'verified_eligible_for_training_selection':False,'no_scientific_acceptance':True}
+   try:
+    state=verify(q,ta,wa);attempt['landmark_metrics']=state['landmark_metrics']
+    attempt['verified_eligible_for_training_selection']=landmark_nonregression(state['landmark_metrics'],reference)
+    if not attempt['verified_eligible_for_training_selection']:attempt['refusal_reason']='Old fixed-palm true landmark maximum/SSE guard regressed; no tolerance relaxation.'
+   except (ValueError,base.DGAContractError) as e:attempt['refusal_reason']=str(e)
+   write_json(a.output/f'row_{g}_attempt_{j}.json',attempt);attempts.append(attempt);fields_per_attempt.append(terminal_fields)
+   if attempt['verified_eligible_for_training_selection']:candidates.append(attempt)
+  selected=min(candidates,key=candidate_rank);q=dict(selected['target_joint_targets_rad']);tmm=np.array(selected['translation_source_palm_mm']);omega=np.array(selected['rotation_vector_rad'])
+  terminal=verify(q,tmm,omega)
+  if not landmark_nonregression(terminal['landmark_metrics'],reference):raise ValueError('Fresh terminal engineering guard failed')
+  terminal_fields=evaluate(q,tmm,omega,list(FIELDS));obj=objective_metrics(source_fields,terminal_fields)
+  if obj['sum_field_MSE_m2']!=selected['surface_objective']['sum_field_MSE_m2']:raise ValueError('Fresh terminal training objective changed')
+  if raw.tobytes()!=rawbytes or not np.array_equal(raw,rawvalues[old['within_batch_sample_index']]):raise ValueError('Original source raw changed')
+  record={'global_sample_index':g,'batch_index':old['batch_index'],'within_batch_sample_index':old['within_batch_sample_index'],
+   'source_profile_id':p['source_profile_id'],'seed':old['seed'],'native_manifest':old['native_manifest'],'mapping_reference':old['mapping_reference'],
+   'raw_output_sha256':manifest.output.sha256,'raw33_row_sha256':'sha256:'+hashlib.sha256(rawbytes).hexdigest(),
+   'original_joint_targets_rad':qs,'target_joint_targets_rad':q,'original_mapping_status':old['mapping_status'],
+   'original_source_limit_violations':old['source_limit_violations'],'original_target_limit_violations':old['target_limit_violations'],
+   'final_target_limit_violations':[],'both_original_wrists_preserved':True,'source_palm_is_immutable_reference':True,
+   'target_palm_is_explicit_new_placement':True,'baseline':baseline,'attempts':attempts,'selected_candidate_id':selected['candidate_id'],
+   'surface_objective':obj,'landmark_metrics':terminal['landmark_metrics'],'fixed_palm_engineering_reference':reference,
+   'palm_displacement':{'translation_source_palm_m':terminal['delta'][:3,3].tolist(),'translation_norm_m':float(np.linalg.norm(terminal['delta'][:3,3])),
+    'physical_principal_rotation_vector_rad':Rotation.from_matrix(terminal['delta'][:3,:3]).as_rotvec().tolist(),
+    'physical_rotation_angle_rad':float(Rotation.from_matrix(terminal['delta'][:3,:3]).magnitude()),
+    'optimizer_rotation_vector_rad':omega.tolist()},
+   'independent_verification':{'target_fk_max_entry':terminal['target_fk_max_entry'],'palm_chain_max_entry':terminal['palm_chain_max_entry']},
+   'source_reference_prior_status':{'native_default':old['native_default_runtime_reconstruction']['status'],'declared_fp32':old['fp32_mapping_reference_reconstruction']['status']},
+   'backend_evaluation_counts':evaluation_counts,'backend_dependency_manifest':backend.dependency_manifest,'target_root_link':'world','execution_eligible':False,
+   'scientific_acceptance':'PENDING_FROZEN_VALIDATION','training_field_censoring':'abs(value)>=4mm denotes cap-hit/censored; never infer nearsets from these arrays.',
+   'scope':'Development optimizer only; strict native-relative scientific criteria and reserved query locations are evaluated separately without feedback.'}
+  records.append(record);source_archive.append(source_fields);baseline_archive.append(baseline_fields);attempt_archive.append(np.stack(fields_per_attempt));selected_archive.append(terminal_fields)
+  for key,value in [('source_hand_qpos',raw),('target_joint_values',np.array([q[n] for n in names])),('object_from_source_forearm',root_source),('object_from_source_palm',source_palm),('object_from_target_palm',terminal['palm']),('object_from_target_root_world',terminal['root']),('object_from_target_forearm',terminal['forearm']),('source_palm_from_target_palm',terminal['delta'])]:selected_arrays[key].append(value)
+ for path,h in p['dependency_sha256'].items():
+  if digest(path)!=h:raise ValueError('Dependency changed during optimization '+path)
+ if {'torch','mujoco','isaacgym','envs','pybullet'}&set(sys.modules):raise ValueError('Forbidden model/simulator import')
+ poses=a.output/'fit_poses.npz';np.savez(poses,global_sample_indices=np.array([1,3],dtype=np.int64),**{k:np.stack(v) for k,v in selected_arrays.items()})
+ train=a.output/'training_fields.npz';train_values={'queries_object_m':queries,'cube_normals':normals,'source_fields_m':np.stack(source_archive),
+  'baseline_fields_m':np.stack(baseline_archive),'attempt_fields_m':np.stack(attempt_archive),'selected_fields_m':np.stack(selected_archive)}
+ train_values.update({k.replace('_m','_cap_hit'):np.abs(v)>=CAP_M for k,v in list(train_values.items()) if k.endswith('fields_m')})
+ np.savez_compressed(train,**train_values)
+ report={'schema_version':POLICY_ID,'status':'COMPLETE_OPTIMIZATION_PENDING_FROZEN_VALIDATION','created_at_utc':datetime.now(timezone.utc).isoformat(),
+  'implementation_policy_sha256':a.policy_sha256,'scientific_protocol':p['scientific_protocol'],'source_profile_id':p['source_profile_id'],
+  'records':records,'arrays':{'path':poses.name,'sha256':digest(poses)},'training_fields':{'path':train.name,'sha256':digest(train)},
+  'joint_names':list(names),'site_names':p['site_names'],'field_names':list(FIELDS),'cap_m':CAP_M,
+  'objective':'Sum of eight equally weighted per-field mean squared physical distance differences; no surface-query losses are acceptance tolerances.',
+  'solver':SOLVER,'runtime':{'numpy':np.__version__,'scipy':scipy.__version__},'dependency_sha256':p['dependency_sha256'],
+  'original_accounting':prior['accounting'],'original_surface_selection':prior['surface_selection'],'execution_eligible':False,
+  'scientific_acceptance':'PENDING_FROZEN_VALIDATION','acceptance_from_objective':False,'holdout_feedback':False,
+  'zero_execution':{'native_calls':0,'checkpoint_loads':0,'physics_steps':0,'training_calls':0,'evaluation_episodes':0}}
+ out=a.output/'surface_fit_report.json';write_json(out,report)
+ print(json.dumps({'report':str(out),'sha256':digest(out),'arrays_sha256':digest(poses),'training_fields_sha256':digest(train),
+  'cases':[{'global_sample_index':r['global_sample_index'],'selected':r['selected_candidate_id'],'surface_MSE_m2':r['surface_objective']['sum_field_MSE_m2'],'landmarks':r['landmark_metrics']} for r in records]}))
+
+if __name__=='__main__':
+ ap=argparse.ArgumentParser();ap.add_argument('--policy',type=Path,required=True);ap.add_argument('--policy-sha256',required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--preflight-only',action='store_true');main(ap.parse_args())

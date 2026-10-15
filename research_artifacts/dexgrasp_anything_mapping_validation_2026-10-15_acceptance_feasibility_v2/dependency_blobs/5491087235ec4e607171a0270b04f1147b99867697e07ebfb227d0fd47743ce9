@@ -1,0 +1,121 @@
+"""Independent prefit hash and manufactured consumer integration controls."""
+from datetime import datetime, timezone
+import copy
+import hashlib
+import importlib.util
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+import tempfile
+import unittest
+
+sys.dont_write_bytecode = True
+ROOT = Path('/private/tmp/dga_feasible_surface_20261015_v1')
+OUT = ROOT / 'independent_review/consumer_prefit_integration_review_v2.json'
+
+
+def sha(path):
+    h = hashlib.sha256()
+    with Path(path).open('rb') as f:
+        for chunk in iter(lambda: f.read(1048576), b''):
+            h.update(chunk)
+    return 'sha256:' + h.hexdigest()
+
+
+def module(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
+identity_tests = module('independent_identity_tests', ROOT / 'independent_review/test_exact_payload_identity.py')
+binder = module('palm_input_binder', ROOT / 'geometry/freeze_palm_holdout_inputs.py')
+
+
+class IntegrationControls(unittest.TestCase):
+    def test_only_exact_producer_method_and_status(self):
+        science = {'path': 'fixture-science', 'sha256': 'sha256:science'}
+        method = {'path': 'fixture-method', 'sha256': 'sha256:method'}
+        good = {'scientific_protocol': science, 'method': method,
+                'arrays': {'sha256': 'sha256:arrays'},
+                'status': 'COMPLETE_FEASIBLE_ITERATES_PENDING_FROZEN_VALIDATION',
+                'holdout_feedback': False, 'acceptance_from_objective': False,
+                'records': [{'global_sample_index': 1}, {'global_sample_index': 3}]}
+        binder.require_fit_header(good, science, method, 'sha256:arrays')
+        changes = [('status', 'COMPLETE_OPTIMIZATION_PENDING_FROZEN_VALIDATION'),
+                   ('method', {'path': 'other', 'sha256': 'sha256:method'}),
+                   ('holdout_feedback', True), ('acceptance_from_objective', True),
+                   ('records', [{'global_sample_index': 3}, {'global_sample_index': 1}]),
+                   ('arrays', {'sha256': 'sha256:other'})]
+        for key, value in changes:
+            bad = copy.deepcopy(good)
+            bad[key] = value
+            with self.subTest(field=key), self.assertRaises(ValueError):
+                binder.require_fit_header(bad, science, method, 'sha256:arrays')
+
+    def test_refused_existing_output_stays_byte_identical(self):
+        with tempfile.TemporaryDirectory(prefix='manufactured_existing_output_', dir=ROOT / 'independent_review') as temp:
+            output = Path(temp) / 'prior_evidence'
+            output.mkdir()
+            (output / 'sentinel.bin').write_bytes(b'original\x00evidence\xff')
+            before = {str(p.relative_to(output)): p.read_bytes() for p in output.rglob('*') if p.is_file()}
+            command = [sys.executable, '-B', str(ROOT / 'geometry/run_palm_holdout.py'),
+                       '--policy', str(Path(temp) / 'nonexistent.json'),
+                       '--policy-sha256', 'sha256:unused', '--output', str(output)]
+            result = subprocess.run(command, capture_output=True, text=True, env={**os.environ, 'PYTHONDONTWRITEBYTECODE': '1'})
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('FileExistsError', result.stderr)
+            after = {str(p.relative_to(output)): p.read_bytes() for p in output.rglob('*') if p.is_file()}
+            self.assertEqual(before, after)
+            self.assertEqual(sorted(output.iterdir()), [output / 'sentinel.bin'])
+
+
+def main():
+    if OUT.exists():
+        raise FileExistsError(OUT)
+    paths = [('geometry/palm_holdout_implementation_frozen_v3.json', 'dependency_sha256'),
+             ('validation/visual_decision_implementation_frozen_v2.json', 'dependencies'),
+             ('validation/visual_implementation_frozen_v1.json', 'dependencies')]
+    closures = []
+    all_dependencies = {}
+    for rel, key in paths:
+        p = ROOT / rel
+        d = json.loads(p.read_text())
+        for path, expected in d[key].items():
+            if sha(path) != expected:
+                raise ValueError('Frozen dependency mismatch: ' + path)
+            if path in all_dependencies and all_dependencies[path] != expected:
+                raise ValueError('Conflicting closure: ' + path)
+            all_dependencies[path] = expected
+        closures.append({'path': str(p), 'sha256': sha(p), 'dependency_count': len(d[key]), 'status': 'PASS'})
+    suite = unittest.TestSuite([unittest.defaultTestLoader.loadTestsFromTestCase(identity_tests.IdentityControls),
+                               unittest.defaultTestLoader.loadTestsFromTestCase(IntegrationControls)])
+    result = unittest.TextTestRunner(verbosity=2).run(suite)
+    for path, expected in all_dependencies.items():
+        if sha(path) != expected:
+            raise ValueError('Dependency changed during review: ' + path)
+    record = {'schema_version': 'dga_feasible_independent_consumer_prefit_review_v2',
+              'created_at_utc': datetime.now(timezone.utc).isoformat(),
+              'status': 'PASS' if result.wasSuccessful() else 'FAIL',
+              'tests': result.testsRun, 'failures': len(result.failures), 'errors': len(result.errors),
+              'code_sha256': sha(__file__), 'closures': closures,
+              'identity_helper_sha256': sha(ROOT / 'geometry/candidate_identity.py'),
+              'palm_integration_findings': [],
+              'visual_findings': [{'severity': 'INTEGRATION_GUARD',
+                  'file': str(ROOT / 'validation/run_visual_decision.py'),
+                  'finding': 'V2 lacks exact new fit status and methodref checks; parent notified before actual fitting/measurements. Hash closure and payload comparison themselves pass.'}],
+              'scope': 'Manufactured arrays and metadata only, plus existing-output refusal subprocess before policy access. No candidate fit/fields, source/native data values, optimizer, geometry queries, GPU, physics, labels or training. Exact selected-payload identity only supports evidentiary reuse when immutable geometry/reference/scientific/report/archive closure also passes.',
+              'strict_acceptance_preserved': 'No positive training objective or payload reuse is scientific acceptance. Prior FAIL/UNRESOLVED relationship results remain the result if exactly reused.'}
+    with OUT.open('x') as f:
+        json.dump(record, f, indent=2, allow_nan=False)
+        f.write('\n')
+    print(OUT, sha(OUT))
+    if not result.wasSuccessful():
+        raise SystemExit(1)
+
+
+if __name__ == '__main__':
+    main()

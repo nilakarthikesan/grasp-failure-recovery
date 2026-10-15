@@ -1,0 +1,91 @@
+{
+  "batches": [
+    {
+      "batch_index": 0,
+      "fp32_export_log": {
+        "path": "logs/batch_0000_seed20261023_fp32.log",
+        "sha256": "sha256:3af10350c0e2a08624aa851351778cc4a8fd157bbbb1390d35ab73850df54be6"
+      },
+      "fp32_reference": {
+        "path": "fp32_references/batch_0000_seed20261023/runtime_reference.json",
+        "sha256": "sha256:fab54ecea274e7f0fd83238547139fa213c3b0482173866c3e5daa50fe54c87f"
+      },
+      "global_sample_indices": [
+        0,
+        1
+      ],
+      "native_manifest": {
+        "path": "batches/batch_0000_seed20261023/native_manifest.json",
+        "sha256": "sha256:ef66deab9955aac031ff26d5362da6ade673d4f1129797b1c5125e14b6150a13"
+      },
+      "precision_export_evidence": {
+        "path": "fp32_references/batch_0000_seed20261023/reference_provenance.json",
+        "sha256": "sha256:b536e28a635935e25b8b653a36184ff20d4f40c436c9ef6bb530677d2a3e3ef9"
+      },
+      "sample_count": 2,
+      "seed": 20261023
+    },
+    {
+      "batch_index": 1,
+      "fp32_export_log": {
+        "path": "logs/batch_0001_seed20261024_fp32.log",
+        "sha256": "sha256:1740339bdcad97b9378606d43c5f33c731ff041716b63468d59dad727ca9d796"
+      },
+      "fp32_reference": {
+        "path": "fp32_references/batch_0001_seed20261024/runtime_reference.json",
+        "sha256": "sha256:bfbc7c0360d692d0bcd3417df2fe687e2b54f2c9413f4539b2ed32c10722f8e8"
+      },
+      "global_sample_indices": [
+        2,
+        3
+      ],
+      "native_manifest": {
+        "path": "batches/batch_0001_seed20261024/native_manifest.json",
+        "sha256": "sha256:b781a6b8d346ea153474aae4018ec5c71f0990d165c2b1d1b4c306c88bc1b6d9"
+      },
+      "precision_export_evidence": {
+        "path": "fp32_references/batch_0001_seed20261024/reference_provenance.json",
+        "sha256": "sha256:7759195cec466fb7522b35583879237bc296386f6990b26c9cb3585741885531"
+      },
+      "sample_count": 2,
+      "seed": 20261024
+    }
+  ],
+  "checkpoint_deserializations": 2,
+  "checkpoint_sha256": "sha256:036b406af7c02cd2de9eb61da02590f8c5db7e6afe6a842eb36b47f03105945e",
+  "code_sha256": {
+    "checkpoint_inspector": "sha256:f088f43a149de9b8116f8f0a6c8425a3f74152f6fefa22e93d840de90d4ebb9c",
+    "controller": "sha256:768cff1daf02e015fee84ab2bed9d9f830b69c090da6fc7dfed76f67b3ae9dca",
+    "fp32_exporter": "sha256:75405997199502dfbecfd8da11bf987189c6c835997c95f625814a0a4e0f12ae",
+    "multidex_verifier": "sha256:f465b7cc9805ad458a22d6b0fa271cf3a10e680d6610f656954128fbb92b3214",
+    "native_wrapper": "sha256:5a69f9c5d737cd4f595fad87b2346bc8ef3c365035ba4c2abdfb82237707b1e1",
+    "offline_worker": "sha256:147199aa92d5cef64e195f79d4f4c8ac8964590fee20120a0618fb475e8517d2",
+    "profile": "sha256:43e311387332d6e1fe856302d10ae125a68a11b913c5f723808c000d623848e3",
+    "source_verifier": "sha256:86bc590d9a14c45df5eb1ff5033db307851856ab688456d6790daf05dd3c30f5"
+  },
+  "dataset_name": "MultiDexShadowHandUR",
+  "evaluation_episodes": 0,
+  "generation_cudnn_allow_tf32": true,
+  "generation_matmul_allow_tf32": true,
+  "native_model_sample_calls": 2,
+  "normalizer_source_sha256": "sha256:033574fe65e4bbaf62def07913890776d43f107fe48c70089d1b72de093b479f",
+  "physics_steps": 0,
+  "protocol_sha256": "sha256:534b0959512c05b688f3c53da55c6458b32eabead53f1b4dfed58f22f811db5d",
+  "reference_precision_policy": {
+    "NVIDIA_TF32_OVERRIDE": null,
+    "cudnn_allow_tf32": false,
+    "fresh_hand_constructed_after_policy": true,
+    "matmul_allow_tf32": false,
+    "model_generation_policy": "original_baseline_tf32_enabled",
+    "model_sample_calls": 0,
+    "no_new_model_sample": true,
+    "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+    "transform_dtype": "float32"
+  },
+  "resampling_attempts": 0,
+  "sample_count": 4,
+  "schema_version": "dga_multidex_cohort_generation_log_v1",
+  "selection_policy": "all_raw_retained_no_generation_selection_or_early_stop",
+  "source_profile_id": "dga_multidex_official_unguided_v1",
+  "training_calls": 0
+}

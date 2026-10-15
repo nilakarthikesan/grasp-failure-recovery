@@ -1,0 +1,33 @@
+{
+  "schema_version": "dga_independent_all_face_validator_and_palm_freeze_review_v1",
+  "status": "PASS_MANUFACTURED_DISTANCE_IDENTITY_AND_NORMAL_EXCLUSION_CONTROLS_NO_PREFREEZE_BLOCKER_IDENTIFIED",
+  "created_at_utc": "2026-10-15T05:53:28.031490+00:00",
+  "code_sha256": "sha256:c34bf6f5adefc3293f84efea6ea8a1a14ce4d4e958d5ca2121ff3f08ea5c96fc",
+  "controls": [
+    "Unique isolated zero-area segment changes source query distance and prevents exact-set identity despite shared ordinary triangle.",
+    "Degenerate segment is retained through all-face mesh construction and original broadphase/nearest-query path.",
+    "Tiny positive-area face remains queryable and its unusable facet normal remains ineligible.",
+    "Positive certified lost area is FAIL."
+  ],
+  "palm_holdout_review": [
+    "Frozen v2 code retains true union-boundary distances and signed membership; all13implementation dependency hashes match. Added numeric-result shape/finite/unit-normal/membership/distance-consistency guards refuse invalid classification inputs.",
+    "Normal group vector uncertainty eta leads to dot-error bound2eta+eta^2. Reversal uses -(2eta+eta^2+1e-8); facing uses eta+1e-8. Neither changes distance tolerance or fit dependencies.",
+    "Post-fit binder adds immutable fit report/array hashes and validates science/status/rows/dependency closure; fixed criteria, queries, margins and resource caps do not depend on observed holdout results."
+  ],
+  "scope": "Tiny manufactured triangles only; no actual source/target asset, candidate, native-output distance query, fit/optimizer, GPU, physics, training or evaluation labels. Conditional F64 scope, no formal directed-rounding or physical contact claim.",
+  "dependencies": {
+    "/private/tmp/dga_surface_preserving_20261015_v1/validation/validate_surface_candidate_visual.py": "sha256:aff4b67399661d9886a816511b6e2be6ac6ce4b5d7ba5adc0ab335db08845151",
+    "/private/tmp/dga_surface_preserving_20261015_v1/geometry/surface_backend.py": "sha256:08c838f6b0dbec9904054544a607251786681804ee81ebaa9cc18acc214fde61",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/cloud/dexgrasp_anything/audit_native_cohort_visual_proximity.py": "sha256:46934461b616523e9a5db2d26a873796891a8491a305f1bf1f931bd74bd0b408",
+    "/private/tmp/dga_surface_preserving_20261015_v1/geometry/palm_holdout_implementation_frozen_v2.json": "sha256:ae84f1c3050eb333c277783c4bc5beef7bf1449e617b762fb7adf98336d246f7",
+    "/private/tmp/dga_surface_preserving_20261015_v1/geometry/measure_palm_holdout.py": "sha256:831cbf71ba5fcead644d1c5bd6b663ee4d483586b5e2792de61a0883b7717cde",
+    "/private/tmp/dga_surface_preserving_20261015_v1/geometry/freeze_palm_holdout_inputs.py": "sha256:ae995df80f2ed34bb356ad53993be53d7e65f3826ff913e09984fb9788057235"
+  },
+  "zero_execution": {
+    "actual_asset_geometry_queries": 0,
+    "optimizer_calls": 0,
+    "native_calls": 0,
+    "checkpoint_loads": 0,
+    "physics_steps": 0
+  }
+}

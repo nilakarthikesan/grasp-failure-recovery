@@ -1,0 +1,228 @@
+"""Boundary of finite oriented-box unions by exposed convex-face fragments.
+
+Mathematical construction: subtract interiors of other boxes from each face;
+same-facing coplanar duplicates may remain, opposite-facing interfaces are
+removed. Each retained convex polygon is a closed boundary patch. No voxel,
+convex-hull substitute, minimum-member interior SDF, or finite ray mesh repair.
+Float64 clipping has explicit conditioning refusals and a declared diagnostic
+numerical allowance; this is not directed-rounding formal verification.
+"""
+from dataclasses import dataclass
+import time
+import numpy as np
+from palm_union_geometry_reference import Collider, Policy, surface_exposure
+
+EPS_CLIP=1e-12
+EPS_FACE=1e-10
+EPS_DISTANCE=1e-9
+MAX_POLYGONS=5000
+
+
+@dataclass
+class FacePatch:
+    vertices:np.ndarray
+    normal:np.ndarray
+    owner:int
+    face_id:int
+
+
+def planes(box):
+    axes=box.rotation.T
+    normal=np.concatenate((axes,-axes))
+    upper=normal@box.position+np.tile(box.size,2)
+    return normal,upper
+
+
+def clean_polygon(value,normal):
+    if len(value)<3:return None
+    vertices=[]
+    for p in value:
+        if not vertices or np.linalg.norm(p-vertices[-1])>EPS_CLIP:vertices.append(p)
+    if len(vertices)>1 and np.linalg.norm(vertices[0]-vertices[-1])<=EPS_CLIP:vertices.pop()
+    if len(vertices)<3:return None
+    v=np.asarray(vertices)
+    area2=sum(np.dot(np.cross(v[i]-v[0],v[i+1]-v[0]),normal) for i in range(1,len(v)-1))
+    diameter=float(np.max(np.linalg.norm(v-v[0],axis=1)))
+    if area2<0 and abs(area2)>1e-24:raise ValueError('Polygon winding reversed')
+    if abs(area2)<=1e-26:
+        if diameter>EPS_FACE:raise ValueError('Long thin polygon exceeds numerical conditioning policy')
+        return None
+    return v
+
+
+def clip_polygon(vertices,normal,upper,keep_inside,face_normal):
+    values=vertices@normal-upper
+    # Use the already declared plane-classification allowance consistently for
+    # individual endpoints as well as whole coplanar polygons. Otherwise two
+    # roundoff-level opposite signs on an on-plane edge spuriously request an
+    # ill-conditioned intersection. Retain the original vertex (<=EPS_CLIP
+    # from the plane); do not change the distance allowance or fitted geometry.
+    values=np.where(np.abs(values)<=EPS_CLIP,0.,values)
+    sign=1 if keep_inside else -1
+    result=[]
+    for i,left in enumerate(vertices):
+        j=(i+1)%len(vertices);right=vertices[j]
+        dl,dr=values[i],values[j]
+        il,ir=sign*dl<=0,sign*dr<=0
+        if il:result.append(left.copy())
+        if il!=ir:
+            if dl==0:
+                result.append(left.copy());continue
+            if dr==0:
+                result.append(right.copy());continue
+            den=dl-dr
+            if abs(den)<1e-15:raise ValueError('Ill-conditioned clipping edge intersection')
+            alpha=dl/den
+            if not -1e-12<=alpha<=1+1e-12:raise ValueError('Clipping intersection leaves edge')
+            result.append(left+alpha*(right-left))
+    return clean_polygon(result,face_normal)
+
+
+def subtract_box(vertices,face_normal,other):
+    normals,uppers=planes(other)
+    for n,b in zip(normals,uppers):
+        values=vertices@n-b
+        if np.max(np.abs(values))<=EPS_CLIP:
+            alignment=float(n@face_normal)
+            if alignment>1-1e-10:
+                # Both solids lie behind the same outward support plane. This
+                # duplicate remains exterior; duplicates do not alter distances.
+                return [vertices]
+            if alignment> -1+1e-10:
+                raise ValueError('Near-coplanar nonparallel face is numerically unresolved')
+    result=[];remaining=vertices
+    for n,b in zip(normals,uppers):
+        if remaining is None:break
+        values=remaining@n-b
+        if np.max(np.abs(values))<=EPS_CLIP:
+            # Opposite-facing coincident plane counts as inside the other box;
+            # do not retain an abutting interior wall as an outside fragment.
+            continue
+        if np.max(values)<-EPS_CLIP:continue
+        if np.min(values)>EPS_CLIP:
+            result.append(remaining);remaining=None;break
+        outside=clip_polygon(remaining,n,b,False,face_normal)
+        if outside is not None:result.append(outside)
+        remaining=clip_polygon(remaining,n,b,True,face_normal)
+    return result
+
+
+def initial_faces(box):
+    out=[]
+    for axis in range(3):
+        u=(axis+1)%3;v=(axis+2)%3
+        for sign in (-1,1):
+            n=sign*box.rotation[:,axis]
+            center=box.position+n*box.size[axis]
+            a=box.rotation[:,u]*box.size[u]
+            b=sign*box.rotation[:,v]*box.size[v]
+            vertices=np.array([center-a-b,center+a-b,center+a+b,center-a+b])
+            out.append(FacePatch(vertices,n,box.geom_id,2*axis+(sign==1)))
+    return out
+
+
+def boundary_patches(boxes):
+    if not boxes or any(b.kind!='box' for b in boxes) or len({b.geom_id for b in boxes})!=len(boxes):
+        raise ValueError('Only finite unique-id closed boxes are supported')
+    patches=[]
+    for owner in boxes:
+        for face in initial_faces(owner):
+            fragments=[face.vertices]
+            for other in boxes:
+                if other.geom_id==owner.geom_id:continue
+                fragments=[child for polygon in fragments for child in subtract_box(polygon,face.normal,other)]
+                if len(fragments)+len(patches)>MAX_POLYGONS:raise ValueError('Exposed-polygon budget exceeded')
+            for polygon in fragments:
+                residual=np.abs((polygon-face.vertices[0])@face.normal).max()
+                if residual>EPS_FACE:raise ValueError('Clipped polygon left owner face plane')
+                ns,bs=planes(owner)
+                if np.max(polygon@ns.T-bs)>EPS_FACE:raise ValueError('Clipped polygon leaves owner box')
+                patches.append(FacePatch(polygon,face.normal,owner.geom_id,face.face_id))
+    if not patches:raise ValueError('Nonempty finite boxes cannot have empty boundary')
+    # Positive-area fragment interiors must not be strictly buried in another
+    # box. This diagnostic check supplements, not replaces, clipping semantics.
+    for patch in patches:
+        center=patch.vertices.mean(axis=0)[None,:]
+        for other in boxes:
+            if np.min(other.query(center)['signed_distance_m']) < -EPS_FACE:
+                raise ValueError('Retained positive-area patch centroid is buried')
+    return patches
+
+
+def polygon_query(points,patch):
+    p=np.asarray(points,dtype=np.float64);v=patch.vertices;n=patch.normal
+    off=(p-v[0])@n;projection=p-off[:,None]*n
+    inside=np.ones(len(p),dtype=bool)
+    edge_ds=np.full(len(p),np.inf);edge_q=np.zeros_like(p)
+    for i,a in enumerate(v):
+        b=v[(i+1)%len(v)];edge=b-a
+        norm=float(edge@edge)
+        if norm<=1e-28:raise ValueError('Unresolved polygon edge')
+        inside&=np.cross(edge,projection-a)@n>=0
+        alpha=np.clip((p-a)@edge/norm,0,1)
+        q=a+alpha[:,None]*edge
+        ds=np.einsum('ij,ij->i',p-q,p-q)
+        take=ds<edge_ds;edge_ds[take]=ds[take];edge_q[take]=q[take]
+    plane_ds=off*off
+    use=inside & (plane_ds<=edge_ds)
+    ds=np.where(use,plane_ds,edge_ds)
+    q=edge_q.copy();q[use]=projection[use]
+    margin=np.where(use,np.sqrt(np.maximum(0,edge_ds-plane_ds)),0.)
+    return np.sqrt(np.maximum(0,ds)),q,margin
+
+
+def union_query(points,boxes,patches=None,chunk=256,deadline=None,counter=None,maximum_polygon_queries=100000000):
+    """True union-boundary distance, including inside points, conditional F64.
+
+    Signed result uses closed-box membership and boundary distance. Unlike
+    min(member SDF), distance excludes hidden and abutting internal walls.
+    """
+    p=np.asarray(points,dtype=np.float64)
+    if p.ndim!=2 or p.shape[1]!=3 or not np.isfinite(p).all():raise ValueError('Finite Nx3 queries required')
+    if patches is None:patches=boundary_patches(boxes)
+    normals=np.array([f.normal for f in patches]);owners=np.array([f.owner for f in patches])
+    result={key:[] for key in ('unsigned_distance_m','signed_distance_m','inside_union','outside_union','numerically_boundary',
+        'closest_m','normal','normal_reliable_for_palm_union','nearest_owner','closest_unique','normal_patch_margin_m',
+        'different_normal_competitor_gap_m')}
+    normal_policy=Policy(membership_eps_m=1e-10,boundary_eps_m=1e-8,distance_tie_eps_m=EPS_DISTANCE,
+        closest_point_tie_eps_m=EPS_DISTANCE,normal_alignment_cos=1-1e-7,outward_probe_m=1e-6,
+        nonzero_separation_eps_m=EPS_DISTANCE,barycentric_edge_eps=1e-7)
+    for start in range(0,len(p),chunk):
+        q=p[start:start+chunk]
+        if deadline is not None and time.monotonic()>deadline:raise RuntimeError('Frozen wall-clock budget exceeded')
+        if counter is not None:
+            counter[0]+=len(q)*len(patches)
+            if counter[0]>maximum_polygon_queries:raise RuntimeError('Frozen polygon-query budget exceeded')
+        outputs=[polygon_query(q,patch) for patch in patches]
+        distances=np.column_stack([x[0] for x in outputs]);closest=np.stack([x[1] for x in outputs],axis=1)
+        margins=np.column_stack([x[2] for x in outputs]);rows=np.arange(len(q))
+        ids=distances.argmin(axis=1);distance=distances[rows,ids]
+        foot=closest[rows,ids];normal=normals[ids];owner=owners[ids]
+        tied=np.abs(distances-distance[:,None])<=EPS_DISTANCE
+        samepoint=np.linalg.norm(closest-foot[:,None,:],axis=2)<=EPS_DISTANCE
+        same_normal=normal@normals.T>=normal_policy.normal_alignment_cos
+        unique=np.all(~tied | (samepoint & same_normal),axis=1)
+        competitor=np.min(np.where(~same_normal,distances,np.inf),axis=1)
+        signed_members=np.column_stack([b.query(q)['signed_distance_m'] for b in boxes])
+        closed_inside=np.any(signed_members<=0,axis=1)
+        onboundary=distance<=EPS_DISTANCE
+        inside=closed_inside & ~onboundary;outside=~closed_inside & ~onboundary
+        if np.any(outside & (signed_members.min(axis=1)<-EPS_DISTANCE)):
+            raise ValueError('Union boundary/membership inconsistency')
+        signed=np.where(inside,-distance,np.where(onboundary,0.,distance))
+        reliable=np.zeros(len(q),dtype=bool)
+        for box in boxes:
+            selected=np.flatnonzero(owner==box.geom_id)
+            if len(selected):
+                exposure=surface_exposure(foot[selected],normal[selected],box.geom_id,boxes,normal_policy)
+                # Same-normal duplicate ownership is irrelevant to a geometric
+                # normal; all other conservative exposure exclusions remain.
+                ok=(exposure['owner_boundary'] & exposure['owner_smooth_aligned'] & ~exposure['buried']
+                    & ~exposure['interface_or_nonaligned_duplicate'] & ~exposure['outward_probe_not_entirely_exterior'])
+                reliable[selected]=ok & unique[selected] & ~onboundary[selected]
+        values={'unsigned_distance_m':distance,'signed_distance_m':signed,'inside_union':inside,'outside_union':outside,
+            'numerically_boundary':onboundary,'closest_m':foot,'normal':normal,'nearest_owner':owner,
+            'closest_unique':unique,'normal_reliable_for_palm_union':reliable,
+            'normal_patch_margin_m':margins[rows,ids],'different_normal_competitor_gap_m':competitor-distance}
+        for key,value in values.items():result[key].append(value)
+    return {key:np.concatenate(value,axis=0) for key,value in result.items()}

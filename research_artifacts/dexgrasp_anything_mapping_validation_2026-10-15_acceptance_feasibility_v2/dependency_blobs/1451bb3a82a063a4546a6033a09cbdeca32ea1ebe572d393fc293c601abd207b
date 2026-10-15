@@ -1,0 +1,91 @@
+"""Prospective deterministic DEVELOPMENT witness replay, never held-out data.
+
+One pooled set is shared by every future input; no case-specific new selection.
+Reads saved historical distances only. Does not call any geometry routine.
+"""
+from pathlib import Path
+import hashlib,ast,json
+import numpy as np
+PARTS=('palm','index','middle','ring','little','thumb','wrist_carrier')
+BANDS_M=(.0005,.001,.002)
+MAX_POOLED_WITNESSES=256
+RHO_M=np.sqrt(41)*.00025/7
+EPS_M=1e-9
+
+def digest(path):return 'sha256:'+hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def definite_difference_groups(source,target,rho=RHO_M):
+ s,t=np.asarray(source),np.asarray(target)
+ if s.shape!=t.shape or s.ndim!=2 or s.shape[1]<7 or np.isnan(s).any() or np.isnan(t).any() or np.any(s<0) or np.any(t<0):raise ValueError('Historical unsigned distances must be nonnegative/nonNaN, infinity means certified miss')
+ result=[]
+ for j,part in enumerate(PARTS):
+  for band in BANDS_M:
+   for polarity,mask in [('lost',(s[:,j]+rho+EPS_M<=band)&(t[:,j]-rho-EPS_M>band)),('new',(t[:,j]+rho+EPS_M<=band)&(s[:,j]-rho-EPS_M>band))]:result.append((f'{part}/{band}/{polarity}',np.flatnonzero(mask)))
+ return result
+
+def occupancy_groups(source_signed,target_signed,rho=RHO_M):
+ s,t=np.asarray(source_signed),np.asarray(target_signed)
+ if s.shape!=t.shape or s.ndim!=1 or not np.isfinite(s).all() or not np.isfinite(t).all():raise ValueError('Finite signed historical correspondence required')
+ return [('palm_occupancy/lost_inside',np.flatnonzero((s+rho+EPS_M<0)&(t-rho-EPS_M>0))),('palm_occupancy/new_inside',np.flatnonzero((s-rho-EPS_M>0)&(t+rho+EPS_M<0)))]
+
+def balanced_farthest(groups,limit=MAX_POOLED_WITNESSES):
+ """Fixed ordered group round-robin. Per group pick farthest from all globally
+ selected points; exact distance ties choose lowest original archive index.
+ Exact physical-coordinate duplicates cannot consume extra slots.
+ """
+ if limit!=MAX_POOLED_WITNESSES:raise ValueError('Frozen maximum256 witness budget')
+ prepared=[]
+ for group in groups:
+  q=np.asarray(group['queries_m']);indices=np.asarray(group['indices'],dtype=np.int64)
+  if q.ndim!=2 or q.shape[1]!=3 or not np.isfinite(q).all() or np.any(indices<0) or np.any(indices>=len(q)):raise ValueError('Malformed witness group')
+  indices=np.unique(indices);prepared.append({'id':group['id'],'queries_m':q,'indices':indices,'minimum_squared_distance':np.full(len(indices),np.inf),'available':np.ones(len(indices),dtype=bool)})
+ selected=[];provenance=[];seen=set()
+ while len(selected)<limit:
+  progress=False
+  for group in prepared:
+   while np.any(group['available']):
+    candidates=np.flatnonzero(group['available']);slot=candidates[np.argmax(group['minimum_squared_distance'][candidates])];original=int(group['indices'][slot]);point=group['queries_m'][original];group['available'][slot]=False;key=tuple(float(v) for v in point)
+    if key in seen:continue
+    seen.add(key);selected.append(point.copy());provenance.append({'group_id':group['id'],'original_archive_query_index':original});progress=True
+    for other in prepared:
+     if len(other['indices']):
+      delta=other['queries_m'][other['indices']]-point;other['minimum_squared_distance']=np.minimum(other['minimum_squared_distance'],np.einsum('ij,ij->i',delta,delta))
+    break
+   if len(selected)>=limit:break
+  if not progress:break
+ return np.array(selected,dtype=np.float64).reshape(-1,3),provenance
+
+def collect(spec):
+ if [x['global_sample_index'] for x in spec]!=[1,3]:raise ValueError('Only historical development rows1/3 allowed')
+ groups=[];bindings=[]
+ for row in spec:
+  g=row['global_sample_index']
+  report_values={}
+  for kind in ['visual_report','palm_report','visual_part_definition']:
+   f=row[kind]
+   if digest(f['path'])!=f['sha256']:raise ValueError('Historical report/partdefinition changed')
+   bindings.append(dict(f,global_sample_index=g,family=kind))
+   if kind!='visual_part_definition':report_values[kind]=json.loads(Path(f['path']).read_text())
+  vr,pr=report_values['visual_report'],report_values['palm_report']
+  definition=row['visual_part_definition'];literal=None
+  for node in ast.parse(Path(definition['path']).read_text()).body:
+   if isinstance(node,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='PARTS' for t in node.targets):literal=ast.literal_eval(node.value)
+  if tuple(literal or ())!=PARTS+('forearm_carrier',) or vr['dependencies'].get(definition['path'])!=definition['sha256']:raise ValueError('Exact historical unsigned columnorder proof required')
+  vc=next(c for c in vr['cases'] if c['global_sample_index']==g);pc=next(c for c in pr['cases'] if c['global_sample_index']==g)
+  resolution=vc['resolutions']['0.25']
+  if resolution['covering_radius_m']!=RHO_M or resolution['search_radius_m']<max(BANDS_M)+RHO_M+EPS_M:raise ValueError('Historical infinity miss/cellcoverage semantics not bound')
+  if not any(v['path']==Path(row['visual']['path']).name and v['sha256']==row['visual']['sha256'] for v in vr['arrays']):raise ValueError('Historical visual archive not in boundreport')
+  if pc['resolutions']['0.25']['query_arrays']!={'path':Path(row['palm']['path']).name,'sha256':row['palm']['sha256']}:raise ValueError('Historical palm archive not in boundreport')
+  for kind in ['visual','palm']:
+   f=row[kind]
+   if digest(f['path'])!=f['sha256']:raise ValueError('Historical witness archive changed')
+   bindings.append(dict(f,global_sample_index=g,family=kind))
+  with np.load(row['visual']['path'],allow_pickle=False) as z:
+   q=z['cube_query_m'];source=z['source_distance_by_part_m'];target=z['target_distance_by_part_m']
+   if q.shape!=(240000,3) or source.shape!=(240000,8) or target.shape!=source.shape:raise ValueError('Bound0.25mm historical array schema')
+   for name,indices in definite_difference_groups(source,target):groups.append({'id':f'row{g}/visual/{name}','queries_m':q,'indices':indices})
+  with np.load(row['palm']['path'],allow_pickle=False) as z:
+   q=z['cube_queries_m'];s=z['source__signed_distance_m'];t=z['target__signed_distance_m']
+   if q.shape!=(240000,3):raise ValueError('Bound0.25mm palm schema')
+   for name,indices in occupancy_groups(s,t):groups.append({'id':f'row{g}/{name}','queries_m':q,'indices':indices})
+ points,provenance=balanced_farthest(groups)
+ return points,{'schema_version':'dga_fixed_pooled_development_witness_queries_v1','maximum_witnesses':256,'actual_witnesses':len(points),'source_archive_bindings':bindings,'groups':[{'id':x['id'],'definite_witness_count':len(x['indices'])} for x in groups],'selected':provenance,'future_case_adaptive_selection':False,'consumed_development_evidence':True,'new_geometry_queries':0}

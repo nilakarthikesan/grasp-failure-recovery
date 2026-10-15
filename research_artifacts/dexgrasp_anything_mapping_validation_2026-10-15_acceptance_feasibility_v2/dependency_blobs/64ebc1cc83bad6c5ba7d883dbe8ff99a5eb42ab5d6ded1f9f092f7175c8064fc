@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+"""Independent manufactured accepted-state backtracking specification controls.
+
+This is an oracle, not the forthcoming production/fit implementation. All
+numbers are toy values; no new scientific gate, native pose or geometry is used.
+"""
+from datetime import datetime,timezone
+import hashlib,json,unittest
+from pathlib import Path
+import numpy as np
+ALPHAS=tuple(2.**(-i) for i in range(11))+(0.,)
+def strict_landmark_guard(candidate,reference):
+ return candidate['max']<=reference['max'] and candidate['SSE']<=reference['SSE']
+def oracle(current,proposal,current_loss,guard,objective):
+ before=current.copy();logs=[]
+ if not np.isfinite(proposal).all():
+  return current.copy(),current_loss,0.,[{'proposal':'NONFINITE_REFUSED','surface_evaluated':False}]
+ for alpha in ALPHAS:
+  if alpha==0:
+   # Exact accepted-state fallback: no reconstruction, geometry, or 0*NaN.
+   return before.copy(),current_loss,0.,logs+[{'alpha':0.,'fallback':True,'surface_evaluated':False}]
+  trial=before+alpha*(proposal-before);valid=guard(trial);row={'alpha':alpha,'guard':valid,'surface_evaluated':False}
+  if valid:
+   loss=objective(trial);row['surface_evaluated']=True;row['loss']=loss
+   if np.isfinite(loss) and loss<=current_loss:
+    logs.append(row);return trial.copy(),loss,alpha,logs
+  logs.append(row)
+ raise AssertionError('Fixed zero fallback missing')
+class BacktrackingDesignControls(unittest.TestCase):
+ def test_fixed_schedule_eleven_positive_and_zero(self):
+  self.assertEqual(len(ALPHAS),12);self.assertEqual(ALPHAS[:2],(1.,.5));self.assertEqual(ALPHAS[-2:],(1/1024,0.))
+ def test_infeasible_large_step_is_not_sent_to_surface(self):
+  queried=[]
+  def objective(x):
+   if abs(x[0])>1:raise AssertionError('Invalid state reached geometry')
+   queried.append(x.copy());return float((x[0]-.5)**2)
+  x,loss,alpha,trace=oracle(np.array([0.]),np.array([10.]),.25,lambda x:abs(x[0])<=1,objective)
+  self.assertEqual(alpha,1/16);self.assertEqual(x[0],.625);self.assertEqual(len(queried),1);self.assertEqual(len(trace),5)
+  self.assertTrue(all(not t['surface_evaluated'] for t in trace[:-1]))
+ def test_feasible_worse_surface_loss_retains_exact_current(self):
+  x0=np.array([-.0,.123456789]);x,loss,alpha,trace=oracle(x0,np.array([1.,.123456789]),0.,lambda x:True,lambda x:float(x[0]**2))
+  self.assertEqual(alpha,0.);self.assertEqual(loss,0.);self.assertEqual(x.tobytes(),x0.tobytes());self.assertEqual(len(trace),12);self.assertFalse(trace[-1]['surface_evaluated'])
+ def test_guard_maximum_and_SSE_both_required(self):
+  r={'max':1.,'SSE':2.}
+  self.assertFalse(strict_landmark_guard({'max':.5,'SSE':2.01},r));self.assertFalse(strict_landmark_guard({'max':1.01,'SSE':1.},r));self.assertTrue(strict_landmark_guard(r,r))
+ def test_one_float_step_regression_is_not_tolerated(self):
+  r={'max':1.,'SSE':2.}
+  self.assertFalse(strict_landmark_guard({'max':float(np.nextafter(1.,np.inf)),'SSE':2.},r))
+ def test_every_interpolated_trial_needs_its_actual_guard(self):
+  inspected=[]
+  def guard(x):inspected.append(x[0]);return x[0]<=.1
+  x,loss,a,trace=oracle(np.array([0.]),np.array([1.]),1.,guard,lambda x:1-x[0])
+  self.assertEqual(a,1/16);self.assertEqual(inspected,[1.,.5,.25,.125,.0625]);self.assertEqual(x[0],.0625)
+ def test_nonfinite_proposal_does_not_poison_zero_fallback(self):
+  x0=np.array([.25]);x,loss,a,trace=oracle(x0,np.array([np.nan]),.5,lambda x:True,lambda x:(_ for _ in ()).throw(AssertionError('No geometry expected')))
+  self.assertEqual(x.tobytes(),x0.tobytes());self.assertEqual(a,0.);self.assertFalse(trace[0]['surface_evaluated'])
+ def test_nonfinite_field_loss_cannot_be_accepted(self):
+  x,loss,a,trace=oracle(np.array([0.]),np.array([1.]),1.,lambda x:True,lambda x:float('nan'))
+  self.assertEqual(a,0.);self.assertEqual(loss,1.);self.assertEqual(len(trace),12)
+ def test_accepted_step_does_not_mutate_current_or_proposal(self):
+  x=np.array([0.]);y=np.array([.25]);original_x=x.copy();original_y=y.copy();new,loss,a,trace=oracle(x,y,1.,lambda x:True,lambda x:1-x[0])
+  np.testing.assert_array_equal(x,original_x);np.testing.assert_array_equal(y,original_y);self.assertEqual(a,1.);self.assertEqual(new[0],.25)
+ def test_next_block_starts_from_last_accepted_state(self):
+  current=np.array([0.]);current,loss,a,_=oracle(current,np.array([.5]),1.,lambda x:x[0]<=.6,lambda x:1-x[0])
+  next_state,next_loss,a,trace=oracle(current,np.array([2.]),loss,lambda x:x[0]<=.6,lambda x:1-x[0])
+  self.assertEqual(a,1/16);self.assertEqual(next_state[0],.59375);self.assertLessEqual(next_loss,loss)
+ def test_fixed_selection_tie_prefers_original_baseline(self):
+  candidates=[{'loss':.1,'order':2},{'loss':.1,'order':0},{'loss':.1,'order':1}]
+  self.assertEqual(min(candidates,key=lambda x:(x['loss'],x['order']))['order'],0)
+ def test_hard_joint_and_wrist_gates_cannot_be_compensated_by_loss(self):
+  native_wrist=.125
+  def guard(x):return x[0]==native_wrist and -.2<=x[1]<=.2
+  x0=np.array([native_wrist,0.]);proposal=np.array([.25,1.]);new,loss,a,trace=oracle(x0,proposal,1.,guard,lambda x:-100.)
+  self.assertEqual(a,0.);self.assertEqual(new.tobytes(),x0.tobytes());self.assertTrue(all(not t['surface_evaluated'] for t in trace))
+def main():
+ out=Path(__file__).with_name('backtracking_design_controls_receipt_v1.json')
+ if out.exists():raise FileExistsError(out)
+ result=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(BacktrackingDesignControls))
+ r={'schema_version':'dga_feasible_surface_independent_design_controls_v1','created_at_utc':datetime.now(timezone.utc).isoformat(),'status':'PASS' if result.wasSuccessful() else 'FAIL','tests':result.testsRun,'failures':len(result.failures),'errors':len(result.errors),'code_sha256':'sha256:'+hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'classification':'Toy independent specification controls; actual forthcoming implementation not tested by these oracles.','scope':'No geometry queries, native inputs, optimizer, inference, GPU, physics, evaluation labels or model training. Scientific57531 criterion remains separate and unchanged.'}
+ out.write_text(json.dumps(r,indent=2)+'\n')
+ if not result.wasSuccessful():raise SystemExit(1)
+if __name__=='__main__':main()

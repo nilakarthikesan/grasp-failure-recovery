@@ -1,0 +1,254 @@
+#!/usr/bin/env python3
+"""Fresh, strictly scoped signed declared-palm union holdout; zero execution.
+
+All sixteen native outcomes determine selection before downstream prerequisites.
+Only the preselected COMPLETE subset is queried; failures never trigger backfill.
+"""
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import json
+from pathlib import Path
+import sys
+import time
+import numpy as np
+import measure_palm_holdout as m
+
+sys.dont_write_bytecode = True
+SCIENCE = 'sha256:57531e1e79a98f8e6b667bdd9a43e41a5e90ce8bdec35e56a833408baa106375'
+NATIVE = 'sha256:76f2ab3c7955ce2791e094da162d186a3f128425d863be81839385b195c17c59'
+PROFILE = 'dga_multidex_official_unguided_v1'
+POSE_KEYS = ('global_sample_indices','source_hand_qpos','target_joint_values',
+ 'object_from_source_forearm','object_from_source_palm','object_from_target_palm',
+ 'object_from_target_root_world','object_from_target_forearm','source_palm_from_target_palm')
+
+
+def verify(deps):
+ for path, digest in deps.items():
+  if m.digest(path) != digest: raise ValueError('Dependency changed: '+path)
+
+
+def read_bound(path, deps):
+ path = str(Path(path).resolve())
+ if path not in deps or m.digest(path) != deps[path]: raise ValueError('Unbound read: '+path)
+ return json.loads(Path(path).read_text())
+
+
+def child(base, ref, deps):
+ p = (Path(base)/ref['path']).resolve()
+ if not p.is_relative_to(Path(base).resolve()): raise ValueError('Escaping artifact path')
+ if deps.get(str(p)) != ref['sha256'] or m.digest(p) != ref['sha256']: raise ValueError('Unbound child')
+ return p
+
+
+def select(ledger):
+ if ledger.get('schema_version') != 'dga_independent_native_static_check_v1' or ledger['sample_count'] != 16:
+  raise ValueError('Full independent native ledger required')
+ rows = ledger['records']
+ if [r['global_sample_index'] for r in rows] != list(range(16)): raise ValueError('All sixteen ordered records required')
+ if any(type(r['native_output_complete_and_finite']) is not bool or not isinstance(r['source_limit_violations'],list) for r in rows):
+  raise ValueError('Explicit native integrity/source-domain gates required')
+ return [r['global_sample_index'] for r in rows if r['native_output_complete_and_finite'] and not r['source_limit_violations']][:2]
+
+
+def accounting(fit, selected, arr):
+ if fit['selected_global_indices'] != selected or [r['global_sample_index'] for r in fit['records']] != selected:
+  raise ValueError('Selected accounting changed or omitted')
+ completed = [r['global_sample_index'] for r in fit['records'] if r['correction_status'] == 'COMPLETE']
+ if fit['completed_global_indices'] != completed or arr['global_sample_indices'].tolist() != completed:
+  raise ValueError('Completed subset must exactly match records/arrays; no backfill')
+ if fit['no_backfill'] is not True or fit['execution_eligible'] is not False: raise ValueError('Unsafe producer accounting')
+ return completed
+
+
+def exact_array(a,b):
+ a,b=np.asarray(a),np.asarray(b)
+ return a.shape==b.shape and a.dtype==b.dtype and a.tobytes(order='C')==b.tobytes(order='C')
+
+
+def arrays_valid(arr):
+ if set(arr)!=set(POSE_KEYS): raise ValueError('Exact nine pose arrays required')
+ indices=arr['global_sample_indices'];n=len(indices)
+ if indices.shape!=(n,) or indices.dtype!=np.dtype('int64') or n>2: raise ValueError('Invalid bounded global indices')
+ for key in POSE_KEYS[1:]:
+  shape=(n,33) if key=='source_hand_qpos' else (n,24) if key=='target_joint_values' else (n,4,4)
+  if arr[key].shape!=shape or arr[key].dtype.kind!='f' or not np.isfinite(arr[key]).all(): raise ValueError('Invalid fit array: '+key)
+  if len(shape)==3:
+   for t in arr[key]:m.proper(t)
+
+
+def fit_headers(fit,p,deps):
+ if (fit['schema_version']!='dga_component_native_mapping_report_v1' or
+  fit['status']!='COMPLETE_SELECTED_CASE_ACCOUNTING_PENDING_FROZEN_HOLDOUT' or
+  fit['source_profile_id']!=PROFILE or fit['sample_count']!=16 or
+  fit['scientific_protocol']['sha256']!=SCIENCE or fit['native_protocol_sha256']!=NATIVE or
+  fit['implementation_policy_sha256']!=p['fit_policy_sha256'] or fit['method']['sha256']!=p['method_sha256'] or
+  fit['holdout_feedback'] is not False or fit['no_future_holdout_feedback'] is not True or
+  fit['acceptance_from_objective'] is not False or fit['joint_names']!=list(m.JOINTS)):
+  raise ValueError('Producer identity/science/method/feedback contract mismatch')
+ policy=read_bound(p['fit_policy'],deps)
+ if m.digest(p['fit_policy'])!=p['fit_policy_sha256']:raise ValueError('Fit policy hash changed')
+ for path,h in policy['dependency_sha256'].items():
+  if deps.get(path)!=h:raise ValueError('Producer dependency omitted: '+path)
+ for path,h in fit['dependency_sha256'].items():
+  if deps.get(path)!=h:raise ValueError('Fit/ledger dependency omitted: '+path)
+ for ref in (fit['scientific_protocol'],fit['method'],fit['native_ledger']):
+  if deps.get(str(Path(ref['path']).resolve()))!=ref['sha256']:raise ValueError('Producer reference not bound')
+ if str(Path(fit['native_ledger']['path']).resolve())!=str(Path(p['validation_report']).resolve()):raise ValueError('Wrong native ledger')
+
+
+def close(a,b,message):
+ if np.shape(a)!=np.shape(b) or not np.isfinite(a).all() or not np.isfinite(b).all() or np.max(np.abs(np.asarray(a)-np.asarray(b)))>1e-9:
+  raise ValueError(message)
+
+
+def prerequisites(row):
+ if (row['native_output_complete_and_finite'] is not True or row['source_limit_violations'] or
+  row['native_mapping_input_prerequisites_pass'] is not True or row['fp32_mapping_reference_reconstruction']['status']!='PASS'):
+  raise ValueError('Native stage/source/FP32 reference prerequisite failed')
+
+
+def prepare(p):
+ """Hash/FK/frame checks only; no boundary construction or geometry queries."""
+ deps=p['dependencies'];verify(deps)
+ for key in ('source_urdf','target_urdf','independent_fk','native_helper','scientific_protocol','native_protocol'):
+  if str(Path(p[key]).resolve()) not in deps:raise ValueError('Required dependency omitted: '+key)
+ if (p['schema_version']!='dga_component_native_palm_acceptance_policy_v1' or
+  p['scientific_protocol_sha256']!=SCIENCE or p['native_protocol_sha256']!=NATIVE or
+  p['code_sha256']!=m.digest(__file__) or p['query_fractions']!=[2/5,1/3] or
+  p['spacing_mm']!=[1.,.5,.25] or p['bands_mm']!=[.5,1.,2.] or
+  p['distance_allowance_m']!=m.EPS_DISTANCE or p['maximum_polygon_queries']!=150000000 or
+  p['maximum_wall_seconds']!=600 or p['execution_eligible'] is not False): raise ValueError('Frozen measurement/scope changed')
+ science=read_bound(p['scientific_protocol'],deps)
+ if m.digest(p['scientific_protocol'])!=SCIENCE or science['status']!='FROZEN_BEFORE_CANDIDATE_METRICS':raise ValueError('Wrong scientific protocol')
+ read_bound(p['native_protocol'],deps)
+ if m.digest(p['native_protocol'])!=NATIVE:raise ValueError('Wrong sealed cohort protocol')
+ ledger=read_bound(p['validation_report'],deps);selected=select(ledger)
+ if p['selected_indices']!=selected:raise ValueError('Selection is not first two completefinite source-valid rows')
+ if len(selected)<2:return {'ledger':ledger,'selected':selected,'completed':[],'cases':[],'insufficient':True}
+ fit=read_bound(p['fit_report'],deps);algebra=read_bound(p['algebra_report'],deps)
+ fit_headers(fit,p,deps)
+ arrays_path=child(Path(p['fit_report']).parent,fit['arrays'],deps)
+ if arrays_path!=Path(p['fit_arrays']).resolve():raise ValueError('Wrong fit arrays path')
+ with np.load(arrays_path,allow_pickle=False) as z:arr={k:z[k] for k in z.files}
+ arrays_valid(arr);completed=accounting(fit,selected,arr)
+ audit=m.load_module('_dga_native_palm_fk',p['independent_fk']);helper=m.load_module('_dga_native_palm_helper',p['native_helper'])
+ source=audit.model(Path(p['source_urdf']));target=audit.model(Path(p['target_urdf']))
+ if target['root']!='world' or source['root']!='forearm':raise ValueError('Wrong declared roots')
+ if [r['global_sample_index'] for r in algebra['records']]!=list(range(16)):raise ValueError('All16 algebra records required')
+ records={r['global_sample_index']:r for r in fit['records']};cases=[]
+ for i,g in enumerate(completed):
+  row=ledger['records'][g];prerequisites(row);rec=records[g]
+  nr=row['native_manifest'];native=read_bound(nr['path'],deps)
+  if m.digest(nr['path'])!=nr['sha256']:raise ValueError('Native manifest changed')
+  rawpath=child(Path(nr['path']).parent,native['output'],deps)
+  with np.load(rawpath,allow_pickle=False) as z:raw=z['hand_qpos'][row['within_batch_sample_index']]
+  if not exact_array(raw,arr['source_hand_qpos'][i]):raise ValueError('Original native pose bytes/dtype changed')
+  if rec['raw33_row_sha256']!='sha256:'+hashlib.sha256(raw.tobytes()).hexdigest():raise ValueError('Raw pose digest changed')
+  qs=dict(zip(m.JOINTS,raw[9:].tolist(),strict=True));qt=dict(zip(m.JOINTS,arr['target_joint_values'][i].tolist(),strict=True))
+  if qs!=row['joint_targets_rad'] or qt!=rec['target_joint_targets_rad'] or helper.source_limit_violations(source,qs) or helper.source_limit_violations(target,qt):raise ValueError('Source/target strict joint contract failed')
+  if any(qs[k]!=qt[k] for k in ('WRJ1','WRJ2')):raise ValueError('Original wrists changed')
+  sf=audit.independent_fk(source,qs);tf=audit.independent_fk(target,qt)
+  S=arr['object_from_source_palm'][i];T=arr['object_from_target_palm'][i];root=arr['object_from_target_root_world'][i]
+  a=algebra['records'][g]['transforms']
+  close(S,np.asarray(a['object_from_palm']),'Source palm changed')
+  close(arr['object_from_source_forearm'][i],np.asarray(a['object_from_source_forearm']),'Source forearm changed')
+  close(arr['object_from_source_forearm'][i]@sf['palm'],S,'Source FK/palm composition failed')
+  close(root@tf['palm'],T,'Target FK/palm composition failed')
+  close(root@tf['forearm'],arr['object_from_target_forearm'][i],'Target FK/forearm composition failed')
+  close(S@arr['source_palm_from_target_palm'][i],T,'Palm delta composition failed')
+  ev=row['mapping_reference'];ref=read_bound(ev['path'],deps)
+  if m.digest(ev['path'])!=ev['sha256']:raise ValueError('FP32 reference changed')
+  refpath=child(Path(ev['path']).parent,ref['arrays'],deps)
+  # Retain the exact previously gated reference; collision frame uses independent F64 algebra.
+  with np.load(refpath,allow_pickle=False) as z:
+   for k in ('input_from_forearm','forearm_from_link__palm'):
+    if z[k].shape[1:]!=(4,4) or not np.isfinite(z[k]).all():raise ValueError('Invalid bound FP32 frames')
+  lm=rec['landmark_metrics'];caps=rec['landmark_limits'];errors=np.asarray(lm['per_site_error_m'])
+  if errors.shape!=(28,) or not np.isfinite(errors).all() or np.any(errors<0):raise ValueError('All28 landmark errors required')
+  if float(errors.max())!=lm['maximum_site_error_m'] or float(errors.mean())!=lm['mean_site_error_m']:raise ValueError('Inconsistent landmark aggregates')
+  if np.any(errors>caps['maximum_site_error_m']) or lm['all_site_SSE_m2']>caps['all_site_SSE_m2'] or lm['mean_site_error_m']>caps['mean_site_error_m'] or rec['componentwise_nonregression'] is not True:
+   raise ValueError('Certified producer landmark/component guard failed')
+  cases.append({'global_sample_index':g,'source_palm':S,'target_palm':T,'row':row,'producer':rec})
+ verify(deps)
+ return {'ledger':ledger,'selected':selected,'completed':completed,'cases':cases,'insufficient':False}
+
+
+def run(p,policy_hash,output):
+ if output.exists():raise FileExistsError('Never overwrite evidence or a failed attempt')
+ context=prepare(p);output.mkdir(parents=True,exist_ok=False)
+ m.write(output/'premeasurement_receipt.json',{'policy_sha256':policy_hash,'dependencies':p['dependencies'],
+  'selected_indices':context['selected'],'completed_indices':context['completed'],'surface_queries':0,'native_calls':0,'physics_steps':0})
+ start=time.monotonic();counter=[0]
+ try:
+  cases=[];patches={};declarations={}
+  if context['cases']:
+   source,declarations['source']=m.palm_boxes(p['source_urdf'],1);target,declarations['target']=m.palm_boxes(p['target_urdf'],8)
+   patches={'source':m.boundary_patches(source),'target':m.boundary_patches(target)}
+   deadline=start+p['maximum_wall_seconds']
+   for item in context['cases']:
+    g=item['global_sample_index'];resolutions={}
+    for h in p['spacing_mm']:
+     points,normals,faces,area,rho=m.cube_grid(h)
+     a=m.query_object(points,item['source_palm'],source,patches['source'],deadline,counter,p['maximum_polygon_queries'])
+     b=m.query_object(points,item['target_palm'],target,patches['target'],deadline,counter,p['maximum_polygon_queries'])
+     archive=output/f'global_{g}_grid_{h:g}mm.npz';arrays={'cube_queries_m':points,'cube_normals':normals,'cube_face_ids':faces}
+     for owner,r in (('source',a),('target',b)):arrays.update({owner+'__'+k:v for k,v in r.items()})
+     np.savez_compressed(archive,**arrays);summary=m.summarize(a,b,normals,rho,area,p['bands_mm'])
+     summary.update(query_count=len(points),cell_area_m2=area,covering_radius_m=rho,query_arrays={'path':archive.name,'sha256':m.digest(archive)})
+     resolutions[str(h)]=summary
+     print(json.dumps({'global_sample_index':g,'spacing_mm':h,'polygon_queries':counter[0]}),flush=True)
+    near={str(band):m.coverage_status([r['bands'][str(band)]['strict_nearset_preservation_status'] for r in resolutions.values()]) for band in p['bands_mm']}
+    occupancy=m.coverage_status([r['occupancy_and_exclusion']['occupancy_preservation_status'] for r in resolutions.values()])
+    direction='FAIL' if any(r['bands'][str(b)]['normal_point_facing_sign_change_count'] for r in resolutions.values() for b in p['bands_mm']) else 'UNRESOLVED'
+    cases.append({'global_sample_index':g,'original_mapping_status':item['row']['mapping_status'],
+     'original_default_reference_status':item['row']['native_default_runtime_reconstruction']['status'],
+     'source_reference':'Separate declared source palm1box/F64 algebra, not default TF32 visual geometry',
+     'object_from_source_palm':item['source_palm'].tolist(),'object_from_fitted_target_palm':item['target_palm'].tolist(),
+     'correction_trace_status':item['producer']['optimization_disposition'],'resolutions':resolutions,
+     'strict_palm_nearset_preservation_by_band':near,'strict_palm_occupancy_preservation':occupancy,
+     'qualified_palm_union_facing_relationship':direction,
+     'strict_declared_palm_proximity_and_occupancy_status':m.combine_status(list(near.values())+[occupancy]),
+     'strict_declared_palm_family_status':m.combine_status(list(near.values())+[occupancy,direction]),'execution_eligible':False})
+  verify(p['dependencies'])
+  if {'torch','mujoco','isaacgym','pybullet'}&set(sys.modules):raise ValueError('Forbidden runtime imported')
+  tested_status=m.combine_status([c['strict_declared_palm_family_status'] for c in cases]) if cases else 'NOT_TESTED'
+  all_selected_complete=len(context['selected'])==2 and len(cases)==2
+  report={'schema_version':'dga_component_native_palm_acceptance_report_v1','created_at_utc':datetime.now(timezone.utc).isoformat(),
+   'status':'COMPLETE_SCOPED_NATIVE_PALM_HOLDOUT' if all_selected_complete else 'NOT_TESTED_INSUFFICIENT_SOURCE_VALID_OUTPUTS' if context['insufficient'] else 'PARTIAL_OR_NOT_TESTED_PRESELECTED_FAILURES_RETAINED',
+   'policy_sha256':policy_hash,'scientific_protocol_sha256':SCIENCE,'native_protocol_sha256':NATIVE,'dependency_sha256':p['dependencies'],
+   'sample_count':16,'selected_global_indices':context['selected'],'completed_global_indices':context['completed'],
+   'not_tested_preselected_indices':[g for g in context['selected'] if g not in context['completed']],
+   'preselected_outcomes':[] if context['insufficient'] else read_bound(p['fit_report'],p['dependencies'])['records'],
+   'case_count':len(cases),'cases':cases,'strict_declared_palm_family_status':tested_status,
+   'entire_preselected_scope_status':tested_status if all_selected_complete else 'FAIL' if tested_status=='FAIL' else 'UNRESOLVED',
+   'exact_formula_polygon_queries':counter[0],'exposed_convex_face_fragment_counts':{k:len(v) for k,v in patches.items()},
+   'local_palm_collision_declarations':declarations,'elapsed_seconds':time.monotonic()-start,
+   'numerical_policy':{'arithmetic':'F64 conditional 1nm distance allowance; not a directed-rounding proof',
+    'inside_distance':'Distance to exposed union boundary, internal overlapping/abutting walls removed; never min(member SDF)',
+    'normal_scope':'Outward declared PALM union only; same angular normal group dot>=0.9999999, not exact constant normal',
+    'conditioning':'Inherited clipping/coplanarity/longthin/face-owner/intersection refusals; finite outputs guarded; warnings retained'},
+   'scope':{'full_mapping_accepted':False,'execution_eligible':False,'source_profile_id':PROFILE,
+    'independent_native_outputs':True,'population_generalization':False,'same_input_cube':True,
+    'compiled_collision':'NOT_TESTED','physics':'NOT_TESTED','whole_hand_exterior':'NOT_TESTED',
+    'visual_reference':'SEPARATE_REQUIRED_TEST','contact_threshold':None,'approximate_contact_adequacy':'UNRESOLVED',
+    'original_default_TF32_FAIL':'PRESERVED','no_backfill':True,'zero_observed_difference_is_not_pass':True},
+   'zero_step_evidence':{'native_inference_calls':0,'checkpoint_loads':0,'optimizer_calls':0,'GPU_calls':0,'physics_steps':0,'training_calls':0,'evaluation_episodes':0}}
+  m.write(output/'palm_collider_union_report.json',report)
+  print(json.dumps({'report':str(output/'palm_collider_union_report.json'),'sha256':m.digest(output/'palm_collider_union_report.json'),'polygon_queries':counter[0],'elapsed_seconds':time.monotonic()-start}),flush=True)
+ except BaseException as error:
+  m.write(output/'failure.json',{'status':'FAILED_ATTEMPT_PRESERVED','type':type(error).__name__,'message':str(error),'polygon_queries':counter[0],'elapsed_seconds':time.monotonic()-start})
+  raise
+
+
+def main():
+ ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--policy',type=Path,required=True);ap.add_argument('--policy-sha256',required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--preflight-only',action='store_true');a=ap.parse_args()
+ if a.output.exists():raise FileExistsError('Never overwrite evidence')
+ if m.digest(a.policy)!=a.policy_sha256:raise ValueError('Input policy hash changed')
+ p=json.loads(a.policy.read_text())
+ if a.preflight_only:
+  c=prepare(p);print(json.dumps({'status':'PASS_NO_QUERIES','selected':c['selected'],'completed':c['completed']}));return
+ run(p,a.policy_sha256,a.output)
+
+
+if __name__=='__main__':main()

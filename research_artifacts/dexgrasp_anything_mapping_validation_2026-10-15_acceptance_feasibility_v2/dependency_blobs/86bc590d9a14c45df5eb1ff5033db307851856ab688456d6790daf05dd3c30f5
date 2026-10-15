@@ -1,0 +1,136 @@
+#!/usr/bin/env python3
+"""Verify the pinned DexGrasp Anything source and checkpoint before GPU setup."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+
+
+SOURCE_COMMIT = "86353d710ca71d0f547f0d8b15cc8ca959c78163"
+CHECKPOINT_SHA256 = "f7675d8eb93b3978b2c2d72ec9f54ead6b936d1dd307e07605daa0c02bcac14f"
+CHECKPOINT_SIZE = 110_490_637
+MODEL_REPOSITORY_REVISION = "b24637ce366af4dd75cff723d2b853179155ec29"
+UNTRACKED_RUNTIME_SUFFIXES = frozenset(
+    {".py", ".so", ".pyd", ".yaml", ".yml", ".json", ".urdf", ".xml", ".sh"}
+)
+HASH_CHUNK_BYTES = 1024 * 1024
+
+
+def _git(source: Path, *arguments: str) -> bytes:
+    try:
+        return subprocess.check_output(
+            ["git", *arguments], cwd=source, stderr=subprocess.PIPE
+        )
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise ValueError(
+            f"DexGrasp Anything source must be a verifiable Git checkout: {source}"
+        ) from exc
+
+
+def _paths(output: bytes) -> list[str]:
+    return [os.fsdecode(value) for value in output.split(b"\0") if value]
+
+
+def _verify_source(source: Path, checkpoint: Path) -> str:
+    root = Path(os.fsdecode(_git(source, "rev-parse", "--show-toplevel")).strip())
+    if root.resolve() != source:
+        raise ValueError(f"DexGrasp Anything source must be the Git checkout root: {source}")
+    revision = _git(source, "rev-parse", "HEAD").decode("ascii").strip()
+    if revision != SOURCE_COMMIT:
+        raise ValueError(f"DexGrasp Anything checkout must be {SOURCE_COMMIT}, got {revision}")
+
+    # These index flags can hide modified tracked files from ordinary Git diffs.
+    # Fail closed instead of claiming that such source was inspected as clean.
+    hidden = [
+        entry[2:]
+        for entry in _paths(_git(source, "ls-files", "-v", "-z", "--"))
+        if entry[0].islower() or entry[0] == "S"
+    ]
+    if hidden:
+        raise ValueError(
+            "DexGrasp Anything tracked source has assume-unchanged or "
+            f"skip-worktree entries: {sorted(hidden)!r}"
+        )
+
+    # Inspect index and working tree independently: opposing staged/unstaged edits
+    # can cancel in a single comparison of HEAD against the working tree.
+    differences = set()
+    for staged in (False, True):
+        arguments = ["diff", "--no-ext-diff", "--no-textconv", "--name-only", "-z"]
+        if staged:
+            arguments.append("--cached")
+        arguments.extend(["--ignore-submodules=none", "--"])
+        differences.update(_paths(_git(source, *arguments)))
+    if differences:
+        raise ValueError(f"DexGrasp Anything tracked source is dirty: {sorted(differences)!r}")
+
+    # Omitting --exclude-standard deliberately includes ignored files. Ignoring
+    # a Python/config overlay does not make it safe to execute as pinned source.
+    # Compare lexical absolute paths so a symlink alias cannot gain the exact
+    # checkpoint-path exception. No checkpoint stat/read occurs in this gate.
+    checkpoint_absolute = checkpoint.absolute()
+    overlays = [
+        relative
+        for relative in _paths(_git(source, "ls-files", "--others", "-z", "--"))
+        if Path(relative).suffix.lower() in UNTRACKED_RUNTIME_SUFFIXES
+        and (source / relative).absolute() != checkpoint_absolute
+    ]
+    if overlays:
+        raise ValueError(f"DexGrasp Anything untracked runtime files: {sorted(overlays)!r}")
+    return revision
+
+
+def verify(source: Path, checkpoint: Path) -> dict:
+    source = source.resolve()
+    revision = _verify_source(source, checkpoint)
+    size = checkpoint.stat().st_size
+    if size != CHECKPOINT_SIZE:
+        raise ValueError(f"checkpoint size mismatch: expected {CHECKPOINT_SIZE}, got {size}")
+    hasher = hashlib.sha256()
+    with checkpoint.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(HASH_CHUNK_BYTES), b""):
+            hasher.update(chunk)
+    digest = hasher.hexdigest()
+    if digest != CHECKPOINT_SHA256:
+        raise ValueError(f"checkpoint SHA-256 mismatch: expected {CHECKPOINT_SHA256}, got {digest}")
+    return {
+        "source_commit": revision,
+        "checkpoint_path": str(checkpoint.resolve()),
+        "checkpoint_size_bytes": size,
+        "checkpoint_sha256": f"sha256:{digest}",
+        "huggingface_repository_revision": MODEL_REPOSITORY_REVISION,
+        "verification_scope": {
+            "source_path": str(source),
+            "source_git_head": "exact_pinned_commit",
+            "tracked_source": "no_staged_or_unstaged_git_diff",
+            "source_index_visibility": "no_assume_unchanged_or_skip_worktree_entries",
+            "untracked_runtime_files": "rejected_including_gitignored_files",
+            "untracked_runtime_suffixes": sorted(UNTRACKED_RUNTIME_SUFFIXES),
+            "untracked_checkpoint_path_exception": str(checkpoint.absolute()),
+            "checkpoint": "size_and_streamed_sha256_only_no_deserialization",
+            "not_verified": [
+                "installed_runtime_dependencies",
+                "object_mesh_point_cloud_normals_scale_or_frame",
+                "native_generation_output_or_configuration",
+                "native_mapping_or_physical_equivalence",
+            ],
+        },
+        "verified": True,
+    }
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--source", required=True, type=Path)
+    parser.add_argument("--checkpoint", required=True, type=Path)
+    args = parser.parse_args()
+    print(json.dumps(verify(args.source, args.checkpoint), indent=2, sort_keys=True))
+
+
+if __name__ == "__main__":
+    main()

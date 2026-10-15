@@ -1,0 +1,72 @@
+import importlib.util
+from pathlib import Path
+import sys
+import time
+import numpy as np
+import pytest
+
+HERE = Path(__file__).parent
+W = Path('/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction')
+sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(W / 'src'))
+import generic_baseline as m
+from grasp_failure_prediction.proposals import dexgrasp_anything as base
+
+def load(name, p):
+    spec = importlib.util.spec_from_file_location(name, p)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+fixed = load('generic_test_fixed', '/private/tmp/dga_mapping_continuation_20261015_v1/retarget_development_v1/fit_source_valid_multidex.py')
+free = load('generic_test_free', '/private/tmp/dga_free_palm_20261015_v1/fit_free_palm.py')
+audit = load('generic_test_audit', W / 'scripts/audit_dexgrasp_anything_static.py')
+
+def setup():
+    urdf = W / 'third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf'
+    model = audit.model(urdf)
+    tree = base.DGAHandTree(urdf, base.TARGET_URDF_SHA256)
+    names = base.SOURCE_JOINT_NAMES
+    q = {n: float(np.mean([model['joints'][n]['limit']['lower'], model['joints'][n]['limit']['upper']])) for n in names}
+    q.update(WRJ2=.12, WRJ1=-.16)
+    sites = ['palm'] + sorted(n for n in model['links'] if n.startswith(('ff', 'mf', 'rf', 'lf', 'th')))
+    root = np.eye(4)
+    root[:3, 3] = [.03, -.04, .05]
+    return dict(qsource=q, native_root=root, source_model=model, target_model=model,
+                source_tree=tree, target_tree=tree, names=names, sites=sites,
+                fixed_helper=fixed, free_helper=free, audit=audit,
+                proper_transform=base.proper_transform, deadline=time.monotonic() + 45)
+
+def test_identical_manufactured_hands_preserve_source_wrists_and_palm_chain():
+    args = setup()
+    before = dict(args['qsource'])
+    r = m.build_baseline(**args)
+    assert args['qsource'] == before
+    state = r['free_state']
+    assert state['q']['WRJ2'] == .12 and state['q']['WRJ1'] == -.16
+    assert state['landmark_metrics']['maximum_site_error_m'] < 1e-10
+    assert state['palm_chain_max_entry'] < 1e-12
+    assert len(r['fixed_logs']) == 5 and len(r['free_attempts']) == 2
+    assert r['scientific_acceptance'] is False
+
+def test_invalid_native_domain_is_not_projected_into_acceptance():
+    args = setup()
+    args['qsource']['THJ1'] = -100.
+    before = dict(args['qsource'])
+    with pytest.raises(ValueError, match='Source-domain rejection'):
+        m.build_baseline(**args)
+    assert args['qsource'] == before
+
+def test_expired_budget_refuses_without_unbounded_solver():
+    args = setup()
+    args['deadline'] = time.monotonic() - 1
+    with pytest.raises(TimeoutError):
+        m.build_baseline(**args)
+
+def test_selection_retains_baseline_on_exact_tie_and_rejects_single_metric_regression():
+    caps = dict(maximum_site_error_m=.001, all_site_SSE_m2=1e-6)
+    assert not m.valid_metrics(dict(maximum_site_error_m=.0011, all_site_SSE_m2=.5e-6), caps)
+    assert not m.valid_metrics(dict(maximum_site_error_m=.0009, all_site_SSE_m2=1.1e-6), caps)
+    assert not m.valid_metrics(dict(maximum_site_error_m=float('nan'), all_site_SSE_m2=0), caps)
+    candidates = [dict(landmark_metrics=caps, selection_order=i) for i in [1, 0, 2]]
+    assert min(candidates, key=m.rank)['selection_order'] == 0

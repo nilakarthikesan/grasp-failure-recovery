@@ -1,0 +1,83 @@
+"""Input-independent ledger selection and no-unseal-before-freeze controls."""
+import copy
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import tempfile
+import unittest
+import numpy as np
+
+ROOT=Path(__file__).resolve().parent
+spec=importlib.util.spec_from_file_location('native_static_under_test',ROOT/'validate_native_holdout.py')
+m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+
+
+def rows():
+    return [{'global_sample_index':i,'native_output_complete_and_finite':True,
+             'source_limit_violations':[{'joint':'fixture'}]} for i in range(16)]
+
+
+class StaticContract(unittest.TestCase):
+    def test_first_two_source_valid_not_target_reference_or_solver(self):
+        r=rows()
+        for i in (2,4,7):r[i]['source_limit_violations']=[]
+        r[2].update(target_limit_violations=[{'joint':'wrist'}],mapping_status='REJECTED_TARGET_LIMIT',reference_status='FAIL')
+        r[4].update(solver_status='FAILED',stage_reconstruction={'status':'FAIL'})
+        self.assertEqual(m.selection(r),[2,4])
+
+    def test_no_backfill_after_any_selected_failure(self):
+        r=rows()
+        for i in (0,1,2):r[i]['source_limit_violations']=[]
+        selected=m.selection(r)
+        r[0].update(wrist_failure=True,fit_failure=True,reference_failure=True)
+        self.assertEqual(selected,[0,1]);self.assertEqual(m.selection(r),selected)
+
+    def test_complete_finite_is_separate_native_integrity(self):
+        r=rows()
+        for i in (0,1,2):r[i]['source_limit_violations']=[]
+        r[0]['native_output_complete_and_finite']=False
+        self.assertEqual(m.selection(r),[1,2])
+
+    def test_zero_or_one_valid_is_not_replaced(self):
+        r=rows();self.assertEqual(m.selection(r),[])
+        r[15]['source_limit_violations']=[];self.assertEqual(m.selection(r),[15])
+
+    def test_exact_sixteen_order_and_python_boolean(self):
+        r=rows()
+        for bad in (r[:-1],r[::-1],r+[r[0]]):
+            with self.assertRaises(ValueError):m.selection(bad)
+        for value in ('True',1,np.bool_(True),None):
+            bad=copy.deepcopy(r);bad[0]['native_output_complete_and_finite']=value
+            with self.assertRaises(ValueError):m.selection(bad)
+
+    def authorization_fixture(self,root):
+        implementation=root/'implementation.json';implementation.write_text('{}')
+        method=root/'generic_mapping_freeze.json';method.write_text('{"status":"FROZEN_BEFORE_NATIVE_OUTCOME_READS"}')
+        dependency=root/'generic_baseline_corrector_consumer.py';dependency.write_text('# manufactured public fixture\n')
+        value={'schema_version':'dga_independent_native_unseal_authorization_v1','status':'FROZEN_BEFORE_NATIVE_OUTCOME_READS',
+            'native_protocol_sha256':m.PROTOCOL_SHA,'ledger_implementation':{'path':str(implementation.resolve()),'sha256':m.sha(implementation)},
+            'mapping_selection_policy':m.RULE,'all_mapping_code_and_consumers_frozen':True,
+            'no_holdout_values_read_before_mapping_freeze':True,'forbid_holdout_tuning':True,
+            'mapping_method_freeze':{'path':str(method),'sha256':m.sha(method)},'mapping_dependency_sha256':{str(dependency):m.sha(dependency)}}
+        authorization=root/'authorization.json';authorization.write_text(json.dumps(value))
+        return implementation,method,dependency,authorization,value
+
+    def test_only_frozen_bound_method_authorizes_any_outcome_read(self):
+        with tempfile.TemporaryDirectory(prefix='manufactured-native-unseal-') as path:
+            implementation,method,dependency,authorization,value=self.authorization_fixture(Path(path))
+            self.assertEqual(m.authorize_unseal(authorization,m.sha(authorization),implementation,m.sha(implementation)),value)
+            for key,bad in [('status','DRAFT'),('native_protocol_sha256','sha256:wrong'),('all_mapping_code_and_consumers_frozen',False),
+                            ('no_holdout_values_read_before_mapping_freeze',False),('forbid_holdout_tuning',False),
+                            ('mapping_selection_policy','replace failures with later rows')]:
+                changed=copy.deepcopy(value);changed[key]=bad;authorization.write_text(json.dumps(changed))
+                with self.assertRaises(ValueError):m.authorize_unseal(authorization,m.sha(authorization),implementation,m.sha(implementation))
+
+    def test_mapping_dependency_tamper_blocks_unseal(self):
+        with tempfile.TemporaryDirectory(prefix='manufactured-native-unseal-') as path:
+            implementation,method,dependency,authorization,value=self.authorization_fixture(Path(path))
+            dependency.write_text('# changed manufactured fixture\n')
+            with self.assertRaises(ValueError):m.authorize_unseal(authorization,m.sha(authorization),implementation,m.sha(implementation))
+
+
+if __name__=='__main__':unittest.main()

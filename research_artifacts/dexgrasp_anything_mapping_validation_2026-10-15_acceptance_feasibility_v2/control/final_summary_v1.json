@@ -1,0 +1,57 @@
+{
+  "schema_version": "dga_acceptance_feasibility_summary_v2",
+  "created_at_utc": "2026-10-15T09:18:20.417235+00:00",
+  "scientific_protocol_sha256": "sha256:57531e1e79a98f8e6b667bdd9a43e41a5e90ce8bdec35e56a833408baa106375",
+  "full_mapping_acceptance": "NOT_ACCEPTED",
+  "execution_eligible": false,
+  "target_changed": false,
+  "acceptance_criteria_changed": false,
+  "supported_input_domain_changed": false,
+  "new_native_outputs": 0,
+  "saved_native_outputs_accounted": 16,
+  "source_valid_raw_surface_cases": 11,
+  "source_invalid_cases": 5,
+  "raw_target_legal_indices": [
+    6
+  ],
+  "raw_target_legal_surface_result": "FAIL",
+  "certified_original_guard_incompatible_cases": [
+    "old_development_row1",
+    "new_native_row0"
+  ],
+  "proof_scope": "Exact declared palm geometry and real-arithmetic 28-site max/SSE guards with unchanged recorded constants; all proper target palm placements and finger articulation. Not all DGA poses or arbitrary floating guard implementations.",
+  "fit_states": 2238,
+  "fit_eligible_improvements": 2,
+  "fit_selected_change": {
+    "THJ3_delta_rad": 1.0000000000010001e-05,
+    "palm_unchanged": true,
+    "maximum_landmark_error_unchanged": true
+  },
+  "new_candidate_visual_preservation": "FAIL",
+  "new_candidate_failing_parts": [
+    "index",
+    "ring",
+    "little",
+    "thumb"
+  ],
+  "new_candidate_palm_nearset_occupancy": "PASS_BY_UNCHANGED_GEOMETRY_EMPTY_SETS",
+  "new_candidate_direction": "UNRESOLVED",
+  "zero_execution": {
+    "physics_steps": 0,
+    "native_inference": 0,
+    "evaluation_episodes": 0,
+    "task_failure_labels": 0,
+    "training_calls": 0
+  },
+  "evidence": {
+    "surface/summary_v2.json": "sha256:dffbb23da89981ce0614c019304057505901c1a5a963fb5aeb5d4f9ddcd90de7",
+    "feasibility/exact_palm_obstruction_v3.json": "sha256:2ea21c053af6588304ba48ca9cb63c12ca0d8081c7ad24ff83db27246f9cd183",
+    "contract_review/independent_exact_obstruction_review_v2.json": "sha256:5a0d091b57f873e48905451b4d67ab6e713a33c224796ec3d3299292c3154284",
+    "contract_review/row6_index_ring_mesh_frame_review_v2.json": "sha256:dbc3b93c0f0892c8f424ba6c84be2be01550be34030ac3aaac9c3ddf476539bc",
+    "control/band_process_receipt_v1.json": "sha256:549d11972fb856306163c78cc975a6b758f2098ac56453db01fff86c53c319eb",
+    "band_validation/execution_receipt_v1.json": "sha256:6fe1087082cc965480624842225b77aa4e4cefff9aca301ff6ab536f4eab2c12",
+    "contract_review/band_saved_candidate_independent_recount_v1.json": "sha256:e98785d3b2e4c099762a396934fb95bace7797160228172aca2f5dd2ab08481b",
+    "control/historical_preservation_v1.json": "sha256:906dae3e9d9755c85f32a1416035361d34ef649fcfc2f8869b289a160f51fd4f",
+    "contract_review/independent_selected_band_visual_saved_array_recount_v1.json": "sha256:4a360718de4c8ff4baf8bbf4417ba514102e61c8458b0d4789439cbe5c57e3c8"
+  }
+}

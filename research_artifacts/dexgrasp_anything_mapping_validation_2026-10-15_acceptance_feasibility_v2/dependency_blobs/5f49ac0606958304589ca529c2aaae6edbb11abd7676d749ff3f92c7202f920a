@@ -1,0 +1,67 @@
+import copy
+import importlib.util
+from pathlib import Path
+import sys
+import numpy as np
+import pytest
+
+HERE=Path(__file__).parent
+s=importlib.util.spec_from_file_location('bounded_retarget',HERE/'fit_source_valid_multidex.py')
+m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+REPO=Path('/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction')
+sys.path.insert(0,str(REPO/'src'))
+from grasp_failure_prediction.proposals import dexgrasp_anything as base
+audit=m.module('retarget_test_fk',REPO/'scripts/audit_dexgrasp_anything_static.py')
+TARGET=REPO/'third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf'
+
+def manufactured():
+ robot=audit.model(TARGET)
+ q={n:float(np.mean([robot['joints'][n]['limit']['lower'],robot['joints'][n]['limit']['upper']])) for n in base.SOURCE_JOINT_NAMES}
+ q.update(WRJ2=.12,WRJ1=-.16)
+ return robot,q
+
+def test_identity_manufactured_fit_and_fixed_nonzero_wrists():
+ robot,q=manufactured();saved=dict(q);frames=audit.independent_fk(robot,q)
+ fitted,projection,logs=m.solve_fingers(frames,robot,q,audit.independent_fk)
+ assert q==saved and projection==[] and not m.outside(robot,fitted)
+ assert fitted['WRJ1']==-.16 and fitted['WRJ2']==.12
+ assert sum(x['objective_after_m2'] for x in logs)<1e-24
+ assert [x['finger'] for x in logs]==list(m.FINGERS)
+ assert all('not a certified global optimum' in x['claim'] for x in logs)
+
+def test_outside_original_is_only_projected_as_logged_start():
+ robot,q=manufactured();q['FFJ4']=.4;saved=dict(q)
+ frames=audit.independent_fk(robot,q)
+ fitted,projection,logs=m.solve_fingers(frames,robot,q,audit.independent_fk)
+ assert q==saved and q['FFJ4']==.4 and not m.outside(robot,fitted)
+ assert projection==[{'joint':'FFJ4','original_rad':.4,'diagnostic_initial_rad':robot['joints']['FFJ4']['limit']['upper']}]
+ assert fitted['WRJ1']==q['WRJ1'] and fitted['WRJ2']==q['WRJ2']
+ assert logs[0]['objective_after_m2']>0
+ assert fitted['FFJ4']<=robot['joints']['FFJ4']['limit']['upper']
+
+def test_palm_fixed_world_and_actual_forearm_have_distinct_semantics():
+ robot,q=manufactured();frames=audit.independent_fk(robot,q)
+ palm=np.eye(4);palm[:3,:3]=np.array([[0.,-1.,0.],[1.,0.,0.],[0.,0.,1.]])
+ palm[:3,3]=[.07,-.02,.1]
+ world=palm@np.linalg.inv(frames['palm']);forearm=world@frames['forearm']
+ assert np.max(np.abs(world@frames['palm']-palm))<1e-14
+ assert np.max(np.abs(forearm@np.linalg.inv(frames['forearm'])@frames['palm']-palm))<1e-14
+ assert not np.allclose(world,forearm)
+
+def policy():
+ return {'schema_version':m.POLICY_ID,'status':'FROZEN_PREOPTIMIZATION','global_sample_indices':[1,3],
+  'row_count':2,'source_profile_id':'dga_multidex_official_unguided_v1',
+  'palm_policy':'fixed_actual_source_object_from_palm','wrist_policy':'both_original_values_preserved',
+  'objective':'unweighted_sum_squared_common_finger_link_origin_displacement_m2',
+  'initialization':'explicit_target_box_projection_diagnostic_start_only','final_clipping':False,
+  'scientific_acceptance_threshold':None,'approximate_contact_adequacy':'UNRESOLVED','execution_eligible':False,
+  'algebra_atol':1e-9,'solver':copy.deepcopy(m.SOLVER),'finger_order':list(m.FINGERS),'starts_per_finger':1,
+  'surface_queries':0,'object_contact_objective_terms':0,'physics_steps':0,'native_inference_calls':0}
+
+@pytest.mark.parametrize('field,value',[('final_clipping',True),('execution_eligible',True),('algebra_atol',.002),('scientific_acceptance_threshold',.01),('global_sample_indices',[0,1]),('starts_per_finger',2),('object_contact_objective_terms',1)])
+def test_policy_cannot_relax_or_replace_original_validation(field,value):
+ p=policy();m.require_policy(p);p[field]=value
+ with pytest.raises(ValueError,match='frozen'):m.require_policy(p)
+
+def test_no_model_or_simulator_imports():
+ assert not {'torch','mujoco','isaacgym','envs','pybullet'}&set(sys.modules)

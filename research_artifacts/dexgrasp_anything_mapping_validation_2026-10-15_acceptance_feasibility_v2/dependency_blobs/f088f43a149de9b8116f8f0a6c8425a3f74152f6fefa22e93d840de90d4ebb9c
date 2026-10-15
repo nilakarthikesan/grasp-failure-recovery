@@ -1,0 +1,155 @@
+#!/usr/bin/env python3
+"""Pinned MultiDex checkpoint metadata; symbolic pickle opcodes, never unpickle."""
+from __future__ import annotations
+import argparse
+import hashlib
+import json
+import math
+from pathlib import Path
+import pickletools
+import struct
+import zipfile
+
+CHECKPOINT_SHA256 = 'sha256:036b406af7c02cd2de9eb61da02590f8c5db7e6afe6a842eb36b47f03105945e'
+CHECKPOINT_SIZE = 110490637
+PROFILE_ID = 'dga_multidex_official_unguided_v1'
+SCHEDULE_NAMES = ('betas','alphas_cumprod','alphas_cumprod_prev','sqrt_alphas_cumprod',
+    'sqrt_one_minus_alphas_cumprod','log_one_minus_alphas_cumprod','sqrt_recip_alphas_cumprod',
+    'sqrt_recipm1_alphas_cumprod','posterior_variance','posterior_log_variance_clipped',
+    'posterior_mean_coef1','posterior_mean_coef2')
+GLOBAL_SYMBOLS = {'collections OrderedDict','torch FloatStorage','torch LongStorage','torch._utils _rebuild_tensor_v2'}
+
+
+def digest(path):
+    h=hashlib.sha256()
+    with Path(path).open('rb') as stream:
+        for block in iter(lambda:stream.read(1024*1024),b''): h.update(block)
+    return 'sha256:'+h.hexdigest()
+
+
+def symbolic_pickle(data):
+    """Specific inert grammar for the pinned release, not a general pickle VM."""
+    stack=[]; memo={}; marker=object(); symbols=set()
+    def marked():
+        index=len(stack)-1-stack[::-1].index(marker); result=stack[index+1:];del stack[index:];return result
+    for count,(op,arg,pos) in enumerate(pickletools.genops(data)):
+        if count>500000: raise ValueError('Metadata opcode budget exceeded')
+        name=op.name
+        if name=='PROTO':
+            if arg!=2: raise ValueError('Only release protocol2 supported')
+        elif name=='EMPTY_DICT':stack.append({})
+        elif name=='EMPTY_TUPLE':stack.append(())
+        elif name=='MARK':stack.append(marker)
+        elif name in ('BINUNICODE','SHORT_BINUNICODE','UNICODE','BININT','BININT1','BININT2'):stack.append(arg)
+        elif name=='NEWFALSE':stack.append(False)
+        elif name=='GLOBAL':
+            if arg not in GLOBAL_SYMBOLS: raise ValueError('Unexpected inert global: '+arg)
+            symbols.add(arg);stack.append(('global_symbol',arg))
+        elif name in ('BINPUT','LONG_BINPUT'):memo[arg]=stack[-1]
+        elif name in ('BINGET','LONG_BINGET'):stack.append(memo[arg])
+        elif name=='TUPLE':stack.append(tuple(marked()))
+        elif name in ('TUPLE1','TUPLE2','TUPLE3'):
+            n=int(name[-1]);items=tuple(stack[-n:]);del stack[-n:];stack.append(items)
+        elif name=='BINPERSID':stack[-1]=('persistent_storage_symbol',stack[-1])
+        elif name=='REDUCE':
+            args,fn=stack.pop(),stack.pop()
+            if fn==('global_symbol','collections OrderedDict') and args==():stack.append({})
+            elif fn==('global_symbol','torch._utils _rebuild_tensor_v2'):
+                storage,offset,shape,stride,grad,hooks=args
+                if (not isinstance(storage,tuple) or storage[0]!='persistent_storage_symbol'
+                        or grad is not False or hooks!={}):raise ValueError('Unsupported inert tensor descriptor')
+                stack.append({'tensor_symbol':True,'storage':storage[1],'offset':offset,'shape':shape,'stride':stride})
+            else:raise ValueError('Unrecognized REDUCE is never executed')
+        elif name=='SETITEMS':
+            items=marked()
+            if len(items)%2:raise ValueError('Odd dictionary item stack')
+            for index in range(0,len(items),2):
+                if items[index] in stack[-1]:raise ValueError('Duplicate serialized dictionary key')
+                stack[-1][items[index]]=items[index+1]
+        elif name=='STOP':
+            if len(stack)!=1 or pos+1!=len(data):raise ValueError('Malformed/trailing metadata')
+            return stack[0],sorted(symbols)
+        else:raise ValueError('Unsupported opcode is never executed: '+name)
+    raise ValueError('No metadata STOP')
+
+
+def describe_tensor(value):
+    if not isinstance(value,dict) or value.get('tensor_symbol') is not True:raise ValueError('Expected symbolic tensor')
+    storage=value['storage'];shape=value['shape'];stride=value['stride'];offset=value['offset']
+    if (not isinstance(storage,tuple) or len(storage)!=5 or storage[0]!='storage'
+            or storage[1] not in (('global_symbol','torch FloatStorage'),('global_symbol','torch LongStorage'))
+            or not isinstance(storage[2],str) or not storage[2].isdigit()
+            or not isinstance(storage[3],str) or type(storage[4]) is not int or storage[4]<=0
+            or type(offset) is not int or offset<0 or not isinstance(shape,tuple) or not isinstance(stride,tuple)
+            or len(shape)!=len(stride) or any(type(n) is not int or n<0 for n in shape+stride)):
+        raise ValueError('Unsupported storage/shape descriptor')
+    end=offset+1+sum((n-1)*s for n,s in zip(shape,stride)) if all(shape) else offset
+    if end>storage[4]:raise ValueError('Tensor descriptor exceeds its storage')
+    dtype='float32' if storage[1][1]=='torch FloatStorage' else 'int64'
+    return {'shape':list(shape),'stride':list(stride),'offset':offset,'dtype':dtype,
+            'storage_key':storage[2],'storage_count':storage[4],'storage_location':storage[3]}
+
+
+def inspect_checkpoint(path):
+    path=Path(path)
+    if path.stat().st_size!=CHECKPOINT_SIZE or digest(path)!=CHECKPOINT_SHA256:
+        raise ValueError('Exact independently pinned MultiDex bytes required before metadata read')
+    with zipfile.ZipFile(path) as z:
+        entries=z.infolist();names=[x.filename for x in entries]
+        if len(entries)>10000 or len(set(names))!=len(names) or sum(x.file_size for x in entries)>160000000:
+            raise ValueError('Unexpected checkpoint container resources/duplicates')
+        data_names=[x for x in entries if x.filename.endswith('/data.pkl')]
+        if len(data_names)!=1 or data_names[0].file_size>8000000:raise ValueError('Unexpected checkpoint metadata entry')
+        data=z.read(data_names[0]);metadata,symbols=symbolic_pickle(data)
+        if not isinstance(metadata,dict) or set(metadata)!={'model','epoch','step'}:
+            raise ValueError('Unexpected release top-level metadata')
+        if type(metadata['epoch']) is not int or type(metadata['step']) is not int or not isinstance(metadata['model'],dict):
+            raise ValueError('Invalid release metadata type')
+        described={};prefix=data_names[0].filename.rsplit('/',1)[0];buffers={}
+        for key,value in metadata['model'].items():
+            if not isinstance(key,str):raise ValueError('Nonstring state key')
+            canonical=key[7:] if key.startswith('module.') else key
+            if canonical in described:raise ValueError('Ambiguous state key prefix')
+            described[canonical]=describe_tensor(value)
+        for key in SCHEDULE_NAMES:
+            if key not in described:raise ValueError('Missing actual schedule buffer: '+key)
+            desc=described[key]
+            if desc['shape']!=[100] or desc['stride']!=[1] or desc['offset']!=0 or desc['dtype']!='float32' or desc['storage_count']!=100:
+                raise ValueError('Schedule must be exact contiguous100float32: '+key)
+            raw=z.read(prefix+'/data/'+desc['storage_key'])
+            if len(raw)!=400:raise ValueError('Invalid schedule storage bytes')
+            values=list(struct.unpack('<100f',raw))
+            if not all(math.isfinite(x) for x in values):raise ValueError('Nonfinite schedule')
+            buffers[key]={'shape':[100],'dtype':'float32','sha256':'sha256:'+hashlib.sha256(raw).hexdigest(),'values':values}
+    return {'schema_version':'dga_multidex_safe_checkpoint_metadata_v1','source_profile_id':PROFILE_ID,
+        'checkpoint_sha256':CHECKPOINT_SHA256,'checkpoint_size_bytes':CHECKPOINT_SIZE,
+        'method':'pickletools symbolic whitelist only; no GLOBAL/REDUCE callable evaluation or Torch/pickle load',
+        'serialized_globals_not_executed':symbols,'top_level_keys':list(metadata),
+        'epoch':metadata['epoch'],'step':metadata['step'],'model_tensor_count':len(described),
+        'model_tensor_metadata':described,'schedule_buffers':buffers,
+        'not_proven':['historical training dataset/converter/joint-sign identity','generated joint validity','scientific mapping adequacy'],
+        'zero_execution':{'torch_imports':0,'pickle_loads':0,'model_loads':0,'native_inference_calls':0,'physics_steps':0}}
+
+
+def verify_expected_signature(metadata,expected):
+    """Before deserialization: compare plain metadata to actual model signatures."""
+    actual=metadata['model_tensor_metadata']
+    if set(actual)!=set(expected):raise ValueError('Pre-load exact state-key coverage mismatch')
+    for name,wanted in expected.items():
+        if actual[name]['shape']!=wanted['shape'] or actual[name]['dtype']!=wanted['dtype']:
+            raise ValueError('Pre-load exact shape/dtype mismatch: '+name)
+    for name in SCHEDULE_NAMES:
+        if metadata['schedule_buffers'][name]['sha256']!=expected[name]['sha256']:
+            raise ValueError('Pre-load exact source/checkpoint schedule mismatch: '+name)
+    return {'status':'PASS_BEFORE_CHECKPOINT_DESERIALIZATION','key_count':len(expected),
+        'all_tensor_shapes_dtypes_exact':True,'all_12_source_schedule_buffers_bitwise_exact':True}
+
+
+def main():
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--checkpoint',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    if a.output.exists():raise FileExistsError('Metadata evidence never overwritten')
+    result=inspect_checkpoint(a.checkpoint);a.output.write_text(json.dumps(result,indent=2,allow_nan=False)+'\n')
+    print(json.dumps({'output':str(a.output),'source_profile_id':PROFILE_ID,'tensor_count':result['model_tensor_count'],'epoch':result['epoch'],'step':result['step'],'torch_imported':False}))
+
+
+if __name__=='__main__':main()

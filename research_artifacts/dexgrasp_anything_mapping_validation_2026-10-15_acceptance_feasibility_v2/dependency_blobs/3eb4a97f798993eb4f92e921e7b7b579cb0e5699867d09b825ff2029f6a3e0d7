@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+"""Frozen saved-evidence query selection only. No actual geometry/model calls."""
+import argparse,hashlib,importlib.util,json,sys,time
+from datetime import datetime,timezone
+from pathlib import Path
+import numpy as np
+sys.dont_write_bytecode=True
+
+def sha(p):return 'sha256:'+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def module(n,p):
+ s=importlib.util.spec_from_file_location(n,p);m=importlib.util.module_from_spec(s);sys.modules[n]=m;s.loader.exec_module(m);return m
+def write(p,v):
+ with p.open('x') as f:json.dump(v,f,indent=2,allow_nan=False);f.write('\n')
+def main(a):
+ if a.output.exists():raise FileExistsError('Never overwrite queryevidence')
+ if sha(a.policy)!=a.policy_sha256:raise ValueError('Frozen selectorpolicy changed')
+ p=json.loads(a.policy.read_text())
+ if p['schema_version']!='dga_historical_query_selector_frozen_v1' or p['status']!='FROZEN_BEFORE_HISTORICAL_SELECTION' or p['maximum_pooled_witnesses']!=256 or p['geometric_allowance_m']!=1e-9:raise ValueError('Wrong frozen selector method')
+ for path,h in p['dependency_sha256'].items():
+  if sha(path)!=h:raise ValueError('Selector dependencychanged '+path)
+ started=time.monotonic();w=module('frozen_witness_selector',p['selector']);legacy=module('frozen_center_queries',p['center_query_helper']);extra,selected=w.collect(p['historical_witness_archives']);centers,normals=legacy.training_queries();queries=np.concatenate([centers,extra])
+ if len(centers)!=600 or len(extra)>256 or not np.isfinite(queries).all():raise ValueError('Fixed queryset scope')
+ a.output.mkdir(parents=True);arrays=a.output/'fitting_queries.npz';np.savez(arrays,queries_object_m=queries,center_queries_object_m=centers,pooled_witnesses_object_m=extra)
+ selected.update(selector_policy_sha256=a.policy_sha256,arrays={'path':arrays.name,'sha256':sha(arrays)},point_count=len(queries),all_future_cases_share_identical_points=True)
+ write(a.output/'selection.json',selected)
+ for path,h in p['dependency_sha256'].items():
+  if sha(path)!=h:raise ValueError('Dependencychanged duringselector')
+ receipt={'schema_version':'dga_historical_query_selection_execution_v1','status':'PASS_FIXED_DEVELOPMENT_QUERYSET_MATERIALIZED','created_at_utc':datetime.now(timezone.utc).isoformat(),'elapsed_seconds':time.monotonic()-started,'policy_sha256':a.policy_sha256,'arrays':{'path':str(arrays),'sha256':sha(arrays)},'selection':{'path':str(a.output/'selection.json'),'sha256':sha(a.output/'selection.json')},'query_count':len(queries),'pooled_witness_count':len(extra),'dependency_count':len(p['dependency_sha256']),'dependencies_unchanged':True,'new_geometry_queries':0,'actual_candidate_field_evaluations':0,'optimization_calls':0,'sealed_native_outcomes_accessed':False}
+ write(a.output/'execution_receipt.json',receipt);print(json.dumps(receipt))
+if __name__=='__main__':
+ a=argparse.ArgumentParser();a.add_argument('--policy',type=Path,required=True);a.add_argument('--policy-sha256',required=True);a.add_argument('--output',type=Path,required=True);main(a.parse_args())

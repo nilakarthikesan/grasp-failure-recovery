@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+"""Create the one pre-unseal palm implementation policy, without native data reads."""
+from datetime import datetime,timezone
+import json
+from pathlib import Path
+import subprocess
+import sys
+import validate_component_native_palm as v
+
+HERE=Path(__file__).resolve().parent
+ROOT=HERE.parent
+
+
+def main():
+ target=HERE/'native_implementation_frozen_v1.json'
+ if target.exists():raise FileExistsError('Preserve original freeze')
+ visual=ROOT/'validation/native_implementation_frozen_v3.json'
+ producer=ROOT/'optimizer/native_runner_freeze_readiness_v1.json'
+ old=json.loads(visual.read_text());ready=json.loads(producer.read_text());deps=dict(old['dependencies'])
+ for path,h in ready['dependency_sha256'].items():
+  if path in deps and deps[path]!=h:raise ValueError('Dependency pin conflict: '+path)
+  deps[path]=h
+ for path in (visual,producer,*sorted(HERE.glob('*.py'))):deps[str(path)]=v.m.digest(path)
+ source=Path('/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/urdf/shadowhand.urdf')
+ deps[str(source)]=v.m.digest(source)
+ v.verify(deps)
+ result=subprocess.run([sys.executable,'-B','-m','unittest','test_native_palm','test_palm_holdout','test_surface_backend'],cwd=HERE,text=True,capture_output=True)
+ v.m.write(HERE/'native_manufactured_controls_receipt_v1.json',{'status':'PASS' if result.returncode==0 else 'FAIL','returncode':result.returncode,'stdout':result.stdout,'stderr':result.stderr,'count':30,'actual_native_data_reads':0,'actual_surface_queries':0,'prior_control_failure':{'attempt':1,'scope':'Temporary-directory alias path in manufactured unbound-JSON positive fixture','reason':'Fixture used /var path while loader deliberately canonicalizes /private/var; fixture fixed to resolved key, production failclosed behavior unchanged','actual_native_metrics':0}})
+ if result.returncode:raise RuntimeError('Manufactured controls failed')
+ receipt=HERE/'native_manufactured_controls_receipt_v1.json';deps[str(receipt)]=v.m.digest(receipt)
+ p={'schema_version':'dga_component_native_palm_acceptance_policy_v1','status':'FROZEN_IMPLEMENTATION_BEFORE_NATIVE_UNSEAL',
+  'frozen_at_utc':datetime.now(timezone.utc).isoformat(),'code':str(HERE/'validate_component_native_palm.py'),
+  'code_sha256':v.m.digest(HERE/'validate_component_native_palm.py'),'dependencies':deps,
+  'scientific_protocol':old['scientific_protocol'],'scientific_protocol_sha256':v.SCIENCE,
+  'native_protocol':old['native_protocol'],'native_protocol_sha256':v.NATIVE,
+  'source_profile_id':v.PROFILE,'source_urdf':str(source),'target_urdf':old['target_urdf'],
+  'independent_fk':old['independent_fk'],'native_helper':old['native_helper'],
+  'selected_indices':None,'validation_report':None,'algebra_report':None,'fit_report':None,'fit_arrays':None,
+  'fit_policy':None,'fit_policy_sha256':None,'method_sha256':None,'execution_eligible':False,
+  'query_fractions':[2/5,1/3],'spacing_mm':[1.,.5,.25],'bands_mm':[.5,1.,2.],
+  'distance_allowance_m':1e-9,'maximum_wall_seconds':600,'maximum_polygon_queries':150000000,
+  'query_holdout_only':True,'optimization_feedback_forbidden':True,'result_reuse':'Fresh-only; no historical measurement is counted as fresh',
+  'selection':'First up-to2 native completefinite source-valid rows in all16 order BEFORE target/wrist/reference/fit gates. No backfill.',
+  'completed_subset':'Only exact COMPLETE producer records have payloads; all selected refusals retained. Zero/insufficient NOT_TESTED; partial never whole-scope PASS.',
+  'criterion':'Unchanged scientific57531 strict near/miss at every .5/1/2mm band and signed occupancy separately; positive lower FAIL, full coverage zero upper PASS, otherwise UNRESOLVED. Facing needs qualified declared-palm witness; no empty normal PASS.',
+  'reference':'Declared source palm1box versus declared target palm8box exposed union boundaries. Independent F64 algebra palm frames; FP32 native visual prerequisite retained separately; default TF32 statuses preserved.',
+  'limitations':['Conditional F64/1nm arithmetic, not directed-rounding proof','PALM subset only; not full-hand exterior or compiled collider','No physical/task/contact adequacy or population-generalization claim','No production eligibility or full mapping acceptance from this family alone'],
+  'development_fit_and_holdout':'NOT_RUN_ANALYTIC_OBSTRUCTION','manufactured_controls':{'path':str(receipt),'sha256':v.m.digest(receipt),'count':30,'status':'PASS'},
+  'zero_step_evidence':{'actual_native_data_reads':0,'actual_surface_queries':0,'physics_steps':0,'native_calls':0,'optimizer_calls':0}}
+ v.m.write(target,p);print(json.dumps({'path':str(target),'sha256':v.m.digest(target),'dependency_count':len(deps),'code_sha256':p['code_sha256']}))
+
+
+if __name__=='__main__':main()

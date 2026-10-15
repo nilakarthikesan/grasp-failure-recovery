@@ -1,0 +1,90 @@
+import copy,importlib.util,sys,time
+from pathlib import Path
+import numpy as np
+import pytest
+ROOT=Path(__file__).parent
+s=importlib.util.spec_from_file_location('surface_fit',ROOT/'fit_surface_preserving.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+
+def test_complete_training_grid_is_only_a_coarse_objective():
+ q,n=m.training_queries()
+ assert q.shape==n.shape==(600,3)
+ assert np.allclose(np.linalg.norm(n,axis=1),1)
+ assert len(np.unique(q,axis=0))==600
+ assert np.isclose(600*.005**2,.015)
+ assert np.all(np.sum(np.abs(q)==.025,axis=1)==1)
+
+def test_all_misses_remain_residuals_and_signed_penetration_is_not_abs():
+ source=np.full((4,8),m.CAP_M);target=source.copy();target[0,0]=0;target[1,-1]=-m.CAP_M
+ metrics=m.objective_metrics(source,target)
+ assert metrics['per_field']['palm']['MSE_m2']==m.CAP_M**2/4
+ assert metrics['per_field']['declared_palm_signed_union']['MSE_m2']==(2*m.CAP_M)**2/4
+ assert metrics['per_field']['palm']['source_cap_hit_query_count']==4
+ assert m.residual_vector(source,target).shape==(32,)
+ assert np.count_nonzero(m.residual_vector(source,target))==2
+
+@pytest.mark.parametrize('kind',['nan','negative_visual','out_of_cap','wrong_shape'])
+def test_malformed_fields_are_not_dropped_or_repaired(kind):
+ a=np.zeros((3,8))
+ if kind=='nan':a[0,0]=np.nan
+ if kind=='negative_visual':a[0,0]=-.001
+ if kind=='out_of_cap':a[0,-1]=-.005
+ if kind=='wrong_shape':a=a[:,:-1]
+ with pytest.raises(ValueError):m.field_matrix(a,3,8,signed_last=True)
+
+def test_block_solver_is_bounded_retains_all_steps_and_never_changes_wrists():
+ fingers=['FFJ4','FFJ3','FFJ2','FFJ1','MFJ4','MFJ3','MFJ2','MFJ1','RFJ4','RFJ3','RFJ2','RFJ1','LFJ5','LFJ4','LFJ3','LFJ2','LFJ1','THJ5','THJ4','THJ3','THJ2','THJ1']
+ q={n:.1 for n in fingers};q.update(WRJ2=.12,WRJ1=-.16);before=dict(q)
+ source=np.zeros((3,8));bounds={n:(-1.,1.) for n in fingers}
+ def evaluate(values,tmm,omega,selected):
+  result=[]
+  for name in selected:
+   if name in m.PREFIX:value=values[m.PREFIX[name]+('J5' if name in ['little','thumb'] else 'J4')]**2*.001
+   elif name=='declared_palm_signed_union':value=tmm[0]*.001
+   else:value=np.linalg.norm(tmm)*.001
+   result.append(np.full(3,value))
+  return np.column_stack(result)
+ fitted,t,w,logs=m.optimize_blocks(q,np.array([.3,0.,0.]),np.zeros(3),finger_names=fingers,joint_bounds=bounds,
+  translation_limit_mm=1.,source_fields=source,evaluate=evaluate,deadline=time.monotonic()+30)
+ assert q==before and fitted['WRJ2']==.12 and fitted['WRJ1']==-.16
+ assert len(logs)==12 and [x['block'] for x in logs]==list(m.BLOCKS)*2
+ assert all(x['reported_nfev']<=10 for x in logs)
+ assert all(not x['adopted_by_training_SSE_guard'] or x['terminal']['sum_field_MSE_m2']<=x['before']['sum_field_MSE_m2'] for x in logs)
+ assert m.objective_metrics(source,evaluate(fitted,t,w,list(m.FIELDS)))['sum_field_MSE_m2']<=m.objective_metrics(source,evaluate(q,np.array([.3,0.,0.]),np.zeros(3),list(m.FIELDS)))['sum_field_MSE_m2']
+
+def test_old_landmark_guards_and_surface_selection_do_not_mean_acceptance():
+ ref={'maximum_site_error_m':.002,'all_site_SSE_m2':5e-6}
+ assert not m.landmark_nonregression({'maximum_site_error_m':.00201,'all_site_SSE_m2':1e-6},ref)
+ assert not m.landmark_nonregression({'maximum_site_error_m':.001,'all_site_SSE_m2':5.01e-6},ref)
+ records=[{'selection_order':1,'surface_objective':{'sum_field_MSE_m2':0.}}, {'selection_order':0,'surface_objective':{'sum_field_MSE_m2':0.}}]
+ assert min(records,key=m.candidate_rank)['selection_order']==0
+
+def test_identity_palm_parameterization_is_exact_and_actual_delta_is_explicit():
+ source=np.eye(4);source[:3,:3]=[[0.,-1.,0.],[1.,0.,0.],[0.,0.,1.]];source[:3,3]=[.02,-.03,.08]
+ t,w=m.variables_from_transform(source,source.copy())
+ assert np.array_equal(t,np.zeros(3)) and np.array_equal(w,np.zeros(3))
+ target,delta=m.transform_from_variables(source,[1.,-.5,.2],[.01,-.02,.03])
+ assert not np.allclose(source,target)
+ np.testing.assert_allclose(source@delta,target,atol=0,rtol=0)
+
+def test_no_model_or_simulator_imported():
+ assert not {'torch','mujoco','isaacgym','envs','pybullet'}&set(sys.modules)
+
+def policy():
+ return {'schema_version':m.POLICY_ID,'status':'FROZEN_PREOPTIMIZATION','global_sample_indices':[1,3],
+  'row_count':2,'source_profile_id':'dga_multidex_official_unguided_v1','starts_per_row':2,
+  'start_order':['previous_fixed_palm_fit','previous_selected_free_palm_fit'],'sweeps':2,'block_order':list(m.BLOCKS),
+  'solver':copy.deepcopy(m.SOLVER),'cap_m':m.CAP_M,'signed_palm_cap_m':m.CAP_M,
+  'training_query_spacing_m':.005,'training_query_fractions':[.5,.5],'training_query_count':600,
+  'field_names':list(m.FIELDS),'objective':'sum_equal_field_mean_squared_native_relative_distance_difference_m2',
+  'wrists':'both_original_values_preserved_exactly','strict_target_limits':True,'final_clipping':False,
+  'engineering_guard_reference':'previous_fixed_palm_fit_true_all_site_maximum_and_SSE',
+  'selection':'minimum_verified_surface_field_SSE_then_fixed_candidate_order',
+  'maximum_wall_seconds':600,'CPU_threads':1,'algebra_atol':1e-9,
+  'new_native_inference_calls':0,'physics_steps':0,'training_calls':0,'execution_eligible':False,
+  'holdout_feedback':False,'acceptance_from_objective':False,
+  'scientific_protocol':{'sha256':'sha256:'+'1'*64},'site_names':['palm']+[str(k) for k in range(27)]}
+
+@pytest.mark.parametrize('key,value',[('cap_m',.002),('sweeps',3),('final_clipping',True),('execution_eligible',True),('holdout_feedback',True),('scientific_protocol',{}),('site_names',['palm']),('field_names',['palm'])])
+def test_frozen_policy_refuses_missing_guard_or_scientific_freeze(key,value):
+ p=policy();m.require_policy(p);p[key]=value
+ with pytest.raises(ValueError):m.require_policy(p)

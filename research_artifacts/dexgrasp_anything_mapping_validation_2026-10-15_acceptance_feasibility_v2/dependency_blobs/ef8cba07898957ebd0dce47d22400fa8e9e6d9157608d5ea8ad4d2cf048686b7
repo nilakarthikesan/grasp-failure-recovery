@@ -1,0 +1,83 @@
+{
+  "schema_version": "dga_free_palm_retarget_design_v1",
+  "status": "PROPOSED_PREOPTIMIZATION_NO_NEW_FIT",
+  "source_profile_id": "dga_multidex_official_unguided_v1",
+  "global_sample_indices": [1, 3],
+  "new_native_inference_calls": 0,
+  "physics_steps": 0,
+  "training_calls": 0,
+  "source_targets": "Untouched native source q/root, ideal pinned XML FK; declared FP32 runtime correspondence remains a separate prior engineering check.",
+  "target_variables": {
+    "finger_joints": 22,
+    "palm_translation": 3,
+    "palm_principal_rotation_vector": 3,
+    "wrists": "Both original WRJ2/WRJ1 values are fixed exactly.",
+    "limits": "All literal pinned target URDF joint bounds, no final clipping.",
+    "palm_coordinates": "Source-palm frame: T_object_target_palm = T_object_source_palm @ [Exp(w),t;0,1]."
+  },
+  "sites": {
+    "finger_origins": "All 27 common prefixed finger-link origins, including fixed tips and coincident pivots, exactly as the preceding frozen development fit.",
+    "palm_origin": "One additional site at the actual palm-link origin.",
+    "rigid_finger_bases": "Already included among common finger-link origins; noncollinear positions constrain palm rotation without invented angular weights.",
+    "total": 28,
+    "orientation": "Raw frame and correctly palm-relative-zero-gauged angular errors are reported separately; no angular residual or invented lever arm enters the objective."
+  },
+  "objective": {
+    "primary": "Minimize the maximum Euclidean positional error over all 28 sites in metres.",
+    "secondary_guard": "All-site position SSE must not exceed the actual preceding fixed-palm fit SSE (palm contribution there is zero).",
+    "maximum_guard": "The true independently recomputed maximum site error must not exceed that preceding fit's maximum.",
+    "units": "Implementation may use mm and mm2 solely for numerical conditioning; reports use m and m2.",
+    "no_object_terms": true,
+    "no_surface_terms": true,
+    "interpretation": "Achieved feasible local candidate, not global optimum or an acceptance threshold. The guards establish aggregate nonregression only, never per-link or palm nonregression."
+  },
+  "computational_bounds": {
+    "translation": "Each component lies within +/- preceding maximum site error; this follows from the included palm site and no-worse maximum guard.",
+    "rotation": "Principal rotation vector components within [-pi,pi], with Euclidean norm <=pi; this covers SO(3).",
+    "solver": "SLSQP, epigraph maximum-distance objective and squared-distance constraints, maxiter200 per start, predetermined tolerance to be frozen in code.",
+    "starts_per_row": 2,
+    "start_0": "Previous target-domain-valid fixed-palm fitted q, zero palm displacement.",
+    "start_1": "Explicitly logged projection of original native finger q to target bounds, zero palm displacement.",
+    "all_attempts_retained": true,
+    "no_adaptive_additions_or_feedback": true
+  },
+  "selection": {
+    "baseline": "Always retain the unchanged previous fixed-palm fit as a candidate, never overwrite it.",
+    "refuse": "Any nonfinite/malformed transform, changed wrist/source/native dependency, strict target-domain violation, or true recomputed aggregate SSE/max regression.",
+    "rank": "Among verified candidates, smallest true maximum positional error, then smallest true SSE, then fixed start order.",
+    "palm_guard_limitation": "A literal no-regression guard against the old zero-error palm forbids every free-palm movement. This experiment reports the tradeoff; it does not disguise palm motion as preserved native geometry.",
+    "scientific_acceptance": "Never inferred from numerical objective improvement. Unchanged project fidelity requirements must be assessed separately."
+  },
+  "independent_holdout": {
+    "fit_output_hash_before_queries": true,
+    "query_locations_frozen_before_fit": true,
+    "no_optimizer_geometry_queries": true,
+    "fresh_query_example": "Within the prior 2mm/1mm rectangular face-cell partitions, use off-center points at (1/3,2/3) instead of old centers. Recompute each patch's exact maximum point-to-corner radius for Lipschitz bounds; never reuse center radii.",
+    "same_descriptive_bands_m": [0.0005,0.001,0.002],
+    "scope": "Fresh geometric query locations are a measurement holdout on the same two development grasps, not an independent grasp cohort or statistical validation.",
+    "no_holdout_feedback": "No subsequent candidate selection, retuning, retries or fit changes after seeing these surface results.",
+    "claim": "Encoded unsigned visual proximity, normal facing and per-part/common coverage remain separate from exterior union, signed solid contact, collision geometry and physical outcomes."
+  },
+  "numeric_npz_schema": {
+    "global_sample_indices": [2],
+    "source_hand_qpos": [2,33],
+    "target_joint_values": [2,24],
+    "object_from_source_forearm": [2,4,4],
+    "object_from_source_palm": [2,4,4],
+    "object_from_target_palm": [2,4,4],
+    "object_from_target_root_world": [2,4,4],
+    "object_from_target_forearm": [2,4,4],
+    "source_palm_from_target_palm": [2,4,4],
+    "joint_order": "Canonical SOURCE_JOINT_NAMES in the hash-bound adapter; exact named dictionaries in JSON provide independent ordering checks."
+  },
+  "provenance_and_scope": {
+    "all_original_raw_and_rejections_immutable": true,
+    "source_target_assets_unchanged": true,
+    "previous_fixed_palm_proof_and_failures_unchanged": true,
+    "fixed_palm_plane_bound": "Does not apply to the new free-palm problem and must not be relabeled as repaired or contradicted.",
+    "scientific_acceptance_threshold": null,
+    "execution_eligible": false,
+    "approximate_contact_adequacy": "UNRESOLVED",
+    "production_promotion": false
+  }
+}

@@ -1,0 +1,79 @@
+"""Independent selected-witness rational recount; never imports proof helper.
+No closest geometry, fitting, native output or held-out cohort access.
+"""
+from pathlib import Path
+from fractions import Fraction as F
+from math import isqrt
+import hashlib,json,xml.etree.ElementTree as ET
+ROOT=Path('/private/tmp/dga_component_constraints_20261015_v1')
+
+def sha(p):return 'sha256:'+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def Q(v):return F(int(v['numerator']),int(v['denominator']))
+def vector(v):return tuple(Q(x) for x in v)
+def dot(a,b):return sum((x*y for x,y in zip(a,b)),F(0))
+def minus(a,b):return tuple(x-y for x,y in zip(a,b))
+def mul(A,v):return tuple(dot(row,v) for row in A)
+def cross(a,b):return (a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0])
+def inverse3(A):
+ co=(cross(A[1],A[2]),cross(A[2],A[0]),cross(A[0],A[1]));d=dot(A[0],co[0])
+ if not d:raise ValueError('Singular source frame')
+ return tuple(tuple(co[j][i]/d for j in range(3)) for i in range(3))
+def upper_sqrt(x):
+ scale=10**24;ceil=(x.numerator*scale*scale+x.denominator-1)//x.denominator;k=isqrt(ceil)
+ if k*k<ceil:k+=1
+ r=F(k,scale);assert r*r>=x;return r
+
+def literal_vec(x):return tuple(F(v) for v in x.split())
+def anchors(path,names):
+ root=ET.parse(path).getroot();parents={j.find('child').get('link'):j for j in root.findall('joint')};out={}
+ for name in names:
+  if name=='palm':out[name]=(F(0),)*3;continue
+  current=name;chain=[]
+  while current!='palm':
+   j=parents[current];assert j.get('type') in ['revolute','fixed','continuous'];o=j.find('origin');chain.append(literal_vec('0 0 0' if o is None else o.get('xyz','0 0 0')));current=j.find('parent').get('link')
+  assert all(v==(F(0),)*3 for v in chain[:-1]);out[name]=chain[-1]
+ return out
+
+def boxes(path):
+ palm=next(x for x in ET.parse(path).getroot().findall('link') if x.get('name')=='palm');out=[]
+ for x in palm.findall('collision'):
+  o=x.find('origin');g=x.find('geometry');b=g.find('box');assert b is not None
+  out.append({'center':literal_vec(o.get('xyz','0 0 0')),'half':tuple(v/2 for v in literal_vec(b.get('size'))),'rpy':literal_vec(o.get('rpy','0 0 0'))})
+ return out
+
+def main():
+ path=ROOT/'feasibility/results_v1/palm_anchor_obstruction_report.json';data=json.loads(path.read_text());pol=json.loads((ROOT/'feasibility/palm_anchor_obstruction_policy_frozen_v1.json').read_text());palm=json.loads(Path(pol['paths']['archived_palm_report']).read_text());source_boxes=boxes(pol['paths']['source_urdf']);target_boxes=boxes(pol['paths']['target_urdf']);assert len(source_boxes)==1 and len(target_boxes)==8
+ names=[n for g in data['groups'] for n in g['sites']];sa=anchors(pol['paths']['source_urdf'],names);ta=anchors(pol['paths']['target_urdf'],names);N=len(names);assert N==10
+ groups=data['groups']
+ for group in groups:
+  assert group['multiplicity']==len(group['sites'])
+  assert all(sa[n]==vector(group['source']) and ta[n]==vector(group['target']) for n in group['sites'])
+ results=[]
+ for case in data['cases']:
+  g=case['global_sample_index'];source_pose=next(x for x in palm['cases'] if x['global_sample_index']==g)['object_from_source_palm'];S=tuple(tuple(F.from_float(float(v)) for v in row) for row in source_pose);A=tuple(row[:3] for row in S[:3]);t=tuple(row[3] for row in S[:3]);inv=inverse3(A)
+  for scope,envs in case['summaries'].items():
+   for label,summary in envs.items():
+    best=summary['best_witness']
+    if best is None:
+     assert summary['status']=='UNRESOLVED';results.append({'row':g,'scope':scope,'envelope':label,'status':'UNRESOLVED_NO_WITNESS_IS_NOT_FEASIBILITY'});continue
+    eps=F(0) if label=='EXACT_DECLARED_GUARDS' else F(1,10**9)
+    x=vector(best['object_query_m']);p=mul(inv,minus(x,t));assert p==vector(best['palm_reference_query_m']);w=tuple(Q(x) for x in best['motion_bound']['weights']);assert sum(w)==1
+    assert tuple(sum((w[j]*vector(group['target'])[k] for j,group in enumerate(groups)),F(0)) for k in range(3))==p
+    K=sum((w[j]*w[j]/group['multiplicity'] for j,group in enumerate(groups)),F(0));l1=sum(abs(v) for v in w);assert K==Q(best['motion_bound']['K']) and l1==Q(best['motion_bound']['l1'])
+    offset=mul(A,tuple(sum((w[j]*vector(group['source'])[k] for j,group in enumerate(groups)),F(0))-p[k] for k in range(3)));O=upper_sqrt(dot(offset,offset));stored_O=Q(best['motion_bound']['offset']);assert stored_O>=O
+    M=Q(best['maximum_site_error_budget_m']);B=Q(best['all_site_SSE_budget_m2']);ownU=min((M+eps)*l1+O,(upper_sqrt(B)+upper_sqrt(F(N))*eps)*upper_sqrt(K)+O);stored_U=Q(best['motion_bound']['upper']);assert stored_U>=ownU
+    member=best['best_member'];box=target_boxes[member['target_member_index']];assert not any(box['rpy']);margin=min(h-abs(v-c) for v,c,h in zip(p,box['center'],box['half']));assert margin==Q(member['member_margin_m'])
+    gap=margin-stored_U-eps;assert gap==Q(member['target_inside_clearance_lower_m'])
+    source=source_boxes[0];assert not any(source['rpy']);source_clear=max([F(0)]+[(abs(p[j]-source['center'][j])-source['half'][j])/upper_sqrt(dot(inv[j],inv[j])) for j in range(3) if abs(p[j]-source['center'][j])>source['half'][j]])-eps;assert source_clear>=Q(member['source_outside_clearance_lower_m'])
+    edge=min(F(1,40)-abs(x[j]) for j in range(3) if j!=best['face_axis']);assert edge==Q(member['cube_face_edge_clearance_m'])
+    side=Q(member['positive_square_side_m']);area=Q(member['positive_square_area_lower_m2']);assert side>0 and area==side*side and side==min(gap,Q(member['source_outside_clearance_lower_m']),edge)/4
+    assert side*side/2<gap*gap and side*side/2<Q(member['source_outside_clearance_lower_m'])**2 and side/2<edge
+    # Conservative necessity includes BOTH the anchor bridge and extra margin
+    # cushion, matching the prospective reporting addendum rather than v1.
+    numerator=max(F(0),margin-stored_O-eps);requiredM=max(F(0),numerator/l1-eps);requiredS=max(F(0),numerator/upper_sqrt(K)-upper_sqrt(F(N))*eps)**2
+    results.append({'row':g,'scope':scope,'envelope':label,'status':'INDEPENDENT_PRIMARY_OBSTRUCTION_ARITHMETIC_PASS','active_budget':'SSE' if requiredS>B else 'maximum' if requiredM>M else 'joint_min_bound','area_lower_m2':float(area),'required_M_safe_lower_m':float(requiredM),'required_SSE_safe_lower_m2':float(requiredS),'allowed_M_m':float(M),'allowed_SSE_m2':float(B),'geometry_predicate':'fixed object-face point outside source box and inside one target member for every proper target palm pose satisfying given landmark budgets'})
+ out={'schema_version':'dga_independent_palm_obstruction_critical_review_v1','status':'PASS_PRIMARY_CERTIFICATE_WITH_EXPLICIT_SCOPE','proof_report':{'path':str(path),'sha256':sha(path)},'review_code_sha256':sha(__file__),'checks':results,'mathematical_review':['Zero descendant translations make10selected origins independent of allfingerangles. Group multiplicity correctly accounts duplicatedorigin error energy.','Any affine weights reproducing p suffice; minimumK optimality is not needed for validity. Triangle/Cauchy bounds and rational outwardroots verified independently without importing sourceproof functions.','Source matrix is handled as exactbinary affineinvertible matrix; proof does not silently equate its inverse with transpose. Targetpalm is assumed properrigid.','Positive square area follows uniform centerclearances and Euclidean1Lipschitz distance under proper targetpose, with generousside=minclearance/4; no surfacequery or fitting involved.','Conditional floatingbridge assumes peranchor error<=1nm. That bridge is explicit; no formal globalfloatingerror proof added here.','V1conditionalnecessary-exit wording needs additiveclarification/safer margin-EPS thresholds; primarypositivearea obstruction unaffected. Safe thresholds recomputed here.'],'scope_limits':['Row1 originaldeclaredmax/SSE scope obstructs strictpalm occupancy for that nativepose/declaredreference, not allpossible nativeoutputs.','Row3 originalguard outcome remainsUNRESOLVED; obstruction with tightenedcomponentmax/SSE does not rewrite oldguard status.','No visualnearset/normal/compiledcollision/physicalcontact conclusion.','No newfit is needed to decide impossibility of allstrictgates for these exacttwo cases under newtightguards; a boundedfit mayonly be a developmentdiagnostic.'],'zero_execution':{'new_geometry_queries':0,'fitting_calls':0,'native_calls':0,'physics_steps':0,'evaluation_data_access':0}}
+ target=ROOT/'optimizer/independent_palm_certificate_review_v1.json'
+ with target.open('x') as f:json.dump(out,f,indent=2,allow_nan=False);f.write('\n')
+ print(json.dumps({'report':str(target),'sha256':sha(target),'checks':results}))
+if __name__=='__main__':main()

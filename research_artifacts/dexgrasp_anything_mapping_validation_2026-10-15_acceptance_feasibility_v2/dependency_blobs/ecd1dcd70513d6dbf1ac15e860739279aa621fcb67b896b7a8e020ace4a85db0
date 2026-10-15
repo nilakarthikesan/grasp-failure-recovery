@@ -1,0 +1,93 @@
+"""Tiny actual-backend controls; no native/candidate mesh or pose is read."""
+import hashlib,importlib.util,json,sys,unittest
+from datetime import datetime,timezone
+from pathlib import Path
+from types import SimpleNamespace
+import numpy as np
+sys.dont_write_bytecode=True
+P=Path('/private/tmp/dga_surface_preserving_20261015_v1/geometry/surface_backend.py')
+spec=importlib.util.spec_from_file_location('backend_under_independent_test',P);m=importlib.util.module_from_spec(spec);sys.modules[spec.name]=m;spec.loader.exec_module(m)
+V=np.array([[-.01,-.01,0.],[.02,-.01,0.],[-.01,.02,0.]])
+F=np.array([[0,1,2]],np.int64)
+LINKS=('palm','ffdistal','mfdistal','rfdistal','lfdistal','thdistal','wrist')
+def surface(z=0.,faces=F):return m.TriangleSurface(V+np.array([0,0,z]),faces,label='synthetic_control')
+def backend(source_z=None,target_z=None,boxes=None):
+ source_z={} if source_z is None else source_z;target_z={} if target_z is None else target_z
+ s=[(part,link,surface(source_z.get(part,0.))) for part,link in zip(m.PARTS,LINKS)]
+ t=[(part,link,surface(target_z.get(part,0.))) for part,link in zip(m.PARTS,LINKS)]
+ robot={'joints':{j:{'limit':{'lower':-1.,'upper':1.}} for j in m.JOINTS}}
+ fk=SimpleNamespace(independent_fk=lambda robot,q:{name:np.eye(4) for name in (*LINKS,'world')})
+ return m.SurfaceBackend(source_surfaces=s,target_surfaces=t,target_robot=robot,independent_fk_module=fk,source_boxes=None if boxes is None else boxes[0],target_boxes=None if boxes is None else boxes[1])
+class ActualBackendControls(unittest.TestCase):
+ def test_face_edge_vertex_true_distance(self):
+  p=np.array([[0,0,.001],[.03,-.01,0],[-.02,-.02,0]])
+  result=surface().query(p,.1,return_witnesses=True)
+  np.testing.assert_allclose(result['distance_m'],[.001,.01,np.sqrt(.0002)],atol=1e-14,rtol=0)
+  self.assertFalse(result['censored'].any())
+ def test_identical_geometry_positive_control(self):
+  b=backend();p=np.array([[0,0,.0001],[0,0,.0006],[.03,-.01,0]])
+  np.testing.assert_array_equal(b.source_fields(p,.004),b.target_fields(np.zeros(24),np.eye(4),p,.004))
+ def test_shifted_triangle_lost_and_new_contact(self):
+  z=np.array([.00049,-.00051]);p=np.column_stack([np.zeros(2),np.zeros(2),z]);s=surface().query(p,.004);t=surface(-.00002).query(p,.004)
+  self.assertEqual(int(((s<=.0005)&(t>.0005)).sum()),1)
+  self.assertEqual(int(((s>.0005)&(t<=.0005)).sum()),1)
+ def test_cap_hit_remains_censored_no_fake_near_witness(self):
+  r=surface().query([[0,0,.002],[0,0,.004],[0,0,.001999]],.002,return_witnesses=True)
+  self.assertEqual(r['censored'].tolist(),[True,True,False]);self.assertEqual(r['triangle_id'][:2].tolist(),[-1,-1]);self.assertTrue(np.isnan(r['closest_m'][:2]).all())
+ def test_large_triangle_center_sphere_completeness(self):
+  v=np.array([[0.,0.,0.],[1.,0.,0.],[0.,1.,0.]])
+  r=m.TriangleSurface(v,F).query([[.001,.001,.0001]],.0002,return_witnesses=True)
+  self.assertFalse(r['censored'][0]);self.assertAlmostEqual(r['distance_m'][0],.0001,places=14)
+ def test_degenerate_segment_and_point_preserved(self):
+  s=m.TriangleSurface([[0,0,0],[.002,0,0],[.004,0,0]],F)
+  r=s.query([[.001,.001,0]],.004,return_witnesses=True);self.assertAlmostEqual(r['distance_m'][0],.001,places=14);self.assertTrue(np.isnan(r['encoded_facet_normal']).all())
+  p=m.TriangleSurface([[0,0,0]],[[0,0,0]]).query([[0,0,.001]],.004)
+  self.assertAlmostEqual(p[0],.001,places=14)
+ def test_reversed_coincident_facets_never_certify_exterior_or_unique_normal(self):
+  r=surface(faces=np.array([[0,1,2],[0,2,1]])).query([[0,0,.001]],.004,return_witnesses=True)
+  self.assertFalse(r['normal_reliable_exterior'].any());self.assertFalse(r['normal_uniqueness_tested']);self.assertAlmostEqual(r['distance_m'][0],.001,places=14)
+ def test_parts_not_hidden_by_global_union(self):
+  b=backend(source_z={'thumb':.002},target_z={'palm':.002})
+  s=b.source_fields([[0,0,.0001]],.004);t=b.target_fields(np.zeros(24),np.eye(4),[[0,0,.0001]],.004)
+  np.testing.assert_array_equal(s.min(axis=1),t.min(axis=1));self.assertGreater(np.max(abs(s-t)),.001)
+ def test_requested_part_order_and_no_discarded_cap_misses(self):
+  b=backend(target_z={'thumb':.0005});r=b.target_fields(np.zeros(24),np.eye(4),[[0,0,.001],[0,0,.02]],.004,parts=['thumb','palm'],return_witnesses=True)
+  self.assertEqual(r['distance_m'].shape,(2,2));np.testing.assert_allclose(r['distance_m'][0],[.0005,.001],atol=1e-14,rtol=0);np.testing.assert_array_equal(r['censored'][1],[True,True])
+ def test_target_palm_and_closestpoint_frame(self):
+  b=backend();T=np.eye(4);T[2,3]=.001;r=b.target_fields(np.zeros(24),T,[[0,0,.0015]],.004,parts=['thumb'],return_witnesses=True)
+  self.assertAlmostEqual(r['distance_m'][0,0],.0005,places=14);np.testing.assert_allclose(r['closest_m'][0,0],[0,0,.001],atol=1e-14,rtol=0)
+ def test_domain_and_nonfinite_refuse_without_clipping(self):
+  b=backend();q=np.zeros(24);q[2]=1.0001
+  with self.assertRaises(ValueError):b.target_fields(q,np.eye(4),[[0,0,0]],.004)
+  with self.assertRaises(ValueError):surface().query([[0,0,np.nan]],.004)
+ def test_missing_part_unmatched_and_invalid_subset_refuse(self):
+  b=backend()
+  with self.assertRaises(ValueError):m.SurfaceBackend(source_surfaces=b.source_surfaces[:-1],target_surfaces=b.target_surfaces,target_robot=b.robot,independent_fk_module=b.fk_module)
+  with self.assertRaises(ValueError):m.part_of('unknown_visual')
+  with self.assertRaises(ValueError):b.source_fields([[0,0,0]],.004,parts=['thumb','thumb'])
+ def test_signed_palm_distinguishes_enlargement_and_inside_union_boundary(self):
+  C=m._union_reference.Collider
+  def box(i,half,center=(0,0,0)):return C(i,'box','palm',np.array([half]*3),np.array(center,float),np.eye(3))
+  b=backend(boxes=([box(0,.01)],[box(0,.02)]));s,t=b.palm_signed_fields(np.eye(4),np.eye(4),[[.015,0,0]],.02)
+  np.testing.assert_allclose(s,[.005],atol=1e-14,rtol=0);np.testing.assert_allclose(t,[-.005],atol=1e-14,rtol=0)
+  b=backend(boxes=([box(0,.01)],[box(0,.01),box(1,.01,(.01,0,0))]));s,t=b.palm_signed_fields(np.eye(4),np.eye(4),[[.005,0,0]],.02)
+  self.assertAlmostEqual(t[0],-.01,places=14)
+ def test_signed_clipping_keeps_sign_and_censoring(self):
+  C=m._union_reference.Collider;box=C(0,'box','palm',np.array([.01]*3),np.zeros(3),np.eye(3));b=backend(boxes=([box],[box]));s,t=b.palm_signed_fields(np.eye(4),np.eye(4),[[0,0,0],[.02,0,0]],.004,return_witnesses=True)
+  np.testing.assert_array_equal(s['signed_distance_m'],[-.004,.004]);self.assertTrue(s['censored'].all());self.assertEqual(np.sign(s['unclipped_signed_distance_m']).tolist(),[-1,1])
+ def test_raw_geometry_is_copied_and_readonly(self):
+  v=V.copy();f=F.copy();s=m.TriangleSurface(v,f);v[0]=99;f[0]=0
+  np.testing.assert_array_equal(s.vertices,V);np.testing.assert_array_equal(s.faces,F)
+  with self.assertRaises(ValueError):s.vertices[0]=1
+
+def main():
+ before={str(p):'sha256:'+hashlib.sha256(p.read_bytes()).hexdigest() for p in [P,P.with_name('palm_box_union.py'),P.with_name('palm_union_geometry_reference.py')]}
+ result=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(ActualBackendControls))
+ for path,h in before.items():
+  if 'sha256:'+hashlib.sha256(Path(path).read_bytes()).hexdigest()!=h:raise ValueError('Backend changed during controls')
+ out=Path(__file__).with_name('actual_backend_controls_receipt_v1.json')
+ if out.exists():raise FileExistsError(out)
+ r={'schema_version':'dga_independent_actual_surface_backend_manufactured_controls_v1','created_at_utc':datetime.now(timezone.utc).isoformat(),'status':'PASS' if result.wasSuccessful() else 'FAIL','tests':result.testsRun,'failures':len(result.failures),'errors':len(result.errors),'code_sha256':'sha256:'+hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'backend_dependencies':before,'scope':'Manufactured tinytriangles/boxes andfakeFK only; no actualnative/candidate geometryorposes, optimizer, inference, GPU, physics or evaluationdata. Backenddistance/outward-normal disclaimers checked; this is not end-to-end acceptance.'}
+ out.write_text(json.dumps(r,indent=2)+'\n')
+ if not result.wasSuccessful():raise SystemExit(1)
+if __name__=='__main__':main()

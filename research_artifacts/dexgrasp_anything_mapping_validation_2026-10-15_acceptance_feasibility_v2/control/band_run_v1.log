@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/private/tmp/dga_mapping_acceptance_20261015_v2/control/run_band_experiment.py", line 122, in <module>
+    main()
+  File "/private/tmp/dga_mapping_acceptance_20261015_v2/control/run_band_experiment.py", line 52, in main
+    mods = {k: module('band_'+k, p['code_paths'][k]) for k in
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/dga_mapping_acceptance_20261015_v2/control/run_band_experiment.py", line 26, in module
+    spec.loader.exec_module(mod)
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/dga_component_constraints_20261015_v1/native_validation/runner/multidex_profile.py", line 11, in <module>
+    from grasp_failure_prediction.proposals import dexgrasp_anything as original
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/proposals/__init__.py", line 3, in <module>
+    from .schema import GraspProposal, ProposalRequest
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/proposals/schema.py", line 10, in <module>
+    from pydantic import Field, field_validator, model_validator
+ModuleNotFoundError: No module named 'pydantic'

@@ -579,19 +579,398 @@ actual surface normal. HUG's measured errors are not ContactGen results.
 % BEGIN GFP SECTION dexgrasp_anything
 \subsection{DexGrasp Anything}
 DexGrasp Anything uses a diffusion model with physical constraints
-\cite{dga}. The pinned implementation exports a denormalized articulated
-Shadow configuration containing translation, a 6D rotation representation and
-24 joints, including both wrists. The root is the forearm; conversion must
-compose the actual wrist-dependent forearm-to-palm transform and preserve
-normalization, scale and the selected sampling/optimization stage.
+\cite{dga}. Its pinned release samples translation and 24 angles, then exports
+a 33-dimensional state containing translation, two rotation columns and all
+24 angles, including both wrists. The source root is the forearm; our dedicated
+decoder composes the wrist-dependent forearm-to-palm transform and preserves
+physical translation, joint values, denormalization and sampling stage.
+The offline checker remains candidate-only and does not grant shared execution.
 
-A dedicated static bridge candidate was examined on zero and 64 deterministic
-joint configurations, with maximum fingertip separation of 0.100 mm. This is
-synthetic kinematic evidence, not native proposal validation. The source-specific
-decoder, inference worker and accepted registered mapping remain pending.
-The older 22-finger/free-palm assumption is not the pinned source contract.
-Collision-surface fidelity and actual generated-output preservation have not
-been established. Native quality tests are separate from our common task labels.
+Independent manufactured FK diagnostics on zero and 64 deterministic shared-limit
+configurations check all 30 common links. Maximum fingertip separation is
+0.080 mm at the thumb and 0.100 mm at the little finger; the other three tips
+agree to numerical precision. Source and target joint domains, internal frame
+conventions, visual representations and collision representations differ.
+
+An initial authentic A40 smoke strictly loaded all 794 checkpoint state keys
+and generated two unguided DDPM proposals for the existing 50 mm cube; both
+violated source joint limits. Original source-runtime FK/first-visual
+reconstruction failed the frozen $10^{-5}$ m position and $10^{-4}$ rad
+raw-matrix angular-proxy gates, with maximum vertex residual 0.264 mm.
+A separately frozen static precision control reproduced all original arrays
+bit for bit with TF32 enabled; disabling TF32 for reconstruction passed the
+unchanged gates. These original failures and source rejections remain intact.
+
+A subsequent protocol fixed eight two-sample runs at seeds 20261015--20261022,
+with unchanged TF32-enabled generation and all 16 originals retained.
+A separately declared FP32 source-geometry policy disables TF32 before fresh
+hand construction and never changes the saved joint values. All eight export
+stage checks pass (maximum final-component residual $5.56\times10^{-17}$).
+Default references fail numerical reconstruction for all 16 rows; declared FP32
+references pass the same gates, with maximum vertex residual
+$4.62\times10^{-8}$ m. This establishes numerical source reconstruction under
+that explicit policy, not TF32-off generation equivalence or exterior topology.
+
+All 16 proposals violate the source limits: THJ1 is negative in every row,
+ranging from $-0.542$ to $-0.00318$ rad. The normalized model output is already
+below $-1$ for this component; the official affine inverse and unchanged joint
+export reproduce the negative values exactly. Four rows also violate other
+source limits. Eleven fit target limits alone, but none passes both domains.
+The fixed selection therefore yields no mapping candidate or surface query;
+no replacement samples, clipping or hidden refinement are applied. These
+single-object diagnostic cohorts do not estimate general success or validity.
+
+A subsequent CPU metadata audit recovered checkpoint epoch 60 and step 67,762 and
+compatible 100-step diffusion buffers, but no historical training configuration
+or data revision. An author-posted converter preserves original DexGraspNet
+THJ0 in the final angle slot, whereas the released DGA THJ1 has opposite-axis
+motion and positive limits.\footnote{\url{https://github.com/4DVLab/DexGrasp-Anything/issues/27}}
+The hash-pinned published pose artifact contains negative final coordinates in
+six of its first eight stored records (the other two are positive); this is a
+small data witness, not a prevalence estimate. A manufactured relative-distal-frame
+identity supports the candidate relation $q_{\mathrm{DGA}}=-q_{\mathrm{original}}$.
+This verifies a release-level data/hand convention conflict consistent with the
+native failures; it does not prove the checkpoint's historical training lineage
+or full-hand geometric equivalence. No semantic repair or acceptance is applied.
+
+A further predeclared mathematical-only diagnostic evaluates all 16 unchanged
+cohort rows while preserving every strict source rejection. Independent FK and
+palm/root transfer agree within $1.39\times10^{-16}$ in matrix entries; maximum
+palm translation residual is $5.65\times10^{-17}$ m. All 24 angles are unchanged.
+Source FP32 reference reconstruction passes the earlier engineering gates.
+On cube-face grids of 1 and 0.5 mm, conservative unsigned-triangle proximity
+bounds show source-only or target-only regions in 15 of 16 configurations at
+each 0.5, 1 and 2 mm band. At the 1 mm band, maximum positive lower area bounds
+are $111.0\,\mathrm{mm}^2$ source-only and $76.25\,\mathrm{mm}^2$ target-only,
+excluding the unmatched forearm on both sides. An independent reader reproduces
+40,320 area quantities and verifies all 2,880 coarse/fine interval overlaps.
+These are encoded visual-triangle proximity witnesses on source-invalid
+configurations; overlapping member walls remain and physical contacts or
+outward articulated-union normals are not certified. The zero lower difference
+for the remaining configuration does not establish equality. Published evaluation
+preconditioning and collider assets form additional distinct stage contracts.
+
+A separately pinned official MultiDex checkpoint was tested as a distinct DGA
+variant using two fixed batches of two, seeds 20261023 and 20261024, with the same
+physical cube, source and unguided 100-step DDPM configuration. All four original
+outputs were retained. Two satisfy the native source domains; none satisfies the
+target domains. All four distal-thumb \texttt{THJ1} values are valid in this small
+test. The other native failures concern \texttt{LFJ1} and \texttt{FFJ4}; the two
+native-valid poses exceed narrower target finger/thumb limits. For example,
+finger abduction permits $\pm25^\circ$ in DGA and approximately $\pm20^\circ$ in
+the target. These observations do not estimate population improvement or explain
+the original DexGraspNet checkpoint's historical training convention.
+
+Independent inverse-stage checks pass with final-state residual at most
+$2.78\times10^{-17}$. All four default TF32 geometry references fail the existing
+engineering gates; separate fresh FP32 references pass, maximum vertex residual
+$3.51\times10^{-8}$ m. A further separately frozen algebra-only diagnostic on all
+four unchanged configurations preserves all 24 values and all domain rejections;
+maximum composition residual is $3.33\times10^{-16}$ and palm translation
+residual $3.11\times10^{-17}$ m. This includes two source-valid but target-invalid
+poses, not a jointly admissible mapped example. The target root is \texttt{world},
+with the articulated forearm transform recorded separately. The prescribed
+source-and-target-valid surface selection is empty, so no additional proximity
+queries were performed. Original DexGraspNet protocols and failures remain
+separate and unchanged.
+
+A subsequent exact joint-interval audit establishes that the unchanged-angle
+mapping is not total over the source domain. A separately frozen plane-reachability
+certificate on the source-valid MultiDex row 3 gives global fixed-palm tip-error
+lower bounds of 4.975267 mm (index), 3.591667 mm (middle), and 0.292065 mm (ring),
+even when target flexion bounds are relaxed. The argument verifies the original
+axis/offset chains and uses rational trigonometric enclosures. Thumb/little are
+uncovered; zero relaxed bounds for row 1 do not establish feasibility.
+
+A distinct bounded retargeting development stage fits the two existing
+source-valid rows while retaining their original palm and wrists. Its objective
+matches all corresponding finger-link origins, with no object-attraction or
+success term. Both local fitted solutions satisfy target limits; maximum tip/link
+position errors are 1.397779 and 4.975626 mm. Independent XML/FK reproduces these
+results. The native records and original rejections remain unchanged. A separate
+visual-triangle probe uses 2 and 1 mm cube grids with 0.5, 1, and 2 mm proximity
+bands. On row 3 it detects a conditional lower bound of $4\,\mathrm{mm}^2$ of added
+thumb near-region at the 2 mm band; the whole-hand common-coverage witness denotes
+the same cells. Row 1 has no positive lower witness at these resolutions, without
+an equality certificate. An independent saved-array reader reproduces 2,748
+numeric quantities. These are development measurements of encoded triangle sets,
+not certified exterior contact or compiled-collider equivalence. A reporting-only
+zero-pose orientation gauge was corrected additively to palm-relative frames;
+positions and fitted joint values were unaffected. No scientific approximation
+budget or independent validation acceptance follows from either fit.
+
+A later bounded development stage permits palm motion while preserving both
+native wrist values and enforcing all target joint limits. Two fixed starts per
+pose minimize maximum positional error over the palm plus 27 common finger-link
+origins, with independently checked nonregression of maximum error and total
+squared error against the previous fit. All four attempts remain recorded. Row 1
+retains its earlier fit because both new attempts violate a guard. Row 3 reduces
+maximum error from 4.975626 to 1.797795 mm, while its palm moves 1.797795 mm and
+rotates 1.796291 degrees. Mean site error rises from 0.863111 to 1.585300 mm;
+22 of 28 sites worsen by more than 1 nm. Independent XML/FK verifies all fitted
+transforms, domains, preserved source values and candidate selection. A pinned
+thumb audit reconstructs source FP32 visuals within 33.1 nm; exact dyadic diameter
+bounds separate the source distal shape (25.794635--25.794902 mm) from the target
+(32.831290--32.831547 mm). This refutes rigid shape identity, independently of
+whether any particular object-contact region is preserved.
+
+Fresh off-center cube queries were fixed before the new fit, with cell radii
+computed from the farthest corner. A subsequent separately frozen 0.5/0.25 mm
+sensitivity check followed the initial 2/1 mm measurement; neither measurement
+fed back into fitting or selection. At the finest grid and 2 mm band, row 3
+common visual coverage has lost-area bounds of 16.750--150.250 mm$^2$ and
+added-area bounds of 94.375--368.500 mm$^2$. The added-thumb interval of
+38.750--72.0625 mm$^2$ overlaps the latter. Seventeen conditional facet-facing
+changes occur among 409 eligible queries out of 12,858 both-near queries;
+open-mesh topology prevents interpreting these as full exterior normals.
+These bounds conditionally refute encoded near-set equality for row 3 under
+the declared numerical allowance; row 1 remains unresolved on this visual
+reference. Both poses are inspected development examples, not independent
+native-output validation.
+
+A separate static diagnostic constructs exposed boundaries for the source's
+one declared palm box and the target's union of eight boxes, removing internal
+walls and handling inside-union distances. At the 1 mm grid and 2 mm band,
+added palm-near area is bounded by 84--219 mm$^2$ for row 1 and
+250--710 mm$^2$ for row 3. Source palm solids contain zero cube-surface area
+under the interval calculation, versus 43--116 and 305--550 mm$^2$ in the mapped
+target solids. No eligible paired palm-normal comparisons exist. These are
+conditional declared-palm geometry comparisons, separately reviewed from
+visual surfaces and not compiled collision or physical contact tests.
+The preliminary zero-query numerical refusal and its subsequent endpoint
+classification correction are retained with unchanged error allowances.
+This explicit DGA-plus-retargeter stage therefore remains a development
+candidate; numerical correctness and lower maximum error do not establish
+native-fidelity acceptance or a justified approximation budget.
+
+A separate surface-aware development protocol subsequently froze acceptance
+criteria before fitting: strict equality of same-part encoded visual near-sets
+at the established 0.5, 1, and 2 mm descriptive scales, together with declared
+palm-boundary near-sets and inside/outside occupancy. Any positive conservative
+difference lower bound is a failure; a pass requires zero full difference upper
+bounds or a valid complete geometry identity certificate. Remaining uncertainty
+is unresolved. Zero difference follows from this exact preservation claim;
+neither these bands nor the conditional 1 nm arithmetic allowance define a
+physical-outcome tolerance. No nonzero approximation budget is fitted to the
+observed errors.
+
+The implemented objective matches seven corresponding visual distance fields
+and signed declared palm-union distance on 600 fixed centered cube queries,
+with 4 mm clipping for fitting only. Two fixed starts and two sweeps per case
+retain both wrists and strict joint domains. All four terminal candidates
+reduce fitting loss by 37.08--60.65 percent, but violate both unchanged landmark
+maximum and squared-error guards. Their maximum errors are 4.262250 mm for both
+row 1 starts, and 9.435949/15.113782 mm for row 3, against fixed-palm guard
+values 1.397779/4.975626 mm. Both selected outputs consequently remain the prior
+free-palm baselines. All attempts and 48 block histories are retained. This
+implements a native-relative surface objective without demonstrating an admitted
+improved correction; terminal-only guards do not keep the inner solver in the
+landmark-feasible region.
+
+Fresh predeclared 1/0.5/0.25 mm grids use cell fractions $(2/7,3/7)$ and the
+corresponding farthest-corner radii. The updated distance reader retains every
+original triangle, including tiny and degenerate triangles; unusable normals
+are excluded only from direction evidence. Historical measurements remain
+separate. The strict visual criterion is unresolved for row 1 and fails for
+row 3. At the finest grid and 2 mm band, row 3 common coverage loses
+18.1875--147.9375 mm$^2$ and adds 96.75--363.625 mm$^2$; the added thumb interval
+39.1875--72.125 mm$^2$ overlaps that aggregate. Both declared palm comparisons
+fail all three proximity bands and occupancy preservation. Added palm-near
+bounds are 133.9375--167 and 424.875--535.5 mm$^2$; added inside occupancy is
+65--82.5625 and 384.375--443.3125 mm$^2$. No qualified paired palm-normal
+comparisons exist, so their direction relationship remains unresolved.
+
+Independent source/domain/FK and candidate-selection checks pass, as do
+4,290 visual numeric recounts, 648 grid-consistency records, 42 merged part/band
+gates, and 516 palm checks. These checks verify the reported failures and
+uncertainties; they do not convert them into mapping acceptance. All 1,184 prior
+evidence and production files remain unchanged. The two inspected development
+poses provide no independent native generalization evidence, and the finite
+failed search does not prove that every constrained correction is impossible.
+No new inference, GPU operations, physics, evaluation data or labels, or model
+training occurred in this experiment.
+
+A further method was frozen after the user retained native fidelity as the
+governing claim. The scientific criteria and fixed-palm landmark guards remain
+unchanged. Two starts and two proposal sweeps per existing case evaluate eleven
+fixed positive fractions of a coupled finger/palm step. Strict domains,
+unchanged wrists, proper frames, and true 28-site maximum and squared-error
+guards are checked before each line-search surface query. Exploratory proposal
+workspaces are separately labeled and may be infeasible. All 48 proposal blocks
+complete; 88 positive checks yield 37 guard refusals without line-search queries
+and 51 feasible field evaluations. All eight adopted steps satisfy the guards;
+exact cached zero-step alternatives remain recorded.
+
+Both selected target poses change, with the native arrays and source frames
+byte-identical. Fitting loss falls 5.75 and 20.82 percent. Maximum landmark
+errors are 1.311337 and 4.906432 mm against unchanged fixed-palm guards of
+1.397779 and 4.975626 mm. These guards do not require nonregression against
+the later free-palm candidate: row 3 maximum error rises from 1.797795 mm
+by 172.91 percent and its squared error rises 14.77 percent; row 1 mean
+error rises 68.00 percent. Lower fitting loss does not establish improved
+overall fidelity.
+
+Fresh reserved grids at fractions $(3/7,2/7)$ and spacings 1/0.5/0.25 mm
+use the corresponding covering radius $\sqrt{41}h/7$. They perform
+4,894,335 triangle tests and 115,290,000 polygon queries. Visual preservation
+remains unresolved for row 1 and fails for row 3. At the finest grid/2 mm
+band, common visual lost/new area bounds are 0--78.6875/0--64.5 mm$^2$
+for row 1 and 2.4375--185/21.9375--204.6875 mm$^2$ for row 3. Declared
+palm near-region and occupancy preservation fail for both cases. Added
+palm-near bounds are 129.5625--161.75/395.875--505.8125 mm$^2$; added
+occupancy is 59.875--76.9375/322.75--377.75 mm$^2$. Direction remains
+unresolved: row 3 has 28 eligible paired point normals at the finest 2 mm
+band but no fully covered normal cells. The conditional arithmetic and
+encoded-geometry limitations are unchanged.
+
+Independent review reproduces 104 fit states, all 88 positive paths,
+272 fitting-field quantities, 4,290 visual quantities, 648 grid-consistency
+records, 42 merged part/band gates, and 525 palm quantities. All 1,467
+historical evidence and production files remain unchanged. Combined strict
+preservation fails on both development cases, so this corrected retargeter
+remains unaccepted. A representation preserving the pinned source geometry
+is a proposed alternative requiring an explicit new embodiment contract;
+it cannot substitute for validation of the current target. Neither global
+target infeasibility nor independent native-output generalization follows
+from these bounded searches. No new inference, GPU operations, physics,
+evaluation data or labels, or model training occurred.
+
+
+A subsequent fixed-target study retained the agreed hand and strict preservation
+criteria. A separate component-constrained method prevents an aggregate fitting
+objective from trading a worse palm, finger, or thumb component against another.
+It uses separate maximum and mean-squared native-relative distance differences
+for seven visual parts and the declared signed palm field, plus palm sign mismatch
+count and crossing depth. Adoption requires nonregression of every component,
+strict improvement of at least one, strict target domains, unchanged native
+wrists, and independent frame checks. Each of the 28 landmark displacements is bounded by the smaller fixed/free
+maximum error; their total squared error is bounded by the smaller fixed/free
+squared-error cap, and their mean error by the free-palm mean. These are engineering constraints, not revised scientific
+tolerances. The fixed query set combines the original 600 centered points with
+256 deterministically pooled historical failure witnesses. Historical witnesses
+are development data; new holdout geometry cannot feed back into correction.
+
+Before another development fit, an exact-rational rigid-anchor analysis found a
+sufficient global declared-palm occupancy obstruction for development row 1
+under the original fixed-palm landmark guards. Ten joint-independent origins,
+with their original multiplicities, give affine reproduction weights for a
+cube-surface query. Triangle and weighted Cauchy--Schwarz inequalities bound its
+motion for any proper target palm placement satisfying the landmark maximum and
+squared-error limits. A target-member interior margin exceeds that bound, while
+a source-outside margin and cube-face edge margin yield a positive square of
+unavoidable occupancy mismatch. Finger articulation cannot move these rigid
+origins relative to the palm.
+
+Including the declared 1 nm landmark and boundary cushions, row 1 has a
+conservative mismatch-area lower bound of $0.000104920398$ mm$^2$. Avoiding
+that target member would require total squared landmark displacement of at least
+$3.737504620$ mm$^2$, above the original $3.620809006$ mm$^2$ guard.
+These are sufficient lower bounds, not total mismatched area or a physical
+outcome. Row 3 remains unresolved under the original guards; the tighter new
+method has a separate obstruction, requiring maximum displacement at least
+$2.053388160$ mm against its approximately $1.797795487$ mm cap. Exact-declared-guard and
+conditional floating-error statements are separate. The 1 nm link to computed
+geometry remains an explicit premise, rather than a directed-rounding proof
+of every runtime operation. Two independent implementations reproduce the saved
+witness algebra and rigid-origin argument. Further acceptance-seeking fits on
+these two development cases were therefore not run. This result is scoped to
+the indicated poses, declared geometry, and landmark guards; it does not prove
+cohort-wide or physical infeasibility.
+
+A sealed native extension then generated sixteen complete finite outputs in
+eight batches, seeds 20261025--20261032, using the same pinned MultiDex
+checkpoint, 100 unguided DDPM steps and 50 mm cube. All original outputs and
+101-state traces are retained. Eleven outputs are source-valid; ten of those
+violate target limits and one is an unchanged-angle candidate. Five violate
+source limits. All inverse-stage checks pass, all sixteen default TF32
+references retain their failures, and separate fresh FP32 references pass.
+The first two complete, finite, source-valid outputs in original order are
+selected before target, wrist, reference and fitting gates, with no backfill.
+These are new native rows 0 and 1, distinct from old development rows 1 and 3.
+The other fourteen receive ledger checks but no correction or surface test in
+this bounded study. New seeds on one cube provide no unseen-object or population
+validity estimate. Method and consumers were frozen before unsealing results.
+
+The component correction completes 24 blocks and 471 trial field states in
+14.2 seconds, adopting eight steps. Both final poses satisfy target limits,
+unchanged wrists and the tighter landmark guards. Maximum landmark error stays
+1.203120 and 1.498822 mm. Row 0 changes are below 1 nm in the fitted fields and
+are not interpreted as substantive progress. Row 1 index maximum field
+difference falls from 0.890514 to 0.743128 mm, and total landmark squared error
+falls about 7.95 percent. Both palm placements remain unchanged from their
+newly constructed free-palm baselines.
+
+Fresh reserved queries at fractions $(2/5,1/3)$ and spacings 1/0.5/0.25 mm,
+with covering radius $\sqrt{181}h/15$, perform 18,415,400 triangle tests and
+115,290,000 exposed-palm polygon queries. Strict visual preservation fails for
+both corrected outputs. Finest-grid 2 mm common visual lost/added intervals
+are 56.75--568.625/59.1875--522.625 mm$^2$ for new row 0 and
+79.4375--374.0625/117.9375--431.3125 mm$^2$ for new row 1. Row 1 thumb
+lost/added intervals are 42.125--142.9375/52.5625--150.5 mm$^2$ and overlap
+the common coverage. New row 0 also fails declared palm preservation:
+added near-region is 437.4375--553.6875 mm$^2$ and added occupied cube-surface
+area is 724.0625--786.625 mm$^2$. New row 1 passes palm exclusion because both
+palms are farther than 2 mm everywhere and both occupied cube-surface sets are empty;
+this establishes neither contact nor facing preservation. Palm directions
+remain unresolved for both, with only two eligible finest-band point pairs
+for row 0 and no fully covered normal cells. These failures concern the two
+frozen corrected poses, not all possible corrections of them.
+
+Independent raw-output, domain, selection, XML/FK, baseline and adoption checks
+pass, as do 4,290 visual metrics, 648 cross-grid records, 42 merged part/band
+gates and 519 palm quantities. Original matmul warnings are retained; a separate
+explicit-arithmetic transform recount verifies finite coordinates and agreement
+within $5.56\times10^{-17}$ m despite reproducing warnings. It does not assign
+the warning cause or replay every distance calculation. The conditional 1 nm
+arithmetic allowance remains explicit. All 1,929 historical files remain
+unchanged. The new temporary A40 was stopped and deleted after verified download.
+No physics, evaluation episodes or outcome labels, or model training occurred.
+The corrected mapping remains unaccepted. A claim covering the analytically
+obstructed old pose cannot satisfy both unchanged declared-palm occupancy and
+original landmark guards under the stated premises; a stronger optimizer alone
+cannot remove that conflict. Other poses and alternative correction methods
+remain case-specific questions requiring separately frozen, independent tests.
+
+
+Actual source-to-target mapping on jointly source-and-target-valid native
+proposals, matched exterior/contact preservation, reliable geometric normals, scientific acceptance
+and physical/predictor equivalence remain unestablished. The provider remains
+unsupported in the shared registry. Generation, optional guidance, upstream angle
+preconditioning and common execution are distinct stages. No physics, evaluation
+episodes or task labels, or training was run.
+
+\paragraph{Exact feasibility audit after the compiler repair.}
+A separate static audit retains all sixteen saved native outputs and measures
+the eleven source-valid raw poses. The only jointly source/target-legal raw
+pose, row 6, fails index and ring visual proximity preservation at all three
+bands without angle correction. At 1 mm, conservative lost-area lower bounds
+are 50.25 and 66.9375 mm$^2$. Independent reconstruction reproduces all eight
+index/ring runtime triangle sets exactly; distal meshes genuinely differ
+(970 versus 5,374 triangles), despite matching nominal link frames. The palm
+nearset/occupancy pass concerns empty sets; direction remains unresolved.
+
+Outward rational intervals reconstruct the saved robust-6D source pose and
+literal wrist FK, removing the former assumed 1 nm source-transform bridge.
+For old development row 1 and new native row 0, respectively, any proper
+target palm placement and finger configuration satisfying their original
+pose-specific maximum/SSE guards leaves an added declared-palm occupancy
+square of at least 0.000104947 and 0.525625 mm$^2$. These are exact declared
+geometry statements with real-arithmetic guards and the recorded constants,
+not a proof about arbitrary floating implementations or every DGA pose.
+There are 2,082 manufactured arithmetic/geometry controls; independent review
+recounts 516 certificates and verifies the nine collider declarations and
+original guard provenance. The required cohort therefore cannot all satisfy
+the unchanged exact criterion, independently of optimizer strength.
+
+A separately frozen 2,238-state simultaneous joint/palm band-fitting trial
+retains the tighter landmark and eighteen component guards. It selects only
+a $10^{-5}$ rad THJ3 adjustment, reducing the maximum thumb fitting difference
+by about 46.4 nm with unchanged palm and maximum landmark error. Fresh grids
+at fractions $(13/37,19/41)$ still fail visual preservation. This bounded
+search does not prove infeasibility for that other pose. Original outputs and
+criteria remain unchanged, no provider is promoted, and no physics, new native
+inference, evaluation episodes/labels or training occurs.
+
 % END GFP SECTION dexgrasp_anything
 
 % BEGIN GFP SECTION unidexgrasp

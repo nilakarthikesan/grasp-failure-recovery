@@ -1,0 +1,74 @@
+{
+  "schema_version": "dga_band_implementation_independent_review_v1",
+  "created_at_utc": "2026-10-15T09:10:34.260081+00:00",
+  "status": "PASS_IMPLEMENTATION_ADOPTION_REVIEW_OUTPUT_ACCEPTANCE_PENDING",
+  "blocking_issues": [],
+  "reviewed_sha256": {
+    "/private/tmp/dga_mapping_acceptance_20261015_v2/control/band_corrector.py": "sha256:6b79d7245ffd12f42a291b056cf359f6771fb4217b164c26728b60fdce92ffdd",
+    "/private/tmp/dga_mapping_acceptance_20261015_v2/control/run_band_experiment.py": "sha256:157f34ddb5f118033b93ec9cc4cd4a682ed08b70a5268da24d47df0b0f14524c",
+    "/private/tmp/dga_mapping_acceptance_20261015_v2/control/band_method_frozen_v1.json": "sha256:7f5bd0bb8bda023f54e9911602ee8775d6af4aec15d24e2a8ebed9ce709b9294",
+    "/private/tmp/dga_component_constraints_20261015_v1/optimizer/component_corrector.py": "sha256:2fbeea317ec2f036285183646bc8dbf5fe386feb0ca55ee36cc22d90a33e88b1",
+    "/private/tmp/dga_component_constraints_20261015_v1/optimizer/mapping_context.py": "sha256:0abf488a62a326344ab926a878b2742adc61a52219ce5415a2d4aba2c12ac8c4",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/proposals/dexgrasp_anything.py": "sha256:977634c4dede9d6b45f80ab72047dbf1554caddd4387b6467ca0ff598851dd72",
+    "/private/tmp/dga_mapping_acceptance_20261015_v2/contract_review/test_band_adoption_review_v1.py": "sha256:8899c7da7abd1a8a546c86caf8be7156319098799f902dbe4deb6d9d88f37006",
+    "/private/tmp/dga_mapping_acceptance_20261015_v2/contract_review/band_adoption_controls_v1.log": "sha256:f27130d6020e68802a370537b0d3f9a9bbbfdc8f4a6b63e9239adbe73bc04ec5"
+  },
+  "frozen_dependency_count": 717,
+  "frozen_dependencies_match": true,
+  "findings": [
+    {
+      "topic": "Objective vs adoption",
+      "finding": "The band/occupancy sum is used only to propose SLSQP workspaces. Final selection invokes unchanged select_strict_candidate over true-guarded candidates; all18 initial component metrics must be nonregressing and at least one strictly improves. No proxy objective or solver-success flag establishes scientific acceptance."
+    },
+    {
+      "topic": "Unchanged domain and source",
+      "finding": "MappingContext decodes the pinned immutable raw33; both wrist values stay exact. make_state constructs full24 q and DGAHandTree.forward checks exact declared target limits without clipping. Independent XML FK and root/palm/forearm composition are checked. Source pose arrays, frames and fields are read-only/identity checked."
+    },
+    {
+      "topic": "Clipped projected start",
+      "finding": "The np.clip call creates one explicitly labelled optimizer start over target finger variables only. It does not mutate native arrays or bypass target/landmark/component adoption gates. This seed is not exported as an accepted mapping merely because it was projected."
+    },
+    {
+      "topic": "Landmarks",
+      "finding": "Context recomputes all28 site errors from actual source/target frames; maximum, SSE and mean use the exact prior saved tightened caps. Variable translation boxes do not replace the actual palm/landmark constraints. Complete final state is independently certified before export."
+    },
+    {
+      "topic": "Correspondence and aggregation",
+      "finding": "Complete Nx8 fields use7 matched visual parts followed by signed declared palm union. core.component_metrics validates float64/censoring and creates exactly18 metrics. Normalized constraints have48 terms (18 components,28 sites,SSE,mean). The proxy excludes no matched part, and its250um fitting margin is not a changed acceptance band."
+    },
+    {
+      "topic": "Separate trial and adopted state",
+      "finding": "New states are fresh context dictionaries. Cache stores evaluated workspaces; eligible states require all guards and strict component improvement. Current initial state/source fields are not overwritten; final choice may validly retain an earlier feasible candidate despite an unsuccessful or inadmissible solver terminal point."
+    },
+    {
+      "topic": "Bounds and resources",
+      "finding": "Three fixed starts, max800 newly evaluated field states/start and2400 total. Deadline is checked before each lookup; an individual field evaluation can finish after the wall cutoff, after which no further fields run. No simulator, inference or training path imported by the reviewed scripts."
+    }
+  ],
+  "manufactured_controls": {
+    "passed": 9,
+    "new_hostile_adoption_controls": 5,
+    "original_band_math_controls": 4,
+    "cases": [
+      "lower proxy plus one worsened component refused",
+      "lower proxy plus landmark failure refused",
+      "solver success plus invalid domain refused",
+      "earlier verified candidate retained despite unsuccessful terminal initial state",
+      "exact initial state preserved if no new state"
+    ],
+    "no_geometry_calls": true
+  },
+  "nonblocking_reporting_notes": [
+    "Producer writes report before final import/dependency check. Treat its report as provisional until successful process exit plus an external final dependency/output-hash receipt. This review does not infer run completion from report existence.",
+    "Only initial/selected fields are archived; individual proposal field arrays are not in trial_trace. Independent selected-state recount is required before any fresh surface validation if a changed candidate is selected."
+  ],
+  "remaining_output_review": "Pending run completion. Recount saved source/initial/selected fields, all18 guard metrics, true28 landmarks, named24targetlimits, source bytes/wrists and frame compositions independently; verify output hashes before surface testing.",
+  "scientific_acceptance": "NOT_GRANTED",
+  "execution_eligible": false,
+  "zero_execution": {
+    "physics_steps": 0,
+    "native_inference_calls": 0,
+    "geometry_queries": 0,
+    "training_calls": 0
+  }
+}

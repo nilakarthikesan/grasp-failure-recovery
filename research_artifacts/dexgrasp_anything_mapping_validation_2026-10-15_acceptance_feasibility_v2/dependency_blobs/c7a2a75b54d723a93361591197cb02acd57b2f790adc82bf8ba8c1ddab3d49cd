@@ -1,0 +1,119 @@
+"""Frozen reusable landmark baseline construction; no model/surface queries.
+
+The caller supplies hash-bound parsers and the historical fixed/free solvers.
+Original q and frames are immutable; diagnostic projection initializes an
+explicit target correction only. Solver success never overrides true guards.
+"""
+import time
+import numpy as np
+
+def valid_metrics(metrics, reference):
+    return bool(all(np.isfinite(metrics[k]) and metrics[k] <= reference[k]
+                    for k in ('maximum_site_error_m', 'all_site_SSE_m2')))
+
+def rank(state):
+    m = state['landmark_metrics']
+    return m['maximum_site_error_m'], m['all_site_SSE_m2'], state['selection_order']
+
+def build_baseline(*, qsource, native_root, source_model, target_model,
+                   source_tree, target_tree, names, sites, fixed_helper,
+                   free_helper, audit, proper_transform, deadline):
+    """One fixed-palm fit, two free-palm starts, true maximum/SSE selection.
+
+    Exactly the historical solver budgets; no future native-result feedback.
+    Any timeout/refusal leaves the attempt recorded by the caller, not backfilled.
+    """
+    qs = dict(qsource)
+    before = tuple(qs.items())
+    if list(qs) != list(names) or len(names) != 24 or len(sites) != 28 or sites[0] != 'palm':
+        raise ValueError('Exact named 24-joint/28-site contract required')
+    if any(not np.isfinite(v) for v in qs.values()):
+        raise ValueError('Nonfinite native joint value')
+    if fixed_helper.outside(source_model, qs):
+        raise ValueError('Source-domain rejection; never repair native input')
+    if any(v['joint'].startswith('WRJ') for v in fixed_helper.outside(target_model, qs)):
+        raise ValueError('Original wrist outside target domain; no replacement')
+    native_root = proper_transform(np.array(native_root, dtype=float, copy=True))
+    sf = source_tree.forward(qs)
+    sf_ind = audit.independent_fk(source_model, qs)
+    if max(np.max(np.abs(sf[n] - sf_ind[n])) for n in sf) > 1e-9:
+        raise ValueError('Independent source FK mismatch')
+    source_palm = proper_transform(native_root @ sf['palm'])
+    fingers = [n for n in names if not n.startswith('WRJ')]
+    bounds = fixed_helper.limits(target_model, fingers)
+    desired = free_helper.relative_sites(sf_ind, sites)
+
+    def limited_fk(model, q):
+        if time.monotonic() > deadline:
+            raise TimeoutError('Frozen baseline wall budget exceeded')
+        return audit.independent_fk(model, q)
+
+    def target_sites(qarray):
+        q = dict(qs)
+        q.update(zip(fingers, np.asarray(qarray).tolist(), strict=True))
+        return free_helper.relative_sites(limited_fk(target_model, q), sites)
+
+    def verify(qarray, tmm, omega, order, candidate_id):
+        if time.monotonic() > deadline:
+            raise TimeoutError('Frozen baseline wall budget exceeded')
+        qarray = np.asarray(qarray, dtype=float)
+        tmm, omega = np.asarray(tmm, dtype=float), np.asarray(omega, dtype=float)
+        if qarray.shape != (22,) or tmm.shape != (3,) or omega.shape != (3,):
+            raise ValueError('Malformed candidate')
+        if not np.isfinite(np.r_[qarray, tmm, omega]).all():
+            raise ValueError('Nonfinite candidate')
+        if np.any(qarray < bounds[:, 0]) or np.any(qarray > bounds[:, 1]) or omega @ omega > np.pi**2:
+            raise ValueError('Strict target/principal-rotation domain failure; no clipping')
+        q = dict(qs)
+        q.update(zip(fingers, qarray.tolist(), strict=True))
+        frames, independent = target_tree.forward(q), limited_fk(target_model, q)
+        fk_error = max(float(np.max(np.abs(frames[n] - independent[n]))) for n in frames)
+        if fk_error > 1e-9:
+            raise ValueError('Independent target FK mismatch')
+        delta = proper_transform(free_helper.palm_delta(tmm, omega))
+        palm = proper_transform(source_palm @ delta)
+        root = proper_transform(palm @ np.linalg.inv(frames['palm']))
+        forearm = proper_transform(root @ frames['forearm'])
+        chain_error = float(np.max(np.abs(root @ frames['palm'] - palm)))
+        if chain_error > 1e-9:
+            raise ValueError('Target root/palm chain mismatch')
+        errors = np.stack([(root @ frames[n])[:3, 3] - (native_root @ sf[n])[:3, 3] for n in sites])
+        return {'candidate_id': candidate_id, 'selection_order': order, 'q': q,
+                'variables': np.r_[qarray, tmm, omega], 'delta': delta, 'palm': palm,
+                'root': root, 'forearm': forearm,
+                'landmark_metrics': free_helper.positional_metrics(errors),
+                'source_palm': source_palm, 'source_root': native_root,
+                'target_fk_max_entry': fk_error, 'palm_chain_max_entry': chain_error,
+                'errors_m': errors, 'feasible': True}
+
+    qfixed, projection, fixed_logs = fixed_helper.solve_fingers(sf_ind, target_model, qs, limited_fk)
+    fixed = verify([qfixed[n] for n in fingers], np.zeros(3), np.zeros(3), 0, 'fixed_palm_baseline')
+    reference = fixed['landmark_metrics']
+    qfixed_array = np.array([qfixed[n] for n in fingers])
+    projected = np.clip([qs[n] for n in fingers], bounds[:, 0], bounds[:, 1])
+    candidates, attempts = [fixed], []
+    for order, (start_id, qstart) in enumerate([
+        ('fixed_palm_start', qfixed_array), ('native_diagnostic_projection_start', projected)
+    ], start=1):
+        solved, log = free_helper.optimize_attempt(qstart, bounds, target_sites, desired, reference, deadline)
+        entry = {'candidate_id': start_id, 'selection_order': order, 'solver_log': log,
+                 'verified_feasible': False, 'no_final_clipping': True}
+        try:
+            state = verify(solved.x[:22], solved.x[22:25], solved.x[25:28], order, start_id)
+            entry['landmark_metrics'] = state['landmark_metrics']
+            entry['verified_feasible'] = valid_metrics(state['landmark_metrics'], reference)
+            if entry['verified_feasible']:
+                candidates.append(state)
+            else:
+                entry['refusal_reason'] = 'True maximum or SSE exceeds fixed baseline'
+        except ValueError as exc:
+            entry['refusal_reason'] = str(exc)
+        attempts.append(entry)
+    selected = min(candidates, key=rank)
+    if tuple(qsource.items()) != before or any(selected['q'][n] != qs[n] for n in ('WRJ2', 'WRJ1')):
+        raise ValueError('Native input or wrist changed')
+    return {'fixed_state': fixed, 'free_state': selected,
+            'fixed_diagnostic_projection': projection, 'fixed_logs': fixed_logs,
+            'free_attempts': attempts, 'source_unchanged': True,
+            'selection': 'true maximum, then SSE, then fixed start order',
+            'scientific_acceptance': False, 'execution_eligible': False}

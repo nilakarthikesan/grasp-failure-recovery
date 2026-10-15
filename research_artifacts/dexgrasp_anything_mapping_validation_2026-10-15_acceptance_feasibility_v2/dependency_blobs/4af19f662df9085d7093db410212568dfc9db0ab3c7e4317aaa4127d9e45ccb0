@@ -1,0 +1,325 @@
+#!/usr/bin/env python3
+"""Frozen source/fitted declared-palm collider-union comparison; CPU, zero step.
+
+This reference is separate from native visual triangles and compiled collision.
+Reliable normals refer to the PALM collider union, not the whole-hand exterior.
+"""
+import argparse
+from datetime import datetime,timezone
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import sys
+import time
+from xml.etree import ElementTree as ET
+import numpy as np
+from surface_backend import _union
+Collider,boundary_patches,union_query,EPS_DISTANCE = _union.Collider,_union.boundary_patches,_union.union_query,_union.EPS_DISTANCE
+
+JOINTS=('WRJ2','WRJ1','FFJ4','FFJ3','FFJ2','FFJ1','MFJ4','MFJ3','MFJ2','MFJ1',
+ 'RFJ4','RFJ3','RFJ2','RFJ1','LFJ5','LFJ4','LFJ3','LFJ2','LFJ1','THJ5','THJ4','THJ3','THJ2','THJ1')
+
+
+def digest(path):
+ h=hashlib.sha256()
+ with Path(path).open('rb') as stream:
+  for block in iter(lambda:stream.read(1048576),b''):h.update(block)
+ return 'sha256:'+h.hexdigest()
+
+
+def write(path,value):
+ with Path(path).open('x') as stream:json.dump(value,stream,indent=2,allow_nan=False);stream.write('\n')
+
+
+def rotation(rpy):
+ r,p,y=rpy;cr,sr=np.cos(r),np.sin(r);cp,sp=np.cos(p),np.sin(p);cy,sy=np.cos(y),np.sin(y)
+ return np.array([[cy*cp,cy*sp*sr-sy*cr,cy*sp*cr+sy*sr],
+  [sy*cp,sy*sp*sr+cy*cr,sy*sp*cr-cy*sr],[-sp,cp*sr,cp*cr]])
+
+
+def palm_boxes(path,expected):
+ root=ET.parse(path).getroot();links=[n for n in root.findall('link') if n.get('name')=='palm']
+ if len(links)!=1:raise ValueError('Unique palm required')
+ boxes=[];declarations=[]
+ for i,c in enumerate(links[0].findall('collision')):
+  g=c.find('geometry');shape=list(g)
+  if len(shape)!=1 or shape[0].tag!='box':raise ValueError('Declared palm reference requires only boxes')
+  size=np.array([float(v) for v in shape[0].get('size').split()])
+  o=c.find('origin');xyz=np.array([float(v) for v in (o.get('xyz','0 0 0') if o is not None else '0 0 0').split()])
+  rpy=np.array([float(v) for v in (o.get('rpy','0 0 0') if o is not None else '0 0 0').split()])
+  boxes.append(Collider(i,'box','palm',size/2,xyz,rotation(rpy)))
+  declarations.append({'index':i,'size_xml':shape[0].get('size'),'origin_xml':None if o is None else dict(o.attrib)})
+ if len(boxes)!=expected:raise ValueError('Frozen source1/target8 box count changed')
+ return boxes,declarations
+
+
+def proper(T):
+ T=np.asarray(T,dtype=float)
+ if (T.shape!=(4,4) or not np.isfinite(T).all() or not np.array_equal(T[3],[0,0,0,1])
+   or np.max(np.abs(T[:3,:3].T@T[:3,:3]-np.eye(3)))>1e-9 or abs(np.linalg.det(T[:3,:3])-1)>1e-9):
+  raise ValueError('Unmodified proper rigid transform required, no projection')
+ return T
+
+
+def cube_grid(spacing_mm):
+ n=round(50/spacing_mm);h=.05/n
+ if abs(h-spacing_mm*.001)>1e-14:raise ValueError('Exact 50mm cube tiling required')
+ u=-.025+(np.arange(n)+2/5)*h;v=-.025+(np.arange(n)+1/3)*h
+ U,V=np.meshgrid(u,v,indexing='ij');points=[];normals=[];faces=[]
+ for axis in range(3):
+  others=[k for k in range(3) if k!=axis]
+  for sign in (-1,1):
+   p=np.zeros((n*n,3));p[:,axis]=sign*.025;p[:,others[0]]=U.ravel();p[:,others[1]]=V.ravel()
+   normal=np.zeros_like(p);normal[:,axis]=sign
+   points.append(p);normals.append(normal);faces.extend([2*axis+(sign==1)]*(n*n))
+ return np.concatenate(points),np.concatenate(normals),np.array(faces),h*h,np.sqrt(181)*h/15
+
+
+def object_cube_sdf(points):
+ delta=np.abs(points)-.025
+ return np.linalg.norm(np.maximum(delta,0),axis=1)+np.minimum(delta.max(axis=1),0)
+
+
+def query_object(points,T,boxes,patches,deadline,counter,budget):
+ R=T[:3,:3];translation=T[:3,3]
+ r=union_query((points-translation)@R,boxes,patches,deadline=deadline,counter=counter,maximum_polygon_queries=budget)
+ r['closest_m']=r['closest_m']@R.T+translation;r['normal']=r['normal']@R.T
+ r['closest_cube_signed_distance_m']=object_cube_sdf(r['closest_m'])
+ verify_query_result(r,len(points))
+ return r
+
+
+def verify_query_result(r,n):
+ for key in ('unsigned_distance_m','signed_distance_m','normal_patch_margin_m','closest_cube_signed_distance_m'):
+  if np.shape(r[key])!=(n,) or not np.isfinite(r[key]).all():raise ValueError('Nonfinite/malformed palm result: '+key)
+ for key in ('closest_m','normal'):
+  if np.shape(r[key])!=(n,3) or not np.isfinite(r[key]).all():raise ValueError('Nonfinite/malformed palm result: '+key)
+ if np.any(r['unsigned_distance_m']<0) or np.any(np.abs(np.abs(r['signed_distance_m'])-r['unsigned_distance_m'])>EPS_DISTANCE*1.001):
+  raise ValueError('Signed/unsigned palm result inconsistency')
+ if np.any(np.abs(np.einsum('ij,ij->i',r['normal'],r['normal'])-1)>1e-9):raise ValueError('Nonunit declared palm normal')
+ membership=np.column_stack([r[k] for k in ('inside_union','outside_union','numerically_boundary')])
+ if membership.shape!=(n,3) or membership.dtype.kind!='b' or np.any(membership.sum(axis=1)!=1):
+  raise ValueError('Palm membership partition invalid')
+ gap=r['different_normal_competitor_gap_m']
+ if np.shape(gap)!=(n,) or np.isnan(gap).any() or np.any(gap< -EPS_DISTANCE):raise ValueError('Invalid palm normal competitor gap')
+
+
+def intervals(d,rho,tau):
+ near=d+rho+EPS_DISTANCE<=tau
+ far=np.maximum(0,d-rho-EPS_DISTANCE)>tau
+ return near,far
+
+
+def mask_area(lower,upper,weight):
+ return {'lower_m2':float(lower.sum()*weight),'upper_m2':float(upper.sum()*weight),
+  'uncertain_m2':float((upper.sum()-lower.sum())*weight)}
+
+
+def difference_status(metrics):
+ differences=[metrics[k] for k in ('lost_native','new_mapped')]
+ if any(v['lower_m2']>0 for v in differences):return 'FAIL'
+ if all(v['upper_m2']==0 for v in differences):return 'PASS'
+ return 'UNRESOLVED'
+
+
+def summarize(a,b,normal,rho,area,bands):
+ report={}
+ inside={}
+ for tag,r in (('source',a),('target',b)):
+  inside[tag]=mask_area(r['signed_distance_m']+rho+EPS_DISTANCE<0,
+   r['signed_distance_m']-rho-EPS_DISTANCE<=0,area)
+ geometry={'cube_surface_inside_palm_solid_area_intervals':inside,'query_counts':{tag:{
+  'inside_union':int(r['inside_union'].sum()),'outside_union':int(r['outside_union'].sum()),
+  'numerically_boundary':int(r['numerically_boundary'].sum()),
+  'reliable_palm_union_normals':int(r['normal_reliable_for_palm_union'].sum())} for tag,r in (('source',a),('target',b))},
+  'max_sampled_cube_boundary_depth_into_palm_m':{tag:float(max(0,-r['signed_distance_m'].min())) for tag,r in (('source',a),('target',b))}}
+ source_in=a['signed_distance_m']+rho+EPS_DISTANCE<0
+ source_out=a['signed_distance_m']-rho-EPS_DISTANCE>0
+ target_in=b['signed_distance_m']+rho+EPS_DISTANCE<0
+ target_out=b['signed_distance_m']-rho-EPS_DISTANCE>0
+ occupancy={'lost_native':mask_area(source_in&target_out,~source_out&~target_in,area),
+            'new_mapped':mask_area(source_out&target_in,~source_in&~target_out,area)}
+ geometry['occupancy_difference_area_intervals']=occupancy
+ geometry['occupancy_preservation_status']=difference_status(occupancy)
+ for band in bands:
+  tau=band*.001;an,af=intervals(a['unsigned_distance_m'],rho,tau);bn,bf=intervals(b['unsigned_distance_m'],rho,tau)
+  metrics={'native_near':mask_area(an,~af,area),'mapped_near':mask_area(bn,~bf,area),
+   'shared':mask_area(an&bn,~af&~bf,area),'lost_native':mask_area(an&bf,~af&~bn,area),
+   'new_mapped':mask_area(af&bn,~an&~bf,area)}
+  center_common=(a['unsigned_distance_m']<=tau)&(b['unsigned_distance_m']<=tau)
+  point_valid=center_common&a['outside_union']&b['outside_union']&a['normal_reliable_for_palm_union']&b['normal_reliable_for_palm_union']
+  point_valid&=(a['closest_cube_signed_distance_m']>EPS_DISTANCE)&(b['closest_cube_signed_distance_m']>EPS_DISTANCE)
+  cell_valid=an&bn
+  for r in (a,b):
+   cell_valid&=(r['normal_reliable_for_palm_union']&(r['signed_distance_m']>rho+EPS_DISTANCE)
+    &(r['normal_patch_margin_m']>rho+EPS_DISTANCE)
+    &(r['different_normal_competitor_gap_m']>2*rho+2*EPS_DISTANCE)
+    &(r['closest_cube_signed_distance_m']>rho+EPS_DISTANCE))
+  dot=np.einsum('ij,ij->i',a['normal'],b['normal'])
+  facing_a=-np.einsum('ij,ij->i',a['normal'],normal);facing_b=-np.einsum('ij,ij->i',b['normal'],normal)
+  normal_group_vector_allowance=np.sqrt(2*(1-.9999999))
+  facing_margin=normal_group_vector_allowance+1e-8
+  orientation_margin=2*normal_group_vector_allowance+normal_group_vector_allowance**2+1e-8
+  flip=((facing_a>facing_margin)&(facing_b< -facing_margin))|((facing_a< -facing_margin)&(facing_b>facing_margin))
+  records=[]
+  for mask in (an&bf,af&bn):records.append(np.flatnonzero(mask)[:8].tolist())
+  report[str(band)]={'area_intervals':metrics,'strict_nearset_preservation_status':difference_status(metrics),
+   'conditional_full_cell_lost_witness_indices':records[0],
+   'conditional_full_cell_new_witness_indices':records[1],
+   'normal_scope':'Outward declared PALM-union only; other hand links not included, not whole-hand exterior/contact normals',
+   'normal_point_comparison_count':int(point_valid.sum()),'normal_point_comparison_area_quadrature_m2':float(point_valid.sum()*area),
+   'normal_point_orientation_reversal_count':int((point_valid&(dot< -orientation_margin)).sum()),
+   'normal_point_facing_sign_change_count':int((point_valid&flip).sum()),
+   'normal_angular_group_stable_over_cell_area_m2':float(cell_valid.sum()*area),
+   'normal_full_cell_orientation_reversal_lower_area_m2':float((cell_valid&(dot< -orientation_margin)).sum()*area),
+   'normal_full_cell_facing_sign_change_lower_area_m2':float((cell_valid&flip).sum()*area),
+   'unavailable_point_normal_area_quadrature_m2':float((center_common&~point_valid).sum()*area),
+   'normal_angle_rad_quantiles_q50_q95_max':None if not point_valid.any() else np.quantile(np.arccos(np.clip(dot[point_valid],-1,1)),[.5,.95,1]).tolist(),
+   'criterion':'Strict native relationship equality; no nonzero distortion budget',
+   'normal_group_vector_allowance':float(normal_group_vector_allowance),
+   'facing_unambiguous_sign_margin':float(facing_margin),
+   'orientation_reversal_dot_margin':float(orientation_margin)}
+ return {'bands':report,'occupancy_and_exclusion':geometry}
+
+
+def combine_status(values):
+ if 'FAIL' in values:return 'FAIL'
+ if values and all(v=='PASS' for v in values):return 'PASS'
+ return 'UNRESOLVED'
+
+
+def coverage_status(values):
+ if 'FAIL' in values:return 'FAIL'
+ if 'PASS' in values:return 'PASS'
+ return 'UNRESOLVED'
+
+
+def load_module(name,path):
+ spec=importlib.util.spec_from_file_location(name,path);module=importlib.util.module_from_spec(spec)
+ sys.modules[name]=module;spec.loader.exec_module(module);return module
+
+
+def main():
+ parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--policy',type=Path,required=True)
+ parser.add_argument('--policy-sha256',required=True);parser.add_argument('--output',type=Path,required=True);args=parser.parse_args()
+ if args.output.exists():raise FileExistsError('Never overwrite measurements or failed attempts')
+ if digest(args.policy)!=args.policy_sha256:raise ValueError('Frozen policy hash changed')
+ p=json.loads(args.policy.read_text());deps=p['dependency_sha256']
+ for path,h in deps.items():
+  if digest(path)!=h:raise ValueError('Dependency changed: '+path)
+ if (p['schema_version']!='dga_component_surface_palm_holdout_v1' or p['status']!='FROZEN_PREMEASUREMENT'
+  or p['global_sample_indices']!=[1,3] or p['query_spacing_mm']!=[1.,.5,.25] or p['bands_mm']!=[.5,1.,2.]
+  or p['query_offset_fraction']!=['2/5','1/3'] or p['distance_numerical_allowance_m']!=EPS_DISTANCE
+  or p['cube_half_size_m']!=.025 or p['cube_geometry_content_hash']!='sha256:45c1162a4f815d65c43254f2f499f53bde1eecea4d39912d8ce36d2c5cd92a81'
+  or deps.get(str(Path(__file__).resolve()))!=digest(__file__)):
+  raise ValueError('Unsupported separate declared collision policy')
+ scientific=p['scientific_protocol']
+ if (deps.get(scientific['path'])!=scientific['sha256'] or digest(scientific['path'])!=scientific['sha256']
+  or scientific['sha256']!='sha256:57531e1e79a98f8e6b667bdd9a43e41a5e90ce8bdec35e56a833408baa106375'
+  or p['maximum_polygon_queries']!=150000000 or p['maximum_wall_seconds']!=600):
+  raise ValueError('Prospective scientific policy/budget changed')
+ for name in ('measure_palm_holdout.py','surface_backend.py','palm_box_union.py','palm_union_geometry_reference.py'):
+  code=Path(__file__).resolve().parent/name
+  if deps.get(str(code))!=digest(code):raise ValueError('Code closure not bound: '+name)
+ required=('source_urdf','target_urdf','fit_arrays','fit_report','native_validation_report','independent_fk')
+ if any(str(Path(p['paths'][k]).resolve()) not in deps for k in required):raise ValueError('Read dependency missing from freeze')
+ args.output.mkdir(parents=True,exist_ok=False);write(args.output/'premeasurement_receipt.json',{'policy_sha256':args.policy_sha256,
+  'dependency_sha256':deps,'native_calls':0,'physics_steps':0,'surface_queries_performed':0})
+ started=time.monotonic();deadline=started+p['maximum_wall_seconds'];counter=[0]
+ try:
+  source,source_xml=palm_boxes(p['paths']['source_urdf'],1);target,target_xml=palm_boxes(p['paths']['target_urdf'],8)
+  patches={'source':boundary_patches(source),'target':boundary_patches(target)}
+  with np.load(p['paths']['fit_arrays'],allow_pickle=False) as z:fit={k:z[k] for k in z.files}
+  previous=json.loads(Path(p['paths']['native_validation_report']).read_text())
+  fit_report=json.loads(Path(p['paths']['fit_report']).read_text())
+  audit=load_module('_dga_palm_holdout_independent_fk',p['paths']['independent_fk'])
+  robot=audit.model(Path(p['paths']['target_urdf']))
+  if fit_report.get('scientific_protocol')!=scientific:raise ValueError('Fit used a different scientific policy')
+  if fit_report.get('holdout_feedback') is not False or fit_report.get('acceptance_from_objective') is not False:
+   raise ValueError('Fit/holdout separation missing')
+  if fit['global_sample_indices'].tolist()!=[1,3] or [r['global_sample_index'] for r in fit_report['records']]!=[1,3]:raise ValueError('Fixed source-valid fit rows required')
+  for key in ('source_hand_qpos','target_joint_values'):
+   if fit[key].shape!=(2,33 if key=='source_hand_qpos' else 24) or not np.isfinite(fit[key]).all():raise ValueError('Invalid fit q arrays')
+  if fit_report.get('joint_names')!=list(JOINTS):raise ValueError('Canonical24 fit order changed')
+  target_joints={n.get('name'):n for n in ET.parse(p['paths']['target_urdf']).getroot().findall('joint')}
+  cases=[]
+  for row_index,global_index in enumerate((1,3)):
+   original=previous['records'][global_index]
+   if original['source_limit_violations'] or original['mapping_status']!='REJECTED_TARGET_LIMIT':raise ValueError('Original strict source/target statuses changed')
+   if dict(zip(JOINTS,fit['source_hand_qpos'][row_index,9:].tolist()))!=original['joint_targets_rad']:raise ValueError('Native q changed')
+   if dict(zip(JOINTS,fit['target_joint_values'][row_index].tolist()))!=fit_report['records'][row_index]['target_joint_targets_rad']:raise ValueError('Derived q/report differ')
+   record=fit_report['records'][row_index]
+   if 'sha256:'+hashlib.sha256(fit['source_hand_qpos'][row_index].tobytes()).hexdigest()!=record['raw33_row_sha256']:
+    raise ValueError('Original raw33 byte binding changed')
+   if not np.array_equal(fit['target_joint_values'][row_index,:2],fit['source_hand_qpos'][row_index,9:11]):
+    raise ValueError('Both original wrists must be exact')
+   for name,value in zip(JOINTS,fit['target_joint_values'][row_index]):
+    bounds=target_joints[name].find('limit')
+    if not float(bounds.get('lower'))<=value<=float(bounds.get('upper')):raise ValueError('Derived q outside strict target domain')
+   S=proper(fit['object_from_source_palm'][row_index]);T=proper(fit['object_from_target_palm'][row_index])
+   if not np.allclose(S,original['object_from_palm'],atol=1e-10,rtol=0):raise ValueError('Native source palm changed')
+   root=proper(fit['object_from_target_root_world'][row_index]);forearm=proper(fit['object_from_target_forearm'][row_index])
+   target_fk=audit.independent_fk(robot,dict(zip(JOINTS,fit['target_joint_values'][row_index])))
+   if np.max(np.abs(root@target_fk['palm']-T))>1e-9 or np.max(np.abs(root@target_fk['forearm']-forearm))>1e-9:
+    raise ValueError('Independent target root/palm/forearm composition failed')
+   resolutions={}
+   for h in p['query_spacing_mm']:
+    points,normals,face_ids,area,rho=cube_grid(h)
+    a=query_object(points,S,source,patches['source'],deadline,counter,p['maximum_polygon_queries'])
+    b=query_object(points,T,target,patches['target'],deadline,counter,p['maximum_polygon_queries'])
+    archive=args.output/f'row{global_index}_h{h:g}mm_queries.npz'
+    arrays={'cube_queries_m':points,'cube_normals':normals,'cube_face_ids':face_ids}
+    for owner,r in (('source',a),('target',b)):
+     arrays.update({owner+'__'+key:value for key,value in r.items()})
+    np.savez_compressed(archive,**arrays)
+    resolution=summarize(a,b,normals,rho,area,p['bands_mm'])
+    resolution.update({'query_count':len(points),'cell_area_m2':area,'covering_radius_m':rho,
+     'query_arrays':{'path':archive.name,'sha256':digest(archive)}})
+    resolutions[str(h)]=resolution
+   # Any one positive-area counterexample is decisive. A PASS would require
+   # one complete-resolution coverage proof; observed-zero is never enough.
+   near_status={str(band):coverage_status([res['bands'][str(band)]['strict_nearset_preservation_status']
+      for res in resolutions.values()]) for band in p['bands_mm']}
+   occupancy_status=coverage_status([res['occupancy_and_exclusion']['occupancy_preservation_status'] for res in resolutions.values()])
+   direction_fail=any(res['bands'][str(band)]['normal_point_facing_sign_change_count']>0
+       for res in resolutions.values() for band in p['bands_mm'])
+   cases.append({'global_sample_index':global_index,'original_mapping_status':original['mapping_status'],
+    'reference':'source declared palm1box vs surface-preserving correction target declared palm8box union',
+    'object_from_source_palm':S.tolist(),'object_from_fitted_target_palm':T.tolist(),'resolutions':resolutions,
+    'strict_palm_nearset_preservation_by_band':near_status,'strict_palm_occupancy_preservation':occupancy_status,
+    'qualified_palm_union_facing_relationship':'FAIL' if direction_fail else 'UNRESOLVED',
+    'strict_declared_palm_proximity_and_occupancy_status':combine_status(list(near_status.values())+[occupancy_status]),
+    'strict_declared_palm_family_status':combine_status(list(near_status.values())+[occupancy_status,'FAIL' if direction_fail else 'UNRESOLVED']),
+    'execution_eligible':False,'physical_failure_label':None})
+  for path,h in deps.items():
+   if digest(path)!=h:raise ValueError('Dependency changed during measurement: '+path)
+  report={'schema_version':'dga_component_surface_palm_holdout_report_v1','created_at_utc':datetime.now(timezone.utc).isoformat(),
+   'policy_sha256':args.policy_sha256,'scientific_protocol':scientific,
+   'status':'COMPLETE_SCOPED_STRICT_PRESERVATION_TEST_NO_FULL_MAPPING_ACCEPTANCE',
+   'dependency_sha256':deps,'cases':cases,'local_palm_collision_declarations':{'source':source_xml,'target':target_xml},
+   'strict_declared_palm_family_status':combine_status([case['strict_declared_palm_family_status'] for case in cases]),
+   'exposed_convex_face_fragment_counts':{k:len(v) for k,v in patches.items()},'exact_formula_polygon_queries':counter[0],
+   'numerical_policy':{'arithmetic':'float64 polygon clipping/closest-point formulas, conditional1e-9m distance allowance; no formal directed-rounding error proof',
+    'conditioning_refusals':'near-coplanar nonparallel faces, ill-conditioned edge intersections, longthin unresolved polygons, faceplane/owner residuals, wall/query caps',
+    'inside_handling':'Distance to retained union-exterior patches; internal overlapping/abutting walls removed. Never minimum-member interior distance',
+    'normal_fullcell_certificate':'same angular normal group (dot>=0.9999999), not exact constant normal; projected-foot boundary clearance>rho and different-normal distance gap>2rho plus exterior/closest-object clearances>rho; facing sign counterexample additionally exceeds sqrt(2*(1−0.9999999))+1e-8 ambiguity margin'},
+   'original_accounting':previous['accounting'],'original_surface_selection':previous['surface_selection'],
+   'scope':{'source_and_target':'Literal URDF declared palm collision boxes ONLY, exact existing cube reference; no visualmesh replacement',
+    'compiled_collision':'NOT_TESTED','whole_hand_exterior':'NOT_TESTED; fingers/carriers not included in this palm-union reference',
+    'physical_contact':'NOT_TESTED','approximate_mapping_adequacy':'UNRESOLVED','execution_eligible':False,
+    'contact_acceptance_threshold':None,'original_default_TF32_FAIL':'PRESERVED','visual_results':'SEPARATE_REFERENCE_FAMILY',
+    'strict_relationship_criterion':'0 certified difference area; FAIL any positive lower, PASS only zero upper/full geometry proof, else UNRESOLVED',
+    'independent_native_validation':False,'full_mapping_accepted':False},
+   'zero_step_evidence':{'native_inference_calls':0,'checkpoint_loads':0,'optimizer_calls':0,'GPU_calls':0,
+    'physics_steps':0,'training_calls':0,'evaluation_episodes':0}}
+  write(args.output/'palm_collider_union_report.json',report)
+  print(json.dumps({'report':str(args.output/'palm_collider_union_report.json'),'sha256':digest(args.output/'palm_collider_union_report.json'),
+   'polygon_queries':counter[0],'elapsed_seconds':time.monotonic()-started,'mapping_accepted':False}))
+ except BaseException as error:
+  write(args.output/'failure.json',{'status':'FAILED_ATTEMPT_PRESERVED','type':type(error).__name__,'message':str(error),
+   'elapsed_seconds':time.monotonic()-started,'polygon_queries':counter[0]})
+  raise
+
+
+if __name__=='__main__':main()

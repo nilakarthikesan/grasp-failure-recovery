@@ -1,0 +1,139 @@
+#!/usr/bin/env python3
+"""Additive finite-angle SE3 algebra on all four unchanged rejected MultiDex rows.
+
+No surface/triangle operations, checkpoint/model import, inference, physics,
+clipping, sign changes, selection, optimization or execution acceptance.
+"""
+import argparse
+from datetime import datetime,timezone
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import sys
+import numpy as np
+sys.dont_write_bytecode=True
+
+POLICY_ID='dga_multidex_domain_rejected_algebra_v1'
+PROFILE_ID='dga_multidex_official_unguided_v1'
+
+def digest(path):
+ h=hashlib.sha256()
+ with Path(path).open('rb') as f:
+  for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
+ return 'sha256:'+h.hexdigest()
+def read_bound(path,h):
+ if digest(path)!=h:raise ValueError('Frozen dependency changed: '+str(path))
+ return json.loads(Path(path).read_text())
+def module(name,path):
+ spec=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(spec);sys.modules[name]=m;spec.loader.exec_module(m);return m
+
+def require_policy(p):
+ expected={'schema_version':POLICY_ID,'status':'FROZEN_PRECOMPUTATION','source_profile_id':PROFILE_ID,
+  'checkpoint_sha256':'sha256:036b406af7c02cd2de9eb61da02590f8c5db7e6afe6a842eb36b47f03105945e',
+  'dataset_name':'MultiDexShadowHandUR','global_indices':[0,1,2,3],'sample_count':4,
+  'interpretation':'unchanged_literal24_angles_finite_chain_algebra_only','algebra_atol':1e-9,
+  'clipping':False,'joint_sign_changes':False,'domain_gate_changes':False,'execution_eligible':False,
+  'surface_proximity_queries':0,'triangle_operations':0,'native_inference_calls':0,'physics_steps':0,
+  'approximate_contact_adequacy':'UNRESOLVED','scientific_acceptance_threshold':None}
+ if any(p.get(k)!=v for k,v in expected.items()):raise ValueError('Unsupported additive rejected-row algebra policy')
+
+def domain_violations(robot,q):
+ result=[]
+ for name,value in q.items():
+  lim=robot['joints'][name]['limit'];lo,hi=lim['lower'],lim['upper']
+  if not lo<=value<=hi:result.append({'joint':name,'native_value_rad':value,'lower_rad':lo,'upper_rad':hi})
+ return result
+
+def transfer(values,source_frames,target_frames,adapter,object_from_input):
+ """Pure coordinate composition; never checks or changes articulation values."""
+ values=np.asarray(values)
+ if values.shape!=(33,) or not np.isfinite(values).all():raise ValueError('Finite original33 pose required')
+ input_from_forearm=np.eye(4);input_from_forearm[:3,:3]=adapter.rotation_from_6d(values[3:9]);input_from_forearm[:3,3]=values[:3]
+ object_from_input=adapter.proper_transform(object_from_input,'object_from_input')
+ source_root=adapter.proper_transform(object_from_input@input_from_forearm,'object_from_source_forearm')
+ palm=adapter.proper_transform(source_root@source_frames['palm'],'object_from_palm')
+ target_world=adapter.proper_transform(palm@np.linalg.inv(target_frames['palm']),'object_from_target_root_world')
+ target_forearm=adapter.proper_transform(target_world@target_frames['forearm'],'object_from_target_forearm')
+ return {'input_from_source_forearm':input_from_forearm,'object_from_source_forearm':source_root,
+  'object_from_palm':palm,'object_from_target_root_world':target_world,'object_from_target_forearm':target_forearm,
+  'object_from_input':object_from_input,'source_forearm_from_object':np.linalg.inv(source_root),
+  'palm_from_object':np.linalg.inv(palm),'target_root_world_from_object':np.linalg.inv(target_world),
+  'target_forearm_from_object':np.linalg.inv(target_forearm),'execution_eligible':False}
+
+def main(a):
+ if a.output.exists():raise FileExistsError('Additive evidence is never overwritten')
+ p=read_bound(a.policy,a.policy_sha256);require_policy(p)
+ for path,h in p['dependency_sha256'].items():
+  if digest(path)!=h:raise ValueError('Precomputation dependency changed: '+path)
+ if p['code_hashes']['algebra_audit']!=digest(__file__):raise ValueError('Current code was not frozen')
+ sys.path.insert(0,str(Path(p['repository'])/'src'))
+ profile=module('dga_multidex_rejected_profile',p['code_paths']['profile']);adapter=profile.original
+ audit=module('dga_multidex_rejected_independent_fk',p['code_paths']['independent_fk'])
+ prior=read_bound(p['prior_validation']['path'],p['prior_validation']['sha256'])
+ if (prior['source_profile_id']!=PROFILE_ID or prior['sample_count']!=4
+     or [r['global_sample_index'] for r in prior['records']]!=[0,1,2,3]
+     or prior['accounting']!=p['original_accounting'] or prior['surface_selection']!=p['original_surface_selection']):
+  raise ValueError('Every original row/rejection/selection must remain fixed')
+ src_path=Path(p['source_hand_urdf']);tgt_path=Path(p['target_hand_urdf'])
+ source=audit.model(src_path);target=audit.model(tgt_path)
+ if source['root']!='forearm' or target['root']!='world':raise ValueError('Root-frame identity changed')
+ st=adapter.DGAHandTree(src_path,adapter.SOURCE_URDF_SHA256);tt=adapter.DGAHandTree(tgt_path,adapter.TARGET_URDF_SHA256)
+ records=[];cache={};dependency=dict(p['dependency_sha256']);max_error=0.
+ for old in prior['records']:
+  i=old['global_sample_index'];batch=old['batch_index'];j=old['within_batch_sample_index']
+  if batch not in cache:
+   nr=old['native_manifest'];read_bound(nr['path'],nr['sha256'])
+   manifest,values,paths=profile.load_multidex_raw_export(nr['path'],expected_object_id='object01',expected_geometry_hash=p['geometry_content_hash'])
+   cache[batch]=(manifest,values,paths)
+  manifest,values,paths=cache[batch];raw=values[j].copy();before=raw.tobytes();q=dict(zip(adapter.SOURCE_JOINT_NAMES,raw[9:].tolist(),strict=True))
+  if q!=old['joint_targets_rad']:raise ValueError('Original24 values changed')
+  sb,tb=domain_violations(source,q),domain_violations(target,q)
+  if sb!=old['source_limit_violations'] or tb!=old['target_limit_violations']:raise ValueError('Original domain rejection lists changed')
+  if not (sb or tb) or old['mapping_status']=='CANDIDATE_ONLY':raise ValueError('This additive policy requires every row remain domain-rejected')
+  # Both implementations extrapolate the same exact finite angles. The strict
+  # production decoder and mapping-domain gates are deliberately not bypassed
+  # to construct an executable candidate; only the FK math primitive is used.
+  sf=audit.independent_fk(source,q);tf=audit.independent_fk(target,q)
+  source_checked=st.forward(q,check_limits=False);target_checked=tt.forward(q,check_limits=False)
+  source_error=max(float(np.max(np.abs(sf[k]-source_checked[k]))) for k in sf)
+  target_error=max(float(np.max(np.abs(tf[k]-target_checked[k]))) for k in tf)
+  transforms=transfer(raw,sf,tf,adapter,manifest.object_from_input)
+  palm=transforms['object_from_palm'];tw=transforms['object_from_target_root_world'];tforearm=transforms['object_from_target_forearm']
+  palm_world=tw@tf['palm'];palm_forearm=tforearm@np.linalg.inv(tf['forearm'])@tf['palm']
+  trans_error=float(np.linalg.norm(palm_world[:3,3]-palm[:3,3]));rot_error=audit.rotation_distance(palm_world[:3,:3],palm[:3,:3])
+  inverse_error=max(float(np.max(np.abs(transforms[k]@transforms[inv]-np.eye(4)))) for k,inv in [('object_from_source_forearm','source_forearm_from_object'),('object_from_palm','palm_from_object'),('object_from_target_root_world','target_root_world_from_object'),('object_from_target_forearm','target_forearm_from_object')])
+  errors={'source_fk_vs_independent_max_entry':source_error,'target_fk_vs_independent_max_entry':target_error,
+   'palm_translation_residual_m':trans_error,'palm_rotation_residual_rad':rot_error,
+   'palm_world_composition_max_entry':float(np.max(np.abs(palm_world-palm))),
+   'palm_forearm_composition_max_entry':float(np.max(np.abs(palm_forearm-palm))),
+   'inverse_transform_identity_max_entry':inverse_error}
+  row_max=max(errors.values());max_error=max(max_error,row_max)
+  if row_max>p['algebra_atol']:raise ValueError('Frozen1e-9 algebra engineering gate failed; no row replacement')
+  if raw.tobytes()!=before or not np.array_equal(raw,values[j]):raise ValueError('A raw value changed during algebra')
+  records.append({'global_sample_index':i,'batch_index':batch,'within_batch_sample_index':j,'seed':old['seed'],
+   'raw_output_sha256':manifest.output.sha256,'raw33_row_sha256':'sha256:'+hashlib.sha256(before).hexdigest(),
+   'raw33_values':raw.tolist(),'joint_targets_rad':q,'all24_values_unchanged':True,'source_limit_violations':sb,'target_limit_violations':tb,
+   'original_mapping_status':old['mapping_status'],'execution_eligible':False,'physical_failure_label':None,
+   'source_reference_status_from_prior_validation':{'native_default':old['native_default_runtime_reconstruction']['status'],'declared_fp32':old['fp32_mapping_reference_reconstruction']['status'],'reference_geometry_recomputed_here':False},
+   'target_root_link':'world','transforms':{k:v.tolist() if isinstance(v,np.ndarray) else v for k,v in transforms.items()},
+   'algebra_status':'PASS_ENGINEERING_IDENTITY_ONLY','algebra_errors':errors})
+ for path,h in dependency.items():
+  if digest(path)!=h:raise ValueError('Dependency changed during algebra: '+path)
+ if {'torch','mujoco','isaacgym','envs','pybullet'}&set(sys.modules):raise ValueError('Forbidden model/simulator import in algebra-only process')
+ report={'schema_version':POLICY_ID,'status':'COMPLETE_ALGEBRA_ONLY_ALL_FOUR_ROWS_REMAIN_INELIGIBLE',
+  'created_at_utc':datetime.now(timezone.utc).isoformat(),'policy_sha256':a.policy_sha256,'source_profile_id':PROFILE_ID,
+  'checkpoint_sha256':p['checkpoint_sha256'],'prior_validation':p['prior_validation'],'sample_count':4,'global_indices':[0,1,2,3],
+  'original_accounting':prior['accounting'],'original_surface_selection':prior['surface_selection'],'execution_eligible_count':0,
+  'records':records,'maximum_algebra_error':max_error,'algebra_atol':p['algebra_atol'],'dependency_sha256':dependency,
+  'zero_step_evidence':{'surface_proximity_queries':0,'triangle_operations':0,'native_model_creations':0,'checkpoint_loads':0,'native_inference_calls':0,'physics_steps':0,'training_calls':0},
+  'scope':{'finite_angle_fk':'Mathematical extrapolation of literal original coordinates outside articulation limits; not source/target feasibility.',
+   'palm_mapping':'Exact root compensation through target world-rooted chain, with separately named actual forearm transform.',
+   'reference_status':'Copied unchanged prior statuses only; no reference vertices or surfaces recomputed.',
+   'original_strict_contract':'Every domain rejection, empty surface selection and unsupported provider state preserved.',
+   'approximate_contact_adequacy':'UNRESOLVED','scientific_acceptance_threshold':None,'physical_equivalence':'NOT_TESTED'}}
+ a.output.mkdir(parents=True);out=a.output/'domain_rejected_algebra_report.json';out.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n')
+ print(json.dumps({'report':str(out),'sha256':digest(out),'sample_count':4,'maximum_algebra_error':max_error,'execution_eligible':0}))
+
+if __name__=='__main__':
+ c=argparse.ArgumentParser();c.add_argument('--policy',type=Path,required=True);c.add_argument('--policy-sha256',required=True);c.add_argument('--output',type=Path,required=True);main(c.parse_args())

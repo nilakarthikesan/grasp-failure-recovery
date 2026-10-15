@@ -1,0 +1,525 @@
+#!/usr/bin/env python3
+"""Bounded next-cohort diagnostics of declared FP32 source/target visual triangles.
+
+No model, checkpoint, simulator, evaluation, training, mesh Boolean or SDF engine.
+Unsigned visual-triangle proximity is NOT exterior-union distance or physical
+contact. Facet-normal statistics are explicitly conditional; outward union
+normals and signed hand occupancy remain unresolved. No scientific PASS gate.
+"""
+from __future__ import annotations
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import sys
+import time
+
+import numpy as np
+from scipy.spatial import cKDTree
+sys.dont_write_bytecode = True
+
+PARTS = ('palm', 'index', 'middle', 'ring', 'little', 'thumb', 'wrist_carrier', 'forearm_carrier')
+BANDS_MM = (.5, 1., 2.)
+SPACINGS_MM = (2., 1.)
+NUMERICAL_DISTANCE_M = 1e-9
+NORMAL_TIE_ANGLE_RAD = 1e-7
+FACING_COS_MARGIN = 1e-8
+GEOMETRY_HASH = 'sha256:45c1162a4f815d65c43254f2f499f53bde1eecea4d39912d8ce36d2c5cd92a81'
+
+
+def digest(path):
+    hasher = hashlib.sha256()
+    with Path(path).open('rb') as stream:
+        for block in iter(lambda: stream.read(1024*1024), b''):
+            hasher.update(block)
+    return 'sha256:' + hasher.hexdigest()
+
+
+def bound_json(path, expected):
+    if digest(path) != expected:
+        raise ValueError(f'Original/frozen input hash mismatch: {path}')
+    return json.loads(path.read_text())
+
+
+def bound_child(root, reference):
+    relative = Path(reference['path'])
+    path = (root / relative).resolve()
+    if relative.is_absolute() or '..' in relative.parts or not path.is_relative_to(root.resolve()):
+        raise ValueError('Evidence reference leaves its original bundle')
+    if digest(path) != reference['sha256']:
+        raise ValueError(f'Original evidence dependency mismatch: {path}')
+    return path
+
+
+def load_module(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    value = importlib.util.module_from_spec(spec)
+    sys.modules[name] = value
+    spec.loader.exec_module(value)
+    return value
+
+
+def part_of(link):
+    if link == 'palm': return 'palm'
+    if link == 'wrist': return 'wrist_carrier'
+    if link == 'forearm': return 'forearm_carrier'
+    for prefix, part in (('ff','index'),('mf','middle'),('rf','ring'),('lf','little'),('th','thumb')):
+        if link.startswith(prefix): return part
+    raise ValueError(f'Unclassified hand link: {link}')
+
+
+def cube_signed(points):
+    delta = np.abs(points) - .025
+    return np.linalg.norm(np.maximum(delta, 0.), axis=1) + np.minimum(delta.max(axis=1), 0.)
+
+
+def cube_grid(spacing_mm):
+    h = spacing_mm/1000.
+    side = int(round(.05/h))
+    if not np.isclose(side*h, .05, atol=1e-15, rtol=0):
+        raise ValueError('Grid must exactly partition registered cube faces')
+    uv = -.025 + (np.arange(side)+.5)*h
+    x, y = np.meshgrid(uv, uv, indexing='ij')
+    points, normals, labels = [], [], []
+    for axis in range(3):
+        other = [i for i in range(3) if i != axis]
+        for sign in (-1, 1):
+            p = np.zeros((side*side, 3))
+            p[:,axis] = sign*.025
+            p[:,other[0]], p[:,other[1]] = x.ravel(), y.ravel()
+            n = np.zeros_like(p); n[:,axis] = sign
+            points.append(p); normals.append(n)
+            labels.extend([f'{"XYZ"[axis]}{"+" if sign > 0 else "-"}']*len(p))
+    return np.concatenate(points), np.concatenate(normals), np.asarray(labels), h*h, h/np.sqrt(2.)
+
+
+def finite_vertices_faces(vertices, faces, name):
+    vertices, faces = np.asarray(vertices), np.asarray(faces)
+    if vertices.ndim != 2 or vertices.shape[1] != 3 or vertices.dtype.kind not in 'fiu' or not np.isfinite(vertices).all():
+        raise ValueError(f'Invalid actual vertex array: {name}')
+    if faces.ndim != 2 or faces.shape[1] != 3 or faces.dtype.kind not in 'iu' or not len(faces):
+        raise ValueError(f'Invalid triangle index array: {name}')
+    if faces.min() < 0 or faces.max() >= len(vertices):
+        raise ValueError(f'Invalid triangle reference: {name}')
+    return vertices.astype(np.float64), faces.astype(np.int64)
+
+
+def topology_metadata(vertices, faces):
+    unique, ids = np.unique(vertices, axis=0, return_inverse=True)
+    canonical_faces = ids[faces]
+    edges = np.concatenate([canonical_faces[:,[0,1]], canonical_faces[:,[1,2]], canonical_faces[:,[2,0]]])
+    directions = np.where(edges[:,0] < edges[:,1], 1, -1)
+    undirected = np.sort(edges, axis=1)
+    edge_keys, inverse, counts = np.unique(undirected, axis=0, return_inverse=True, return_counts=True)
+    balance = np.bincount(inverse, weights=directions, minlength=len(counts))
+    parent = np.arange(len(unique))
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]; x = parent[x]
+        return x
+    for a, b in edge_keys:
+        ra, rb = find(int(a)), find(int(b))
+        if ra != rb: parent[rb] = ra
+    components = len({find(int(v)) for v in np.unique(canonical_faces)})
+    triangles = vertices[faces]
+    volume = float(np.einsum('ij,ij->i', triangles[:,0], np.cross(triangles[:,1],triangles[:,2])).sum()/6.)
+    closed = bool(np.all(counts == 2))
+    winding_consistent = bool(np.all(balance[counts == 2] == 0) and not np.any(counts > 2))
+    eligible = closed and winding_consistent and components == 1 and volume > 1e-18
+    return {'vertex_count':len(vertices), 'triangle_count':len(faces), 'unique_position_count':len(unique),
+        'boundary_edge_count':int(np.sum(counts == 1)), 'nonmanifold_edge_count':int(np.sum(counts > 2)),
+        'inconsistently_wound_two_face_edge_count':int(np.sum((counts == 2)&(balance != 0))),
+        'connected_component_count':components, 'oriented_volume_m3':volume,
+        'closed_edge_incidence':closed, 'consistent_edge_winding':winding_consistent,
+        'conditional_oriented_facet_eligible':eligible,
+        'outward_union_normal_certified':False,
+        'self_intersection_and_component_nesting':'NOT_TESTED',
+        'normal_interpretation':'Only one closed, consistently wound, positive-volume component is admitted to conditional facet statistics; this does not certify the articulated exterior union'}
+
+
+def mesh_reference(name, vertices, faces):
+    vertices, faces = finite_vertices_faces(vertices, faces, name)
+    metadata = topology_metadata(vertices, faces)
+    triangles = vertices[faces]
+    crosses = np.cross(triangles[:,1]-triangles[:,0], triangles[:,2]-triangles[:,0])
+    lengths = np.linalg.norm(crosses, axis=1)
+    keep = lengths > 1e-18
+    metadata.update({'excluded_degenerate_triangle_count':int((~keep).sum()),
+                     'excluded_degenerate_area_m2':float(lengths[~keep].sum()/2.),
+                     'retained_triangle_area_m2':float(lengths[keep].sum()/2.)})
+    return {'name':name, 'part':part_of(name.split('__visual')[0]), 'triangles':triangles[keep],
+            'normals':crosses[keep]/lengths[keep,None], 'metadata':metadata,
+            'facet_eligible':np.full(int(keep.sum()),metadata['conditional_oriented_facet_eligible'],dtype=bool)}
+
+
+def closest_triangles(point, triangles):
+    """Exact closed-triangle nearest points, vectorized over bounded candidates."""
+    a, b, c = triangles[:,0], triangles[:,1], triangles[:,2]
+    ab, ac = b-a, c-a
+    cross = np.cross(ab, ac)
+    normal2 = np.einsum('ij,ij->i', cross, cross)
+    ap = point-a
+    projection = point - (np.einsum('ij,ij->i',ap,cross)/normal2)[:,None]*cross
+    v = projection-a
+    d00, d01 = np.einsum('ij,ij->i',ab,ab), np.einsum('ij,ij->i',ab,ac)
+    d11 = np.einsum('ij,ij->i',ac,ac)
+    d20, d21 = np.einsum('ij,ij->i',v,ab), np.einsum('ij,ij->i',v,ac)
+    # The squared cross product avoids cancellation in d00*d11-d01*d01
+    # for thin but nondegenerate original triangles.
+    denominator = normal2
+    s, t = (d11*d20-d01*d21)/denominator, (d00*d21-d01*d20)/denominator
+    inside = (s >= 0.) & (t >= 0.) & (s+t <= 1.)
+    candidates = []
+    for left, right in ((a,b),(b,c),(c,a)):
+        edge = right-left
+        fraction = np.clip(np.einsum('ij,ij->i', point-left, edge)/np.einsum('ij,ij->i',edge,edge),0.,1.)
+        candidates.append(left+fraction[:,None]*edge)
+    candidates = np.stack(candidates,axis=1)
+    ds = np.sum((candidates-point)**2,axis=2)
+    choice = np.argmin(ds,axis=1)
+    closest = candidates[np.arange(len(triangles)),choice]
+    closest[inside] = projection[inside]
+    distance = np.linalg.norm(closest-point,axis=1)
+    return distance, closest
+
+
+def query_reference(points, meshes, radius, budget, deadline):
+    n, nparts = len(points), len(PARTS)
+    distance = np.full((n,nparts),np.inf)
+    closest = np.full((n,nparts,3),np.nan)
+    normals = np.full((n,nparts,3),np.nan)
+    facet_eligible = np.zeros((n,nparts),bool)
+    facet_ambiguous = np.zeros((n,nparts),bool)
+    triangle_index = np.full((n,nparts),-1,np.int64)
+    counters = {'candidate_triangle_tests':0,'queried_points':0,'triangle_count_after_cube_broadphase':0}
+    for part_index, part in enumerate(PARTS):
+        members = [mesh for mesh in meshes if mesh['part'] == part and len(mesh['triangles'])]
+        if not members: continue
+        triangles = np.concatenate([mesh['triangles'] for mesh in members])
+        face_normals = np.concatenate([mesh['normals'] for mesh in members])
+        reliable = np.concatenate([mesh['facet_eligible'] for mesh in members])
+        lower, upper = triangles.min(axis=1), triangles.max(axis=1)
+        gap = np.maximum(np.maximum(lower-.025, -.025-upper), 0.)
+        keep = np.linalg.norm(gap,axis=1) <= radius
+        triangles, face_normals, reliable = triangles[keep], face_normals[keep], reliable[keep]
+        if not len(triangles): continue
+        counters['triangle_count_after_cube_broadphase'] += len(triangles)
+        centers = triangles.mean(axis=1)
+        radii = np.linalg.norm(triangles-centers[:,None],axis=2).max(axis=1)
+        tree = cKDTree(centers)
+        global_lower, global_upper = triangles.reshape(-1,3).min(axis=0),triangles.reshape(-1,3).max(axis=0)
+        global_gap = np.maximum(np.maximum(global_lower-points,points-global_upper),0.)
+        queries = np.flatnonzero(np.linalg.norm(global_gap,axis=1) <= radius)
+        for iteration, point_index in enumerate(queries):
+            if iteration % 128 == 0 and time.monotonic() > deadline:
+                raise RuntimeError('Frozen wall-clock resource budget exceeded; no partial diagnostic is a pass')
+            point = points[point_index]
+            indices = np.asarray(tree.query_ball_point(point,float(radius+radii.max()),workers=1),dtype=np.int64)
+            if not len(indices): continue
+            possible = np.linalg.norm(centers[indices]-point,axis=1) <= radius+radii[indices]
+            indices = indices[possible]
+            if not len(indices): continue
+            budget[0] += len(indices)
+            if budget[0] > budget[1]:
+                raise RuntimeError('Frozen exact triangle-test budget exceeded; no partial diagnostic is a pass')
+            counters['candidate_triangle_tests'] += len(indices); counters['queried_points'] += 1
+            distances, witnesses = closest_triangles(point,triangles[indices])
+            local = int(np.argmin(distances)); best = float(distances[local])
+            if best > radius: continue
+            chosen = int(indices[local]); tied = distances <= best+NUMERICAL_DISTANCE_M
+            competing = face_normals[indices[tied]]
+            angle = np.arctan2(np.linalg.norm(np.cross(competing,face_normals[chosen]),axis=1), np.clip(competing@face_normals[chosen],-1.,1.))
+            distance[point_index,part_index] = best
+            closest[point_index,part_index] = witnesses[local]
+            normals[point_index,part_index] = face_normals[chosen]
+            triangle_index[point_index,part_index] = chosen
+            facet_eligible[point_index,part_index] = bool(np.all(reliable[indices[tied]]))
+            facet_ambiguous[point_index,part_index] = bool(np.any(angle > NORMAL_TIE_ANGLE_RAD))
+    nearest_part = np.argmin(distance,axis=1)
+    nearest_distance = distance[np.arange(n),nearest_part]
+    competing_parts = np.sum(distance <= nearest_distance[:,None]+NUMERICAL_DISTANCE_M,axis=1)
+    competing_parts[~np.isfinite(nearest_distance)] = 0
+    return {'distance_by_part_m':distance,'closest_by_part_m':closest,'normal_by_part':normals,
+            'facet_topology_eligible':facet_eligible,'facet_tie_ambiguous':facet_ambiguous,
+            'triangle_index_by_part':triangle_index,'nearest_part':nearest_part,
+            'nearest_distance_m':nearest_distance,'nearest_part_ambiguous':competing_parts > 1,
+            'counters':counters}
+
+
+def band_masks(distance, radius, covering_radius, band):
+    # Infinity means certified distance > search radius, not an unknown failed
+    # query. radius >= max_band + covering_radius + numerical uncertainty.
+    dlow = np.where(np.isfinite(distance),distance,radius)
+    definitely_near = np.isfinite(distance)&(distance+covering_radius+NUMERICAL_DISTANCE_M <= band)
+    definitely_far = dlow-covering_radius-NUMERICAL_DISTANCE_M > band
+    return definitely_near, definitely_far
+
+
+def pair_area(native, target, area, radius, covering_radius, band):
+    nn, nf = band_masks(native,radius,covering_radius,band)
+    tn, tf = band_masks(target,radius,covering_radius,band)
+    masks = {'native_near':(nn,~nf),'target_near':(tn,~tf),
+             'intersection':(nn&tn,(~nf)&(~tf)), 'union':(nn|tn,(~nf)|(~tf)),
+             'lost_native':(nn&tf,(~nf)&(~tn)), 'new_target':(tn&nf,(~tf)&(~nn))}
+    intervals = {key:{'lower_m2':float(low.sum()*area),'upper_m2':float(high.sum()*area),
+                       'unresolved_m2':float((high&~low).sum()*area)} for key,(low,high) in masks.items()}
+    nc, tc = native <= band, target <= band
+    return {'area_intervals':intervals,
+            'query_center_areas_m2':{'native':float(nc.sum()*area),'target':float(tc.sum()*area),
+                'intersection':float((nc&tc).sum()*area),'union':float((nc|tc).sum()*area),
+                'lost_native':float((nc&~tc).sum()*area),'new_target':float((tc&~nc).sum()*area)},
+            'query_center_count':len(native), 'cube_area_m2':float(len(native)*area)}
+
+
+def native_area(distance,area,radius,covering_radius,band):
+    near,far = band_masks(distance,radius,covering_radius,band)
+    return {'lower_m2':float(near.sum()*area),'upper_m2':float((~far).sum()*area),
+            'uncertain_m2':float((~near&~far).sum()*area),'query_center_area_m2':float((distance <= band).sum()*area)}
+
+
+def conditional_normals(source,target,cube_normals,band,area):
+    row = np.arange(len(cube_normals))
+    sp,tp = source['nearest_part'],target['nearest_part']
+    near = (source['nearest_distance_m'] <= band)&(target['nearest_distance_m'] <= band)
+    same = sp == tp
+    topology = source['facet_topology_eligible'][row,sp]&target['facet_topology_eligible'][row,tp]
+    ties = source['nearest_part_ambiguous']|target['nearest_part_ambiguous']|source['facet_tie_ambiguous'][row,sp]|target['facet_tie_ambiguous'][row,tp]
+    qsource,qtarget = source['closest_by_part_m'][row,sp],target['closest_by_part_m'][row,tp]
+    nonpenetrating = np.zeros(len(row),bool)
+    finite = np.isfinite(qsource).all(axis=1)&np.isfinite(qtarget).all(axis=1)
+    nonpenetrating[finite] = (cube_signed(qsource[finite]) >= -NUMERICAL_DISTANCE_M)&(cube_signed(qtarget[finite]) >= -NUMERICAL_DISTANCE_M)
+    eligible = near&same&topology&~ties&nonpenetrating
+    ns,nt = source['normal_by_part'][row,sp],target['normal_by_part'][row,tp]
+    cosine = np.einsum('ij,ij->i',ns,nt)
+    angle = np.arctan2(np.linalg.norm(np.cross(ns,nt),axis=1),np.clip(cosine,-1.,1.))
+    sface,tface = np.einsum('ij,ij->i',ns,cube_normals),np.einsum('ij,ij->i',nt,cube_normals)
+    facing_clear = eligible&(np.abs(sface) > FACING_COS_MARGIN)&(np.abs(tface) > FACING_COS_MARGIN)
+    vals = angle[eligible]
+    return {'semantics':'Conditional oriented geometric facet statistics, NOT certified outward/exterior union contact witnesses',
+        'exterior_union_normal_certification':'UNRESOLVED','reliable_exterior_witness_area_m2':0.,
+        'both_center_near_area_m2':float(near.sum()*area),
+        'conditional_facet_eligible_area_m2':float(eligible.sum()*area),
+        'excluded_different_nearest_part_area_m2':float((near&~same).sum()*area),
+        'excluded_topology_unreliable_area_m2':float((near&~topology).sum()*area),
+        'excluded_facet_or_part_tie_area_m2':float((near&ties).sum()*area),
+        'excluded_closest_point_inside_cube_area_m2':float((near&~nonpenetrating).sum()*area),
+        'normal_angle_rad':None if not len(vals) else {'mean':float(vals.mean()),'p95':float(np.percentile(vals,95)),'max':float(vals.max())},
+        'clear_conditional_facing_area_m2':float(facing_clear.sum()*area),
+        'changed_facet_vs_cube_facing_sign_area_m2':float((facing_clear&((sface < 0)!=(tface < 0))).sum()*area),
+        'native_oriented_facet_toward_cube_area_m2':float((facing_clear&(sface < 0)).sum()*area),
+        'target_oriented_facet_toward_cube_area_m2':float((facing_clear&(tface < 0)).sum()*area),
+        'facing_uncertainty':'No patchwise angular guarantee near edges; query-centre facet directions only; overlap/self-intersection/nesting not resolved',
+        'exclusion_denominators_overlap':True}
+
+
+def hand_cube_profiles(meshes):
+    profiles = {}
+    for mesh in meshes:
+        tri = mesh['triangles']; center = tri.mean(axis=1)
+        area = np.linalg.norm(np.cross(tri[:,1]-tri[:,0],tri[:,2]-tri[:,0]),axis=1)/2.
+        radii = np.linalg.norm(tri-center[:,None],axis=2).max(axis=1)
+        signed = cube_signed(center)
+        profiles[mesh['name']] = {'triangle_count':len(tri),'surface_area_m2':float(area.sum()),
+            'centroid_signed_distance_m':{'min':float(signed.min()),'area_weighted_mean':float(np.average(signed,weights=area)),'max':float(signed.max())} if len(tri) else None,
+            'maximum_witnessed_centroid_penetration_m':float(max(0.,-signed.min())) if len(tri) else None,
+            'definitely_penetrating_patch_area_m2':float(area[signed+radii < 0].sum()),
+            'possibly_penetrating_patch_area_m2':float(area[signed-radii <= 0].sum()),
+            'maximum_patch_covering_radius_m':float(radii.max()) if len(tri) else None,
+            'interpretation':'Analytic cube sign is valid; centroid depth is a lower-bound witness, not exact global penetration maximum; no hand-union signed field'}
+    return profiles
+
+
+def resolution_summary(coarse,fine):
+    result = {}
+    for band in coarse:
+        result[band] = {}
+        for group in coarse[band]['groups']:
+            if 'source_only_near_area_interval_m2' in coarse[band]['groups'][group]:
+                a=coarse[band]['groups'][group]['source_only_near_area_interval_m2']
+                b=fine[band]['groups'][group]['source_only_near_area_interval_m2']
+                lo,hi=max(a['lower_m2'],b['lower_m2']),min(a['upper_m2'],b['upper_m2'])
+                result[band][group]={'source_only_near':{'coarse_interval_m2':[a['lower_m2'],a['upper_m2']],
+                    'fine_interval_m2':[b['lower_m2'],b['upper_m2']],
+                    'intersection_interval_m2':[lo,hi] if lo <= hi+1e-15 else None,
+                    'bounds_consistent':bool(lo <= hi+1e-15)}}
+                continue
+            if 'area_intervals' not in coarse[band]['groups'][group]: continue
+            result[band][group] = {}
+            for metric,a in coarse[band]['groups'][group]['area_intervals'].items():
+                b = fine[band]['groups'][group]['area_intervals'][metric]
+                lo,hi = max(a['lower_m2'],b['lower_m2']),min(a['upper_m2'],b['upper_m2'])
+                result[band][group][metric] = {'coarse_interval_m2':[a['lower_m2'],a['upper_m2']],
+                    'fine_interval_m2':[b['lower_m2'],b['upper_m2']],
+                    'intersection_interval_m2':[lo,hi] if lo <= hi+1e-15 else None,
+                    'bounds_consistent':bool(lo <= hi+1e-15),
+                    'coarse_to_fine_width_change_m2':(b['upper_m2']-b['lower_m2'])-(a['upper_m2']-a['lower_m2'])}
+    return result
+
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    for name in ('repository','independent-audit','native-helper','cohort-validator','target-hand-urdf',
+                 'target-assets-root','validation-report','frozen-protocol','output'):
+        parser.add_argument('--'+name,type=Path,required=True)
+    for name in ('validation-report-sha256','frozen-protocol-sha256'):
+        parser.add_argument('--'+name,required=True)
+    args=parser.parse_args()
+    if args.output.exists(): raise FileExistsError('Existing evidence is never overwritten')
+    protocol=bound_json(args.frozen_protocol,args.frozen_protocol_sha256)
+    expected={'schema_version':'dga_native_cohort_protocol_v1','status':'FROZEN_PRECOHORT',
+        'object_id':'object01','geometry_content_hash':GEOMETRY_HASH,'seeds':list(range(20261015,20261023)),
+        'batch_sample_count':2,'batch_count':8,'total_sample_count':16,
+        'mapping_reference_policy_id':'dga_geometry_reference_fp32_tf32_disabled_v1',
+        'surface_selection_policy':'first_up_to_two_source_and_target_valid_in_global_original_order_no_backfill',
+        'approximate_contact_adequacy':'UNRESOLVED'}
+    if any(protocol.get(k)!=v for k,v in expected.items()): raise ValueError('Unsupported frozen cohort supplement')
+    spec=protocol['surface_diagnostics']
+    surface_expected={'query_spacing_mm':list(SPACINGS_MM),'proximity_bands_mm':list(BANDS_MM),
+        'numerical_distance_m':NUMERICAL_DISTANCE_M,'normal_tie_angle_rad':NORMAL_TIE_ANGLE_RAD,
+        'facing_cos_margin':FACING_COS_MARGIN,'maximum_reference_triangles':100000,
+        'maximum_exact_triangle_tests':100000000,'maximum_wall_seconds':300}
+    if any(spec.get(k)!=v for k,v in surface_expected.items()): raise ValueError('Frozen surface method/resource bounds changed')
+    sys.path.insert(0,str(args.repository.resolve()/'src'))
+    from grasp_failure_prediction.proposals import dexgrasp_anything as adapter
+    audit=load_module('dga_next_surface_independent_fk',args.independent_audit.resolve())
+    helper=load_module('dga_next_surface_native_helper',args.native_helper.resolve())
+    validator=load_module('dga_next_surface_cohort_validator',args.cohort_validator.resolve())
+    actual_codes={'surface_audit':digest(__file__),'cohort_validator':digest(args.cohort_validator),
+        'native_helper':digest(args.native_helper),'adapter':digest(adapter.__file__),
+        'independent_fk':digest(args.independent_audit)}
+    if any(protocol['code_hashes'].get(k)!=v for k,v in actual_codes.items()):
+        raise ValueError('Supplemental implementation changed after freeze')
+    if digest(args.target_hand_urdf)!=adapter.TARGET_URDF_SHA256: raise ValueError('Pinned target hand changed')
+    validation=bound_json(args.validation_report,args.validation_report_sha256)
+    if (validation.get('schema_version')!='dga_native_cohort_static_check_v1' or validation.get('sample_count')!=16
+            or validation.get('global_sample_indices')!=list(range(16))
+            or validation.get('protocol_sha256')!=args.frozen_protocol_sha256):
+        raise ValueError('Complete same-protocol cohort prerequisite validation required')
+    records=validation['records']
+    if [row['global_sample_index'] for row in records]!=list(range(16)):
+        raise ValueError('Every original cohort row must remain accounted')
+    selected=validator.selection(records)
+    if selected!=validation['surface_selection']['selected_global_indices'] or len(selected)>2:
+        raise ValueError('First two valid original-order selection changed')
+    # Reject every selected prerequisite before doing ANY surface query. Do not
+    # replace failed selected rows with later candidates or substitute default
+    # runtime results for the separate declared FP32 reference policy.
+    for index in selected:
+        row=records[index]; batch=validation['batches'][row['batch_index']]
+        if (row['source_limit_violations'] or row['target_limit_violations']
+                or row['mapping_status']!='CANDIDATE_ONLY' or row['algebra']['status']!='PASS'
+                or row['fp32_mapping_reference_reconstruction']['status']!='PASS'
+                or not row['surface_prerequisites_pass'] or batch['stage_reconstruction']['status']!='PASS'
+                or batch['input_identity']['status']!='PASS'):
+            raise ValueError('Selected prerequisite FAIL blocks supplement with no backfill: '+str(index))
+    for path,h in validation['dependency_sha256'].items():
+        if digest(path)!=h: raise ValueError('Prerequisite dependency changed: '+path)
+    dependency={str(Path(__file__).resolve()):digest(__file__),str(args.frozen_protocol.resolve()):args.frozen_protocol_sha256,
+        str(args.validation_report.resolve()):args.validation_report_sha256,
+        **{str(Path(path).resolve()):h for path,h in validation['dependency_sha256'].items()}}
+    target=audit.model(args.target_hand_urdf)
+    target_visuals=helper.visual_meshes(target,args.target_assets_root.resolve(),audit,source_runtime=False)
+    for mesh in target_visuals.values(): dependency[mesh['path']]=mesh['sha256']
+    for path,h in protocol.get('asset_hashes',{}).items():
+        if digest(path)!=h: raise ValueError('Frozen visual asset changed: '+path)
+        dependency[path]=h
+    cases=[]; output_arrays=[]; deadline=time.monotonic()+spec['maximum_wall_seconds']
+    budget=[0,spec['maximum_exact_triangle_tests']]
+    for global_index in selected:
+        row=records[global_index]; index=row['within_batch_sample_index']
+        native_path=Path(row['native_manifest']['path'])
+        manifest=adapter.DGAExportManifest.model_validate(bound_json(native_path,row['native_manifest']['sha256']))
+        paths={key:adapter._verified_child(native_path.parent,getattr(manifest,key)) for key in
+            ('output','source_hand','point_cloud','normals','object_mesh','configuration','generation_log')}
+        evidence_path=Path(row['mapping_reference']['path'])
+        evidence=bound_json(evidence_path,row['mapping_reference']['sha256'])
+        provenance=bound_json(Path(row['reference_provenance']['path']),row['reference_provenance']['sha256'])
+        validator.require_precision_policy(evidence,provenance,manifest)
+        runtime_path=bound_child(evidence_path.parent,evidence['arrays'])
+        with np.load(runtime_path,allow_pickle=False) as archive: runtime={key:archive[key] for key in archive.files}
+        with np.load(paths['output'],allow_pickle=False) as archive: values=archive['hand_qpos']
+        q=dict(zip(adapter.SOURCE_JOINT_NAMES,values[index,9:].tolist(),strict=True))
+        if q!=row['joint_targets_rad']: raise ValueError('Raw q differs from validated original row')
+        source=audit.model(paths['source_hand'])
+        if helper.source_limit_violations(source,q) or helper.source_limit_violations(target,q):
+            raise ValueError('Domain rejection cannot be bypassed for surface diagnostics')
+        source_meshes=[mesh_reference(name,runtime['vertices__'+name][index],runtime['faces__'+name]) for name in evidence['vertex_links']]
+        target_frames=audit.independent_fk(target,q); root=np.asarray(row['candidate']['object_from_target_root'])
+        target_meshes=[mesh_reference(f'{name}__visual{visual_index}',helper.object_vertices(mesh['local'],root@target_frames[name]),mesh['faces'])
+            for (name,visual_index),mesh in target_visuals.items()]
+        for label,meshes in (('source',source_meshes),('target',target_meshes)):
+            if sum(len(mesh['triangles']) for mesh in meshes)>spec['maximum_reference_triangles']:
+                raise ValueError('Frozen '+label+' triangle-count resource bound exceeded')
+        case={'global_sample_index':global_index,'batch_index':row['batch_index'],'within_batch_sample_index':index,'seed':row['seed'],
+            'mapping_status':row['mapping_status'],'execution_eligible':False,
+            'geometry_reference_policy_id':validator.POLICY_ID,
+            'native_default_runtime_reconstruction_status':row['native_default_runtime_reconstruction']['status'],
+            'fp32_mapping_reference_reconstruction_status':row['fp32_mapping_reference_reconstruction']['status'],
+            'geometry_scope':'NEW declared FP32 source first-visual triangle collection versus nominal target declared visual; not native-default-reference preservation',
+            'source_runtime_excluded_links':evidence['excluded_links'],
+            'common_runtime_coverage_scope':'Additional whole-hand comparison excludes forearm on both sides; full target/unmatched forearm statistics retained',
+            'source_mesh_topology':[{'link':mesh['name'],**mesh['metadata']} for mesh in source_meshes],
+            'target_mesh_topology':[{'link':mesh['name'],**mesh['metadata']} for mesh in target_meshes],
+            'source_visual_analytic_cube_profiles':hand_cube_profiles(source_meshes),
+            'target_visual_analytic_cube_profiles':hand_cube_profiles(target_meshes),'resolutions':{}}
+        for spacing in SPACINGS_MM:
+            points,cube_normals,face_labels,area,rho=cube_grid(spacing)
+            radius=max(BANDS_MM)/1000.+rho+2*NUMERICAL_DISTANCE_M
+            s=query_reference(points,source_meshes,radius,budget,deadline)
+            t=query_reference(points,target_meshes,radius,budget,deadline)
+            bands={}
+            for band_mm in BANDS_MM:
+                band=band_mm/1000.; groups={}
+                for group_index,group in enumerate((*PARTS,'whole_hand_common_runtime_coverage','whole_hand')):
+                    if group=='whole_hand': sd,td=s['nearest_distance_m'],t['nearest_distance_m']
+                    elif group=='whole_hand_common_runtime_coverage': sd,td=s['distance_by_part_m'][:,:-1].min(axis=1),t['distance_by_part_m'][:,:-1].min(axis=1)
+                    else: sd,td=s['distance_by_part_m'][:,group_index],t['distance_by_part_m'][:,group_index]
+                    groups[group]=pair_area(sd,td,area,radius,rho,band)
+                    groups[group]['per_cube_face']={face:pair_area(sd[face_labels==face],td[face_labels==face],area,radius,rho,band) for face in np.unique(face_labels)}
+                    if group=='forearm_carrier': groups[group]['reference_coverage']='UNMATCHED source-runtime-excluded forearm; no complete native forearm claim'
+                bands[str(band_mm)]={'groups':groups,'conditional_normals':conditional_normals(s,t,cube_normals,band,area)}
+            case['resolutions'][str(spacing)]={'query_count':len(points),'area_per_cell_m2':area,'total_cube_area_m2':float(len(points)*area),
+                'covering_radius_m':rho,'exact_distance_search_radius_m':radius,
+                'distance_semantics':'Unsigned nearest encoded visual triangle inside bounded radius; infinity means farther. Interior overlap walls retained, no exterior union field.',
+                'source_query_counters':s['counters'],'target_query_counters':t['counters'],'bands':bands}
+            arrays={'cube_query_m':points,'cube_normal':cube_normals,'cube_face':face_labels}
+            for prefix,result in (('source',s),('target',t)):
+                for output_key,result_key in (('distance_by_part_m','distance_by_part_m'),('closest_by_part_m','closest_by_part_m'),
+                    ('normal_by_part','normal_by_part'),('facet_eligible','facet_topology_eligible'),('facet_tie_ambiguous','facet_tie_ambiguous'),
+                    ('nearest_part','nearest_part'),('nearest_part_ambiguous','nearest_part_ambiguous')):
+                    arrays[prefix+'_'+output_key]=result[result_key]
+            output_arrays.append((f'global_sample_{global_index:04d}_grid_{spacing:g}mm.npz',arrays))
+            print(json.dumps({'progress':'cohort_visual_resolution_complete','global_sample_index':global_index,
+                'spacing_mm':spacing,'exact_triangle_tests_so_far':budget[0]}),flush=True)
+        case['resolution_consistency']=resolution_summary(case['resolutions']['2.0']['bands'],case['resolutions']['1.0']['bands'])
+        cases.append(case)
+    changed=[path for path,h in dependency.items() if digest(path)!=h]
+    if changed: raise ValueError('Surface dependency changed during audit: '+repr(changed))
+    report={'schema_version':'dga_cohort_visual_triangle_proximity_diagnostic_v1','created_at_utc':datetime.now(timezone.utc).isoformat(),
+        'status':'DESCRIPTIVE_ONLY' if selected else 'NOT_TESTED_NO_SOURCE_AND_TARGET_VALID_CANDIDATE',
+        'frozen_protocol_sha256':args.frozen_protocol_sha256,'validation_report_sha256':args.validation_report_sha256,
+        'total_raw_cohort_rows':16,'selected_global_indices':selected,'surface_case_count':len(cases),
+        'all_row_accounting':validation['accounting'],'descriptive_bands_mm':list(BANDS_MM),'query_spacings_mm':list(SPACINGS_MM),
+        'anatomical_group_order':list(PARTS),'cases':cases,'exact_triangle_tests':budget[0],'dependency_sha256':dependency,
+        'zero_step_evidence':{'native_inference_calls':0,'checkpoint_loads':0,'physics_steps':0,'evaluation_episodes':0,'task_labels':0,'training_calls':0},
+        'scope':{'reference':'Separate explicit FP32 geometry policy, not preservation of native-default reference',
+            'visual_triangle_proximity':'DESCRIPTIVE encoded-collection area bounds only; selected source+target-domain-valid rows',
+            'topology':'Edge incidence/winding/component descriptors are necessary conditions only; self-intersections and nesting NOT_TESTED',
+            'surface_normals':'Conditional oriented facets with topology/ties/inside-cube exclusions; exterior normal certification UNRESOLVED; reliable exterior witness area zero',
+            'penetration':'Encoded visual triangle intrusion into analytic cube with unsubdivided patch uncertainty; no solid-hand occupancy or global penetration certificate',
+            'overlapping_interior_walls':'Retained; no articulated exterior-union/signed hand distance/occupancy claim',
+            'source_declared_collision':'NOT_TESTED','target_declared_collision':'NOT_TESTED','compiled_target_collision':'NOT_TESTED',
+            'scientific_acceptance_threshold':None,'approximate_contact_adequacy':'UNRESOLVED','physical_equivalence':'NOT_TESTED',
+            'execution_eligible':False,'original_reports':'Original cohort-external native FAIL/control reports untouched; per-batch default gates separately reported'}}
+    args.output.mkdir(parents=True)
+    for name,arrays in output_arrays: np.savez_compressed(args.output/name,**arrays)
+    (args.output/'cohort_visual_proximity_report.json').write_text(json.dumps(report,indent=2,allow_nan=False)+'\n')
+    print(json.dumps({'output':str(args.output.resolve()),'status':report['status'],'surface_case_count':len(cases),
+        'selected_global_indices':selected,'exact_triangle_tests':budget[0],'execution_eligible':False},indent=2))
+
+
+if __name__=='__main__': main()
+
+

@@ -1,0 +1,58 @@
+{
+  "schema_version": "dga_independent_surface_prefit_review_v1",
+  "created_at_utc": "2026-10-15T05:49:33.805288+00:00",
+  "status": "NO_REMAINING_PROTOCOL_BACKEND_OR_FIT_GUARD_BLOCKER_IDENTIFIED_AT_REVIEWED_HASHES",
+  "phase": "Before any new fit or real-source/candidate field metrics by reviewer. Implementation manifest still must bind reviewed dependencies before execution.",
+  "criteria_review": [
+    "Strict same-part zero lost/new nearsets at 0.5/1/2 mm remain the criterion; positive conservative area lower bound fails, complete equality proof passes, residual coverage stays unresolved.",
+    "No nonzero approximation budget was adopted. Bands define previously used descriptive geometric relationships, not physical outcome tolerances.",
+    "Full mapping acceptance cannot follow from this two-case development run or a subset of representation checks. Signed palm-union occupancy and direction coverage remain separate required claims.",
+    "Reserved grid fractions 2/7,3/7 require rho=sqrt(41)*h/7; 1/0.5/0.25 mm grids and their budgets were fixed before fitting."
+  ],
+  "backend_review": [
+    "Untouched saved FP32 source vertices are used directly. Target visual triangles stay immutable in local frames, with queries transformed through the actual target palm/root FK.",
+    "Complete center-sphere capped search and face/edge/vertex formulas retain degenerate triangles as segments/points. Censoring at cap is explicit and cannot count as near.",
+    "Per-part fields retain all query rows, including native-away misses. Open/tied visual facets never gain certified exterior-normal status.",
+    "Signed palm field queries the exposed box-union boundary inside and out; sign is preserved by clipping to \u00b14 mm."
+  ],
+  "fit_guard_review": [
+    "Actual 28 sites equal the XML-derived common 27 finger origins plus palm in exact order. Both original wrist values and strict target joint limits remain enforced without final clipping.",
+    "Prior free report, numeric arrays, global row order, named target q and source raw/palm bindings are checked before use. Backend files, target meshes and source references must match frozen hashes.",
+    "Two starts and two sweeps of six blocks are fixed. Each local block only improves its training SSE; final candidates additionally pass true old-fixed-palm maximum/SSE guards. Baseline and all attempts remain recorded.",
+    "Final ranking uses training surface SSE only among engineering-eligible candidates; this is distinct from strict independent geometric acceptance. Selected rotation and source/target palm, target world root and true forearm are separately recorded."
+  ],
+  "manufactured_controls": {
+    "independent_mathematical_claim_controls": 14,
+    "actual_backend_tiny_triangle_box_controls": 15,
+    "total": 29,
+    "all": "PASS",
+    "actual_native_or_candidate_geometry_read": false,
+    "actual_optimizer_run_by_reviewer": false
+  },
+  "validator_integration_note": {
+    "finding_sent_to_parent": "Old validation helper mesh_reference filters triangles with cross-length<=1e-18, whereas the new backend retains them. Strict acceptance must fail closed if required meshes have filtered elements, or implement/declare their full geometric treatment. Exact identity cannot silently ignore a unique degenerate segment.",
+    "classification": "Separate validator prerequisite guard; does not change the reviewed optimizer. No validation pass endorsed before resolution."
+  },
+  "zero_execution": {
+    "real_geometry_queries": 0,
+    "optimizer_calls": 0,
+    "native_calls": 0,
+    "checkpoint_loads": 0,
+    "GPU_calls": 0,
+    "physics_steps": 0,
+    "evaluation_cases_or_labels": 0,
+    "training_calls": 0
+  },
+  "dependencies": {
+    "/private/tmp/dga_surface_preserving_20261015_v1/scientific_protocol_frozen_v1.json": "sha256:57531e1e79a98f8e6b667bdd9a43e41a5e90ce8bdec35e56a833408baa106375",
+    "/private/tmp/dga_surface_preserving_20261015_v1/fit_surface_preserving.py": "sha256:16a190fdc674cbff8c03ded03f519792e711807880e7ab51aee50fb8f174ba1d",
+    "/private/tmp/dga_surface_preserving_20261015_v1/geometry/surface_backend.py": "sha256:08c838f6b0dbec9904054544a607251786681804ee81ebaa9cc18acc214fde61",
+    "/private/tmp/dga_surface_preserving_20261015_v1/geometry/palm_box_union.py": "sha256:f8200f54744c5b466c4c23399270bd425b5b1074922b52c6033e27c93a8e0e46",
+    "/private/tmp/dga_surface_preserving_20261015_v1/geometry/palm_union_geometry_reference.py": "sha256:95f111a3a73d88a070242ac41feefec398561c2e6bda48a779ca3b98e0fd598e",
+    "/private/tmp/dga_surface_preserving_20261015_v1/independent_review/manufactured_criterion_controls.py": "sha256:1d3e8be0ee7cbf9205073c8549cc570822db45fdae144928aaa50229e39a82a3",
+    "/private/tmp/dga_surface_preserving_20261015_v1/independent_review/manufactured_criterion_controls_receipt_v1.json": "sha256:ede4e9a01d310c61ff4f20a68c3a31aab445a62b454720f96e99714ec5647cd9",
+    "/private/tmp/dga_surface_preserving_20261015_v1/independent_review/test_surface_backend_independent.py": "sha256:ecd1dcd70513d6dbf1ac15e860739279aa621fcb67b896b7a8e020ace4a85db0",
+    "/private/tmp/dga_surface_preserving_20261015_v1/independent_review/actual_backend_controls_receipt_v1.json": "sha256:e5a45eadf7c8c6d9df2588f2ea089013054f9f05727c286e3d6b532559fa4be4",
+    "/private/tmp/dga_surface_preserving_20261015_v1/independent_review/authoritative_strict_criterion_addendum_v1.json": "sha256:4558b64c4f1a7b8f1e76a1aa6aa28741e68ff5e3107299bdfaed16d58e019094"
+  }
+}

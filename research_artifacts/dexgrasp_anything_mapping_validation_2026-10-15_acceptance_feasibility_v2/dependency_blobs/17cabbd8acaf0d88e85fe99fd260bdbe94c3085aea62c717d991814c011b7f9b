@@ -1,0 +1,195 @@
+#!/usr/bin/env python3
+"""Sealed-until-authorized native16 raw ledger and static source FP32 audit.
+
+No optimizer, proximity query, inference, physics or model deserialization.
+Original raw target-domain classification remains separate from correction.
+"""
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import sys
+import numpy as np
+
+sys.dont_write_bytecode=True
+ROOT=Path(__file__).resolve().parent
+SEEDS=list(range(20261025,20261033))
+PROTOCOL_SHA='sha256:76f2ab3c7955ce2791e094da162d186a3f128425d863be81839385b195c17c59'
+RULE='first_two_source_valid_in_original_order_no_backfill'
+
+
+def sha(path):
+    h=hashlib.sha256()
+    with Path(path).open('rb') as f:
+        for c in iter(lambda:f.read(1048576),b''):h.update(c)
+    return 'sha256:'+h.hexdigest()
+
+
+def read(path,expected):
+    if sha(path)!=expected:raise ValueError('Hash mismatch: '+str(path))
+    return json.loads(Path(path).read_text())
+
+
+def module(name,path):
+    spec=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(spec)
+    sys.modules[name]=m;spec.loader.exec_module(m);return m
+
+
+def selection(records):
+    if [r.get('global_sample_index') for r in records]!=list(range(16)):
+        raise ValueError('Exactly16original ordered records required')
+    for row in records:
+        if type(row.get('native_output_complete_and_finite')) is not bool or not isinstance(row.get('source_limit_violations'),list):
+            raise ValueError('Exact native-integrity bool and explicit source-domain list required')
+    return [r['global_sample_index'] for r in records if r['native_output_complete_and_finite'] is True and not r['source_limit_violations']][:2]
+
+
+def authorize_unseal(authorization,authorization_sha,implementation,implementation_sha):
+    """Read no native outcome before this independent caller-supplied freeze."""
+    a=read(authorization,authorization_sha)
+    if (a.get('schema_version')!='dga_independent_native_unseal_authorization_v1'
+        or a.get('status')!='FROZEN_BEFORE_NATIVE_OUTCOME_READS'
+        or a.get('native_protocol_sha256')!=PROTOCOL_SHA
+        or a.get('ledger_implementation')!={'path':str(Path(implementation).resolve()),'sha256':implementation_sha}
+        or a.get('mapping_selection_policy')!=RULE
+        or a.get('all_mapping_code_and_consumers_frozen') is not True
+        or a.get('no_holdout_values_read_before_mapping_freeze') is not True
+        or a.get('forbid_holdout_tuning') is not True):
+        raise ValueError('Exact parent unseal authorization after generalized mapping freeze required')
+    ref=a['mapping_method_freeze'];mapping=read(ref['path'],ref['sha256'])
+    if not isinstance(mapping.get('status'),str) or not mapping['status'].startswith('FROZEN'):
+        raise ValueError('Mapping method is not frozen')
+    deps=a.get('mapping_dependency_sha256')
+    if not isinstance(deps,dict) or not deps:raise ValueError('All generalized baseline/corrector/consumer dependencies required')
+    for path,h in deps.items():
+        if sha(path)!=h:raise ValueError('Frozen mapping dependency changed: '+path)
+    return a
+
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    for name in ('implementation','unseal-authorization','cohort-manifest','output'):
+        parser.add_argument('--'+name,type=Path,required=True)
+    for name in ('implementation-sha256','unseal-authorization-sha256','cohort-manifest-sha256'):
+        parser.add_argument('--'+name,required=True)
+    args=parser.parse_args()
+    if args.output.exists():raise FileExistsError('Never overwrite native validation evidence')
+    p=read(args.implementation,args.implementation_sha256)
+    if p.get('schema_version')!='dga_independent_native_static_implementation_v1' or p.get('status')!='FROZEN_BEFORE_NATIVE_OUTCOME_READS':
+        raise ValueError('Wrong independent static ledger implementation freeze')
+    for path,h in p['dependency_sha256'].items():
+        if sha(path)!=h:raise ValueError('Frozen ledger dependency changed: '+path)
+    authorization=authorize_unseal(args.unseal_authorization,args.unseal_authorization_sha256,args.implementation,args.implementation_sha256)
+    # All checks above precede the first native outcome/archive read below.
+    protocol=read(p['native_protocol']['path'],PROTOCOL_SHA)
+    if protocol.get('mapping_selection_policy')!=RULE or protocol.get('seeds')!=SEEDS:raise ValueError('Native schedule/selection changed')
+    repo=Path(p['repository']);sys.path.insert(0,str(repo/'src'))
+    old=module('frozen_native_batch_static_checks',p['code_paths']['batch_validator'])
+    numeric=module('frozen_multidex_numeric_checks',p['code_paths']['numeric_helper'])
+    profile=module('independent_native_profile',p['code_paths']['profile'])
+    audit=module('native_independent_xml_fk',p['code_paths']['independent_audit'])
+    helper=module('native_reference_primitive',p['code_paths']['native_helper'])
+    # Existing batch parser is byte-identical; only its explicit schedule table
+    # is parameterized here. No source decoder or domain limit changes.
+    old.SEEDS=tuple(SEEDS)
+    cohort=read(args.cohort_manifest,args.cohort_manifest_sha256)
+    if (cohort.get('schema_version')!='dga_multidex_independent_cohort_v1'
+        or cohort.get('status')!='SEALED_COMPLETE_PENDING_FROZEN_MAPPING'
+        or cohort.get('batch_count')!=8 or cohort.get('sample_count')!=16
+        or cohort.get('native_model_sample_calls')!=8 or cohort.get('seeds')!=SEEDS
+        or cohort.get('protocol_sha256')!=PROTOCOL_SHA
+        or cohort.get('source_profile_id')!=profile.PROFILE_ID
+        or cohort.get('checkpoint_sha256')!=profile.CHECKPOINT_SHA256
+        or cohort.get('mapping_reference_policy_id')!=old.POLICY_ID
+        or cohort.get('reference_precision_policy')!=protocol['reference_precision_policy']):
+        raise ValueError('Incomplete or incorrect independent native16cohort')
+    batches=cohort['batches']
+    if len(batches)!=8 or [x['batch_index'] for x in batches]!=list(range(8)) or any(x['global_sample_indices']!=[2*i,2*i+1] for i,x in enumerate(batches)):
+        raise ValueError('Every original scheduled native row must be retained')
+    root=args.cohort_manifest.parent
+    logpath=old.child(root,cohort['generation_log']);log=json.loads(logpath.read_text())
+    expected={'schema_version':'dga_multidex_independent_cohort_generation_log_v1','batches':batches,
+        'sample_count':16,'native_model_sample_calls':8,'checkpoint_deserializations':8,'resampling_attempts':0,
+        'protocol_sha256':PROTOCOL_SHA,'code_sha256':protocol['code_sha256'],
+        'generation_matmul_allow_tf32':True,'generation_cudnn_allow_tf32':True,
+        'reference_precision_policy':protocol['reference_precision_policy'],'physics_steps':0,'training_calls':0,'evaluation_episodes':0}
+    if any(log.get(k)!=v for k,v in expected.items()):raise ValueError('Native call/precision/schedule ledger differs')
+    args.conditioning_manifest=Path(p['conditioning_manifest']['path'])
+    args.conditioning_manifest_sha256=p['conditioning_manifest']['sha256']
+    args.normalizer_source=Path(p['normalizer_source'])
+    args.target_hand_urdf=Path(p['target_hand_urdf'])
+    args.source_assets_root=Path(p['source_assets_root'])
+    args.frozen_protocol_sha256=PROTOCOL_SHA
+    dependencies=dict(p['dependency_sha256'])
+    for path,h in authorization['mapping_dependency_sha256'].items():
+        if path in dependencies and dependencies[path]!=h:raise ValueError('Conflicting mapping/static dependencies')
+        dependencies[path]=h
+    for path in [args.implementation,args.unseal_authorization,args.cohort_manifest,logpath]:dependencies[str(path.resolve())]=sha(path)
+    results=[old.validate_batch(batch,root,protocol,args,profile,numeric,profile.original,audit,helper,dependencies) for batch in batches]
+    records=[]
+    for result in results:
+        for row in result['records']:
+            batch=batches[row['batch_index']]
+            native_path=old.child(root,batch['native_manifest'])
+            row.setdefault('native_manifest',{'path':str(native_path),'sha256':sha(native_path)})
+            manifest=read(row['native_manifest']['path'],row['native_manifest']['sha256'])
+            rawpath=old.child(Path(row['native_manifest']['path']).parent,manifest['output'])
+            with np.load(rawpath,allow_pickle=False) as z:raw=z['hand_qpos'][row['within_batch_sample_index']].copy()
+            # Verified native loader already bound all original101states and
+            # exactfinal slice. This bool never depends on reference/domain/fit.
+            row['native_output_complete_and_finite']=bool(raw.shape==(33,) and raw.dtype==np.dtype('float64') and np.isfinite(raw).all())
+            row['raw33_row_sha256']='sha256:'+hashlib.sha256(raw.tobytes(order='C')).hexdigest()
+            row.setdefault('joint_targets_rad',{name:float(value) if np.isfinite(value) else None
+                for name,value in zip(profile.original.SOURCE_JOINT_NAMES,raw[9:])})
+            row.setdefault('mapping_reference',None if batch['fp32_reference'] is None else
+                {'path':str(old.child(root,batch['fp32_reference'])),'sha256':batch['fp32_reference']['sha256']})
+            row['object_from_source_forearm']=row.get('object_from_forearm')
+            algebra=dict(row.get('algebra',{'status':'NOT_PERFORMED_RAW_DOMAIN_REJECTED'}))
+            algebra['transforms']={'object_from_palm':row.get('object_from_palm'),'object_from_source_forearm':row.get('object_from_forearm')}
+            row['algebra']=algebra
+            row['source_reference_prior_status']={'native_default':row['native_default_runtime_reconstruction']['status'],'declared_FP32':row['fp32_mapping_reference_reconstruction']['status']}
+            row['stage_reconstruction']=result['stage_reconstruction']
+            row['native_mapping_input_prerequisites_pass']=bool(row['native_output_complete_and_finite'] and not row['source_limit_violations']
+                and result['stage_reconstruction']['status']=='PASS' and row['fp32_mapping_reference_reconstruction']['status']=='PASS')
+            records.append(row)
+    selected=selection(records)
+    for row in records:
+        row['selected_for_bounded_mapping']=row['global_sample_index'] in selected
+        row['bounded_mapping_disposition']='SELECTED_NO_BACKFILL_AFTER_ANY_LATER_FAILURE' if row['selected_for_bounded_mapping'] else 'NOT_PROCESSED_BY_BOUNDED_MAPPING_STUDY'
+        row['physical_failure_label']=None
+    accounting={status:sum(row['mapping_status']==status for row in records) for status in ('REJECTED_SOURCE_LIMIT','REJECTED_TARGET_LIMIT','REJECTED_NONFINITE_POSE','CANDIDATE_ONLY')}
+    for path,h in dependencies.items():
+        if sha(path)!=h:raise ValueError('Dependency changed during static ledger construction: '+path)
+    if {'torch','mujoco','isaacgym','pybullet'}&set(sys.modules):raise ValueError('Forbidden runtime imported')
+    report={'schema_version':'dga_independent_native_static_check_v1','created_at_utc':datetime.now(timezone.utc).isoformat(),
+        'source_profile_id':profile.PROFILE_ID,'checkpoint_sha256':profile.CHECKPOINT_SHA256,'dataset_name':profile.DATASET_NAME,
+        'normalizer_source_sha256':profile.NORMALIZER_SHA256,'sample_count':16,'global_sample_indices':list(range(16)),
+        'records':records,'batches':results,'accounting':accounting,'original_accounting':accounting,
+        'source_valid_count':sum(r['native_output_complete_and_finite'] and not r['source_limit_violations'] for r in records),
+        'raw_target_valid_count':sum(r['native_output_complete_and_finite'] and not r['target_limit_violations'] for r in records),
+        'surface_selection':{'policy':RULE,'selected_global_indices':selected,'selected_count':len(selected),'backfill_after_prerequisite_failure':False},
+        'validation_case_count_status':'TWO_SELECTED' if len(selected)==2 else 'INSUFFICIENT_SOURCE_VALID_NATIVE_OUTPUTS',
+        'native_protocol_sha256':PROTOCOL_SHA,'cohort_manifest_sha256':args.cohort_manifest_sha256,
+        'unseal_authorization_sha256':args.unseal_authorization_sha256,'dependency_sha256':dependencies,
+        'execution_eligible':False,'scientific_acceptance':'NOT_ESTABLISHED_BY_NATIVE_DOMAIN_OR_REFERENCE_CHECKS',
+        'scope':'All16rawdomains and static source/default/FP32reference reconstruction. Rawtarget-domain validity does not select or validate the generalizedcorrector. First2source-valid poses are fixed before anytarget/wrist/reference/fit gate; selectedlaterfailures remain withoutreplacement. No physical outcome labels.',
+        'zero_step_evidence':{'native_inference_calls':0,'checkpoint_loads':0,'physics_steps':0,'surface_proximity_queries':0,'optimizer_calls':0,'evaluation_episodes':0,'task_labels':0,'training_calls':0}}
+    args.output.mkdir(parents=True,exist_ok=False)
+    destination=args.output/'native_validation_report.json'
+    with destination.open('x') as f:json.dump(report,f,indent=2,allow_nan=False);f.write('\n')
+    source_frame_report={'schema_version':'dga_independent_native_source_frames_v1',
+        'native_protocol_sha256':PROTOCOL_SHA,'ledger':{'path':str(destination.resolve()),'sha256':sha(destination)},
+        'dependency_sha256':dependencies,'records':[{'global_sample_index':row['global_sample_index'],
+            'native_output_complete_and_finite':row['native_output_complete_and_finite'],
+            'transforms':row['algebra']['transforms'],'native_manifest':row['native_manifest']} for row in records],
+        'scope':'Source raw forearm/palm extraction only; not target mapping, correction, scientific adequacy or physicalcontact validation.',
+        'execution_eligible':False}
+    framepath=args.output/'native_source_frame_report.json'
+    with framepath.open('x') as f:json.dump(source_frame_report,f,indent=2,allow_nan=False);f.write('\n')
+    print(json.dumps({'report':str(destination),'sha256':sha(destination),'source_frame_report':str(framepath),
+        'source_frame_report_sha256':sha(framepath),'sample_count':16,'accounting':accounting,'selected_global_indices':selected,'execution_eligible':False}))
+
+
+if __name__=='__main__':main()

@@ -1,0 +1,60 @@
+{
+  "schema_version": "independent_exact_palm_obstruction_review_v1",
+  "status": "PASS_SCOPED_EXACT_MATH_CERTIFICATE",
+  "proof": {
+    "path": "/private/tmp/dga_mapping_acceptance_20261015_v2/feasibility/exact_palm_obstruction_v2.json",
+    "sha256": "sha256:3376adc16f27037e2fc93d93139933db4e3dc825904a88310ed12f2ec96e1b95"
+  },
+  "review_code_sha256": "sha256:adf1f53f39ae0c9c4b13269a670af7ef1b71b1f408e9b6fe00c7b10cb933f9f9",
+  "verified_dependency_count": 14,
+  "exact_certificates_recounted": 516,
+  "cases": [
+    {
+      "case_id": "old_development_row1",
+      "guard_scope": "original pose-specific fixed-palm max/SSE guards",
+      "high_precision_source_frame_enclosed": true,
+      "maximum_source_interval_width": "279/100000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "certificates_recounted": 2,
+      "best_area_m2": 1.0494733493091649e-10
+    },
+    {
+      "case_id": "new_native_row0_original_guards",
+      "guard_scope": "original pose-specific fixed-palm max/SSE guards",
+      "high_precision_source_frame_enclosed": true,
+      "maximum_source_interval_width": "59/20000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "certificates_recounted": 257,
+      "best_area_m2": 5.256249999999994e-07
+    },
+    {
+      "case_id": "new_native_row0_component_caps",
+      "guard_scope": "existing component-corrector tighter max/SSE caps, specific to new row0",
+      "high_precision_source_frame_enclosed": true,
+      "maximum_source_interval_width": "59/20000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "certificates_recounted": 257,
+      "best_area_m2": 9.716965228392458e-07
+    }
+  ],
+  "reviewed_mathematics": [
+    "Ten anchor origins are joint-independent because descendant origins are zero; group multiplicities preserve the 28-site SSE upper bound.",
+    "Affine reproduction and weighted Cauchy-Schwarz correctly bound any proper target palm placement under exact recorded max/SSE guards.",
+    "Source robust6D matches pinned function with no normalization floor active. Exact interval Taylor order, outward rounding, reciprocal and isqrt bounds are conservative.",
+    "Target interior/source exterior margins transfer through the explicit source-pose bridge; a centered cube-face square of side margin/4 remains strictly mismatched."
+  ],
+  "scope": [
+    "Old row1 and new native row0: obstruction under each original pose-specific max/SSE guards; new row0 tighter component caps are separately certified.",
+    "This is an exact mathematical guard theorem; it does not certify every arbitrary floating-point implementation of guard predicates.",
+    "High precision mpmath frame comparison is an independent numerical cross-check; soundness is from the separately reviewed rational interval formulas.",
+    "No statement of global generator impossibility for other poses or for altered targets/criteria."
+  ],
+  "nonblocking_hardening": [
+    "certificate() could assert exact cube-face membership, nonnegative caps and axis-aligned source box internally; all actual saved cases independently satisfy these."
+  ],
+  "zero_execution": {
+    "physics_steps": 0,
+    "inference_calls": 0,
+    "surface_queries": 0,
+    "fit_calls": 0,
+    "evaluation_episodes": 0,
+    "training_calls": 0
+  }
+}

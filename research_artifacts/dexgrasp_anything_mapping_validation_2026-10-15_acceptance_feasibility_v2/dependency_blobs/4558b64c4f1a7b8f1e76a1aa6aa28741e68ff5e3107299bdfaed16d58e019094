@@ -1,0 +1,24 @@
+{
+  "schema_version": "dga_surface_authoritative_strict_criterion_addendum_v1",
+  "created_at_utc": "2026-10-15T05:44:01.196340+00:00",
+  "parent_decision": "Retain zero-difference same-part0.5/1/2mm nearsets. Positive certified lost/new region =>FAIL; complete coverage provingzero difference =>PASS; otherwiseUNRESOLVED. Bounded-delta criterion is not substituted.",
+  "prior_mathematical_review": {
+    "path": "/private/tmp/dga_surface_preserving_20261015_v1/independent_review/prospective_criterion_review_v1.json",
+    "sha256": "sha256:66c59ba085ac5e43380ab85bf601d8be37b5be66d86e5316f1aa6c02db12a2f6",
+    "scope": "Exploratory mathematical discussion of possible claims; no budget was selected or applied."
+  },
+  "training_vs_validation": {
+    "training": "Native-relative capped unsigned part fields and a separate signed palm-union field may guide optimization; aggregate SSE is not acceptance. All misses/caps/signs are retained.",
+    "cap_rule": "A distance reported at2mm cap is only a lower bound on uncapped distance; it must not be classified definitely within a2mm band. Validation uses uncapped complete queries or certified far status beyond a radius exceeding band+cover+numeric allowance.",
+    "reserved_validation": "Fractions2/7,3/7 in each square have farthest corner vector(5h/7,4h/7), hence rho=sqrt(41)*h/7.",
+    "strict_positive_control": "Identical complete geometry/transforms prove identical fields by identity; independent interval bounds at threshold may otherwise conservatively remainUNRESOLVED.",
+    "negative_controls": "Shifted contact, expanded palm/signed occupancy, per-part swaps, normal reversal/tie/unmatched areas cannot be hidden by average fit error or dropped coverage."
+  },
+  "status": "READ_ONLY_REVIEW_BEFORE_NEW_FIT_AND_REAL_GEOMETRY_QUERIES",
+  "zero_execution": {
+    "actual_geometry_queries": 0,
+    "optimizer_calls": 0,
+    "native_calls": 0,
+    "physics_steps": 0
+  }
+}

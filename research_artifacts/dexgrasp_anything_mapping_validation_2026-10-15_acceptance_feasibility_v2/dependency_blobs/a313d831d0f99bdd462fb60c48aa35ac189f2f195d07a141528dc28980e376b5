@@ -1,0 +1,58 @@
+"""Manufactured exact-payload reuse controls, no candidate/native data."""
+from datetime import datetime,timezone
+import copy,hashlib,importlib.util,json,sys,unittest
+from pathlib import Path
+import numpy as np
+sys.dont_write_bytecode=True
+P=Path('/private/tmp/dga_feasible_surface_20261015_v1/geometry/candidate_identity.py')
+s=importlib.util.spec_from_file_location('identity_under_independent_review',P);m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+def fixture():
+ values={'global_sample_indices':np.array([1,3],np.int64),'source_hand_qpos':np.zeros((2,33)),'target_joint_values':np.zeros((2,24))}
+ values['source_hand_qpos'][:,3:9]=[1,0,0,0,1,0]
+ values.update({k:np.stack([np.eye(4),np.eye(4)]) for k in m.TRANSFORMS});return values
+class IdentityControls(unittest.TestCase):
+ def test_identical_all_payloads_match(self):
+  x=fixture();self.assertTrue(m.compare_payloads(x,copy.deepcopy(x))['exact_selected_pose_array_payload_identity'])
+ def test_one_float_step_joint_difference_refuses(self):
+  x=fixture();y=copy.deepcopy(x);y['target_joint_values'][0,2]=np.nextafter(0.,1.)
+  self.assertFalse(m.compare_payloads(x,y)['exact_selected_pose_array_payload_identity'])
+ def test_source_and_every_transform_are_bound(self):
+  x=fixture()
+  for key in ('source_hand_qpos',*m.TRANSFORMS):
+   y=copy.deepcopy(x);y[key].flat[0]=np.nextafter(y[key].flat[0],np.inf)
+   r=m.compare_payloads(x,y);self.assertFalse(r['exact_selected_pose_array_payload_identity']);self.assertEqual(r['different_array_keys'],[key])
+ def test_negative_zero_payload_difference_refuses(self):
+  x=fixture();y=copy.deepcopy(x);y['target_joint_values'][0,2]=-0.
+  self.assertTrue(np.array_equal(x['target_joint_values'],y['target_joint_values']));self.assertFalse(m.compare_payloads(x,y)['exact_selected_pose_array_payload_identity'])
+ def test_dtype_and_endianness_are_not_tolerated(self):
+  x=fixture()
+  for dtype in (np.float32,np.dtype('>f8')):
+   y=copy.deepcopy(x);y['target_joint_values']=y['target_joint_values'].astype(dtype)
+   self.assertFalse(m.compare_payloads(x,y)['exact_selected_pose_array_payload_identity'])
+ def test_row_permutation_and_missing_or_extra_keys_refuse(self):
+  x=fixture();y=copy.deepcopy(x);y['global_sample_indices']=y['global_sample_indices'][::-1]
+  with self.assertRaises(ValueError):m.compare_payloads(x,y)
+  y=copy.deepcopy(x);del y['object_from_target_forearm']
+  with self.assertRaises(ValueError):m.compare_payloads(x,y)
+  y=copy.deepcopy(x);y['unknown']=np.array([1])
+  with self.assertRaises(ValueError):m.compare_payloads(x,y)
+ def test_nonfinite_or_object_payload_refuses(self):
+  x=fixture();y=copy.deepcopy(x);y['source_hand_qpos'][0,0]=np.nan
+  with self.assertRaises(ValueError):m.compare_payloads(x,y)
+  y=copy.deepcopy(x);y['target_joint_values']=y['target_joint_values'].astype(object)
+  with self.assertRaises(ValueError):m.compare_payloads(x,y)
+ def test_memory_layout_normalization_does_not_change_logical_payload(self):
+  x=fixture();y={k:np.asfortranarray(v) for k,v in x.items()}
+  self.assertTrue(m.compare_payloads(x,y)['exact_selected_pose_array_payload_identity'])
+ def test_combined_description_changes_with_each_required_key(self):
+  x=fixture();before=m.payload_description(x)['combined_payload_sha256'];y=copy.deepcopy(x);y['object_from_target_palm'][0,0,3]=1e-12
+  self.assertNotEqual(before,m.payload_description(y)['combined_payload_sha256'])
+def main():
+ out=Path(__file__).with_name('exact_payload_identity_controls_receipt_v1.json')
+ if out.exists():raise FileExistsError(out)
+ before='sha256:'+hashlib.sha256(P.read_bytes()).hexdigest();result=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(IdentityControls))
+ if before!='sha256:'+hashlib.sha256(P.read_bytes()).hexdigest():raise ValueError('Identity code changed during tests')
+ r={'schema_version':'dga_feasible_independent_exact_payload_controls_v1','created_at_utc':datetime.now(timezone.utc).isoformat(),'status':'PASS' if result.wasSuccessful() else 'FAIL','tests':result.testsRun,'errors':len(result.errors),'failures':len(result.failures),'code_sha256':'sha256:'+hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'identity_code_sha256':before,'scope':'Synthetic in-memory arrays only; no actual selected/native payload, fit or geometry is read. Exact pose identity is necessary but not alone sufficient for measurement reuse; references/criteria/report/archive hash closure also required.'}
+ out.write_text(json.dumps(r,indent=2)+'\n')
+ if not result.wasSuccessful():raise SystemExit(1)
+if __name__=='__main__':main()

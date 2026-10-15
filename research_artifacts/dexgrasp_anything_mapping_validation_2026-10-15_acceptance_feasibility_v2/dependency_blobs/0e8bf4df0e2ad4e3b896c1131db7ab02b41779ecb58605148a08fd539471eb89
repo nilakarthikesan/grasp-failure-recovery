@@ -1,0 +1,98 @@
+"""Manufactured native accounting/identity/refusal controls; no actual case queries."""
+import copy
+import json
+from pathlib import Path
+import subprocess
+import sys
+import tempfile
+import unittest
+import numpy as np
+import validate_component_native_palm as v
+
+
+def ledger(valid):
+ return {'schema_version':'dga_independent_native_static_check_v1','sample_count':16,'records':[
+  {'global_sample_index':i,'native_output_complete_and_finite':True,'source_limit_violations':[] if i in valid else ['invalid']} for i in range(16)]}
+
+
+def arrays(indices):
+ n=len(indices);a={'global_sample_indices':np.array(indices,dtype=np.int64),'source_hand_qpos':np.zeros((n,33),dtype=np.float32),'target_joint_values':np.zeros((n,24))}
+ for k in v.POSE_KEYS[3:]:a[k]=np.tile(np.eye(4),(n,1,1))
+ return a
+
+
+class NativePalmControls(unittest.TestCase):
+ def test_select_before_target_reference_or_fit(self):
+  l=ledger([2,5,9]);l['records'][2].update(mapping_status='TARGET_REJECTED',native_mapping_input_prerequisites_pass=False)
+  self.assertEqual(v.select(l),[2,5])
+
+ def test_completefinite_exclusion_and_exact_boolean(self):
+  l=ledger([2,5,9]);l['records'][2]['native_output_complete_and_finite']=False
+  self.assertEqual(v.select(l),[5,9]);l['records'][2]['native_output_complete_and_finite']='false'
+  with self.assertRaises(ValueError):v.select(l)
+
+ def test_all16_order_and_explicit_source_domain(self):
+  l=ledger([2,5]);l['records'].pop()
+  with self.assertRaises(ValueError):v.select(l)
+  l=ledger([2,5]);l['records'][0]['source_limit_violations']=False
+  with self.assertRaises(ValueError):v.select(l)
+
+ def test_insufficient_is_not_replaced(self):
+  self.assertEqual(v.select(ledger([2])),[2]);self.assertEqual(v.select(ledger([])),[])
+
+ def test_completed_subset_exact_no_backfill(self):
+  f={'selected_global_indices':[2,5],'completed_global_indices':[5],'execution_eligible':False,'no_backfill':True,'records':[{'global_sample_index':2,'correction_status':'REFUSED'},{'global_sample_index':5,'correction_status':'COMPLETE'}]}
+  self.assertEqual(v.accounting(f,[2,5],arrays([5])),[5])
+  with self.assertRaises(ValueError):v.accounting(f,[2,5],arrays([2,5]))
+  f['records'].pop(0)
+  with self.assertRaises(ValueError):v.accounting(f,[2,5],arrays([5]))
+
+ def test_zero_complete_and_bounded_trace_export(self):
+  f={'selected_global_indices':[2,5],'completed_global_indices':[],'execution_eligible':False,'no_backfill':True,'records':[{'global_sample_index':i,'correction_status':'REFUSED'} for i in [2,5]]}
+  self.assertEqual(v.accounting(f,[2,5],arrays([])),[]);v.arrays_valid(arrays([]))
+  f['records'][0].update(correction_status='COMPLETE',correction_trace_status='BOUNDED_PARTIAL_CURRENT_PRESERVED');f['completed_global_indices']=[2]
+  self.assertEqual(v.accounting(f,[2,5],arrays([2])),[2])
+
+ def test_exact_native_identity_signedzero_dtype_ulp(self):
+  a=np.zeros(33,dtype=np.float32);self.assertTrue(v.exact_array(a,a.copy()))
+  for b in (a.astype(np.float64),a.copy(),a.copy()):
+   if b.dtype==a.dtype:b[0]=-0. if not np.signbit(b[0]) else 0.
+   self.assertFalse(v.exact_array(a,b))
+  b=a.copy();b[1]=np.nextafter(np.float32(0),np.float32(1));self.assertFalse(v.exact_array(a,b))
+
+ def test_arrays_exact_keys_shapes_proper_no_projection(self):
+  a=arrays([2,5]);v.arrays_valid(a)
+  a['object_from_target_palm'][0,0,0]=1.001
+  with self.assertRaises(ValueError):v.arrays_valid(a)
+  a=arrays([2]);a['unbound']=np.zeros(1)
+  with self.assertRaises(ValueError):v.arrays_valid(a)
+
+ def test_stage_and_fp32_prerequisites_not_default_status(self):
+  r={'native_output_complete_and_finite':True,'source_limit_violations':[],'native_mapping_input_prerequisites_pass':True,'fp32_mapping_reference_reconstruction':{'status':'PASS'},'native_default_runtime_reconstruction':{'status':'FAIL'}}
+  v.prerequisites(r)
+  for key,value in [('native_mapping_input_prerequisites_pass',False),('source_limit_violations',['bad'])]:
+   x=copy.deepcopy(r);x[key]=value
+   with self.assertRaises(ValueError):v.prerequisites(x)
+  r['fp32_mapping_reference_reconstruction']['status']='FAIL'
+  with self.assertRaises(ValueError):v.prerequisites(r)
+
+ def test_unbound_json_and_escaping_child_refused(self):
+  with tempfile.TemporaryDirectory() as t:
+   p=Path(t)/'input.json';p.write_text('{}')
+   with self.assertRaises(ValueError):v.read_bound(p,{})
+   self.assertEqual(v.read_bound(p,{str(p.resolve()):v.m.digest(p)}),{})
+   with self.assertRaises(ValueError):v.child(t,{'path':'../escape','sha256':'x'},{})
+
+ def test_existing_output_never_mutated_even_failure(self):
+  with tempfile.TemporaryDirectory() as t:
+   p=Path(t);(p/'old.json').write_text('preserve');before={str(q):q.read_bytes() for q in p.iterdir()}
+   out=subprocess.run([sys.executable,str(Path(v.__file__)),'--policy',str(p/'absent'),'--policy-sha256','x','--output',t],capture_output=True)
+   self.assertNotEqual(out.returncode,0);self.assertEqual(before,{str(q):q.read_bytes() for q in p.iterdir()})
+
+ def test_far_or_uncertain_zero_not_vacuous_family_pass(self):
+  self.assertEqual(v.m.combine_status([]),'UNRESOLVED')
+  self.assertEqual(v.m.combine_status(['PASS','UNRESOLVED']),'UNRESOLVED')
+  self.assertEqual(v.m.combine_status(['PASS','FAIL']),'FAIL')
+
+
+if __name__=='__main__':unittest.main()

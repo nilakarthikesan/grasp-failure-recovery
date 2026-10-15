@@ -1,0 +1,7 @@
+/private/tmp/dga_mapping_acceptance_20261015_v2/surface/check_saved_fields_v1.py:24: RuntimeWarning: divide by zero encountered in matmul
+  t=poses['object_from_'+owner+'_palm'][i];local_einsum=np.einsum('ij,jk->ik',points-t[:3,3],t[:3,:3]);local_matmul=(points-t[:3,3])@t[:3,:3];local_error=float(np.max(np.abs(local_einsum-local_matmul)));assert local_error<1e-12
+/private/tmp/dga_mapping_acceptance_20261015_v2/surface/check_saved_fields_v1.py:24: RuntimeWarning: overflow encountered in matmul
+  t=poses['object_from_'+owner+'_palm'][i];local_einsum=np.einsum('ij,jk->ik',points-t[:3,3],t[:3,:3]);local_matmul=(points-t[:3,3])@t[:3,:3];local_error=float(np.max(np.abs(local_einsum-local_matmul)));assert local_error<1e-12
+/private/tmp/dga_mapping_acceptance_20261015_v2/surface/check_saved_fields_v1.py:24: RuntimeWarning: invalid value encountered in matmul
+  t=poses['object_from_'+owner+'_palm'][i];local_einsum=np.einsum('ij,jk->ik',points-t[:3,3],t[:3,:3]);local_matmul=(points-t[:3,3])@t[:3,:3];local_error=float(np.max(np.abs(local_einsum-local_matmul)));assert local_error<1e-12
+{"status": "PASS_STATIC_SAVED_FIELD_HASH_FINITE_AND_DISTANCE_RECOUNT", "archive_count": 26, "sha256": "sha256:3a1967b02d3c0c53bafb993c6ea6ab5d1cb8274fb16be2cea32d71d421274c65"}

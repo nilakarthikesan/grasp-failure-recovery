@@ -1,0 +1,21 @@
+from pathlib import Path
+import hashlib,json
+from datetime import datetime,timezone
+R=Path('/private/tmp/dga_surface_preserving_20261015_v1'); V=R/'validation'
+def sha(p):return 'sha256:'+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+p=json.loads(Path('/private/tmp/dga_free_palm_20261015_v1/visual_holdout/visual_policy_frozen_v1.json').read_text())
+impl=json.loads((R/'implementation_policy_frozen_v1.json').read_text())
+deps=dict(p['dependencies'])
+for path,h in impl['dependency_sha256'].items():
+ if path in deps and deps[path]!=h:raise ValueError('Conflicting historical binding: '+path)
+ deps[path]=h
+p.update(schema_version='dga_surface_visual_acceptance_policy_v1',status='FROZEN_BEFORE_CANDIDATE_VISUAL_QUERIES',frozen_at_utc=datetime.now(timezone.utc).isoformat(),stage='separate_native_relative_surface_fit_v1',spacing_mm=[1.,.5,.25],maximum_wall_seconds=600,code_sha256=sha(V/'validate_surface_candidate_visual.py'),query_fractions=[2/7,3/7],fit_report=str(R/'results/surface_fit_report.json'),fit_arrays=str(R/'results/fit_poses.npz'),scientific_protocol=str(R/'scientific_protocol_frozen_v1.json'),scientific_protocol_sha256=sha(R/'scientific_protocol_frozen_v1.json'),triangle_backend=str(R/'geometry/surface_backend.py'),implementation_revision='v1_all_closed_triangles_strict_part_band_acceptance',query_design_before_fit=str(R/'scientific_protocol_frozen_v1.json'),interpretation='Strict encoded same-part nearset equality conditional on frozen numerical allowance; full triangle distance representation includes degenerate triangles, ineligible normals excluded. No physical/task acceptance. Same two development outputs; only geometric query locations held out. Separate signed palm-union test required.')
+for rel in ['scientific_protocol_frozen_v1.json','implementation_policy_frozen_v1.json','results/surface_fit_report.json','results/fit_poses.npz','results/training_fields.npz','geometry/surface_backend.py','geometry/palm_box_union.py','geometry/palm_union_geometry_reference.py','validation/validate_surface_candidate_visual.py','validation/test_acceptance_validator.py','validation/acceptance_tests.log','validation/freeze_visual_policy.py','independent_review/all_face_validator_and_palm_freeze_review_v1.json']:
+ path=R/rel;deps[str(path)]=sha(path)
+for path,h in deps.items():
+ if sha(path)!=h:raise ValueError('Changed immutable dependency: '+path)
+p['dependencies']=deps
+out=V/'visual_policy_frozen_v1.json'
+if out.exists():raise FileExistsError(out)
+out.write_text(json.dumps(p,indent=2,allow_nan=False)+'\n')
+print(json.dumps({'path':str(out),'sha256':sha(out),'dependency_count':len(deps),'actual_geometry_queries':0}))

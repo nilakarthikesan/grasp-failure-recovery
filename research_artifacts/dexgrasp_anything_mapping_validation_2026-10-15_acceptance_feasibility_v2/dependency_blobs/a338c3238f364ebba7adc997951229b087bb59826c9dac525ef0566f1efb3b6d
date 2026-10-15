@@ -1,0 +1,116 @@
+{
+  "schema_version": "dga_feasible_surface_method_v1",
+  "status": "FROZEN_BEFORE_NEW_OPTIMIZATION_AND_MEASUREMENTS",
+  "frozen_at_utc": "2026-10-15T06:14:19.690852+00:00",
+  "user_choice": "Preserve native DGA grasp fidelity; keep this retargeter unaccepted while investigating alternatives",
+  "scientific_protocol": {
+    "path": "/private/tmp/dga_surface_preserving_20261015_v1/scientific_protocol_frozen_v1.json",
+    "sha256": "sha256:57531e1e79a98f8e6b667bdd9a43e41a5e90ce8bdec35e56a833408baa106375"
+  },
+  "scientific_acceptance_change": false,
+  "stage": "separate native-fidelity feasible-iterate surface development",
+  "data_scope": {
+    "global_indices": [
+      1,
+      3
+    ],
+    "new_native_outputs": 0,
+    "independent_grasp_cohort": false,
+    "original_DexGraspNet_and_MultiDex_results_immutable": true
+  },
+  "method": {
+    "starts": [
+      "previous_fixed_palm_fit",
+      "previous_selected_free_palm_fit"
+    ],
+    "outer_iterations": 2,
+    "proposal_sweeps_per_iteration": 1,
+    "blocks": [
+      "index",
+      "middle",
+      "ring",
+      "little",
+      "thumb",
+      "palm"
+    ],
+    "same_prior_block_solver": true,
+    "proposal_workspaces_may_be_landmark_infeasible": true,
+    "accepted_iterates_must_be_true_landmark_feasible": true,
+    "backtracking_alphas": [
+      1.0,
+      0.5,
+      0.25,
+      0.125,
+      0.0625,
+      0.03125,
+      0.015625,
+      0.0078125,
+      0.00390625,
+      0.001953125,
+      0.0009765625,
+      0.0
+    ],
+    "alpha_zero": "exact prior accepted pose arrays and cached fields; no arithmetic reconstruction",
+    "guards_before_line_search_surface_evaluation": [
+      "finite proper transforms",
+      "strict24targetjointbounds",
+      "bothoriginalwrists",
+      "trueall28landmarkmax<=priorfixedpalmmax",
+      "trueall28landmarkSSE<=priorfixedpalmSSE"
+    ],
+    "adoption": "minimum feasible trainingobjective, stablecurrentstate preference on exact ties",
+    "all_attempts_and_refusals_retained": true,
+    "no_added_guard_tolerance": true,
+    "maximum_wall_seconds": 600,
+    "CPU_threads": 1
+  },
+  "objective": {
+    "unchanged_prior_native_relative_fields": 8,
+    "cube_side_mm": 50,
+    "query_spacing_mm": 5,
+    "query_offsets": [
+      0.5,
+      0.5
+    ],
+    "query_count": 600,
+    "distance_cap_mm": 4,
+    "cap_is_not_acceptance_tolerance": true
+  },
+  "measurement": {
+    "changed_selected_states": "fresh samecriteria1/.5/.25mm fullcube queries at(3/7,2/7)",
+    "spacing_mm": [
+      1.0,
+      0.5,
+      0.25
+    ],
+    "query_offsets": [
+      0.42857142857142855,
+      0.2857142857142857
+    ],
+    "covering_radius": "sqrt(41)*h/7",
+    "visual_max_triangle_tests": 100000000,
+    "palm_max_polygon_queries": 150000000,
+    "maximum_seconds_per_family": 600,
+    "identical_selected_states": "Explicit reuse only after exactdtype/shape/arraypayloadbytes identity of ALLsource/targetposearrays plus sourceprofile,jointorder,roworder; priorreport/archive/criterionhashes checked. No freshmeasurement claim.",
+    "holdout_feedback_forbidden": true
+  },
+  "scope_limits": [
+    "Same alreadyinspecteddevelopmentpair, not independentnativegeneralization",
+    "Feasibleiterates do not prove surfaceacceptance",
+    "Finite local searchdoesnotproveglobalinfeasibility",
+    "Scientificnearset/palmcriteriaunchanged;approximatephysicaladequacyNOT_TESTED"
+  ],
+  "zero_execution": {
+    "native_inference": 0,
+    "physics": 0,
+    "evaluation_data_or_outcome_labels": 0,
+    "model_training": 0,
+    "GPU_operations": 0
+  },
+  "prior_result_bindings": {
+    "/private/tmp/dga_surface_preserving_20261015_v1/results/surface_fit_report.json": "sha256:57a129e4a80308589567c3cf35f7a69b12dd6e08435efae29794840c11c97035",
+    "/private/tmp/dga_surface_preserving_20261015_v1/results/fit_poses.npz": "sha256:a886d42de2507df3aa211db410be3a120e661ce85ff632d3232c7e33d2ac3c3a",
+    "/private/tmp/dga_surface_preserving_20261015_v1/validation/results/retarget_visual_report.json": "sha256:40788ca76074ed69ab66fc7c68f5d26316b77587cc5cad08526538508ad46693",
+    "/private/tmp/dga_surface_preserving_20261015_v1/palm_holdout_results_v1/palm_collider_union_report.json": "sha256:0c0926922d046da5a877184bf04fc5dee103a6aa3633ea5f07700dad0d302f5e"
+  }
+}

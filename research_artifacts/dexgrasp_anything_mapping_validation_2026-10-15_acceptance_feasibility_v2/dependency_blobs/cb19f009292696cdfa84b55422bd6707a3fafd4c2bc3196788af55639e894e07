@@ -1,0 +1,122 @@
+{
+  "schema_version": "dga_independent_palm_obstruction_critical_review_v1",
+  "status": "PASS_PRIMARY_CERTIFICATE_WITH_EXPLICIT_SCOPE",
+  "proof_report": {
+    "path": "/private/tmp/dga_component_constraints_20261015_v1/feasibility/results_v1/palm_anchor_obstruction_report.json",
+    "sha256": "sha256:8f4adc6f00abae30693a04fd97b7a903a95684273ab591ed894e5f67f461321f"
+  },
+  "review_code_sha256": "sha256:bdc2b02be8e38d72ca43cdff52532cba71aed89c97f97a286c7dc1f8e5a8781a",
+  "checks": [
+    {
+      "row": 1,
+      "scope": "ORIGINAL_FIXED_MAX_SSE",
+      "envelope": "EXACT_DECLARED_GUARDS",
+      "status": "INDEPENDENT_PRIMARY_OBSTRUCTION_ARITHMETIC_PASS",
+      "active_budget": "SSE",
+      "area_lower_m2": 1.0494733493108234e-10,
+      "required_M_safe_lower_m": 0.0006932064492052877,
+      "required_SSE_safe_lower_m2": 3.737519718339585e-06,
+      "allowed_M_m": 0.0013977787559371119,
+      "allowed_SSE_m2": 3.6208090059561906e-06,
+      "geometry_predicate": "fixed object-face point outside source box and inside one target member for every proper target palm pose satisfying given landmark budgets"
+    },
+    {
+      "row": 1,
+      "scope": "ORIGINAL_FIXED_MAX_SSE",
+      "envelope": "CONDITIONAL_1NM_GUARD_GEOMETRY_ENVELOPE",
+      "status": "INDEPENDENT_PRIMARY_OBSTRUCTION_ARITHMETIC_PASS",
+      "active_budget": "SSE",
+      "area_lower_m2": 1.0492039814305127e-10,
+      "required_M_safe_lower_m": 0.0006932051829826774,
+      "required_SSE_safe_lower_m2": 3.7375046205502928e-06,
+      "allowed_M_m": 0.0013977787559371119,
+      "allowed_SSE_m2": 3.6208090059561906e-06,
+      "geometry_predicate": "fixed object-face point outside source box and inside one target member for every proper target palm pose satisfying given landmark budgets"
+    },
+    {
+      "row": 1,
+      "scope": "TIGHTER_COMPONENT_METHOD_MAX_SSE",
+      "envelope": "EXACT_DECLARED_GUARDS",
+      "status": "INDEPENDENT_PRIMARY_OBSTRUCTION_ARITHMETIC_PASS",
+      "active_budget": "SSE",
+      "area_lower_m2": 1.0494733493108234e-10,
+      "required_M_safe_lower_m": 0.0006932064492052877,
+      "required_SSE_safe_lower_m2": 3.737519718339585e-06,
+      "allowed_M_m": 0.0013977787559371119,
+      "allowed_SSE_m2": 3.6208090059561906e-06,
+      "geometry_predicate": "fixed object-face point outside source box and inside one target member for every proper target palm pose satisfying given landmark budgets"
+    },
+    {
+      "row": 1,
+      "scope": "TIGHTER_COMPONENT_METHOD_MAX_SSE",
+      "envelope": "CONDITIONAL_1NM_GUARD_GEOMETRY_ENVELOPE",
+      "status": "INDEPENDENT_PRIMARY_OBSTRUCTION_ARITHMETIC_PASS",
+      "active_budget": "SSE",
+      "area_lower_m2": 1.0492039814305127e-10,
+      "required_M_safe_lower_m": 0.0006932051829826774,
+      "required_SSE_safe_lower_m2": 3.7375046205502928e-06,
+      "allowed_M_m": 0.0013977787559371119,
+      "allowed_SSE_m2": 3.6208090059561906e-06,
+      "geometry_predicate": "fixed object-face point outside source box and inside one target member for every proper target palm pose satisfying given landmark budgets"
+    },
+    {
+      "row": 3,
+      "scope": "ORIGINAL_FIXED_MAX_SSE",
+      "envelope": "EXACT_DECLARED_GUARDS",
+      "status": "UNRESOLVED_NO_WITNESS_IS_NOT_FEASIBILITY"
+    },
+    {
+      "row": 3,
+      "scope": "ORIGINAL_FIXED_MAX_SSE",
+      "envelope": "CONDITIONAL_1NM_GUARD_GEOMETRY_ENVELOPE",
+      "status": "UNRESOLVED_NO_WITNESS_IS_NOT_FEASIBILITY"
+    },
+    {
+      "row": 3,
+      "scope": "TIGHTER_COMPONENT_METHOD_MAX_SSE",
+      "envelope": "EXACT_DECLARED_GUARDS",
+      "status": "INDEPENDENT_PRIMARY_OBSTRUCTION_ARITHMETIC_PASS",
+      "active_budget": "maximum",
+      "area_lower_m2": 7.174744897959077e-10,
+      "required_M_safe_lower_m": 0.0020533895308702216,
+      "required_SSE_safe_lower_m2": 3.601414643452517e-05,
+      "allowed_M_m": 0.001797795487179181,
+      "allowed_SSE_m2": 7.322605471038758e-05,
+      "geometry_predicate": "fixed object-face point outside source box and inside one target member for every proper target palm pose satisfying given landmark budgets"
+    },
+    {
+      "row": 3,
+      "scope": "TIGHTER_COMPONENT_METHOD_MAX_SSE",
+      "envelope": "CONDITIONAL_1NM_GUARD_GEOMETRY_ENVELOPE",
+      "status": "INDEPENDENT_PRIMARY_OBSTRUCTION_ARITHMETIC_PASS",
+      "active_budget": "maximum",
+      "area_lower_m2": 7.174744897959077e-10,
+      "required_M_safe_lower_m": 0.00205338816053985,
+      "required_SSE_safe_lower_m2": 3.601409548939848e-05,
+      "allowed_M_m": 0.001797795487179181,
+      "allowed_SSE_m2": 7.322605471038758e-05,
+      "geometry_predicate": "fixed object-face point outside source box and inside one target member for every proper target palm pose satisfying given landmark budgets"
+    }
+  ],
+  "mathematical_review": [
+    "Zero descendant translations make10selected origins independent of allfingerangles. Group multiplicity correctly accounts duplicatedorigin error energy.",
+    "Any affine weights reproducing p suffice; minimumK optimality is not needed for validity. Triangle/Cauchy bounds and rational outwardroots verified independently without importing sourceproof functions.",
+    "Source matrix is handled as exactbinary affineinvertible matrix; proof does not silently equate its inverse with transpose. Targetpalm is assumed properrigid.",
+    "Positive square area follows uniform centerclearances and Euclidean1Lipschitz distance under proper targetpose, with generousside=minclearance/4; no surfacequery or fitting involved.",
+    "Conditional floatingbridge assumes peranchor error<=1nm. That bridge is explicit; no formal globalfloatingerror proof added here.",
+    "V1conditionalnecessary-exit wording needs additiveclarification/safer margin-EPS thresholds; primarypositivearea obstruction unaffected. Safe thresholds recomputed here."
+  ],
+  "scope_limits": [
+    "Row1 originaldeclaredmax/SSE scope obstructs strictpalm occupancy for that nativepose/declaredreference, not allpossible nativeoutputs.",
+    "Row3 originalguard outcome remainsUNRESOLVED; obstruction with tightenedcomponentmax/SSE does not rewrite oldguard status.",
+    "No visualnearset/normal/compiledcollision/physicalcontact conclusion.",
+    "No newfit is needed to decide impossibility of allstrictgates for these exacttwo cases under newtightguards; a boundedfit mayonly be a developmentdiagnostic."
+  ],
+  "zero_execution": {
+    "new_geometry_queries": 0,
+    "fitting_calls": 0,
+    "native_calls": 0,
+    "physics_steps": 0,
+    "evaluation_data_access": 0
+  }
+}

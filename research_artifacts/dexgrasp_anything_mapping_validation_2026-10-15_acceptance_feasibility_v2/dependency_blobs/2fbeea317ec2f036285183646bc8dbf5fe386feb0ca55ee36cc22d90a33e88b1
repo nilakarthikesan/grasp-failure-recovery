@@ -1,0 +1,180 @@
+#!/usr/bin/env python3
+"""Prospective component-constrained development corrector; no acceptance by fit.
+
+Callbacks bind actual named-joint/XML FK and true triangle/declared-union fields.
+Internal SQP trial states are search workspaces, never accepted-state claims.
+"""
+import hashlib,json,time
+import numpy as np
+from scipy.optimize import minimize
+
+CAP_M=.004
+PARTS=('palm','index','middle','ring','little','thumb','wrist_carrier')
+FIELDS=PARTS+('declared_palm_signed_union',)
+BLOCKS=('palm','index','middle','ring','little','thumb')
+PREFIX={'index':'FF','middle':'MF','ring':'RF','little':'LF','thumb':'TH'}
+SOLVER={'method':'SLSQP','options':{'maxiter':6,'ftol':1e-8,'eps':1.4901161193847656e-8,'disp':False}}
+MAX_NEW_FIELD_STATES_PER_BLOCK=60
+
+class ProposalBudgetReached(Exception):pass
+class WallBudgetReached(Exception):pass
+
+def complete_fields(value):
+ a=np.asarray(value)
+ if a.ndim!=2 or a.shape[1]!=8 or not len(a) or a.dtype!=np.float64 or not np.isfinite(a).all():raise ValueError('Finite float64 complete Nx8 fields required')
+ if np.any(a[:,:7]<0) or np.any(a[:,:7]>CAP_M) or np.any(np.abs(a[:,7])>CAP_M):raise ValueError('Four-mm censor/sign contract')
+ return a
+
+def occupancy_crossing(source_signed,target_signed):
+ s,t=np.asarray(source_signed),np.asarray(target_signed)
+ if s.shape!=t.shape or not np.isfinite(s).all() or not np.isfinite(t).all():raise ValueError('Signed correspondence required')
+ return np.where(s>0,np.maximum(-t,0),np.where(s<0,np.maximum(t,0),np.abs(t)))
+
+def component_metrics(source,target):
+ s,t=complete_fields(source),complete_fields(target)
+ if s.shape!=t.shape:raise ValueError('Complete source/target field correspondence required')
+ result={}
+ for j,name in enumerate(FIELDS):
+  error=t[:,j]-s[:,j]
+  result[name+'.maximum_abs_difference_m']=float(np.max(np.abs(error)))
+  result[name+'.MSE_m2']=float(np.mean(error*error))
+ result['declared_palm_occupancy.crossing_depth_max_m']=float(np.max(occupancy_crossing(s[:,7],t[:,7])))
+ result['declared_palm_occupancy.sign_mismatch_count']=int(np.count_nonzero(np.sign(s[:,7])!=np.sign(t[:,7])))
+ return result
+
+def component_scales(query_count):
+ if query_count<1:raise ValueError('Nonempty query set')
+ result={}
+ for name in FIELDS:result[name+'.maximum_abs_difference_m']=CAP_M;result[name+'.MSE_m2']=CAP_M**2
+ result['declared_palm_occupancy.crossing_depth_max_m']=CAP_M;result['declared_palm_occupancy.sign_mismatch_count']=float(query_count)
+ return result
+
+def pareto_nonregression(candidate,current):
+ if set(candidate)!=set(current):raise ValueError('Exact complete component set required')
+ return all(np.isfinite(v) and v<=current[k] for k,v in candidate.items())
+
+def strict_pareto_improvement(candidate,current):
+ return pareto_nonregression(candidate,current) and any(candidate[k]<current[k] for k in current)
+
+def component_priority(metrics):
+ # No aggregate fitting loss enters adoption. All metrics must separately not
+ # regress; this fixed order only resolves incomparable improving proposals.
+ visualmax=[metrics[n+'.maximum_abs_difference_m'] for n in PARTS]
+ visualmse=[metrics[n+'.MSE_m2'] for n in PARTS]
+ return (metrics['declared_palm_occupancy.crossing_depth_max_m'],metrics['declared_palm_occupancy.sign_mismatch_count'],
+  metrics['declared_palm_signed_union.maximum_abs_difference_m'],metrics['declared_palm_signed_union.MSE_m2'],
+  *sorted(visualmax,reverse=True),*sorted(visualmse,reverse=True),*metrics.values())
+
+def landmark_caps(fixed,free):
+ return {'maximum_site_error_m':min(fixed['maximum_site_error_m'],free['maximum_site_error_m']),
+  'all_site_SSE_m2':min(fixed['all_site_SSE_m2'],free['all_site_SSE_m2']),
+  'mean_site_error_m':free['mean_site_error_m']}
+
+def domain_valid(state):
+ return all(state.get(k) is True for k in ['strict_domain_valid','original_wrists_preserved','rigid_frames_valid','independent_fk_valid'])
+
+def landmark_feasible(state,caps):
+ lm=state.get('landmark_metrics',{})
+ if not domain_valid(state) or set(caps)!={'maximum_site_error_m','all_site_SSE_m2','mean_site_error_m'}:return False
+ distances=np.asarray(lm.get('per_site_error_m',[]))
+ if distances.shape!=(28,) or not np.isfinite(distances).all() or np.any(distances<0) or np.any(distances>caps['maximum_site_error_m']):return False
+ if lm.get('maximum_site_error_m')!=float(distances.max()) or lm.get('mean_site_error_m')!=float(distances.mean()):return False
+ return all(k in lm and np.isfinite(lm[k]) and 0<=lm[k]<=v for k,v in caps.items())
+
+def accepted_feasible(state,caps,current_metrics=None):
+ return landmark_feasible(state,caps) and (current_metrics is None or pareto_nonregression(state['component_metrics'],current_metrics))
+
+def select_strict_candidate(current,candidates,caps):
+ best=current;key=component_priority(current['component_metrics'])
+ for candidate in candidates:
+  if not accepted_feasible(candidate,caps,current['component_metrics']):continue
+  if not strict_pareto_improvement(candidate['component_metrics'],current['component_metrics']):continue
+  ck=component_priority(candidate['component_metrics'])
+  if ck<key:best=candidate;key=ck
+ return best
+
+def payload_digest(state):
+ h=hashlib.sha256()
+ for k in ['variables','fields','palm','root','forearm','delta']:
+  if k in state:
+   a=np.asarray(state[k]);h.update(k.encode());h.update(str(a.dtype).encode());h.update(str(a.shape).encode());h.update(a.tobytes(order='C'))
+ h.update(json.dumps(state.get('q',{}),sort_keys=True,allow_nan=False).encode())
+ return h.hexdigest()
+
+def state_summary(state):
+ result={k:state[k] for k in ['strict_domain_valid','original_wrists_preserved','rigid_frames_valid','independent_fk_valid','landmark_metrics','component_metrics','field_archive_key','q','refusal_reason'] if k in state}
+ for k in ['palm','root','forearm','delta']:
+  if k in state:result[k]=np.asarray(state[k]).tolist()
+ result['variables']=[float(v) if np.isfinite(v) else str(float(v)) for v in np.asarray(state['variables'])]
+ return result
+
+def normalized_inequalities(state,current_metrics,caps,query_count):
+ scales=component_scales(query_count)
+ c=[(current_metrics[k]-state['component_metrics'][k])/scales[k] for k in scales]
+ lm=state['landmark_metrics']
+ c.extend((caps['maximum_site_error_m']-np.asarray(lm['per_site_error_m']))/CAP_M)
+ c.extend([(caps['all_site_SSE_m2']-lm['all_site_SSE_m2'])/(28*CAP_M**2),(caps['mean_site_error_m']-lm['mean_site_error_m'])/CAP_M])
+ return np.asarray(c,dtype=np.float64)
+
+def epigraph_terms(source,target,block):
+ if block=='palm':return np.r_[np.abs(target[:,0]-source[:,0])/CAP_M,np.abs(target[:,7]-source[:,7])/CAP_M,occupancy_crossing(source[:,7],target[:,7])/CAP_M]
+ return np.abs(target[:,PARTS.index(block)]-source[:,PARTS.index(block)])/CAP_M
+
+def correct(initial_state,source_fields,bounds,make_state,evaluate_fields,landmark_limits,deadline,query_archive=None,*,finger_names):
+ """Generic all-source-valid-case API. No row IDs, historical files or held-out
+ measurements enter this routine. Deadline/baselines/queryset are caller-bound.
+
+ make_state(x,current,block): actual frames/q plus four exact bool flags and true
+ 28site metrics; finger blocks preserve exact current palm/delta payload.
+ evaluate_fields(state,current,block): complete Nx8, preserving cached unchanged
+ columns; may query landmark-infeasible SQP workspaces, always labeled as such.
+ """
+ source=np.array(complete_fields(source_fields),copy=True);source.setflags(write=False);source_before=source.tobytes();bounds=np.asarray(bounds,dtype=np.float64)
+ if bounds.shape!=(28,2) or not np.isfinite(bounds).all() or np.any(bounds[:,0]>bounds[:,1]) or len(finger_names)!=22:raise ValueError('Frozen28variable bounds and22canonical finger names required')
+ current=dict(initial_state);current['fields']=complete_fields(current['fields']);current['component_metrics']=component_metrics(source,current['fields'])
+ if current['variables'].shape!=(28,) or not np.isfinite(current['variables']).all() or np.any(current['variables']<bounds[:,0]) or np.any(current['variables']>bounds[:,1]) or not accepted_feasible(current,landmark_limits):raise ValueError('Exact initial accepted state must satisfy all new guards')
+ archive={} if query_archive is None else query_archive;trace=[];halted=False
+ for sweep in range(2):
+  for block in BLOCKS:
+   if halted or time.monotonic()>deadline:
+    halted=True;trace.append({'sweep':sweep,'block':block,'status':'NOT_RUN_WALL_BUDGET','accepted_state':state_summary(current)});continue
+   indices=list(range(22,28)) if block=='palm' else [i for i,n in enumerate(finger_names) if n.startswith(PREFIX[block])]
+   if not indices:raise ValueError('Missing required finger block')
+   start=current;start_digest=payload_digest(start);prefix=f'sweep{sweep}_{block}';cache={start['variables'].tobytes():start};states=[];logs=[];new_queries=0;budget_reason=None
+   def lookup(y):
+    nonlocal new_queries
+    if time.monotonic()>deadline:raise WallBudgetReached()
+    x=start['variables'].copy();x[indices]=np.asarray(y)[:-1];key=x.tobytes()
+    if key in cache:return cache[key]
+    if new_queries>=MAX_NEW_FIELD_STATES_PER_BLOCK:raise ProposalBudgetReached()
+    if not np.isfinite(x).all() or np.any(x<bounds[:,0]) or np.any(x>bounds[:,1]):
+     state={'variables':x,'strict_domain_valid':False,'original_wrists_preserved':False,'rigid_frames_valid':False,'independent_fk_valid':False,'refusal_reason':'Finite strict28variable bound refused before callback/fields'}
+    else:state=make_state(x,start,block)
+    if not np.array_equal(state['variables'],x):raise ValueError('Callback changed requested variables')
+    if not domain_valid(state):
+     cache[key]=state;logs.append({'state':state_summary(state),'field_evaluated':False,'refusal_reason':'Domain/frame/independent-FK callback gate failed'});return state
+    # Deliberately distinguish SQP workspace fields from adopted states.
+    state['fields']=complete_fields(evaluate_fields(state,start,block));new_queries+=1
+    state['component_metrics']=component_metrics(source,state['fields']);state['field_archive_key']=prefix+f'_trial{new_queries}'
+    archive[state['field_archive_key']]=state['fields'].copy();cache[key]=state;states.append(state)
+    logs.append({'scope':'SLSQP_PROPOSAL_WORKSPACE_LANDMARK_FEASIBILITY_NOT_CLAIMED','state':state_summary(state),'field_evaluated':True,'true_landmark_feasible':landmark_feasible(state,landmark_limits),'componentwise_nonregression':pareto_nonregression(state['component_metrics'],start['component_metrics'])})
+    return state
+   initial_terms=epigraph_terms(source,start['fields'],block);y0=np.r_[start['variables'][indices],float(initial_terms.max())]
+   cbounds=[tuple(bounds[i]) for i in indices]+[(0.,2.)];constraint_count=len(initial_terms)+48
+   def constraints(y):
+    state=lookup(y)
+    if not domain_valid(state):return np.full(constraint_count,-1.,dtype=np.float64)
+    return np.r_[float(y[-1])-epigraph_terms(source,state['fields'],block),normalized_inequalities(state,start['component_metrics'],landmark_limits,len(source))]
+   gradient=np.zeros(len(y0));gradient[-1]=1.;solver=None
+   try:
+    solver=minimize(lambda y:float(y[-1]),y0,jac=lambda y:gradient,bounds=cbounds,constraints=[{'type':'ineq','fun':constraints}],**SOLVER)
+    lookup(solver.x)
+   except ProposalBudgetReached:budget_reason='MAX60_UNIQUE_FIELD_STATES'
+   except WallBudgetReached:budget_reason='TOTAL600SECOND_WALL';halted=True
+   if payload_digest(start)!=start_digest:raise ValueError('Proposal callback mutated exact accepted payload/cache')
+   selected=select_strict_candidate(start,states,landmark_limits)
+   if not accepted_feasible(selected,landmark_limits,start['component_metrics']):raise ValueError('True final adoption guard failed')
+   trace.append({'sweep':sweep,'block':block,'status':'COMPLETE' if budget_reason is None else budget_reason,'new_field_states':new_queries,'all_trial_states':logs,'solver':None if solver is None else {'success':bool(solver.success),'status':int(solver.status),'message':str(solver.message),'iterations':int(solver.nit),'nfev':int(solver.nfev),'terminal_variables_and_epigraph':solver.x.tolist()},'adopted_changed_state':selected is not start,'adoption':'ALLcomponentmetrics separately nonregressing plus true newlandmarkguards; strict improvement required; no aggregate loss','before':state_summary(start),'accepted_state':state_summary(selected)})
+   current=selected
+ if source.tobytes()!=source_before:raise ValueError('Immutable source field changed')
+ return current,{'schema_version':'dga_component_constrained_corrector_trace_v1','status':'COMPLETE' if not halted else 'BOUNDED_PARTIAL_CURRENT_PRESERVED','blocks':trace,'execution_eligible':False,'acceptance_from_objective':False,'scientific_acceptance':'PENDING_UNCHANGED_FROZEN_HOLDOUT','internal_infeasible_trials_are_not_accepted_states':True},archive

@@ -1,0 +1,242 @@
+{
+  "schema_version": "dga_component_constraint_method_proposal_v1",
+  "status": "FROZEN_BEFORE_NATIVE_OUTCOME_READS",
+  "created_at_utc": "2026-10-15T07:29:32.033065+00:00",
+  "scientific_protocol": {
+    "path": "/private/tmp/dga_surface_preserving_20261015_v1/scientific_protocol_frozen_v1.json",
+    "sha256": "sha256:57531e1e79a98f8e6b667bdd9a43e41a5e90ce8bdec35e56a833408baa106375"
+  },
+  "agreed_target": "unchanged dexURDF right Shadow Hand SHA29a50063...; no source-nativeembodiment substitution",
+  "development_rows": [
+    1,
+    3
+  ],
+  "new_mapping_variables": "22fingerq+6sourcepalm-relative variables, original2wrists fixed",
+  "development_initial_state": "Exact priorselectedfree payload, copied from unchanged surfacev1 arrays/report; immutable raw33 andsourceframes",
+  "generic_initial_state": "Frozen generic_baseline.build_baseline: historicalfixedfingerfit then2freepalm200iterSLSQPstarts; independentlychecked true max/SSE rank+strictbounds; baselinefailures retained, no backfill",
+  "landmark_constraints": {
+    "all28sites_required": true,
+    "maximum": "<=min(oldfixedmaximum,previousfree maximum)",
+    "SSE": "<=min(oldfixedSSE,previousfreeSSE)",
+    "mean": "<=previousfree mean",
+    "strict_raw_checks": true,
+    "new_numerical_tolerance": 0,
+    "per_site_distribution_reported": true
+  },
+  "component_metrics": [
+    "7separatevisualparts eachmaximumabs+MSE",
+    "signeddeclaredpalmproximity maximumabs+MSE",
+    "signedoccupancy wrong-side maximumcrossingdepth",
+    "signedoccupancy three-wayinside/boundary/outside mismatchcount"
+  ],
+  "component_adoption": "Every metric must separately notregress against currentacceptedstate; strictimprovement of>=1required; exactcurrentwinsallties. No aggregatedobjective can override a refusal.",
+  "component_scales": {
+    "maximum_distance": 0.004,
+    "MSE": 1.6e-05,
+    "occupancy_mismatch_count": "Nqueries",
+    "zero_metric_budgets": "remainexactlyzero; neverepsilon-relaxed"
+  },
+  "fixed_priority_for_incomparable_improving_proposals": [
+    "occupancycrossingdepth",
+    "occupancymismatchcount",
+    "signedpalmmaximumabs",
+    "signedpalmMSE",
+    "descendingvisualpartmaximumabs",
+    "descendingvisualpartMSE",
+    "canonicalcompletecomponentorder"
+  ],
+  "direct_solver": {
+    "algorithm": "SLSQPepigraphminimax with explicitallcomponentcaps+28per-site max+SSE+mean inequalities",
+    "block_order": [
+      "palm",
+      "index",
+      "middle",
+      "ring",
+      "little",
+      "thumb"
+    ],
+    "outer_sweeps": 2,
+    "starts_per_case": 1,
+    "max_iterations_per_block": 6,
+    "max_unique_new_field_states_per_block": 60,
+    "ftol": 1e-08,
+    "eps": 1.4901161193847656e-08,
+    "solver_success_not_acceptance": true,
+    "palm_epigraph_terms": [
+      "visualpalmabsolute native-relative difference",
+      "declaredsignedpalmabsolute native-relative difference",
+      "occupancycrossingdepth"
+    ],
+    "finger_epigraph_term": "ownpart native-relative unsigneddistance absolute difference",
+    "intermediate_proposals": "Domain/framevalidbutpossiblylandmark/componentinfeasible trialfields labeledsearchworkspace, neveracceptediterate; allevaluatedstatesretained",
+    "adoption_pool": "AllgeneratedstrictlyguardedParetoimprovingtrials, notterminalsolverstatus alone"
+  },
+  "query_design": {
+    "centers": 600,
+    "spacing_m": 0.005,
+    "fractions": [
+      0.5,
+      0.5
+    ],
+    "maximum_pooled_historical_witnesses": 256,
+    "pooled_common_every_case": true,
+    "selection": "Historicalrows1then3; each7part\u00d7bands.5/1/2\u00d7lost/new then2palmoccupancygroups; fixedorderedroundrobin, choosefarthestfromallselectedpoints, originalarchiveindexbreaksties, deduplicatecoordinates; max256total",
+    "historical_query_rho_m": 0.0002286830084797446,
+    "allowance_m": 1e-09,
+    "development_evidence_consumed": true,
+    "future_query_feedback": false,
+    "archive_bindings": [
+      {
+        "global_sample_index": 1,
+        "visual": {
+          "path": "/private/tmp/dga_feasible_surface_20261015_v1/validation/results/global_1_grid_0.25mm.npz",
+          "sha256": "sha256:0c93eb67d4f306872d363d075d8a43f22b98410b47ba6e24377bcc4b51feb165"
+        },
+        "palm": {
+          "path": "/private/tmp/dga_feasible_surface_20261015_v1/palm_holdout_results_v1/row1_h0.25mm_queries.npz",
+          "sha256": "sha256:ce51db9b74ddab2af8e08d51ea558e3f663b1631cc9b9f9f15ad0e6a3b5af6e6"
+        },
+        "visual_report": {
+          "path": "/private/tmp/dga_feasible_surface_20261015_v1/validation/results/retarget_visual_report.json",
+          "sha256": "sha256:b3449efa27b98c44e5d1d68a11a131bde3afda80419ba0852f68c3b2228cbceb"
+        },
+        "palm_report": {
+          "path": "/private/tmp/dga_feasible_surface_20261015_v1/palm_holdout_results_v1/palm_collider_union_report.json",
+          "sha256": "sha256:6065ed98d4d918f2147abc10aaf9df6d24d7af7f0890d2595b48b51be8323c0f"
+        },
+        "visual_part_definition": {
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/cloud/dexgrasp_anything/audit_native_cohort_visual_proximity.py",
+          "sha256": "sha256:46934461b616523e9a5db2d26a873796891a8491a305f1bf1f931bd74bd0b408"
+        }
+      },
+      {
+        "global_sample_index": 3,
+        "visual": {
+          "path": "/private/tmp/dga_feasible_surface_20261015_v1/validation/results/global_3_grid_0.25mm.npz",
+          "sha256": "sha256:f52b8ba052fd8508fed47a9a70ee543c6cde0c291db389d45ab4444a50044b16"
+        },
+        "palm": {
+          "path": "/private/tmp/dga_feasible_surface_20261015_v1/palm_holdout_results_v1/row3_h0.25mm_queries.npz",
+          "sha256": "sha256:91e15ed56554f2104da379c2062a7fb0daad52890d59ff779333fa37d4297a76"
+        },
+        "visual_report": {
+          "path": "/private/tmp/dga_feasible_surface_20261015_v1/validation/results/retarget_visual_report.json",
+          "sha256": "sha256:b3449efa27b98c44e5d1d68a11a131bde3afda80419ba0852f68c3b2228cbceb"
+        },
+        "palm_report": {
+          "path": "/private/tmp/dga_feasible_surface_20261015_v1/palm_holdout_results_v1/palm_collider_union_report.json",
+          "sha256": "sha256:6065ed98d4d918f2147abc10aaf9df6d24d7af7f0890d2595b48b51be8323c0f"
+        },
+        "visual_part_definition": {
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/cloud/dexgrasp_anything/audit_native_cohort_visual_proximity.py",
+          "sha256": "sha256:46934461b616523e9a5db2d26a873796891a8491a305f1bf1f931bd74bd0b408"
+        }
+      }
+    ]
+  },
+  "distance_window_m": 0.004,
+  "source_misses_and_signed_values_retained": true,
+  "caps_not_acceptance_margin": true,
+  "maximum_wall_seconds": 600,
+  "CPU_threads": 1,
+  "runtime_estimate": {
+    "historical_observation": "Prior600query feasiblemethod took235.6s for3095fielddispatches/48proposalblocks. Newmaximum856queries,24blocks,max1440newfieldstates. Full/partialquerymix differs, so no guarantee; deadline retainscurrent andmarksremainingblocksNOTRUN.",
+    "generic_baselines": "No geometryqueries; same historicalboundedsolvers; caller sharespredeclareddeadline."
+  },
+  "future_development_holdout": {
+    "fractions": [
+      0.4,
+      0.3333333333333333
+    ],
+    "cover_radius": "sqrt181*h/15",
+    "spacing_m": [
+      0.001,
+      0.0005,
+      0.00025
+    ],
+    "scientific_criteria_unchanged": true,
+    "not_consumed_for_fitting": true
+  },
+  "independent_native_application": {
+    "raw_cohort": 16,
+    "unseal_only_after_all_generic_mapping_and_consumer_freezes": true,
+    "selection": "firstupto2sourcevalid nativeoutputs inoriginalorder BEFORE targetdomain/algebra/baseline/fit/holdoutgates; no backfill",
+    "otherrows": "Retainallraw/domainledgers; unprocessedsourcevalidrows labeledNOTPROCESSED, notcorrectorvalidated",
+    "case_specific_new_witnesses_or_tuning": false,
+    "completed_subset": "Both selected rows retained in outcomes. Exported COMPLETE rows can be a subset after prerequisite failure; no replacement; partial optimizer status retained separately;0outputsNOT_TESTED.",
+    "normalization_stage_prerequisite": "Independent stage reconstruction must PASS, after immutable selection and before correction.",
+    "maximum_combined_baseline_and_correction_seconds": 600
+  },
+  "code_paths": {
+    "core": "/private/tmp/dga_component_constraints_20261015_v1/optimizer/component_corrector.py",
+    "queries": "/private/tmp/dga_component_constraints_20261015_v1/optimizer/historical_witness_queries.py",
+    "context": "/private/tmp/dga_component_constraints_20261015_v1/optimizer/mapping_context.py",
+    "development_driver": "/private/tmp/dga_component_constraints_20261015_v1/optimizer/run_development.py",
+    "generic_baseline": "/private/tmp/dga_component_constraints_20261015_v1/optimizer/generic_baseline.py",
+    "legacy": "/private/tmp/dga_surface_preserving_20261015_v1/fit_surface_preserving.py",
+    "audit": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/scripts/audit_dexgrasp_anything_static.py",
+    "geometry": "/private/tmp/dga_surface_preserving_20261015_v1/geometry/surface_backend.py",
+    "mesh_helper": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/cloud/dexgrasp_anything/validate_native_outputs.py",
+    "profile": "/private/tmp/dga_component_constraints_20261015_v1/native_validation/runner/multidex_profile.py",
+    "fixed_baseline_helper": "/private/tmp/dga_mapping_continuation_20261015_v1/retarget_development_v1/fit_source_valid_multidex.py",
+    "free_baseline_helper": "/private/tmp/dga_free_palm_20261015_v1/fit_free_palm.py",
+    "native_driver": "/private/tmp/dga_component_constraints_20261015_v1/optimizer/run_native_mapping.py"
+  },
+  "code_sha256": {
+    "core": "sha256:2fbeea317ec2f036285183646bc8dbf5fe386feb0ca55ee36cc22d90a33e88b1",
+    "queries": "sha256:1451bb3a82a063a4546a6033a09cbdeca32ea1ebe572d393fc293c601abd207b",
+    "context": "sha256:0abf488a62a326344ab926a878b2742adc61a52219ce5415a2d4aba2c12ac8c4",
+    "development_driver": "sha256:1103044fa9ef8836cc8f6097a25c37a6fb2eb8878554dd61a18aa3bcdc48af48",
+    "generic_baseline": "sha256:c7a2a75b54d723a93361591197cb02acd57b2f790adc82bf8ba8c1ddab3d49cd",
+    "legacy": "sha256:9b8b67623eeaba9934b8a7e1c2942b70942d2d760d728694d97f8c0c7546037e",
+    "audit": "sha256:0e0c52552d8d422a68e5f58097a5ff4b22cab23ed329cd214fe9f3b527c370c5",
+    "geometry": "sha256:08c838f6b0dbec9904054544a607251786681804ee81ebaa9cc18acc214fde61",
+    "mesh_helper": "sha256:febd725533b949693aa0ac21c8f3e02c6dd9926cd3041d6298b666479ff38fe5",
+    "profile": "sha256:c36ab93666d48542d68d9809c0fd7079d052d64e6bc4608a1f5a995359bdf2e7",
+    "fixed_baseline_helper": "sha256:2c68e39567088b9cf4a93e61ecdd07503d043785e38ff3ecc28d6fc0a879137e",
+    "free_baseline_helper": "sha256:62d7060c78ee9073496ae7e4171845ebbb1165e39285db9e8e3eaef55d0db7f3",
+    "native_driver": "sha256:93c4c31bf0478ddf88fa0eab894ae07c17740ca05f2c6f0be0f5e252d9e53416"
+  },
+  "no_actual_candidate_activity": {
+    "real_pose_fields": 0,
+    "real_pose_fits": 0,
+    "new_geometry_queries_for_actual_candidates": 0,
+    "native_calls": 0,
+    "physics_steps": 0,
+    "model_training_calls": 0,
+    "evaluation_data_access": 0
+  },
+  "execution_eligible": false,
+  "scientific_acceptance_from_fit": false,
+  "method_id": "dga_separate_component_constrained_mapping_v1",
+  "shared_fitting_queries": {
+    "path": "/private/tmp/dga_component_constraints_20261015_v1/optimizer/shared_fitting_queries_v1/fitting_queries.npz",
+    "sha256": "sha256:5c04d9c589687461cf22bfcdd66cf8557de1f4290e15dce5801b7e92037a254a"
+  },
+  "shared_query_selection": {
+    "path": "/private/tmp/dga_component_constraints_20261015_v1/optimizer/shared_fitting_queries_v1/selection.json",
+    "sha256": "sha256:e6ffff8dcfee5bc945f5e39f455c06df34e2679603d3d0a30b9a40d1c90441ab"
+  },
+  "native_driver_readiness": {
+    "path": "/private/tmp/dga_component_constraints_20261015_v1/optimizer/native_runner_freeze_readiness_v1.json",
+    "sha256": "sha256:6b88ee641a9d99eb08e845333bb0e12e87653c9762a1ac834ece20184227fe81"
+  },
+  "native_visual_implementation": {
+    "path": "/private/tmp/dga_component_constraints_20261015_v1/validation/native_implementation_frozen_v3.json",
+    "sha256": "sha256:b1d58ed3e1d96bb57d637e4a951d69aa29d11ab09436e6bd6f574a3ca317cdca"
+  },
+  "native_palm_implementation": {
+    "path": "/private/tmp/dga_component_constraints_20261015_v1/geometry/native_implementation_frozen_v1.json",
+    "sha256": "sha256:5868560cdcedac344d8802be9c2439a99ddbe0b8c5322bbb3b72fcd97f5e9cd2"
+  },
+  "native_ledger_implementation": {
+    "path": "/private/tmp/dga_component_constraints_20261015_v1/native_validation/native_static_implementation_frozen_v1.json",
+    "sha256": "sha256:2b4d7f29e7f3c28f1a5aa53486d6ca18aac85065705c185af4f3649450345b3d"
+  },
+  "development_disposition": {
+    "path": "/private/tmp/dga_component_constraints_20261015_v1/optimizer/development_not_run_v1.json",
+    "sha256": "sha256:975a849e0ee16b1d450204ab9cacb2c0ff45f3d347b662bdf96160a7990c50d1"
+  },
+  "actual_candidate_activity_scope": "No real correction fields or new fits. Native generation ran separately under fixed sealedprotocol; no native values or outcomes read before this joint freeze.",
+  "no_native_holdout_tuning": true
+}

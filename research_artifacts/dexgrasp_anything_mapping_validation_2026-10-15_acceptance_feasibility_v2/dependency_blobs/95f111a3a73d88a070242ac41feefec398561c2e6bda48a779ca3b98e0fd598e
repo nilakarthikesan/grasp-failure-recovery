@@ -1,0 +1,318 @@
+"""Static convex-collider union diagnostics; contains no project/runtime imports.
+
+For q outside every closed collider C_i, dist(q, boundary(union C_i)) equals
+min_i dist(q, C_i).  This follows because a shortest segment from q to the union
+first meets its boundary; a closest point buried in a second collider would
+contradict minimality.  The identity does not give an interior exit distance.
+
+All formulas below use float64.  Mathematical identities are exact for the
+declared primitive/hull geometry; floating comparisons are diagnostic and use
+explicit tolerances, without interval-arithmetic certification.
+"""
+from dataclasses import dataclass, field
+import numpy as np
+from scipy.spatial import ConvexHull
+
+
+@dataclass(frozen=True)
+class Policy:
+    membership_eps_m: float = 1e-10
+    boundary_eps_m: float = 1e-8
+    distance_tie_eps_m: float = 1e-8
+    closest_point_tie_eps_m: float = 1e-8
+    normal_alignment_cos: float = 1.0 - 1e-7
+    outward_probe_m: float = 1e-6
+    nonzero_separation_eps_m: float = 1e-8
+    barycentric_edge_eps: float = 1e-7
+
+
+def points3(value):
+    p = np.asarray(value, dtype=np.float64)
+    if p.ndim != 2 or p.shape[1] != 3 or not np.isfinite(p).all():
+        raise ValueError('Expected finite Nx3 points')
+    return p
+
+
+def triangle_closest(points, triangles, chunk=64):
+    """Exact triangle/segment formulas, batched; no spatial approximation.
+
+    Return distance, closest point, face id and barycentric coordinates.  Zero
+    area faces are rejected. Ties select the lowest face id; normal ambiguity
+    is handled separately by TriangleSurface.query.
+    """
+    p = points3(points); t = np.asarray(triangles, dtype=np.float64)
+    if t.ndim != 3 or t.shape[1:] != (3, 3) or len(t) == 0 or not np.isfinite(t).all():
+        raise ValueError('Expected finite nonempty Tx3x3 triangles')
+    a, b, c = t[:, 0], t[:, 1], t[:, 2]
+    ab, ac = b-a, c-a
+    d00 = (ab*ab).sum(1); d01 = (ab*ac).sum(1); d11 = (ac*ac).sum(1)
+    den = d00*d11-d01*d01
+    if np.any(den <= 1e-28):
+        raise ValueError('Degenerate or numerically unresolved triangle')
+    n = np.cross(ab, ac); n /= np.linalg.norm(n, axis=1)[:, None]
+    distances = np.empty(len(p)); closest = np.empty_like(p)
+    ids = np.empty(len(p), dtype=np.int64); bary = np.empty_like(p)
+    for start in range(0, len(p), chunk):
+        stop = min(len(p), start+chunk); pp = p[start:stop]
+        ap = pp[:, None, :]-a
+        off = np.einsum('nti,ti->nt', ap, n)
+        plane = pp[:, None, :]-off[:, :, None]*n
+        qp = plane-a
+        d20 = np.einsum('nti,ti->nt', qp, ab); d21 = np.einsum('nti,ti->nt', qp, ac)
+        v = (d11*d20-d01*d21)/den; w = (d00*d21-d01*d20)/den
+        inside = (v >= 0) & (w >= 0) & (v+w <= 1)
+        ds = np.where(inside, off*off, np.inf)
+        qq = plane.copy()
+        for left, right in ((a, b), (b, c), (c, a)):
+            edge = right-left
+            u = np.einsum('nti,ti->nt', pp[:, None, :]-left, edge)/(edge*edge).sum(1)
+            u = np.clip(u, 0., 1.)
+            candidate = left+u[:, :, None]*edge
+            delta = candidate-pp[:, None, :]; dd = (delta*delta).sum(2)
+            take = dd < ds; ds[take] = dd[take]; qq[take] = candidate[take]
+        index = ds.argmin(1); row = np.arange(len(pp)); chosen = qq[row, index]
+        distances[start:stop] = np.sqrt(ds[row, index]); closest[start:stop] = chosen
+        ids[start:stop] = index
+        qpa = chosen-a[index]
+        d20c = (qpa*ab[index]).sum(1); d21c = (qpa*ac[index]).sum(1)
+        vc = (d11[index]*d20c-d01[index]*d21c)/den[index]
+        wc = (d00[index]*d21c-d01[index]*d20c)/den[index]
+        bary[start:stop] = np.column_stack([1-vc-wc, vc, wc])
+    return distances, closest, ids, bary
+
+
+@dataclass
+class Collider:
+    geom_id: int
+    kind: str
+    part: str
+    size: np.ndarray = field(default_factory=lambda: np.zeros(3))
+    position: np.ndarray = field(default_factory=lambda: np.zeros(3))
+    rotation: np.ndarray = field(default_factory=lambda: np.eye(3))
+    vertices: np.ndarray | None = None
+    triangles: np.ndarray | None = field(init=False, default=None)
+    equations: np.ndarray | None = field(init=False, default=None)
+
+    def __post_init__(self):
+        self.size = np.asarray(self.size, dtype=np.float64)
+        self.position = np.asarray(self.position, dtype=np.float64)
+        self.rotation = np.asarray(self.rotation, dtype=np.float64)
+        if self.size.shape != (3,) or self.position.shape != (3,) or self.rotation.shape != (3, 3):
+            raise ValueError('Invalid collider parameter shape')
+        if not all(np.isfinite(x).all() for x in (self.size, self.position, self.rotation)):
+            raise ValueError('Nonfinite collider parameters')
+        if not np.allclose(self.rotation.T@self.rotation, np.eye(3), atol=1e-9, rtol=0) or not np.isclose(np.linalg.det(self.rotation), 1., atol=1e-9, rtol=0):
+            raise ValueError('Collider rotation must be proper orthonormal')
+        if self.kind not in ('box', 'sphere', 'cylinder', 'hull'):
+            raise ValueError('Unsupported collider type')
+        count = {'box': 3, 'sphere': 1, 'cylinder': 2, 'hull': 0}[self.kind]
+        if count and np.any(self.size[:count] <= 0):
+            raise ValueError('Collider dimensions must be positive')
+        if self.kind == 'hull':
+            self.vertices = points3(self.vertices)
+            hull = ConvexHull(self.vertices)
+            tri = self.vertices[hull.simplices].copy()
+            normal = np.cross(tri[:, 1]-tri[:, 0], tri[:, 2]-tri[:, 0])
+            flip = (normal*hull.equations[:, :3]).sum(1) < 0
+            tri[flip] = tri[flip][:, [0, 2, 1]]
+            self.triangles = tri; self.equations = hull.equations.copy()
+
+    def query(self, points, policy=Policy()):
+        """Signed Euclidean primitive/hull boundary distance and unique normal.
+
+        Hull occupancy uses its convex halfspaces. Normal uniqueness excludes
+        sharp edges/corners/rims; triangulation diagonals in one plane remain
+        smooth by checking active planes rather than triangle barycentrics.
+        """
+        p = (points3(points)-self.position)@self.rotation
+        if self.kind == 'sphere':
+            length = np.linalg.norm(p, axis=1)
+            normal = p/np.maximum(length[:, None], 1e-300)
+            normal[length == 0] = [1., 0., 0.]
+            sd = length-self.size[0]; q = normal*self.size[0]
+        elif self.kind == 'box':
+            delta = np.abs(p)-self.size
+            outside = np.maximum(delta, 0.)
+            sd = np.linalg.norm(outside, axis=1)+np.minimum(delta.max(1), 0.)
+            q = np.clip(p, -self.size, self.size)
+            interior = (delta.max(1) < 0)
+            rows = np.flatnonzero(interior); axis = delta[interior].argmax(1)
+            q[rows, axis] = np.where(p[rows, axis] >= 0, self.size[axis], -self.size[axis])
+        elif self.kind == 'cylinder':
+            rho = np.linalg.norm(p[:, :2], axis=1)
+            radial = p[:, :2]/np.maximum(rho[:, None], 1e-300)
+            radial[rho == 0] = [1., 0.]
+            delta = np.column_stack([rho-self.size[0], np.abs(p[:, 2])-self.size[1]])
+            sd = np.linalg.norm(np.maximum(delta, 0.), axis=1)+np.minimum(delta.max(1), 0.)
+            q = p.copy(); q[:, :2] = radial*np.minimum(rho, self.size[0])[:, None]
+            q[:, 2] = np.clip(p[:, 2], -self.size[1], self.size[1])
+            interior = delta.max(1) < 0; side = delta[:, 0] >= delta[:, 1]
+            q[interior & side, :2] = radial[interior & side]*self.size[0]
+            pick = interior & ~side
+            q[pick, 2] = np.where(p[pick, 2] >= 0, self.size[1], -self.size[1])
+        else:
+            dist, q, _, _ = triangle_closest(p, self.triangles)
+            inside = (p@self.equations[:, :3].T+self.equations[:, 3]).max(1) < 0
+            sd = np.where(inside, -dist, dist)
+        world_q = q@self.rotation.T+self.position
+        normal, unique, active_count = self.normal_at(world_q, policy)
+        return {'signed_distance_m': sd, 'closest_m': world_q,
+                'normal': normal, 'normal_unique': unique,
+                'active_surface_count': active_count}
+
+    def normal_at(self, points, policy=Policy()):
+        q = (points3(points)-self.position)@self.rotation
+        n = np.zeros_like(q); unique = np.zeros(len(q), dtype=bool)
+        count = np.zeros(len(q), dtype=np.int64)
+        if self.kind == 'sphere':
+            length = np.linalg.norm(q, axis=1)
+            boundary = np.abs(length-self.size[0]) <= policy.boundary_eps_m
+            n = q/np.maximum(length[:, None], 1e-300)
+            unique = boundary & (length > policy.nonzero_separation_eps_m)
+            count[boundary] = 1
+        elif self.kind == 'cylinder':
+            rho = np.linalg.norm(q[:, :2], axis=1)
+            side = np.abs(rho-self.size[0]) <= policy.boundary_eps_m
+            cap = np.abs(np.abs(q[:, 2])-self.size[1]) <= policy.boundary_eps_m
+            side &= np.abs(q[:, 2]) <= self.size[1]+policy.boundary_eps_m
+            cap &= rho <= self.size[0]+policy.boundary_eps_m
+            count = side.astype(int)+cap.astype(int)
+            n[side, :2] = q[side, :2]/np.maximum(rho[side, None], 1e-300)
+            n[cap & ~side, 2] = np.where(q[cap & ~side, 2] >= 0, 1., -1.)
+            unique = count == 1
+        else:
+            if self.kind == 'box':
+                normals = np.concatenate([np.eye(3), -np.eye(3)])
+                offsets = -np.tile(self.size, 2)
+            else:
+                normals = self.equations[:, :3]; offsets = self.equations[:, 3]
+            values = q@normals.T+offsets
+            active = np.abs(values) <= policy.boundary_eps_m
+            count = active.sum(1)
+            for i in np.flatnonzero(count):
+                candidates = normals[active[i]]
+                n[i] = candidates[0]
+                unique[i] = bool(np.all(candidates@n[i] >= policy.normal_alignment_cos))
+        return n@self.rotation.T, unique, count
+
+
+def surface_exposure(points, normals, owner_id, colliders, policy=Policy()):
+    """Conservative exposed smooth-boundary subset with duplicate ownership.
+
+    Probe rejection can discard valid surfaces if another solid lies less than
+    probe_distance away. It never certifies a continuous exposed surface area.
+    """
+    p = points3(points); normal = points3(normals)
+    if p.shape != normal.shape or np.any(np.abs(np.linalg.norm(normal, axis=1)-1) > 1e-8):
+        raise ValueError('Normals must be unit Nx3')
+    owner = next((c for c in colliders if c.geom_id == owner_id), None)
+    if owner is None:
+        raise ValueError('Unknown surface owner')
+    own = owner.query(p, policy)
+    own_boundary = np.abs(own['signed_distance_m']) <= policy.boundary_eps_m
+    own_alignment = (own['normal']*normal).sum(1) >= policy.normal_alignment_cos
+    buried = np.zeros(len(p), bool); interface = np.zeros(len(p), bool)
+    duplicate = np.zeros(len(p), bool); probe_inside = np.zeros(len(p), bool)
+    for collider in colliders:
+        result = collider.query(p, policy)
+        signed = result['signed_distance_m']
+        buried |= signed < -policy.membership_eps_m
+        at_boundary = np.abs(signed) <= policy.boundary_eps_m
+        aligned = (result['normal']*normal).sum(1) >= policy.normal_alignment_cos
+        if collider.geom_id != owner_id:
+            interface |= at_boundary & (~result['normal_unique'] | ~aligned)
+            duplicate |= at_boundary & aligned & result['normal_unique'] & (collider.geom_id < owner_id)
+        probe = collider.query(p+policy.outward_probe_m*normal, policy)['signed_distance_m']
+        probe_inside |= probe <= policy.membership_eps_m
+    smooth = own['normal_unique'] & own_alignment
+    retained = own_boundary & smooth & ~buried & ~interface & ~duplicate & ~probe_inside
+    return {'retained': retained, 'owner_boundary': own_boundary,
+            'owner_smooth_aligned': smooth, 'buried': buried,
+            'interface_or_nonaligned_duplicate': interface,
+            'same_normal_duplicate_noncanonical': duplicate,
+            'outward_probe_not_entirely_exterior': probe_inside}
+
+
+def union_exterior_query(points, colliders, policy=Policy()):
+    """Exact geometric union distance only on strict exterior query domain.
+
+    Interior and numerically boundary queries have NaN union distances/points;
+    per-collider signed values remain available as occupancy diagnostics.
+    """
+    p = points3(points)
+    if not colliders or len({c.geom_id for c in colliders}) != len(colliders):
+        raise ValueError('Nonempty colliders with unique ids required')
+    colliders = sorted(colliders, key=lambda c: c.geom_id)
+    values = [c.query(p, policy) for c in colliders]
+    signed = np.column_stack([v['signed_distance_m'] for v in values])
+    inside = (signed < -policy.membership_eps_m).any(1)
+    exterior = (signed > policy.membership_eps_m).all(1)
+    boundary = ~inside & ~exterior
+    distance = np.full(len(p), np.nan); closest = np.full_like(p, np.nan)
+    normal = np.full_like(p, np.nan); winner = np.full(len(p), -1, dtype=np.int64)
+    closest_unique = np.zeros(len(p), bool); reliable = np.zeros(len(p), bool)
+    exposure_ok = np.zeros(len(p), bool); stratum_ok = np.zeros(len(p), bool)
+    candidate_ties = np.zeros(len(p), dtype=np.int64)
+    for j, collider in enumerate(colliders):
+        selected = exterior & (signed.argmin(1) == j)
+        if not selected.any():
+            continue
+        rows = np.flatnonzero(selected)
+        q = values[j]['closest_m'][rows]; n = values[j]['normal'][rows]
+        distance[rows] = signed[rows, j]; closest[rows] = q; normal[rows] = n
+        winner[rows] = collider.geom_id
+        unique = np.ones(len(rows), bool); ties = np.zeros(len(rows), dtype=int)
+        for other in values:
+            osd = other['signed_distance_m'][rows]
+            tied = np.abs(osd-distance[rows]) <= policy.distance_tie_eps_m
+            ties += tied
+            other_q = other['closest_m'][rows]
+            same_q = np.linalg.norm(other_q-q, axis=1) <= policy.closest_point_tie_eps_m
+            same_n = (other['normal'][rows]*n).sum(1) >= policy.normal_alignment_cos
+            unique &= ~tied | (same_q & same_n & other['normal_unique'][rows])
+        exposure = surface_exposure(q, n, collider.geom_id, colliders, policy)
+        # Canonical smallest-id owner was selected by sorted argmin.
+        exposed = exposure['owner_boundary'] & exposure['owner_smooth_aligned'] & ~exposure['buried'] & ~exposure['interface_or_nonaligned_duplicate'] & ~exposure['outward_probe_not_entirely_exterior']
+        closest_unique[rows] = unique; candidate_ties[rows] = ties
+        exposure_ok[rows] = exposed; stratum_ok[rows] = values[j]['normal_unique'][rows]
+        reliable[rows] = unique & exposed & (distance[rows] > policy.nonzero_separation_eps_m)
+    return {'signed_distance_by_collider_m': signed,
+            'geom_ids_by_column': np.array([c.geom_id for c in colliders]),
+            'inside_union': inside, 'strict_exterior': exterior,
+            'numerically_boundary': boundary, 'exterior_distance_m': distance,
+            'closest_m': closest, 'normal': normal, 'nearest_geom_id': winner,
+            'closest_point_and_normal_unique': closest_unique,
+            'normal_reliable': reliable, 'nearest_primitive_smooth': stratum_ok,
+            'closest_point_exposure_checks_passed': exposure_ok,
+            'equal_distance_candidate_count': candidate_ties}
+
+
+class TriangleSurface:
+    """Open/oriented triangle surface: unsigned distance, no occupancy claims."""
+    def __init__(self, triangles, labels=None):
+        self.triangles = np.asarray(triangles, dtype=np.float64)
+        edge1 = self.triangles[:, 1]-self.triangles[:, 0]
+        edge2 = self.triangles[:, 2]-self.triangles[:, 0]
+        cross = np.cross(edge1, edge2)
+        length = np.linalg.norm(cross, axis=1)
+        if np.any(length <= 1e-14):
+            raise ValueError('Degenerate source triangle')
+        self.normals = cross/length[:, None]
+        self.labels = np.zeros(len(self.triangles), dtype=int) if labels is None else np.asarray(labels, dtype=int)
+        if self.labels.shape != (len(self.triangles),):
+            raise ValueError('Triangle labels shape mismatch')
+
+    def query(self, points, policy=Policy()):
+        p = points3(points)
+        distance, closest, ids, bary = triangle_closest(p, self.triangles)
+        normal = self.normals[ids]
+        smooth = bary.min(1) > policy.barycentric_edge_eps
+        # Exact nearest-face interior has a unique local plane. Degenerate
+        # overlapping/self-intersecting patches require a separate topology
+        # audit; this function deliberately asserts no global exterior.
+        local_positive = ((p-closest)*normal).sum(1) > policy.nonzero_separation_eps_m
+        return {'unsigned_distance_m': distance, 'closest_m': closest,
+                'oriented_face_normal': normal, 'face_id': ids,
+                'barycentric': bary, 'face_interior': smooth,
+                'local_positive_oriented_side': local_positive,
+                'part_label': self.labels[ids]}

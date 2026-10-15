@@ -1,0 +1,3477 @@
+{
+  "checkpoint_sha256": "sha256:036b406af7c02cd2de9eb61da02590f8c5db7e6afe6a842eb36b47f03105945e",
+  "checkpoint_state": {
+    "expected_key_count": 794,
+    "loaded_key_count": 794,
+    "missing_keys": [],
+    "pre_load_metadata_and_schedule_gate": {
+      "all_12_source_schedule_buffers_bitwise_exact": true,
+      "all_tensor_shapes_dtypes_exact": true,
+      "checkpoint_deserializations": 0,
+      "checkpoint_sha256": "sha256:036b406af7c02cd2de9eb61da02590f8c5db7e6afe6a842eb36b47f03105945e",
+      "key_count": 794,
+      "metadata_content_sha256": "sha256:c387f959892c4739fdaa059c7589c5e56d16d25d7d07b9753b58f75e05914ff0",
+      "model_signature_content_sha256": "sha256:1057ebb954e9fb5cc6ce41c166b1652c91fcfd9a2e0cb796a9ddf145078f013a",
+      "source_profile_id": "dga_multidex_official_unguided_v1",
+      "status": "PASS_BEFORE_CHECKPOINT_DESERIALIZATION"
+    },
+    "strict_load": true,
+    "tensor_dtypes": {
+      "alphas_cumprod": "torch.float32",
+      "alphas_cumprod_prev": "torch.float32",
+      "betas": "torch.float32",
+      "eps_model.in_layers.0.bias": "torch.float32",
+      "eps_model.in_layers.0.weight": "torch.float32",
+      "eps_model.layers.0.emb_layers.1.bias": "torch.float32",
+      "eps_model.layers.0.emb_layers.1.weight": "torch.float32",
+      "eps_model.layers.0.in_layers.0.bias": "torch.float32",
+      "eps_model.layers.0.in_layers.0.weight": "torch.float32",
+      "eps_model.layers.0.in_layers.2.bias": "torch.float32",
+      "eps_model.layers.0.in_layers.2.weight": "torch.float32",
+      "eps_model.layers.0.out_layers.0.bias": "torch.float32",
+      "eps_model.layers.0.out_layers.0.weight": "torch.float32",
+      "eps_model.layers.0.out_layers.3.bias": "torch.float32",
+      "eps_model.layers.0.out_layers.3.weight": "torch.float32",
+      "eps_model.layers.1.norm.bias": "torch.float32",
+      "eps_model.layers.1.norm.weight": "torch.float32",
+      "eps_model.layers.1.proj_in.bias": "torch.float32",
+      "eps_model.layers.1.proj_in.weight": "torch.float32",
+      "eps_model.layers.1.proj_out.bias": "torch.float32",
+      "eps_model.layers.1.proj_out.weight": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.attn1.to_k.weight": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.attn1.to_out.0.bias": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.attn1.to_out.0.weight": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.attn1.to_q.weight": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.attn1.to_v.weight": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.attn2.to_k.weight": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.attn2.to_out.0.bias": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.attn2.to_out.0.weight": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.attn2.to_q.weight": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.attn2.to_v.weight": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.ff.net.0.proj.bias": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.ff.net.0.proj.weight": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.ff.net.2.bias": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.ff.net.2.weight": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.norm1.bias": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.norm1.weight": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.norm2.bias": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.norm2.weight": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.norm3.bias": "torch.float32",
+      "eps_model.layers.1.transformer_blocks.0.norm3.weight": "torch.float32",
+      "eps_model.layers.2.emb_layers.1.bias": "torch.float32",
+      "eps_model.layers.2.emb_layers.1.weight": "torch.float32",
+      "eps_model.layers.2.in_layers.0.bias": "torch.float32",
+      "eps_model.layers.2.in_layers.0.weight": "torch.float32",
+      "eps_model.layers.2.in_layers.2.bias": "torch.float32",
+      "eps_model.layers.2.in_layers.2.weight": "torch.float32",
+      "eps_model.layers.2.out_layers.0.bias": "torch.float32",
+      "eps_model.layers.2.out_layers.0.weight": "torch.float32",
+      "eps_model.layers.2.out_layers.3.bias": "torch.float32",
+      "eps_model.layers.2.out_layers.3.weight": "torch.float32",
+      "eps_model.layers.3.norm.bias": "torch.float32",
+      "eps_model.layers.3.norm.weight": "torch.float32",
+      "eps_model.layers.3.proj_in.bias": "torch.float32",
+      "eps_model.layers.3.proj_in.weight": "torch.float32",
+      "eps_model.layers.3.proj_out.bias": "torch.float32",
+      "eps_model.layers.3.proj_out.weight": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.attn1.to_k.weight": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.attn1.to_out.0.bias": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.attn1.to_out.0.weight": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.attn1.to_q.weight": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.attn1.to_v.weight": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.attn2.to_k.weight": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.attn2.to_out.0.bias": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.attn2.to_out.0.weight": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.attn2.to_q.weight": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.attn2.to_v.weight": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.ff.net.0.proj.bias": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.ff.net.0.proj.weight": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.ff.net.2.bias": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.ff.net.2.weight": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.norm1.bias": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.norm1.weight": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.norm2.bias": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.norm2.weight": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.norm3.bias": "torch.float32",
+      "eps_model.layers.3.transformer_blocks.0.norm3.weight": "torch.float32",
+      "eps_model.layers.4.emb_layers.1.bias": "torch.float32",
+      "eps_model.layers.4.emb_layers.1.weight": "torch.float32",
+      "eps_model.layers.4.in_layers.0.bias": "torch.float32",
+      "eps_model.layers.4.in_layers.0.weight": "torch.float32",
+      "eps_model.layers.4.in_layers.2.bias": "torch.float32",
+      "eps_model.layers.4.in_layers.2.weight": "torch.float32",
+      "eps_model.layers.4.out_layers.0.bias": "torch.float32",
+      "eps_model.layers.4.out_layers.0.weight": "torch.float32",
+      "eps_model.layers.4.out_layers.3.bias": "torch.float32",
+      "eps_model.layers.4.out_layers.3.weight": "torch.float32",
+      "eps_model.layers.5.norm.bias": "torch.float32",
+      "eps_model.layers.5.norm.weight": "torch.float32",
+      "eps_model.layers.5.proj_in.bias": "torch.float32",
+      "eps_model.layers.5.proj_in.weight": "torch.float32",
+      "eps_model.layers.5.proj_out.bias": "torch.float32",
+      "eps_model.layers.5.proj_out.weight": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.attn1.to_k.weight": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.attn1.to_out.0.bias": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.attn1.to_out.0.weight": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.attn1.to_q.weight": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.attn1.to_v.weight": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.attn2.to_k.weight": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.attn2.to_out.0.bias": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.attn2.to_out.0.weight": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.attn2.to_q.weight": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.attn2.to_v.weight": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.ff.net.0.proj.bias": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.ff.net.0.proj.weight": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.ff.net.2.bias": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.ff.net.2.weight": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.norm1.bias": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.norm1.weight": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.norm2.bias": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.norm2.weight": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.norm3.bias": "torch.float32",
+      "eps_model.layers.5.transformer_blocks.0.norm3.weight": "torch.float32",
+      "eps_model.layers.6.emb_layers.1.bias": "torch.float32",
+      "eps_model.layers.6.emb_layers.1.weight": "torch.float32",
+      "eps_model.layers.6.in_layers.0.bias": "torch.float32",
+      "eps_model.layers.6.in_layers.0.weight": "torch.float32",
+      "eps_model.layers.6.in_layers.2.bias": "torch.float32",
+      "eps_model.layers.6.in_layers.2.weight": "torch.float32",
+      "eps_model.layers.6.out_layers.0.bias": "torch.float32",
+      "eps_model.layers.6.out_layers.0.weight": "torch.float32",
+      "eps_model.layers.6.out_layers.3.bias": "torch.float32",
+      "eps_model.layers.6.out_layers.3.weight": "torch.float32",
+      "eps_model.layers.7.norm.bias": "torch.float32",
+      "eps_model.layers.7.norm.weight": "torch.float32",
+      "eps_model.layers.7.proj_in.bias": "torch.float32",
+      "eps_model.layers.7.proj_in.weight": "torch.float32",
+      "eps_model.layers.7.proj_out.bias": "torch.float32",
+      "eps_model.layers.7.proj_out.weight": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.attn1.to_k.weight": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.attn1.to_out.0.bias": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.attn1.to_out.0.weight": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.attn1.to_q.weight": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.attn1.to_v.weight": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.attn2.to_k.weight": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.attn2.to_out.0.bias": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.attn2.to_out.0.weight": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.attn2.to_q.weight": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.attn2.to_v.weight": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.ff.net.0.proj.bias": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.ff.net.0.proj.weight": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.ff.net.2.bias": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.ff.net.2.weight": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.norm1.bias": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.norm1.weight": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.norm2.bias": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.norm2.weight": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.norm3.bias": "torch.float32",
+      "eps_model.layers.7.transformer_blocks.0.norm3.weight": "torch.float32",
+      "eps_model.out_layers.0.bias": "torch.float32",
+      "eps_model.out_layers.0.weight": "torch.float32",
+      "eps_model.out_layers.2.bias": "torch.float32",
+      "eps_model.out_layers.2.weight": "torch.float32",
+      "eps_model.scene_model.enc1.0.bn.bias": "torch.float32",
+      "eps_model.scene_model.enc1.0.bn.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc1.0.bn.running_mean": "torch.float32",
+      "eps_model.scene_model.enc1.0.bn.running_var": "torch.float32",
+      "eps_model.scene_model.enc1.0.bn.weight": "torch.float32",
+      "eps_model.scene_model.enc1.0.linear.weight": "torch.float32",
+      "eps_model.scene_model.enc1.1.bn1.bias": "torch.float32",
+      "eps_model.scene_model.enc1.1.bn1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc1.1.bn1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc1.1.bn1.running_var": "torch.float32",
+      "eps_model.scene_model.enc1.1.bn1.weight": "torch.float32",
+      "eps_model.scene_model.enc1.1.bn2.bias": "torch.float32",
+      "eps_model.scene_model.enc1.1.bn2.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc1.1.bn2.running_mean": "torch.float32",
+      "eps_model.scene_model.enc1.1.bn2.running_var": "torch.float32",
+      "eps_model.scene_model.enc1.1.bn2.weight": "torch.float32",
+      "eps_model.scene_model.enc1.1.bn3.bias": "torch.float32",
+      "eps_model.scene_model.enc1.1.bn3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc1.1.bn3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc1.1.bn3.running_var": "torch.float32",
+      "eps_model.scene_model.enc1.1.bn3.weight": "torch.float32",
+      "eps_model.scene_model.enc1.1.linear1.weight": "torch.float32",
+      "eps_model.scene_model.enc1.1.linear3.weight": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_k.bias": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_k.weight": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.0.bias": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.0.weight": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.1.bias": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.1.running_var": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.1.weight": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.3.bias": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.3.weight": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_q.bias": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_q.weight": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_v.bias": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_v.weight": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.0.bias": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.0.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.0.running_mean": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.0.running_var": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.0.weight": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.2.bias": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.2.weight": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.3.bias": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.3.running_var": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.3.weight": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.5.bias": "torch.float32",
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.5.weight": "torch.float32",
+      "eps_model.scene_model.enc2.0.bn.bias": "torch.float32",
+      "eps_model.scene_model.enc2.0.bn.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc2.0.bn.running_mean": "torch.float32",
+      "eps_model.scene_model.enc2.0.bn.running_var": "torch.float32",
+      "eps_model.scene_model.enc2.0.bn.weight": "torch.float32",
+      "eps_model.scene_model.enc2.0.linear.weight": "torch.float32",
+      "eps_model.scene_model.enc2.1.bn1.bias": "torch.float32",
+      "eps_model.scene_model.enc2.1.bn1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc2.1.bn1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc2.1.bn1.running_var": "torch.float32",
+      "eps_model.scene_model.enc2.1.bn1.weight": "torch.float32",
+      "eps_model.scene_model.enc2.1.bn2.bias": "torch.float32",
+      "eps_model.scene_model.enc2.1.bn2.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc2.1.bn2.running_mean": "torch.float32",
+      "eps_model.scene_model.enc2.1.bn2.running_var": "torch.float32",
+      "eps_model.scene_model.enc2.1.bn2.weight": "torch.float32",
+      "eps_model.scene_model.enc2.1.bn3.bias": "torch.float32",
+      "eps_model.scene_model.enc2.1.bn3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc2.1.bn3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc2.1.bn3.running_var": "torch.float32",
+      "eps_model.scene_model.enc2.1.bn3.weight": "torch.float32",
+      "eps_model.scene_model.enc2.1.linear1.weight": "torch.float32",
+      "eps_model.scene_model.enc2.1.linear3.weight": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_k.bias": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_k.weight": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.0.bias": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.0.weight": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.1.bias": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.1.running_var": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.1.weight": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.3.bias": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.3.weight": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_q.bias": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_q.weight": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_v.bias": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_v.weight": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.0.bias": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.0.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.0.running_mean": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.0.running_var": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.0.weight": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.2.bias": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.2.weight": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.3.bias": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.3.running_var": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.3.weight": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.5.bias": "torch.float32",
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.5.weight": "torch.float32",
+      "eps_model.scene_model.enc2.2.bn1.bias": "torch.float32",
+      "eps_model.scene_model.enc2.2.bn1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc2.2.bn1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc2.2.bn1.running_var": "torch.float32",
+      "eps_model.scene_model.enc2.2.bn1.weight": "torch.float32",
+      "eps_model.scene_model.enc2.2.bn2.bias": "torch.float32",
+      "eps_model.scene_model.enc2.2.bn2.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc2.2.bn2.running_mean": "torch.float32",
+      "eps_model.scene_model.enc2.2.bn2.running_var": "torch.float32",
+      "eps_model.scene_model.enc2.2.bn2.weight": "torch.float32",
+      "eps_model.scene_model.enc2.2.bn3.bias": "torch.float32",
+      "eps_model.scene_model.enc2.2.bn3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc2.2.bn3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc2.2.bn3.running_var": "torch.float32",
+      "eps_model.scene_model.enc2.2.bn3.weight": "torch.float32",
+      "eps_model.scene_model.enc2.2.linear1.weight": "torch.float32",
+      "eps_model.scene_model.enc2.2.linear3.weight": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_k.bias": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_k.weight": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.0.bias": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.0.weight": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.1.bias": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.1.running_var": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.1.weight": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.3.bias": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.3.weight": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_q.bias": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_q.weight": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_v.bias": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_v.weight": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.0.bias": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.0.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.0.running_mean": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.0.running_var": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.0.weight": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.2.bias": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.2.weight": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.3.bias": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.3.running_var": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.3.weight": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.5.bias": "torch.float32",
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.5.weight": "torch.float32",
+      "eps_model.scene_model.enc3.0.bn.bias": "torch.float32",
+      "eps_model.scene_model.enc3.0.bn.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.0.bn.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.0.bn.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.0.bn.weight": "torch.float32",
+      "eps_model.scene_model.enc3.0.linear.weight": "torch.float32",
+      "eps_model.scene_model.enc3.1.bn1.bias": "torch.float32",
+      "eps_model.scene_model.enc3.1.bn1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.1.bn1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.1.bn1.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.1.bn1.weight": "torch.float32",
+      "eps_model.scene_model.enc3.1.bn2.bias": "torch.float32",
+      "eps_model.scene_model.enc3.1.bn2.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.1.bn2.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.1.bn2.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.1.bn2.weight": "torch.float32",
+      "eps_model.scene_model.enc3.1.bn3.bias": "torch.float32",
+      "eps_model.scene_model.enc3.1.bn3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.1.bn3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.1.bn3.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.1.bn3.weight": "torch.float32",
+      "eps_model.scene_model.enc3.1.linear1.weight": "torch.float32",
+      "eps_model.scene_model.enc3.1.linear3.weight": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_k.bias": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_k.weight": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.0.bias": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.0.weight": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.1.bias": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.1.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.1.weight": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.3.bias": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.3.weight": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_q.bias": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_q.weight": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_v.bias": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_v.weight": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.0.bias": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.0.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.0.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.0.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.0.weight": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.2.bias": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.2.weight": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.3.bias": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.3.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.3.weight": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.5.bias": "torch.float32",
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.5.weight": "torch.float32",
+      "eps_model.scene_model.enc3.2.bn1.bias": "torch.float32",
+      "eps_model.scene_model.enc3.2.bn1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.2.bn1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.2.bn1.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.2.bn1.weight": "torch.float32",
+      "eps_model.scene_model.enc3.2.bn2.bias": "torch.float32",
+      "eps_model.scene_model.enc3.2.bn2.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.2.bn2.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.2.bn2.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.2.bn2.weight": "torch.float32",
+      "eps_model.scene_model.enc3.2.bn3.bias": "torch.float32",
+      "eps_model.scene_model.enc3.2.bn3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.2.bn3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.2.bn3.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.2.bn3.weight": "torch.float32",
+      "eps_model.scene_model.enc3.2.linear1.weight": "torch.float32",
+      "eps_model.scene_model.enc3.2.linear3.weight": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_k.bias": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_k.weight": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.0.bias": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.0.weight": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.1.bias": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.1.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.1.weight": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.3.bias": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.3.weight": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_q.bias": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_q.weight": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_v.bias": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_v.weight": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.0.bias": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.0.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.0.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.0.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.0.weight": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.2.bias": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.2.weight": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.3.bias": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.3.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.3.weight": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.5.bias": "torch.float32",
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.5.weight": "torch.float32",
+      "eps_model.scene_model.enc3.3.bn1.bias": "torch.float32",
+      "eps_model.scene_model.enc3.3.bn1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.3.bn1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.3.bn1.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.3.bn1.weight": "torch.float32",
+      "eps_model.scene_model.enc3.3.bn2.bias": "torch.float32",
+      "eps_model.scene_model.enc3.3.bn2.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.3.bn2.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.3.bn2.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.3.bn2.weight": "torch.float32",
+      "eps_model.scene_model.enc3.3.bn3.bias": "torch.float32",
+      "eps_model.scene_model.enc3.3.bn3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.3.bn3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.3.bn3.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.3.bn3.weight": "torch.float32",
+      "eps_model.scene_model.enc3.3.linear1.weight": "torch.float32",
+      "eps_model.scene_model.enc3.3.linear3.weight": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_k.bias": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_k.weight": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.0.bias": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.0.weight": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.1.bias": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.1.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.1.weight": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.3.bias": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.3.weight": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_q.bias": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_q.weight": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_v.bias": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_v.weight": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.0.bias": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.0.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.0.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.0.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.0.weight": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.2.bias": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.2.weight": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.3.bias": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.3.running_var": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.3.weight": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.5.bias": "torch.float32",
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.5.weight": "torch.float32",
+      "eps_model.scene_model.enc4.0.bn.bias": "torch.float32",
+      "eps_model.scene_model.enc4.0.bn.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.0.bn.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.0.bn.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.0.bn.weight": "torch.float32",
+      "eps_model.scene_model.enc4.0.linear.weight": "torch.float32",
+      "eps_model.scene_model.enc4.1.bn1.bias": "torch.float32",
+      "eps_model.scene_model.enc4.1.bn1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.1.bn1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.1.bn1.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.1.bn1.weight": "torch.float32",
+      "eps_model.scene_model.enc4.1.bn2.bias": "torch.float32",
+      "eps_model.scene_model.enc4.1.bn2.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.1.bn2.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.1.bn2.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.1.bn2.weight": "torch.float32",
+      "eps_model.scene_model.enc4.1.bn3.bias": "torch.float32",
+      "eps_model.scene_model.enc4.1.bn3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.1.bn3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.1.bn3.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.1.bn3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.1.linear1.weight": "torch.float32",
+      "eps_model.scene_model.enc4.1.linear3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_k.bias": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_k.weight": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.0.bias": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.0.weight": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.1.bias": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.1.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.1.weight": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.3.bias": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_q.bias": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_q.weight": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_v.bias": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_v.weight": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.0.bias": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.0.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.0.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.0.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.0.weight": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.2.bias": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.2.weight": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.3.bias": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.3.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.5.bias": "torch.float32",
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.5.weight": "torch.float32",
+      "eps_model.scene_model.enc4.2.bn1.bias": "torch.float32",
+      "eps_model.scene_model.enc4.2.bn1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.2.bn1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.2.bn1.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.2.bn1.weight": "torch.float32",
+      "eps_model.scene_model.enc4.2.bn2.bias": "torch.float32",
+      "eps_model.scene_model.enc4.2.bn2.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.2.bn2.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.2.bn2.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.2.bn2.weight": "torch.float32",
+      "eps_model.scene_model.enc4.2.bn3.bias": "torch.float32",
+      "eps_model.scene_model.enc4.2.bn3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.2.bn3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.2.bn3.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.2.bn3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.2.linear1.weight": "torch.float32",
+      "eps_model.scene_model.enc4.2.linear3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_k.bias": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_k.weight": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.0.bias": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.0.weight": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.1.bias": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.1.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.1.weight": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.3.bias": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_q.bias": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_q.weight": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_v.bias": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_v.weight": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.0.bias": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.0.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.0.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.0.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.0.weight": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.2.bias": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.2.weight": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.3.bias": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.3.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.5.bias": "torch.float32",
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.5.weight": "torch.float32",
+      "eps_model.scene_model.enc4.3.bn1.bias": "torch.float32",
+      "eps_model.scene_model.enc4.3.bn1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.3.bn1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.3.bn1.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.3.bn1.weight": "torch.float32",
+      "eps_model.scene_model.enc4.3.bn2.bias": "torch.float32",
+      "eps_model.scene_model.enc4.3.bn2.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.3.bn2.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.3.bn2.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.3.bn2.weight": "torch.float32",
+      "eps_model.scene_model.enc4.3.bn3.bias": "torch.float32",
+      "eps_model.scene_model.enc4.3.bn3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.3.bn3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.3.bn3.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.3.bn3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.3.linear1.weight": "torch.float32",
+      "eps_model.scene_model.enc4.3.linear3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_k.bias": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_k.weight": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.0.bias": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.0.weight": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.1.bias": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.1.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.1.weight": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.3.bias": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_q.bias": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_q.weight": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_v.bias": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_v.weight": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.0.bias": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.0.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.0.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.0.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.0.weight": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.2.bias": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.2.weight": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.3.bias": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.3.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.5.bias": "torch.float32",
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.5.weight": "torch.float32",
+      "eps_model.scene_model.enc4.4.bn1.bias": "torch.float32",
+      "eps_model.scene_model.enc4.4.bn1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.4.bn1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.4.bn1.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.4.bn1.weight": "torch.float32",
+      "eps_model.scene_model.enc4.4.bn2.bias": "torch.float32",
+      "eps_model.scene_model.enc4.4.bn2.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.4.bn2.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.4.bn2.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.4.bn2.weight": "torch.float32",
+      "eps_model.scene_model.enc4.4.bn3.bias": "torch.float32",
+      "eps_model.scene_model.enc4.4.bn3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.4.bn3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.4.bn3.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.4.bn3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.4.linear1.weight": "torch.float32",
+      "eps_model.scene_model.enc4.4.linear3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_k.bias": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_k.weight": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.0.bias": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.0.weight": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.1.bias": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.1.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.1.weight": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.3.bias": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_q.bias": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_q.weight": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_v.bias": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_v.weight": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.0.bias": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.0.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.0.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.0.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.0.weight": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.2.bias": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.2.weight": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.3.bias": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.3.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.5.bias": "torch.float32",
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.5.weight": "torch.float32",
+      "eps_model.scene_model.enc4.5.bn1.bias": "torch.float32",
+      "eps_model.scene_model.enc4.5.bn1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.5.bn1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.5.bn1.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.5.bn1.weight": "torch.float32",
+      "eps_model.scene_model.enc4.5.bn2.bias": "torch.float32",
+      "eps_model.scene_model.enc4.5.bn2.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.5.bn2.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.5.bn2.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.5.bn2.weight": "torch.float32",
+      "eps_model.scene_model.enc4.5.bn3.bias": "torch.float32",
+      "eps_model.scene_model.enc4.5.bn3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.5.bn3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.5.bn3.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.5.bn3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.5.linear1.weight": "torch.float32",
+      "eps_model.scene_model.enc4.5.linear3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_k.bias": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_k.weight": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.0.bias": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.0.weight": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.1.bias": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.1.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.1.weight": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.3.bias": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_q.bias": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_q.weight": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_v.bias": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_v.weight": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.0.bias": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.0.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.0.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.0.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.0.weight": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.2.bias": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.2.weight": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.3.bias": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.3.running_var": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.3.weight": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.5.bias": "torch.float32",
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.5.weight": "torch.float32",
+      "eps_model.scene_model.enc5.0.bn.bias": "torch.float32",
+      "eps_model.scene_model.enc5.0.bn.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc5.0.bn.running_mean": "torch.float32",
+      "eps_model.scene_model.enc5.0.bn.running_var": "torch.float32",
+      "eps_model.scene_model.enc5.0.bn.weight": "torch.float32",
+      "eps_model.scene_model.enc5.0.linear.weight": "torch.float32",
+      "eps_model.scene_model.enc5.1.bn1.bias": "torch.float32",
+      "eps_model.scene_model.enc5.1.bn1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc5.1.bn1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc5.1.bn1.running_var": "torch.float32",
+      "eps_model.scene_model.enc5.1.bn1.weight": "torch.float32",
+      "eps_model.scene_model.enc5.1.bn2.bias": "torch.float32",
+      "eps_model.scene_model.enc5.1.bn2.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc5.1.bn2.running_mean": "torch.float32",
+      "eps_model.scene_model.enc5.1.bn2.running_var": "torch.float32",
+      "eps_model.scene_model.enc5.1.bn2.weight": "torch.float32",
+      "eps_model.scene_model.enc5.1.bn3.bias": "torch.float32",
+      "eps_model.scene_model.enc5.1.bn3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc5.1.bn3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc5.1.bn3.running_var": "torch.float32",
+      "eps_model.scene_model.enc5.1.bn3.weight": "torch.float32",
+      "eps_model.scene_model.enc5.1.linear1.weight": "torch.float32",
+      "eps_model.scene_model.enc5.1.linear3.weight": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_k.bias": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_k.weight": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.0.bias": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.0.weight": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.1.bias": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.1.running_var": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.1.weight": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.3.bias": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.3.weight": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_q.bias": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_q.weight": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_v.bias": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_v.weight": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.0.bias": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.0.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.0.running_mean": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.0.running_var": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.0.weight": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.2.bias": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.2.weight": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.3.bias": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.3.running_var": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.3.weight": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.5.bias": "torch.float32",
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.5.weight": "torch.float32",
+      "eps_model.scene_model.enc5.2.bn1.bias": "torch.float32",
+      "eps_model.scene_model.enc5.2.bn1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc5.2.bn1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc5.2.bn1.running_var": "torch.float32",
+      "eps_model.scene_model.enc5.2.bn1.weight": "torch.float32",
+      "eps_model.scene_model.enc5.2.bn2.bias": "torch.float32",
+      "eps_model.scene_model.enc5.2.bn2.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc5.2.bn2.running_mean": "torch.float32",
+      "eps_model.scene_model.enc5.2.bn2.running_var": "torch.float32",
+      "eps_model.scene_model.enc5.2.bn2.weight": "torch.float32",
+      "eps_model.scene_model.enc5.2.bn3.bias": "torch.float32",
+      "eps_model.scene_model.enc5.2.bn3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc5.2.bn3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc5.2.bn3.running_var": "torch.float32",
+      "eps_model.scene_model.enc5.2.bn3.weight": "torch.float32",
+      "eps_model.scene_model.enc5.2.linear1.weight": "torch.float32",
+      "eps_model.scene_model.enc5.2.linear3.weight": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_k.bias": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_k.weight": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.0.bias": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.0.weight": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.1.bias": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.1.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.1.running_mean": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.1.running_var": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.1.weight": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.3.bias": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.3.weight": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_q.bias": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_q.weight": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_v.bias": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_v.weight": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.0.bias": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.0.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.0.running_mean": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.0.running_var": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.0.weight": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.2.bias": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.2.weight": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.3.bias": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.3.num_batches_tracked": "torch.int64",
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.3.running_mean": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.3.running_var": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.3.weight": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.5.bias": "torch.float32",
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.5.weight": "torch.float32",
+      "eps_model.time_embed.0.bias": "torch.float32",
+      "eps_model.time_embed.0.weight": "torch.float32",
+      "eps_model.time_embed.2.bias": "torch.float32",
+      "eps_model.time_embed.2.weight": "torch.float32",
+      "log_one_minus_alphas_cumprod": "torch.float32",
+      "posterior_log_variance_clipped": "torch.float32",
+      "posterior_mean_coef1": "torch.float32",
+      "posterior_mean_coef2": "torch.float32",
+      "posterior_variance": "torch.float32",
+      "sqrt_alphas_cumprod": "torch.float32",
+      "sqrt_one_minus_alphas_cumprod": "torch.float32",
+      "sqrt_recip_alphas_cumprod": "torch.float32",
+      "sqrt_recipm1_alphas_cumprod": "torch.float32"
+    },
+    "tensor_shapes": {
+      "alphas_cumprod": [
+        100
+      ],
+      "alphas_cumprod_prev": [
+        100
+      ],
+      "betas": [
+        100
+      ],
+      "eps_model.in_layers.0.bias": [
+        512
+      ],
+      "eps_model.in_layers.0.weight": [
+        512,
+        27,
+        1
+      ],
+      "eps_model.layers.0.emb_layers.1.bias": [
+        512
+      ],
+      "eps_model.layers.0.emb_layers.1.weight": [
+        512,
+        1024
+      ],
+      "eps_model.layers.0.in_layers.0.bias": [
+        512
+      ],
+      "eps_model.layers.0.in_layers.0.weight": [
+        512
+      ],
+      "eps_model.layers.0.in_layers.2.bias": [
+        512
+      ],
+      "eps_model.layers.0.in_layers.2.weight": [
+        512,
+        512,
+        1
+      ],
+      "eps_model.layers.0.out_layers.0.bias": [
+        512
+      ],
+      "eps_model.layers.0.out_layers.0.weight": [
+        512
+      ],
+      "eps_model.layers.0.out_layers.3.bias": [
+        512
+      ],
+      "eps_model.layers.0.out_layers.3.weight": [
+        512,
+        512,
+        1
+      ],
+      "eps_model.layers.1.norm.bias": [
+        512
+      ],
+      "eps_model.layers.1.norm.weight": [
+        512
+      ],
+      "eps_model.layers.1.proj_in.bias": [
+        512
+      ],
+      "eps_model.layers.1.proj_in.weight": [
+        512,
+        512,
+        1
+      ],
+      "eps_model.layers.1.proj_out.bias": [
+        512
+      ],
+      "eps_model.layers.1.proj_out.weight": [
+        512,
+        512,
+        1
+      ],
+      "eps_model.layers.1.transformer_blocks.0.attn1.to_k.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.attn1.to_out.0.bias": [
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.attn1.to_out.0.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.attn1.to_q.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.attn1.to_v.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.attn2.to_k.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.attn2.to_out.0.bias": [
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.attn2.to_out.0.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.attn2.to_q.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.attn2.to_v.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.ff.net.0.proj.bias": [
+        2048
+      ],
+      "eps_model.layers.1.transformer_blocks.0.ff.net.0.proj.weight": [
+        2048,
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.ff.net.2.bias": [
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.ff.net.2.weight": [
+        512,
+        1024
+      ],
+      "eps_model.layers.1.transformer_blocks.0.norm1.bias": [
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.norm1.weight": [
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.norm2.bias": [
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.norm2.weight": [
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.norm3.bias": [
+        512
+      ],
+      "eps_model.layers.1.transformer_blocks.0.norm3.weight": [
+        512
+      ],
+      "eps_model.layers.2.emb_layers.1.bias": [
+        512
+      ],
+      "eps_model.layers.2.emb_layers.1.weight": [
+        512,
+        1024
+      ],
+      "eps_model.layers.2.in_layers.0.bias": [
+        512
+      ],
+      "eps_model.layers.2.in_layers.0.weight": [
+        512
+      ],
+      "eps_model.layers.2.in_layers.2.bias": [
+        512
+      ],
+      "eps_model.layers.2.in_layers.2.weight": [
+        512,
+        512,
+        1
+      ],
+      "eps_model.layers.2.out_layers.0.bias": [
+        512
+      ],
+      "eps_model.layers.2.out_layers.0.weight": [
+        512
+      ],
+      "eps_model.layers.2.out_layers.3.bias": [
+        512
+      ],
+      "eps_model.layers.2.out_layers.3.weight": [
+        512,
+        512,
+        1
+      ],
+      "eps_model.layers.3.norm.bias": [
+        512
+      ],
+      "eps_model.layers.3.norm.weight": [
+        512
+      ],
+      "eps_model.layers.3.proj_in.bias": [
+        512
+      ],
+      "eps_model.layers.3.proj_in.weight": [
+        512,
+        512,
+        1
+      ],
+      "eps_model.layers.3.proj_out.bias": [
+        512
+      ],
+      "eps_model.layers.3.proj_out.weight": [
+        512,
+        512,
+        1
+      ],
+      "eps_model.layers.3.transformer_blocks.0.attn1.to_k.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.attn1.to_out.0.bias": [
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.attn1.to_out.0.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.attn1.to_q.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.attn1.to_v.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.attn2.to_k.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.attn2.to_out.0.bias": [
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.attn2.to_out.0.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.attn2.to_q.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.attn2.to_v.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.ff.net.0.proj.bias": [
+        2048
+      ],
+      "eps_model.layers.3.transformer_blocks.0.ff.net.0.proj.weight": [
+        2048,
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.ff.net.2.bias": [
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.ff.net.2.weight": [
+        512,
+        1024
+      ],
+      "eps_model.layers.3.transformer_blocks.0.norm1.bias": [
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.norm1.weight": [
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.norm2.bias": [
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.norm2.weight": [
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.norm3.bias": [
+        512
+      ],
+      "eps_model.layers.3.transformer_blocks.0.norm3.weight": [
+        512
+      ],
+      "eps_model.layers.4.emb_layers.1.bias": [
+        512
+      ],
+      "eps_model.layers.4.emb_layers.1.weight": [
+        512,
+        1024
+      ],
+      "eps_model.layers.4.in_layers.0.bias": [
+        512
+      ],
+      "eps_model.layers.4.in_layers.0.weight": [
+        512
+      ],
+      "eps_model.layers.4.in_layers.2.bias": [
+        512
+      ],
+      "eps_model.layers.4.in_layers.2.weight": [
+        512,
+        512,
+        1
+      ],
+      "eps_model.layers.4.out_layers.0.bias": [
+        512
+      ],
+      "eps_model.layers.4.out_layers.0.weight": [
+        512
+      ],
+      "eps_model.layers.4.out_layers.3.bias": [
+        512
+      ],
+      "eps_model.layers.4.out_layers.3.weight": [
+        512,
+        512,
+        1
+      ],
+      "eps_model.layers.5.norm.bias": [
+        512
+      ],
+      "eps_model.layers.5.norm.weight": [
+        512
+      ],
+      "eps_model.layers.5.proj_in.bias": [
+        512
+      ],
+      "eps_model.layers.5.proj_in.weight": [
+        512,
+        512,
+        1
+      ],
+      "eps_model.layers.5.proj_out.bias": [
+        512
+      ],
+      "eps_model.layers.5.proj_out.weight": [
+        512,
+        512,
+        1
+      ],
+      "eps_model.layers.5.transformer_blocks.0.attn1.to_k.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.attn1.to_out.0.bias": [
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.attn1.to_out.0.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.attn1.to_q.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.attn1.to_v.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.attn2.to_k.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.attn2.to_out.0.bias": [
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.attn2.to_out.0.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.attn2.to_q.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.attn2.to_v.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.ff.net.0.proj.bias": [
+        2048
+      ],
+      "eps_model.layers.5.transformer_blocks.0.ff.net.0.proj.weight": [
+        2048,
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.ff.net.2.bias": [
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.ff.net.2.weight": [
+        512,
+        1024
+      ],
+      "eps_model.layers.5.transformer_blocks.0.norm1.bias": [
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.norm1.weight": [
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.norm2.bias": [
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.norm2.weight": [
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.norm3.bias": [
+        512
+      ],
+      "eps_model.layers.5.transformer_blocks.0.norm3.weight": [
+        512
+      ],
+      "eps_model.layers.6.emb_layers.1.bias": [
+        512
+      ],
+      "eps_model.layers.6.emb_layers.1.weight": [
+        512,
+        1024
+      ],
+      "eps_model.layers.6.in_layers.0.bias": [
+        512
+      ],
+      "eps_model.layers.6.in_layers.0.weight": [
+        512
+      ],
+      "eps_model.layers.6.in_layers.2.bias": [
+        512
+      ],
+      "eps_model.layers.6.in_layers.2.weight": [
+        512,
+        512,
+        1
+      ],
+      "eps_model.layers.6.out_layers.0.bias": [
+        512
+      ],
+      "eps_model.layers.6.out_layers.0.weight": [
+        512
+      ],
+      "eps_model.layers.6.out_layers.3.bias": [
+        512
+      ],
+      "eps_model.layers.6.out_layers.3.weight": [
+        512,
+        512,
+        1
+      ],
+      "eps_model.layers.7.norm.bias": [
+        512
+      ],
+      "eps_model.layers.7.norm.weight": [
+        512
+      ],
+      "eps_model.layers.7.proj_in.bias": [
+        512
+      ],
+      "eps_model.layers.7.proj_in.weight": [
+        512,
+        512,
+        1
+      ],
+      "eps_model.layers.7.proj_out.bias": [
+        512
+      ],
+      "eps_model.layers.7.proj_out.weight": [
+        512,
+        512,
+        1
+      ],
+      "eps_model.layers.7.transformer_blocks.0.attn1.to_k.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.attn1.to_out.0.bias": [
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.attn1.to_out.0.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.attn1.to_q.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.attn1.to_v.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.attn2.to_k.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.attn2.to_out.0.bias": [
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.attn2.to_out.0.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.attn2.to_q.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.attn2.to_v.weight": [
+        512,
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.ff.net.0.proj.bias": [
+        2048
+      ],
+      "eps_model.layers.7.transformer_blocks.0.ff.net.0.proj.weight": [
+        2048,
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.ff.net.2.bias": [
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.ff.net.2.weight": [
+        512,
+        1024
+      ],
+      "eps_model.layers.7.transformer_blocks.0.norm1.bias": [
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.norm1.weight": [
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.norm2.bias": [
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.norm2.weight": [
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.norm3.bias": [
+        512
+      ],
+      "eps_model.layers.7.transformer_blocks.0.norm3.weight": [
+        512
+      ],
+      "eps_model.out_layers.0.bias": [
+        512
+      ],
+      "eps_model.out_layers.0.weight": [
+        512
+      ],
+      "eps_model.out_layers.2.bias": [
+        27
+      ],
+      "eps_model.out_layers.2.weight": [
+        27,
+        512,
+        1
+      ],
+      "eps_model.scene_model.enc1.0.bn.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc1.0.bn.num_batches_tracked": [],
+      "eps_model.scene_model.enc1.0.bn.running_mean": [
+        32
+      ],
+      "eps_model.scene_model.enc1.0.bn.running_var": [
+        32
+      ],
+      "eps_model.scene_model.enc1.0.bn.weight": [
+        32
+      ],
+      "eps_model.scene_model.enc1.0.linear.weight": [
+        32,
+        6
+      ],
+      "eps_model.scene_model.enc1.1.bn1.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.bn1.num_batches_tracked": [],
+      "eps_model.scene_model.enc1.1.bn1.running_mean": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.bn1.running_var": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.bn1.weight": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.bn2.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.bn2.num_batches_tracked": [],
+      "eps_model.scene_model.enc1.1.bn2.running_mean": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.bn2.running_var": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.bn2.weight": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.bn3.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.bn3.num_batches_tracked": [],
+      "eps_model.scene_model.enc1.1.bn3.running_mean": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.bn3.running_var": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.bn3.weight": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.linear1.weight": [
+        32,
+        32
+      ],
+      "eps_model.scene_model.enc1.1.linear3.weight": [
+        32,
+        32
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_k.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_k.weight": [
+        32,
+        32
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.0.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.0.weight": [
+        3,
+        3
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.1.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.1.num_batches_tracked": [],
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.1.running_mean": [
+        3
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.1.running_var": [
+        3
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.1.weight": [
+        3
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.3.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_p.3.weight": [
+        32,
+        3
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_q.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_q.weight": [
+        32,
+        32
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_v.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_v.weight": [
+        32,
+        32
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.0.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.0.num_batches_tracked": [],
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.0.running_mean": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.0.running_var": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.0.weight": [
+        32
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.2.bias": [
+        4
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.2.weight": [
+        4,
+        32
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.3.bias": [
+        4
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.3.num_batches_tracked": [],
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.3.running_mean": [
+        4
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.3.running_var": [
+        4
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.3.weight": [
+        4
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.5.bias": [
+        4
+      ],
+      "eps_model.scene_model.enc1.1.transformer2.linear_w.5.weight": [
+        4,
+        4
+      ],
+      "eps_model.scene_model.enc2.0.bn.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.0.bn.num_batches_tracked": [],
+      "eps_model.scene_model.enc2.0.bn.running_mean": [
+        64
+      ],
+      "eps_model.scene_model.enc2.0.bn.running_var": [
+        64
+      ],
+      "eps_model.scene_model.enc2.0.bn.weight": [
+        64
+      ],
+      "eps_model.scene_model.enc2.0.linear.weight": [
+        64,
+        35
+      ],
+      "eps_model.scene_model.enc2.1.bn1.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.bn1.num_batches_tracked": [],
+      "eps_model.scene_model.enc2.1.bn1.running_mean": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.bn1.running_var": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.bn1.weight": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.bn2.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.bn2.num_batches_tracked": [],
+      "eps_model.scene_model.enc2.1.bn2.running_mean": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.bn2.running_var": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.bn2.weight": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.bn3.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.bn3.num_batches_tracked": [],
+      "eps_model.scene_model.enc2.1.bn3.running_mean": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.bn3.running_var": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.bn3.weight": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.linear1.weight": [
+        64,
+        64
+      ],
+      "eps_model.scene_model.enc2.1.linear3.weight": [
+        64,
+        64
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_k.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_k.weight": [
+        64,
+        64
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.0.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.0.weight": [
+        3,
+        3
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.1.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.1.num_batches_tracked": [],
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.1.running_mean": [
+        3
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.1.running_var": [
+        3
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.1.weight": [
+        3
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.3.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_p.3.weight": [
+        64,
+        3
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_q.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_q.weight": [
+        64,
+        64
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_v.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_v.weight": [
+        64,
+        64
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.0.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.0.num_batches_tracked": [],
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.0.running_mean": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.0.running_var": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.0.weight": [
+        64
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.2.bias": [
+        8
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.2.weight": [
+        8,
+        64
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.3.bias": [
+        8
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.3.num_batches_tracked": [],
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.3.running_mean": [
+        8
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.3.running_var": [
+        8
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.3.weight": [
+        8
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.5.bias": [
+        8
+      ],
+      "eps_model.scene_model.enc2.1.transformer2.linear_w.5.weight": [
+        8,
+        8
+      ],
+      "eps_model.scene_model.enc2.2.bn1.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.bn1.num_batches_tracked": [],
+      "eps_model.scene_model.enc2.2.bn1.running_mean": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.bn1.running_var": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.bn1.weight": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.bn2.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.bn2.num_batches_tracked": [],
+      "eps_model.scene_model.enc2.2.bn2.running_mean": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.bn2.running_var": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.bn2.weight": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.bn3.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.bn3.num_batches_tracked": [],
+      "eps_model.scene_model.enc2.2.bn3.running_mean": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.bn3.running_var": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.bn3.weight": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.linear1.weight": [
+        64,
+        64
+      ],
+      "eps_model.scene_model.enc2.2.linear3.weight": [
+        64,
+        64
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_k.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_k.weight": [
+        64,
+        64
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.0.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.0.weight": [
+        3,
+        3
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.1.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.1.num_batches_tracked": [],
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.1.running_mean": [
+        3
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.1.running_var": [
+        3
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.1.weight": [
+        3
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.3.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_p.3.weight": [
+        64,
+        3
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_q.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_q.weight": [
+        64,
+        64
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_v.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_v.weight": [
+        64,
+        64
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.0.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.0.num_batches_tracked": [],
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.0.running_mean": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.0.running_var": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.0.weight": [
+        64
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.2.bias": [
+        8
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.2.weight": [
+        8,
+        64
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.3.bias": [
+        8
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.3.num_batches_tracked": [],
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.3.running_mean": [
+        8
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.3.running_var": [
+        8
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.3.weight": [
+        8
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.5.bias": [
+        8
+      ],
+      "eps_model.scene_model.enc2.2.transformer2.linear_w.5.weight": [
+        8,
+        8
+      ],
+      "eps_model.scene_model.enc3.0.bn.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.0.bn.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.0.bn.running_mean": [
+        128
+      ],
+      "eps_model.scene_model.enc3.0.bn.running_var": [
+        128
+      ],
+      "eps_model.scene_model.enc3.0.bn.weight": [
+        128
+      ],
+      "eps_model.scene_model.enc3.0.linear.weight": [
+        128,
+        67
+      ],
+      "eps_model.scene_model.enc3.1.bn1.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.bn1.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.1.bn1.running_mean": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.bn1.running_var": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.bn1.weight": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.bn2.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.bn2.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.1.bn2.running_mean": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.bn2.running_var": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.bn2.weight": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.bn3.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.bn3.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.1.bn3.running_mean": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.bn3.running_var": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.bn3.weight": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.linear1.weight": [
+        128,
+        128
+      ],
+      "eps_model.scene_model.enc3.1.linear3.weight": [
+        128,
+        128
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_k.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_k.weight": [
+        128,
+        128
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.0.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.0.weight": [
+        3,
+        3
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.1.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.1.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.1.running_mean": [
+        3
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.1.running_var": [
+        3
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.1.weight": [
+        3
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.3.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_p.3.weight": [
+        128,
+        3
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_q.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_q.weight": [
+        128,
+        128
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_v.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_v.weight": [
+        128,
+        128
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.0.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.0.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.0.running_mean": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.0.running_var": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.0.weight": [
+        128
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.2.bias": [
+        16
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.2.weight": [
+        16,
+        128
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.3.bias": [
+        16
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.3.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.3.running_mean": [
+        16
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.3.running_var": [
+        16
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.3.weight": [
+        16
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.5.bias": [
+        16
+      ],
+      "eps_model.scene_model.enc3.1.transformer2.linear_w.5.weight": [
+        16,
+        16
+      ],
+      "eps_model.scene_model.enc3.2.bn1.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.bn1.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.2.bn1.running_mean": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.bn1.running_var": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.bn1.weight": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.bn2.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.bn2.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.2.bn2.running_mean": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.bn2.running_var": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.bn2.weight": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.bn3.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.bn3.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.2.bn3.running_mean": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.bn3.running_var": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.bn3.weight": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.linear1.weight": [
+        128,
+        128
+      ],
+      "eps_model.scene_model.enc3.2.linear3.weight": [
+        128,
+        128
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_k.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_k.weight": [
+        128,
+        128
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.0.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.0.weight": [
+        3,
+        3
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.1.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.1.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.1.running_mean": [
+        3
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.1.running_var": [
+        3
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.1.weight": [
+        3
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.3.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_p.3.weight": [
+        128,
+        3
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_q.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_q.weight": [
+        128,
+        128
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_v.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_v.weight": [
+        128,
+        128
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.0.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.0.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.0.running_mean": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.0.running_var": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.0.weight": [
+        128
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.2.bias": [
+        16
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.2.weight": [
+        16,
+        128
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.3.bias": [
+        16
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.3.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.3.running_mean": [
+        16
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.3.running_var": [
+        16
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.3.weight": [
+        16
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.5.bias": [
+        16
+      ],
+      "eps_model.scene_model.enc3.2.transformer2.linear_w.5.weight": [
+        16,
+        16
+      ],
+      "eps_model.scene_model.enc3.3.bn1.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.bn1.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.3.bn1.running_mean": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.bn1.running_var": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.bn1.weight": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.bn2.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.bn2.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.3.bn2.running_mean": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.bn2.running_var": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.bn2.weight": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.bn3.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.bn3.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.3.bn3.running_mean": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.bn3.running_var": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.bn3.weight": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.linear1.weight": [
+        128,
+        128
+      ],
+      "eps_model.scene_model.enc3.3.linear3.weight": [
+        128,
+        128
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_k.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_k.weight": [
+        128,
+        128
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.0.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.0.weight": [
+        3,
+        3
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.1.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.1.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.1.running_mean": [
+        3
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.1.running_var": [
+        3
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.1.weight": [
+        3
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.3.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_p.3.weight": [
+        128,
+        3
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_q.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_q.weight": [
+        128,
+        128
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_v.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_v.weight": [
+        128,
+        128
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.0.bias": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.0.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.0.running_mean": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.0.running_var": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.0.weight": [
+        128
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.2.bias": [
+        16
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.2.weight": [
+        16,
+        128
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.3.bias": [
+        16
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.3.num_batches_tracked": [],
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.3.running_mean": [
+        16
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.3.running_var": [
+        16
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.3.weight": [
+        16
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.5.bias": [
+        16
+      ],
+      "eps_model.scene_model.enc3.3.transformer2.linear_w.5.weight": [
+        16,
+        16
+      ],
+      "eps_model.scene_model.enc4.0.bn.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.0.bn.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.0.bn.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.0.bn.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.0.bn.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.0.linear.weight": [
+        256,
+        131
+      ],
+      "eps_model.scene_model.enc4.1.bn1.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.bn1.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.1.bn1.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.bn1.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.bn1.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.bn2.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.bn2.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.1.bn2.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.bn2.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.bn2.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.bn3.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.bn3.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.1.bn3.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.bn3.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.bn3.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.linear1.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.1.linear3.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_k.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_k.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.0.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.0.weight": [
+        3,
+        3
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.1.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.1.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.1.running_mean": [
+        3
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.1.running_var": [
+        3
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.1.weight": [
+        3
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.3.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_p.3.weight": [
+        256,
+        3
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_q.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_q.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_v.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_v.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.0.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.0.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.0.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.0.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.0.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.2.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.2.weight": [
+        32,
+        256
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.3.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.3.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.3.running_mean": [
+        32
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.3.running_var": [
+        32
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.3.weight": [
+        32
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.5.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc4.1.transformer2.linear_w.5.weight": [
+        32,
+        32
+      ],
+      "eps_model.scene_model.enc4.2.bn1.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.bn1.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.2.bn1.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.bn1.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.bn1.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.bn2.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.bn2.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.2.bn2.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.bn2.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.bn2.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.bn3.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.bn3.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.2.bn3.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.bn3.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.bn3.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.linear1.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.2.linear3.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_k.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_k.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.0.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.0.weight": [
+        3,
+        3
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.1.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.1.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.1.running_mean": [
+        3
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.1.running_var": [
+        3
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.1.weight": [
+        3
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.3.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_p.3.weight": [
+        256,
+        3
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_q.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_q.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_v.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_v.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.0.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.0.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.0.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.0.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.0.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.2.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.2.weight": [
+        32,
+        256
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.3.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.3.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.3.running_mean": [
+        32
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.3.running_var": [
+        32
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.3.weight": [
+        32
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.5.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc4.2.transformer2.linear_w.5.weight": [
+        32,
+        32
+      ],
+      "eps_model.scene_model.enc4.3.bn1.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.bn1.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.3.bn1.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.bn1.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.bn1.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.bn2.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.bn2.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.3.bn2.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.bn2.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.bn2.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.bn3.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.bn3.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.3.bn3.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.bn3.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.bn3.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.linear1.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.3.linear3.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_k.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_k.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.0.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.0.weight": [
+        3,
+        3
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.1.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.1.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.1.running_mean": [
+        3
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.1.running_var": [
+        3
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.1.weight": [
+        3
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.3.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_p.3.weight": [
+        256,
+        3
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_q.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_q.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_v.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_v.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.0.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.0.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.0.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.0.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.0.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.2.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.2.weight": [
+        32,
+        256
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.3.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.3.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.3.running_mean": [
+        32
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.3.running_var": [
+        32
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.3.weight": [
+        32
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.5.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc4.3.transformer2.linear_w.5.weight": [
+        32,
+        32
+      ],
+      "eps_model.scene_model.enc4.4.bn1.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.bn1.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.4.bn1.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.bn1.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.bn1.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.bn2.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.bn2.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.4.bn2.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.bn2.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.bn2.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.bn3.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.bn3.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.4.bn3.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.bn3.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.bn3.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.linear1.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.4.linear3.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_k.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_k.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.0.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.0.weight": [
+        3,
+        3
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.1.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.1.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.1.running_mean": [
+        3
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.1.running_var": [
+        3
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.1.weight": [
+        3
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.3.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_p.3.weight": [
+        256,
+        3
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_q.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_q.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_v.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_v.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.0.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.0.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.0.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.0.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.0.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.2.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.2.weight": [
+        32,
+        256
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.3.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.3.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.3.running_mean": [
+        32
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.3.running_var": [
+        32
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.3.weight": [
+        32
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.5.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc4.4.transformer2.linear_w.5.weight": [
+        32,
+        32
+      ],
+      "eps_model.scene_model.enc4.5.bn1.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.bn1.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.5.bn1.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.bn1.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.bn1.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.bn2.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.bn2.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.5.bn2.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.bn2.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.bn2.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.bn3.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.bn3.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.5.bn3.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.bn3.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.bn3.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.linear1.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.5.linear3.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_k.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_k.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.0.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.0.weight": [
+        3,
+        3
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.1.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.1.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.1.running_mean": [
+        3
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.1.running_var": [
+        3
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.1.weight": [
+        3
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.3.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_p.3.weight": [
+        256,
+        3
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_q.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_q.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_v.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_v.weight": [
+        256,
+        256
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.0.bias": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.0.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.0.running_mean": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.0.running_var": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.0.weight": [
+        256
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.2.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.2.weight": [
+        32,
+        256
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.3.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.3.num_batches_tracked": [],
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.3.running_mean": [
+        32
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.3.running_var": [
+        32
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.3.weight": [
+        32
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.5.bias": [
+        32
+      ],
+      "eps_model.scene_model.enc4.5.transformer2.linear_w.5.weight": [
+        32,
+        32
+      ],
+      "eps_model.scene_model.enc5.0.bn.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.0.bn.num_batches_tracked": [],
+      "eps_model.scene_model.enc5.0.bn.running_mean": [
+        512
+      ],
+      "eps_model.scene_model.enc5.0.bn.running_var": [
+        512
+      ],
+      "eps_model.scene_model.enc5.0.bn.weight": [
+        512
+      ],
+      "eps_model.scene_model.enc5.0.linear.weight": [
+        512,
+        259
+      ],
+      "eps_model.scene_model.enc5.1.bn1.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.bn1.num_batches_tracked": [],
+      "eps_model.scene_model.enc5.1.bn1.running_mean": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.bn1.running_var": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.bn1.weight": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.bn2.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.bn2.num_batches_tracked": [],
+      "eps_model.scene_model.enc5.1.bn2.running_mean": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.bn2.running_var": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.bn2.weight": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.bn3.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.bn3.num_batches_tracked": [],
+      "eps_model.scene_model.enc5.1.bn3.running_mean": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.bn3.running_var": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.bn3.weight": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.linear1.weight": [
+        512,
+        512
+      ],
+      "eps_model.scene_model.enc5.1.linear3.weight": [
+        512,
+        512
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_k.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_k.weight": [
+        512,
+        512
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.0.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.0.weight": [
+        3,
+        3
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.1.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.1.num_batches_tracked": [],
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.1.running_mean": [
+        3
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.1.running_var": [
+        3
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.1.weight": [
+        3
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.3.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_p.3.weight": [
+        512,
+        3
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_q.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_q.weight": [
+        512,
+        512
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_v.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_v.weight": [
+        512,
+        512
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.0.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.0.num_batches_tracked": [],
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.0.running_mean": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.0.running_var": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.0.weight": [
+        512
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.2.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.2.weight": [
+        64,
+        512
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.3.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.3.num_batches_tracked": [],
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.3.running_mean": [
+        64
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.3.running_var": [
+        64
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.3.weight": [
+        64
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.5.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc5.1.transformer2.linear_w.5.weight": [
+        64,
+        64
+      ],
+      "eps_model.scene_model.enc5.2.bn1.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.bn1.num_batches_tracked": [],
+      "eps_model.scene_model.enc5.2.bn1.running_mean": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.bn1.running_var": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.bn1.weight": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.bn2.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.bn2.num_batches_tracked": [],
+      "eps_model.scene_model.enc5.2.bn2.running_mean": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.bn2.running_var": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.bn2.weight": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.bn3.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.bn3.num_batches_tracked": [],
+      "eps_model.scene_model.enc5.2.bn3.running_mean": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.bn3.running_var": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.bn3.weight": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.linear1.weight": [
+        512,
+        512
+      ],
+      "eps_model.scene_model.enc5.2.linear3.weight": [
+        512,
+        512
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_k.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_k.weight": [
+        512,
+        512
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.0.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.0.weight": [
+        3,
+        3
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.1.bias": [
+        3
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.1.num_batches_tracked": [],
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.1.running_mean": [
+        3
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.1.running_var": [
+        3
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.1.weight": [
+        3
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.3.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_p.3.weight": [
+        512,
+        3
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_q.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_q.weight": [
+        512,
+        512
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_v.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_v.weight": [
+        512,
+        512
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.0.bias": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.0.num_batches_tracked": [],
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.0.running_mean": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.0.running_var": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.0.weight": [
+        512
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.2.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.2.weight": [
+        64,
+        512
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.3.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.3.num_batches_tracked": [],
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.3.running_mean": [
+        64
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.3.running_var": [
+        64
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.3.weight": [
+        64
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.5.bias": [
+        64
+      ],
+      "eps_model.scene_model.enc5.2.transformer2.linear_w.5.weight": [
+        64,
+        64
+      ],
+      "eps_model.time_embed.0.bias": [
+        1024
+      ],
+      "eps_model.time_embed.0.weight": [
+        1024,
+        512
+      ],
+      "eps_model.time_embed.2.bias": [
+        1024
+      ],
+      "eps_model.time_embed.2.weight": [
+        1024,
+        1024
+      ],
+      "log_one_minus_alphas_cumprod": [
+        100
+      ],
+      "posterior_log_variance_clipped": [
+        100
+      ],
+      "posterior_mean_coef1": [
+        100
+      ],
+      "posterior_mean_coef2": [
+        100
+      ],
+      "posterior_variance": [
+        100
+      ],
+      "sqrt_alphas_cumprod": [
+        100
+      ],
+      "sqrt_one_minus_alphas_cumprod": [
+        100
+      ],
+      "sqrt_recip_alphas_cumprod": [
+        100
+      ],
+      "sqrt_recipm1_alphas_cumprod": [
+        100
+      ]
+    },
+    "unexpected_keys": []
+  },
+  "dataset_name": "MultiDexShadowHandUR",
+  "determinism_scope": "release RNG/cuDNN controls; no cross-platform bitwise determinism claim",
+  "input_wrapper": "explicit original-byte object01 cloud; identity scale/frame; no dataset-average substitution",
+  "normalize_joints": true,
+  "normalize_translation": true,
+  "normalizer": {
+    "constant_dtype": "torch.float32",
+    "inverse_operation": "unmodified MultiDexShadowHandUR.angle_denormalize/trans_denormalize; float32 ranges before float64 promotion",
+    "joint_lower": [
+      -0.5235987901687622,
+      -0.7853981852531433,
+      -0.4363323152065277,
+      0.0,
+      0.0,
+      0.0,
+      -0.4363323152065277,
+      0.0,
+      0.0,
+      0.0,
+      -0.4363323152065277,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.4363323152065277,
+      0.0,
+      0.0,
+      0.0,
+      -1.0470000505447388,
+      0.0,
+      -0.26179999113082886,
+      -0.5236999988555908,
+      0.0
+    ],
+    "joint_upper": [
+      0.1745329201221466,
+      0.6108652353286743,
+      0.4363323152065277,
+      1.5707963705062866,
+      1.5707963705062866,
+      1.5707963705062866,
+      0.4363323152065277,
+      1.5707963705062866,
+      1.5707963705062866,
+      1.5707963705062866,
+      0.4363323152065277,
+      1.5707963705062866,
+      1.5707963705062866,
+      1.5707963705062866,
+      0.6981316804885864,
+      0.4363323152065277,
+      1.5707963705062866,
+      1.5707963705062866,
+      1.5707963705062866,
+      1.0470000505447388,
+      1.309000015258789,
+      0.26179999113082886,
+      0.5236999988555908,
+      1.0
+    ],
+    "translation_lower": [
+      -0.13128922879695892,
+      -0.10665302723646164,
+      -0.4575342535972595
+    ],
+    "translation_upper": [
+      0.12772022187709808,
+      0.22954416275024414,
+      -0.21764427423477173
+    ]
+  },
+  "normalizer_source_sha256": "sha256:033574fe65e4bbaf62def07913890776d43f107fe48c70089d1b72de093b479f",
+  "object_average_scale": 1.0,
+  "optimizer": {
+    "actual_model_optimizer": null,
+    "enabled": false
+  },
+  "physical_object_scale": 1.0,
+  "physics_guided_sampling": false,
+  "postprocessing": "none",
+  "protocol_sha256": "sha256:76f2ab3c7955ce2791e094da162d186a3f128425d863be81839385b195c17c59",
+  "resolved_upstream_config": {
+    "ckpt_dir": "/workspace/dga/independent_native_sealed_20261015_v1/batches/batch_0001_seed20261026/ckpts",
+    "dataset": {
+      "active": "MultiDexShadowHandUR",
+      "paths": {
+        "DexGRAB": {
+          "asset_dir": "/inspurfs/group/mayuexin/datasets/DexGRAB",
+          "asset_dir_slurm": "/inspurfs/group/mayuexin/datasets/DexGRAB"
+        },
+        "DexGraspNet": {
+          "asset_dir": "/inspurfs/group/mayuexin/datasets/DexGraspNet",
+          "asset_dir_slurm": "/inspurfs/group/mayuexin/datasets/DexGraspNet"
+        },
+        "Grasp_anyting": {
+          "asset_dir": "/inspurfs/group/mayuexin/datasets/Grasp_anything",
+          "asset_dir_slurm": "/inspurfs/group/mayuexin/datasets/Grasp_anything"
+        },
+        "MultiDexShadowHandUR": {
+          "asset_dir": "/inspurfs/group/mayuexin/datasets/MultiDex_UR",
+          "asset_dir_slurm": "/inspurfs/group/mayuexin/datasets/MultiDex_UR"
+        },
+        "Unidexgrasp": {
+          "asset_dir": "/inspurfs/group/mayuexin/datasets/UniDexGrasp/DFCData",
+          "asset_dir_slurm": "/inspurfs/group/mayuexin/datasets/UniDexGrasp/DFCData"
+        },
+        "real_dex": {
+          "asset_dir": "/inspurfs/group/mayuexin/datasets/Realdex",
+          "asset_dir_slurm": "/inspurfs/group/mayuexin/datasets/Realdex"
+        }
+      }
+    },
+    "diffuser": {
+      "loss_type": "l1",
+      "name": "DDPM",
+      "opt_interval": 1,
+      "rand_t_type": "half",
+      "sample": {
+        "method": "singlestep",
+        "name": "dpmsolver++",
+        "order": 1,
+        "skip_type": "time_uniform",
+        "steps": 10,
+        "t_end": 0.01,
+        "t_start": 1,
+        "use_dpmsolver": false
+      },
+      "schedule_cfg": {
+        "beta": [
+          0.0001,
+          0.01
+        ],
+        "beta_schedule": "linear",
+        "s": 0.008
+      },
+      "steps": 100
+    },
+    "exp_dir": "/workspace/dga/independent_native_sealed_20261015_v1/batches/batch_0001_seed20261026",
+    "exp_name": "default",
+    "gpu": 0,
+    "llm": {
+      "enabled": false
+    },
+    "model": {
+      "context_dim": 512,
+      "d_model": 512,
+      "d_x": 27,
+      "freeze_scene_model": false,
+      "name": "UNetModel",
+      "nblocks": 4,
+      "resblock_dropout": 0.0,
+      "scene_model": {
+        "name": "PointTransformer",
+        "num_points": 2048,
+        "pretrained_weights": null,
+        "pretrained_weights_slurm": null,
+        "use_color": false,
+        "use_normal": true
+      },
+      "time_embed_mult": 2,
+      "transformer_depth": 1,
+      "transformer_dim_head": 64,
+      "transformer_dropout": 0.1,
+      "transformer_mult_ff": 2,
+      "transformer_num_heads": 8,
+      "use_llm": false,
+      "use_position_embedding": false
+    },
+    "optimizer": null,
+    "output_dir": "outputs",
+    "save_model_interval": 1,
+    "save_model_seperately": true,
+    "save_scene_model": true,
+    "slurm": false,
+    "task": {
+      "dataset": {
+        "asset_dir": "/inspurfs/group/mayuexin/datasets/MultiDex_UR",
+        "asset_dir_slurm": "/inspurfs/group/mayuexin/datasets/MultiDex_UR",
+        "desc": "[MultiDexShadowHandUR ShadowHand] -- dataset used for grasp pose generation",
+        "device": "cuda",
+        "frame_interval_test": 10,
+        "frame_interval_train": 5,
+        "is_downsample": true,
+        "modeling_keys": [
+          "allDoFs"
+        ],
+        "name": "MultiDexShadowHandUR",
+        "normalize_x": true,
+        "normalize_x_trans": true,
+        "num_points": 2048,
+        "test_transforms": [
+          "NumpyToTensor"
+        ],
+        "train_transforms": [
+          "NumpyToTensor"
+        ],
+        "transform_cfg": {},
+        "use_color": false,
+        "use_llm": false,
+        "use_normal": true
+      },
+      "eval_interval": 1,
+      "eval_visualize": 1,
+      "lr": 0.0001,
+      "name": "grasp_gen_ur",
+      "test": {
+        "batch_size": 2,
+        "epoch": null,
+        "num_workers": 0
+      },
+      "train": {
+        "batch_size": 128,
+        "log_step": 100,
+        "num_epochs": 3000,
+        "num_workers": 0
+      },
+      "visualizer": {
+        "datasetname": "MultiDexShadowHandUR",
+        "interval": 1,
+        "ksample": 2,
+        "name": "GraspGenURVisualizer",
+        "use_llm": false,
+        "vis_denoising": false,
+        "visualize": false,
+        "visualize_html": false
+      }
+    },
+    "tb_dir": "/workspace/dga/independent_native_sealed_20261015_v1/batches/batch_0001_seed20261026/tb_logs",
+    "use_dpmsolver": false,
+    "vis_dir": "/workspace/dga/independent_native_sealed_20261015_v1/batches/batch_0001_seed20261026/visual"
+  },
+  "rng_seed_timing": "reset_after_model_and_runtime_reference_initialization_before_augmentation",
+  "sample_count": 2,
+  "seed": 20261026,
+  "source_commit": "86353d710ca71d0f547f0d8b15cc8ca959c78163",
+  "source_hand_scale": 1.0,
+  "source_profile_id": "dga_multidex_official_unguided_v1",
+  "wrapper_sha256": "sha256:4703469f19a64dd55aaf650b016c83b8619ca157011cdbc9dce26489b330cbed"
+}

@@ -1,0 +1,18 @@
+from pathlib import Path
+import json,hashlib
+from datetime import datetime,timezone
+root=Path(__file__).parent;stage=root.parent
+sha=lambda p:'sha256:'+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+p=json.loads(Path('/private/tmp/dga_mapping_continuation_20261015_v1/retarget_geometry/visual_policy_frozen_v2.json').read_text())
+p.update(schema_version='dga_free_palm_visual_holdout_policy_v1',status='FROZEN_BEFORE_NEW_GEOMETRY_QUERIES',frozen_at_utc=datetime.now(timezone.utc).isoformat(),stage='separate_free_palm_minimax_development',implementation_revision='v1_explicit_source_and_target_palm_fresh_offcenter_queries',query_fractions=[1/3,2/3],query_design_before_fit=str(root/'query_design_before_fit.json'),query_holdout_only=True,independent_grasp_cohort=False,optimization_feedback_forbidden=True)
+p.pop('first_attempt');p.pop('prior_frozen_policy_sha256')
+p['fit_report']=str(stage/'results/free_palm_fit_report.json');p['fit_arrays']=str(stage/'results/fit_poses.npz')
+p['code_sha256']=sha(root/'audit_free_palm_visual_v1.py')
+q=json.loads((root/'query_design_before_fit.json').read_text())
+assert p['code_sha256']==q['code_sha256']
+for path in [p['fit_report'],p['fit_arrays'],stage/'free_palm_policy_frozen_v1.json',stage/'fit_free_palm.py',root/'query_design_before_fit.json',root/'audit_free_palm_visual_v1.py',root/'test_query_grid.py',root/'query_grid_tests.log',Path(__file__)]:p['dependencies'][str(path)]=sha(path)
+p['interpretation']='Unsigned visual-triangle proximity and conditional facet directions only, not physical contact/exterior union/adequacy; geometric query holdout on two development outputs, not independent grasp validation. Both palms bound; all changes visible.'
+out=root/'visual_policy_frozen_v1.json'
+if out.exists():raise FileExistsError(out)
+out.write_text(json.dumps(p,indent=2)+'\n')
+print(json.dumps({'policy':str(out),'sha256':sha(out),'dependencies':len(p['dependencies'])}))

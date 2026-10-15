@@ -1,0 +1,86 @@
+import importlib.util
+from pathlib import Path
+import numpy as np
+import pytest
+ROOT=Path(__file__).parent
+s=importlib.util.spec_from_file_location('feasible_fit',ROOT/'fit_feasible_surface.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+
+def current_state(goal=.0625):
+ source=np.zeros((2,1));fields=np.full((2,1),goal)
+ state={'variables':np.array([0.]),'fields':fields,'surface_loss':m.loss(source,fields),'feasible':True}
+ return source,state
+
+def test_all_alpha_guards_precede_query_minimum_wins_not_first_feasible():
+ source,current=current_state();checked=[];queried=[]
+ def guard(x):
+  checked.append(float(x[0]));return {'variables':x.copy(),'feasible':bool(x[0]<=.25),'refusal_reason':'synthetichardguard'}
+ def evaluate(state):
+  assert state['feasible'] and float(state['variables'][0]) in checked
+  queried.append(float(state['variables'][0]));return np.full((2,1),abs(state['variables'][0]-.0625))
+ selected,log=m.guarded_backtracking(current,np.array([1.]),guard,evaluate,source)
+ assert log['selected_alpha']==.0625 and selected['surface_loss']==0
+ assert len(checked)==11 and len(queried)==9
+ assert queried[0]==.25 and .0625 in queried
+ assert len(log['alphas'])==12 and [x['alpha'] for x in log['alphas']]==list(m.ALPHAS)
+ assert not any(x['surface_evaluated'] for x in log['alphas'] if x.get('state',{}).get('feasible') is False)
+
+def test_zero_exact_cache_and_current_tie_preference():
+ source,current=current_state(goal=0.);original=current['variables'].tobytes();fields=current['fields'].tobytes();calls=[]
+ def guard(x):return {'variables':x.copy(),'feasible':True}
+ def evaluate(s):calls.append(s);return np.zeros((2,1))
+ selected,log=m.guarded_backtracking(current,np.array([1.]),guard,evaluate,source)
+ assert selected is current and log['selected_alpha']==0.
+ assert len(calls)==11 and log['alphas'][-1]['cached_fields_reused'] and not log['alphas'][-1]['surface_evaluated']
+ assert selected['variables'].tobytes()==original and selected['fields'].tobytes()==fields
+
+@pytest.mark.parametrize('bad',[np.nan,np.inf,-np.inf])
+def test_nonfinite_proposal_never_multiplies_zero_or_queries(bad):
+ source,current=current_state();calls=[]
+ def forbidden(*args):calls.append(1);raise AssertionError('No guard/field call for malformed proposal')
+ with np.errstate(all='raise'):
+  selected,log=m.guarded_backtracking(current,np.array([bad]),forbidden,forbidden,source)
+ assert selected is current and not calls and log['selected_alpha']==0
+ assert len(log['alphas'])==12 and all(not x['surface_evaluated'] for x in log['alphas'])
+
+def test_all_hard_refusals_keep_exact_current_without_surface_calls():
+ source,current=current_state();calls=[]
+ def guard(x):return {'variables':x.copy(),'feasible':False,'refusal_reason':'TRUEmax/SSErefused'}
+ def forbidden(state):calls.append(1);raise AssertionError('Guard failed')
+ selected,log=m.guarded_backtracking(current,np.array([1.]),guard,forbidden,source)
+ assert selected is current and not calls
+ assert sum(x.get('guard_checked_before_surface',False) for x in log['alphas'])==11
+
+def test_feasible_but_cost_regressing_states_are_retained_not_adopted():
+ source,current=current_state();calls=[]
+ def guard(x):return {'variables':x.copy(),'feasible':True}
+ def evaluate(s):calls.append(1);return current['fields']+1
+ selected,log=m.guarded_backtracking(current,np.array([1.]),guard,evaluate,source)
+ assert selected is current and len(calls)==11
+ assert sum(x.get('training_nonincrease') is False for x in log['alphas'])==11
+
+def test_equal_improving_positive_candidates_keep_fixed_alpha_order():
+ source,current=current_state()
+ def guard(x):return {'variables':x.copy(),'feasible':True}
+ selected,log=m.guarded_backtracking(current,np.array([1.]),guard,lambda s:np.zeros((2,1)),source)
+ assert log['selected_alpha']==1. and selected is not current
+
+@pytest.mark.parametrize('kind',['not_feasible','cache_missing','cache_wrong','current_nonfinite'])
+def test_invalid_current_cannot_become_an_accepted_state(kind):
+ source,current=current_state()
+ if kind=='not_feasible':current['feasible']=False
+ if kind=='cache_missing':del current['fields']
+ if kind=='cache_wrong':current['surface_loss']+=1
+ if kind=='current_nonfinite':current['variables'][0]=np.nan
+ with pytest.raises(ValueError):m.guarded_backtracking(current,np.array([1.]),None,None,source)
+
+def test_scientific_inputs_are_immutable_during_guarded_search():
+ source,current=current_state();before=source.tobytes();q=current['variables'].tobytes();f=current['fields'].tobytes()
+ def guard(x):return {'variables':x.copy(),'feasible':True}
+ m.guarded_backtracking(current,np.array([1.]),guard,lambda s:np.zeros((2,1)),source)
+ assert source.tobytes()==before and current['variables'].tobytes()==q and current['fields'].tobytes()==f
+
+def test_exact_payload_detects_signed_zero_dtype_and_shape():
+ assert m.exact_payload(np.array([0.]),np.array([0.]))
+ assert not m.exact_payload(np.array([-0.]),np.array([0.]))
+ assert not m.exact_payload(np.array([0.],dtype=np.float32),np.array([0.],dtype=np.float64))
+ assert not m.exact_payload(np.array([[0.]]),np.array([0.]))

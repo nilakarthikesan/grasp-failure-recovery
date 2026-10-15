@@ -1,0 +1,400 @@
+#!/usr/bin/env python3
+"""CPU-only accounting of a separate frozen two-by-two MultiDex DGA cohort.
+
+The original/default runtime reference and the new explicit FP32 mapping
+reference have separate results. Neither is substituted for the other. Strict
+source/target domain rejection precedes candidate mapping. No scientific pass.
+"""
+from __future__ import annotations
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import sys
+
+import numpy as np
+sys.dont_write_bytecode = True
+
+GEOMETRY_HASH = 'sha256:45c1162a4f815d65c43254f2f499f53bde1eecea4d39912d8ce36d2c5cd92a81'
+SEEDS = (20261023, 20261024)
+POLICY_ID = 'dga_geometry_reference_fp32_tf32_disabled_v1'
+TRANSLATION_M = 1e-5
+ROTATION_RAD = 1e-4
+
+
+def digest(path):
+    h = hashlib.sha256()
+    with Path(path).open('rb') as stream:
+        for block in iter(lambda: stream.read(1024*1024), b''): h.update(block)
+    return 'sha256:' + h.hexdigest()
+
+
+def bound_json(path, expected):
+    if digest(path) != expected: raise ValueError('Externally bound JSON hash mismatch: '+str(path))
+    return json.loads(Path(path).read_text())
+
+
+def child(root, ref):
+    relative = Path(ref['path']); path = (root / relative).resolve()
+    if relative.is_absolute() or '..' in relative.parts or not path.is_relative_to(root.resolve()):
+        raise ValueError('Cohort reference leaves its preserved bundle')
+    if digest(path) != ref['sha256']: raise ValueError('Cohort dependency hash mismatch: '+str(path))
+    return path
+
+
+def load_module(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec); sys.modules[name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+def selection(records):
+    """Domain-only first two; ordering required and prerequisite failure never backfills."""
+    if [r['global_sample_index'] for r in records]!=list(range(4)):
+        raise ValueError('Exactly four ordered original rows required')
+    return [r['global_sample_index'] for r in records if r['mapping_status']=='CANDIDATE_ONLY'][:2]
+
+
+def require_precision_policy(evidence, provenance, manifest):
+    for key in ('source_profile_id','checkpoint_sha256','dataset_name','normalizer_source_sha256'):
+        if evidence.get(key)!=getattr(manifest,key) or provenance.get(key)!=getattr(manifest,key):
+            raise ValueError('Runtime reference atomic MultiDex identity mismatch')
+    expected = {'policy_id': POLICY_ID, 'matmul_allow_tf32': False,
+                'cudnn_allow_tf32': False, 'NVIDIA_TF32_OVERRIDE': None,
+                'fresh_hand_constructed_after_policy': True,
+                'transform_dtype': 'float32', 'model_generation_policy': 'original_baseline_tf32_enabled',
+                'model_sample_calls': 0, 'no_new_model_sample': True}
+    policy = evidence.get('precision_policy')
+    if not isinstance(policy, dict) or any(policy.get(k) != v for k, v in expected.items()):
+        raise ValueError('Explicit fresh-hand FP32/no-TF32 reference policy missing')
+    if provenance.get('precision_policy') != policy:
+        raise ValueError('FP32 reference provenance/policy mismatch')
+    if provenance.get('native_output_sha256') != manifest.output.sha256:
+        raise ValueError('FP32 reference is not bound to exact original raw q')
+    if provenance.get('physics_steps') != 0 or provenance.get('model_sample_calls') != 0:
+        raise ValueError('Reference creation must contain no sampling/physics')
+
+
+def runtime_archive(path, expected_sha, *, manifest, source, source_meshes,
+                    helper, mapping_policy=False, provenance=None):
+    evidence = bound_json(path, expected_sha)
+    expected = {'schema_version': 'dga_runtime_visual_reference_v1', 'sample_count': 2,
+        'source_profile_id':manifest.source_profile_id,'checkpoint_sha256':manifest.checkpoint_sha256,
+        'dataset_name':manifest.dataset_name,'normalizer_source_sha256':manifest.normalizer_source_sha256,
+        'sample_indices': [0, 1], 'coordinate_frame': 'object',
+        'object_from_input': np.eye(4).tolist(), 'native_output_sha256': manifest.output.sha256,
+        'source_hand_sha256': digest(source['path']), 'excluded_links': ['forearm'],
+        'vertex_semantics': 'untouched_get_meshes_from_q_object_frame', 'source_hand_scale': 1.0,
+        'physics_steps': 0}
+    if any(evidence.get(k) != v for k, v in expected.items()):
+        raise ValueError('Source reference differs from pinned raw-output/frame contract')
+    expected_links = {name for name, index in source_meshes if name != 'forearm'}
+    if set(evidence.get('vertex_links', [])) != expected_links or len(evidence['vertex_links']) != len(expected_links):
+        raise ValueError('Reference must retain all source runtime first-visual links')
+    if evidence.get('runtime_transform_dtype') not in ('float32', 'float64'):
+        raise ValueError('Actual reference dtype must be declared')
+    if mapping_policy: require_precision_policy(evidence, provenance, manifest)
+    if mapping_policy and evidence['runtime_transform_dtype'] != 'float32':
+        raise ValueError('Declared FP32 reference must actually contain float32 FK')
+    array_path = child(path.parent, evidence['arrays'])
+    with np.load(array_path, allow_pickle=False) as archive:
+        arrays = {key: archive[key] for key in archive.files}
+    if evidence.get('array_dtypes') != {key: str(value.dtype) for key, value in arrays.items()}:
+        raise ValueError('Reference dtype declaration differs from actual archive')
+    for key, value in arrays.items():
+        if key.startswith('forearm_from_link__') and str(value.dtype) != evidence['runtime_transform_dtype']:
+            raise ValueError('Reference FK dtype mismatch')
+    return evidence, arrays, array_path
+
+
+def validate_batch(batch, cohort_root, protocol, args, profile, numeric, adapter, audit, helper, dependencies):
+    batch_index = batch['batch_index']; expected_seed = SEEDS[batch_index]
+    if batch.get('seed') != expected_seed or batch.get('sample_count') != 2:
+        raise ValueError('Fixed original batch schedule changed')
+    native_path = child(cohort_root, batch['native_manifest'])
+    manifest, verified_raw_values, verified_paths = profile.load_multidex_raw_ledger(native_path,
+        expected_object_id='object01', expected_geometry_hash=GEOMETRY_HASH)
+    loader_error = None
+    if (manifest.evidence_origin != 'authentic_saved_native' or manifest.seed != expected_seed
+            or manifest.sample_count != 2 or manifest.source_hand_scale != 1.
+            or manifest.physical_object_scale != 1. or manifest.object_from_input != np.eye(4).tolist()):
+        raise ValueError('Authentic fixed two-row cube batch contract required')
+    paths = {key: adapter._verified_child(native_path.parent, getattr(manifest, key)) for key in
+        ('output','source_hand','object_mesh','point_cloud','normals','configuration','generation_log')}
+    if digest(paths['source_hand']) != adapter.SOURCE_URDF_SHA256: raise ValueError('Source pin mismatch')
+    conditioning = bound_json(args.conditioning_manifest, args.conditioning_manifest_sha256)
+    for role, name in (('object_mesh','mesh.obj'),('point_cloud','points.npy'),('normals','normals.npy')):
+        if digest(paths[role]) != conditioning['files'][name]['sha256']:
+            raise ValueError('Conditioning changed across cohort: '+role)
+    points = np.load(paths['point_cloud'], allow_pickle=False); normals = np.load(paths['normals'], allow_pickle=False)
+    surface_residual = float(np.max(np.abs(helper.cube_signed(points))))
+    face_residual = float(np.max(np.abs(np.einsum('ij,ij->i', points, normals)-.025)))
+    normal_residual = float(np.max(np.abs(np.linalg.norm(normals, axis=1)-1.)))
+    if max(surface_residual, face_residual, normal_residual) > 1e-9:
+        raise ValueError('Physical cube conditioning identity failed')
+    log = json.loads(paths['generation_log'].read_text())
+    stage_path = helper.child(native_path.parent, log['stages'])
+    try:
+        stage = numeric.check_stages(stage_path, log['stages']['sha256'], paths, manifest, adapter, args.normalizer_source)
+    except ValueError as error:
+        if 'must be finite numeric' not in str(error): raise
+        stage = {'status':'FAIL','reason':str(error),'npz_sha256':digest(stage_path),
+                 'scope':'Nonfinite/malformed stage archive; no selected row can pass surface prerequisites'}
+    default_path = (helper.child(native_path.parent, log['runtime_reference'])
+                    if isinstance(log.get('runtime_reference'),dict) and 'path' in log['runtime_reference'] else None)
+    mapping_path = child(cohort_root, batch['fp32_reference']) if batch['fp32_reference'] is not None else None
+    provenance_path = child(cohort_root, batch['precision_export_evidence'])
+    provenance = json.loads(provenance_path.read_text())
+    expected_provenance = {'schema_version':'dga_declared_fp32_geometry_reference_v1',
+        'source_profile_id':manifest.source_profile_id,'checkpoint_sha256':manifest.checkpoint_sha256,
+        'dataset_name':manifest.dataset_name,'normalizer_source_sha256':manifest.normalizer_source_sha256,
+        'original_native_manifest_sha256':digest(native_path),'native_output_sha256':manifest.output.sha256,
+        'original_default_runtime_reference_sha256':None if default_path is None else digest(default_path),
+        'protocol_sha256':args.frozen_protocol_sha256,'exporter_sha256':protocol['code_sha256']['fp32_exporter'],
+        'sample_count':2,'seed':expected_seed,'model_sample_calls':0,'physics_steps':0}
+    if any(provenance.get(k)!=v for k,v in expected_provenance.items()):
+        raise ValueError('FP32 exporter provenance differs from exact native/protocol binding')
+    preflight_path=native_path.parent/'preflight.json'
+    source_files=json.loads(preflight_path.read_text())['asset_verification']['source_file_hashes']
+    if not source_files or provenance.get('source_before_sha256')!=source_files or provenance.get('source_after_sha256')!=source_files:
+        raise ValueError('Source bytes changed between native generation and FP32 reference')
+    evidence_manifest_path=native_path.parent/'evidence_manifest.json'
+    native_files=dict(json.loads(evidence_manifest_path.read_text())['files'])
+    essential={'preflight.json','runtime_before_sampling.json','runtime_after_sampling.json','runner.py',
+        'outputs.npz','native_manifest.json','source_domain_report.json','config.json','generation_log.json',
+        'stages.npz','source_hand.urdf','mesh.obj','points.npy','normals.npy','pre_load_checkpoint_gate.json'}
+    if not essential.issubset(native_files):
+        raise ValueError('Original evidence manifest omits required read inputs: '+repr(sorted(essential-set(native_files))))
+    native_files['evidence_manifest.json']=digest(evidence_manifest_path)
+    if provenance.get('original_files_before_sha256')!=native_files or provenance.get('original_files_after_sha256')!=native_files:
+        raise ValueError('Original/default native bundle changed during separate reference export')
+    for name,h in native_files.items():
+        path=helper.child(native_path.parent,{'path':name,'sha256':h})
+        dependencies[str(path.resolve())]=h
+    if digest(native_path.parent/'runner.py')!=protocol['code_sha256']['native_wrapper']:
+        raise ValueError('Native batch wrapper differs from frozen original generation baseline')
+    gate=json.loads((native_path.parent/'pre_load_checkpoint_gate.json').read_text())
+    expected_gate={'status':'PASS_BEFORE_CHECKPOINT_DESERIALIZATION','key_count':794,
+        'all_tensor_shapes_dtypes_exact':True,'all_12_source_schedule_buffers_bitwise_exact':True,
+        'checkpoint_sha256':profile.CHECKPOINT_SHA256,'checkpoint_deserializations':0,
+        'source_profile_id':profile.PROFILE_ID,'metadata_content_sha256':protocol['checkpoint_metadata_content_sha256']}
+    if any(gate.get(k)!=v for k,v in expected_gate.items()):
+        raise ValueError('MultiDex checkpoint pre-deserialization signature/schedule gate missing')
+    config=json.loads(paths['configuration'].read_text())
+    if (log.get('native_model_sample_calls')!=1 or log.get('checkpoint_deserializations')!=1
+            or config.get('checkpoint_state',{}).get('expected_key_count')!=794
+            or config.get('checkpoint_state',{}).get('loaded_key_count')!=794):
+        raise ValueError('Native batch strict state/call accounting changed')
+    for name in ('runtime_before_sampling.json','runtime_after_sampling.json'):
+        runtime=json.loads((native_path.parent/name).read_text())
+        if runtime.get('matmul_allow_tf32') is not True or runtime.get('cudnn_allow_tf32') is not True:
+            raise ValueError('Original generation/default reference TF32 baseline changed')
+    source = audit.model(paths['source_hand']); target = audit.model(args.target_hand_urdf)
+    source_meshes = helper.visual_meshes(source, args.source_assets_root.resolve(), audit, source_runtime=True)
+    default_evidence = default_arrays = default_npz = None
+    mapping_evidence = mapping_arrays = mapping_npz = None
+    if default_path is not None:
+        default_evidence, default_arrays, default_npz = runtime_archive(default_path, log['runtime_reference']['sha256'],
+            manifest=manifest, source=source, source_meshes=source_meshes, helper=helper)
+    if mapping_path is not None:
+        expected_export = {'status':'EXPORTED_NOT_VALIDATED','runtime_reference_sha256':digest(mapping_path),
+            'runtime_arrays_sha256':json.loads(mapping_path.read_text())['arrays']['sha256'],
+            'wrapper_sha256':protocol['code_sha256']['native_wrapper'],'generation_matmul_allow_tf32':True,
+            'generation_cudnn_allow_tf32':True,'reference_matmul_allow_tf32':False,'reference_cudnn_allow_tf32':False,
+            'generator_model_creations':0,'checkpoint_loads':0,'training_calls':0,'evaluation_episodes':0,
+            'NVIDIA_TF32_OVERRIDE':None,'joint_values_policy':'unchanged_native_no_clipping',
+            'native_evidence_manifest_sha256':digest(evidence_manifest_path),
+            'native_source_domain_report_sha256':native_files['source_domain_report.json']}
+        if any(provenance.get(k)!=v for k,v in expected_export.items()):
+            raise ValueError('Declared reference creation/precision accounting mismatch')
+        copied_output=mapping_path.parent/'outputs.npz'
+        if digest(copied_output)!=manifest.output.sha256: raise ValueError('FP32 pose copy changed exact native bytes')
+        dependencies[str(copied_output.resolve())]=manifest.output.sha256
+        mapping_evidence, mapping_arrays, mapping_npz = runtime_archive(mapping_path, batch['fp32_reference']['sha256'],
+            manifest=manifest, source=source, source_meshes=source_meshes, helper=helper, mapping_policy=True, provenance=provenance)
+    elif (provenance.get('status')!='UNRESOLVED_NONFINITE_NATIVE'
+          or provenance.get('native_output_sha256')!=manifest.output.sha256):
+        raise ValueError('Missing FP32 reference needs bound nonfinite-native failure evidence')
+    for path in [native_path, *paths.values(), stage_path, default_path, default_npz, mapping_path, mapping_npz, provenance_path]:
+        if path is None: continue
+        dependencies[str(path.resolve())] = digest(path)
+    for mesh in source_meshes.values(): dependencies[mesh['path']] = mesh['sha256']
+    with np.load(paths['output'], allow_pickle=False) as archive:
+        if set(archive.files)!={'hand_qpos'}: raise ValueError('Unexpected raw native arrays')
+        values = archive['hand_qpos']
+    if values.shape!=(2,33) or values.dtype.kind not in 'fiu': raise ValueError('Raw cohort pose shape/dtype invalid')
+    if not np.array_equal(values,verified_raw_values,equal_nan=True): raise ValueError('Verified raw MultiDex values changed')
+    source_report=json.loads(helper.child(native_path.parent,log['source_domain_report']).read_text())
+    if (source_report.get('unfiltered') is not True or len(source_report.get('samples',[]))!=2
+            or [r.get('sample_index') for r in source_report['samples']]!=[0,1]):
+        raise ValueError('Every original native source-domain row must be retained')
+    if mapping_path is None and np.isfinite(values).all():
+        raise ValueError('Nonfinite-reference failure cannot be declared for all-finite native q')
+    if not np.isfinite(values).all():
+        # The unchanged helper validates a whole two-row reference archive.
+        # Do not compute or silently repair partial geometry in a nonfinite batch.
+        default_arrays = mapping_arrays = None
+    records = []
+    for index, row in enumerate(values):
+        if not np.isfinite(row).all():
+            records.append({'global_sample_index':2*batch_index+index,'batch_index':batch_index,
+                'within_batch_sample_index':index,'seed':expected_seed,'evidence_origin':manifest.evidence_origin,'source_profile_id':manifest.source_profile_id,'checkpoint_sha256':manifest.checkpoint_sha256,
+                'raw_output_sha256':manifest.output.sha256,'nonfinite_component_indices':np.flatnonzero(~np.isfinite(row)).tolist(),
+                'mapping_status':'REJECTED_NONFINITE_POSE','source_limit_violations':[], 'target_limit_violations':[],
+                'limit_checks':'NOT_REPRESENTABLE_NONFINITE_POSE','native_default_runtime_reconstruction':{'status':'UNRESOLVED_NONFINITE_NATIVE'},
+                'fp32_mapping_reference_reconstruction':{'status':'UNRESOLVED_NONFINITE_NATIVE'},
+                'surface_prerequisites_pass':False,'execution_eligible':False,'physical_failure_label':None})
+            continue
+        q = dict(zip(adapter.SOURCE_JOINT_NAMES, row[9:].tolist(), strict=True))
+        source_bad = helper.source_limit_violations(source, q); target_bad = helper.source_limit_violations(target, q)
+        native_bad=[{'joint':r['joint'],'value_rad':r['native_value_rad'],
+                     'source_limits_rad':[r['lower_rad'],r['upper_rad']]} for r in source_bad]
+        if (source_report['samples'][index].get('source_limit_violations')!=native_bad
+                or source_report['samples'][index].get('physical_failure_label') is not None
+                or source_report['samples'][index].get('unfiltered_retained') is not True):
+            raise ValueError('Native source-domain evidence differs from unchanged raw values')
+        frames = audit.independent_fk(source, q)
+        root = np.eye(4); root[:3,:3] = adapter.rotation_from_6d(row[3:9]); root[:3,3] = row[:3]
+        original = {'status':'UNRESOLVED_MISSING_DEFAULT_REFERENCE','reported_runtime_failure':log.get('runtime_reference')}
+        mapping = {'status':'UNRESOLVED_NONFINITE_NATIVE_BATCH','reason':'No per-batch FP32 reference exported; raw rows retained'}
+        if default_arrays is not None:
+            original, _ = helper.runtime_reconstruction(default_arrays, default_evidence, index, frames, root, np.eye(4),
+                source_meshes, TRANSLATION_M, ROTATION_RAD, audit)
+        if mapping_arrays is not None:
+            mapping, _ = helper.runtime_reconstruction(mapping_arrays, mapping_evidence, index, frames, root, np.eye(4),
+                source_meshes, TRANSLATION_M, ROTATION_RAD, audit)
+        record = {'global_sample_index': 2*batch_index+index, 'batch_index': batch_index,
+            'within_batch_sample_index': index, 'seed': expected_seed, 'evidence_origin': manifest.evidence_origin,
+            'source_profile_id':manifest.source_profile_id,'checkpoint_sha256':manifest.checkpoint_sha256,
+            'dataset_name':manifest.dataset_name,'normalizer_source_sha256':manifest.normalizer_source_sha256,
+            'raw_output_sha256': manifest.output.sha256, 'joint_targets_rad': q,
+            'source_limit_violations': source_bad, 'target_limit_violations': target_bad,
+            'native_default_runtime_reconstruction': original, 'fp32_mapping_reference_reconstruction': mapping,
+            'mapping_reference_policy_id': POLICY_ID, 'object_from_forearm': root.tolist(),
+            'object_from_palm': (root@frames['palm']).tolist(), 'execution_eligible': False, 'physical_failure_label': None,
+            'native_manifest': {'path':str(native_path),'sha256':digest(native_path)},
+            'mapping_reference': None if mapping_path is None else {'path':str(mapping_path),'sha256':digest(mapping_path)},
+            'reference_provenance': {'path':str(provenance_path),'sha256':digest(provenance_path)}}
+        if source_bad: record['mapping_status'] = 'REJECTED_SOURCE_LIMIT'
+        elif target_bad: record['mapping_status'] = 'REJECTED_TARGET_LIMIT'
+        else:
+            decoded = adapter.decode_dga_hand_pose(row, object_from_input=np.eye(4), source_hand_urdf=paths['source_hand'])
+            candidate = adapter.map_dga_candidate(decoded, target_hand_urdf=args.target_hand_urdf)
+            target_frames = audit.independent_fk(target, q); target_root = np.asarray(candidate['object_from_target_root'])
+            source_object = {name:root@frame for name,frame in frames.items()}
+            target_object = {name:target_root@frame for name,frame in target_frames.items()}
+            palm_t = float(np.linalg.norm(target_object['palm'][:3,3]-source_object['palm'][:3,3]))
+            palm_r = audit.rotation_distance(target_object['palm'][:3,:3],source_object['palm'][:3,:3])
+            decode_t = float(np.linalg.norm(decoded.object_from_palm[:3,3]-source_object['palm'][:3,3]))
+            decode_r = audit.rotation_distance(decoded.object_from_palm[:3,:3],source_object['palm'][:3,:3])
+            unchanged = candidate['joint_targets_rad'] == q
+            record.update({'mapping_status':'CANDIDATE_ONLY','candidate':candidate,
+                'object_from_target_root_world':target_root.tolist(),'object_from_target_forearm':target_object['forearm'].tolist(),
+                'algebra':{'status':'PASS' if max(palm_t,palm_r,decode_t,decode_r)<=1e-9 and unchanged else 'FAIL',
+                    'palm_translation_residual_m':palm_t,'palm_rotation_residual_rad':palm_r,
+                    'independent_decoder_palm_translation_residual_m':decode_t,'independent_decoder_palm_rotation_residual_rad':decode_r,
+                    'unchanged_joint_values':unchanged,
+                    'per_common_link':{name:{'translation_m':float(np.linalg.norm(source_object[name][:3,3]-target_object[name][:3,3])),
+                        'raw_frame_rotation_rad':audit.rotation_distance(source_object[name][:3,:3],target_object[name][:3,:3])}
+                        for name in sorted(set(source_object)&set(target_object))}}})
+        record['surface_prerequisites_pass'] = bool(stage['status']=='PASS' and mapping['status']=='PASS'
+            and record['mapping_status']=='CANDIDATE_ONLY' and record['algebra']['status']=='PASS')
+        records.append(record)
+    return {'batch_index':batch_index,'seed':expected_seed,'sample_count':2,'standard_batch_loader_rejection':loader_error,
+        'input_identity':{'status':'PASS','cube_surface_residual_m':surface_residual,
+            'paired_face_normal_residual_m':face_residual,'normal_length_residual':normal_residual},
+        'stage_reconstruction':stage,'records':records}
+
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    for name in ('repository','independent-audit','native-helper','cohort-manifest','conditioning-manifest',
+                 'frozen-protocol','target-hand-urdf','source-assets-root','normalizer-source','profile-module','numeric-helper','output'):
+        parser.add_argument('--'+name,type=Path,required=True)
+    for name in ('cohort-manifest-sha256','conditioning-manifest-sha256','frozen-protocol-sha256'):
+        parser.add_argument('--'+name,required=True)
+    args=parser.parse_args()
+    if args.output.exists(): raise FileExistsError('Preserved evidence is never overwritten')
+    protocol=bound_json(args.frozen_protocol,args.frozen_protocol_sha256)
+    numeric=load_module('dga_multidex_numeric_checks',args.numeric_helper.resolve())
+    numeric.require_protocol(protocol)
+    expected={'surface_selection_policy':protocol['surface_selection_policy']}
+    if args.conditioning_manifest_sha256!=protocol['conditioning_manifest_sha256']:
+        raise ValueError('Conditioning pin differs from frozen cohort')
+    sys.path.insert(0,str(args.repository.resolve()/'src'))
+    profile=load_module('dga_multidex_export_profile',args.profile_module.resolve())
+    adapter=profile.original
+    audit=load_module('dga_cohort_independent_fk',args.independent_audit.resolve())
+    helper=load_module('dga_cohort_native_helper',args.native_helper.resolve())
+    code_paths={'cohort_validator':Path(__file__).resolve(),'profile':args.profile_module.resolve(),
+                'numeric_helper':args.numeric_helper.resolve(),'native_helper':args.native_helper.resolve(),
+                'adapter':Path(adapter.__file__).resolve(),'independent_fk':args.independent_audit.resolve(),
+                'offline_worker':args.profile_module.resolve().with_name('inspect_multidex_export.py')}
+    for key,path in code_paths.items():
+        if digest(path)!=protocol['code_hashes'].get(key): raise ValueError('Frozen MultiDex code changed: '+key)
+    if digest(args.target_hand_urdf)!=adapter.TARGET_URDF_SHA256 or digest(args.normalizer_source)!=profile.NORMALIZER_SHA256:
+        raise ValueError('Pinned target or normalizer changed')
+    cohort=bound_json(args.cohort_manifest,args.cohort_manifest_sha256)
+    numeric.require_identity(cohort)
+    if (cohort.get('schema_version')!='dga_multidex_cohort_v1' or cohort.get('status')!='COMPLETE'
+            or cohort.get('batch_count')!=2 or cohort.get('sample_count')!=4 or cohort.get('native_model_sample_calls')!=2
+            or cohort.get('mapping_reference_policy_id')!=POLICY_ID):
+        raise ValueError('Exact fixed cohort schedule/reference policy required')
+    batches=cohort.get('batches',[])
+    if [batch.get('batch_index') for batch in batches]!=list(range(2)):
+        raise ValueError('Every fixed scheduled batch must be present exactly once in original order')
+    if any(batch.get('global_sample_indices')!=[2*i,2*i+1] for i,batch in enumerate(batches)):
+        raise ValueError('Global original sample indices differ from frozen schedule')
+    if cohort.get('protocol_sha256')!=args.frozen_protocol_sha256 or cohort.get('reference_precision_policy')!=protocol['reference_precision_policy']:
+        raise ValueError('Cohort binding differs from pre-cohort freeze')
+    cohort_log_path=child(args.cohort_manifest.parent,cohort['generation_log'])
+    cohort_log=json.loads(cohort_log_path.read_text())
+    numeric.require_identity(cohort_log)
+    expected_log={'schema_version':'dga_multidex_cohort_generation_log_v1','batches':batches,
+        'protocol_sha256':args.frozen_protocol_sha256,'code_sha256':protocol['code_sha256'],
+        'sample_count':4,'native_model_sample_calls':2,'checkpoint_deserializations':2,
+        'generation_matmul_allow_tf32':True,'generation_cudnn_allow_tf32':True,
+        'reference_precision_policy':protocol['reference_precision_policy'],'physics_steps':0,
+        'training_calls':0,'evaluation_episodes':0,'resampling_attempts':0,
+        'selection_policy':'all_raw_retained_no_generation_selection_or_early_stop'}
+    if any(cohort_log.get(k)!=v for k,v in expected_log.items()):
+        raise ValueError('Cohort generation log does not bind exact original fixed schedule')
+    dependencies={str(path.resolve()):digest(path) for path in [*code_paths.values(),args.frozen_protocol,
+        args.cohort_manifest,cohort_log_path,args.conditioning_manifest,args.target_hand_urdf,args.normalizer_source]}
+    results=[validate_batch(batch,args.cohort_manifest.parent,protocol,args,profile,numeric,adapter,audit,helper,dependencies) for batch in batches]
+    records=[row for result in results for row in result['records']]
+    if [row['global_sample_index'] for row in records]!=list(range(4)): raise ValueError('Incomplete raw-row accounting')
+    selected=numeric.selection(records)
+    for row in records:
+        row['selected_for_bounded_surface'] = row['global_sample_index'] in selected
+        row['surface_disposition'] = ('SELECTED_PREREQUISITES_PASS' if row['surface_prerequisites_pass'] else 'SELECTED_BLOCKED_PREREQUISITES_FAIL') if row['selected_for_bounded_surface'] else 'NOT_SELECTED_FIXED_DOMAIN_ORDER_POLICY'
+    changed=[path for path,h in dependencies.items() if digest(path)!=h]
+    if changed: raise ValueError('Dependency changed during CPU validation: '+repr(changed))
+    report={'source_profile_id':profile.PROFILE_ID,'checkpoint_sha256':profile.CHECKPOINT_SHA256,
+        'dataset_name':profile.DATASET_NAME,'normalizer_source_sha256':profile.NORMALIZER_SHA256,
+        'schema_version':'dga_multidex_cohort_static_check_v1','created_at_utc':datetime.now(timezone.utc).isoformat(),
+        'cohort_manifest_sha256':args.cohort_manifest_sha256,'protocol_sha256':args.frozen_protocol_sha256,
+        'sample_count':4,'global_sample_indices':list(range(4)),'batches':results,'records':records,
+        'surface_selection':{'policy':expected['surface_selection_policy'],'selected_global_indices':selected,
+            'selected_count':len(selected),'backfill_after_prerequisite_failure':False,
+            'all_selected_prerequisites_pass':all(records[i]['surface_prerequisites_pass'] for i in selected)},
+        'accounting':{status:sum(row['mapping_status']==status for row in records) for status in
+            ('REJECTED_SOURCE_LIMIT','REJECTED_TARGET_LIMIT','REJECTED_NONFINITE_POSE','CANDIDATE_ONLY')},
+        'dependency_sha256':dependencies,
+        'zero_step_evidence':{'native_inference_calls':0,'checkpoint_loads':0,'physics_steps':0,'surface_proximity_queries':0,
+            'evaluation_episodes':0,'task_labels':0,'training_calls':0},
+        'scope':{'original_default_reference':'Preserved and independently reported, even when FAIL',
+            'new_fp32_reference':'Separate explicit new-cohort geometric reference policy; cannot relabel old/default references',
+            'raw_rotation_metric':'Existing unprojected matrix angle proxy retained, not a certified SO(3) geodesic for nonorthogonal default TF32 matrices; no projection or repair',
+            'scientific_adequacy':'UNRESOLVED','separate_checkpoint_profile':'Does not replace or revise original DexGraspNet results','compiled_collision':'NOT_TESTED','physical_equivalence':'NOT_TESTED',
+            'execution_eligible':False,'all_raw_rows':'Exact original bundle archives retained, no clipping/resampling/optimization'}}
+    args.output.mkdir(parents=True)
+    (args.output/'multidex_validation_report.json').write_text(json.dumps(report,indent=2,allow_nan=False)+'\n')
+    print(json.dumps({'output':str(args.output.resolve()),'sample_count':4,'accounting':report['accounting'],
+        'selected_global_indices':selected,'execution_eligible':False},indent=2))
+
+
+if __name__=='__main__': main()

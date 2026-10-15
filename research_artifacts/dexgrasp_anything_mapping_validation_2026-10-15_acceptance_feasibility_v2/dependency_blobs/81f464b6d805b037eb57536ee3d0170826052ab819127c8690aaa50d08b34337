@@ -1,0 +1,8 @@
+from pathlib import Path
+import hashlib,json
+O=Path('/private/tmp/dga_surface_preserving_20261015_v1/validation');N=Path('/private/tmp/dga_feasible_surface_20261015_v1/validation')
+code=(O/'validate_surface_candidate_visual.py').read_text();old=json.loads((O/'visual_policy_frozen_v1.json').read_text());assert 'sha256:'+hashlib.sha256(code.encode()).hexdigest()==old['code_sha256']
+code=code.replace('np.arange(side)+2/7','np.arange(side)+OFFSET_U').replace('np.arange(side)+3/7','np.arange(side)+2/7').replace('OFFSET_U','3/7').replace("[2/7,3/7]","[3/7,2/7]").replace('dga_surface_visual_acceptance_policy_v1','dga_feasible_visual_acceptance_policy_v1').replace('dga_surface_visual_acceptance_report_v1','dga_feasible_visual_acceptance_report_v1').replace('separate_native_relative_surface_fit_v1','separate_feasible_native_relative_surface_fit_v1')
+(N/'validate_surface_candidate_visual.py').write_text(code)
+test=(O/'test_acceptance_validator.py').read_text().replace('[2/7,3/7]','[3/7,2/7]')
+(N/'test_acceptance_validator.py').write_text(test)

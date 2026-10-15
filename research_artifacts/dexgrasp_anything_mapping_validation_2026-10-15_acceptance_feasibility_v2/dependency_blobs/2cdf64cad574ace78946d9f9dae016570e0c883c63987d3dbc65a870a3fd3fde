@@ -1,0 +1,45 @@
+import importlib.util
+from pathlib import Path
+import sys
+import numpy as np
+import pytest
+
+ROOT=Path('/private/tmp/dga_multidex_20261015_v1/rejected_algebra_v1')
+s=importlib.util.spec_from_file_location('rejected_math',ROOT/'audit_domain_rejected_algebra.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+sys.path.insert(0,'/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src')
+from grasp_failure_prediction.proposals import dexgrasp_anything as base
+SOURCE=Path('/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/urdf/shadowhand.urdf')
+TARGET=Path('/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf')
+
+def example():
+ q=dict.fromkeys(base.SOURCE_JOINT_NAMES,0.);q.update(WRJ2=.12,WRJ1=-.16,THJ1=-.4)
+ R=np.array([[0.,-1.,0.],[1.,0.,0.],[0.,0.,1.]])
+ row=np.r_[[.07,-.02,.1],R[:,0],R[:,1],list(q.values())]
+ sf=base.DGAHandTree(SOURCE,base.SOURCE_URDF_SHA256).forward(q,check_limits=False)
+ tf=base.DGAHandTree(TARGET,base.TARGET_URDF_SHA256).forward(q,check_limits=False)
+ return q,row,sf,tf
+
+def test_outside_angle_is_not_clamped_or_accepted():
+ q,row,sf,tf=example();before=row.tobytes();result=m.transfer(row,sf,tf,base,np.eye(4))
+ assert row.tobytes()==before and row[-1]==q['THJ1']==-.4 and result['execution_eligible'] is False
+ with pytest.raises(base.DGAContractError,match='outside'):
+  base.decode_dga_hand_pose(row,object_from_input=np.eye(4),source_hand_urdf=SOURCE)
+
+def test_nonzero_wrists_world_and_forearm_palm_recovery():
+ _,row,sf,tf=example();result=m.transfer(row,sf,tf,base,np.eye(4))
+ world=result['object_from_target_root_world'];forearm=result['object_from_target_forearm'];palm=result['object_from_palm']
+ assert np.max(np.abs(world@tf['palm']-palm))<1e-14
+ assert np.max(np.abs(forearm@np.linalg.inv(tf['forearm'])@tf['palm']-palm))<1e-14
+ assert not np.allclose(world,forearm)
+ assert np.max(np.abs(result['palm_from_object']@palm-np.eye(4)))<1e-14
+
+@pytest.mark.parametrize('case',['nan','degenerate6d','scaled_input'])
+def test_malformed_coordinates_are_refused_not_repaired(case):
+ _,row,sf,tf=example();obj=np.eye(4)
+ if case=='nan':row[-1]=np.nan
+ if case=='degenerate6d':row[3:9]=0.
+ if case=='scaled_input':obj[0,0]=2.
+ with pytest.raises((ValueError,base.DGAContractError)):m.transfer(row,sf,tf,base,obj)
+
+def test_no_model_or_physics_imported():
+ assert not {'torch','mujoco','isaacgym','envs','pybullet'}&set(sys.modules)

@@ -1,0 +1,102 @@
+"""Generic actual-input FK/geometry callbacks for the component corrector.
+
+No global sample IDs or development reports enter the reusable context. The
+caller validates native profile/export provenance and freezes module/asset pins.
+"""
+import hashlib
+from pathlib import Path
+import numpy as np
+
+class MappingContext:
+ def __init__(self,*,raw33,object_from_input,source_urdf,target_urdf,target_assets_root,source_runtime_npz,source_sample_index,queries_object_m,base,audit,geometry,legacy,mesh_helper):
+  raw=np.asarray(raw33)
+  if raw.shape!=(33,) or raw.dtype!=np.float64 or not np.isfinite(raw).all():raise ValueError('Authentic finite float64 raw33 required')
+  self.raw=raw.copy();self.raw_bytes=self.raw.tobytes();self.raw.setflags(write=False)
+  self.base,self.audit,self.geometry,self.legacy=base,audit,geometry,legacy
+  self.names=base.SOURCE_JOINT_NAMES;self.fingers=tuple(n for n in self.names if not n.startswith('WRJ'))
+  self.st=base.DGAHandTree(Path(source_urdf),base.SOURCE_URDF_SHA256);self.tt=base.DGAHandTree(Path(target_urdf),base.TARGET_URDF_SHA256)
+  self.source_model=audit.model(Path(source_urdf));self.target_model=audit.model(Path(target_urdf))
+  native=base.decode_dga_hand_pose(raw,object_from_input=object_from_input,source_hand_urdf=Path(source_urdf));self.qsource=dict(native.joint_targets_rad)
+  self.source_root=native.object_from_forearm.copy();self.source_palm=native.object_from_palm.copy();self.source_frames=self.st.forward(self.qsource)
+  independent=audit.independent_fk(self.source_model,self.qsource)
+  if max(np.max(np.abs(independent[n]-self.source_frames[n])) for n in independent)>1e-9:raise ValueError('Source independent FK disagreement')
+  for n in ['WRJ2','WRJ1']:
+   limit=self.target_model['joints'][n]['limit']
+   if not limit['lower']<=self.qsource[n]<=limit['upper']:raise ValueError('Original wrist outside target domain; never substitute')
+  self.sites=['palm']+sorted(n for n in self.source_model['links'] if n in self.target_model['links'] and n.startswith(('ff','mf','rf','lf','th')))
+  if len(self.sites)!=28:raise ValueError('Exact28site intersection required')
+  self.queries=np.array(queries_object_m,dtype=np.float64,copy=True)
+  if self.queries.ndim!=2 or self.queries.shape[1]!=3 or not np.isfinite(self.queries).all() or len(self.queries)>856 or len(self.queries)<600:raise ValueError('Frozen600center+max256pooled witness queries required')
+  if np.any(np.abs(self.queries)>.025) or not np.all(np.any(np.abs(self.queries)==.025,axis=1)):raise ValueError('All fitting points on exact registered50mm cube')
+  self.queries.setflags(write=False)
+  self.backend=geometry.build_backend(source_runtime_npz=Path(source_runtime_npz),source_sample_index=source_sample_index,target_urdf=Path(target_urdf),target_assets_root=Path(target_assets_root),independent_fk_module=audit,mesh_helper_module=mesh_helper,source_urdf=Path(source_urdf))
+  self.source_geometry_identity=self.source_identity()
+  for matrix in [self.source_root,self.source_palm,*self.source_frames.values()]:matrix.setflags(write=False)
+  self.source_fields=None;self.source_field_bytes=None;self.query_counts={'source_full_field_initializations':0,'target_complete_dispatches':0,'target_partial_dispatches':0}
+ def field_values(self,value,parts):
+  if isinstance(value,dict):
+   if value.get('cap_m')!=.004 or tuple(value.get('parts',()))!=tuple(parts):raise ValueError('Backend witness parts/cap mismatch')
+   value=value['distance_m']
+  return self.legacy.field_matrix(value,len(self.queries),len(parts))
+ def initialize_source_fields(self):
+  visual=self.field_values(self.backend.source_fields(self.queries,.004),self.backend.parts)
+  signed,_=self.backend.palm_signed_fields(self.source_palm,self.source_palm,self.queries,.004)
+  a=np.column_stack([visual,signed]).astype(np.float64,copy=False)
+  if a.shape!=(len(self.queries),8) or not np.isfinite(a).all():raise ValueError('Invalid complete source fields')
+  self.source_fields=a;self.source_field_bytes=a.tobytes();a.setflags(write=False);self.query_counts['source_full_field_initializations']+=1
+  return a
+ def certify_payload(self,state):
+  q=state['q'];x=np.asarray(state['variables'])
+  if x.shape!=(28,) or not np.isfinite(x).all() or not np.array_equal(x[:22],np.array([q[n] for n in self.fingers])):raise ValueError('Variables/namedq binding')
+  frames=self.tt.forward(q);independent=self.audit.independent_fk(self.target_model,q)
+  parameter_palm,parameter_delta=self.legacy.transform_from_variables(self.source_palm,x[22:25],x[25:28])
+  if max(np.max(np.abs(parameter_palm-state['palm'])),np.max(np.abs(parameter_delta-state['delta'])))>1e-9:raise ValueError('Initial/trial variables-to-actualpalm binding')
+  if any(q[n]!=self.qsource[n] for n in ['WRJ2','WRJ1']):raise ValueError('Original wrist changed')
+  for k in ['palm','root','forearm','delta']:self.base.proper_transform(state[k])
+  fk=max(float(np.max(np.abs(frames[n]-independent[n]))) for n in frames)
+  chain=max(float(np.max(np.abs(state['root']@frames['palm']-state['palm']))),float(np.max(np.abs(state['root']@frames['forearm']-state['forearm']))),float(np.max(np.abs(self.source_palm@state['delta']-state['palm']))))
+  if max(fk,chain)>1e-9:raise ValueError('Independent FK/root-world/palm/actualforearm chain')
+  errors=np.stack([(state['root']@frames[n])[:3,3]-(self.source_root@self.source_frames[n])[:3,3] for n in self.sites])
+  state.update(landmark_metrics=self.legacy.landmark_metrics(errors),errors_m=errors,target_fk_max_entry=fk,palm_chain_max_entry=chain,strict_domain_valid=True,original_wrists_preserved=True,rigid_frames_valid=True,independent_fk_valid=True)
+  return state
+ def make_state(self,x,current,block):
+  state={'variables':np.array(x,dtype=np.float64,copy=True),'strict_domain_valid':False,'original_wrists_preserved':False,'rigid_frames_valid':False,'independent_fk_valid':False}
+  try:
+   if state['variables'].shape!=(28,) or not np.isfinite(x).all():raise ValueError('Finite28variables required')
+   q=dict(self.qsource);q.update(zip(self.fingers,np.asarray(x[:22]).tolist(),strict=True));frames=self.tt.forward(q)
+   if block=='palm':palm,delta=self.legacy.transform_from_variables(self.source_palm,x[22:25],x[25:28])
+   else:palm=current['palm'].copy();delta=current['delta'].copy()
+   root=palm@np.linalg.inv(frames['palm']);state.update(q=q,palm=palm,delta=delta,root=root,forearm=root@frames['forearm'])
+   return self.certify_payload(state)
+  except ValueError as exc:state['refusal_reason']=str(exc);return state
+ def evaluate_fields(self,state,current=None,block=None):
+  if not state.get('strict_domain_valid') or not state.get('rigid_frames_valid'):raise ValueError('Cannot query invalid-domain/nonrigid geometry')
+  names=('palm','index','middle','ring','little','thumb','wrist_carrier')
+  if current is not None and block in names and block!='palm':
+   # Finger q changes cannot move another branch or the retained exactpalm.
+   for k in ['palm','delta']:
+    if state[k].dtype!=current[k].dtype or state[k].tobytes()!=current[k].tobytes():raise ValueError('Partialfield cache requires exact unchangedpalm')
+   for n in self.names:
+    if not n.startswith({'index':'FF','middle':'MF','ring':'RF','little':'LF','thumb':'TH'}[block]) and state['q'][n]!=current['q'][n]:raise ValueError('Partialfield cache changed another finger/wrist')
+   out=current['fields'].copy();out[:,names.index(block)]=self.field_values(self.backend.target_fields(np.array([state['q'][n] for n in self.names]),state['palm'],self.queries,.004,parts=[block]),[block])[:,0];self.query_counts['target_partial_dispatches']+=1
+  else:
+   visual=self.field_values(self.backend.target_fields(np.array([state['q'][n] for n in self.names]),state['palm'],self.queries,.004),names)
+   source_signed,target_signed=self.backend.palm_signed_fields(self.source_palm,state['palm'],self.queries,.004)
+   if self.source_fields is not None and not np.array_equal(source_signed,self.source_fields[:,7]):raise ValueError('Source signed field changed')
+   out=np.column_stack([visual,target_signed]).astype(np.float64,copy=False);self.query_counts['target_complete_dispatches']+=1
+  if not np.isfinite(out).all() or out.shape!=(len(self.queries),8):raise ValueError('Complete finite field contract')
+  self.verify_immutable_source()
+  return out
+ def variable_bounds(self,caps):
+  result=np.array([[self.target_model['joints'][n]['limit']['lower'],self.target_model['joints'][n]['limit']['upper']] for n in self.fingers]+[[-caps['maximum_site_error_m']*1000,caps['maximum_site_error_m']*1000]]*3+[[-np.pi,np.pi]]*3,dtype=np.float64)
+  return result
+ def source_identity(self):
+  h=hashlib.sha256();h.update(np.array([self.qsource[n] for n in self.names],dtype=np.float64).tobytes());h.update(self.source_root.tobytes());h.update(self.source_palm.tobytes())
+  for n in sorted(self.source_frames):h.update(n.encode());h.update(self.source_frames[n].tobytes())
+  return h.hexdigest()
+ def verify_immutable_source(self):
+  if self.source_identity()!=self.source_geometry_identity:raise ValueError('Native sourcejoint/frame identity changed')
+  if self.raw.tobytes()!=self.raw_bytes or (self.source_fields is not None and self.source_fields.tobytes()!=self.source_field_bytes):raise ValueError('Immutable nativeq/sourcefield payload changed')
+ def export_pose_payload(self,state):
+  self.certify_payload(state);self.verify_immutable_source()
+  return {'source_hand_qpos':self.raw.copy(),'target_joint_values':np.array([state['q'][n] for n in self.names]),'object_from_source_forearm':self.source_root.copy(),'object_from_source_palm':self.source_palm.copy(),'object_from_target_palm':state['palm'].copy(),'object_from_target_root_world':state['root'].copy(),'object_from_target_forearm':state['forearm'].copy(),'source_palm_from_target_palm':state['delta'].copy()}

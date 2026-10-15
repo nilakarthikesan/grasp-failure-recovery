@@ -1,0 +1,469 @@
+#!/usr/bin/env python3
+"""Independent, zero-step DGA URDF diagnostic; never imports the model/simulator.
+
+The pose cohort is manufactured (zero + 64 seeded uniform shared-limit states).
+PASS means only the named scoped check passed, never accepted native mapping.
+Mesh parsing only reads OBJ vertices/faces and material references. No surface
+sampling, nearest-neighbor queries, mesh Boolean operations, physics or inference.
+"""
+from __future__ import annotations
+
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import json
+from pathlib import Path
+import shlex
+import sys
+import xml.etree.ElementTree as ET
+
+import numpy as np
+
+SEED = 20261014
+COUNT_RANDOM = 64
+NUMERICAL_ATOL = 1e-9
+LIMIT_ATOL_RAD = 1e-10
+# Pinned HandModel applies pts[:, [0,2,1]], then negates column 1.
+# Column-vector form: [x,y,z] -> [x,-z,y] = Rx(+pi/2).
+SHADOW_MESH_PRE_ROTATION = np.array([[1., 0., 0.], [0., 0., -1.], [0., 1., 0.]])
+
+
+def sha256(path):
+    digest = hashlib.sha256()
+    with Path(path).open('rb') as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b''):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def file_record(path):
+    path = Path(path).resolve()
+    return {'path': str(path), 'exists': path.is_file(),
+            'sha256': sha256(path) if path.is_file() else None,
+            'bytes': path.stat().st_size if path.is_file() else None}
+
+
+def numbers(text, default=(0., 0., 0.)):
+    values = np.asarray(default if text is None else [float(v) for v in text.split()], dtype=float)
+    if values.shape != (3,) or not np.isfinite(values).all():
+        raise ValueError(f'Expected three finite coordinates, got {text!r}')
+    return values
+
+
+def euler_matrix(rpy):
+    r, p, y = rpy
+    cr, sr, cp, sp, cy, sy = np.cos(r), np.sin(r), np.cos(p), np.sin(p), np.cos(y), np.sin(y)
+    return np.array([[cy*cp, cy*sp*sr-sy*cr, cy*sp*cr+sy*sr],
+                     [sy*cp, sy*sp*sr+cy*cr, sy*sp*cr-cy*sr],
+                     [-sp, cp*sr, cp*cr]])
+
+
+def axis_rotation(axis, angle):
+    norm = float(np.linalg.norm(axis))
+    if norm == 0:
+        raise ValueError('Zero revolute axis')
+    x, y, z = axis / norm
+    skew = np.array([[0., -z, y], [z, 0., -x], [-y, x, 0.]])
+    return np.eye(3) + np.sin(angle)*skew + (1.-np.cos(angle))*(skew @ skew)
+
+
+def origin(element):
+    xyz = numbers(element.get('xyz') if element is not None else None)
+    rpy = numbers(element.get('rpy') if element is not None else None)
+    transform = np.eye(4)
+    transform[:3, :3], transform[:3, 3] = euler_matrix(rpy), xyz
+    return xyz, rpy, transform
+
+
+def model(path):
+    root = ET.parse(path).getroot()
+    links = {element.attrib['name']: element for element in root.findall('link')}
+    joints = {}
+    for element in root.findall('joint'):
+        name = element.attrib['name']
+        xyz, rpy, transform = origin(element.find('origin'))
+        axis_element = element.find('axis')
+        axis = numbers(axis_element.get('xyz') if axis_element is not None else None, (1., 0., 0.))
+        limit = element.find('limit')
+        limits = None if limit is None else {key: float(value) for key, value in limit.attrib.items()}
+        joints[name] = {'name': name, 'type': element.attrib['type'],
+                        'parent': element.find('parent').attrib['link'],
+                        'child': element.find('child').attrib['link'],
+                        'origin_xyz_m': xyz.tolist(), 'origin_rpy_rad': rpy.tolist(),
+                        'origin_matrix': transform.tolist(), 'axis': axis.tolist(),
+                        'axis_norm': float(np.linalg.norm(axis)), 'limit': limits,
+                        'mimic': None if element.find('mimic') is None else dict(element.find('mimic').attrib)}
+    children = [joint['child'] for joint in joints.values()]
+    if len(set(children)) != len(children):
+        raise ValueError('Multiple joints parent one link')
+    roots = sorted(set(links) - set(children))
+    if len(roots) != 1:
+        raise ValueError(f'Expected one connected root, got {roots}')
+    if any(joint['mimic'] for joint in joints.values()):
+        raise ValueError('Mimic semantics are outside this DGA diagnostic')
+    return {'path': Path(path).resolve(), 'links': links, 'joints': joints, 'root': roots[0]}
+
+
+def independent_fk(robot, q):
+    """Topological URDF FK written here, independent of repository FK helpers."""
+    transforms = {robot['root']: np.eye(4)}
+    remaining = dict(robot['joints'])
+    while remaining:
+        progressed = False
+        for name, joint in list(remaining.items()):
+            if joint['parent'] not in transforms:
+                continue
+            local = np.array(joint['origin_matrix'])
+            if joint['type'] in ('continuous', 'revolute'):
+                local[:3, :3] = local[:3, :3] @ axis_rotation(np.array(joint['axis']), q.get(name, 0.))
+            elif joint['type'] == 'prismatic':
+                local[:3, 3] += local[:3, :3] @ (np.array(joint['axis']) * q.get(name, 0.))
+            elif joint['type'] != 'fixed':
+                raise ValueError(f'Unsupported joint type {joint["type"]}')
+            transforms[joint['child']] = transforms[joint['parent']] @ local
+            del remaining[name]
+            progressed = True
+        if not progressed:
+            raise ValueError('Disconnected or cyclic URDF')
+    if set(transforms) != set(robot['links']):
+        raise ValueError('FK did not cover every declared link')
+    return transforms
+
+
+def rotation_distance(a, b):
+    residual = a.T @ b
+    sine = .5 * np.linalg.norm([residual[2, 1]-residual[1, 2], residual[0, 2]-residual[2, 0], residual[1, 0]-residual[0, 1]])
+    cosine = .5 * (np.trace(residual)-1.)
+    return float(np.arctan2(sine, np.clip(cosine, -1., 1.)))
+
+
+def joint_diagnostic(source, target):
+    sj, tj = source['joints'], target['joints']
+    sa = sorted(name for name, joint in sj.items() if joint['type'] in ('revolute', 'continuous', 'prismatic'))
+    ta = sorted(name for name, joint in tj.items() if joint['type'] in ('revolute', 'continuous', 'prismatic'))
+    shared = sorted(set(sa) & set(ta))
+    ranges, rows, outside, rounding = {}, [], [], []
+    for name in sorted(set(sj) & set(tj)):
+        a, b = sj[name], tj[name]
+        numeric = {}
+        for field in ('origin_xyz_m', 'origin_rpy_rad', 'origin_matrix', 'axis'):
+            delta = np.array(b[field]) - np.array(a[field])
+            numeric[field] = {'target_minus_source': delta.tolist(),
+                              'equal_with_numerical_atol': bool(np.max(np.abs(delta)) <= NUMERICAL_ATOL)}
+        limit_keys = sorted(set(a['limit'] or {}) | set(b['limit'] or {}))
+        numeric['limit'] = {key: {'source': (a['limit'] or {}).get(key), 'target': (b['limit'] or {}).get(key),
+                                    'target_minus_source': None if key not in (a['limit'] or {}) or key not in (b['limit'] or {}) else b['limit'][key]-a['limit'][key]}
+                            for key in limit_keys}
+        differences = [field for field in ('type', 'parent', 'child', 'origin_xyz_m', 'origin_rpy_rad', 'axis', 'limit') if a[field] != b[field]]
+        row = {'joint': name, 'source': a, 'target': b, 'different_fields_exact': differences,
+               'numeric_differences': numeric,
+               'origin_rotation_discrepancy_rad': rotation_distance(np.array(a['origin_matrix'])[:3, :3], np.array(b['origin_matrix'])[:3, :3])}
+        if name in shared:
+            if a['type'] != 'revolute' or b['type'] != 'revolute':
+                raise ValueError('This diagnostic requires finite revolute domains')
+            limits_a, limits_b = a['limit'], b['limit']
+            bounds = [max(limits_a['lower'], limits_b['lower']), min(limits_a['upper'], limits_b['upper'])]
+            if bounds[0] > bounds[1] or not np.isfinite(bounds).all():
+                raise ValueError(f'No finite shared limit interval for {name}')
+            ranges[name] = bounds
+            for end in ('lower', 'upper'):
+                value = limits_a[end]
+                excess = max(limits_b['lower']-value, value-limits_b['upper'], 0.)
+                if excess:
+                    witness = {'joint': name, 'source_endpoint': end, 'source_value_rad': value,
+                               'target_lower_rad': limits_b['lower'], 'target_upper_rad': limits_b['upper'],
+                               'outside_target_by_rad': excess,
+                               'proposed_action': 'REJECT; no silent clamp or angle preconditioning'}
+                    (outside if excess > LIMIT_ATOL_RAD else rounding).append(witness)
+        rows.append(row)
+    return {'source_active_joint_order_urdf': [name for name in sj if name in sa],
+            'target_active_joint_order_urdf': [name for name in tj if name in ta],
+            'sampling_joint_order': shared, 'source_active_joint_count': len(sa), 'target_active_joint_count': len(ta),
+            'source_only_active_joints': sorted(set(sa)-set(ta)), 'target_only_active_joints': sorted(set(ta)-set(sa)),
+            'source_only_all_joints': sorted(set(sj)-set(tj)), 'target_only_all_joints': sorted(set(tj)-set(sj)),
+            'all_common_joint_comparisons': rows, 'shared_limit_ranges_rad': ranges,
+            'unrepresentable_source_limit_examples': outside, 'sub_tolerance_limit_rounding_examples': rounding,
+            'exact_joint_identity': 'PASS' if all(not row['different_fields_exact'] for row in rows) and set(sj) == set(tj) else 'FAIL',
+            'source_domain_representable_without_clipping': 'FAIL' if outside else 'PASS',
+            'domain_check_rounding_tolerance_rad': LIMIT_ATOL_RAD}
+
+
+def resolve_mesh(uri, urdf, assets_root):
+    if uri.startswith('package://'):
+        package, relative = uri[len('package://'):].split('/', 1)
+        candidates = [assets_root / relative, assets_root / package / relative]
+    elif uri.startswith('file://'):
+        candidates = [Path(uri[len('file://'):])]
+    elif '://' in uri:
+        return {'uri': uri, 'exists': False, 'sha256': None, 'resolution': 'unsupported URI scheme; no network', 'candidates': []}
+    else:
+        relative = Path(uri)
+        candidates = [relative] if relative.is_absolute() else [assets_root / relative, urdf.parent / relative]
+    candidates = list(dict.fromkeys(path.resolve() for path in candidates))
+    existing = [path for path in candidates if path.is_file()]
+    record = file_record(existing[0] if existing else candidates[0])
+    record.update({'uri': uri, 'candidates': [str(path) for path in candidates],
+                   'existing_candidate_paths': [str(path) for path in existing],
+                   'resolution': 'first existing explicit root candidate' if existing else 'missing'})
+    return record
+
+
+def obj_vertices(path):
+    vertices, faces, material_files = [], 0, []
+    with path.open('r', encoding='utf-8', errors='replace') as handle:
+        for line in handle:
+            split = line.strip().split()
+            if not split:
+                continue
+            if split[0] == 'v':
+                vertices.append([float(v) for v in split[1:4]])
+            elif split[0] == 'f':
+                faces += 1
+            elif split[0] == 'mtllib':
+                material_files.extend(shlex.split(line.strip())[1:])
+    values = np.asarray(vertices, dtype=float)
+    if values.ndim != 2 or values.shape[1] != 3 or not np.isfinite(values).all():
+        raise ValueError(f'No finite OBJ vertices: {path}')
+    dependencies = []
+    for name in material_files:
+        mtl = (path.parent / name).resolve()
+        dependencies.append({'kind': 'OBJ material library', **file_record(mtl)})
+        if mtl.is_file():
+            for line in mtl.read_text(errors='replace').splitlines():
+                tokens = shlex.split(line, comments=True)
+                if tokens and (tokens[0].startswith('map_') or tokens[0] in ('bump', 'disp', 'decal', 'norm')):
+                    # The pinned assets use a final filename token; preserve the
+                    # original declaration so options/ambiguity remain visible.
+                    dependencies.append({'kind': 'MTL texture', 'declaration': line,
+                                         **file_record(mtl.parent / tokens[-1])})
+    return values, faces, dependencies
+
+
+def bounds(values):
+    return {'lower_m': values.min(axis=0).tolist(), 'upper_m': values.max(axis=0).tolist()}
+
+
+def primitive_bounds(kind, parameters, rotation, translation):
+    if kind == 'box':
+        extent = np.abs(rotation) @ (np.array(parameters['size_m']) / 2.)
+    elif kind == 'sphere':
+        extent = np.full(3, parameters['radius_m'])
+    elif kind == 'cylinder':
+        extent = parameters['radius_m'] * np.sqrt(rotation[:, 0]**2 + rotation[:, 1]**2) + parameters['length_m']/2. * np.abs(rotation[:, 2])
+    else:
+        return None
+    return {'lower_m': (translation-extent).tolist(), 'upper_m': (translation+extent).tolist()}
+
+
+def asset_diagnostic(robot, assets_root, source_runtime=False):
+    entries, cache = [], {}
+    for link, element in robot['links'].items():
+        for role in ('visual', 'collision'):
+            for index, declaration in enumerate(element.findall(role)):
+                xyz, rpy, transform = origin(declaration.find('origin'))
+                geometry = declaration.find('geometry')
+                if geometry is None or len(geometry) != 1:
+                    raise ValueError(f'Expected one geometry for {link}/{role}/{index}')
+                shape = geometry[0]
+                record = {'link': link, 'role': role, 'index': index, 'shape': shape.tag,
+                          'geometry_name': geometry.get('name'), 'origin_xyz_m': xyz.tolist(),
+                          'origin_rpy_rad': rpy.tolist(), 'origin_matrix': transform.tolist(),
+                          'source_runtime_selected_first_visual': bool(source_runtime and role == 'visual' and index == 0),
+                          'link_local_urdf_bounds_m': None, 'link_local_source_runtime_bounds_m': None}
+                rotation = transform[:3, :3]
+                if shape.tag == 'mesh':
+                    scale = numbers(shape.get('scale'), (1., 1., 1.))
+                    asset = resolve_mesh(shape.attrib['filename'], robot['path'], assets_root)
+                    record.update({'scale': scale.tolist(), 'asset': asset})
+                    if asset['exists'] and Path(asset['path']).suffix.lower() == '.obj':
+                        if asset['path'] not in cache:
+                            cache[asset['path']] = obj_vertices(Path(asset['path']))
+                        vertices, faces, dependencies = cache[asset['path']]
+                        scaled = vertices * scale
+                        record.update({'obj_vertex_count': len(vertices), 'obj_face_declaration_count': faces,
+                                       'asset_dependencies': dependencies,
+                                       'link_local_urdf_bounds_m': bounds(np.einsum('ij,kj->ik', scaled, rotation) + xyz)})
+                        if source_runtime and role == 'visual' and index == 0:
+                            runtime_rotation = rotation @ SHADOW_MESH_PRE_ROTATION
+                            record['link_local_source_runtime_bounds_m'] = bounds(np.einsum('ij,kj->ik', scaled, runtime_rotation) + xyz)
+                    else:
+                        record['bounds_status'] = 'UNRESOLVED' if not asset['exists'] else 'NOT_TESTED non-OBJ mesh'
+                else:
+                    parameters = {'size_m': numbers(shape.get('size')).tolist()} if shape.tag == 'box' else {key+'_m': float(value) for key, value in shape.attrib.items()}
+                    record['parameters'] = parameters
+                    record['link_local_urdf_bounds_m'] = primitive_bounds(shape.tag, parameters, rotation, xyz)
+                    if source_runtime and role == 'visual' and index == 0:
+                        record['link_local_source_runtime_bounds_m'] = primitive_bounds(shape.tag, parameters, rotation @ SHADOW_MESH_PRE_ROTATION, xyz)
+                entries.append(record)
+    return entries
+
+
+def canonical_representation(entry):
+    result = {key: entry.get(key) for key in ('shape', 'origin_xyz_m', 'origin_rpy_rad', 'scale', 'parameters')}
+    if entry['shape'] == 'mesh':
+        result['mesh_sha256'] = entry['asset']['sha256']
+        result['mesh_available'] = entry['asset']['exists']
+    return result
+
+
+def representation_comparisons(source, target, links):
+    result = []
+    for link in links:
+        for role in ('visual', 'collision'):
+            a = [entry for entry in source if entry['link'] == link and entry['role'] == role]
+            b = [entry for entry in target if entry['link'] == link and entry['role'] == role]
+            same = [canonical_representation(entry) for entry in a] == [canonical_representation(entry) for entry in b]
+            bbox_a = [entry['link_local_urdf_bounds_m'] for entry in a]
+            bbox_b = [entry['link_local_urdf_bounds_m'] for entry in b]
+            result.append({'link': link, 'role': role, 'source_declaration_count': len(a), 'target_declaration_count': len(b),
+                           'source_shapes': [entry['shape'] for entry in a], 'target_shapes': [entry['shape'] for entry in b],
+                           'representation_identity': 'PASS' if same else 'FAIL',
+                           'source_urdf_bounds_m': bbox_a, 'target_urdf_bounds_m': bbox_b,
+                           'source_runtime_first_visual_bounds_m': [entry['link_local_source_runtime_bounds_m'] for entry in a if entry['source_runtime_selected_first_visual']],
+                           'interpretation': 'Different declarations/mesh bytes/transforms are representation witnesses; neither different hashes nor equal AABBs establish exterior surface equivalence.',
+                           'surface_distance_status': 'NOT_TESTED'})
+    return result
+
+
+def run(args):
+    source, target = model(args.source), model(args.target)
+    joints = joint_diagnostic(source, target)
+    names = joints['sampling_joint_order']
+    if len(names) != 24 or not {'WRJ1', 'WRJ2'}.issubset(names):
+        raise ValueError('Expected the dedicated 24-joint DGA contract including both wrists')
+    links = sorted(set(source['links']) & set(target['links']))
+    if 'palm' not in links:
+        raise ValueError('No common palm frame')
+    rng = np.random.default_rng(SEED)
+    poses = [{name: 0. for name in names}]
+    poses += [{name: float(rng.uniform(*joints['shared_limit_ranges_rad'][name])) for name in names} for _ in range(COUNT_RANDOM)]
+    measurements = []
+    per_link = {link: {'translation_m': [], 'rotation_rad': []} for link in links}
+    for index, q in enumerate(poses):
+        sf, tf = independent_fk(source, q), independent_fk(target, q)
+        sp, tp = np.linalg.inv(sf['palm']), np.linalg.inv(tf['palm'])
+        errors = {}
+        for link in links:
+            a, b = sp @ sf[link], tp @ tf[link]
+            distance = float(np.linalg.norm(a[:3, 3]-b[:3, 3]))
+            angle = rotation_distance(a[:3, :3], b[:3, :3])
+            errors[link] = {'translation_m': distance, 'rotation_rad': angle}
+            per_link[link]['translation_m'].append(distance)
+            per_link[link]['rotation_rad'].append(angle)
+        measurements.append({'pose_index': index, 'provenance': 'manufactured_zero' if index == 0 else 'manufactured_shared_limit_uniform',
+                             'joints_rad': q, 'per_link_palm_relative_errors': errors,
+                             'source_forearm_to_palm': (np.linalg.inv(sf['forearm']) @ sf['palm']).tolist(),
+                             'target_forearm_to_palm': (np.linalg.inv(tf['forearm']) @ tf['palm']).tolist(),
+                             'source_world_to_palm': sf['palm'].tolist(), 'target_world_to_palm': tf['palm'].tolist()})
+    summary = {link: {'maximum_translation_m': float(max(row['translation_m'])),
+                      'mean_translation_m': float(np.mean(row['translation_m'])),
+                      'maximum_rotation_rad': float(max(row['rotation_rad'])),
+                      'mean_rotation_rad': float(np.mean(row['rotation_rad']))} for link, row in per_link.items()}
+    source_assets = asset_diagnostic(source, args.source_assets_root.resolve(), source_runtime=True)
+    target_assets = asset_diagnostic(target, args.target_assets_root.resolve())
+    representations = representation_comparisons(source_assets, target_assets, links)
+    all_assets = source_assets + target_assets
+    missing = [entry for entry in all_assets if entry['shape'] == 'mesh' and not entry['asset']['exists']]
+    material_missing = [dependency for entry in all_assets for dependency in entry.get('asset_dependencies', []) if not dependency['exists']]
+    dependencies = [file_record(Path(__file__)), file_record(args.source), file_record(args.target),
+                    file_record(sys.executable), file_record(np.__file__)]
+    handmodel = args.source_handmodel
+    if handmodel is not None:
+        dependencies.append(file_record(handmodel))
+    prior = None
+    if args.prior_audit is not None:
+        dependencies.append(file_record(args.prior_audit))
+        old = json.loads(args.prior_audit.read_text())
+        prior = {'path': str(args.prior_audit.resolve()), 'provenance': old.get('kind'),
+                 'prior_pose_count': old.get('pose_count'), 'prior_maximum_tip_error_m': old.get('maximum_tip_error_m'),
+                 'current_maximum_tip_error_m': max(summary[link]['maximum_translation_m'] for link in ('thtip', 'fftip', 'mftip', 'rftip', 'lftip')),
+                 'note': 'Same zero+64 seed and alphabetic shared joints. This audit normalizes rounded URDF axes as directions; prior used axis norm as a tiny angle multiplier.'}
+    report = {
+        'schema': 'dga_synthetic_static_diagnostic_v1', 'created_at_utc': datetime.now(timezone.utc).isoformat(),
+        'provenance': {'kind': 'manufactured_URDF_states_only', 'authentic_native_record': False,
+                       'source_commit_expected': '86353d710ca71d0f547f0d8b15cc8ca959c78163',
+                       'source_commit_verified_by_this_script': False,
+                       'mapping_acceptance_claim': 'UNRESOLVED; no actual-native mapping acceptance is implied'},
+        'zero_step_evidence': {'physics_steps': 0, 'dynamics_episodes': 0, 'native_inference_calls': 0,
+                               'training_calls': 0, 'fresh_evaluation_samples': 0,
+                               'mechanism': 'Only stdlib and NumPy imported; independent XML FK and lightweight OBJ/hash/material parsing. Counts describe this diagnostic execution, not external process telemetry.',
+                               'geometry_queries': 'No sampling, nearest-neighbor, Boolean, collision engine or physics queries'},
+        'runtime': {'python': sys.version, 'executable': sys.executable, 'numpy_version': np.__version__,
+                    'numpy_import_path': np.__file__},
+        'dependency_hashes': dependencies,
+        'configuration': {'seed': SEED, 'random_pose_count': COUNT_RANDOM, 'total_pose_count': len(poses),
+                          'numerical_identity_atol': NUMERICAL_ATOL, 'limit_rounding_atol_rad': LIMIT_ATOL_RAD,
+                          'scientific_fidelity_acceptance_tolerance': None,
+                          'source_assets_root': str(args.source_assets_root.resolve()),
+                          'target_assets_root': str(args.target_assets_root.resolve()),
+                          'axis_semantics': 'URDF revolute axis normalized as a direction',
+                          'position_units': 'metres', 'angle_units': 'radians',
+                          'link_comparison_frames': 'Each link relative to its own palm; complete wrist and forearm chains retained'},
+        'models': {'source': {'root_link': source['root'], 'link_names': sorted(source['links'])},
+                   'target': {'root_link': target['root'], 'link_names': sorted(target['links'])},
+                   'common_link_names': links,
+                   'source_only_links': sorted(set(source['links'])-set(target['links'])),
+                   'target_only_links': sorted(set(target['links'])-set(source['links']))},
+        'joints': joints,
+        'fk': {'independent_implementation': 'This file, no shared mapper/FK/geometry/model imports',
+               'orientation_scope': 'Raw same-named link-frame rotations after palm alignment. Internal source/target coordinate conventions can differ; these are not automatically exterior-surface orientation errors. Visual origins and runtime pre-rotation must be included before geometric interpretation.',
+               'per_link_summary': summary, 'all_pose_measurements': measurements,
+               'maximum_all_common_link_translation_m': max(row['maximum_translation_m'] for row in summary.values()),
+               'maximum_all_common_link_rotation_rad': max(row['maximum_rotation_rad'] for row in summary.values()),
+               'fingertip_order': ['thtip', 'fftip', 'mftip', 'rftip', 'lftip'],
+               'fingertip_maximum_errors_m': [summary[link]['maximum_translation_m'] for link in ('thtip', 'fftip', 'mftip', 'rftip', 'lftip')]},
+        'asset_inventory': {'source': source_assets, 'target': target_assets,
+                            'missing_mesh_declarations': missing, 'missing_material_texture_dependencies': material_missing,
+                            'visual_and_collision_link_local_comparisons': representations},
+        'runtime_surface_contract': {
+            'source_reference': None if handmodel is None else file_record(handmodel),
+            'source_runtime_visual_selection': 'First visual per link only; collisions are not the visual surface reference',
+            'source_runtime_vertex_order': 'mesh scale, [x,-z,y] pre-rotation, URDF visual-origin rotation and translation, articulated FK, global/root transform, final hand scale',
+            'source_runtime_pre_rotation_matrix': SHADOW_MESH_PRE_ROTATION.tolist(),
+            'source_runtime_bounds_status': 'Static reconstruction of first visual vertex bounds; actual HandModel was not imported or executed',
+            'runtime_scale': '1 for this synthetic URDF diagnostic; no native object/hand normalizer or sample scale available',
+            'source_exported_normals': 'UNRESOLVED as reliable geometric witnesses: pinned HandModel omits visual-origin rotation for normals and appends homogeneous w=1 before FK, injecting link translation; no exported normal was used',
+            'surface_distances': 'NOT_TESTED: no signed/unsigned distances, exterior union matching, proximity, penetration, normals or area sampling',
+            'missing_asset_policy': 'Missing meshes/dependencies are retained as UNRESOLVED; no replacement geometry or invented distances'},
+        'prior_audit_comparison': prior,
+        'scoped_status': {
+            'synthetic_65_pose_FK_execution': 'PASS',
+            'same_24_active_joint_names_including_wrists': 'PASS' if not joints['source_only_active_joints'] and not joints['target_only_active_joints'] else 'FAIL',
+            'exact_joint_URDF_identity': joints['exact_joint_identity'],
+            'full_source_limit_domain_representable_without_clipping': joints['source_domain_representable_without_clipping'],
+            'declared_mesh_availability': 'UNRESOLVED' if missing else 'PASS',
+            'material_texture_dependency_availability': 'UNRESOLVED' if material_missing else 'PASS',
+            'visual_representation_identity': 'PASS' if all(row['representation_identity'] == 'PASS' for row in representations if row['role'] == 'visual') else 'FAIL',
+            'collision_representation_identity': 'PASS' if all(row['representation_identity'] == 'PASS' for row in representations if row['role'] == 'collision') else 'FAIL',
+            'scientific_FK_fidelity_acceptance': 'UNRESOLVED',
+            'matched_exterior_surface_fidelity': 'NOT_TESTED',
+            'authentic_native_pose_mapping': 'NOT_TESTED',
+            'input_object_scale_frame_surface_identity': 'NOT_TESTED',
+            'physical_equivalence_or_execution': 'NOT_TESTED'},
+    }
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(report, indent=2, allow_nan=False) + '\n')
+    print(json.dumps({'output': str(args.output.resolve()), 'pose_count': len(poses), 'common_link_count': len(links),
+                      'fingertip_maximum_errors_m': report['fk']['fingertip_maximum_errors_m'],
+                      'maximum_all_common_link_translation_m': report['fk']['maximum_all_common_link_translation_m'],
+                      'maximum_all_common_link_rotation_rad': report['fk']['maximum_all_common_link_rotation_rad'],
+                      'missing_mesh_declarations': len(missing), 'missing_material_dependencies': len(material_missing),
+                      'unrepresentable_limit_example_count': len(joints['unrepresentable_source_limit_examples']),
+                      'scoped_status': report['scoped_status']}, indent=2))
+    return report
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--source', required=True, type=Path, help='Pinned DGA shadowhand.urdf')
+    parser.add_argument('--target', required=True, type=Path, help='Target Shadow right URDF')
+    parser.add_argument('--source-assets-root', required=True, type=Path, help='Source ROS package root or package container')
+    parser.add_argument('--target-assets-root', required=True, type=Path, help='Target relative mesh root, normally URDF directory')
+    parser.add_argument('--source-handmodel', type=Path, help='Optional pinned utils/handmodel.py input hash for source-runtime interpretation')
+    parser.add_argument('--prior-audit', type=Path, help='Optional historical dga_static_fk.json to bind and compare')
+    parser.add_argument('--output', required=True, type=Path)
+    run(parser.parse_args())
+
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,60 @@
+{
+  "schema_version": "dga_frozen_contract_independent_review_v1",
+  "status": "NO_DEMONSTRATED_FALSE_REJECTION",
+  "unchanged_scientific_protocol_sha256": "sha256:57531e1e79a98f8e6b667bdd9a43e41a5e90ce8bdec35e56a833408baa106375",
+  "findings": [
+    {
+      "claim": "Source/target first visual transformations",
+      "status": "VERIFIED_FOR_ROW6_INDEX_RING",
+      "evidence": "row6_index_ring_mesh_frame_review_v2.json",
+      "details": "Pinned HandModel source transform is scale then (x,y,z)->(x,-z,y), then visual origin, articulated saved FP32 frame and global pose. Independent reconstruction matches runtime geometric triangles exactly; target literal origins/scales match independently."
+    },
+    {
+      "claim": "Part associations",
+      "status": "MATCH_FROZEN_CONTRACT",
+      "details": "Palm/palm, wrist/wrist_carrier, ff/index,mf/middle,rf/ring,lf/little,th/thumb; runtime-excluded forearm consistently omitted from required common parts."
+    },
+    {
+      "claim": "Nearset area interval formulas",
+      "status": "NO_ERROR_FOUND_BY_MATHEMATICAL_REVIEW",
+      "details": "For every complete cube cell, 1-Lipschitz distance gives near iff d+rho+eps<=band and far iff d-rho-eps>band; lost/new masks and their outer bounds are consistent. Offsets2/5,1/3 give rho=sqrt181*h/15. Censor radius exceeds largestband+rho+eps. Positive lower areas refute equality; zero lower alone never passes."
+    },
+    {
+      "claim": "Declared palm union",
+      "status": "NO_ERROR_FOUND_BY_MATHEMATICAL_REVIEW",
+      "details": "Literal source one-box and target eight-box geometry are distinct from runtime visuals. Face subtraction removes buried/internal interfaces and retains exterior same-normal duplicates; signed boundary distance uses box-union membership. Occupancy masks conservatively exclude boundary uncertainty. Exact independent member-box obstruction bypasses this mesh/union distance implementation."
+    },
+    {
+      "claim": "Landmark guards",
+      "status": "METHOD_STRICTER_THAN_ORIGINAL_SCIENCE",
+      "evidence": "landmark_guard_comparison_v1.json",
+      "details": "Frozen science max and SSE compare against original fixed-palm perpose baseline. Component method further limits maximum/SSE to fixed/free minima and adds mean guard. Relaxing only those extra strategy restrictions would not change original scientific criteria; however proof shows oldrow1 and newrow0 still obstructed under original criteria."
+    },
+    {
+      "claim": "Complete mapping acceptance",
+      "status": "BLOCKED_FOR_REQUIRED_COHORT_UNDER_EXACT_MATH_CRITERIA",
+      "evidence": "independent_exact_obstruction_review_v2.json",
+      "details": "Independent exact-rational review confirms positive unavoidable palm occupancy mismatch for olddevelopmentrow1 and newnativerow0 under original max/SSE guards, all proper targetpalm placements and all fingerangles. This disproves cohort-wide exact acceptance, not allpossible poses or allapproximate mappings."
+    }
+  ],
+  "next_action": "Retain DGA as unaccepted for the unchanged exact mapping criterion; do not infer acceptance from a lower optimizer loss or a selected subset. Additional row1 optimization can produce diagnostics but cannot accept this complete required cohort while the certified rows and criteria remain mandatory. Any proposal to use native-hand evaluation or a separate task-validated approximation must be a distinct scientific protocol, not silently substituted here.",
+  "criteria_target_or_assets_modified": false,
+  "shared_project_edits": 0,
+  "zero_execution": {
+    "physics_steps": 0,
+    "inference_calls": 0,
+    "fit_calls": 0,
+    "evaluation_episodes": 0,
+    "training_calls": 0
+  },
+  "reviewed_dependency_sha256": {
+    "/private/tmp/dga_surface_preserving_20261015_v1/scientific_protocol_frozen_v1.json": "sha256:57531e1e79a98f8e6b667bdd9a43e41a5e90ce8bdec35e56a833408baa106375",
+    "/private/tmp/dga_component_constraints_20261015_v1/geometry/surface_backend.py": "sha256:08c838f6b0dbec9904054544a607251786681804ee81ebaa9cc18acc214fde61",
+    "/private/tmp/dga_component_constraints_20261015_v1/geometry/palm_box_union.py": "sha256:f8200f54744c5b466c4c23399270bd425b5b1074922b52c6033e27c93a8e0e46",
+    "/private/tmp/dga_component_constraints_20261015_v1/geometry/measure_palm_holdout.py": "sha256:4af19f662df9085d7093db410212568dfc9db0ab3c7e4317aaa4127d9e45ccb0",
+    "/private/tmp/dga_component_constraints_20261015_v1/optimizer/mapping_context.py": "sha256:0abf488a62a326344ab926a878b2742adc61a52219ce5415a2d4aba2c12ac8c4",
+    "/private/tmp/dga_component_constraints_20261015_v1/optimizer/generic_baseline.py": "sha256:c7a2a75b54d723a93361591197cb02acd57b2f790adc82bf8ba8c1ddab3d49cd",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/cloud/dexgrasp_anything/audit_native_cohort_visual_proximity.py": "sha256:46934461b616523e9a5db2d26a873796891a8491a305f1bf1f931bd74bd0b408",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/cloud/dexgrasp_anything/validate_native_outputs.py": "sha256:febd725533b949693aa0ac21c8f3e02c6dd9926cd3041d6298b666479ff38fe5"
+  }
+}

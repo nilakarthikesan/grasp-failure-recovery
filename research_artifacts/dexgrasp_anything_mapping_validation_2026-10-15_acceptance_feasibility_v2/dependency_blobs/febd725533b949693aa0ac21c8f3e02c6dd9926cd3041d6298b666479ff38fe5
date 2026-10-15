@@ -1,0 +1,496 @@
+#!/usr/bin/env python3
+"""CPU-only, candidate-only actual DGA export audit preparation.
+
+This script does not invoke inference, physics, evaluation or training. It rejects
+manufactured evidence. An externally supplied original manifest SHA and frozen
+premeasurement protocol SHA are required. Optional visual/cube profiles are
+explicit centroid diagnostics, not a complete contact-preservation assessment.
+"""
+from __future__ import annotations
+import argparse
+import ast
+from datetime import datetime, timezone
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import sys
+import xml.etree.ElementTree as ET
+
+import numpy as np
+sys.dont_write_bytecode = True
+
+GEOMETRY_HASH = 'sha256:45c1162a4f815d65c43254f2f499f53bde1eecea4d39912d8ce36d2c5cd92a81'
+
+
+def digest(path):
+    result = hashlib.sha256()
+    with Path(path).open('rb') as stream:
+        for block in iter(lambda: stream.read(1024*1024), b''):
+            result.update(block)
+    return 'sha256:' + result.hexdigest()
+
+
+def bound_json(path, expected):
+    if digest(path) != expected:
+        raise ValueError(f'Externally bound hash mismatch: {path}')
+    return json.loads(path.read_text())
+
+
+def child(root, reference):
+    relative = Path(reference['path'])
+    resolved = (root / relative).resolve()
+    if relative.is_absolute() or '..' in relative.parts or not resolved.is_relative_to(root.resolve()):
+        raise ValueError('Evidence reference escapes its original bundle')
+    if digest(resolved) != reference['sha256']:
+        raise ValueError(f'Original evidence hash mismatch: {resolved}')
+    return resolved
+
+
+def load_module(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    result = importlib.util.module_from_spec(spec)
+    sys.modules[name] = result
+    spec.loader.exec_module(result)
+    return result
+
+
+def finite(value, shape, role):
+    value = np.asarray(value)
+    if value.shape != shape or value.dtype.kind not in 'fiu' or not np.isfinite(value).all():
+        raise ValueError(f'{role} must be finite numeric {shape}')
+    return value.astype(np.float64)
+
+
+def cube_signed(points):
+    delta = np.abs(points) - .025
+    return np.linalg.norm(np.maximum(delta, 0.), axis=1) + np.minimum(delta.max(axis=1), 0.)
+
+
+def summarize(values, weights=None):
+    if not len(values):
+        return None
+    result = {'min': float(values.min()), 'mean': float(np.mean(values)),
+              'p50': float(np.median(values)), 'p95': float(np.percentile(values, 95)),
+              'max': float(values.max())}
+    if weights is not None:
+        result['area_weighted_mean'] = float(np.average(values, weights=weights))
+    return result
+
+
+def read_obj(path):
+    vertices, faces = [], []
+    for line in path.read_text(errors='strict').splitlines():
+        values = line.split()
+        if not values:
+            continue
+        if values[0] == 'v':
+            vertices.append([float(v) for v in values[1:4]])
+        elif values[0] == 'f':
+            indices = [int(v.split('/')[0]) for v in values[1:]]
+            indices = [v-1 if v > 0 else len(vertices)+v for v in indices]
+            faces.extend([[indices[0], indices[i], indices[i+1]] for i in range(1, len(indices)-1)])
+    vertices, faces = np.asarray(vertices, dtype=float), np.asarray(faces, dtype=np.int64)
+    if vertices.ndim != 2 or vertices.shape[1] != 3 or faces.ndim != 2 or faces.shape[1] != 3:
+        raise ValueError(f'Unsupported OBJ triangle representation: {path}')
+    if not np.isfinite(vertices).all() or faces.min() < 0 or faces.max() >= len(vertices):
+        raise ValueError(f'Invalid OBJ geometry: {path}')
+    return vertices, faces
+
+
+def visual_meshes(robot, assets_root, audit, *, source_runtime):
+    result = {}
+    for name, link in robot['links'].items():
+        visuals = link.findall('visual')
+        if source_runtime:
+            visuals = visuals[:1]
+        for index, visual in enumerate(visuals):
+            mesh = visual.find('geometry/mesh')
+            box = visual.find('geometry/box')
+            if mesh is not None:
+                asset = audit.resolve_mesh(mesh.attrib['filename'], robot['path'], assets_root)
+                if not asset['exists']:
+                    raise ValueError(f'Missing original visual asset: {asset}')
+                vertices, faces = read_obj(Path(asset['path']))
+                scale = audit.numbers(mesh.get('scale'), (1., 1., 1.))
+                asset_kind = 'original_OBJ'
+            elif box is not None:
+                size = audit.numbers(box.attrib['size'])
+                if np.any(size <= 0.):
+                    raise ValueError('Declared visual box must have positive extents')
+                vertices = np.array([[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],
+                                     [-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]], dtype=float)*size/2.
+                faces = np.array([[0,2,1],[0,3,2],[4,5,6],[4,6,7],[0,1,5],[0,5,4],
+                                  [3,7,6],[3,6,2],[0,4,7],[0,7,3],[1,2,6],[1,6,5]],dtype=np.int64)
+                scale = np.ones(3)
+                asset = {'path':str(robot['path']), 'sha256':digest(robot['path']).removeprefix('sha256:')}
+                asset_kind = 'exact_analytic_box_triangle_boundary'
+            else:
+                raise ValueError(f'Unsupported visual primitive for independent reconstruction: {name}')
+            _, _, transform = audit.origin(visual.find('origin'))
+            rotation = transform[:3, :3]
+            if source_runtime:
+                rotation = rotation @ audit.SHADOW_MESH_PRE_ROTATION
+            local = np.einsum('ij,kj->ik', vertices*scale, rotation) + transform[:3, 3]
+            result[(name, index)] = {'local': local, 'faces': faces, 'path': asset['path'],
+                                      'sha256': 'sha256:' + asset['sha256'], 'asset_kind':asset_kind}
+    return result
+
+
+def object_vertices(local, transform):
+    return np.einsum('ij,kj->ik', local, transform[:3, :3]) + transform[:3, 3]
+
+
+def normalizer_constants(path):
+    tree = ast.parse(path.read_text())
+    cls = next(node for node in tree.body if isinstance(node, ast.ClassDef) and node.name == 'DexGraspNet')
+    constants = {}
+    for node in cls.body:
+        if isinstance(node, ast.Assign) and isinstance(node.targets[0], ast.Name):
+            name = node.targets[0].id
+            if name in ('_joint_angle_lower', '_joint_angle_upper', '_global_trans_lower', '_global_trans_upper'):
+                constants[name] = np.asarray(ast.literal_eval(node.value.args[0]), dtype=np.float32)
+    if len(constants) != 4:
+        raise ValueError('Pinned normalizer constants could not be independently parsed')
+    return constants
+
+
+def independent_denormalize(raw, manifest, constants):
+    result = raw.copy()
+    for enabled, subset, lower_name, upper_name in (
+        (manifest.normalize_translation, slice(0, 3), '_global_trans_lower', '_global_trans_upper'),
+        (manifest.normalize_joints, slice(3, 27), '_joint_angle_lower', '_joint_angle_upper')):
+        if enabled:
+            lower, upper = constants[lower_name], constants[upper_name]
+            # Pinned torch tensors subtract in float32 before promotion to the
+            # float64 prediction used by the official visualizer.
+            result[:, subset] = ((raw[:, subset]+1.)/2.) * (upper-lower).astype(np.float64) + lower.astype(np.float64)
+    return result
+
+
+def check_stages(path, expected_sha, paths, manifest, adapter, normalizer):
+    if digest(path) != expected_sha:
+        raise ValueError('Unbound stage archive')
+    with np.load(path, allow_pickle=False) as archive:
+        required = {'normalized27', 'denormalized27', 'scene_rotations', 'augmented_points', 'augmented_normals'}
+        if not required.issubset(archive.files):
+            raise ValueError('Stage archive is incomplete')
+        raw = finite(archive['normalized27'], (manifest.sample_count, 27), 'raw prediction')
+        denormalized = finite(archive['denormalized27'], raw.shape, 'denormalized prediction')
+        rotations = finite(archive['scene_rotations'], (manifest.sample_count, 3, 3), 'scene rotations')
+        points = np.load(paths['point_cloud'], allow_pickle=False)
+        normals = np.load(paths['normals'], allow_pickle=False)
+        augmented_points = finite(archive['augmented_points'], (manifest.sample_count, len(points), 3), 'augmented points')
+        augmented_normals = finite(archive['augmented_normals'], augmented_points.shape, 'augmented normals')
+    with np.load(paths['output'], allow_pickle=False) as archive:
+        final = archive['hand_qpos']
+    expected_denormalized = independent_denormalize(raw, manifest, normalizer_constants(normalizer))
+    expected_final = np.stack([adapter.compose_denormalized_prediction(row, rotation) for row, rotation in zip(denormalized, rotations)])
+    expected_points = np.einsum('nij,pj->npi', rotations, points)
+    expected_normals = np.einsum('nij,pj->npi', rotations, normals)
+    errors = {'denormalization_max_abs': float(np.max(np.abs(denormalized-expected_denormalized))),
+              'final33_max_abs': float(np.max(np.abs(final-expected_final))),
+              'augmented_points_max_abs_m': float(np.max(np.abs(augmented_points-expected_points))),
+              'augmented_normals_max_abs': float(np.max(np.abs(augmented_normals-expected_normals)))}
+    return {'status': 'PASS' if max(errors.values()) <= 1e-9 else 'FAIL',
+            'errors': errors, 'budget': '1e-9 absolute numerical identity, no contact adequacy implication',
+            'npz_sha256': digest(path), 'normalizer_sha256': digest(normalizer)}
+
+
+def source_limit_violations(robot, q):
+    result = []
+    for name, value in q.items():
+        lower, upper = (robot['joints'][name]['limit'][key] for key in ('lower', 'upper'))
+        if not lower <= value <= upper:
+            result.append({'joint': name, 'native_value_rad': value, 'lower_rad': lower, 'upper_rad': upper})
+    return result
+
+
+def runtime_reconstruction(reference, evidence, index, source_frames, input_from_forearm,
+                           object_from_input, meshes, tolerance_m, tolerance_rad, audit):
+    from scipy.spatial import cKDTree
+    n = evidence['sample_count']
+    runtime_root = finite(reference['input_from_forearm'], (n, 4, 4), 'runtime root')[index]
+    errors = {'root_translation_m': float(np.linalg.norm(runtime_root[:3, 3]-input_from_forearm[:3, 3])),
+              'root_rotation_rad': audit.rotation_distance(runtime_root[:3, :3], input_from_forearm[:3, :3]),
+              'links': {}}
+    runtime_visuals = {}
+    failures = []
+    excluded = set(evidence['excluded_links'])
+    for (name, visual_index), mesh in meshes.items():
+        if name in excluded:
+            continue
+        frames = finite(reference['forearm_from_link__'+name], (n, 4, 4), name+' runtime FK')
+        frame = frames[index]
+        translation_error = float(np.linalg.norm(frame[:3, 3]-source_frames[name][:3, 3]))
+        rotation_error = audit.rotation_distance(frame[:3, :3], source_frames[name][:3, :3])
+        values = np.asarray(reference['vertices__'+name])
+        if values.ndim != 3 or values.shape[0] != n or values.shape[2] != 3:
+            raise ValueError('Invalid runtime vertex dimensions: '+name)
+        vertices = finite(values, values.shape, 'runtime vertices '+name)[index]
+        faces = np.asarray(reference['faces__'+name])
+        if faces.ndim != 2 or faces.shape[1] != 3 or faces.dtype.kind not in 'iu' or faces.min() < 0 or faces.max() >= len(vertices):
+            raise ValueError('Invalid runtime faces: '+name)
+        expected = object_vertices(mesh['local'], object_from_input @ input_from_forearm @ source_frames[name])
+        # Trimesh can reorder/merge repeated OBJ vertices. Compare geometric
+        # vertex sets in both directions, rather than assuming index identity.
+        forward = cKDTree(expected).query(vertices, workers=1)[0]
+        reverse = cKDTree(vertices).query(expected, workers=1)[0]
+        maximum = float(max(forward.max(), reverse.max()))
+        status = 'PASS' if maximum <= tolerance_m and translation_error <= tolerance_m and rotation_error <= tolerance_rad else 'FAIL'
+        row = {'status': status, 'frame_translation_error_m': translation_error,
+               'frame_rotation_error_rad': rotation_error, 'maximum_bidirectional_vertex_error_m': maximum,
+               'runtime_vertex_count': len(vertices), 'independent_declared_vertex_count': len(expected),
+               'runtime_face_count': len(faces), 'independent_declared_triangle_count': len(mesh['faces']),
+               'independent_geometry_kind':mesh['asset_kind'],
+               'topology_equivalence': 'NOT_TESTED; vertex-set agreement alone is not triangle/exterior equivalence'}
+        errors['links'][name] = row
+        runtime_visuals[name] = (vertices, faces)
+        if status == 'FAIL':
+            failures.append(name)
+    root_ok = errors['root_translation_m'] <= tolerance_m and errors['root_rotation_rad'] <= tolerance_rad
+    errors.update({'status': 'PASS' if root_ok and not failures else 'FAIL',
+                   'failed_links': failures, 'translation_budget_m': tolerance_m,
+                   'rotation_budget_rad': tolerance_rad,
+                   'claim': 'Untouched runtime root/FK and first-visual vertex-set reconstruction only; topology and full surface equivalence not certified'})
+    return errors, runtime_visuals
+
+
+def cube_centroid_profiles(meshes):
+    result = {}
+    for name, (vertices, faces) in meshes.items():
+        triangles = vertices[faces]
+        crosses = np.cross(triangles[:, 1]-triangles[:, 0], triangles[:, 2]-triangles[:, 0])
+        area = np.linalg.norm(crosses, axis=1)/2.
+        keep = area > 1e-15
+        centers = triangles.mean(axis=1)[keep]
+        radii = np.linalg.norm(triangles[keep]-centers[:, None], axis=2).max(axis=1)
+        signed = cube_signed(centers)
+        result[name] = {'surface_area_m2': float(area[keep].sum()), 'triangle_count': len(area),
+                        'excluded_degenerate_triangle_count': int((~keep).sum()),
+                        'centroid_covering_radius_m': summarize(radii),
+                        'signed_cube_centroid_distance_m': summarize(signed, area[keep]),
+                        'penetrating_centroid_area_m2': float(area[keep][signed < 0].sum()),
+                        'definitely_penetrating_patch_area_m2': float(area[keep][signed+radii < 0].sum()),
+                        'definitely_exterior_patch_area_m2': float(area[keep][signed-radii > 0].sum()),
+                        'uncertain_boundary_patch_area_m2': float(area[keep][np.abs(signed) <= radii].sum()),
+                        'unsigned_band_centroid_area_m2': {str(b): float(area[keep][np.abs(signed) <= b/1000.].sum()) for b in (.5, 1, 2)},
+                        'scope': 'Area-weighted original-triangle centroid diagnostic; unsubdivided triangle patch uncertainty retained; no contact adequacy gate'}
+    return result
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--repository', required=True, type=Path)
+    parser.add_argument('--independent-audit', type=Path, default=Path(__file__).with_name('audit_dexgrasp_anything_static.py'))
+    parser.add_argument('--native-manifest', required=True, type=Path)
+    parser.add_argument('--native-manifest-sha256', required=True)
+    parser.add_argument('--conditioning-manifest', required=True, type=Path)
+    parser.add_argument('--conditioning-manifest-sha256', required=True)
+    parser.add_argument('--frozen-protocol', required=True, type=Path)
+    parser.add_argument('--frozen-protocol-sha256', required=True)
+    parser.add_argument('--source-hand-urdf', required=True, type=Path)
+    parser.add_argument('--target-hand-urdf', required=True, type=Path)
+    parser.add_argument('--source-assets-root', required=True, type=Path)
+    parser.add_argument('--target-assets-root', required=True, type=Path)
+    parser.add_argument('--normalizer-source', required=True, type=Path)
+    parser.add_argument('--runtime-reference', type=Path)
+    parser.add_argument('--runtime-reference-sha256')
+    parser.add_argument('--stages', type=Path)
+    parser.add_argument('--stages-sha256')
+    parser.add_argument('--visual-cube-profiles', action='store_true')
+    parser.add_argument('--output', required=True, type=Path)
+    args = parser.parse_args()
+    if args.output.exists():
+        raise FileExistsError('Choose a new output directory; evidence is never overwritten')
+    protocol = bound_json(args.frozen_protocol, args.frozen_protocol_sha256)
+    required_protocol = {'schema_version': 'dga_native_static_protocol_v1', 'status': 'FROZEN_PREMEASUREMENT',
+                         'object_id': 'object01', 'geometry_content_hash': GEOMETRY_HASH, 'seed': 20261014,
+                         'float64_translation_atol_m': 1e-9, 'float64_rotation_atol_rad': 1e-9,
+                         'runtime_translation_atol_m': 1e-5,
+                         'runtime_rotation_atol_rad': 1e-4,
+                         'approximate_contact_adequacy': 'UNRESOLVED'}
+    if any(protocol.get(key) != value for key, value in required_protocol.items()):
+        raise ValueError('Unsupported or incomplete premeasurement protocol')
+    if protocol.get('sample_count') not in (1, 2) or protocol.get('sample_indices') != list(range(protocol['sample_count'])):
+        raise ValueError('Only first one/two unfiltered samples belong to this protocol')
+    if args.visual_cube_profiles and not protocol.get('visual_cube_centroid_profiles', False):
+        raise ValueError('Optional visual diagnostic was not frozen before measurement')
+    bound_json(args.native_manifest, args.native_manifest_sha256)
+    conditioning = bound_json(args.conditioning_manifest, args.conditioning_manifest_sha256)
+    if conditioning['object_id'] != protocol['object_id'] or conditioning['object_geometry_content_hash'] != GEOMETRY_HASH:
+        raise ValueError('Original conditioning object differs from frozen object')
+    sys.path.insert(0, str(args.repository.resolve() / 'src'))
+    from grasp_failure_prediction.proposals import dexgrasp_anything as adapter
+    audit = load_module('dga_independent_static_fk_for_native_audit', args.independent_audit.resolve())
+    code_paths = {'validator': Path(__file__).resolve(), 'adapter': Path(adapter.__file__).resolve(),
+                  'independent_fk': args.independent_audit.resolve(),
+                  'offline_worker': (args.repository / 'scripts/infer_dexgrasp_anything_proposals.py').resolve()}
+    code_hashes = {key: digest(path) for key, path in code_paths.items()}
+    if code_hashes != protocol.get('code_hashes'):
+        raise ValueError('Audit code differs from premeasurement freeze')
+    if args.conditioning_manifest_sha256 != protocol.get('conditioning_manifest_sha256'):
+        raise ValueError('Conditioning manifest differs from premeasurement freeze')
+    if digest(args.source_hand_urdf) != adapter.SOURCE_URDF_SHA256 or digest(args.target_hand_urdf) != adapter.TARGET_URDF_SHA256:
+        raise ValueError('Source/target hand pin mismatch')
+    if digest(args.normalizer_source) != adapter.NORMALIZER_SHA256:
+        raise ValueError('Dataset normalizer pin mismatch')
+    # Standard loader verifies all hashes/config/log/input arrays BEFORE source
+    # decoding. Its strict source-limit rejection must not erase other rows.
+    standard_loader_error = None
+    try:
+        manifest, _ = adapter.load_dga_export(args.native_manifest, expected_object_id='object01', expected_geometry_hash=GEOMETRY_HASH)
+    except adapter.DGAContractError as error:
+        if error.code != 'joint_limit_violation':
+            raise
+        standard_loader_error = {'code': error.code, 'message': str(error),
+                                 'scope': 'Standard batch loader rejects before per-row return; original rows retained for explicit rejection accounting'}
+        manifest = adapter.DGAExportManifest.model_validate_json(args.native_manifest.read_bytes())
+    if manifest.evidence_origin != 'authentic_saved_native':
+        raise ValueError('Manufactured fixtures cannot produce actual-native reports')
+    if manifest.seed != protocol['seed'] or manifest.sample_count != protocol['sample_count']:
+        raise ValueError('Native seed/count differs from frozen first-sample selection')
+    if manifest.physical_object_scale != 1. or manifest.object_from_input != np.eye(4).tolist():
+        raise ValueError('Minimum cube protocol requires physical scale 1 and identity input/object transform')
+    paths = {name: adapter._verified_child(args.native_manifest.parent, getattr(manifest, name)) for name in
+             ('output', 'source_hand', 'object_mesh', 'point_cloud', 'normals', 'configuration', 'generation_log')}
+    if digest(paths['source_hand']) != digest(args.source_hand_urdf):
+        raise ValueError('Bundled hand differs from independently pinned source hand')
+    for role, original in (('object_mesh', 'mesh.obj'), ('point_cloud', 'points.npy'), ('normals', 'normals.npy')):
+        if digest(paths[role]) != conditioning['files'][original]['sha256']:
+            raise ValueError(f'Native bundle did not use original physical conditioning {role}')
+    points = np.load(paths['point_cloud'], allow_pickle=False)
+    normals = np.load(paths['normals'], allow_pickle=False)
+    residual = float(np.max(np.abs(cube_signed(points))))
+    normal_lengths = np.linalg.norm(normals, axis=1)
+    face_residual = float(np.max(np.abs(np.einsum('ij,ij->i', points, normals)-.025)))
+    input_ok = residual <= 1e-9 and face_residual <= 1e-9 and np.max(np.abs(normal_lengths-1.)) <= 1e-9
+    if not input_ok:
+        raise ValueError('Original cube cloud/normal physical identity check failed')
+    with np.load(paths['output'], allow_pickle=False) as archive:
+        values = archive['hand_qpos'].astype(np.float64)
+    source, target = audit.model(args.source_hand_urdf), audit.model(args.target_hand_urdf)
+    source_meshes = visual_meshes(source, args.source_assets_root.resolve(), audit, source_runtime=True)
+    target_meshes = visual_meshes(target, args.target_assets_root.resolve(), audit, source_runtime=False)
+    dependencies = {str(path): digest(path) for path in [*code_paths.values(), args.frozen_protocol,
+                    args.native_manifest, args.conditioning_manifest, args.source_hand_urdf,
+                    args.target_hand_urdf, args.normalizer_source, *paths.values()]}
+    for mesh in list(source_meshes.values()) + list(target_meshes.values()):
+        dependencies[mesh['path']] = mesh['sha256']
+    stage_report = {'status': 'UNRESOLVED', 'reason': 'No externally bound stage archive provided'}
+    if args.stages is not None:
+        if args.stages_sha256 is None:
+            raise ValueError('Stage evidence needs its original-byte hash')
+        dependencies[str(args.stages.resolve())] = args.stages_sha256
+        logged = json.loads(paths['generation_log'].read_text()).get('stages')
+        if not isinstance(logged, dict) or logged.get('sha256') != args.stages_sha256:
+            raise ValueError('Original generation log does not bind stage archive')
+        stage_report = check_stages(args.stages, args.stages_sha256, paths, manifest, adapter, args.normalizer_source)
+    evidence = reference = None
+    if args.runtime_reference is not None:
+        if args.runtime_reference_sha256 is None:
+            raise ValueError('Runtime reference requires its original-byte manifest hash')
+        evidence = bound_json(args.runtime_reference, args.runtime_reference_sha256)
+        logged = json.loads(paths['generation_log'].read_text()).get('runtime_reference')
+        if not isinstance(logged, dict) or logged.get('sha256') != args.runtime_reference_sha256:
+            raise ValueError('Original generation log does not bind runtime reference')
+        expected = {'schema_version': 'dga_runtime_visual_reference_v1', 'sample_count': manifest.sample_count,
+                    'sample_indices': list(range(manifest.sample_count)), 'coordinate_frame': 'object',
+                    'object_from_input': manifest.object_from_input, 'native_output_sha256': manifest.output.sha256,
+                    'source_hand_sha256': adapter.SOURCE_URDF_SHA256,
+                    'vertex_semantics': 'untouched_get_meshes_from_q_object_frame', 'excluded_links': ['forearm']}
+        if any(evidence.get(key) != value for key, value in expected.items()):
+            raise ValueError('Runtime reference is not bound to untouched native output/source/frame')
+        if evidence.get('runtime_transform_dtype') not in ('float32', 'float64'):
+            raise ValueError('Runtime reference must declare actual transform computation dtype')
+        refpath = child(args.runtime_reference.parent, evidence['arrays'])
+        with np.load(refpath, allow_pickle=False) as archive:
+            reference = {name: archive[name] for name in archive.files}
+        dependencies[str(args.runtime_reference.resolve())] = args.runtime_reference_sha256
+        dependencies[str(refpath)] = evidence['arrays']['sha256']
+    records = []
+    tolerance_m = protocol['runtime_translation_atol_m']
+    tolerance_rad = protocol['runtime_rotation_atol_rad']
+    for index, row in enumerate(values):
+        q = dict(zip(adapter.SOURCE_JOINT_NAMES, row[9:].tolist(), strict=True))
+        frames = audit.independent_fk(source, q)
+        input_from_forearm = np.eye(4)
+        input_from_forearm[:3, :3] = adapter.rotation_from_6d(row[3:9])
+        input_from_forearm[:3, 3] = row[:3]
+        source_bad = source_limit_violations(source, q)
+        target_bad = source_limit_violations(target, q)
+        record = {'sample_index': index, 'evidence_origin': manifest.evidence_origin,
+                  'joint_targets_rad': q, 'source_limit_violations': source_bad, 'target_limit_violations': target_bad,
+                  'execution_eligible': False, 'physical_failure_label': None,
+                  'object_from_forearm': input_from_forearm.tolist(),
+                  'object_from_palm': (input_from_forearm @ frames['palm']).tolist(),
+                  'runtime_reconstruction': {'status': 'UNRESOLVED', 'reason': 'No untouched runtime reference supplied'}}
+        source_visuals = {}
+        if reference is not None:
+            record['runtime_reconstruction'], source_visuals = runtime_reconstruction(reference, evidence, index, frames,
+                input_from_forearm, np.eye(4), source_meshes, tolerance_m, tolerance_rad, audit)
+        profiles_allowed = (args.visual_cube_profiles and stage_report['status'] == 'PASS'
+                            and record['runtime_reconstruction']['status'] == 'PASS')
+        if args.visual_cube_profiles and not profiles_allowed:
+            record['visual_cube_profile_gate'] = 'BLOCKED_DEPENDENT_STAGE_OR_NATIVE_RECONSTRUCTION_GATE'
+        if source_bad:
+            record['mapping_status'] = 'REJECTED_SOURCE_LIMIT'
+        elif target_bad:
+            record['mapping_status'] = 'REJECTED_TARGET_LIMIT'
+        else:
+            decoded = adapter.decode_dga_hand_pose(row, object_from_input=np.eye(4), source_hand_urdf=paths['source_hand'])
+            candidate = adapter.map_dga_candidate(decoded, target_hand_urdf=args.target_hand_urdf)
+            target_frames = audit.independent_fk(target, q)
+            root = np.asarray(candidate['object_from_target_root'])
+            source_object_frames = {name: input_from_forearm @ frame for name, frame in frames.items()}
+            target_object_frames = {name: root @ frame for name, frame in target_frames.items()}
+            palm_t = float(np.linalg.norm((root @ target_frames['palm'])[:3, 3]-source_object_frames['palm'][:3, 3]))
+            palm_r = audit.rotation_distance((root @ target_frames['palm'])[:3, :3], source_object_frames['palm'][:3, :3])
+            decoder_t = float(np.linalg.norm(decoded.object_from_palm[:3, 3]-source_object_frames['palm'][:3, 3]))
+            decoder_r = audit.rotation_distance(decoded.object_from_palm[:3, :3], source_object_frames['palm'][:3, :3])
+            unchanged = candidate['joint_targets_rad'] == q
+            record.update({'mapping_status': 'CANDIDATE_ONLY', 'candidate': candidate,
+                'object_from_target_forearm': target_object_frames['forearm'].tolist(),
+                'algebra': {'status': 'PASS' if max(palm_t, palm_r, decoder_t, decoder_r) <= 1e-9 and unchanged else 'FAIL',
+                    'palm_translation_residual_m': palm_t, 'palm_rotation_residual_rad': palm_r,
+                    'independent_decoder_palm_translation_residual_m': decoder_t,
+                    'independent_decoder_palm_rotation_residual_rad': decoder_r,
+                    'unchanged_joint_values': unchanged,
+                    'per_common_link': {name: {'translation_m': float(np.linalg.norm(source_object_frames[name][:3, 3]-target_object_frames[name][:3, 3])),
+                        'raw_frame_rotation_rad': audit.rotation_distance(source_object_frames[name][:3, :3], target_object_frames[name][:3, :3])}
+                        for name in sorted(set(source_object_frames) & set(target_object_frames))}}})
+            if profiles_allowed and record['algebra']['status'] == 'PASS':
+                target_visuals = {f'{name}__visual{visual_index}': (object_vertices(mesh['local'], target_object_frames[name]), mesh['faces'])
+                                  for (name, visual_index), mesh in target_meshes.items()}
+                record['target_declared_visual_cube_profiles'] = cube_centroid_profiles(target_visuals)
+        if profiles_allowed and source_visuals:
+            record['untouched_source_runtime_visual_cube_profiles'] = cube_centroid_profiles(source_visuals)
+        records.append(record)
+    changed = [path for path, expected_hash in dependencies.items() if digest(path) != expected_hash]
+    if changed:
+        raise ValueError(f'Run input/code dependency changed: {changed}')
+    report = {'schema_version': 'dga_actual_native_static_check_v1', 'created_at_utc': datetime.now(timezone.utc).isoformat(),
+        'sample_count': len(records), 'sample_selection': protocol['sample_indices'],
+        'standard_batch_loader_rejection': standard_loader_error,
+        'input_identity': {'status': 'PASS', 'cube_surface_residual_m': residual, 'paired_face_normal_residual_m': face_residual,
+                           'scope': 'Exact original prepared mesh/cloud/normal bytes and analytic cube point checks; original mesh coverage proof belongs to preparation evidence'},
+        'stage_reconstruction': stage_report, 'records': records, 'dependency_sha256': dependencies,
+        'zero_step_evidence': {'inference_calls_in_this_process': 0, 'checkpoint_loads_in_this_process': 0, 'physics_steps': 0,
+            'evaluation_episodes': 0, 'task_labels': 0, 'training_calls': 0,
+            'mechanism': 'Numeric NPZ/JSON, XML/OBJ, NumPy/SciPy only; no model/simulator/evaluator invoked'},
+        'scope': {'authentic_origin': 'External acquired bundle/log provenance review remains required; self-reported authentic_saved_native alone is insufficient',
+            'native_vertex_reconstruction': 'First visuals including runtime-excluded forearm distinction; geometric vertex-set check, topology not certified',
+            'matched_exterior_surface_fidelity': 'NOT_TESTED', 'object_query_lost_added_proximity': 'NOT_TESTED',
+            'compiled_target_collision': 'NOT_TESTED', 'reliable_normal_facing_preservation': 'NOT_TESTED',
+            'approximate_contact_adequacy': 'UNRESOLVED', 'physical_or_predictor_equivalence': 'NOT_TESTED', 'execution_eligible': False}}
+    args.output.mkdir(parents=True)
+    (args.output / 'validation_report.json').write_text(json.dumps(report, indent=2, allow_nan=False)+'\n')
+    print(json.dumps({'output': str(args.output.resolve()), 'sample_count': len(records),
+        'mapping_status': [record['mapping_status'] for record in records],
+        'stage_status': stage_report['status'],
+        'runtime_reconstruction': [record['runtime_reconstruction']['status'] for record in records],
+        'execution_eligible': False, 'physics_steps': 0}, indent=2))
+
+
+if __name__ == '__main__':
+    main()

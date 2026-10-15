@@ -1,0 +1,118 @@
+"""CPU-only MultiDex stage/protocol checks; no original identity pins weakened."""
+import ast
+import hashlib
+from pathlib import Path
+import numpy as np
+
+PROFILE_ID='dga_multidex_official_unguided_v1'
+CHECKPOINT_SHA256='sha256:036b406af7c02cd2de9eb61da02590f8c5db7e6afe6a842eb36b47f03105945e'
+NORMALIZER_SHA256='sha256:033574fe65e4bbaf62def07913890776d43f107fe48c70089d1b72de093b479f'
+DATASET_NAME='MultiDexShadowHandUR'
+SEEDS=(20261023,20261024)
+SURFACE_SPEC={'query_spacing_mm':[2.,1.],'proximity_bands_mm':[.5,1.,2.],
+ 'numerical_distance_m':1e-9,'normal_tie_angle_rad':1e-7,'facing_cos_margin':1e-8,
+ 'maximum_reference_triangles':100000,'maximum_exact_triangle_tests':100000000,'maximum_wall_seconds':300}
+PRECISION_POLICY={'policy_id':'dga_geometry_reference_fp32_tf32_disabled_v1','matmul_allow_tf32':False,
+ 'cudnn_allow_tf32':False,'NVIDIA_TF32_OVERRIDE':None,'fresh_hand_constructed_after_policy':True,
+ 'transform_dtype':'float32','model_generation_policy':'original_baseline_tf32_enabled','model_sample_calls':0,
+ 'no_new_model_sample':True}
+
+def digest(path):
+ h=hashlib.sha256()
+ with Path(path).open('rb') as f:
+  for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
+ return 'sha256:'+h.hexdigest()
+
+def require_identity(value):
+ expected={'source_profile_id':PROFILE_ID,'checkpoint_sha256':CHECKPOINT_SHA256,
+  'dataset_name':DATASET_NAME,'normalizer_source_sha256':NORMALIZER_SHA256}
+ if any(value.get(k)!=v for k,v in expected.items()):raise ValueError('Separate atomic MultiDex identity mismatch')
+
+def require_protocol(p):
+ require_identity(p)
+ expected={'schema_version':'dga_multidex_smoke_protocol_v1','status':'FROZEN_PREMEASUREMENT',
+  'object_id':'object01','geometry_content_hash':'sha256:45c1162a4f815d65c43254f2f499f53bde1eecea4d39912d8ce36d2c5cd92a81',
+  'source_commit':'86353d710ca71d0f547f0d8b15cc8ca959c78163','seeds':list(SEEDS),
+  'batch_size':2,'batch_count':2,'sample_count':4,'generation_matmul_allow_tf32':True,
+  'generation_cudnn_allow_tf32':True,'no_early_stop':True,'no_adaptive_additions':True,
+  'runtime_translation_atol_m':1e-5,'runtime_rotation_atol_rad':1e-4,
+  'float64_translation_atol_m':1e-9,'float64_rotation_atol_rad':1e-9,
+  'mapping_reference_policy_id':PRECISION_POLICY['policy_id'],
+  'surface_selection_policy':'first_up_to_two_source_and_target_valid_in_global_original_order_no_backfill',
+  'approximate_contact_adequacy':'UNRESOLVED'}
+ if any(p.get(k)!=v for k,v in expected.items()):raise ValueError('Exact separate four-output MultiDex protocol required')
+ if p.get('surface_diagnostics')!=SURFACE_SPEC:raise ValueError('Existing valid-output surface policy changed')
+ if p.get('reference_precision_policy')!=PRECISION_POLICY:raise ValueError('Declared FP32 reference policy changed')
+
+def selection(records):
+ if [r['global_sample_index'] for r in records]!=list(range(4)):raise ValueError('Every original row must remain ordered')
+ return [r['global_sample_index'] for r in records if r['mapping_status']=='CANDIDATE_ONLY'][:2]
+
+def require_selected_prerequisites(validation):
+ records=validation['records'];selected=selection(records)
+ if selected!=validation['surface_selection']['selected_global_indices']:raise ValueError('Domain-only ordered selection changed')
+ for index in selected:
+  row=records[index];batch=validation['batches'][row['batch_index']]
+  if (row['source_limit_violations'] or row['target_limit_violations']
+      or row['mapping_status']!='CANDIDATE_ONLY' or row['algebra']['status']!='PASS'
+      or row['fp32_mapping_reference_reconstruction']['status']!='PASS'
+      or not row['surface_prerequisites_pass'] or batch['stage_reconstruction']['status']!='PASS'
+      or batch['input_identity']['status']!='PASS'):
+   raise ValueError('Selected prerequisite FAIL blocks geometry with no backfill: '+str(index))
+ return selected
+
+def encoded_nearset_conclusion(resolutions):
+ """Positive lower area disproves exact near-set equality, not physical adequacy."""
+ witnesses=[]
+ for spacing in ('2.0','1.0'):
+  for band in ('0.5','1.0','2.0'):
+   metrics=resolutions[spacing]['bands'][band]['groups']['whole_hand_common_runtime_coverage']['area_intervals']
+   for name in ('lost_native','new_target'):
+    if metrics[name]['lower_m2']>0:
+     witnesses.append({'spacing_mm':float(spacing),'band_mm':float(band),'metric':name,'lower_area_m2':metrics[name]['lower_m2']})
+ return {'status':'FAIL_EXACT_ENCODED_NEARSET_EQUALITY' if witnesses else 'UNRESOLVED_NO_POSITIVE_LOWER_BOUND',
+  'positive_lower_bound_witnesses':witnesses,'scope':'Unsigned encoded triangle proximity on registered cube faces, common source runtime coverage excluding forearm; not exterior physical contact or approximate scientific adequacy',
+  'approximate_contact_adequacy':'UNRESOLVED','scientific_acceptance_threshold':None}
+
+def normalizer_constants(path):
+ if digest(path)!=NORMALIZER_SHA256:raise ValueError('MultiDex source normalizer pin mismatch')
+ tree=ast.parse(Path(path).read_text());classes=[n for n in tree.body if isinstance(n,ast.ClassDef) and n.name==DATASET_NAME]
+ if len(classes)!=1:raise ValueError('Exact MultiDexShadowHandUR class required')
+ constants={}
+ for n in classes[0].body:
+  if isinstance(n,ast.Assign) and len(n.targets)==1 and isinstance(n.targets[0],ast.Name):
+   name=n.targets[0].id
+   if name in ('_joint_angle_lower','_joint_angle_upper','_global_trans_lower','_global_trans_upper'):
+    constants[name]=np.asarray(ast.literal_eval(n.value.args[0]),dtype=np.float32)
+ if set(constants)!={'_joint_angle_lower','_joint_angle_upper','_global_trans_lower','_global_trans_upper'}:raise ValueError('Four pinned MultiDex bound arrays required')
+ for role,n in [('joint_angle',24),('global_trans',3)]:
+  lo,hi=(constants['_'+role+'_'+end] for end in ('lower','upper'))
+  if lo.shape!=(n,) or hi.shape!=(n,) or not np.isfinite(lo).all() or not np.isfinite(hi).all() or not (hi>lo).all():raise ValueError('Malformed normalizer bounds')
+ return constants
+
+def check_stages(path,expected_sha,paths,manifest,adapter,normalizer):
+ if digest(path)!=expected_sha:raise ValueError('Stage archive hash mismatch')
+ def finite(x,shape,name):
+  x=np.asarray(x)
+  if x.shape!=shape or x.dtype.kind not in 'fiu' or not np.isfinite(x).all():raise ValueError(name+' must be finite numeric '+repr(shape))
+  return x.astype(np.float64)
+ n=manifest.sample_count;points=np.load(paths['point_cloud'],allow_pickle=False);normals=np.load(paths['normals'],allow_pickle=False)
+ with np.load(path,allow_pickle=False) as z:
+  raw=finite(z['normalized27'],(n,27),'normalized27');physical=finite(z['denormalized27'],(n,27),'denormalized27')
+  rotations=finite(z['scene_rotations'],(n,3,3),'scene_rotations')
+  augmented_points=finite(z['augmented_points'],(n,len(points),3),'augmented_points');augmented_normals=finite(z['augmented_normals'],augmented_points.shape,'augmented_normals')
+ for R in rotations:
+  T=np.eye(4);T[:3,:3]=R;adapter.proper_transform(T,'saved scene rotation')
+ bounds=normalizer_constants(normalizer);expected=raw.copy()
+ for enabled,subset,stem in [(manifest.normalize_translation,slice(0,3),'global_trans'),(manifest.normalize_joints,slice(3,27),'joint_angle')]:
+  if enabled:
+   lo,hi=(bounds['_'+stem+'_'+end] for end in ('lower','upper'))
+   expected[:,subset]=((raw[:,subset]+1.)/2.)*(hi-lo).astype(np.float64)+lo.astype(np.float64)
+ with np.load(paths['output'],allow_pickle=False) as z:final=finite(z['hand_qpos'],(n,33),'hand_qpos')
+ expected_final=np.stack([adapter.compose_denormalized_prediction(q,R) for q,R in zip(physical,rotations)])
+ errors={'denormalization_max_abs':float(np.max(np.abs(physical-expected))),
+  'final33_max_abs':float(np.max(np.abs(final-expected_final))),
+  'augmented_points_max_abs_m':float(np.max(np.abs(augmented_points-np.einsum('nij,pj->npi',rotations,points)))),
+  'augmented_normals_max_abs':float(np.max(np.abs(augmented_normals-np.einsum('nij,pj->npi',rotations,normals))))}
+ return {'status':'PASS' if max(errors.values())<=1e-9 else 'FAIL','errors':errors,
+  'npz_sha256':digest(path),'normalizer_sha256':digest(normalizer),'normalizer_class':DATASET_NAME,'budget':'Frozen1e-9 numerical identity; no physical adequacy'}

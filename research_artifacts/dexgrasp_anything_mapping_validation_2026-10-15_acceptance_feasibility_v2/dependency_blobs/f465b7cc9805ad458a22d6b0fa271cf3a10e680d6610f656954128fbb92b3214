@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+"""Separate exact MultiDex pin; reuse only the immutable source-clean gate."""
+from __future__ import annotations
+import argparse
+import hashlib
+import importlib.util
+from pathlib import Path
+import json
+
+CHECKPOINT_SHA256='sha256:036b406af7c02cd2de9eb61da02590f8c5db7e6afe6a842eb36b47f03105945e'
+CHECKPOINT_SIZE=110490637
+SOURCE_COMMIT='86353d710ca71d0f547f0d8b15cc8ca959c78163'
+NORMALIZER_SHA256='sha256:033574fe65e4bbaf62def07913890776d43f107fe48c70089d1b72de093b479f'
+LEGACY_VERIFIER_SHA256='sha256:86bc590d9a14c45df5eb1ff5033db307851856ab688456d6790daf05dd3c30f5'
+PROFILE_ID='dga_multidex_official_unguided_v1'
+
+
+def digest(path):
+    h=hashlib.sha256()
+    with Path(path).open('rb') as f:
+        for chunk in iter(lambda:f.read(1024*1024),b''):h.update(chunk)
+    return 'sha256:'+h.hexdigest()
+
+
+def verify(source,checkpoint):
+    source=Path(source).resolve();checkpoint=Path(checkpoint)
+    old=Path(__file__).with_name('verify_dexgrasp_anything_assets.py')
+    if digest(old)!=LEGACY_VERIFIER_SHA256:raise ValueError('Reviewed source-clean verifier changed')
+    spec=importlib.util.spec_from_file_location('dga_multidex_immutable_source_gate',old);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+    revision=module._verify_source(source,checkpoint)
+    if checkpoint.stat().st_size!=CHECKPOINT_SIZE or digest(checkpoint)!=CHECKPOINT_SHA256:
+        raise ValueError('MultiDex checkpoint exact size/SHA pin mismatch')
+    if digest(source/'datasets/multidex_shadowhand_ur.py')!=NORMALIZER_SHA256:
+        raise ValueError('MultiDex normalizer source pin mismatch')
+    return {'verified':True,'source_profile_id':PROFILE_ID,'source_commit':revision,
+        'checkpoint_path':str(checkpoint.resolve()),'checkpoint_size_bytes':CHECKPOINT_SIZE,
+        'checkpoint_sha256':CHECKPOINT_SHA256,'normalizer_source_sha256':NORMALIZER_SHA256,
+        'huggingface_repository_revision':'b24637ce366af4dd75cff723d2b853179155ec29',
+        'verification_scope':{'source':'exact reviewed Git/index/ignored-overlay gate, unchanged',
+            'checkpoint':'separate MultiDex exact size/SHA before any metadata read/load',
+            'original_DexGraspNet_pin':'PRESERVED_NOT_ACCEPTED_BY_THIS_SEPARATE_PROFILE'}}
+
+
+if __name__=='__main__':
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--source',type=Path,required=True);p.add_argument('--checkpoint',type=Path,required=True);a=p.parse_args();print(json.dumps(verify(a.source,a.checkpoint),indent=2))

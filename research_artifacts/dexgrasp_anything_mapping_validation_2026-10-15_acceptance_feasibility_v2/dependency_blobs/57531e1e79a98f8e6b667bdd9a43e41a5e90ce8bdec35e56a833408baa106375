@@ -1,0 +1,156 @@
+{
+  "schema_version": "dga_surface_preservation_scientific_protocol_v1",
+  "status": "FROZEN_BEFORE_CANDIDATE_METRICS",
+  "frozen_at_utc": "2026-10-15T05:45:24.238955+00:00",
+  "user_authorization": "Implement a separately versioned surface-preserving correction; define justified acceptance criteria before testing; preserve original results; no physics, evaluation data or training.",
+  "case_scope": {
+    "source_profile": "dga_multidex_official_unguided_v1",
+    "global_sample_indices": [
+      1,
+      3
+    ],
+    "selection_reason": "All and only existing source-valid rows in the predeclared four-output MultiDex cohort; no sampling/backfill/cherry picking.",
+    "original_accounting": {
+      "source_limit_rejects": 2,
+      "target_limit_rejects": 2,
+      "eligible_native": 0
+    },
+    "independent_native_validation": false,
+    "new_native_outputs": 0,
+    "all_cases_are_previously_inspected_development_cases": true
+  },
+  "native_reference": {
+    "visual": "Saved previously verified FP32 runtime first visuals, original raw33 unchanged; defaultTF32 failures retained.",
+    "palm_collision": "Original literal source one-box declared palm solid versus target eight-box union, distinct from runtime visuals/compiled contact.",
+    "object": "Exact unchanged registered50mm cube; source and target in same object frame.",
+    "matched_parts": [
+      "palm",
+      "index",
+      "middle",
+      "ring",
+      "little",
+      "thumb",
+      "wrist_carrier"
+    ],
+    "unmatched": "Source runtime omits forearm; target forearm excluded from common visual acceptance and reported separately.",
+    "assets_replaced": false
+  },
+  "acceptance": {
+    "primary_claim": "Strict preservation of same-part encoded visual proximity regions on the complete cube surface at each declared0.5/1/2mm band.",
+    "why_zero_difference": "This is the exact preservation claim: every native geometric near/miss relationship remains the same. Any certified lost or added region contradicts that claim. Zero is logical equality, not a tolerance fitted to observed errors.",
+    "bands_mm": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "band_justification": "These are the already-established descriptive DGA diagnostic scales, frozen before this correction; now test exact equality of the explicitly named relationships at those scales. They are not force/contact/outcome tolerances.",
+    "distance_arithmetic_allowance_m": 1e-09,
+    "arithmetic_scope": "Conditional float64 triangle/CSG formulas under declared1nm allowance; no directed-rounding proof and no claim of physical surface truth.",
+    "strict_nearset_rule": {
+      "FAIL": "At least one strictly positive conservative lower bound of lost_native or new_target area for any required part/band/case; numerical/reference prerequisites must hold.",
+      "PASS": "All required domain/reference prerequisites pass and every required lost/new upper bound is zero over the full covered object surface, or a valid analytic geometry-identity/correlated certificate proves equality including threshold-crossing cells.",
+      "UNRESOLVED": "No certified counterexample but unresolved area remains; zero observed or zero lower-bound differences cannot pass.",
+      "identity_certificate": "Must verify full corresponding geometric set identity/correspondence, not equality of sampled distance arrays."
+    },
+    "declared_palm_rule": {
+      "required_claim": "Preserve same0.5/1/2mm unsigned palm-union boundary nearsets AND cube-surface inside/outside occupancy of the declared palm solid.",
+      "FAIL": "Certified lost/added near region or positive area of changed inside/outside occupancy.",
+      "PASS": "All difference upper bounds zero or a valid full-geometry identity proof.",
+      "UNRESOLVED": "Otherwise; visual references never stand in for this separate collider reference."
+    },
+    "direction_rule": {
+      "qualified_counterexample": "A numerically unambiguous facing reversal at a qualified same-part corresponding query refutes only that declared oriented-facet/palm-union point relationship.",
+      "no_vacuous_pass": "Zero eligible comparisons or uncovered regions means direction preservation UNRESOLVED, notPASS.",
+      "scope": "Conditional visual facet orientation is not certified whole-hand exterior; palm-only union normals are not whole-hand/compiled normals."
+    },
+    "engineering_prerequisites": {
+      "finite_proper_transforms": true,
+      "24_named_target_joints_strict_literal_bounds": true,
+      "both_original_wrists_exact": true,
+      "source_native_inputs_unchanged": true,
+      "independent_FK_and_palm_root_checks": true,
+      "maximum_site_error_and_total_SSE": "No worse than the previous fixed-palm development fit on the same row, using all28sites inclpalm; these are relative nonregression guards, not scientific adequacy thresholds.",
+      "no_final_joint_clipping": true
+    },
+    "full_mapping_acceptance": "Never inferred from objective improvement or a subset PASS. Requires all applicable representation/geometric claims supported and separately established independent native validation. This two-case development run cannot establish population/generalization or physical/predictor adequacy.",
+    "nonzero_approximation_budget": null,
+    "approximate_outcome_adequacy": "NOT_TESTED; no delta selected as a fraction of band/residual to imply task-label preservation."
+  },
+  "correction_design": {
+    "variables": "22finger angles plus palm translation/rotation; both nativewrists fixed; originaltargetlimits.",
+    "objective": "Equal mean squared native-relative physical-distance residual per declared field: seven common visual part fields plus one signed declared-palm union field. Preserve native misses/inside/outside; no attraction-to-object, penetration minimization or success target.",
+    "unsigned_cap_m": 0.004,
+    "signed_palm_cap_m": [
+      -0.004,
+      0.004
+    ],
+    "cap_justification": "Optimization window twice the largest descriptiveband to retain gradients outside2mm. Censoring/cap hits remain explicit; capped residuals never determine nearset acceptance.",
+    "fit_grid_cell_width_mm": 5.0,
+    "fit_query_fractions": [
+      0.5,
+      0.5
+    ],
+    "fit_query_count": 600,
+    "starts": [
+      "previous_fixed_palm_fit",
+      "previous_selected_free_palm_fit"
+    ],
+    "sweeps": 2,
+    "blocks": [
+      "index",
+      "middle",
+      "ring",
+      "little",
+      "thumb",
+      "palm"
+    ],
+    "max_nfev_per_block": 10,
+    "maximum_wall_seconds": 600,
+    "threads": 1,
+    "selection": "Choose minimum frozen training surfaceSSE among baseline and terminal attempts satisfying exact target/wrist/source and trueoldfixedpalm max/SSE guards; deterministic startorder tiebreak. Preserve all attempted/guardrefused outputs.",
+    "baseline": "Previous selected free-palm output retained if no eligible improvement.",
+    "forbidden_feedback": "No holdout result may alter fit, selection, acceptance rules, tolerances, queries or candidate count in thisversion."
+  },
+  "holdout_measurement": {
+    "grids_mm": [
+      1.0,
+      0.5,
+      0.25
+    ],
+    "query_fractions": [
+      0.2857142857142857,
+      0.42857142857142855
+    ],
+    "covering_radius_formula": "sqrt(41)*h/7 = farthest corner distance from fractions(2/7,3/7)",
+    "complete_surface_area_m2": 0.015,
+    "true_distance_queries": "True closedtriangle or exposedunionboundary distances with searchradius>=maxband+rho+2eps. Censoredvalues treated aslowerbounds, never asnear.",
+    "per_part_no_aggregation_hiding": true,
+    "separate_visual_and_palm_collider_families": true,
+    "report_all_three_resolutions": true,
+    "holdout_scope": "Fresh geometric query locations, fixed now before fitting; SAME previouslyinspected2nativegrasps, not independent nativevalidation.",
+    "maximum_visual_triangle_tests": 100000000,
+    "maximum_palm_polygon_queries": 150000000,
+    "maximum_wall_seconds_per_family": 600
+  },
+  "zero_execution": {
+    "physics_steps": 0,
+    "evaluation_episodes": 0,
+    "task_failure_labels": 0,
+    "training_calls": 0,
+    "checkpoint_loads": 0,
+    "new_inference": 0,
+    "GPU_start_create": 0
+  },
+  "prior_evidence_sha256": {
+    "docs/PARALLEL_GENERATOR_VALIDATION_HANDOFF.md": "sha256:a9a68df85e745a0c3eb69833c4063b403f3259f2a0b18f03119912b710c9f621",
+    "docs/GRASP_MAPPING_FIDELITY.md": "sha256:b9e235f797e784498860a1367d84432b5612a13e5ef7f2d66f597812ef7c2a81",
+    "research_artifacts/dexgrasp_anything_mapping_validation_2026-10-15_free_palm_v1/evidence_manifest_v1.json": "sha256:c728515c9b611333fb56be889dc946b76df1e83df2f46f2b138f777a3cfddfe3",
+    "research_artifacts/dexgrasp_anything_mapping_validation_2026-10-15_retarget_development_v1/evidence_manifest_v1.json": "sha256:388c2df7c26b538223ae47ed3878be2abe88c56d2cdfd8d19828b9b24565cd07",
+    "research_artifacts/dexgrasp_anything_mapping_validation_2026-10-15_multidex_smoke_v1/evidence_manifest_v1.json": "sha256:2320027d44abc632add7411598c05aef957e8e77f8d9215f60217f164b01af62"
+  },
+  "independent_prospective_review": {
+    "path": "/private/tmp/dga_surface_preserving_20261015_v1/independent_review/prospective_criterion_review_v1.json",
+    "sha256": "sha256:66c59ba085ac5e43380ab85bf601d8be37b5be66d86e5316f1aa6c02db12a2f6"
+  },
+  "implementation_freeze": "A separate hash-bound implementation manifest must bind this protocol and code/dependencies/tests before actual source/candidate field measurement. Synthetic manufactured controls may precede that manifest."
+}

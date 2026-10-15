@@ -1,0 +1,633 @@
+#!/usr/bin/env python3
+"""One unfiltered native DGA sampling call on pinned object01; never physics.
+
+Python 3.8-compatible external wrapper. No upstream files, model operators,
+checkpoint tensors, angles or physical object dimensions are modified. The
+preflight-only path imports neither Torch nor the upstream runtime.
+"""
+
+import argparse
+import hashlib
+import importlib.abc
+import importlib.metadata
+import importlib.util
+import json
+import os
+from pathlib import Path
+import platform
+import random
+import shutil
+import subprocess
+import sys
+import time
+import traceback
+from datetime import datetime, timezone
+from xml.etree import ElementTree as ET
+
+os.environ["PYTHONDONTWRITEBYTECODE"] = "1"
+sys.dont_write_bytecode = True
+
+PROFILE_ID = "dga_multidex_official_unguided_v1"
+SOURCE_COMMIT = "86353d710ca71d0f547f0d8b15cc8ca959c78163"
+HF_REVISION = "b24637ce366af4dd75cff723d2b853179155ec29"
+CHECKPOINT_SHA256 = "sha256:036b406af7c02cd2de9eb61da02590f8c5db7e6afe6a842eb36b47f03105945e"
+CHECKPOINT_SIZE = 110490637
+NORMALIZER_SHA256 = "sha256:033574fe65e4bbaf62def07913890776d43f107fe48c70089d1b72de093b479f"
+SOURCE_HAND_SHA256 = "sha256:932fca7c411ef9ae4e6a8f17a892b3629840b5b5e1254610e0616e184d1f95c7"
+OBJECT_GEOMETRY_SHA256 = "sha256:45c1162a4f815d65c43254f2f499f53bde1eecea4d39912d8ce36d2c5cd92a81"
+INPUT_HASHES = {
+    "analytic_geometry_contract.json": OBJECT_GEOMETRY_SHA256,
+    "mesh.obj": "sha256:e3abe7b101ecc6ebe02e38931674fd7991e445b752dca0d41f51eeaef148cbac",
+    "points.npy": "sha256:03d9c6ffd06868427010d5dbc6b5db0edd848f9d62bd0209a970c328554f1d71",
+    "normals.npy": "sha256:20bb8a503d8c0cebf3bf1537328fb08a26577fdd5daa0d7106d548833c681bb4",
+}
+JOINT_NAMES = [
+    "WRJ2", "WRJ1", "FFJ4", "FFJ3", "FFJ2", "FFJ1", "MFJ4", "MFJ3", "MFJ2", "MFJ1",
+    "RFJ4", "RFJ3", "RFJ2", "RFJ1", "LFJ5", "LFJ4", "LFJ3", "LFJ2", "LFJ1",
+    "THJ5", "THJ4", "THJ3", "THJ2", "THJ1",
+]
+FORBIDDEN_ROOTS = {"isaacgym", "envs", "mujoco", "dm_control", "pybullet"}
+
+
+def sha256(path):
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(block)
+    return "sha256:" + digest.hexdigest()
+
+
+def canonical(value):
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
+
+
+def write_json(path, value):
+    Path(path).write_text(json.dumps(value, sort_keys=True, indent=2, allow_nan=False) + "\n")
+
+
+def reference(path):
+    return {"path": Path(path).name, "sha256": sha256(path)}
+
+
+def git(source, *arguments):
+    return subprocess.check_output(["git", *arguments], cwd=str(source), stderr=subprocess.PIPE)
+
+
+def metadata_helper():
+    path=Path(__file__).with_name('inspect_multidex_checkpoint.py')
+    spec=importlib.util.spec_from_file_location('dga_multidex_safe_metadata',path)
+    result=importlib.util.module_from_spec(spec);spec.loader.exec_module(result)
+    return result
+
+
+def verify_multidex_protocol(args):
+    if sha256(args.protocol)!=args.protocol_sha256:raise ValueError('Frozen MultiDex protocol hash changed')
+    p=json.loads(args.protocol.read_text())
+    expected={'schema_version':'dga_multidex_independent_native_protocol_v1','status':'FROZEN_PREMEASUREMENT',
+        'source_profile_id':PROFILE_ID,'checkpoint_sha256':CHECKPOINT_SHA256,'normalizer_source_sha256':NORMALIZER_SHA256,
+        'dataset_name':'MultiDexShadowHandUR',
+        'source_commit':SOURCE_COMMIT,'seeds':[20261025, 20261026, 20261027, 20261028, 20261029, 20261030, 20261031, 20261032],'batch_size':2,'batch_count':8,'sample_count':16,
+        'generation_matmul_allow_tf32':True,'generation_cudnn_allow_tf32':True,'no_early_stop':True,'no_adaptive_additions':True,
+        'mapping_holdout_state':'SEALED_UNTIL_MAPPING_FREEZE',
+        'mapping_selection_policy':'first_two_source_valid_in_original_order_no_backfill',
+        'forbid_holdout_tuning':True,'sampling_trajectory_policy':'retain_original_101_states_post_sampling_no_rng',
+        'runtime_translation_atol_m':1e-5,'runtime_rotation_atol_rad':1e-4}
+    if any(p.get(k)!=v for k,v in expected.items()):raise ValueError('Not the separate fixed sixteen-output native validation policy')
+    if args.count!=2 or args.seed not in p['seeds']:raise ValueError('Batch differs from fixed MultiDex schedule')
+    base=Path(__file__).resolve().parent
+    paths={'native_wrapper':base/'run_multidex_smoke.py','multidex_verifier':base/'verify_multidex_assets.py',
+        'source_verifier':base/'verify_dexgrasp_anything_assets.py','checkpoint_inspector':base/'inspect_multidex_checkpoint.py'}
+    if any(sha256(v)!=p['code_sha256'].get(k) for k,v in paths.items()):raise ValueError('MultiDex support bytes differ from freeze')
+    return p
+
+
+def state_signatures(state, schedule_names):
+    """Shapes/dtypes for all state; raw bytes only for the twelve schedules."""
+    result={}
+    for name,value in state.items():
+        dtype=str(value.dtype)
+        if not dtype.startswith('torch.'):raise ValueError('Unknown actual model dtype')
+        result[name]={'shape':list(value.shape),'dtype':dtype[len('torch.'): ]}
+        if name in schedule_names:
+            raw=value.detach().contiguous().cpu().numpy().tobytes()
+            result[name]['sha256']='sha256:'+hashlib.sha256(raw).hexdigest()
+    return result
+
+
+def verify_source_checkpoint(source, checkpoint):
+    # Keep a byte-identical copy of the reviewed repository verifier beside this
+    # wrapper. Its Git/index/untracked-runtime gates precede checkpoint reading.
+    verifier = Path(__file__).with_name("verify_multidex_assets.py")
+    spec = importlib.util.spec_from_file_location("dga_smoke_asset_verifier", str(verifier))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    result = module.verify(source, checkpoint)
+    if sha256(source / "datasets/multidex_shadowhand_ur.py") != NORMALIZER_SHA256:
+        raise ValueError("Pinned normalizer hash mismatch")
+    hand = source / "assets/urdf/sr_grasp_description/urdf/shadowhand.urdf"
+    if sha256(hand) != SOURCE_HAND_SHA256:
+        raise ValueError("Pinned source hand hash mismatch")
+    result["source_file_hashes"] = {
+        os.fsdecode(name): sha256(source / os.fsdecode(name))
+        for name in git(source, "ls-files", "-z").split(b"\0") if name
+    }
+    result["verifier_sha256"] = sha256(verifier)
+    return result
+
+
+def verify_conditioning(input_dir):
+    import numpy as np
+    manifest = json.loads((input_dir / "manifest.json").read_text())
+    content = dict(manifest)
+    advertised = content.pop("manifest_content_hash", None)
+    if advertised != "sha256:" + hashlib.sha256(canonical(content)).hexdigest():
+        raise ValueError("Conditioning manifest content hash mismatch")
+    if (manifest.get("object_id") != "object01" or manifest.get("object_scale") != 1.0
+            or manifest.get("object_geometry_content_hash") != OBJECT_GEOMETRY_SHA256
+            or manifest.get("coordinate_frame") != "mujoco_object_body"
+            or manifest.get("length_unit") != "meter"
+            or manifest.get("object_to_points") != {
+                "quaternion_xyzw": [0., 0., 0., 1.], "translation_m": [0., 0., 0.]}):
+        raise ValueError("Only the declared exact object01 identity-frame/scale-one input is supported")
+    for name, item in manifest["files"].items():
+        relative = Path(name)
+        path = input_dir / relative
+        if relative.is_absolute() or ".." in relative.parts or path.is_symlink() or not path.is_file():
+            raise ValueError("Invalid conditioning artifact path: " + name)
+        if sha256(path) != item["sha256"] or path.stat().st_size != item["size_bytes"]:
+            raise ValueError("Conditioning original-byte identity mismatch: " + name)
+    for name, expected in INPUT_HASHES.items():
+        if sha256(input_dir / name) != expected:
+            raise ValueError("Frozen object01 input differs: " + name)
+    points = np.load(input_dir / "points.npy", allow_pickle=False)
+    normals = np.load(input_dir / "normals.npy", allow_pickle=False)
+    for label, array in (("points", points), ("normals", normals)):
+        if array.shape != (2048, 3) or array.dtype != np.dtype("float64") or not np.isfinite(array).all():
+            raise ValueError("Invalid original conditioning " + label)
+    if not np.allclose(np.linalg.norm(normals, axis=1), 1., atol=1e-14, rtol=0):
+        raise ValueError("Prepared cube normals do not match unit generating-face normals")
+    return manifest, points, normals
+
+
+def preflight(args):
+    source, checkpoint, input_dir = args.source.resolve(), args.checkpoint.resolve(), args.input_dir.resolve()
+    output = args.output.resolve()
+    if output.exists():
+        raise ValueError("Output already exists; original evidence will not be overwritten")
+    if os.path.commonpath([str(source), str(output)]) == str(source):
+        raise ValueError("Keep every wrapper/output outside pinned source")
+    protocol=verify_multidex_protocol(args)
+    assets = verify_source_checkpoint(source, checkpoint)
+    metadata=metadata_helper().inspect_checkpoint(checkpoint)
+    metadata_content_sha='sha256:'+hashlib.sha256(canonical(metadata)).hexdigest()
+    if metadata_content_sha!=protocol['checkpoint_metadata_content_sha256']:
+        raise ValueError('Safe checkpoint metadata differs from external premeasurement freeze')
+    conditioning, points, normals = verify_conditioning(input_dir)
+    result = {
+        "schema_version": "dga_multidex_smoke_preflight_v1", "source": str(source),
+        "checkpoint": str(checkpoint), "input_dir": str(input_dir), "output": str(output),
+        "asset_verification": assets, "conditioning_manifest_sha256": sha256(input_dir / "manifest.json"),
+        "source_profile_id":PROFILE_ID,"checkpoint_metadata_safe":metadata,
+        "checkpoint_metadata_content_sha256":metadata_content_sha,
+        "protocol_sha256": args.protocol_sha256, "wrapper_sha256": sha256(__file__),
+        "seed": args.seed, "sample_count": args.count, "physics_steps": 0,
+        "model_sample_calls": 0, "checkpoint_deserializations": 0,
+    }
+    return result, conditioning, points, normals
+
+
+class NoPhysicsImports(importlib.abc.MetaPathFinder):
+    def find_spec(self, fullname, path=None, target=None):
+        if fullname.split(".")[0] in FORBIDDEN_ROOTS:
+            raise ImportError("Physics/environment imports are forbidden in this smoke: " + fullname)
+        return None
+
+
+def compose_native_config(source, output, count):
+    """Compose only Hydra configuration; no model/runtime/checkpoint imports.
+
+    Hydra1.2 treats optimizer as a config group, so an ``optimizer=null``
+    override is invalid. Retain the pinned defaults-list null placeholder and
+    explicitly materialize its disabled value after composition.
+    """
+    from hydra import compose, initialize_config_dir
+    from omegaconf import OmegaConf
+    with initialize_config_dir(config_dir=str(Path(source).resolve() / "configs"), version_base=None):
+        cfg = compose(config_name="default", overrides=[
+            "dataset.active=MultiDexShadowHandUR", "llm.enabled=false", "use_dpmsolver=false",
+            "diffuser=ddpm", "diffuser.steps=100", "diffuser.loss_type=l1", "model=unet_grasp", "task=grasp_gen_ur",
+            "task.dataset.normalize_x=true", "task.dataset.normalize_x_trans=true",
+            "task.dataset.num_points=2048", "task.test.batch_size=" + str(count),
+            "task.visualizer.visualize_html=false", "exp_dir=" + str(output),
+        ])
+    OmegaConf.update(cfg, "optimizer", None, force_add=True)
+    cfg.model.d_x = 27
+    if cfg.optimizer is not None or cfg.llm.enabled or cfg.use_dpmsolver or cfg.model.scene_model.name != "PointTransformer":
+        raise RuntimeError("Unexpected model/sampling configuration")
+    return cfg
+
+
+def align_checkpoint_state(saved, expected):
+    """No random-initialized fallback, dropped keys, dtype casts or shape repair."""
+    if not isinstance(saved, dict) or not isinstance(expected, dict):
+        raise ValueError("Checkpoint model and expected state must be mappings")
+    state = {}
+    for original, tensor in saved.items():
+        if not isinstance(original, str):
+            raise ValueError("Nonstring checkpoint tensor key")
+        name = original[7:] if original.startswith("module.") else original
+        if name in state:
+            raise ValueError("Ambiguous prefixed/unprefixed checkpoint key: " + name)
+        state[name] = tensor
+    missing, extra = sorted(set(expected) - set(state)), sorted(set(state) - set(expected))
+    if missing or extra:
+        raise ValueError("Checkpoint key coverage failed: " + json.dumps({"missing": missing, "extra": extra}))
+    for name, wanted in expected.items():
+        actual = state[name]
+        if not hasattr(actual, "shape") or tuple(actual.shape) != tuple(wanted.shape) or actual.dtype != wanted.dtype:
+            raise ValueError("Checkpoint tensor shape/dtype mismatch: " + name)
+    return state
+
+
+def rng_snapshot(torch, np, output, name):
+    numpy_state = np.random.get_state()
+    arrays = {"torch_cpu": torch.get_rng_state().cpu().numpy(), "numpy_keys": numpy_state[1]}
+    for index, state in enumerate(torch.cuda.get_rng_state_all()):
+        arrays["torch_cuda_" + str(index)] = state.cpu().numpy()
+    np.savez(output / (name + ".npz"), **arrays)
+    write_json(output / (name + ".json"), {
+        "python_random_state": random.getstate(), "numpy_generator": numpy_state[0],
+        "numpy_position": int(numpy_state[2]), "numpy_has_gauss": int(numpy_state[3]),
+        "numpy_cached_gaussian": float(numpy_state[4]), "arrays": reference(output / (name + ".npz")),
+    })
+
+
+def runtime_inventory(torch):
+    packages = sorted((item.metadata.get("Name", "unknown"), item.version) for item in importlib.metadata.distributions())
+    imported = {}
+    for name, module in list(sys.modules.items()):
+        filename = getattr(module, "__file__", None)
+        if filename and Path(filename).is_file() and Path(filename).suffix in {".py", ".so", ".pyd"}:
+            imported[name] = {"path": str(Path(filename).resolve()), "sha256": sha256(filename)}
+    return {
+        "python": sys.version, "platform": platform.platform(), "torch": torch.__version__,
+        "cuda_build": torch.version.cuda, "cudnn": torch.backends.cudnn.version(),
+        "gpu": torch.cuda.get_device_name(0), "compute_capability": list(torch.cuda.get_device_capability(0)),
+        "packages": packages, "imported_modules": imported,
+        "cudnn_benchmark": torch.backends.cudnn.benchmark,
+        "cudnn_deterministic": torch.backends.cudnn.deterministic,
+        "deterministic_algorithms": torch.are_deterministic_algorithms_enabled(),
+        "matmul_allow_tf32": torch.backends.cuda.matmul.allow_tf32,
+        "cudnn_allow_tf32": torch.backends.cudnn.allow_tf32,
+    }
+
+
+def source_domain_report(values, source_hand):
+    root = ET.parse(source_hand).getroot()
+    limits = {node.attrib["name"]: (float(node.find("limit").attrib["lower"]),
+                                        float(node.find("limit").attrib["upper"]))
+              for node in root.findall("joint") if node.get("type") == "revolute"}
+    report = []
+    for index, row in enumerate(values):
+        violations = []
+        for name, value in zip(JOINT_NAMES, row[9:]):
+            lo, hi = limits[name]
+            if not lo <= value <= hi:
+                violations.append({"joint": name, "value_rad": float(value) if float("-inf") < value < float("inf") else None,
+                                   "source_limits_rad": [lo, hi]})
+        report.append({"sample_index": index, "source_limit_violations": violations,
+                       "physical_failure_label": None, "unfiltered_retained": True})
+    return report
+
+
+def export_runtime_reference(torch, np, hand, values, output):
+    arrays, link_dtypes = {}, {}
+    per_link = {}
+    vertex_names = [name for name in hand.mesh_verts if name != "forearm"]
+    for index in range(len(values)):
+        q = values[index:index + 1]
+        meshes = hand.get_meshes_from_q(q=q, i=0)
+        if len(meshes) != len(vertex_names):
+            raise ValueError("Untouched runtime mesh/link order does not agree")
+        for name, mesh in zip(vertex_names, meshes):
+            per_link.setdefault("vertices__" + name, []).append(np.asarray(mesh.vertices).copy())
+            face_key = "faces__" + name
+            faces = np.asarray(mesh.faces).copy()
+            if face_key in arrays and not np.array_equal(arrays[face_key], faces):
+                raise ValueError("Runtime topology changed between samples")
+            arrays[face_key] = faces
+        for name, status in hand.current_status.items():
+            matrix = status.get_matrix()[0].detach().cpu().numpy().copy()
+            link_dtypes[name] = str(matrix.dtype)
+            per_link.setdefault("forearm_from_link__" + name, []).append(matrix)
+        transform = np.eye(4)
+        transform[:3, :3] = hand.global_rotation[0].detach().cpu().numpy()
+        transform[:3, 3] = hand.global_translation[0].detach().cpu().numpy()
+        per_link.setdefault("input_from_forearm", []).append(transform)
+    for key, items in per_link.items():
+        arrays[key] = np.stack(items)
+    np.savez(output / "runtime_reference.npz", **arrays)
+    dtypes = sorted(set(link_dtypes.values()))
+    if len(dtypes) != 1 or dtypes[0] not in {"float32", "float64"}:
+        raise ValueError("Unexpected mixed/unknown runtime FK transform dtype: " + repr(dtypes))
+    write_json(output / "runtime_reference.json", {
+        "schema_version": "dga_runtime_visual_reference_v1", "source_profile_id": PROFILE_ID,
+        "checkpoint_sha256": CHECKPOINT_SHA256, "dataset_name": "MultiDexShadowHandUR",
+        "normalizer_source_sha256": NORMALIZER_SHA256, "arrays": reference(output / "runtime_reference.npz"),
+        "sample_count": len(values), "sample_indices": list(range(len(values))), "coordinate_frame": "object",
+        "object_from_input": np.eye(4).tolist(), "native_output_sha256": sha256(output / "outputs.npz"),
+        "source_hand_sha256": SOURCE_HAND_SHA256, "runtime_transform_dtype": dtypes[0],
+        "vertex_semantics": "untouched_get_meshes_from_q_object_frame", "excluded_links": ["forearm"],
+        "source_method": "utils.handmodel.HandModel.get_meshes_from_q",
+        "vertex_links": vertex_names, "link_frame_dtypes": link_dtypes,
+        "array_dtypes": {key: str(value.dtype) for key, value in arrays.items()},
+        "frame_semantics": {"forearm_from_link": "unmodified source articulated FK before global transform",
+                            "input_from_forearm": "unmodified source global rotation/translation; input equals object"},
+        "source_dependencies": {
+            "utils/handmodel.py": sha256(Path.cwd() / "utils/handmodel.py"),
+            "utils/rot6d.py": sha256(Path.cwd() / "utils/rot6d.py"),
+            "source_hand.urdf": SOURCE_HAND_SHA256,
+        },
+        "source_hand_scale": 1.0, "physics_steps": 0,
+    })
+
+
+def execute(args, preflight_result, input_manifest, points, normals):
+    import numpy as np
+    source, checkpoint, output = args.source.resolve(), args.checkpoint.resolve(), args.output.resolve()
+    output.mkdir(parents=True, exist_ok=False)
+    write_json(output / "preflight.json", preflight_result)
+    shutil.copyfile(args.protocol, output / "protocol.md")
+    shutil.copyfile(__file__, output / "runner.py")
+    shutil.copyfile(Path(__file__).with_name("verify_multidex_assets.py"), output / "asset_verifier.py")
+    shutil.copyfile(Path(__file__).with_name("verify_dexgrasp_anything_assets.py"), output / "verify_dexgrasp_anything_assets.py")
+    shutil.copyfile(Path(__file__).with_name("inspect_multidex_checkpoint.py"), output / "checkpoint_metadata_inspector.py")
+    write_json(output / "checkpoint_metadata_safe.json", preflight_result["checkpoint_metadata_safe"])
+    for name in input_manifest["files"]:
+        shutil.copyfile(args.input_dir / name, output / name)
+    shutil.copyfile(args.input_dir / "manifest.json", output / "conditioning_manifest.json")
+    source_hand = source / "assets/urdf/sr_grasp_description/urdf/shadowhand.urdf"
+    shutil.copyfile(source_hand, output / "source_hand.urdf")
+    if any(name.split(".")[0] in FORBIDDEN_ROOTS for name in sys.modules):
+        raise RuntimeError("A physics/environment module was already loaded")
+    sys.meta_path.insert(0, NoPhysicsImports())
+    os.chdir(source)
+    sys.path.insert(0, str(source))
+    import torch
+    if (sys.version_info[:2] != (3, 8) or torch.__version__.split("+")[0] != "1.11.0"
+            or torch.version.cuda != "11.3" or not torch.cuda.is_available()):
+        raise RuntimeError("Require Python3.8/Torch1.11.0/CUDA11.3 and actual NVIDIA CUDA; no fallback")
+    torch.cuda.set_device(0)
+    if (os.environ.get('NVIDIA_TF32_OVERRIDE') is not None or not sys.pycache_prefix
+            or Path(sys.pycache_prefix).resolve().parent!=Path('/opt/dga')
+            or Path(sys.pycache_prefix).exists()):
+        raise RuntimeError('Require no TF32 override and fresh nonexistent local /opt/dga cache prefix')
+    torch.backends.cuda.matmul.allow_tf32=True
+    torch.backends.cudnn.allow_tf32=True
+    from omegaconf import OmegaConf
+    from models.base import create_model
+    from datasets.multidex_shadowhand_ur import MultiDexShadowHandUR
+    from utils.handmodel import get_handmodel
+    from utils.rot6d import random_rot, rot_to_orthod6d, robust_compute_rotation_matrix_from_ortho6d
+    # Eagerly verify every compiled/runtime import used by the untouched source
+    # BEFORE any PyTorch checkpoint deserialization. No stubs are installed.
+    import pointops_cuda
+    from pointnet2 import _ext as pointnet2_ext
+    import csdf
+    import pytorch3d
+    cfg = compose_native_config(source, output, args.count)
+    model = create_model(cfg, slurm=False, device="cuda:0").to(device="cuda:0")
+    if model.optimizer is not None or model.timesteps != 100:
+        raise RuntimeError("Guidance or sampling steps differ from frozen request")
+    hand = get_handmodel(batch_size=1, device="cuda:0", hand_scale=1.)
+    runtime_names = list(hand.robot.get_joint_parameter_names())
+    if runtime_names != JOINT_NAMES:
+        raise RuntimeError("Actual source FK joint order differs: " + repr(runtime_names))
+    for name, module in list(sys.modules.items()):
+        if name.split(".")[0] in {"models", "datasets", "utils"}:
+            origin = getattr(module, "__file__", None)
+            if origin is not None and os.path.commonpath([str(source), str(Path(origin).resolve())]) != str(source):
+                raise RuntimeError("Upstream module imported outside pinned source: " + name)
+    write_json(output / "dependency_import_gate.json", {
+        "status": "PASS", "checkpoint_deserializations": 0,
+        "compiled_modules": {name: {"path": module.__file__, "sha256": sha256(module.__file__)}
+                             for name, module in (("pointops_cuda", pointops_cuda), ("pointnet2._ext", pointnet2_ext),
+                                                  ("csdf", csdf), ("pytorch3d", pytorch3d))},
+        "source_hand_initialized": True, "runtime_joint_names": runtime_names,
+        "source_clean_gate": verify_source_checkpoint(source, checkpoint),
+    })
+    safe=metadata_helper()
+    before_signatures=state_signatures(dict(model.state_dict()),safe.SCHEDULE_NAMES)
+    signature_gate=safe.verify_expected_signature(preflight_result['checkpoint_metadata_safe'],before_signatures)
+    signature_gate.update({'checkpoint_sha256':CHECKPOINT_SHA256,'checkpoint_deserializations':0,
+        'source_profile_id':PROFILE_ID,'metadata_content_sha256':preflight_result['checkpoint_metadata_content_sha256'],
+        'model_signature_content_sha256':'sha256:'+hashlib.sha256(canonical(before_signatures)).hexdigest()})
+    write_json(output/'pre_load_checkpoint_gate.json',signature_gate)
+    payload = torch.load(str(checkpoint), map_location="cpu")
+    if not isinstance(payload, dict) or "model" not in payload:
+        raise ValueError("Pinned checkpoint has no explicit model state")
+    state = align_checkpoint_state(payload["model"], dict(model.state_dict()))
+    safe.verify_expected_signature(preflight_result['checkpoint_metadata_safe'],state_signatures(state,safe.SCHEDULE_NAMES))
+    for name, value in state.items():
+        if not torch.is_tensor(value) or (torch.is_floating_point(value) and not torch.isfinite(value).all()):
+            raise ValueError("Nonfinite/non-tensor checkpoint model value: " + name)
+    model.load_state_dict(state, strict=True)
+    safe.verify_expected_signature(preflight_result['checkpoint_metadata_safe'],state_signatures(dict(model.state_dict()),safe.SCHEDULE_NAMES))
+    model.eval()
+    normalizer = object.__new__(MultiDexShadowHandUR)  # source methods/constants, no dataset metadata loading
+    normalizer_bounds = {
+        "joint_lower": normalizer._joint_angle_lower.tolist(), "joint_upper": normalizer._joint_angle_upper.tolist(),
+        "translation_lower": normalizer._global_trans_lower.tolist(), "translation_upper": normalizer._global_trans_upper.tolist(),
+        "constant_dtype": str(normalizer._joint_angle_lower.dtype),
+        "inverse_operation": "unmodified MultiDexShadowHandUR.angle_denormalize/trans_denormalize; float32 ranges before float64 promotion",
+    }
+    # Match the release's RNG flags. Reset once after model/reference construction
+    # so unused mesh-sampling/model-initialization draws cannot change this smoke.
+    torch.backends.cudnn.benchmark = False
+    torch.backends.cudnn.deterministic = True
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    torch.cuda.manual_seed(args.seed)
+    torch.cuda.manual_seed_all(args.seed)
+    rng_snapshot(torch, np, output, "rng_before_augmentation")
+    cloud = torch.tensor(np.hstack([points, normals]), device="cuda:0").unsqueeze(0).repeat(args.count, 1, 1)
+    scene_rotations = torch.stack([random_rot("cuda:0") for _ in range(args.count)]).to(torch.float64)
+    augmented_points = torch.matmul(scene_rotations, cloud[:, :, :3].transpose(1, 2)).transpose(1, 2)
+    augmented_normals = torch.matmul(scene_rotations, cloud[:, :, 3:].transpose(1, 2)).transpose(1, 2)
+    data = {
+        "x": torch.randn(args.count, 27, device="cuda:0"),
+        "pos": augmented_points.reshape(-1, 3), "normal": augmented_normals,
+        "feat": augmented_normals.reshape(-1, 3), "scene_rot_mat": scene_rotations,
+        "scene_id": ["object01"] * args.count, "cam_trans": [None] * args.count,
+        "text": None, "sentence_cnt": None,
+        "offset": torch.IntTensor([2048 * (index + 1) for index in range(args.count)]).to("cuda:0"),
+    }
+    rng_snapshot(torch, np, output, "rng_before_sampling")
+    runtime = runtime_inventory(torch)
+    write_json(output / "runtime_before_sampling.json", runtime)
+    config = {
+        "source_profile_id": PROFILE_ID,
+        "source_commit": SOURCE_COMMIT, "checkpoint_sha256": CHECKPOINT_SHA256, "dataset_name": "MultiDexShadowHandUR",
+        "normalizer_source_sha256": NORMALIZER_SHA256, "normalize_joints": True, "normalize_translation": True,
+        "physics_guided_sampling": False, "postprocessing": "none", "seed": args.seed, "sample_count": args.count,
+        "optimizer": {"enabled": False, "actual_model_optimizer": None},
+        "source_hand_scale": 1.0, "physical_object_scale": 1.0, "object_average_scale": 1.0,
+        "rng_seed_timing": "reset_after_model_and_runtime_reference_initialization_before_augmentation",
+        "determinism_scope": "release RNG/cuDNN controls; no cross-platform bitwise determinism claim",
+        "resolved_upstream_config": OmegaConf.to_container(cfg, resolve=True), "normalizer": normalizer_bounds,
+        "protocol_sha256": args.protocol_sha256, "wrapper_sha256": sha256(__file__),
+        "checkpoint_state": {"expected_key_count": len(model.state_dict()), "loaded_key_count": len(state),
+                             "missing_keys": [], "unexpected_keys": [], "strict_load": True,
+                             "tensor_shapes": {name: list(value.shape) for name, value in state.items()},
+                             "tensor_dtypes": {name:str(value.dtype) for name,value in state.items()},
+                             "pre_load_metadata_and_schedule_gate":signature_gate},
+        "input_wrapper": "explicit original-byte object01 cloud; identity scale/frame; no dataset-average substitution",
+    }
+    write_json(output / "config.json", config)
+    frozen = {"schema_version": "dga_pre_sampling_freeze_v1", "created_utc": datetime.now(timezone.utc).isoformat(),
+              "files": {path.name: sha256(path) for path in output.iterdir() if path.is_file()},
+              "seed": args.seed, "sample_count": args.count, "native_model_sample_calls_attempted": 0,
+              "physics_steps": 0, "evaluation_episodes": 0, "task_labels": 0, "training_runs": 0}
+    write_json(output / "pre_sampling_freeze.json", frozen)
+    started = time.monotonic()
+    write_json(output / "sampling_started.json", {"native_model_sample_calls_attempted": 1,
+                                                   "sample_count": args.count, "seed": args.seed})
+    with torch.no_grad():
+        trajectory = model.sample(data, k=1)
+        raw = trajectory.squeeze(1)[:, -1, :].clone()
+        if tuple(raw.shape) != (args.count, 27):
+            raise ValueError("Unexpected native final latent shape")
+        physical = raw.to(torch.float64).clone()
+        physical[:, 3:] = normalizer.angle_denormalize(physical[:, 3:].cpu()).to("cuda:0")
+        physical[:, :3] = normalizer.trans_denormalize(physical[:, :3].cpu()).to("cuda:0")
+        identity6 = torch.tensor([1., 0., 0., 0., 1., 0.], device="cuda:0").view(1, 6).repeat(args.count, 1).to(torch.float64)
+        root_rotation = torch.bmm(scene_rotations.transpose(1, 2), robust_compute_rotation_matrix_from_ortho6d(identity6))
+        root_columns = rot_to_orthod6d(root_rotation)
+        final = torch.cat([torch.bmm(scene_rotations.transpose(1, 2), physical[:, :3].unsqueeze(-1)).squeeze(-1),
+                           root_columns, physical[:, 3:]], dim=-1)
+    torch.cuda.synchronize()
+    elapsed = time.monotonic() - started
+    np.savez(output / "outputs.npz", hand_qpos=final.detach().cpu().numpy())
+    stage_arrays = {
+        "normalized27": raw.detach().cpu().numpy(), "denormalized27": physical.detach().cpu().numpy(),
+        "scene_rotations": scene_rotations.detach().cpu().numpy(),
+        "augmented_points": augmented_points.detach().cpu().numpy(), "augmented_normals": augmented_normals.detach().cpu().numpy(),
+        "shape_template": data["x"].detach().cpu().numpy(), "offset": data["offset"].detach().cpu().numpy(),
+        "condition_features": data["cond"].detach().cpu().numpy(),
+    }
+    np.savez(output / "stages.npz", **stage_arrays)
+    # Evidence-only retention after timed native sampling/unchanged decoding.
+    # The upstream model already returned this complete trajectory; no new RNG,
+    # sampler, normalizer or model call is made here.
+    trace_array = trajectory.detach().cpu().numpy()
+    if trace_array.shape != (args.count, 1, 101, 27):
+        raise ValueError("Unexpected full original100-step DDPM trajectory shape")
+    np.savez(output / "sampler_trajectory.npz", normalized27_trace=trace_array)
+    trace_finite = bool(np.isfinite(trace_array).all())
+    trace_last = trace_array[:, 0, -1, :]
+    trace_final_exact = (trace_last.dtype == stage_arrays["normalized27"].dtype
+        and trace_last.shape == stage_arrays["normalized27"].shape
+        and trace_last.tobytes(order="C") == stage_arrays["normalized27"].tobytes(order="C"))
+    write_json(output / "sampler_trajectory.json", {
+        "schema_version": "dga_original_ddpm_full_trajectory_v1", "shape": list(trace_array.shape),
+        "dtype": str(trace_array.dtype), "ddpm_reverse_steps": 100,
+        "step_order": "initial x_T then p_sample t=99,98,...,0; last slice equals saved normalized27",
+        "array_name": "normalized27_trace", "arrays_sha256": sha256(output / "sampler_trajectory.npz"),
+        "native_model_sample_calls": 1, "new_sampling_for_trace": False,
+        "evidence_only_post_sampling": True, "no_angle_repair": True,
+        "finite": trace_finite, "final_slice_exact_normalized27_payload": trace_final_exact})
+    if not trace_finite or not trace_final_exact:
+        raise ValueError("Original outputs/stages/trajectory retained; nonfinite or inconsistent full trace is a runtime failure, never repaired/retried")
+    rng_snapshot(torch, np, output, "rng_after_sampling")
+    final_array = final.detach().cpu().numpy()
+    source_report = source_domain_report(final_array, source_hand)
+    write_json(output / "source_domain_report.json", {"samples": source_report, "unfiltered": True,
+                                                       "resampling_attempts": 0, "physical_failure_labels": None})
+    runtime_reference_error = None
+    try:
+        with torch.no_grad():
+            export_runtime_reference(torch, np, hand, final, output)
+    except Exception as error:
+        runtime_reference_error = {"status": "UNRESOLVED", "error_type": type(error).__name__, "message": str(error)}
+        write_json(output / "runtime_reference_failure.json", runtime_reference_error)
+    after = verify_source_checkpoint(source, checkpoint)
+    if after["source_file_hashes"] != preflight_result["asset_verification"]["source_file_hashes"]:
+        raise RuntimeError("Source changed during native inference")
+    runtime_after = runtime_inventory(torch)
+    write_json(output / "runtime_after_sampling.json", runtime_after)
+    manifest = {
+        "schema_version": "dga_multidex_native_export_v1", "source_profile_id": PROFILE_ID, "evidence_origin": "authentic_saved_native",
+        "source_repository": "https://github.com/4DVLab/DexGrasp-Anything", "source_commit": SOURCE_COMMIT,
+        "checkpoint_sha256": CHECKPOINT_SHA256, "dataset_name": "MultiDexShadowHandUR", "normalizer_source_sha256": NORMALIZER_SHA256,
+        "normalize_joints": True, "normalize_translation": True, "state": "denormalized_inverse_rotated_33",
+        "physics_guided_sampling": False, "postprocessing": "none", "source_root": "forearm", "source_hand_scale": 1.0,
+        "rotation_representation": "robust_6d_two_columns", "translation_units": "m", "joint_units": "rad",
+        "input_frame": "input_point_cloud_physical_m", "normal_vectors": "preserved_as_conditioned",
+        "joint_names": JOINT_NAMES, "object_id": "object01", "geometry_content_hash": OBJECT_GEOMETRY_SHA256,
+        "physical_object_scale": 1.0, "object_from_input": np.eye(4).tolist(), "seed": args.seed, "sample_count": args.count,
+        "output": reference(output / "outputs.npz"), "source_hand": reference(output / "source_hand.urdf"),
+        "object_mesh": reference(output / "mesh.obj"), "point_cloud": reference(output / "points.npy"),
+        "normals": reference(output / "normals.npy"), "configuration": reference(output / "config.json"),
+    }
+    log = {
+        "schema_version": "dga_multidex_export_log_v1", "source_profile_id": PROFILE_ID,
+        "checkpoint_sha256": CHECKPOINT_SHA256, "dataset_name": "MultiDexShadowHandUR", "normalizer_source_sha256": NORMALIZER_SHA256, "evidence_origin": manifest["evidence_origin"],
+        "configuration_sha256": manifest["configuration"]["sha256"], "output_sha256": manifest["output"]["sha256"],
+        "object_id": "object01", "geometry_content_hash": OBJECT_GEOMETRY_SHA256,
+        "object_mesh_sha256": manifest["object_mesh"]["sha256"], "point_cloud_sha256": manifest["point_cloud"]["sha256"],
+        "normals_sha256": manifest["normals"]["sha256"], "source_hand_scale": 1.0, "physical_object_scale": 1.0,
+        "object_from_input": manifest["object_from_input"], "joint_parameter_names": runtime_names, "state": manifest["state"],
+        "stages": reference(output / "stages.npz"), "sampling_elapsed_seconds": elapsed,
+        "sampler_trajectory": reference(output / "sampler_trajectory.npz"),
+        "sampler_trajectory_metadata": reference(output / "sampler_trajectory.json"),
+        "native_inference_executed": True, "native_model_sample_calls": 1, "authentic_native_sample_count": args.count,
+        "physics_steps": 0, "evaluation_episodes": 0, "task_labels": 0, "training_runs": 0,
+        "checkpoint_deserializations": 1, "unfiltered_original_order": True,
+        "source_domain_report": reference(output / "source_domain_report.json"),
+        "pre_sampling_freeze": reference(output / "pre_sampling_freeze.json"),
+        "runtime_reference": reference(output / "runtime_reference.json") if runtime_reference_error is None else runtime_reference_error,
+        "source_after_verification": {"verified": True, "same_tracked_file_hashes": True},
+    }
+    write_json(output / "generation_log.json", log)
+    manifest["generation_log"] = reference(output / "generation_log.json")
+    write_json(output / "native_manifest.json", manifest)
+    write_json(output / "evidence_manifest.json", {
+        "schema_version": "dga_multidex_smoke_evidence_v1", "files": {
+            str(path.relative_to(output)): sha256(path) for path in output.rglob("*") if path.is_file()},
+        "actual_native_mapping": "NOT_TESTED", "scientific_mapping_acceptance": "UNRESOLVED", "execution_eligible": False,
+        "native_model_sample_calls": 1, "sample_count": args.count, "physics_steps": 0,
+    })
+    return {"native_manifest": str(output / "native_manifest.json"), "sample_count": args.count,
+            "native_model_sample_calls": 1, "physics_steps": 0, "runtime_reference_failure": runtime_reference_error,
+            "source_limit_rejected_sample_indices": [item["sample_index"] for item in source_report if item["source_limit_violations"]]}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--source", required=True, type=Path)
+    parser.add_argument("--checkpoint", required=True, type=Path)
+    parser.add_argument("--input-dir", required=True, type=Path)
+    parser.add_argument("--protocol", required=True, type=Path)
+    parser.add_argument("--protocol-sha256", required=True)
+    parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--seed", type=int, default=20261025)
+    parser.add_argument("--count", type=int, choices=[1, 2], default=2)
+    parser.add_argument("--preflight-only", action="store_true")
+    args = parser.parse_args()
+    if not 0 <= args.seed < 2 ** 32:
+        parser.error("seed must fit the upstream NumPy legacy RNG's uint32 range")
+    result, conditioning, points, normals = preflight(args)
+    if args.preflight_only:
+        print(json.dumps(result, sort_keys=True, indent=2))
+        return
+    try:
+        print(json.dumps(execute(args, result, conditioning, points, normals), sort_keys=True, indent=2))
+    except Exception:
+        if args.output.is_dir():
+            (args.output / "failure_traceback.txt").write_text(traceback.format_exc())
+        raise
+
+
+if __name__ == "__main__":
+    main()

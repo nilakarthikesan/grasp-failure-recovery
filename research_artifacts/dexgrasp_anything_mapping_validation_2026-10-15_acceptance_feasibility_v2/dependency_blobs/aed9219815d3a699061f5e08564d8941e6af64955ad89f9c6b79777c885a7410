@@ -1,0 +1,54 @@
+"""Actual backend API+XML frame controls with a wholly manufactured hand field.
+No authentic inferred pose/surface or development candidate is evaluated.
+"""
+import importlib.util,sys,types
+from pathlib import Path
+import numpy as np
+import pytest
+ROOT=Path('/private/tmp/dga_component_constraints_20261015_v1/optimizer')
+REPO=Path('/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction')
+SOURCE=Path('/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/source-86353d710ca71d0f547f0d8b15cc8ca959c78163/assets/urdf/sr_grasp_description/urdf/shadowhand.urdf')
+def mod(n,p):
+ s=importlib.util.spec_from_file_location(n,p);m=importlib.util.module_from_spec(s);sys.modules[n]=m;s.loader.exec_module(m);return m
+@pytest.fixture
+def toy_context():
+ base=mod('toy_context_base',REPO/'src/grasp_failure_prediction/proposals/dexgrasp_anything.py');audit=mod('toy_context_audit',REPO/'scripts/audit_dexgrasp_anything_static.py')
+ backend=mod('toy_context_backend',Path('/private/tmp/dga_surface_preserving_20261015_v1/geometry/surface_backend.py'));legacy=mod('toy_context_legacy',Path('/private/tmp/dga_surface_preserving_20261015_v1/fit_surface_preserving.py'));context=mod('toy_context_factory',ROOT/'mapping_context.py')
+ triangle=backend.TriangleSurface(np.array([[0.,0.,0.],[.001,0,0],[0,.001,0]]),np.array([[0,1,2]]),label='manufactured_triangle')
+ surfaces=[(part,'palm',triangle) for part in backend.PARTS];robot={'joints':{name:{'limit':{'lower':-3.,'upper':3.}} for name in backend.JOINTS}}
+ fk=types.SimpleNamespace(independent_fk=lambda robot,q:{'palm':np.eye(4)})
+ collider=backend._union_reference.Collider(0,'box','palm',np.array([.001]*3),np.zeros(3),np.eye(3))
+ actual=backend.SurfaceBackend(source_surfaces=surfaces,target_surfaces=surfaces,target_robot=robot,independent_fk_module=fk,source_boxes=[collider],target_boxes=[collider])
+ called={}
+ def build(**kwargs):called.update(kwargs);return actual
+ geom=types.SimpleNamespace(build_backend=build);mesh_helper=object();q=np.zeros(24);q[:2]=[.05,.02];raw=np.r_[np.zeros(3),[1.,0.,0.,0.,1.,0.],q];queries,_=legacy.training_queries()
+ ctx=context.MappingContext(raw33=raw,object_from_input=np.eye(4),source_urdf=SOURCE,target_urdf=REPO/'third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf',target_assets_root=REPO,source_runtime_npz=Path('/manufactured/not-read.npz'),source_sample_index=0,queries_object_m=queries,base=base,audit=audit,geometry=geom,legacy=legacy,mesh_helper=mesh_helper)
+ assert called['mesh_helper_module'] is mesh_helper
+ x=np.r_[q[2:],np.zeros(6)];state=ctx.make_state(x,{'palm':ctx.source_palm.copy(),'delta':np.eye(4)},'palm');assert state['strict_domain_valid'] is True
+ return ctx,state,actual
+
+def test_actual_default_arrays_and_witness_dict_contract(toy_context):
+ ctx,state,backend=toy_context;source=ctx.initialize_source_fields();assert source.shape==(600,8) and not source.flags.writeable
+ target=ctx.evaluate_fields(state);assert target.shape==source.shape and np.isfinite(target).all()
+ evidence=backend.source_fields(ctx.queries,.004,return_witnesses=True)
+ assert ctx.field_values(evidence,backend.parts).shape==(600,7)
+ bad=dict(evidence,parts=('thumb',))
+ with pytest.raises(ValueError):ctx.field_values(bad,backend.parts)
+
+def test_actual_variable_to_frame_binding_and_nonzero_original_wrists(toy_context):
+ ctx,state,_=toy_context;assert state['q']['WRJ2']==.05 and state['q']['WRJ1']==.02
+ wrong=dict(state,variables=state['variables'].copy());wrong['variables'][22]=.01
+ with pytest.raises(ValueError,match='variables-to-actualpalm'):ctx.certify_payload(wrong)
+
+
+def test_partial_cache_refuses_palm_or_other_finger_change(toy_context):
+ ctx,state,_=toy_context;ctx.initialize_source_fields();state['fields']=ctx.evaluate_fields(state)
+ changed=dict(state,palm=state['palm'].copy());changed['palm'][0,3]+=.001
+ with pytest.raises(ValueError,match='unchangedpalm'):ctx.evaluate_fields(changed,state,'index')
+ changed=dict(state,q=dict(state['q']));changed['q']['MFJ3']+=.01
+ with pytest.raises(ValueError,match='another finger'):ctx.evaluate_fields(changed,state,'index')
+
+
+def test_source_frame_replacement_is_detected(toy_context):
+ ctx,state,_=toy_context;ctx.source_root=ctx.source_root.copy();ctx.source_root[0,3]+=.001
+ with pytest.raises(ValueError,match='identity changed'):ctx.verify_immutable_source()

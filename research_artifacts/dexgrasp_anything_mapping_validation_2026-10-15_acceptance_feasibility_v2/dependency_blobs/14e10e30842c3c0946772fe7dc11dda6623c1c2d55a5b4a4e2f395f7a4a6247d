@@ -1,0 +1,199 @@
+#!/usr/bin/env python3
+"""Strict encoded-surface acceptance of a separate surface correction, never physical acceptance."""
+import argparse,hashlib,importlib.util,json,sys,time
+from pathlib import Path
+from datetime import datetime,timezone
+import numpy as np
+sys.dont_write_bytecode=True
+
+def sha(p):return 'sha256:'+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def module(n,p):
+ s=importlib.util.spec_from_file_location(n,p);m=importlib.util.module_from_spec(s);sys.modules[n]=m;s.loader.exec_module(m);return m
+def verify(deps):
+ for path,h in deps.items():
+  if sha(path)!=h:raise ValueError('Dependency changed: '+path)
+def bound(p,h):
+ if sha(p)!=h:raise ValueError('JSON changed')
+ return json.loads(Path(p).read_text())
+def validate_arrays(arr):
+ expected={'source_hand_qpos':(2,33),'target_joint_values':(2,24),'object_from_source_forearm':(2,4,4),'object_from_source_palm':(2,4,4),'object_from_target_palm':(2,4,4),'source_palm_from_target_palm':(2,4,4),'object_from_target_root_world':(2,4,4),'object_from_target_forearm':(2,4,4)}
+ for key,shape in expected.items():
+  value=arr[key]
+  if value.shape!=shape or value.dtype.kind not in 'fiu' or not np.isfinite(value).all():raise ValueError('Malformed fit array: '+key)
+  if len(shape)==3:
+   for t in value:
+    if not np.allclose(t[3],[0,0,0,1],atol=1e-10,rtol=0) or not np.allclose(t[:3,:3].T@t[:3,:3],np.eye(3),atol=1e-7,rtol=0) or abs(np.linalg.det(t[:3,:3])-1)>1e-7:raise ValueError('Nonrigid fit transform: '+key)
+def offcenter_grid(spacing_mm):
+ h=spacing_mm/1000.; side=int(round(.05/h))
+ if not np.isclose(side*h,.05,atol=1e-15,rtol=0):raise ValueError('Grid must partition cube')
+ u=-.025+(np.arange(side)+2/5)*h;v=-.025+(np.arange(side)+1/3)*h
+ x,y=np.meshgrid(u,v,indexing='ij');points=[];normals=[];labels=[]
+ for axis in range(3):
+  other=[j for j in range(3) if j!=axis]
+  for sign in (-1,1):
+   p=np.zeros((side*side,3));p[:,axis]=sign*.025;p[:,other[0]]=x.ravel();p[:,other[1]]=y.ravel()
+   n=np.zeros_like(p);n[:,axis]=sign
+   points.append(p);normals.append(n);labels.extend([f'{"XYZ"[axis]}{"+" if sign>0 else "-"}']*len(p))
+ return np.concatenate(points),np.concatenate(normals),np.asarray(labels),h*h,np.sqrt(181)*h/15
+
+def rename_query_fields(value):
+ if isinstance(value,dict):return {k.replace('query_center','query_point').replace('both_center_near','both_query_points_near'):rename_query_fields(v) for k,v in value.items()}
+ if isinstance(value,list):return [rename_query_fields(v) for v in value]
+ return value
+
+def all_triangle_mesh_reference(surf,name,vertices,faces):
+ vertices,faces=surf.finite_vertices_faces(vertices,faces,name)
+ meta=surf.topology_metadata(vertices,faces);triangles=vertices[faces]
+ crosses=np.cross(triangles[:,1]-triangles[:,0],triangles[:,2]-triangles[:,0]);lengths=np.linalg.norm(crosses,axis=1)
+ normals=np.divide(crosses,lengths[:,None],out=np.zeros_like(crosses),where=lengths[:,None]>1e-18)
+ eligible=(lengths>1e-18)&bool(meta['conditional_oriented_facet_eligible'])
+ meta.update({'excluded_degenerate_triangle_count':0,'excluded_degenerate_area_m2':0.,'retained_triangle_area_m2':float(lengths.sum()/2),'retained_zero_area_triangle_count':int(np.sum(lengths==0)),'small_or_degenerate_facet_normal_exclusions':int(np.sum(lengths<=1e-18)),'distance_representation':'Every original closed triangle retained, including segment/point degeneracies; tiny/undefined normals ineligible only.'})
+ return {'name':name,'part':surf.part_of(name.split('__visual')[0]),'triangles':triangles,'normals':normals,'metadata':meta,'facet_eligible':eligible}
+
+def canonical_triangle_set(triangles):
+ t=np.asarray(triangles,dtype=np.float64)
+ if t.ndim!=3 or t.shape[1:]!=(3,3) or not np.isfinite(t).all() or len(t)==0:raise ValueError('Missing/invalid identity geometry')
+ ordered=[]
+ for tri in t:
+  order=np.lexsort((tri[:,2],tri[:,1],tri[:,0]));ordered.append(tri[order].ravel())
+ return np.unique(np.stack(ordered),axis=0)
+
+def triangle_set_identity(left,right):
+ a,b=canonical_triangle_set(left),canonical_triangle_set(right)
+ return bool(a.shape==b.shape and np.array_equal(a,b))
+
+def part_identities(source,target,parts):
+ result={}
+ for part in parts:
+  left=[m['triangles'] for m in source if m['part']==part];right=[m['triangles'] for m in target if m['part']==part]
+  if not left or not right:raise ValueError('Required part missing, cannot silently pass: '+part)
+  result[part]={'identity_proved':triangle_set_identity(np.concatenate(left),np.concatenate(right)),'proof':'Exact finite nonempty triangle-set equality after permutation/duplicate normalization; sufficient for unsigned-distance equality only, not exterior/dynamics.'}
+ return result
+
+def combine_status(statuses):
+ if not statuses:raise ValueError('No required tests')
+ if 'FAIL' in statuses:return 'FAIL'
+ return 'PASS' if all(x=='PASS' for x in statuses) else 'UNRESOLVED'
+
+def strict_difference(intervals,identity=False):
+ if len(intervals)!=2:raise ValueError('Lost and new both required')
+ for v in intervals:
+  lo,hi=v['lower_m2'],v['upper_m2']
+  if not np.isfinite([lo,hi]).all() or lo<0 or hi<lo:raise ValueError('Malformed area bound')
+ if any(v['lower_m2']>0 for v in intervals):
+  if identity:raise ValueError('Identity certificate contradicts measurement')
+  return 'FAIL'
+ if identity or all(v['upper_m2']==0 for v in intervals):return 'PASS'
+ return 'UNRESOLVED'
+
+def strict_case(case,parts,bands):
+ claims={}
+ for band in bands:
+  claims[str(band)]={}
+  for part in parts:
+   rows=[res['bands'][str(band)]['groups'][part]['area_intervals'] for res in case['resolutions'].values()]
+   merged={key:{'lower_m2':max(x[key]['lower_m2'] for x in rows),'upper_m2':min(x[key]['upper_m2'] for x in rows)} for key in ['lost_native','new_target']}
+   identity=case['exact_geometric_identity_by_part'][part]['identity_proved']
+   claims[str(band)][part]={'status':strict_difference(list(merged.values()),identity),'bounds_intersection':merged,'exact_geometry_identity':identity}
+ status=combine_status([claim['status'] for bypart in claims.values() for claim in bypart.values()])
+ return {'status':status,'claim':'Strict same-part encoded visual nearset equality at all frozen bands on the entire cube surface, conditional on declared numerical allowance.','by_band_and_part':claims,'full_mapping_accepted':False,'direction_preservation':'UNRESOLVED_NO_COMPLETE_CERTIFIED_EXTERIOR_COVERAGE','development_cases_only':False,'independent_native_scope':'two preselected source-valid outputs from sixteen sealed native outputs; same input cube; no population generalization','zero_lower_bound_is_not_pass':True}
+
+def validate_native_selection(ledger, selected):
+ if ledger['sample_count']!=16 or [r['global_sample_index'] for r in ledger['records']]!=list(range(16)):raise ValueError('Full native ledger required')
+ if any(type(r['native_output_complete_and_finite']) is not bool for r in ledger['records']):raise ValueError('Explicit native integrity booleans required')
+ expected=[r['global_sample_index'] for r in ledger['records'] if r['native_output_complete_and_finite'] and not r['source_limit_violations']][:2]
+ if expected!=selected:raise ValueError('No replacement or post-fit sample selection')
+ if len(expected)!=2:raise ValueError('INSUFFICIENT_SOURCE_VALID_OUTPUTS')
+ return expected
+
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--policy',required=True,type=Path);ap.add_argument('--policy-sha256',required=True);ap.add_argument('--output',required=True,type=Path);a=ap.parse_args()
+ if a.output.exists():raise FileExistsError('Never overwrite evidence')
+ p=bound(a.policy,a.policy_sha256);deps=p['dependencies'];verify(deps)
+ science=bound(p['scientific_protocol'],p['scientific_protocol_sha256'])
+ if science['schema_version']!='dga_surface_preservation_scientific_protocol_v1' or science['status']!='FROZEN_BEFORE_CANDIDATE_METRICS':raise ValueError('Unfrozen scientific protocol')
+ if p['schema_version']!='dga_component_native_visual_acceptance_policy_v1' or p['scientific_acceptance_threshold'] is not None or p['old_surface_selection_preserved'] is not True:raise ValueError('Unsupported scientific interpretation')
+ if p['code_sha256']!=sha(__file__) or len(p['selected_indices'])!=2 or p['selected_indices']!=sorted(set(p['selected_indices'])) or p['execution_eligible'] is not False:raise ValueError('Frozen scope mismatch')
+ if p['query_fractions']!=[2/5,1/3]:raise ValueError('Query design changed')
+ surf=module('retarget_visual_math',p['surface_primitives']);audit=module('retarget_visual_independent_fk',p['independent_fk']);helper=module('retarget_visual_mesh_helper',p['native_helper'])
+ backend=module('surface_full_triangle_geometry',p['triangle_backend'])
+ surf.closest_triangles=lambda point,triangles:backend.closest_triangle_pairs(np.repeat(np.asarray(point)[None,:],len(triangles),axis=0),triangles)
+ if tuple(p['spacing_mm'])!=(1.0,0.5,0.25) or tuple(p['bands_mm'])!=surf.BANDS_MM or p['distance_allowance_m']!=surf.NUMERICAL_DISTANCE_M:raise ValueError('Frozen measurement changed')
+ old=json.loads(Path(p['validation_report']).read_text())
+ cohort=bound(p['native_protocol'],p['native_protocol_sha256'])
+ if p['native_protocol_sha256']!='sha256:76f2ab3c7955ce2791e094da162d186a3f128425d863be81839385b195c17c59':raise ValueError('Wrong sealed native cohort protocol')
+ validate_native_selection(old,p['selected_indices'])
+ fit=json.loads(Path(p['fit_report']).read_text());algebra=json.loads(Path(p['algebra_report']).read_text())
+ with np.load(p['fit_arrays'],allow_pickle=False) as z:arr={k:z[k] for k in z.files}
+ validate_arrays(arr)
+ if fit['arrays']['sha256']!=sha(p['fit_arrays']):raise ValueError('Fit report arrays hash mismatch')
+ if len(fit['records'])!=2 or [r['global_sample_index'] for r in fit['records']]!=p['selected_indices'] or fit['execution_eligible'] is not False:raise ValueError('Fit report scope mismatch')
+ if arr['global_sample_indices'].tolist()!=p['selected_indices']:raise ValueError('No cherry picking or replacement')
+ target=audit.model(p['target_urdf'])
+ if target['root']!='world':raise ValueError('Wrong target root')
+ visuals=helper.visual_meshes(target,Path(p['target_assets_root']),audit,source_runtime=False)
+ for mesh in visuals.values():
+  if deps.get(mesh['path'])!=mesh['sha256']:raise ValueError('Unbound target mesh')
+ deadline=time.monotonic()+p['maximum_wall_seconds'];budget=[0,p['maximum_triangle_tests']];cases=[];saved=[]
+ for i,g in enumerate(p['selected_indices']):
+  row=old['records'][g];j=row['within_batch_sample_index']
+  if row['source_limit_violations'] or row['fp32_mapping_reference_reconstruction']['status']!='PASS':raise ValueError('Source validity/reference prerequisite fail')
+  nr=row['native_manifest'];native=bound(nr['path'],nr['sha256']);base=Path(nr['path']).parent
+  rawpath=surf.bound_child(base,native['output'])
+  with np.load(rawpath,allow_pickle=False) as z:raw=z['hand_qpos'][j]
+  if not np.array_equal(raw,arr['source_hand_qpos'][i]):raise ValueError('Native pose altered')
+  names=['WRJ2','WRJ1','FFJ4','FFJ3','FFJ2','FFJ1','MFJ4','MFJ3','MFJ2','MFJ1','RFJ4','RFJ3','RFJ2','RFJ1','LFJ5','LFJ4','LFJ3','LFJ2','LFJ1','THJ5','THJ4','THJ3','THJ2','THJ1'];q=dict(zip(names,arr['target_joint_values'][i].tolist(),strict=True))
+  if q!=fit['records'][i]['target_joint_targets_rad'] or dict(zip(names,arr['source_hand_qpos'][i,9:].tolist(),strict=True))!=row['joint_targets_rad']:raise ValueError('Fit q/order binding mismatch')
+  if len(q)!=24 or not np.isfinite(arr['target_joint_values'][i]).all() or helper.source_limit_violations(target,q):raise ValueError('Solved target invalid')
+  if q['WRJ1']!=row['joint_targets_rad']['WRJ1'] or q['WRJ2']!=row['joint_targets_rad']['WRJ2']:raise ValueError('Wrists changed')
+  frames=audit.independent_fk(target,q);root=arr['object_from_target_root_world'][i];palm=arr['object_from_target_palm'][i]
+  original_palm=np.asarray(algebra['records'][g]['transforms']['object_from_palm'])
+  original_forearm=np.asarray(algebra['records'][g]['transforms']['object_from_source_forearm'])
+  if np.max(np.abs(arr['object_from_source_forearm'][i]-original_forearm))>1e-9:raise ValueError('Original source root changed')
+  if np.max(np.abs(arr['object_from_target_forearm'][i]-root@frames['forearm']))>1e-9:raise ValueError('Target forearm mismatch')
+  if np.max(np.abs(arr['object_from_source_palm'][i]-original_palm))>1e-9:raise ValueError('Original native palm was changed')
+  if np.max(np.abs(original_palm@arr['source_palm_from_target_palm'][i]-palm))>1e-9:raise ValueError('Palm delta composition mismatch')
+  if np.max(np.abs(root@frames['palm']-palm))>1e-9:raise ValueError('Target palm composition mismatch')
+  ev=row['mapping_reference'];ref=bound(ev['path'],ev['sha256']);refnpz=surf.bound_child(Path(ev['path']).parent,ref['arrays'])
+  if deps.get(str(refnpz))!=sha(refnpz):raise ValueError('Unbound reference')
+  with np.load(refnpz,allow_pickle=False) as z:runtime={k:z[k] for k in z.files}
+  sm=[all_triangle_mesh_reference(surf,n,runtime['vertices__'+n][j],runtime['faces__'+n]) for n in ref['vertex_links']]
+  tm=[all_triangle_mesh_reference(surf,f'{n}__visual{k}',helper.object_vertices(v['local'],root@frames[n]),v['faces']) for (n,k),v in visuals.items()]
+  if any(sum(len(x['triangles']) for x in group)>p['maximum_reference_triangles'] for group in (sm,tm)):raise ValueError('Triangle bound exceeded')
+  case={'global_sample_index':g,'original_mapping_status':row['mapping_status'],'source_reference':'separate_previously_verified_FP32_not_default_TF32','original_default_reference_status':row['native_default_runtime_reconstruction']['status'],'target_stage':'separate_component_constrained_surface_fit_v1','source_palm_from_target_palm':arr['source_palm_from_target_palm'][i].tolist(),'palm_translation_norm_m':float(np.linalg.norm(arr['source_palm_from_target_palm'][i,:3,3])),'execution_eligible':False,'source_topology':[{'link':m['name'],**m['metadata']} for m in sm],'target_topology':[{'link':m['name'],**m['metadata']} for m in tm],'source_cube_profiles':surf.hand_cube_profiles(sm),'target_cube_profiles':surf.hand_cube_profiles(tm),'resolutions':{},'exact_geometric_identity_by_part':part_identities(sm,tm,surf.PARTS[:-1])}
+  for spacing in p['spacing_mm']:
+   points,normals,faces,area,rho=offcenter_grid(spacing);radius=max(p['bands_mm'])/1000+rho+2*surf.NUMERICAL_DISTANCE_M
+   s=surf.query_reference(points,sm,radius,budget,deadline);t=surf.query_reference(points,tm,radius,budget,deadline);bands={}
+   for b in p['bands_mm']:
+    groups={}
+    for k,name in enumerate((*surf.PARTS,'whole_hand_common_runtime_coverage','whole_hand')):
+     if name=='forearm_carrier':
+      groups[name]={'status':'NOT_COMPARABLE','reason':'source runtime omits forearm; no matched area metrics'};continue
+     if name=='whole_hand':sd,td=s['nearest_distance_m'],t['nearest_distance_m']
+     elif name=='whole_hand_common_runtime_coverage':sd,td=s['distance_by_part_m'][:,:-1].min(axis=1),t['distance_by_part_m'][:,:-1].min(axis=1)
+     else:sd,td=s['distance_by_part_m'][:,k],t['distance_by_part_m'][:,k]
+     groups[name]=surf.pair_area(sd,td,area,radius,rho,b/1000)
+     groups[name]['reference_coverage']='unmatched_source_forearm_excluded' if name=='forearm_carrier' else 'declared_literal_triangles'
+    normals_result=surf.conditional_normals(s,t,normals,b/1000,area)
+    # No certified exterior field exists; a missing measurement is not a measured zero.
+    normals_result['reliable_exterior_witness_area_m2']=None
+    bands[str(b)]={'groups':groups,'conditional_facet_normals':normals_result}
+   case['resolutions'][str(spacing)]={'query_count':len(points),'area_per_cell_m2':area,'covering_radius_m':rho,'search_radius_m':radius,'source_counters':s['counters'],'target_counters':t['counters'],'bands':bands}
+   arrays={'cube_query_m':points,'cube_normal':normals,'cube_face':faces}
+   for prefix,result in [('source',s),('target',t)]:
+    for k in ['distance_by_part_m','closest_by_part_m','normal_by_part','facet_topology_eligible','facet_tie_ambiguous','nearest_part','nearest_part_ambiguous','triangle_index_by_part']:arrays[prefix+'_'+k]=result[k]
+   saved.append((f'global_{g}_grid_{spacing:g}mm.npz',arrays));print(json.dumps({'global':g,'grid_mm':spacing,'triangle_tests':budget[0]}),flush=True)
+  case['resolution_consistency']={f'{coarse}_to_{fine}':surf.resolution_summary(case['resolutions'][str(coarse)]['bands'],case['resolutions'][str(fine)]['bands']) for coarse,fine in [(1.0,0.5),(0.5,0.25)]}
+  if any(not v['bounds_consistent'] for pair in case['resolution_consistency'].values() for groups in pair.values() for metrics in groups.values() for v in metrics.values()):raise ValueError('Inconsistent grid bounds')
+  case['strict_encoded_nearset_acceptance']=strict_case(case,science['native_reference']['matched_parts'],science['acceptance']['bands_mm'])
+  case['positive_lower_bound_visual_nearset_difference']=any(metric['lower_m2']>0 for res in case['resolutions'].values() for band in res['bands'].values() for name,group in band['groups'].items() if name not in ['forearm_carrier','whole_hand'] for key,metric in group.get('area_intervals',{}).items() if key in ['lost_native','new_target'])
+  cases.append(case)
+ verify(deps)
+ if {'torch','mujoco','isaacgym','pybullet'}&set(sys.modules):raise ValueError('Forbidden runtime imported')
+ a.output.mkdir(parents=True)
+ archives=[]
+ for name,arrays in saved:
+  out=a.output/name;np.savez_compressed(out,**arrays);archives.append({'path':name,'sha256':sha(out)})
+ result={'schema_version':'dga_component_native_visual_acceptance_report_v1','created_at_utc':datetime.now(timezone.utc).isoformat(),'policy_sha256':a.policy_sha256,'case_count':2,'global_indices':p['selected_indices'],'cases':cases,'arrays':archives,'dependencies':deps,'exact_triangle_tests':budget[0],'status':'COMPLETE_FROZEN_INDEPENDENT_NATIVE_ACCEPTANCE_TEST','scientific_protocol_sha256':p['scientific_protocol_sha256'],'native_protocol_sha256':p['native_protocol_sha256'],'strict_encoded_visual_nearset_status':combine_status([c['strict_encoded_nearset_acceptance']['status'] for c in cases]),'full_mapping_acceptance':'UNRESOLVED_OR_FAILED_SEPARATE_PALM_DIRECTIONS_AND_INDEPENDENT_NATIVE_EVIDENCE_REQUIRED','scientific_acceptance':'UNRESOLVED','execution_eligible':False,'limitations':['Visual triangle distances include buried surfaces; not exterior-union or compiled collision contact','Conditional facet normals are not certified exterior normals','Strict same-part bandrelation equality criterion frozen before fitting; fresh geometric queries on two preselected sealed native outputs; same cube, unseen seeds, no unseen-object or population claim','Original unchanged-angle rejections remain intact; this is a separately named retargeting stage'],'zero_execution':{'native_calls':0,'checkpoint_loads':0,'physics_steps':0,'training_calls':0,'evaluation_episodes':0}}
+ out=a.output/'retarget_visual_report.json';out.write_text(json.dumps(rename_query_fields(result),indent=2,allow_nan=False)+'\n');print(json.dumps({'report':str(out),'sha256':sha(out)}))
+if __name__=='__main__':main()

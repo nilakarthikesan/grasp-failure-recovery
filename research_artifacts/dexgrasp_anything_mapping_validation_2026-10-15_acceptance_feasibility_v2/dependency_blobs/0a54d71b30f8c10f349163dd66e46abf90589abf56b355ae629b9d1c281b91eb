@@ -1,0 +1,81 @@
+import importlib.util,sys
+from pathlib import Path
+import numpy as np
+import pytest
+sys.dont_write_bytecode=True
+p=Path(__file__).with_name('validate_component_native_visual_v3.py');s=importlib.util.spec_from_file_location('surface_validator',p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+def interval(lo,hi):return {'lower_m2':lo,'upper_m2':hi}
+def test_observed_zero_with_uncertainty_cannot_pass():assert m.strict_difference([interval(0,1),interval(0,2)])=='UNRESOLVED'
+def test_any_positive_certified_difference_fails():assert m.strict_difference([interval(0,0),interval(1e-12,1)])=='FAIL'
+def test_complete_zero_difference_bounds_pass():assert m.strict_difference([interval(0,0),interval(0,0)])=='PASS'
+def test_geometry_identity_resolves_correlated_boundary_uncertainty():assert m.strict_difference([interval(0,1),interval(0,2)],True)=='PASS'
+def test_contradictory_identity_refused():
+ with pytest.raises(ValueError):m.strict_difference([interval(0,1),interval(.1,2)],True)
+def test_missing_invalid_bounds_refused():
+ for bad in [[],[interval(0,1)],[interval(-1,1),interval(0,1)],[interval(2,1),interval(0,1)],[interval(0,float('nan')),interval(0,1)]]:
+  with pytest.raises(ValueError):m.strict_difference(bad)
+def test_identity_proof_uses_geometric_triangles_not_samples():
+ t=np.array([[[0.,0.,0.],[1.,0.,0.],[0.,1.,0.]]])
+ assert m.triangle_set_identity(t,np.concatenate([t[:,[1,2,0]],t]))
+ assert not m.triangle_set_identity(t,t+[0,0,1e-12])
+ with pytest.raises(ValueError):m.triangle_set_identity(np.empty((0,3,3)),t)
+def test_status_combination_never_hides_failure_or_empty_scope():
+ assert m.combine_status(['PASS','UNRESOLVED'])=='UNRESOLVED'
+ assert m.combine_status(['PASS','FAIL','UNRESOLVED'])=='FAIL'
+ with pytest.raises(ValueError):m.combine_status([])
+@pytest.mark.parametrize('spacing',[1.,.5,.25])
+def test_full_surface_fresh_locations_and_exact_corner_radius(spacing):
+ points,normals,faces,area,rho=m.offcenter_grid(spacing);h=spacing/1000;side=round(.05/h)
+ assert len(points)==6*side*side and abs(len(points)*area-.015)<1e-15
+ assert np.allclose(np.linalg.norm(normals,axis=1),1)
+ for axis in range(3):
+  other=[i for i in range(3) if i!=axis]
+  for sign in (-1,1):
+   q=points[faces==f'{"XYZ"[axis]}{"+" if sign>0 else "-"}'];uv=(q[:,other]+.025)/h;cell=np.floor(uv);f=uv-cell
+   assert np.allclose(f,[2/5,1/3],atol=1e-12,rtol=0)
+   assert len(np.unique(cell,axis=0))==side*side
+   assert np.all(q[:,axis]==sign*.025)
+   corners=np.array([[0,0],[1,0],[0,1],[1,1]])
+   assert np.allclose(np.linalg.norm((f[:,None]-corners)*h,axis=-1).max(axis=1),rho,atol=1e-15,rtol=0)
+   assert np.all(np.abs(f-.5)>.01)
+   assert np.all(np.abs(f-np.array([1/3,2/3]))>.01)
+def test_all_encoded_triangles_including_tiny_and_degenerate_retained():
+ surf=m.module('toy_real_surface_primitives','/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/cloud/dexgrasp_anything/audit_native_cohort_visual_proximity.py')
+ backend=m.module('toy_full_triangles','/private/tmp/dga_surface_preserving_20261015_v1/geometry/surface_backend.py')
+ vertices=np.array([[0.,0.,0.],[1e-10,0,0],[0,1e-10,0],[.02,0,0],[.03,0,0]])
+ faces=np.array([[0,1,2],[3,4,3]])
+ mesh=m.all_triangle_mesh_reference(surf,'palm',vertices,faces)
+ assert len(mesh['triangles'])==2 and mesh['metadata']['excluded_degenerate_triangle_count']==0
+ assert not mesh['facet_eligible'].any() and np.all(mesh['normals']==0)
+ d,foot=backend.closest_triangle_pairs(np.array([[2e-11,2e-11,1e-6],[.025,.001,0]]),mesh['triangles'])
+ assert np.allclose(d,[1e-6,.001],atol=1e-15,rtol=0)
+ assert not m.triangle_set_identity(mesh['triangles'],mesh['triangles'][:1])
+
+def ledger(valid):
+ return {'sample_count':16,'records':[{'global_sample_index':i,'native_output_complete_and_finite':True,'source_limit_violations':[] if i in valid else ['invalid']} for i in range(16)]}
+def test_native_selection_is_first_two_without_target_or_fit_filtering():
+ value=ledger([2,5,9]);value['records'][2]['mapping_status']='TARGET_REJECTED'
+ assert m.validate_native_selection(value,[2,5])==[2,5]
+ with pytest.raises(ValueError):m.validate_native_selection(value,[5,9])
+def test_native_selection_insufficient_and_incomplete():
+ with pytest.raises(ValueError):m.validate_native_selection(ledger([2]),[2])
+ value=ledger([2,5,9]);value['records'][2]['native_output_complete_and_finite']=False
+ assert m.validate_native_selection(value,[5,9])==[5,9]
+ value['records'][2]['native_output_complete_and_finite']='false'
+ with pytest.raises(ValueError):m.validate_native_selection(value,[5,9])
+def test_native_selection_requires_every_original_row():
+ value=ledger([2,5]);value['records'].pop()
+ with pytest.raises(ValueError):m.validate_native_selection(value,[2,5])
+
+def test_failed_preselected_cases_remain_and_no_replacement():
+ fit={'selected_global_indices':[2,5],'completed_global_indices':[5],'execution_eligible':False,'records':[{'global_sample_index':2,'correction_status':'REFUSED_OR_FAILED'},{'global_sample_index':5,'correction_status':'COMPLETE'}]}
+ assert m.validate_fit_accounting(fit,[2,5],[5])==[5]
+ with pytest.raises(ValueError):m.validate_fit_accounting(fit,[2,5],[2,5])
+ fit['records'].pop(0)
+ with pytest.raises(ValueError):m.validate_fit_accounting(fit,[2,5],[5])
+def test_zero_completed_is_explicit_not_empty_pass():
+ fit={'selected_global_indices':[2,5],'completed_global_indices':[],'execution_eligible':False,'records':[{'global_sample_index':g,'correction_status':'REFUSED_OR_FAILED'} for g in [2,5]]}
+ assert m.validate_fit_accounting(fit,[2,5],[])==[]
+ arr={'global_sample_indices':np.array([],dtype=int),'source_hand_qpos':np.empty((0,33)),'target_joint_values':np.empty((0,24))}
+ for key in ['object_from_source_forearm','object_from_source_palm','object_from_target_palm','source_palm_from_target_palm','object_from_target_root_world','object_from_target_forearm']:arr[key]=np.empty((0,4,4))
+ m.validate_arrays(arr)

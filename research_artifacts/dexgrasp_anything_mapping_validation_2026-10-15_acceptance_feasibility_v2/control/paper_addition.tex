@@ -1,0 +1,32 @@
+
+\paragraph{Exact feasibility audit after the compiler repair.}
+A separate static audit retains all sixteen saved native outputs and measures
+the eleven source-valid raw poses. The only jointly source/target-legal raw
+pose, row 6, fails index and ring visual proximity preservation at all three
+bands without angle correction. At 1 mm, conservative lost-area lower bounds
+are 50.25 and 66.9375 mm$^2$. Independent reconstruction reproduces all eight
+index/ring runtime triangle sets exactly; distal meshes genuinely differ
+(970 versus 5,374 triangles), despite matching nominal link frames. The palm
+nearset/occupancy pass concerns empty sets; direction remains unresolved.
+
+Outward rational intervals reconstruct the saved robust-6D source pose and
+literal wrist FK, removing the former assumed 1 nm source-transform bridge.
+For old development row 1 and new native row 0, respectively, any proper
+target palm placement and finger configuration satisfying their original
+pose-specific maximum/SSE guards leaves an added declared-palm occupancy
+square of at least 0.000104947 and 0.525625 mm$^2$. These are exact declared
+geometry statements with real-arithmetic guards and the recorded constants,
+not a proof about arbitrary floating implementations or every DGA pose.
+There are 2,082 manufactured arithmetic/geometry controls; independent review
+recounts 516 certificates and verifies the nine collider declarations and
+original guard provenance. The required cohort therefore cannot all satisfy
+the unchanged exact criterion, independently of optimizer strength.
+
+A separately frozen 2,238-state simultaneous joint/palm band-fitting trial
+retains the tighter landmark and eighteen component guards. It selects only
+a $10^{-5}$ rad THJ3 adjustment, reducing the maximum thumb fitting difference
+by about 46.4 nm with unchanged palm and maximum landmark error. Fresh grids
+at fractions $(13/37,19/41)$ still fail visual preservation. This bounded
+search does not prove infeasibility for that other pose. Original outputs and
+criteria remain unchanged, no provider is promoted, and no physics, new native
+inference, evaluation episodes/labels or training occurs.

@@ -1,0 +1,125 @@
+{
+  "schema_version": "dga_exact_palm_feasibility_summary_v1",
+  "status": "TWO_POSE_SPECIFIC_ORIGINAL_GUARD_OBSTRUCTIONS_CERTIFIED",
+  "conclusion": "Under the exact declared pinned source/target geometry and each pose original mathematical max/SSE landmark guards, old development row1 and new native row0 necessarily introduce nonzero cube-surface occupancy in a target palm box where the source palm is absent. No rigid palm placement or finger-angle correction can remove this while satisfying those same mathematical guards. This is a scoped obstruction, not universal DGA impossibility.",
+  "cases": [
+    {
+      "case_id": "old_development_row1",
+      "guard_scope": "original pose-specific fixed-palm max/SSE guards",
+      "status": "CERTIFIED_EXACT_DECLARED_MATH_OBSTRUCTION",
+      "candidate_count": 1,
+      "positive_witness_count": 1,
+      "maximum_guard_mm": 1.3977787559371118,
+      "SSE_guard_mm2": 3.6208090059561906,
+      "no_mean_guard_used": true,
+      "source_interval_maximum_width": 2.79e-78,
+      "exact_source_bridge_upper_m": 3.3464465128951976e-17,
+      "target_inside_clearance_lower_mm": 0.040977522605626905,
+      "guaranteed_mismatched_cube_face_area_lower_mm2": 0.0001049473349309165,
+      "one_nm_guard_anchor_allowance_sensitivity_area_lower_mm2": 0.00010492551973831375
+    },
+    {
+      "case_id": "new_native_row0_original_guards",
+      "guard_scope": "original pose-specific fixed-palm max/SSE guards",
+      "status": "CERTIFIED_EXACT_DECLARED_MATH_OBSTRUCTION",
+      "candidate_count": 256,
+      "positive_witness_count": 43,
+      "maximum_guard_mm": 3.886277721434527,
+      "SSE_guard_mm2": 38.837333445263575,
+      "no_mean_guard_used": true,
+      "source_interval_maximum_width": 2.95e-78,
+      "exact_source_bridge_upper_m": 3.795406653857731e-18,
+      "target_inside_clearance_lower_mm": 3.1862055051994163,
+      "guaranteed_mismatched_cube_face_area_lower_mm2": 0.5256249999999995,
+      "one_nm_guard_anchor_allowance_sensitivity_area_lower_mm2": 0.5256249999999995
+    },
+    {
+      "case_id": "new_native_row0_component_caps",
+      "guard_scope": "existing component-corrector tighter max/SSE caps, specific to new row0",
+      "status": "CERTIFIED_EXACT_DECLARED_MATH_OBSTRUCTION",
+      "candidate_count": 256,
+      "positive_witness_count": 100,
+      "maximum_guard_mm": 1.2031204878816784,
+      "SSE_guard_mm2": 29.657211215205844,
+      "no_mean_guard_used": true,
+      "source_interval_maximum_width": 2.95e-78,
+      "exact_source_bridge_upper_m": 2.8459297400897798e-18,
+      "target_inside_clearance_lower_mm": 3.942986731581522,
+      "guaranteed_mismatched_cube_face_area_lower_mm2": 0.9716965228392458,
+      "one_nm_guard_anchor_allowance_sensitivity_area_lower_mm2": 0.9716954429518597
+    }
+  ],
+  "method": "Exact Fraction interval source reconstruction from saved binary33 pose and literal URDF wrist chain; outward rounding to 80 decimal places; 50-term rational sin/cos Taylor bounds; integer-isqrt square root bounds; affine anchor reproduction and weighted Cauchy-Schwarz; exact cube-face membership and positive-margin square certificate.",
+  "source_pose_one_nm_assumption_removed": true,
+  "floating_guard_implementation_global_roundoff_certified": false,
+  "remaining_scope": [
+    "Original recorded binary64 guard caps are interpreted exactly; guard distances/SSE in theorem are real arithmetic. Certifying an arbitrary floating runtime implementation globally is outside this report.",
+    "The 1nm guard-anchor allowance result is a sensitivity calculation, not an independently certified global runtime error bound.",
+    "Other source-valid rows remain unresolved or separately measured failures, not inferred impossible or feasible.",
+    "No universal generator acceptance, population generalization, full-hand exterior contact or physical-success claim.",
+    "Compiled distal-collider import fixes do not modify the native visual surfaces or literal declared palm boxes used by these certificates."
+  ],
+  "constructive_remedy_status": "No new fit attempted for certified poses; a fit cannot overcome the exact mathematical obstruction without changing a premise. Target and criteria were not changed.",
+  "controls": {
+    "checks": 2082,
+    "status": "PASS",
+    "manufactured_cases": [
+      "positive obstruction",
+      "equal source/target boxes unresolved",
+      "loose caps unresolved",
+      "off-face or outside-face query refused",
+      "negative caps refused",
+      "wrong anchor multiplicity refused",
+      "10mm copied raw translation perturbation changes hash and bridge and defeats original witness"
+    ],
+    "source_crosscheck": "Independent 150-digit mpmath frame lies in exact intervals; mpmath is not used for authoritative bounds."
+  },
+  "independent_review": {
+    "status": "PASS_SCOPED_EXACT_MATH_CERTIFICATE",
+    "exact_certificates_recounted": 516,
+    "literal_collider_declarations_verified": 9,
+    "original_guard_cap_provenance_verified": true
+  },
+  "evidence": {
+    "proof": {
+      "path": "/private/tmp/dga_mapping_acceptance_20261015_v2/feasibility/exact_palm_obstruction_v3.json",
+      "sha256": "sha256:2ea21c053af6588304ba48ca9cb63c12ca0d8081c7ad24ff83db27246f9cd183"
+    },
+    "producer": {
+      "path": "/private/tmp/dga_mapping_acceptance_20261015_v2/feasibility/certify_exact_palm_obstruction.py",
+      "sha256": "sha256:82c16a9d9975aec24bfd77310d08862b735567a0859d83009964e4df23e08c24"
+    },
+    "controls": {
+      "path": "/private/tmp/dga_mapping_acceptance_20261015_v2/feasibility/exact_palm_obstruction_controls_v2.json",
+      "sha256": "sha256:d1f5675a8e69467095cf0e272a0337d356e9a2e654d2de81ba83983cfa80621d"
+    },
+    "control_source": {
+      "path": "/private/tmp/dga_mapping_acceptance_20261015_v2/feasibility/test_exact_palm_obstruction.py",
+      "sha256": "sha256:dd9880a0657bf9abe1edf2fab3bce06c394fd7f86205d8838bdb0dd21e1d65b7"
+    },
+    "independent_review": {
+      "path": "/private/tmp/dga_mapping_acceptance_20261015_v2/contract_review/independent_exact_obstruction_review_v2.json",
+      "sha256": "sha256:5a0d091b57f873e48905451b4d67ab6e713a33c224796ec3d3299292c3154284"
+    },
+    "independent_raw6_recount": {
+      "path": "/private/tmp/dga_mapping_acceptance_20261015_v2/feasibility/independent_raw6_visual_saved_array_recount_v1.json",
+      "sha256": "sha256:bdcbf8013128cdb1956dcb35e592871398e313fb017b18a98d244163ac5c0a18"
+    }
+  },
+  "prior_versions_preserved": true,
+  "target_changed": false,
+  "criteria_changed": false,
+  "full_generator_mapping_accepted": false,
+  "zero_execution": {
+    "physics_steps": 0,
+    "native_calls": 0,
+    "surface_queries": 0,
+    "fit_calls": 0,
+    "evaluation_episodes": 0,
+    "training_calls": 0
+  },
+  "summary_script": {
+    "path": "/private/tmp/dga_mapping_acceptance_20261015_v2/feasibility/write_feasibility_summary_v1.py",
+    "sha256": "sha256:e640652a7b1e0b1d1edf34e49c124f523c56f3173b1ae5a896941521e9d0b821"
+  }
+}

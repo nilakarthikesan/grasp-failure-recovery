@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+"""Bind post-selection immutable inputs without changing pre-unseal palm policy.
+
+No boundary patches, field evaluations, fitting or native generation are run.
+"""
+import argparse
+from datetime import datetime,timezone
+import json
+from pathlib import Path
+import validate_component_native_palm as v
+
+
+def add(deps,path,expected=None):
+ path=str(Path(path).resolve());h=v.m.digest(path)
+ if expected is not None and expected!=h:raise ValueError('Artifact hash mismatch: '+path)
+ if path in deps and deps[path]!=h:raise ValueError('Dependency pin conflict: '+path)
+ deps[path]=h
+ return path
+
+
+def merge(deps,closure):
+ for path,h in closure.items():add(deps,path,h)
+
+
+def bind(implementation,implementation_hash,ledger_path,algebra_path,fit_path,fit_policy_path):
+ if v.m.digest(implementation)!=implementation_hash:raise ValueError('Pre-unseal implementation changed')
+ p=json.loads(Path(implementation).read_text());deps=dict(p['dependencies']);v.verify(deps)
+ if p['status']!='FROZEN_IMPLEMENTATION_BEFORE_NATIVE_UNSEAL':raise ValueError('Wrong implementation freeze')
+ p['implementation']={'path':add(deps,implementation,implementation_hash),'sha256':implementation_hash}
+ p['validation_report']=add(deps,ledger_path);ledger=json.loads(Path(ledger_path).read_text())
+ merge(deps,ledger['dependency_sha256']);p['selected_indices']=v.select(ledger)
+ if len(p['selected_indices'])==2:
+  if None in (algebra_path,fit_path,fit_policy_path):raise ValueError('Complete immutable algebra/fit bindings required')
+  p['algebra_report']=add(deps,algebra_path);algebra=json.loads(Path(algebra_path).read_text())
+  merge(deps,algebra.get('dependency_sha256',{}))
+  p['fit_report']=add(deps,fit_path);fit=json.loads(Path(fit_path).read_text());merge(deps,fit['dependency_sha256'])
+  p['fit_policy']=add(deps,fit_policy_path,fit['implementation_policy_sha256']);p['fit_policy_sha256']=deps[p['fit_policy']]
+  producer=json.loads(Path(fit_policy_path).read_text());merge(deps,producer['dependency_sha256'])
+  p['method_sha256']=fit['method']['sha256']
+  for key in ('scientific_protocol','method','native_ledger'):add(deps,fit[key]['path'],fit[key]['sha256'])
+  p['fit_arrays']=add(deps,Path(fit_path).parent/fit['arrays']['path'],fit['arrays']['sha256'])
+  # Bind every selected raw/reference child explicitly in addition to the ledger closure.
+  for g in p['selected_indices']:
+   row=ledger['records'][g]
+   for key,field in (('native_manifest','output'),('mapping_reference','arrays')):
+    ref=row[key];path=add(deps,ref['path'],ref['sha256']);obj=json.loads(Path(path).read_text())
+    target=(Path(path).parent/obj[field]['path']).resolve()
+    if not target.is_relative_to(Path(path).parent.resolve()):raise ValueError('Escaping bound child')
+    add(deps,target,obj[field]['sha256'])
+ p['dependencies']=deps;p['status']='FROZEN_INPUTS_BEFORE_NATIVE_PALM_HOLDOUT'
+ p['bound_at_utc']=datetime.now(timezone.utc).isoformat()
+ # All data checks run now; only the frozen measurement command may query geometry.
+ context=v.prepare(p)
+ return p,{'status':'PASS_NO_GEOMETRY_QUERIES','selected_indices':context['selected'],'completed_indices':context['completed'],'dependency_count':len(deps),'native_calls':0,'physics_steps':0,'surface_queries':0}
+
+
+def main():
+ ap=argparse.ArgumentParser(description=__doc__)
+ for key in ('implementation','ledger','output'):ap.add_argument('--'+key,type=Path,required=True)
+ ap.add_argument('--implementation-sha256',required=True)
+ for key in ('algebra','fit-report','fit-policy'):ap.add_argument('--'+key,type=Path)
+ a=ap.parse_args()
+ if a.output.exists():raise FileExistsError('Never overwrite an input policy')
+ p,receipt=bind(a.implementation,a.implementation_sha256,a.ledger,a.algebra,a.fit_report,a.fit_policy)
+ a.output.parent.mkdir(parents=True,exist_ok=True);v.m.write(a.output,p)
+ print(json.dumps({'policy':str(a.output),'sha256':v.m.digest(a.output),**receipt}))
+
+
+if __name__=='__main__':main()

@@ -1,0 +1,4368 @@
+{
+  "schema_version": "independent_selected_band_visual_saved_array_recount_v1",
+  "status": "PASS_RECOUNT_CONFIRMS_SELECTED_CANDIDATE_STRICT_VISUAL_FAILURE",
+  "check_count": 1783,
+  "global_sample_index": 1,
+  "method": "Independent masks and integer area counts across all3 grids, all3 bands,7 matched parts and2 whole-hand aggregates. Positive witnesses independently checked using exact Fraction binary-rational inequalities. Grid fractions/face labels/normals/cell identity and coverage radius independently verified. No production geometry or acceptance code imported.",
+  "upstream_assumptions": "Saved distances and right-censor semantics remain conditional on original 1nm numerical allowance. This recount does not certify distance queries or arbitrary floating-point surface algorithms globally.",
+  "report_dependency": {
+    "path": "/private/tmp/dga_mapping_acceptance_20261015_v2/band_validation/results_v1/report.json",
+    "sha256": "sha256:afa652e11624f2074eac38cb886894ca118259fa61325f88e5361be850e2ad74"
+  },
+  "dependencies": {
+    "/private/tmp/dga_mapping_acceptance_20261015_v2/band_validation/results_v1/report.json": "sha256:afa652e11624f2074eac38cb886894ca118259fa61325f88e5361be850e2ad74",
+    "/private/tmp/dga_mapping_acceptance_20261015_v2/band_validation/policy_frozen_v1.json": "sha256:45fb67c32ac9d9df6167c2e10360aa69578044640451482c3bb1e3699f3969b2",
+    "frozen_policy_dependency_count": 76,
+    "/private/tmp/dga_mapping_acceptance_20261015_v2/band_validation/results_v1/global_1_grid_1mm.npz": "sha256:1be290abbbf796220930d00ecc2fe00081500250cf3ed9d6afbb6aba3fef2d98",
+    "/private/tmp/dga_mapping_acceptance_20261015_v2/band_validation/results_v1/global_1_grid_0.5mm.npz": "sha256:a605feec9c1af117ac4ed5eebe36020bcf0b3c1c6a566a8788b2cee5f14ac1a4",
+    "/private/tmp/dga_mapping_acceptance_20261015_v2/band_validation/results_v1/global_1_grid_0.25mm.npz": "sha256:3d33cf211365019b69899646e28622f12dfa0e6690a883ee475d083f862f71f9"
+  },
+  "script_sha256": "sha256:60f6990ee4a0c291ec202d479d3e68ae0a68d1f193f7318d9af66fce2f770019",
+  "grid_checks": [
+    {
+      "spacing_mm": 1.0,
+      "query_count": 15000,
+      "grid_offsets_exact": [
+        "13/37",
+        "19/41"
+      ],
+      "all_face_cell_coordinates_and_normals_checked": true,
+      "max_saved_vs_exact_grid_coordinate_error_m": 6.938893903907228e-18,
+      "covering_radius_m": 0.0008418247586297416,
+      "radius_formula_checked_by_exact_rational_squares_including_declared_allowance": true
+    },
+    {
+      "spacing_mm": 0.5,
+      "query_count": 60000,
+      "grid_offsets_exact": [
+        "13/37",
+        "19/41"
+      ],
+      "all_face_cell_coordinates_and_normals_checked": true,
+      "max_saved_vs_exact_grid_coordinate_error_m": 6.938893903907228e-18,
+      "covering_radius_m": 0.0004209123793148708,
+      "radius_formula_checked_by_exact_rational_squares_including_declared_allowance": true
+    },
+    {
+      "spacing_mm": 0.25,
+      "query_count": 240000,
+      "grid_offsets_exact": [
+        "13/37",
+        "19/41"
+      ],
+      "all_face_cell_coordinates_and_normals_checked": true,
+      "max_saved_vs_exact_grid_coordinate_error_m": 3.469446951953614e-18,
+      "covering_radius_m": 0.0002104561896574354,
+      "radius_formula_checked_by_exact_rational_squares_including_declared_allowance": true
+    }
+  ],
+  "by_band_and_part": {
+    "0.5": {
+      "palm": {
+        "status": "PASS",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          },
+          "new_target": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          }
+        }
+      },
+      "index": {
+        "status": "FAIL",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 3.8125e-06,
+            "upper_m2": 5.45625e-05
+          },
+          "new_target": {
+            "lower_m2": 1.9375e-06,
+            "upper_m2": 4.9875e-05
+          }
+        }
+      },
+      "middle": {
+        "status": "PASS",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          },
+          "new_target": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          }
+        }
+      },
+      "ring": {
+        "status": "FAIL",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 2.74375e-05,
+            "upper_m2": 6.775e-05
+          },
+          "new_target": {
+            "lower_m2": 3.4687499999999996e-05,
+            "upper_m2": 8.70625e-05
+          }
+        }
+      },
+      "little": {
+        "status": "FAIL",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 7.625e-06,
+            "upper_m2": 0.000128625
+          },
+          "new_target": {
+            "lower_m2": 1.375e-06,
+            "upper_m2": 0.000122
+          }
+        }
+      },
+      "thumb": {
+        "status": "FAIL",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 2.825e-05,
+            "upper_m2": 0.00013443749999999998
+          },
+          "new_target": {
+            "lower_m2": 3.1375e-05,
+            "upper_m2": 0.0001404375
+          }
+        }
+      },
+      "wrist_carrier": {
+        "status": "PASS",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          },
+          "new_target": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          }
+        }
+      }
+    },
+    "1.0": {
+      "palm": {
+        "status": "PASS",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          },
+          "new_target": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          }
+        }
+      },
+      "index": {
+        "status": "FAIL",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 4.3125e-06,
+            "upper_m2": 5.6374999999999995e-05
+          },
+          "new_target": {
+            "lower_m2": 1.5e-06,
+            "upper_m2": 4.74375e-05
+          }
+        }
+      },
+      "middle": {
+        "status": "PASS",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          },
+          "new_target": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          }
+        }
+      },
+      "ring": {
+        "status": "FAIL",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 3.975e-05,
+            "upper_m2": 7.662499999999999e-05
+          },
+          "new_target": {
+            "lower_m2": 5.7875e-05,
+            "upper_m2": 0.000113
+          }
+        }
+      },
+      "little": {
+        "status": "FAIL",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 5.25e-06,
+            "upper_m2": 0.0001145625
+          },
+          "new_target": {
+            "lower_m2": 2.1875e-06,
+            "upper_m2": 0.00010018749999999999
+          }
+        }
+      },
+      "thumb": {
+        "status": "FAIL",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 4.7187499999999995e-05,
+            "upper_m2": 0.000149125
+          },
+          "new_target": {
+            "lower_m2": 5.3312499999999995e-05,
+            "upper_m2": 0.000156
+          }
+        }
+      },
+      "wrist_carrier": {
+        "status": "PASS",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          },
+          "new_target": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          }
+        }
+      }
+    },
+    "2.0": {
+      "palm": {
+        "status": "PASS",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          },
+          "new_target": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          }
+        }
+      },
+      "index": {
+        "status": "FAIL",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 5.8125e-06,
+            "upper_m2": 6.293749999999999e-05
+          },
+          "new_target": {
+            "lower_m2": 8.75e-07,
+            "upper_m2": 4.15e-05
+          }
+        }
+      },
+      "middle": {
+        "status": "PASS",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          },
+          "new_target": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          }
+        }
+      },
+      "ring": {
+        "status": "FAIL",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 3.0312499999999998e-05,
+            "upper_m2": 5.7125e-05
+          },
+          "new_target": {
+            "lower_m2": 6.54375e-05,
+            "upper_m2": 0.0001333125
+          }
+        }
+      },
+      "little": {
+        "status": "FAIL",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 3.1875e-06,
+            "upper_m2": 0.0001018125
+          },
+          "new_target": {
+            "lower_m2": 1.8749999999999998e-06,
+            "upper_m2": 9.55625e-05
+          }
+        }
+      },
+      "thumb": {
+        "status": "FAIL",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 4.36875e-05,
+            "upper_m2": 0.0001375625
+          },
+          "new_target": {
+            "lower_m2": 5.54375e-05,
+            "upper_m2": 0.00014675
+          }
+        }
+      },
+      "wrist_carrier": {
+        "status": "PASS",
+        "bounds_intersection": {
+          "lost_native": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          },
+          "new_target": {
+            "lower_m2": 0.0,
+            "upper_m2": 0.0
+          }
+        }
+      }
+    }
+  },
+  "records": [
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 0.5,
+      "part": "palm",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 0.5,
+      "part": "index",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.00016099999999999998,
+          "unresolved_m2": 0.00016099999999999998
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000155,
+          "unresolved_m2": 0.000155
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.00014099999999999998,
+          "unresolved_m2": 0.00014099999999999998
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000175,
+          "unresolved_m2": 0.000175
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.00016099999999999998,
+          "unresolved_m2": 0.00016099999999999998
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000155,
+          "unresolved_m2": 0.000155
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 0.5,
+      "part": "middle",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 0.5,
+      "part": "ring",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.00013099999999999999,
+          "unresolved_m2": 0.00013099999999999999
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000167,
+          "unresolved_m2": 0.000167
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 7.7e-05,
+          "unresolved_m2": 7.7e-05
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.00022099999999999998,
+          "unresolved_m2": 0.00022099999999999998
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.00013099999999999999,
+          "unresolved_m2": 0.00013099999999999999
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000167,
+          "unresolved_m2": 0.000167
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 0.5,
+      "part": "little",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.00035999999999999997,
+          "unresolved_m2": 0.00035999999999999997
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000355,
+          "unresolved_m2": 0.000355
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000323,
+          "unresolved_m2": 0.000323
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000392,
+          "unresolved_m2": 0.000392
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.00035999999999999997,
+          "unresolved_m2": 0.00035999999999999997
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000355,
+          "unresolved_m2": 0.000355
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 0.5,
+      "part": "thumb",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000339,
+          "unresolved_m2": 0.000339
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000338,
+          "unresolved_m2": 0.000338
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000248,
+          "unresolved_m2": 0.000248
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.00042899999999999997,
+          "unresolved_m2": 0.00042899999999999997
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000339,
+          "unresolved_m2": 0.000339
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000338,
+          "unresolved_m2": 0.000338
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 0.5,
+      "part": "wrist_carrier",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 0.5,
+      "part": "whole_hand_common_runtime_coverage",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000991,
+          "unresolved_m2": 0.000991
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.001015,
+          "unresolved_m2": 0.001015
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000789,
+          "unresolved_m2": 0.000789
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.001217,
+          "unresolved_m2": 0.001217
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000991,
+          "unresolved_m2": 0.000991
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.001015,
+          "unresolved_m2": 0.001015
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 0.5,
+      "part": "whole_hand",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000991,
+          "unresolved_m2": 0.000991
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.001015,
+          "unresolved_m2": 0.001015
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000789,
+          "unresolved_m2": 0.000789
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.001217,
+          "unresolved_m2": 0.001217
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000991,
+          "unresolved_m2": 0.000991
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.001015,
+          "unresolved_m2": 0.001015
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 1.0,
+      "part": "palm",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 1.0,
+      "part": "index",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 1.3e-05,
+          "upper_m2": 0.00021799999999999999,
+          "unresolved_m2": 0.000205
+        },
+        "target_near": {
+          "lower_m2": 2.1e-05,
+          "upper_m2": 0.000214,
+          "unresolved_m2": 0.000193
+        },
+        "intersection": {
+          "lower_m2": 4e-06,
+          "upper_m2": 0.00019999999999999998,
+          "unresolved_m2": 0.000196
+        },
+        "union": {
+          "lower_m2": 2.9999999999999997e-05,
+          "upper_m2": 0.000232,
+          "unresolved_m2": 0.000202
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000197,
+          "unresolved_m2": 0.000197
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.00020099999999999998,
+          "unresolved_m2": 0.00020099999999999998
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 1.0,
+      "part": "middle",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 1.0,
+      "part": "ring",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 1.7e-05,
+          "upper_m2": 0.000177,
+          "unresolved_m2": 0.00015999999999999999
+        },
+        "target_near": {
+          "lower_m2": 1.8e-05,
+          "upper_m2": 0.00022899999999999998,
+          "unresolved_m2": 0.00021099999999999998
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.00013,
+          "unresolved_m2": 0.00013
+        },
+        "union": {
+          "lower_m2": 3.5e-05,
+          "upper_m2": 0.000276,
+          "unresolved_m2": 0.00024099999999999998
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000159,
+          "unresolved_m2": 0.000159
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000212,
+          "unresolved_m2": 0.000212
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 1.0,
+      "part": "little",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 4.4e-05,
+          "upper_m2": 0.000477,
+          "unresolved_m2": 0.00043299999999999995
+        },
+        "target_near": {
+          "lower_m2": 4.2e-05,
+          "upper_m2": 0.00047,
+          "unresolved_m2": 0.000428
+        },
+        "intersection": {
+          "lower_m2": 1.9999999999999998e-05,
+          "upper_m2": 0.000446,
+          "unresolved_m2": 0.000426
+        },
+        "union": {
+          "lower_m2": 6.599999999999999e-05,
+          "upper_m2": 0.0005009999999999999,
+          "unresolved_m2": 0.000435
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000435,
+          "unresolved_m2": 0.000435
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000426,
+          "unresolved_m2": 0.000426
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 1.0,
+      "part": "thumb",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 3.5e-05,
+          "upper_m2": 0.000448,
+          "unresolved_m2": 0.00041299999999999996
+        },
+        "target_near": {
+          "lower_m2": 4.7e-05,
+          "upper_m2": 0.000459,
+          "unresolved_m2": 0.000412
+        },
+        "intersection": {
+          "lower_m2": 6e-06,
+          "upper_m2": 0.000363,
+          "unresolved_m2": 0.000357
+        },
+        "union": {
+          "lower_m2": 7.599999999999999e-05,
+          "upper_m2": 0.000544,
+          "unresolved_m2": 0.000468
+        },
+        "lost_native": {
+          "lower_m2": 6e-06,
+          "upper_m2": 0.000408,
+          "unresolved_m2": 0.00040199999999999996
+        },
+        "new_target": {
+          "lower_m2": 7e-06,
+          "upper_m2": 0.00043,
+          "unresolved_m2": 0.000423
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 8351,
+          "cube_point_m": [
+            -0.00764864864864865,
+            0.025,
+            -0.02353658536585366
+          ],
+          "source_distance_m": 4.404384347516454e-05,
+          "target_distance_m": 0.002204243246858995,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 8255,
+          "cube_point_m": [
+            -0.00964864864864865,
+            0.025,
+            -0.01953658536585366
+          ],
+          "source_distance_m": "greater_than_search_radius",
+          "target_distance_m": 5.491809611704176e-06,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 1.0,
+      "part": "wrist_carrier",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 1.0,
+      "part": "whole_hand_common_runtime_coverage",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.00010899999999999999,
+          "upper_m2": 0.00132,
+          "unresolved_m2": 0.0012109999999999998
+        },
+        "target_near": {
+          "lower_m2": 0.000128,
+          "upper_m2": 0.001372,
+          "unresolved_m2": 0.0012439999999999999
+        },
+        "intersection": {
+          "lower_m2": 2.9999999999999997e-05,
+          "upper_m2": 0.001139,
+          "unresolved_m2": 0.001109
+        },
+        "union": {
+          "lower_m2": 0.000207,
+          "upper_m2": 0.001553,
+          "unresolved_m2": 0.001346
+        },
+        "lost_native": {
+          "lower_m2": 6e-06,
+          "upper_m2": 0.001199,
+          "unresolved_m2": 0.001193
+        },
+        "new_target": {
+          "lower_m2": 7e-06,
+          "upper_m2": 0.001269,
+          "unresolved_m2": 0.0012619999999999999
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 8351,
+          "cube_point_m": [
+            -0.00764864864864865,
+            0.025,
+            -0.02353658536585366
+          ],
+          "source_distance_m": 4.404384347516454e-05,
+          "target_distance_m": 0.002204243246858995,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 8255,
+          "cube_point_m": [
+            -0.00964864864864865,
+            0.025,
+            -0.01953658536585366
+          ],
+          "source_distance_m": "greater_than_search_radius",
+          "target_distance_m": 5.491809611704176e-06,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 1.0,
+      "part": "whole_hand",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.00010899999999999999,
+          "upper_m2": 0.00132,
+          "unresolved_m2": 0.0012109999999999998
+        },
+        "target_near": {
+          "lower_m2": 0.000128,
+          "upper_m2": 0.001372,
+          "unresolved_m2": 0.0012439999999999999
+        },
+        "intersection": {
+          "lower_m2": 2.9999999999999997e-05,
+          "upper_m2": 0.001139,
+          "unresolved_m2": 0.001109
+        },
+        "union": {
+          "lower_m2": 0.000207,
+          "upper_m2": 0.001553,
+          "unresolved_m2": 0.001346
+        },
+        "lost_native": {
+          "lower_m2": 6e-06,
+          "upper_m2": 0.001199,
+          "unresolved_m2": 0.001193
+        },
+        "new_target": {
+          "lower_m2": 7e-06,
+          "upper_m2": 0.001269,
+          "unresolved_m2": 0.0012619999999999999
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 8351,
+          "cube_point_m": [
+            -0.00764864864864865,
+            0.025,
+            -0.02353658536585366
+          ],
+          "source_distance_m": 4.404384347516454e-05,
+          "target_distance_m": 0.002204243246858995,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 8255,
+          "cube_point_m": [
+            -0.00964864864864865,
+            0.025,
+            -0.01953658536585366
+          ],
+          "source_distance_m": "greater_than_search_radius",
+          "target_distance_m": 5.491809611704176e-06,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 2.0,
+      "part": "palm",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 2.0,
+      "part": "index",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.000139,
+          "upper_m2": 0.000337,
+          "unresolved_m2": 0.000198
+        },
+        "target_near": {
+          "lower_m2": 0.00013199999999999998,
+          "upper_m2": 0.000323,
+          "unresolved_m2": 0.00019099999999999998
+        },
+        "intersection": {
+          "lower_m2": 0.000116,
+          "upper_m2": 0.000312,
+          "unresolved_m2": 0.000196
+        },
+        "union": {
+          "lower_m2": 0.000155,
+          "upper_m2": 0.000348,
+          "unresolved_m2": 0.000193
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000205,
+          "unresolved_m2": 0.000205
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000184,
+          "unresolved_m2": 0.000184
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 2.0,
+      "part": "middle",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 2.0,
+      "part": "ring",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.000113,
+          "upper_m2": 0.00027,
+          "unresolved_m2": 0.000157
+        },
+        "target_near": {
+          "lower_m2": 0.000144,
+          "upper_m2": 0.000363,
+          "unresolved_m2": 0.00021899999999999998
+        },
+        "intersection": {
+          "lower_m2": 5.8e-05,
+          "upper_m2": 0.00023899999999999998,
+          "unresolved_m2": 0.00018099999999999998
+        },
+        "union": {
+          "lower_m2": 0.00019899999999999999,
+          "upper_m2": 0.000394,
+          "unresolved_m2": 0.000195
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000126,
+          "unresolved_m2": 0.000126
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.00025,
+          "unresolved_m2": 0.00025
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 2.0,
+      "part": "little",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.00032199999999999997,
+          "upper_m2": 0.000704,
+          "unresolved_m2": 0.00038199999999999996
+        },
+        "target_near": {
+          "lower_m2": 0.00031,
+          "upper_m2": 0.0006979999999999999,
+          "unresolved_m2": 0.000388
+        },
+        "intersection": {
+          "lower_m2": 0.000286,
+          "upper_m2": 0.000673,
+          "unresolved_m2": 0.000387
+        },
+        "union": {
+          "lower_m2": 0.000346,
+          "upper_m2": 0.0007289999999999999,
+          "unresolved_m2": 0.000383
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000394,
+          "unresolved_m2": 0.000394
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000376,
+          "unresolved_m2": 0.000376
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 2.0,
+      "part": "thumb",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.00029,
+          "upper_m2": 0.000655,
+          "unresolved_m2": 0.000365
+        },
+        "target_near": {
+          "lower_m2": 0.000296,
+          "upper_m2": 0.000676,
+          "unresolved_m2": 0.00037999999999999997
+        },
+        "intersection": {
+          "lower_m2": 0.000198,
+          "upper_m2": 0.000583,
+          "unresolved_m2": 0.000385
+        },
+        "union": {
+          "lower_m2": 0.000388,
+          "upper_m2": 0.000748,
+          "unresolved_m2": 0.00035999999999999997
+        },
+        "lost_native": {
+          "lower_m2": 8e-06,
+          "upper_m2": 0.00036899999999999997,
+          "unresolved_m2": 0.000361
+        },
+        "new_target": {
+          "lower_m2": 9.999999999999999e-06,
+          "upper_m2": 0.000394,
+          "unresolved_m2": 0.000384
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 8401,
+          "cube_point_m": [
+            -0.006648648648648649,
+            0.025,
+            -0.02353658536585366
+          ],
+          "source_distance_m": 0.0008828811239586817,
+          "target_distance_m": "greater_than_search_radius",
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 8205,
+          "cube_point_m": [
+            -0.01064864864864865,
+            0.025,
+            -0.01953658536585366
+          ],
+          "source_distance_m": "greater_than_search_radius",
+          "target_distance_m": 0.000334216400878206,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 2.0,
+      "part": "wrist_carrier",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 2.0,
+      "part": "whole_hand_common_runtime_coverage",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.000864,
+          "upper_m2": 0.001966,
+          "unresolved_m2": 0.001102
+        },
+        "target_near": {
+          "lower_m2": 0.000882,
+          "upper_m2": 0.0020599999999999998,
+          "unresolved_m2": 0.001178
+        },
+        "intersection": {
+          "lower_m2": 0.000658,
+          "upper_m2": 0.001807,
+          "unresolved_m2": 0.0011489999999999998
+        },
+        "union": {
+          "lower_m2": 0.001088,
+          "upper_m2": 0.002219,
+          "unresolved_m2": 0.0011309999999999998
+        },
+        "lost_native": {
+          "lower_m2": 8e-06,
+          "upper_m2": 0.001094,
+          "unresolved_m2": 0.001086
+        },
+        "new_target": {
+          "lower_m2": 9.999999999999999e-06,
+          "upper_m2": 0.001204,
+          "unresolved_m2": 0.001194
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 8401,
+          "cube_point_m": [
+            -0.006648648648648649,
+            0.025,
+            -0.02353658536585366
+          ],
+          "source_distance_m": 0.0008828811239586817,
+          "target_distance_m": "greater_than_search_radius",
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 8205,
+          "cube_point_m": [
+            -0.01064864864864865,
+            0.025,
+            -0.01953658536585366
+          ],
+          "source_distance_m": "greater_than_search_radius",
+          "target_distance_m": 0.000334216400878206,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 1.0,
+      "band_mm": 2.0,
+      "part": "whole_hand",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.000864,
+          "upper_m2": 0.001966,
+          "unresolved_m2": 0.001102
+        },
+        "target_near": {
+          "lower_m2": 0.000882,
+          "upper_m2": 0.0020599999999999998,
+          "unresolved_m2": 0.001178
+        },
+        "intersection": {
+          "lower_m2": 0.000658,
+          "upper_m2": 0.001807,
+          "unresolved_m2": 0.0011489999999999998
+        },
+        "union": {
+          "lower_m2": 0.001088,
+          "upper_m2": 0.002219,
+          "unresolved_m2": 0.0011309999999999998
+        },
+        "lost_native": {
+          "lower_m2": 8e-06,
+          "upper_m2": 0.001094,
+          "unresolved_m2": 0.001086
+        },
+        "new_target": {
+          "lower_m2": 9.999999999999999e-06,
+          "upper_m2": 0.001204,
+          "unresolved_m2": 0.001194
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 8401,
+          "cube_point_m": [
+            -0.006648648648648649,
+            0.025,
+            -0.02353658536585366
+          ],
+          "source_distance_m": 0.0008828811239586817,
+          "target_distance_m": "greater_than_search_radius",
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 8205,
+          "cube_point_m": [
+            -0.01064864864864865,
+            0.025,
+            -0.01953658536585366
+          ],
+          "source_distance_m": "greater_than_search_radius",
+          "target_distance_m": 0.000334216400878206,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 0.5,
+      "part": "palm",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 0.5,
+      "part": "index",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 1.05e-05,
+          "upper_m2": 0.00011075,
+          "unresolved_m2": 0.00010025
+        },
+        "target_near": {
+          "lower_m2": 8.249999999999999e-06,
+          "upper_m2": 0.000104,
+          "unresolved_m2": 9.575e-05
+        },
+        "intersection": {
+          "lower_m2": 1.2499999999999999e-06,
+          "upper_m2": 8.925e-05,
+          "unresolved_m2": 8.8e-05
+        },
+        "union": {
+          "lower_m2": 1.75e-05,
+          "upper_m2": 0.0001255,
+          "unresolved_m2": 0.000108
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0001025,
+          "unresolved_m2": 0.0001025
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 9.35e-05,
+          "unresolved_m2": 9.35e-05
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 0.5,
+      "part": "middle",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 0.5,
+      "part": "ring",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 7.25e-06,
+          "upper_m2": 8.85e-05,
+          "unresolved_m2": 8.125e-05
+        },
+        "target_near": {
+          "lower_m2": 1.05e-05,
+          "upper_m2": 0.00011375,
+          "unresolved_m2": 0.00010324999999999999
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 2.8749999999999997e-05,
+          "unresolved_m2": 2.8749999999999997e-05
+        },
+        "union": {
+          "lower_m2": 1.7749999999999998e-05,
+          "upper_m2": 0.0001735,
+          "unresolved_m2": 0.00015575
+        },
+        "lost_native": {
+          "lower_m2": 7.25e-06,
+          "upper_m2": 8.75e-05,
+          "unresolved_m2": 8.025e-05
+        },
+        "new_target": {
+          "lower_m2": 9.499999999999999e-06,
+          "upper_m2": 0.00011375,
+          "unresolved_m2": 0.00010425
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 188,
+          "cube_point_m": [
+            -0.025,
+            -0.024324324324324326,
+            0.019231707317073174
+          ],
+          "source_distance_m": 4.7237564667893825e-05,
+          "target_distance_m": 0.0013767953425992587,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 184,
+          "cube_point_m": [
+            -0.025,
+            -0.024324324324324326,
+            0.017231707317073172
+          ],
+          "source_distance_m": 0.0012063258632666455,
+          "target_distance_m": 5.8822463245986804e-05,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 0.5,
+      "part": "little",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 2.325e-05,
+          "upper_m2": 0.0002605,
+          "unresolved_m2": 0.00023725
+        },
+        "target_near": {
+          "lower_m2": 2.425e-05,
+          "upper_m2": 0.00025575,
+          "unresolved_m2": 0.0002315
+        },
+        "intersection": {
+          "lower_m2": 5.5e-06,
+          "upper_m2": 0.0002265,
+          "unresolved_m2": 0.00022099999999999998
+        },
+        "union": {
+          "lower_m2": 4.2e-05,
+          "upper_m2": 0.00028974999999999997,
+          "unresolved_m2": 0.00024775
+        },
+        "lost_native": {
+          "lower_m2": 1.2499999999999999e-06,
+          "upper_m2": 0.00023625,
+          "unresolved_m2": 0.000235
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.00023375,
+          "unresolved_m2": 0.00023375
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 28701,
+          "cube_point_m": [
+            0.018675675675675678,
+            -0.025,
+            -0.02426829268292683
+          ],
+          "source_distance_m": 4.6102593544845645e-05,
+          "target_distance_m": 0.0010066189775309422,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 0.5,
+      "part": "thumb",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 2.2499999999999998e-05,
+          "upper_m2": 0.00023324999999999998,
+          "unresolved_m2": 0.00021075
+        },
+        "target_near": {
+          "lower_m2": 2.1249999999999998e-05,
+          "upper_m2": 0.000237,
+          "unresolved_m2": 0.00021574999999999999
+        },
+        "intersection": {
+          "lower_m2": 2e-06,
+          "upper_m2": 0.000143,
+          "unresolved_m2": 0.00014099999999999998
+        },
+        "union": {
+          "lower_m2": 4.175e-05,
+          "upper_m2": 0.00032724999999999996,
+          "unresolved_m2": 0.0002855
+        },
+        "lost_native": {
+          "lower_m2": 6.5e-06,
+          "upper_m2": 0.00021825,
+          "unresolved_m2": 0.00021175
+        },
+        "new_target": {
+          "lower_m2": 6.2499999999999995e-06,
+          "upper_m2": 0.00022099999999999998,
+          "unresolved_m2": 0.00021475
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 32605,
+          "cube_point_m": [
+            -0.011824324324324325,
+            0.025,
+            -0.02226829268292683
+          ],
+          "source_distance_m": 6.920244958365763e-05,
+          "target_distance_m": 0.0011207738114630509,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 32503,
+          "cube_point_m": [
+            -0.012324324324324325,
+            0.025,
+            -0.02326829268292683
+          ],
+          "source_distance_m": 0.0010028619655632475,
+          "target_distance_m": 2.5916503487377974e-05,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 0.5,
+      "part": "wrist_carrier",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 0.5,
+      "part": "whole_hand_common_runtime_coverage",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 6.35e-05,
+          "upper_m2": 0.0006929999999999999,
+          "unresolved_m2": 0.0006295
+        },
+        "target_near": {
+          "lower_m2": 6.425e-05,
+          "upper_m2": 0.0007105,
+          "unresolved_m2": 0.00064625
+        },
+        "intersection": {
+          "lower_m2": 8.75e-06,
+          "upper_m2": 0.0004875,
+          "unresolved_m2": 0.00047874999999999995
+        },
+        "union": {
+          "lower_m2": 0.00011899999999999999,
+          "upper_m2": 0.0009159999999999999,
+          "unresolved_m2": 0.000797
+        },
+        "lost_native": {
+          "lower_m2": 1.4999999999999999e-05,
+          "upper_m2": 0.0006445,
+          "unresolved_m2": 0.0006295
+        },
+        "new_target": {
+          "lower_m2": 1.575e-05,
+          "upper_m2": 0.0006619999999999999,
+          "unresolved_m2": 0.00064625
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 188,
+          "cube_point_m": [
+            -0.025,
+            -0.024324324324324326,
+            0.019231707317073174
+          ],
+          "source_distance_m": 4.7237564667893825e-05,
+          "target_distance_m": 0.0013767953425992587,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 184,
+          "cube_point_m": [
+            -0.025,
+            -0.024324324324324326,
+            0.017231707317073172
+          ],
+          "source_distance_m": 0.0012063258632666455,
+          "target_distance_m": 5.8822463245986804e-05,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 0.5,
+      "part": "whole_hand",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 6.35e-05,
+          "upper_m2": 0.0006929999999999999,
+          "unresolved_m2": 0.0006295
+        },
+        "target_near": {
+          "lower_m2": 6.425e-05,
+          "upper_m2": 0.0007105,
+          "unresolved_m2": 0.00064625
+        },
+        "intersection": {
+          "lower_m2": 8.75e-06,
+          "upper_m2": 0.0004875,
+          "unresolved_m2": 0.00047874999999999995
+        },
+        "union": {
+          "lower_m2": 0.00011899999999999999,
+          "upper_m2": 0.0009159999999999999,
+          "unresolved_m2": 0.000797
+        },
+        "lost_native": {
+          "lower_m2": 1.4999999999999999e-05,
+          "upper_m2": 0.0006445,
+          "unresolved_m2": 0.0006295
+        },
+        "new_target": {
+          "lower_m2": 1.575e-05,
+          "upper_m2": 0.0006619999999999999,
+          "unresolved_m2": 0.00064625
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 188,
+          "cube_point_m": [
+            -0.025,
+            -0.024324324324324326,
+            0.019231707317073174
+          ],
+          "source_distance_m": 4.7237564667893825e-05,
+          "target_distance_m": 0.0013767953425992587,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 184,
+          "cube_point_m": [
+            -0.025,
+            -0.024324324324324326,
+            0.017231707317073172
+          ],
+          "source_distance_m": 0.0012063258632666455,
+          "target_distance_m": 5.8822463245986804e-05,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 1.0,
+      "part": "palm",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 1.0,
+      "part": "index",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 6.8e-05,
+          "upper_m2": 0.00017199999999999998,
+          "unresolved_m2": 0.000104
+        },
+        "target_near": {
+          "lower_m2": 6.675e-05,
+          "upper_m2": 0.00016075,
+          "unresolved_m2": 9.4e-05
+        },
+        "intersection": {
+          "lower_m2": 4.8e-05,
+          "upper_m2": 0.00014825,
+          "unresolved_m2": 0.00010025
+        },
+        "union": {
+          "lower_m2": 8.675e-05,
+          "upper_m2": 0.00018449999999999999,
+          "unresolved_m2": 9.774999999999999e-05
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.00010525,
+          "unresolved_m2": 0.00010525
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 9.274999999999999e-05,
+          "unresolved_m2": 9.274999999999999e-05
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 1.0,
+      "part": "middle",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 1.0,
+      "part": "ring",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 5.675e-05,
+          "upper_m2": 0.00013575,
+          "unresolved_m2": 7.9e-05
+        },
+        "target_near": {
+          "lower_m2": 7.075e-05,
+          "upper_m2": 0.00017575,
+          "unresolved_m2": 0.00010499999999999999
+        },
+        "intersection": {
+          "lower_m2": 1.5e-06,
+          "upper_m2": 8.375e-05,
+          "unresolved_m2": 8.225e-05
+        },
+        "union": {
+          "lower_m2": 0.000126,
+          "upper_m2": 0.00022774999999999998,
+          "unresolved_m2": 0.00010174999999999999
+        },
+        "lost_native": {
+          "lower_m2": 2.225e-05,
+          "upper_m2": 9.6e-05,
+          "unresolved_m2": 7.374999999999999e-05
+        },
+        "new_target": {
+          "lower_m2": 3.1e-05,
+          "upper_m2": 0.00014125,
+          "unresolved_m2": 0.00011025
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 88,
+          "cube_point_m": [
+            -0.025,
+            -0.024824324324324326,
+            0.019231707317073174
+          ],
+          "source_distance_m": 0.00043648263062417937,
+          "target_distance_m": 0.0017624537823693039,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 82,
+          "cube_point_m": [
+            -0.025,
+            -0.024824324324324326,
+            0.01623170731707317
+          ],
+          "source_distance_m": 0.0014675660943380485,
+          "target_distance_m": 0.00022800292656982492,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 1.0,
+      "part": "little",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.00016825,
+          "upper_m2": 0.000379,
+          "unresolved_m2": 0.00021075
+        },
+        "target_near": {
+          "lower_m2": 0.00015925,
+          "upper_m2": 0.000372,
+          "unresolved_m2": 0.00021275
+        },
+        "intersection": {
+          "lower_m2": 0.00012775,
+          "upper_m2": 0.00034449999999999997,
+          "unresolved_m2": 0.00021674999999999998
+        },
+        "union": {
+          "lower_m2": 0.00019975,
+          "upper_m2": 0.00040649999999999996,
+          "unresolved_m2": 0.00020674999999999998
+        },
+        "lost_native": {
+          "lower_m2": 2.5e-07,
+          "upper_m2": 0.00021975,
+          "unresolved_m2": 0.0002195
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.000204,
+          "unresolved_m2": 0.000204
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 47816,
+          "cube_point_m": [
+            0.014175675675675674,
+            -0.01676829268292683,
+            -0.025
+          ],
+          "source_distance_m": 0.0005529530537564767,
+          "target_distance_m": 0.0015678065019191017,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 1.0,
+      "part": "thumb",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0001495,
+          "upper_m2": 0.00034774999999999997,
+          "unresolved_m2": 0.00019825
+        },
+        "target_near": {
+          "lower_m2": 0.00015075,
+          "upper_m2": 0.00035725,
+          "unresolved_m2": 0.00020649999999999998
+        },
+        "intersection": {
+          "lower_m2": 7.099999999999999e-05,
+          "upper_m2": 0.000259,
+          "unresolved_m2": 0.000188
+        },
+        "union": {
+          "lower_m2": 0.00022925,
+          "upper_m2": 0.000446,
+          "unresolved_m2": 0.00021674999999999998
+        },
+        "lost_native": {
+          "lower_m2": 2.575e-05,
+          "upper_m2": 0.00022725,
+          "unresolved_m2": 0.0002015
+        },
+        "new_target": {
+          "lower_m2": 3.025e-05,
+          "upper_m2": 0.00023349999999999998,
+          "unresolved_m2": 0.00020324999999999998
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 33303,
+          "cube_point_m": [
+            -0.008324324324324325,
+            0.025,
+            -0.02326829268292683
+          ],
+          "source_distance_m": 0.0005766689516206855,
+          "target_distance_m": 0.0016746757294629044,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 32502,
+          "cube_point_m": [
+            -0.012324324324324325,
+            0.025,
+            -0.02376829268292683
+          ],
+          "source_distance_m": 0.0014599361203900842,
+          "target_distance_m": 0.0003860470330279117,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 1.0,
+      "part": "wrist_carrier",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 1.0,
+      "part": "whole_hand_common_runtime_coverage",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.00044249999999999997,
+          "upper_m2": 0.0010345,
+          "unresolved_m2": 0.000592
+        },
+        "target_near": {
+          "lower_m2": 0.0004475,
+          "upper_m2": 0.0010657499999999999,
+          "unresolved_m2": 0.00061825
+        },
+        "intersection": {
+          "lower_m2": 0.00024825,
+          "upper_m2": 0.0008355,
+          "unresolved_m2": 0.00058725
+        },
+        "union": {
+          "lower_m2": 0.00064175,
+          "upper_m2": 0.00126475,
+          "unresolved_m2": 0.000623
+        },
+        "lost_native": {
+          "lower_m2": 4.825e-05,
+          "upper_m2": 0.00064825,
+          "unresolved_m2": 0.0006
+        },
+        "new_target": {
+          "lower_m2": 6.125e-05,
+          "upper_m2": 0.0006715,
+          "unresolved_m2": 0.00061025
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 88,
+          "cube_point_m": [
+            -0.025,
+            -0.024824324324324326,
+            0.019231707317073174
+          ],
+          "source_distance_m": 0.00043648263062417937,
+          "target_distance_m": 0.0017624537823693039,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 82,
+          "cube_point_m": [
+            -0.025,
+            -0.024824324324324326,
+            0.01623170731707317
+          ],
+          "source_distance_m": 0.0014675660943380485,
+          "target_distance_m": 0.00022800292656982492,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 1.0,
+      "part": "whole_hand",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.00044249999999999997,
+          "upper_m2": 0.0010345,
+          "unresolved_m2": 0.000592
+        },
+        "target_near": {
+          "lower_m2": 0.0004475,
+          "upper_m2": 0.0010657499999999999,
+          "unresolved_m2": 0.00061825
+        },
+        "intersection": {
+          "lower_m2": 0.00024825,
+          "upper_m2": 0.0008355,
+          "unresolved_m2": 0.00058725
+        },
+        "union": {
+          "lower_m2": 0.00064175,
+          "upper_m2": 0.00126475,
+          "unresolved_m2": 0.000623
+        },
+        "lost_native": {
+          "lower_m2": 4.825e-05,
+          "upper_m2": 0.00064825,
+          "unresolved_m2": 0.0006
+        },
+        "new_target": {
+          "lower_m2": 6.125e-05,
+          "upper_m2": 0.0006715,
+          "unresolved_m2": 0.00061025
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 88,
+          "cube_point_m": [
+            -0.025,
+            -0.024824324324324326,
+            0.019231707317073174
+          ],
+          "source_distance_m": 0.00043648263062417937,
+          "target_distance_m": 0.0017624537823693039,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 82,
+          "cube_point_m": [
+            -0.025,
+            -0.024824324324324326,
+            0.01623170731707317
+          ],
+          "source_distance_m": 0.0014675660943380485,
+          "target_distance_m": 0.00022800292656982492,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 2.0,
+      "part": "palm",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 2.0,
+      "part": "index",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.00018925,
+          "upper_m2": 0.00028925,
+          "unresolved_m2": 9.999999999999999e-05
+        },
+        "target_near": {
+          "lower_m2": 0.0001795,
+          "upper_m2": 0.00027525,
+          "unresolved_m2": 9.575e-05
+        },
+        "intersection": {
+          "lower_m2": 0.00016525,
+          "upper_m2": 0.00026399999999999997,
+          "unresolved_m2": 9.875e-05
+        },
+        "union": {
+          "lower_m2": 0.00020349999999999999,
+          "upper_m2": 0.0003005,
+          "unresolved_m2": 9.7e-05
+        },
+        "lost_native": {
+          "lower_m2": 5e-07,
+          "upper_m2": 0.00010975,
+          "unresolved_m2": 0.00010925
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 8.65e-05,
+          "unresolved_m2": 8.65e-05
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 7099,
+          "cube_point_m": [
+            -0.025,
+            0.010175675675675677,
+            0.024731707317073172
+          ],
+          "source_distance_m": 0.0015691120533543844,
+          "target_distance_m": "greater_than_search_radius",
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 2.0,
+      "part": "middle",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 2.0,
+      "part": "ring",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.00015199999999999998,
+          "upper_m2": 0.00023099999999999998,
+          "unresolved_m2": 7.9e-05
+        },
+        "target_near": {
+          "lower_m2": 0.00019424999999999998,
+          "upper_m2": 0.00030274999999999996,
+          "unresolved_m2": 0.0001085
+        },
+        "intersection": {
+          "lower_m2": 0.00010224999999999999,
+          "upper_m2": 0.000194,
+          "unresolved_m2": 9.175e-05
+        },
+        "union": {
+          "lower_m2": 0.000244,
+          "upper_m2": 0.00033975,
+          "unresolved_m2": 9.575e-05
+        },
+        "lost_native": {
+          "lower_m2": 1.725e-05,
+          "upper_m2": 7e-05,
+          "unresolved_m2": 5.2749999999999995e-05
+        },
+        "new_target": {
+          "lower_m2": 3.325e-05,
+          "upper_m2": 0.000168,
+          "unresolved_m2": 0.00013475
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 91,
+          "cube_point_m": [
+            -0.025,
+            -0.024824324324324326,
+            0.020731707317073175
+          ],
+          "source_distance_m": 0.0013706007887769381,
+          "target_distance_m": "greater_than_search_radius",
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 79,
+          "cube_point_m": [
+            -0.025,
+            -0.024824324324324326,
+            0.01473170731707317
+          ],
+          "source_distance_m": "greater_than_search_radius",
+          "target_distance_m": 0.0012928145426240021,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 2.0,
+      "part": "little",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.00041674999999999997,
+          "upper_m2": 0.0006045,
+          "unresolved_m2": 0.00018774999999999998
+        },
+        "target_near": {
+          "lower_m2": 0.00040974999999999996,
+          "upper_m2": 0.000602,
+          "unresolved_m2": 0.00019224999999999998
+        },
+        "intersection": {
+          "lower_m2": 0.000383,
+          "upper_m2": 0.000575,
+          "unresolved_m2": 0.000192
+        },
+        "union": {
+          "lower_m2": 0.0004435,
+          "upper_m2": 0.0006315,
+          "unresolved_m2": 0.000188
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.00019475,
+          "unresolved_m2": 0.00019475
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.00018525,
+          "unresolved_m2": 0.00018525
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 2.0,
+      "part": "thumb",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.00038725,
+          "upper_m2": 0.00057,
+          "unresolved_m2": 0.00018275
+        },
+        "target_near": {
+          "lower_m2": 0.0003925,
+          "upper_m2": 0.0005794999999999999,
+          "unresolved_m2": 0.000187
+        },
+        "intersection": {
+          "lower_m2": 0.000298,
+          "upper_m2": 0.00048774999999999996,
+          "unresolved_m2": 0.00018975
+        },
+        "union": {
+          "lower_m2": 0.00048175,
+          "upper_m2": 0.00066175,
+          "unresolved_m2": 0.00017999999999999998
+        },
+        "lost_native": {
+          "lower_m2": 2.45e-05,
+          "upper_m2": 0.0002115,
+          "unresolved_m2": 0.000187
+        },
+        "new_target": {
+          "lower_m2": 3.4e-05,
+          "upper_m2": 0.00021674999999999998,
+          "unresolved_m2": 0.00018275
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 33405,
+          "cube_point_m": [
+            -0.007824324324324325,
+            0.025,
+            -0.02226829268292683
+          ],
+          "source_distance_m": 0.0003301593702913006,
+          "target_distance_m": "greater_than_search_radius",
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 32400,
+          "cube_point_m": [
+            -0.012824324324324326,
+            0.025,
+            -0.02476829268292683
+          ],
+          "source_distance_m": "greater_than_search_radius",
+          "target_distance_m": 0.001480904341003589,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 2.0,
+      "part": "wrist_carrier",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 2.0,
+      "part": "whole_hand_common_runtime_coverage",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.00114525,
+          "upper_m2": 0.0016947499999999999,
+          "unresolved_m2": 0.0005495
+        },
+        "target_near": {
+          "lower_m2": 0.001176,
+          "upper_m2": 0.0017595,
+          "unresolved_m2": 0.0005834999999999999
+        },
+        "intersection": {
+          "lower_m2": 0.0009484999999999999,
+          "upper_m2": 0.00152075,
+          "unresolved_m2": 0.00057225
+        },
+        "union": {
+          "lower_m2": 0.0013727499999999998,
+          "upper_m2": 0.0019334999999999999,
+          "unresolved_m2": 0.0005607499999999999
+        },
+        "lost_native": {
+          "lower_m2": 4.225e-05,
+          "upper_m2": 0.0005859999999999999,
+          "unresolved_m2": 0.00054375
+        },
+        "new_target": {
+          "lower_m2": 6.725e-05,
+          "upper_m2": 0.0006565,
+          "unresolved_m2": 0.0005892499999999999
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 91,
+          "cube_point_m": [
+            -0.025,
+            -0.024824324324324326,
+            0.020731707317073175
+          ],
+          "source_distance_m": 0.0013706007887769381,
+          "target_distance_m": "greater_than_search_radius",
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 79,
+          "cube_point_m": [
+            -0.025,
+            -0.024824324324324326,
+            0.01473170731707317
+          ],
+          "source_distance_m": "greater_than_search_radius",
+          "target_distance_m": 0.0012928145426240021,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.5,
+      "band_mm": 2.0,
+      "part": "whole_hand",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.00114525,
+          "upper_m2": 0.0016947499999999999,
+          "unresolved_m2": 0.0005495
+        },
+        "target_near": {
+          "lower_m2": 0.001176,
+          "upper_m2": 0.0017595,
+          "unresolved_m2": 0.0005834999999999999
+        },
+        "intersection": {
+          "lower_m2": 0.0009484999999999999,
+          "upper_m2": 0.00152075,
+          "unresolved_m2": 0.00057225
+        },
+        "union": {
+          "lower_m2": 0.0013727499999999998,
+          "upper_m2": 0.0019334999999999999,
+          "unresolved_m2": 0.0005607499999999999
+        },
+        "lost_native": {
+          "lower_m2": 4.225e-05,
+          "upper_m2": 0.0005859999999999999,
+          "unresolved_m2": 0.00054375
+        },
+        "new_target": {
+          "lower_m2": 6.725e-05,
+          "upper_m2": 0.0006565,
+          "unresolved_m2": 0.0005892499999999999
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 91,
+          "cube_point_m": [
+            -0.025,
+            -0.024824324324324326,
+            0.020731707317073175
+          ],
+          "source_distance_m": 0.0013706007887769381,
+          "target_distance_m": "greater_than_search_radius",
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 79,
+          "cube_point_m": [
+            -0.025,
+            -0.024824324324324326,
+            0.01473170731707317
+          ],
+          "source_distance_m": "greater_than_search_radius",
+          "target_distance_m": 0.0012928145426240021,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 0.5,
+      "part": "palm",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 0.5,
+      "part": "index",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 3.44375e-05,
+          "upper_m2": 8.525e-05,
+          "unresolved_m2": 5.0812499999999995e-05
+        },
+        "target_near": {
+          "lower_m2": 3.2625e-05,
+          "upper_m2": 8.049999999999999e-05,
+          "unresolved_m2": 4.7875e-05
+        },
+        "intersection": {
+          "lower_m2": 1.4999999999999999e-05,
+          "upper_m2": 6.39375e-05,
+          "unresolved_m2": 4.89375e-05
+        },
+        "union": {
+          "lower_m2": 5.20625e-05,
+          "upper_m2": 0.0001018125,
+          "unresolved_m2": 4.9749999999999996e-05
+        },
+        "lost_native": {
+          "lower_m2": 3.8125e-06,
+          "upper_m2": 5.45625e-05,
+          "unresolved_m2": 5.075e-05
+        },
+        "new_target": {
+          "lower_m2": 1.9375e-06,
+          "upper_m2": 4.9875e-05,
+          "unresolved_m2": 4.79375e-05
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 29597,
+          "cube_point_m": [
+            -0.025,
+            0.011837837837837838,
+            0.024365853658536586
+          ],
+          "source_distance_m": 0.00027176316354454635,
+          "target_distance_m": 0.001074812843940574,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 30598,
+          "cube_point_m": [
+            -0.025,
+            0.013087837837837839,
+            0.024615853658536586
+          ],
+          "source_distance_m": 0.0007520270688224515,
+          "target_distance_m": 3.786186859826757e-05,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 0.5,
+      "part": "middle",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 0.5,
+      "part": "ring",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 2.775e-05,
+          "upper_m2": 6.8375e-05,
+          "unresolved_m2": 4.0625e-05
+        },
+        "target_near": {
+          "lower_m2": 3.53125e-05,
+          "upper_m2": 8.7375e-05,
+          "unresolved_m2": 5.20625e-05
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 6.5624999999999994e-06,
+          "unresolved_m2": 6.5624999999999994e-06
+        },
+        "union": {
+          "lower_m2": 6.30625e-05,
+          "upper_m2": 0.0001491875,
+          "unresolved_m2": 8.612499999999999e-05
+        },
+        "lost_native": {
+          "lower_m2": 2.74375e-05,
+          "upper_m2": 6.775e-05,
+          "unresolved_m2": 4.03125e-05
+        },
+        "new_target": {
+          "lower_m2": 3.4687499999999996e-05,
+          "upper_m2": 8.70625e-05,
+          "unresolved_m2": 5.2375e-05
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 172,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.018115853658536588
+          ],
+          "source_distance_m": 0.00017742533420565858,
+          "target_distance_m": 0.0010657645061704264,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 164,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.016115853658536586
+          ],
+          "source_distance_m": 0.001470305324477389,
+          "target_distance_m": 0.0002536752252834061,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 0.5,
+      "part": "little",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 8.225e-05,
+          "upper_m2": 0.000206875,
+          "unresolved_m2": 0.000124625
+        },
+        "target_near": {
+          "lower_m2": 7.9625e-05,
+          "upper_m2": 0.000196625,
+          "unresolved_m2": 0.000117
+        },
+        "intersection": {
+          "lower_m2": 4.9187499999999996e-05,
+          "upper_m2": 0.00016612499999999999,
+          "unresolved_m2": 0.00011693749999999999
+        },
+        "union": {
+          "lower_m2": 0.0001126875,
+          "upper_m2": 0.00023737499999999998,
+          "unresolved_m2": 0.0001246875
+        },
+        "lost_native": {
+          "lower_m2": 7.625e-06,
+          "upper_m2": 0.000128625,
+          "unresolved_m2": 0.000121
+        },
+        "new_target": {
+          "lower_m2": 1.375e-06,
+          "upper_m2": 0.000122,
+          "unresolved_m2": 0.00012062499999999999
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 109233,
+          "cube_point_m": [
+            0.011587837837837837,
+            -0.025,
+            -0.016634146341463416
+          ],
+          "source_distance_m": 0.0002513877099000523,
+          "target_distance_m": 0.0007199858310132666,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 95254,
+          "cube_point_m": [
+            -0.005912162162162161,
+            -0.025,
+            -0.011384146341463416
+          ],
+          "source_distance_m": 0.0007712936714379954,
+          "target_distance_m": 0.0002770572949050692,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 0.5,
+      "part": "thumb",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 7.3625e-05,
+          "upper_m2": 0.0001795,
+          "unresolved_m2": 0.000105875
+        },
+        "target_near": {
+          "lower_m2": 7.64375e-05,
+          "upper_m2": 0.0001858125,
+          "unresolved_m2": 0.00010937499999999999
+        },
+        "intersection": {
+          "lower_m2": 2.0812499999999998e-05,
+          "upper_m2": 9.806249999999999e-05,
+          "unresolved_m2": 7.725e-05
+        },
+        "union": {
+          "lower_m2": 0.00012925,
+          "upper_m2": 0.00026724999999999996,
+          "unresolved_m2": 0.000138
+        },
+        "lost_native": {
+          "lower_m2": 2.825e-05,
+          "upper_m2": 0.00013443749999999998,
+          "unresolved_m2": 0.0001061875
+        },
+        "new_target": {
+          "lower_m2": 3.1375e-05,
+          "upper_m2": 0.0001404375,
+          "unresolved_m2": 0.0001090625
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 125213,
+          "cube_point_m": [
+            -0.01841216216216216,
+            0.025,
+            -0.021634146341463417
+          ],
+          "source_distance_m": 0.000275116712277969,
+          "target_distance_m": 0.0007434452542533026,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 125409,
+          "cube_point_m": [
+            -0.018162162162162165,
+            0.025,
+            -0.022634146341463417
+          ],
+          "source_distance_m": 0.000731938330653851,
+          "target_distance_m": 0.00028269181297657675,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 0.5,
+      "part": "wrist_carrier",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 0.5,
+      "part": "whole_hand_common_runtime_coverage",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0002180625,
+          "upper_m2": 0.00054,
+          "unresolved_m2": 0.0003219375
+        },
+        "target_near": {
+          "lower_m2": 0.000224,
+          "upper_m2": 0.0005503125,
+          "unresolved_m2": 0.0003263125
+        },
+        "intersection": {
+          "lower_m2": 8.499999999999999e-05,
+          "upper_m2": 0.00033468749999999997,
+          "unresolved_m2": 0.00024968749999999996
+        },
+        "union": {
+          "lower_m2": 0.00035706249999999996,
+          "upper_m2": 0.000755625,
+          "unresolved_m2": 0.0003985625
+        },
+        "lost_native": {
+          "lower_m2": 6.712499999999999e-05,
+          "upper_m2": 0.000385375,
+          "unresolved_m2": 0.00031825
+        },
+        "new_target": {
+          "lower_m2": 6.937499999999999e-05,
+          "upper_m2": 0.000399375,
+          "unresolved_m2": 0.00033
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 172,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.018115853658536588
+          ],
+          "source_distance_m": 0.00017742533420565858,
+          "target_distance_m": 0.0010657645061704264,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 164,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.016115853658536586
+          ],
+          "source_distance_m": 0.001470305324477389,
+          "target_distance_m": 0.0002536752252834061,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 0.5,
+      "part": "whole_hand",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0002180625,
+          "upper_m2": 0.00054,
+          "unresolved_m2": 0.0003219375
+        },
+        "target_near": {
+          "lower_m2": 0.000224,
+          "upper_m2": 0.0005503125,
+          "unresolved_m2": 0.0003263125
+        },
+        "intersection": {
+          "lower_m2": 8.499999999999999e-05,
+          "upper_m2": 0.00033468749999999997,
+          "unresolved_m2": 0.00024968749999999996
+        },
+        "union": {
+          "lower_m2": 0.00035706249999999996,
+          "upper_m2": 0.000755625,
+          "unresolved_m2": 0.0003985625
+        },
+        "lost_native": {
+          "lower_m2": 6.712499999999999e-05,
+          "upper_m2": 0.000385375,
+          "unresolved_m2": 0.00031825
+        },
+        "new_target": {
+          "lower_m2": 6.937499999999999e-05,
+          "upper_m2": 0.000399375,
+          "unresolved_m2": 0.00033
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 172,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.018115853658536588
+          ],
+          "source_distance_m": 0.00017742533420565858,
+          "target_distance_m": 0.0010657645061704264,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 164,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.016115853658536586
+          ],
+          "source_distance_m": 0.001470305324477389,
+          "target_distance_m": 0.0002536752252834061,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 1.0,
+      "part": "palm",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 1.0,
+      "part": "index",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 9.4875e-05,
+          "upper_m2": 0.0001453125,
+          "unresolved_m2": 5.04375e-05
+        },
+        "target_near": {
+          "lower_m2": 9.04375e-05,
+          "upper_m2": 0.000138,
+          "unresolved_m2": 4.75625e-05
+        },
+        "intersection": {
+          "lower_m2": 7.3625e-05,
+          "upper_m2": 0.0001229375,
+          "unresolved_m2": 4.93125e-05
+        },
+        "union": {
+          "lower_m2": 0.0001116875,
+          "upper_m2": 0.00016037499999999998,
+          "unresolved_m2": 4.86875e-05
+        },
+        "lost_native": {
+          "lower_m2": 4.3125e-06,
+          "upper_m2": 5.6374999999999995e-05,
+          "unresolved_m2": 5.20625e-05
+        },
+        "new_target": {
+          "lower_m2": 1.5e-06,
+          "upper_m2": 4.74375e-05,
+          "unresolved_m2": 4.59375e-05
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 28999,
+          "cube_point_m": [
+            -0.025,
+            0.011087837837837837,
+            0.024865853658536587
+          ],
+          "source_distance_m": 0.0007630270038421184,
+          "target_distance_m": 0.0016721746208877256,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 31198,
+          "cube_point_m": [
+            -0.025,
+            0.01383783783783784,
+            0.024615853658536586
+          ],
+          "source_distance_m": 0.0012336291331462234,
+          "target_distance_m": 0.0006710435507104837,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 1.0,
+      "part": "middle",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 1.0,
+      "part": "ring",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 7.55625e-05,
+          "upper_m2": 0.0001160625,
+          "unresolved_m2": 4.0499999999999995e-05
+        },
+        "target_near": {
+          "lower_m2": 9.73125e-05,
+          "upper_m2": 0.0001488125,
+          "unresolved_m2": 5.15e-05
+        },
+        "intersection": {
+          "lower_m2": 1.4312499999999999e-05,
+          "upper_m2": 6.09375e-05,
+          "unresolved_m2": 4.6624999999999995e-05
+        },
+        "union": {
+          "lower_m2": 0.00015856249999999998,
+          "upper_m2": 0.0002039375,
+          "unresolved_m2": 4.5375e-05
+        },
+        "lost_native": {
+          "lower_m2": 3.975e-05,
+          "upper_m2": 7.662499999999999e-05,
+          "unresolved_m2": 3.6874999999999995e-05
+        },
+        "new_target": {
+          "lower_m2": 5.7875e-05,
+          "upper_m2": 0.000113,
+          "unresolved_m2": 5.5125e-05
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 173,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.018365853658536588
+          ],
+          "source_distance_m": 6.1926472364068135e-06,
+          "target_distance_m": 0.0012332998740749357,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 161,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.015365853658536585
+          ],
+          "source_distance_m": 0.0019505043433312348,
+          "target_distance_m": 0.000787947397467083,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 1.0,
+      "part": "little",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0002285,
+          "upper_m2": 0.00033093749999999996,
+          "unresolved_m2": 0.00010243749999999999
+        },
+        "target_near": {
+          "lower_m2": 0.00021856249999999998,
+          "upper_m2": 0.0003234375,
+          "unresolved_m2": 0.000104875
+        },
+        "intersection": {
+          "lower_m2": 0.00018899999999999999,
+          "upper_m2": 0.000296125,
+          "unresolved_m2": 0.000107125
+        },
+        "union": {
+          "lower_m2": 0.0002580625,
+          "upper_m2": 0.00035825,
+          "unresolved_m2": 0.00010018749999999999
+        },
+        "lost_native": {
+          "lower_m2": 5.25e-06,
+          "upper_m2": 0.0001145625,
+          "unresolved_m2": 0.0001093125
+        },
+        "new_target": {
+          "lower_m2": 2.1875e-06,
+          "upper_m2": 0.00010018749999999999,
+          "unresolved_m2": 9.8e-05
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 109236,
+          "cube_point_m": [
+            0.011587837837837837,
+            -0.025,
+            -0.015884146341463415
+          ],
+          "source_distance_m": 0.0007807835956041255,
+          "target_distance_m": 0.0012393086873210173,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 95048,
+          "cube_point_m": [
+            -0.006162162162162161,
+            -0.025,
+            -0.012884146341463416
+          ],
+          "source_distance_m": 0.001224748727006098,
+          "target_distance_m": 0.000700371776180203,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 1.0,
+      "part": "thumb",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0001993125,
+          "upper_m2": 0.0003006875,
+          "unresolved_m2": 0.000101375
+        },
+        "target_near": {
+          "lower_m2": 0.00020487499999999998,
+          "upper_m2": 0.00030812499999999997,
+          "unresolved_m2": 0.00010324999999999999
+        },
+        "intersection": {
+          "lower_m2": 0.0001138125,
+          "upper_m2": 0.0002121875,
+          "unresolved_m2": 9.837499999999999e-05
+        },
+        "union": {
+          "lower_m2": 0.000290375,
+          "upper_m2": 0.000396625,
+          "unresolved_m2": 0.00010625
+        },
+        "lost_native": {
+          "lower_m2": 4.7187499999999995e-05,
+          "upper_m2": 0.000149125,
+          "unresolved_m2": 0.00010193749999999999
+        },
+        "new_target": {
+          "lower_m2": 5.3312499999999995e-05,
+          "upper_m2": 0.000156,
+          "unresolved_m2": 0.0001026875
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 125215,
+          "cube_point_m": [
+            -0.01841216216216216,
+            0.025,
+            -0.021134146341463416
+          ],
+          "source_distance_m": 0.0007510136983855314,
+          "target_distance_m": 0.0012364820049115873,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 126408,
+          "cube_point_m": [
+            -0.01691216216216216,
+            0.025,
+            -0.022884146341463418
+          ],
+          "source_distance_m": 0.0012392774331164889,
+          "target_distance_m": 0.0005657122372697208,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 1.0,
+      "part": "wrist_carrier",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 1.0,
+      "part": "whole_hand_common_runtime_coverage",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0005982499999999999,
+          "upper_m2": 0.0008929999999999999,
+          "unresolved_m2": 0.00029475
+        },
+        "target_near": {
+          "lower_m2": 0.0006111875,
+          "upper_m2": 0.0009183749999999999,
+          "unresolved_m2": 0.0003071875
+        },
+        "intersection": {
+          "lower_m2": 0.00039075,
+          "upper_m2": 0.0006921875,
+          "unresolved_m2": 0.0003014375
+        },
+        "union": {
+          "lower_m2": 0.0008186875,
+          "upper_m2": 0.0011191875,
+          "unresolved_m2": 0.0003005
+        },
+        "lost_native": {
+          "lower_m2": 9.65e-05,
+          "upper_m2": 0.00039668749999999996,
+          "unresolved_m2": 0.0003001875
+        },
+        "new_target": {
+          "lower_m2": 0.000114875,
+          "upper_m2": 0.000416625,
+          "unresolved_m2": 0.00030175
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 173,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.018365853658536588
+          ],
+          "source_distance_m": 6.1926472364068135e-06,
+          "target_distance_m": 0.0012332998740749357,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 161,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.015365853658536585
+          ],
+          "source_distance_m": 0.0019505043433312348,
+          "target_distance_m": 0.000787947397467083,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 1.0,
+      "part": "whole_hand",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0005982499999999999,
+          "upper_m2": 0.0008929999999999999,
+          "unresolved_m2": 0.00029475
+        },
+        "target_near": {
+          "lower_m2": 0.0006111875,
+          "upper_m2": 0.0009183749999999999,
+          "unresolved_m2": 0.0003071875
+        },
+        "intersection": {
+          "lower_m2": 0.00039075,
+          "upper_m2": 0.0006921875,
+          "unresolved_m2": 0.0003014375
+        },
+        "union": {
+          "lower_m2": 0.0008186875,
+          "upper_m2": 0.0011191875,
+          "unresolved_m2": 0.0003005
+        },
+        "lost_native": {
+          "lower_m2": 9.65e-05,
+          "upper_m2": 0.00039668749999999996,
+          "unresolved_m2": 0.0003001875
+        },
+        "new_target": {
+          "lower_m2": 0.000114875,
+          "upper_m2": 0.000416625,
+          "unresolved_m2": 0.00030175
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 173,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.018365853658536588
+          ],
+          "source_distance_m": 6.1926472364068135e-06,
+          "target_distance_m": 0.0012332998740749357,
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 161,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.015365853658536585
+          ],
+          "source_distance_m": 0.0019505043433312348,
+          "target_distance_m": 0.000787947397467083,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 2.0,
+      "part": "palm",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 2.0,
+      "part": "index",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.00021531249999999998,
+          "upper_m2": 0.0002655,
+          "unresolved_m2": 5.01875e-05
+        },
+        "target_near": {
+          "lower_m2": 0.00020343749999999998,
+          "upper_m2": 0.000251,
+          "unresolved_m2": 4.75625e-05
+        },
+        "intersection": {
+          "lower_m2": 0.000190875,
+          "upper_m2": 0.00023962499999999998,
+          "unresolved_m2": 4.875e-05
+        },
+        "union": {
+          "lower_m2": 0.000227875,
+          "upper_m2": 0.000276875,
+          "unresolved_m2": 4.9e-05
+        },
+        "lost_native": {
+          "lower_m2": 5.8125e-06,
+          "upper_m2": 6.293749999999999e-05,
+          "unresolved_m2": 5.7125e-05
+        },
+        "new_target": {
+          "lower_m2": 8.75e-07,
+          "upper_m2": 4.15e-05,
+          "unresolved_m2": 4.0625e-05
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 28196,
+          "cube_point_m": [
+            -0.025,
+            0.010087837837837836,
+            0.024115853658536586
+          ],
+          "source_distance_m": 0.0017322471268973354,
+          "target_distance_m": "greater_than_search_radius",
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 39361,
+          "cube_point_m": [
+            -0.025,
+            0.02408783783783784,
+            0.015365853658536585
+          ],
+          "source_distance_m": "greater_than_search_radius",
+          "target_distance_m": 0.0016440401439756626,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 2.0,
+      "part": "middle",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 2.0,
+      "part": "ring",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.00017125,
+          "upper_m2": 0.00021162499999999998,
+          "unresolved_m2": 4.0375e-05
+        },
+        "target_near": {
+          "lower_m2": 0.0002199375,
+          "upper_m2": 0.00027424999999999997,
+          "unresolved_m2": 5.43125e-05
+        },
+        "intersection": {
+          "lower_m2": 0.00012443749999999998,
+          "upper_m2": 0.00017099999999999998,
+          "unresolved_m2": 4.65625e-05
+        },
+        "union": {
+          "lower_m2": 0.00026675,
+          "upper_m2": 0.000314875,
+          "unresolved_m2": 4.8125e-05
+        },
+        "lost_native": {
+          "lower_m2": 3.0312499999999998e-05,
+          "upper_m2": 5.7125e-05,
+          "unresolved_m2": 2.6812499999999998e-05
+        },
+        "new_target": {
+          "lower_m2": 6.54375e-05,
+          "upper_m2": 0.0001333125,
+          "unresolved_m2": 6.7875e-05
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 179,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.01986585365853659
+          ],
+          "source_distance_m": 0.0009030329400045989,
+          "target_distance_m": "greater_than_search_radius",
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 156,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.014115853658536584
+          ],
+          "source_distance_m": "greater_than_search_radius",
+          "target_distance_m": 0.0016705773017952794,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 2.0,
+      "part": "little",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.000462375,
+          "upper_m2": 0.0005575625,
+          "unresolved_m2": 9.518749999999999e-05
+        },
+        "target_near": {
+          "lower_m2": 0.00045762499999999997,
+          "upper_m2": 0.00055475,
+          "unresolved_m2": 9.712499999999999e-05
+        },
+        "intersection": {
+          "lower_m2": 0.00042987499999999997,
+          "upper_m2": 0.0005272499999999999,
+          "unresolved_m2": 9.7375e-05
+        },
+        "union": {
+          "lower_m2": 0.000490125,
+          "upper_m2": 0.0005850625,
+          "unresolved_m2": 9.49375e-05
+        },
+        "lost_native": {
+          "lower_m2": 3.1875e-06,
+          "upper_m2": 0.0001018125,
+          "unresolved_m2": 9.8625e-05
+        },
+        "new_target": {
+          "lower_m2": 1.8749999999999998e-06,
+          "upper_m2": 9.55625e-05,
+          "unresolved_m2": 9.36875e-05
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 98802,
+          "cube_point_m": [
+            -0.0014121621621621637,
+            -0.025,
+            -0.024384146341463415
+          ],
+          "source_distance_m": 0.0016898317802918157,
+          "target_distance_m": "greater_than_search_radius",
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 96843,
+          "cube_point_m": [
+            -0.0039121621621621624,
+            -0.025,
+            -0.014134146341463417
+          ],
+          "source_distance_m": "greater_than_search_radius",
+          "target_distance_m": 0.0017309041402868946,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 2.0,
+      "part": "thumb",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.00043262499999999996,
+          "upper_m2": 0.0005231875,
+          "unresolved_m2": 9.05625e-05
+        },
+        "target_near": {
+          "lower_m2": 0.0004410625,
+          "upper_m2": 0.0005356874999999999,
+          "unresolved_m2": 9.4625e-05
+        },
+        "intersection": {
+          "lower_m2": 0.00034675,
+          "upper_m2": 0.00044412499999999997,
+          "unresolved_m2": 9.7375e-05
+        },
+        "union": {
+          "lower_m2": 0.0005269375,
+          "upper_m2": 0.00061475,
+          "unresolved_m2": 8.78125e-05
+        },
+        "lost_native": {
+          "lower_m2": 4.36875e-05,
+          "upper_m2": 0.0001375625,
+          "unresolved_m2": 9.387499999999999e-05
+        },
+        "new_target": {
+          "lower_m2": 5.54375e-05,
+          "upper_m2": 0.00014675,
+          "unresolved_m2": 9.131249999999999e-05
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 32600,
+          "cube_point_m": [
+            -0.025,
+            0.01583783783783784,
+            -0.024884146341463416
+          ],
+          "source_distance_m": 0.0017737472819967421,
+          "target_distance_m": "greater_than_search_radius",
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 126604,
+          "cube_point_m": [
+            -0.016662162162162163,
+            0.025,
+            -0.023884146341463415
+          ],
+          "source_distance_m": "greater_than_search_radius",
+          "target_distance_m": 0.0015549877549257132,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 2.0,
+      "part": "wrist_carrier",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "target_near": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "intersection": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "union": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "lost_native": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        },
+        "new_target": {
+          "lower_m2": 0.0,
+          "upper_m2": 0.0,
+          "unresolved_m2": 0.0
+        }
+      },
+      "representative_positive_witnesses": []
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 2.0,
+      "part": "whole_hand_common_runtime_coverage",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0012815625,
+          "upper_m2": 0.001557875,
+          "unresolved_m2": 0.0002763125
+        },
+        "target_near": {
+          "lower_m2": 0.0013220624999999999,
+          "upper_m2": 0.0016156875,
+          "unresolved_m2": 0.000293625
+        },
+        "intersection": {
+          "lower_m2": 0.0010919375,
+          "upper_m2": 0.001382,
+          "unresolved_m2": 0.0002900625
+        },
+        "union": {
+          "lower_m2": 0.0015116875,
+          "upper_m2": 0.0017915625,
+          "unresolved_m2": 0.000279875
+        },
+        "lost_native": {
+          "lower_m2": 8.3e-05,
+          "upper_m2": 0.0003594375,
+          "unresolved_m2": 0.0002764375
+        },
+        "new_target": {
+          "lower_m2": 0.00012362499999999998,
+          "upper_m2": 0.00041712499999999996,
+          "unresolved_m2": 0.0002935
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 179,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.01986585365853659
+          ],
+          "source_distance_m": 0.0009030329400045989,
+          "target_distance_m": "greater_than_search_radius",
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 156,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.014115853658536584
+          ],
+          "source_distance_m": "greater_than_search_radius",
+          "target_distance_m": 0.0016705773017952794,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    },
+    {
+      "spacing_mm": 0.25,
+      "band_mm": 2.0,
+      "part": "whole_hand",
+      "intervals": {
+        "native_near": {
+          "lower_m2": 0.0012815625,
+          "upper_m2": 0.001557875,
+          "unresolved_m2": 0.0002763125
+        },
+        "target_near": {
+          "lower_m2": 0.0013220624999999999,
+          "upper_m2": 0.0016156875,
+          "unresolved_m2": 0.000293625
+        },
+        "intersection": {
+          "lower_m2": 0.0010919375,
+          "upper_m2": 0.001382,
+          "unresolved_m2": 0.0002900625
+        },
+        "union": {
+          "lower_m2": 0.0015116875,
+          "upper_m2": 0.0017915625,
+          "unresolved_m2": 0.000279875
+        },
+        "lost_native": {
+          "lower_m2": 8.3e-05,
+          "upper_m2": 0.0003594375,
+          "unresolved_m2": 0.0002764375
+        },
+        "new_target": {
+          "lower_m2": 0.00012362499999999998,
+          "upper_m2": 0.00041712499999999996,
+          "unresolved_m2": 0.0002935
+        }
+      },
+      "representative_positive_witnesses": [
+        {
+          "metric": "lost_native",
+          "query_index": 179,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.01986585365853659
+          ],
+          "source_distance_m": 0.0009030329400045989,
+          "target_distance_m": "greater_than_search_radius",
+          "exact_binary_rational_membership": true
+        },
+        {
+          "metric": "new_target",
+          "query_index": 156,
+          "cube_point_m": [
+            -0.025,
+            -0.024912162162162164,
+            0.014115853658536584
+          ],
+          "source_distance_m": "greater_than_search_radius",
+          "target_distance_m": 0.0016705773017952794,
+          "exact_binary_rational_membership": true
+        }
+      ]
+    }
+  ],
+  "full_mapping_accepted": false,
+  "execution_eligible": false,
+  "independent_native_validation": false,
+  "physics_steps": 0,
+  "surface_queries": 0,
+  "native_calls": 0,
+  "optimization_calls": 0,
+  "evaluation_episodes": 0,
+  "training_calls": 0
+}
