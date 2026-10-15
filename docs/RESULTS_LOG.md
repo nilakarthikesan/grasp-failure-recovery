@@ -352,3 +352,27 @@ its first step was blocked and it is excluded from the static rerun.
 
 A new v2 preparation/run will retain the same declared32generation seeds,
 20pilot slots and256study slots. V1 is retained without retries or replacement.
+
+
+## 15 October 2026 — Phase 2 fresh generation v2 and pre-outcome analysis freeze
+
+Source/protocol frozen at74eaeed. Fresh inference COMPLETED_BOUNDED_GENERATION:
+32/32MAPPED across8new captures/four development objects; static native/frame/
+calibration/FK/limits/canonical-command guards pass for each. One identical full
+loaded model-state hash binds all32. Capture settling totaled4000steps; generation
+elapsed153.751s. The renderer clip-control warning persists, but the unchanged
+calibrated ray/depth gates pass. No task labels or real-data fits at this point.
+
+The immutable generation.json now freezes exact pilot/study scenarios, category
+folds and proposal identities before outcomes. The existing20slot pilot and
+256slot study budget is unchanged. Both accepted and rejected physics filters
+remain scheduled; numerical filter errors hard-stop instead of becoming labels.
+
+Before task labels, freeze the prepared analysis/model specifications: cause-based
+failure phases preserve nulls and reject mixed hand/controller/label-rule cohorts;
+23manufactured checks pass. Five comparison kinds share causal close-prefix
+positions, velocities and applied targets, fixedthreshold0.5, seeds0/1/2 and a
+bounded validation-only tuning budget.25manufactured controls pass, including
+tiny synthetic persistence/GRU checks. These are software results, not scientific
+model performance. Their real-data execution remains later in Phase3/4. No
+manuscript files changed.
