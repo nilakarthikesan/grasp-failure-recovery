@@ -33,6 +33,17 @@ with no predicate disagreements. The new kernel changes only those three product
 this does not certify all distance calculations. Task collection and
 model training remain paused.
 
+The protected v2 exchange pilot also completes without an accepted relationship
+repair: milk still has 530 definite mismatches, and both proposed steps create a
+new little-finger violation; mug's fingertip restoration loses one protected
+thumb relationship and is refused, retaining 3183 original definite mismatches.
+An independent saved-array receipt reproduces all seven checkpoint fields.
+These are two repeatedly inspected development grasps. A separately versioned
+repair now addresses joint restoration and counterexample activation; it does
+not weaken the acceptance rule. Continuous fidelity remains unproved. The
+legacy object visual-transform warning is a separate unresolved arithmetic
+limitation; the halfspace replay only cleared its named products.
+
 ## Beginning of the system: decision and evidence boundary
 
 The executable chain is rendered RGB-D/calibration → pretrained HUG MANO output

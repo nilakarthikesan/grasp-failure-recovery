@@ -2557,3 +2557,31 @@ Protocol93ef6696 binds 348 inputs/sources. The new combined 55 controls pass in
 from real native mapping optimization. Actual optimization has not run at this
 freeze. Further task collection, predictor training and manuscript edits remain
 outside this stage.
+
+
+## 2026-10-15 — Repair constraint activation without relaxing fidelity
+
+Measured v2 evidence: both milk exchange checkpoints introduced one previously
+unresolved little-finger definite violation missed by worst-per-stratum selection.
+Mug's cap-only restoration lost a protected thumb relationship by 8.892 nm. Both
+were correctly refused; neither yields an accepted mapping. Complete results and
+independent saved-array verification are retained in
+research_artifacts/hug_full_field_mapping_repair_2026-10-15_v2/run_v1/.
+
+Choice: a separate v3 algorithm will jointly constrain literal tip restoration
+and every baseline-preserved full-field row within 100 nm of its boundary. The
+100 nm value selects search constraints, not an acceptance tolerance. Every
+full-field counterexample from a rejected checkpoint will enter the retained
+hard guard set. Previously unresolved relationships use the exact no-new-definite
+boundary rather than falsely requiring that they already pass preservation.
+Full checks still protect all original and newly passing rows and retained
+orientation eligibility. No scientific bands, geometry, native targets or source
+caps change. Preserve v1/v2 as separate protocols.
+
+The proposed once-only v3 development pilot has at most three exchange rounds,
+six full checkpoints, 1500 static forwards and 600 s per case. Restoration has
+its own eight-iteration/400-callback bound within that total. Every intermediate
+checkpoint will be indexed by hash. Implementation and manufactured controls
+are in progress; actual v3 optimization has not run at this decision. A local
+relationship repair cannot establish continuous native fidelity. No production
+promotion, new task data or predictor training is released by this diagnostic.

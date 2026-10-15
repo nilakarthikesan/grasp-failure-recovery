@@ -1,0 +1,1916 @@
+{
+  "case_counts": {
+    "cheap_callbacks": 4,
+    "full_field_checkpoints": 5,
+    "orientation_checks": 7,
+    "proximity_collider_point_queries": 3651434,
+    "raw_callbacks": 93,
+    "tip_jacobians": 3
+  },
+  "counts": {
+    "inference_attempts": 0,
+    "official_dex_retarget_attempts": 0,
+    "physics_step_attempts": 0,
+    "static_forwards": 192
+  },
+  "elapsed_s": 85.73215950001031,
+  "failure": null,
+  "final_readback": {
+    "adapter_forward_calls": 187,
+    "counts": {
+      "cheap_callbacks": 4,
+      "full_field_checkpoints": 5,
+      "orientation_checks": 7,
+      "proximity_collider_point_queries": 3651434,
+      "raw_callbacks": 93,
+      "tip_jacobians": 3
+    },
+    "full_strict_mapping_accepted": false,
+    "literal_readback_pass": true,
+    "no_new_HUG_inference_or_physics": true,
+    "serialized_pose": {
+      "joint_targets_rad": {
+        "FFJ1": 0.5124741789970393,
+        "FFJ2": 0.42273598887841835,
+        "FFJ3": 0.758993327958395,
+        "FFJ4": -0.00201078330426984,
+        "LFJ1": 1.0671427249908447,
+        "LFJ2": 0.7946701645851135,
+        "LFJ3": 0.9097179174423218,
+        "LFJ4": -0.349065850399,
+        "LFJ5": 0.19204922020435333,
+        "MFJ1": 0.6557990908622742,
+        "MFJ2": 0.7690515518188477,
+        "MFJ3": 0.8593845963478088,
+        "MFJ4": 0.15328915417194366,
+        "RFJ1": 0.7300021647928346,
+        "RFJ2": 0.7418220042724523,
+        "RFJ3": 1.0230996609171403,
+        "RFJ4": -0.2854212821213021,
+        "THJ1": 0.2025812566280365,
+        "THJ2": 0.004035651683807373,
+        "THJ3": -0.03948928415775299,
+        "THJ4": 1.179714322090149,
+        "THJ5": 0.26962047815322876,
+        "WRJ1": -0.09115846976894058,
+        "WRJ2": -0.051533802578812765
+      },
+      "model_geometry_sha256": "sha256:c1a03b9346dd0445bb74555eb16761af3a33d8122b4aa67800b70363851efd7f",
+      "root_position_m": [
+        0.3253939842436895,
+        -0.12543117742308724,
+        0.26428710589276244
+      ],
+      "root_quaternion_wxyz": [
+        -0.3489539201709495,
+        -0.3886642146707262,
+        0.6695112533287848,
+        0.5281344255943122
+      ],
+      "schema_version": "shadow_current_static_named_root_pose_v1",
+      "source_urdf_sha256": "sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de"
+    },
+    "source_receipt": {
+      "baseline_state_sha256": "sha256:5180006087baa4eae72cba360d204cbc3855ed04bf6e841c139f937307f005e1",
+      "historical_caps_rebased": false,
+      "model_geometry_sha256": "sha256:c1a03b9346dd0445bb74555eb16761af3a33d8122b4aa67800b70363851efd7f",
+      "native_definite_relationships": 341721,
+      "native_sha256": "52ec7441c108f7a9704535c63611ff9d9da3d5f2871b57396b33fdb1e73a7d8b",
+      "native_targets_rebased": false,
+      "object_visual_reference": "bound historical object-only visual triangles; no historical target-hand geometry",
+      "original_full_field_readback": {
+        "all_classification_arrays_exact": true,
+        "max_distance_discrepancy_m": 0.0,
+        "numerical_comparison_limit_m": 1e-12,
+        "reference_path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_full_field_mapping_repair_2026-10-15_v1/run_v1/20/original_20_density2mm.npz",
+        "reference_sha256": "9a8af9d451f9d91f8990e3a4361d1386981fc9a4ad6602723e2009f92a546c6d",
+        "scientific_predicate_or_tip_cap_allowance": false
+      },
+      "original_qpos_rad": [
+        -0.05153380334377289,
+        -0.09115847200155258,
+        -0.0020107838790863752,
+        0.7589933276176453,
+        0.4227359890937805,
+        0.5124741792678833,
+        0.15328915417194366,
+        0.8593845963478088,
+        0.7690515518188477,
+        0.6557990908622742,
+        -0.2854212820529938,
+        1.023099660873413,
+        0.7418220043182373,
+        0.7300021648406982,
+        0.19204922020435333,
+        -0.349065850399,
+        0.9097179174423218,
+        0.7946701645851135,
+        1.0671427249908447,
+        0.26962047815322876,
+        1.179714322090149,
+        -0.03948928415775299,
+        0.004035651683807373,
+        0.2025812566280365
+      ],
+      "original_root_position_m": [
+        0.32539398503424694,
+        -0.1254311773582434,
+        0.26428710648498105
+      ],
+      "original_root_quaternion_wxyz": [
+        -0.34895392020702515,
+        -0.38866421425712894,
+        0.6695112527780926,
+        0.5281344265729574
+      ],
+      "original_tip_caps_m": [
+        0.017517526119802188,
+        0.0024338300484628376,
+        0.002992059075740162,
+        0.007817537762772228,
+        0.010185006934160174
+      ],
+      "palm_delta_bounds_m": [
+        [
+          -0.24854907554351732,
+          0.07249602908707056
+        ],
+        [
+          -0.15781758205934593,
+          0.15680614936090778
+        ],
+        [
+          -0.2745954788666688,
+          0.04644962576391906
+        ]
+      ],
+      "query_count": 19174,
+      "scaled_bounds": [
+        [
+          -13.999999999999998,
+          9.042669141710915
+        ],
+        [
+          -13.999999999999998,
+          13.999999999999998
+        ],
+        [
+          -13.882202660796544,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          14.000000000000004
+        ],
+        [
+          -13.999999999999998,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          7.831067849082253
+        ],
+        [
+          -13.999999999999998,
+          14.000000000000004
+        ],
+        [
+          -13.999999999999998,
+          14.000000000000004
+        ],
+        [
+          -13.999999999999998,
+          14.000000000000004
+        ],
+        [
+          -2.5457827338402494,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          14.000000000000004
+        ],
+        [
+          -13.999999999999998,
+          14.000000000000004
+        ],
+        [
+          -13.999999999999998,
+          14.000000000000004
+        ],
+        [
+          -7.681968808174133,
+          13.999999999999998
+        ],
+        [
+          0.0,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          14.000000000000004
+        ],
+        [
+          -13.999999999999998,
+          14.000000000000004
+        ],
+        [
+          -13.999999999999998,
+          14.000000000000004
+        ],
+        [
+          -13.999999999999998,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          1.680646172394047
+        ],
+        [
+          -6.7980090432498805,
+          9.95715177587012
+        ],
+        [
+          -13.999999999999998,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          13.999999999999998
+        ],
+        [
+          -49.70981510870346,
+          14.499205817414111
+        ],
+        [
+          -31.563516411869184,
+          31.361229872181557
+        ],
+        [
+          -54.91909577333376,
+          9.289925152783812
+        ],
+        [
+          -10.471975511965976,
+          10.471975511965976
+        ],
+        [
+          -10.471975511965976,
+          10.471975511965976
+        ],
+        [
+          -10.471975511965976,
+          10.471975511965976
+        ]
+      ],
+      "source_urdf_sha256": "sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+      "target_hand_geometry": "current registered ActuatedShadowRunner via SurfacePoseAdapter"
+    }
+  },
+  "fit": {
+    "accepted_mapping": false,
+    "accepted_relationship_repair": false,
+    "accepted_states": [],
+    "activated_rows": [
+      [
+        131,
+        2,
+        2
+      ],
+      [
+        1397,
+        2,
+        1
+      ],
+      [
+        2546,
+        4,
+        2
+      ],
+      [
+        2844,
+        2,
+        0
+      ],
+      [
+        4458,
+        4,
+        1
+      ],
+      [
+        5719,
+        2,
+        1
+      ],
+      [
+        5932,
+        2,
+        2
+      ],
+      [
+        7336,
+        3,
+        0
+      ],
+      [
+        9486,
+        3,
+        2
+      ],
+      [
+        9963,
+        5,
+        2
+      ],
+      [
+        12018,
+        3,
+        2
+      ],
+      [
+        15624,
+        2,
+        0
+      ],
+      [
+        16997,
+        3,
+        1
+      ],
+      [
+        16997,
+        4,
+        1
+      ],
+      [
+        16997,
+        4,
+        2
+      ],
+      [
+        17169,
+        4,
+        0
+      ],
+      [
+        17665,
+        3,
+        1
+      ]
+    ],
+    "baseline": {
+      "array_path": "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v2/run_v1/20/checkpoint_01_literal_original_baseline.npz",
+      "array_sha256": "d5c648cef687ab08023e4da467114f27b8ac8295b762ca43f486503d8015d7cf",
+      "field_boolean_counts": {
+        "definite_added": 315,
+        "definite_lost": 215,
+        "native_ambiguous": 3411,
+        "native_far": 340218,
+        "native_near": 1503,
+        "preserved": 339265,
+        "required": 341721,
+        "unresolved_required": 1926
+      },
+      "full_arrays_in_bound_npz": true,
+      "label": "literal_original_baseline",
+      "orientation": {
+        "distance_m": [
+          0.00011886333739436362,
+          0.0041529742116255845,
+          0.004201071580749166,
+          0.004592246455795508,
+          0.003660349739318566,
+          0.0028401058459131207,
+          0.004765877252486836,
+          0.0009761906592103487,
+          0.0009611663917085617,
+          0.002640823548122155,
+          0.0041529742116255845,
+          0.0012025615612760174,
+          0.004200350045396977,
+          0.003660349739318566,
+          0.0028401058459131207
+        ],
+        "full_orientation_coverage": "NOT_PROVED",
+        "native_sign": [
+          -1.0,
+          1.0,
+          1.0,
+          1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          1.0,
+          1.0,
+          1.0,
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        "passed": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "reason_masks": {
+          "buried_closest_point": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "closest_inside_or_on_visual": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            true,
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
+          "competing_normal": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "competing_part": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "different_nearest_part": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false
+          ],
+          "expected_part_geometry_unavailable": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "invalid_hand_or_object_normal": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "mapped_analytic_edge_corner_axis": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "mapped_mesh_competing_facet": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "multiple_closest_points": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "outside_5mm_band": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "query_inside_hand": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "query_on_hand_boundary": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "retained_rows": 15,
+        "score": [
+          0.05930813414719386,
+          -0.3567927996787153,
+          -0.021230926813707696,
+          -0.00891925519014225,
+          0.5099354496288792,
+          0.5498934761467937,
+          0.1547313611706443,
+          -0.5585527881366414,
+          -0.5460222445321127,
+          -0.44203438084831315,
+          -0.3567927996787153,
+          -0.10409332077650062,
+          -0.09120257850850513,
+          0.5099354496288792,
+          0.5498934761467937
+        ],
+        "valid": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          true,
+          true
+        ]
+      },
+      "state": {
+        "engineering_domain_pass": true,
+        "joint_names": [
+          "WRJ2",
+          "WRJ1",
+          "FFJ4",
+          "FFJ3",
+          "FFJ2",
+          "FFJ1",
+          "MFJ4",
+          "MFJ3",
+          "MFJ2",
+          "MFJ1",
+          "RFJ4",
+          "RFJ3",
+          "RFJ2",
+          "RFJ1",
+          "LFJ5",
+          "LFJ4",
+          "LFJ3",
+          "LFJ2",
+          "LFJ1",
+          "THJ5",
+          "THJ4",
+          "THJ3",
+          "THJ2",
+          "THJ1"
+        ],
+        "joint_qpos_rad": [
+          -0.05153380334377289,
+          -0.09115847200155258,
+          -0.0020107838790863752,
+          0.7589933276176453,
+          0.4227359890937805,
+          0.5124741792678833,
+          0.15328915417194366,
+          0.8593845963478088,
+          0.7690515518188477,
+          0.6557990908622742,
+          -0.2854212820529938,
+          1.023099660873413,
+          0.7418220043182373,
+          0.7300021648406982,
+          0.19204922020435333,
+          -0.349065850399,
+          0.9097179174423218,
+          0.7946701645851135,
+          1.0671427249908447,
+          0.26962047815322876,
+          1.179714322090149,
+          -0.03948928415775299,
+          0.004035651683807373,
+          0.2025812566280365
+        ],
+        "literal_tip_caps_pass": [
+          true,
+          false,
+          false,
+          false,
+          true
+        ],
+        "mean_tip_guard_pass": true,
+        "model_geometry_sha256": "sha256:c1a03b9346dd0445bb74555eb16761af3a33d8122b4aa67800b70363851efd7f",
+        "original_tip_caps_m": [
+          0.017517526119802188,
+          0.0024338300484628376,
+          0.002992059075740162,
+          0.007817537762772228,
+          0.010185006934160174
+        ],
+        "palm_position_m": [
+          0.11092457091109512,
+          -0.01761454893494982,
+          0.2053536212932278
+        ],
+        "palm_rotation": [
+          [
+            -0.49895529941660927,
+            -0.07353977551180685,
+            -0.8635018880128489
+          ],
+          [
+            -0.8653837536203075,
+            0.09564694563418824,
+            0.4918969615284051
+          ],
+          [
+            0.04641732601204501,
+            0.9926951008283075,
+            -0.1113636773699927
+          ]
+        ],
+        "physical_joint_limits_pass": true,
+        "root_position_m": [
+          0.32539398503424694,
+          -0.1254311773582434,
+          0.26428710648498105
+        ],
+        "root_quaternion_wxyz": [
+          -0.34895392020702515,
+          -0.38866421425712894,
+          0.6695112527780926,
+          0.5281344265729574
+        ],
+        "source_urdf_sha256": "sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+        "tip_error_norms_m": [
+          0.01751752552741809,
+          0.002433830048462923,
+          0.0029920590757401932,
+          0.007817537762772248,
+          0.010184956436041987
+        ],
+        "tip_errors_world_m": [
+          [
+            0.007655962093813393,
+            -0.00260365090731713,
+            0.015539335474036964
+          ],
+          [
+            -0.00021877185679820312,
+            -0.0011768560651830157,
+            0.002119121842017596
+          ],
+          [
+            -0.0002879260209416694,
+            0.001709480027697989,
+            0.002438686973370227
+          ],
+          [
+            0.005464943332655757,
+            0.005562578958701592,
+            0.0005531784264067308
+          ],
+          [
+            0.00957773272765789,
+            0.0026605574071787153,
+            -0.00221851474746744
+          ]
+        ],
+        "tip_positions_world_m": [
+          [
+            0.03055400977668513,
+            -0.02393460279665311,
+            0.10682003021588982
+          ],
+          [
+            -0.01535403634853739,
+            0.011998073117026012,
+            0.1126551428231474
+          ],
+          [
+            0.017246245160058144,
+            0.02079097967076187,
+            0.11543196443097913
+          ],
+          [
+            0.04163461618997224,
+            0.02958370745521992,
+            0.11648056814627417
+          ],
+          [
+            0.059348176330385645,
+            0.0324771962745489,
+            0.12050751772688882
+          ]
+        ]
+      },
+      "summary": {
+        "continuous_coverage_status": "NOT_PROVED",
+        "definite_added": 315,
+        "definite_lost": 215,
+        "full_orientation_status": "NOT_RUN",
+        "full_strict_mapping_status": "FAIL",
+        "native_ambiguous": 3411,
+        "native_definite_relationships_pass": false,
+        "native_far": 340218,
+        "native_near": 1503,
+        "no_mapping_pass_issued": true,
+        "preserved": 339265,
+        "required": 341721,
+        "unresolved_required": 1926
+      }
+    },
+    "feasible_search_progress_only": false,
+    "final_protection": {
+      "lost_baseline_passing": 0,
+      "new_definite_violations": 0,
+      "orientation_protected": true,
+      "passed": true
+    },
+    "full_orientation_coverage": "NOT_PROVED",
+    "full_strict_mapping_accepted": false,
+    "not_global_infeasibility": true,
+    "repaired_relationship_count": 0,
+    "returned": {
+      "array_path": "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v2/run_v1/20/checkpoint_05_fresh_final.npz",
+      "array_sha256": "0a7d80fd41497de72a33e91f7cf58e5715cc65a85e82b9d9492376f5164271d2",
+      "field_boolean_counts": {
+        "definite_added": 315,
+        "definite_lost": 215,
+        "native_ambiguous": 3411,
+        "native_far": 340218,
+        "native_near": 1503,
+        "preserved": 339265,
+        "required": 341721,
+        "unresolved_required": 1926
+      },
+      "full_arrays_in_bound_npz": true,
+      "label": "fresh_final",
+      "orientation": {
+        "distance_m": [
+          0.00011886421183869827,
+          0.004152974985021883,
+          0.004201072384983029,
+          0.004592247296375608,
+          0.0036603493410444212,
+          0.002840105564850092,
+          0.004765876171335874,
+          0.0009761923151127743,
+          0.0009611679287874183,
+          0.0026408242209682185,
+          0.004152974985021883,
+          0.0012025625880195288,
+          0.004200351073996011,
+          0.0036603493410444212,
+          0.002840105564850092
+        ],
+        "full_orientation_coverage": "NOT_PROVED",
+        "native_sign": [
+          -1.0,
+          1.0,
+          1.0,
+          1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          1.0,
+          1.0,
+          1.0,
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        "passed": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "reason_masks": {
+          "buried_closest_point": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "closest_inside_or_on_visual": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            true,
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
+          "competing_normal": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "competing_part": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "different_nearest_part": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false
+          ],
+          "expected_part_geometry_unavailable": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "invalid_hand_or_object_normal": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "mapped_analytic_edge_corner_axis": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "mapped_mesh_competing_facet": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "multiple_closest_points": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "outside_5mm_band": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "query_inside_hand": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "query_on_hand_boundary": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "retained_rows": 15,
+        "score": [
+          0.059308142124805056,
+          -0.35679277062365644,
+          -0.021230914428253367,
+          -0.008919245283640798,
+          0.5099354715403215,
+          0.5498934937291828,
+          0.15473124070327554,
+          -0.5585528348344702,
+          -0.546022302210977,
+          -0.4420343163886592,
+          -0.35679277062365644,
+          -0.10409333446453921,
+          -0.09120258969813858,
+          0.5099354715403215,
+          0.5498934937291828
+        ],
+        "valid": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          true,
+          true
+        ]
+      },
+      "state": {
+        "engineering_domain_pass": true,
+        "joint_names": [
+          "WRJ2",
+          "WRJ1",
+          "FFJ4",
+          "FFJ3",
+          "FFJ2",
+          "FFJ1",
+          "MFJ4",
+          "MFJ3",
+          "MFJ2",
+          "MFJ1",
+          "RFJ4",
+          "RFJ3",
+          "RFJ2",
+          "RFJ1",
+          "LFJ5",
+          "LFJ4",
+          "LFJ3",
+          "LFJ2",
+          "LFJ1",
+          "THJ5",
+          "THJ4",
+          "THJ3",
+          "THJ2",
+          "THJ1"
+        ],
+        "joint_qpos_rad": [
+          -0.051533802578812765,
+          -0.09115846976894058,
+          -0.00201078330426984,
+          0.758993327958395,
+          0.42273598887841835,
+          0.5124741789970393,
+          0.15328915417194366,
+          0.8593845963478088,
+          0.7690515518188477,
+          0.6557990908622742,
+          -0.2854212821213021,
+          1.0230996609171403,
+          0.7418220042724523,
+          0.7300021647928346,
+          0.19204922020435333,
+          -0.349065850399,
+          0.9097179174423218,
+          0.7946701645851135,
+          1.0671427249908447,
+          0.26962047815322876,
+          1.179714322090149,
+          -0.03948928415775299,
+          0.004035651683807373,
+          0.2025812566280365
+        ],
+        "literal_tip_caps_pass": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "mean_tip_guard_pass": true,
+        "model_geometry_sha256": "sha256:c1a03b9346dd0445bb74555eb16761af3a33d8122b4aa67800b70363851efd7f",
+        "original_tip_caps_m": [
+          0.017517526119802188,
+          0.0024338300484628376,
+          0.002992059075740162,
+          0.007817537762772228,
+          0.010185006934160174
+        ],
+        "palm_position_m": [
+          0.11092457012054759,
+          -0.017614549280425523,
+          0.20535362018272485
+        ],
+        "palm_rotation": [
+          [
+            -0.4989552981726952,
+            -0.07353977909696441,
+            -0.8635018884262887
+          ],
+          [
+            -0.865383754299758,
+            0.09564694829989517,
+            0.4918969598147294
+          ],
+          [
+            0.046417326715927465,
+            0.992695100305873,
+            -0.11136368173358846
+          ]
+        ],
+        "physical_joint_limits_pass": true,
+        "root_position_m": [
+          0.3253939842436895,
+          -0.12543117742308724,
+          0.26428710589276244
+        ],
+        "root_quaternion_wxyz": [
+          -0.3489539201709495,
+          -0.3886642146707262,
+          0.6695112533287848,
+          0.5281344255943122
+        ],
+        "source_urdf_sha256": "sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+        "tip_error_norms_m": [
+          0.01751752423130335,
+          0.002433829048463384,
+          0.00299205744278825,
+          0.007817536762772354,
+          0.010184956028898406
+        ],
+        "tip_errors_world_m": [
+          [
+            0.007655961653973649,
+            -0.0026036516596532125,
+            0.01553933410356989
+          ],
+          [
+            -0.00021877235465645947,
+            -0.001176856862234097,
+            0.0021191201994683467
+          ],
+          [
+            -0.00028792656311534687,
+            0.0017094792779279722,
+            0.002438685431442933
+          ],
+          [
+            0.005464942773220377,
+            0.005562578250543897,
+            0.0005531769421257826
+          ],
+          [
+            0.009577732148983525,
+            0.0026605567399689417,
+            -0.002218516176710747
+          ]
+        ],
+        "tip_positions_world_m": [
+          [
+            0.030554009336845385,
+            -0.023934603548989193,
+            0.10682002884542274
+          ],
+          [
+            -0.015354036846395646,
+            0.01199807231997493,
+            0.11265514118059815
+          ],
+          [
+            0.017246244617884467,
+            0.020790978920991854,
+            0.11543196288905183
+          ],
+          [
+            0.04163461563053686,
+            0.029583706747062226,
+            0.11648056666199322
+          ],
+          [
+            0.05934817575171128,
+            0.032477195607339124,
+            0.12050751629764551
+          ]
+        ]
+      },
+      "summary": {
+        "continuous_coverage_status": "NOT_PROVED",
+        "definite_added": 315,
+        "definite_lost": 215,
+        "full_orientation_status": "NOT_RUN",
+        "full_strict_mapping_status": "FAIL",
+        "native_ambiguous": 3411,
+        "native_definite_relationships_pass": false,
+        "native_far": 340218,
+        "native_near": 1503,
+        "no_mapping_pass_issued": true,
+        "preserved": 339265,
+        "required": 341721,
+        "unresolved_required": 1926
+      }
+    },
+    "returned_state_scaled": [
+      3.0598404946490276e-08,
+      8.930447975426384e-08,
+      2.2992661399427995e-08,
+      1.3629989525607581e-08,
+      -8.614486741661798e-09,
+      -1.0833759563727416e-08,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -2.7323310375146667e-09,
+      1.7490896576015316e-09,
+      -1.8314013444925692e-09,
+      -1.9145453850548518e-09,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.5810950576546927e-07,
+      -6.909514195031811e-08,
+      -2.2210059044121333e-07,
+      -6.301646081733351e-08,
+      -6.520948601103456e-08,
+      3.0825836514684464e-08
+    ],
+    "rounds": [
+      {
+        "accepted_mapping": false,
+        "accepted_relationship_repair": false,
+        "activated_rows": [
+          [
+            131,
+            2,
+            2
+          ],
+          [
+            1397,
+            2,
+            1
+          ],
+          [
+            2546,
+            4,
+            2
+          ],
+          [
+            2844,
+            2,
+            0
+          ],
+          [
+            4458,
+            4,
+            1
+          ],
+          [
+            5719,
+            2,
+            1
+          ],
+          [
+            5932,
+            2,
+            2
+          ],
+          [
+            7336,
+            3,
+            0
+          ],
+          [
+            9486,
+            3,
+            2
+          ],
+          [
+            9963,
+            5,
+            2
+          ],
+          [
+            12018,
+            3,
+            2
+          ],
+          [
+            15624,
+            2,
+            0
+          ],
+          [
+            16997,
+            3,
+            1
+          ],
+          [
+            16997,
+            4,
+            1
+          ],
+          [
+            16997,
+            4,
+            2
+          ],
+          [
+            17169,
+            4,
+            0
+          ],
+          [
+            17665,
+            3,
+            1
+          ]
+        ],
+        "candidate_found": true,
+        "candidate_rank": [
+          2456,
+          529,
+          7.975280024497511
+        ],
+        "current_preserved_protection": {
+          "lost_baseline_passing": 0,
+          "new_definite_violations": 1,
+          "orientation_protected": true,
+          "passed": false
+        },
+        "difference_spans_scaled": [
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "dyadic_exponent": 8,
+        "full_field_protection": {
+          "lost_baseline_passing": 0,
+          "new_definite_violations": 1,
+          "orientation_protected": true,
+          "passed": false
+        },
+        "local_model": {
+          "epigraph": 6.75363557557574,
+          "iterations": 13,
+          "linearized_constraint_min": -6.3074545586516706e-15,
+          "linearized_constraints": [
+            -4.014150123410332e-15,
+            0.06366756692213672,
+            -6.3074545586516706e-15,
+            0.05606553070330539,
+            4.73232564246473e-15,
+            1.8347546313375696,
+            3.43924205242932,
+            3.5729684139146207,
+            7.105427357601002e-15,
+            3.7764127838911556,
+            0.4061199347158677,
+            3.028917127028482,
+            1.1761544251779164,
+            3.0610312280374488,
+            1.4294069254453143,
+            2.587590625350047,
+            1.6330453364492916,
+            3.339136586381983,
+            2.7631701419805923,
+            3.000000000000001,
+            8.881784197001252e-16,
+            1.7794719847933802,
+            1.226867714393837
+          ],
+          "message": "Optimization terminated successfully",
+          "objective": 6.753644620137577,
+          "optimizer_success_not_acceptance": true,
+          "slack_column": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "status": 0,
+          "step_scaled": [
+            -0.249999999999999,
+            0.021732986137907334,
+            0.05149051693708825,
+            0.030523370506110963,
+            -0.019291549428277294,
+            -0.0242614462179172,
+            -0.25,
+            0.2499999999999986,
+            -0.25,
+            -0.24999999999999858,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -0.25,
+            0.0,
+            0.2499999999999977,
+            0.24999999999999978,
+            0.24999999999999914,
+            0.24999999999999967,
+            -0.25,
+            -0.25,
+            0.25,
+            -0.25,
+            -0.18616890402276312,
+            -0.2499999999999999,
+            0.16797502268706205,
+            0.2499999999999999,
+            -0.24999999999999895,
+            -0.013405475310276447
+          ],
+          "success": true,
+          "usable_finite_trust_step": true
+        },
+        "newly_preserved_relationships": 0,
+        "round": 0,
+        "selected_feasible_search_step": false
+      },
+      {
+        "accepted_mapping": false,
+        "accepted_relationship_repair": false,
+        "activated_rows": [
+          [
+            131,
+            2,
+            2
+          ],
+          [
+            1397,
+            2,
+            1
+          ],
+          [
+            2546,
+            4,
+            2
+          ],
+          [
+            2844,
+            2,
+            0
+          ],
+          [
+            4458,
+            4,
+            1
+          ],
+          [
+            5719,
+            2,
+            1
+          ],
+          [
+            5932,
+            2,
+            2
+          ],
+          [
+            7336,
+            3,
+            0
+          ],
+          [
+            9486,
+            3,
+            2
+          ],
+          [
+            9963,
+            5,
+            2
+          ],
+          [
+            12018,
+            3,
+            2
+          ],
+          [
+            15624,
+            2,
+            0
+          ],
+          [
+            16997,
+            3,
+            1
+          ],
+          [
+            16997,
+            4,
+            1
+          ],
+          [
+            16997,
+            4,
+            2
+          ],
+          [
+            17169,
+            4,
+            0
+          ],
+          [
+            17665,
+            3,
+            1
+          ]
+        ],
+        "candidate_found": true,
+        "candidate_rank": [
+          2456,
+          530,
+          7.975089950543795
+        ],
+        "current_preserved_protection": {
+          "lost_baseline_passing": 0,
+          "new_definite_violations": 1,
+          "orientation_protected": true,
+          "passed": false
+        },
+        "difference_spans_scaled": [
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "dyadic_exponent": 7,
+        "full_field_protection": {
+          "lost_baseline_passing": 0,
+          "new_definite_violations": 1,
+          "orientation_protected": true,
+          "passed": false
+        },
+        "local_model": {
+          "epigraph": 7.342534848729065,
+          "iterations": 10,
+          "linearized_constraint_min": -5.325601071248798e-15,
+          "linearized_constraints": [
+            -5.325601071248798e-15,
+            -4.010680676458378e-15,
+            -2.4771851236948805e-15,
+            0.25325209446413177,
+            0.2542978750477625,
+            1.9123180057148588,
+            4.174025408084807,
+            4.142889860796757,
+            -3.552713678800501e-15,
+            4.357365637934237,
+            0.55031981042805,
+            3.581014059829048,
+            1.747025809018334,
+            3.483549139987717,
+            2.3144389558278577,
+            2.816322693456411,
+            2.225446052303175,
+            4.066694574278753,
+            3.3649976081788475,
+            3.0000279387685165,
+            2.7938768516477808e-05,
+            2.7259977100362054,
+            2.096934687312772
+          ],
+          "message": "Optimization terminated successfully",
+          "objective": 7.342546716863952,
+          "optimizer_success_not_acceptance": true,
+          "slack_column": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "status": 0,
+          "step_scaled": [
+            -0.125,
+            0.007024086509026108,
+            0.125,
+            0.12499999999999978,
+            -0.125,
+            -0.1249999999999998,
+            -0.125,
+            0.125,
+            -0.125,
+            -0.125,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -0.125,
+            0.125,
+            0.125,
+            0.125,
+            0.125,
+            0.125,
+            -0.125,
+            -0.125,
+            0.12499999999999961,
+            -0.125,
+            -0.125,
+            -0.125,
+            0.0947316495382659,
+            0.125,
+            -0.125,
+            0.049807549516473426
+          ],
+          "success": true,
+          "usable_finite_trust_step": true
+        },
+        "newly_preserved_relationships": 0,
+        "round": 1,
+        "selected_feasible_search_step": false
+      }
+    ],
+    "status": "NO_ACCEPTED_SURFACE_IMPROVEMENT"
+  },
+  "freeze_commit": "f4a616c8aa7f7e5a011c5e45439e7d769f089aff",
+  "native_fidelity_accepted": false,
+  "native_fidelity_scope": "Full required proximity field plus capped exact orientation witnesses; full continuous orientation not proved",
+  "production_promotion": false,
+  "protocol_sha256": "93ef66966dc2b6b41751725733962f4225fb2cd6f56f6b6fb48fdc1eb036ab4b",
+  "schema_version": "hug_current_full_field_exchange_pilot_v2",
+  "source_inventory_index": 20,
+  "status": "COMPLETED_BOUNDED_STATIC_REPAIR"
+}

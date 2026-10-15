@@ -1,0 +1,844 @@
+{
+  "case_counts": {
+    "cheap_callbacks": 228,
+    "full_field_checkpoints": 2,
+    "orientation_checks": 2,
+    "proximity_collider_point_queries": 3456784,
+    "raw_callbacks": 256,
+    "tip_jacobians": 26
+  },
+  "counts": {
+    "inference_attempts": 0,
+    "official_dex_retarget_attempts": 0,
+    "physics_step_attempts": 0,
+    "static_forwards": 518
+  },
+  "elapsed_s": 86.24454412516207,
+  "failure": null,
+  "final_readback": {
+    "adapter_forward_calls": 513,
+    "counts": {
+      "cheap_callbacks": 228,
+      "full_field_checkpoints": 2,
+      "orientation_checks": 2,
+      "proximity_collider_point_queries": 3456784,
+      "raw_callbacks": 256,
+      "tip_jacobians": 26
+    },
+    "full_strict_mapping_accepted": false,
+    "literal_readback_pass": true,
+    "no_new_HUG_inference_or_physics": true,
+    "serialized_pose": {
+      "joint_targets_rad": {
+        "FFJ1": 0.8296473026275635,
+        "FFJ2": 0.5778234004974365,
+        "FFJ3": 0.09606418013572693,
+        "FFJ4": -0.349065850399,
+        "LFJ1": 0.7374698519706726,
+        "LFJ2": 0.0,
+        "LFJ3": 0.7374956607818604,
+        "LFJ4": 0.17038622498512268,
+        "LFJ5": 0.0,
+        "MFJ1": 0.46021246910095215,
+        "MFJ2": 0.40383782982826233,
+        "MFJ3": 0.378273606300354,
+        "MFJ4": -0.2516842782497406,
+        "RFJ1": 0.3584100306034088,
+        "RFJ2": 0.06240691989660263,
+        "RFJ3": 0.6677410006523132,
+        "RFJ4": 0.20845872163772583,
+        "THJ1": 0.20965750515460968,
+        "THJ2": 0.016431543976068497,
+        "THJ3": -0.052375566214323044,
+        "THJ4": 1.1612308025360107,
+        "THJ5": 0.039498087018728256,
+        "WRJ1": -0.05238531157374382,
+        "WRJ2": -0.20424674451351166
+      },
+      "model_geometry_sha256": "sha256:b1ab72d92653957a2abb0b48f6e6c98d2b2fbb157de28ac33a35ee6848f71a68",
+      "root_position_m": [
+        0.3687077982800228,
+        -0.0990319471959961,
+        0.050349702207935866
+      ],
+      "root_quaternion_wxyz": [
+        0.6779232939835982,
+        -0.06888054567414387,
+        -0.6520701311250608,
+        -0.3323853516576895
+      ],
+      "schema_version": "shadow_current_static_named_root_pose_v1",
+      "source_urdf_sha256": "sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de"
+    },
+    "source_receipt": {
+      "baseline_state_sha256": "sha256:d1556da2c8ddd9cab77d3d614a6981a83c9aed24791db417400b94abd0931e34",
+      "historical_caps_rebased": false,
+      "model_geometry_sha256": "sha256:b1ab72d92653957a2abb0b48f6e6c98d2b2fbb157de28ac33a35ee6848f71a68",
+      "native_definite_relationships": 804343,
+      "native_sha256": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+      "native_targets_rebased": false,
+      "object_visual_reference": "bound historical object-only visual triangles; no historical target-hand geometry",
+      "original_full_field_readback": {
+        "all_classification_arrays_exact": true,
+        "max_distance_discrepancy_m": 0.0,
+        "numerical_comparison_limit_m": 1e-12,
+        "reference_path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_full_field_mapping_repair_2026-10-15_v1/run_v1/28/original_28_density2mm.npz",
+        "reference_sha256": "9649c8f7b234ebc1e66ae98c46f6d4bd6de86fc2ebc8d63f2bc59111ca841c05",
+        "scientific_predicate_or_tip_cap_allowance": false
+      },
+      "original_qpos_rad": [
+        -0.20424674451351166,
+        -0.05238531157374382,
+        -0.349065850399,
+        0.09606418013572693,
+        0.5778234004974365,
+        0.8296473026275635,
+        -0.2516842782497406,
+        0.378273606300354,
+        0.40383782982826233,
+        0.46021246910095215,
+        0.20845872163772583,
+        0.6677410006523132,
+        0.06240691989660263,
+        0.3584100306034088,
+        0.0,
+        0.17038622498512268,
+        0.7374956607818604,
+        0.0,
+        0.7374698519706726,
+        0.039498087018728256,
+        1.1612308025360107,
+        -0.052375566214323044,
+        0.016431543976068497,
+        0.20965750515460968
+      ],
+      "original_root_position_m": [
+        0.3687077982800228,
+        -0.0990319471959961,
+        0.050349702207935866
+      ],
+      "original_root_quaternion_wxyz": [
+        0.6779232939835982,
+        -0.06888054567414387,
+        -0.6520701311250608,
+        -0.3323853516576895
+      ],
+      "original_tip_caps_m": [
+        0.015945476983185103,
+        0.001997040646086577,
+        0.00424721624550727,
+        0.001920603685229796,
+        0.008932714203653451
+      ],
+      "palm_delta_bounds_m": [
+        [
+          -0.2932929264897426,
+          0.024608079867611155
+        ],
+        [
+          -0.14329469778069867,
+          0.10904063676228609
+        ],
+        [
+          -0.1434516815484525,
+          0.1603659237384711
+        ]
+      ],
+      "query_count": 45484,
+      "scaled_bounds": [
+        [
+          -12.774081243379536,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          13.999999999999998
+        ],
+        [
+          0.0,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          14.000000000000004
+        ],
+        [
+          -3.8952628859703764,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          5.624285150450967
+        ],
+        [
+          -13.999999999999998,
+          14.000000000000004
+        ],
+        [
+          -2.4962767958641052,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          13.999999999999998
+        ],
+        [
+          0.0,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          7.147185016555093
+        ],
+        [
+          -13.999999999999998,
+          14.000000000000004
+        ],
+        [
+          0.0,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          14.000000000000004
+        ],
+        [
+          -13.999999999999998,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          2.4199869545595742
+        ],
+        [
+          -6.282557760987078,
+          10.47260305813292
+        ],
+        [
+          -13.999999999999998,
+          13.999999999999998
+        ],
+        [
+          -13.999999999999998,
+          13.999999999999998
+        ],
+        [
+          -58.65858529794852,
+          4.921615973522231
+        ],
+        [
+          -28.658939556139735,
+          21.808127352457216
+        ],
+        [
+          -28.6903363096905,
+          32.07318474769422
+        ],
+        [
+          -10.471975511965976,
+          10.471975511965976
+        ],
+        [
+          -10.471975511965976,
+          10.471975511965976
+        ],
+        [
+          -10.471975511965976,
+          10.471975511965976
+        ]
+      ],
+      "source_urdf_sha256": "sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+      "target_hand_geometry": "current registered ActuatedShadowRunner via SurfacePoseAdapter"
+    }
+  },
+  "fit": {
+    "accepted_mapping": false,
+    "accepted_relationship_repair": false,
+    "activated_rows": [],
+    "baseline": {
+      "array_path": "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v2/run_v1/28/checkpoint_01_literal_original_baseline.npz",
+      "array_sha256": "b3e76b8b44d75881bc9d777d7b868d327c3f2010d45c4e8fd5be3fa1b670e535",
+      "field_boolean_counts": {
+        "definite_added": 824,
+        "definite_lost": 2359,
+        "native_ambiguous": 14369,
+        "native_far": 797200,
+        "native_near": 7143,
+        "preserved": 795584,
+        "required": 804343,
+        "unresolved_required": 5576
+      },
+      "full_arrays_in_bound_npz": true,
+      "label": "literal_original_baseline",
+      "orientation": {
+        "distance_m": [
+          0.0036331770499235952,
+          0.00014313363871409522
+        ],
+        "full_orientation_coverage": "NOT_PROVED",
+        "native_sign": [
+          -1.0,
+          -1.0
+        ],
+        "passed": [
+          false,
+          false
+        ],
+        "reason_masks": {
+          "buried_closest_point": [
+            false,
+            false
+          ],
+          "closest_inside_or_on_visual": [
+            false,
+            true
+          ],
+          "competing_normal": [
+            false,
+            false
+          ],
+          "competing_part": [
+            false,
+            false
+          ],
+          "different_nearest_part": [
+            false,
+            false
+          ],
+          "expected_part_geometry_unavailable": [
+            false,
+            false
+          ],
+          "invalid_hand_or_object_normal": [
+            false,
+            false
+          ],
+          "mapped_analytic_edge_corner_axis": [
+            false,
+            false
+          ],
+          "mapped_mesh_competing_facet": [
+            false,
+            true
+          ],
+          "multiple_closest_points": [
+            false,
+            false
+          ],
+          "outside_5mm_band": [
+            false,
+            false
+          ],
+          "query_inside_hand": [
+            false,
+            false
+          ],
+          "query_on_hand_boundary": [
+            false,
+            false
+          ]
+        },
+        "retained_rows": 2,
+        "score": [
+          0.01386279837515475,
+          0.005198269010839564
+        ],
+        "valid": [
+          true,
+          false
+        ]
+      },
+      "state": {
+        "engineering_domain_pass": true,
+        "joint_names": [
+          "WRJ2",
+          "WRJ1",
+          "FFJ4",
+          "FFJ3",
+          "FFJ2",
+          "FFJ1",
+          "MFJ4",
+          "MFJ3",
+          "MFJ2",
+          "MFJ1",
+          "RFJ4",
+          "RFJ3",
+          "RFJ2",
+          "RFJ1",
+          "LFJ5",
+          "LFJ4",
+          "LFJ3",
+          "LFJ2",
+          "LFJ1",
+          "THJ5",
+          "THJ4",
+          "THJ3",
+          "THJ2",
+          "THJ1"
+        ],
+        "joint_qpos_rad": [
+          -0.20424674451351166,
+          -0.05238531157374382,
+          -0.349065850399,
+          0.09606418013572693,
+          0.5778234004974365,
+          0.8296473026275635,
+          -0.2516842782497406,
+          0.378273606300354,
+          0.40383782982826233,
+          0.46021246910095215,
+          0.20845872163772583,
+          0.6677410006523132,
+          0.06240691989660263,
+          0.3584100306034088,
+          0.0,
+          0.17038622498512268,
+          0.7374956607818604,
+          0.0,
+          0.7374698519706726,
+          0.039498087018728256,
+          1.1612308025360107,
+          -0.052375566214323044,
+          0.016431543976068497,
+          0.20965750515460968
+        ],
+        "literal_tip_caps_pass": [
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "mean_tip_guard_pass": true,
+        "model_geometry_sha256": "sha256:b1ab72d92653957a2abb0b48f6e6c98d2b2fbb157de28ac33a35ee6848f71a68",
+        "original_tip_caps_m": [
+          0.015945476983185103,
+          0.001997040646086577,
+          0.00424721624550727,
+          0.001920603685229796,
+          0.008932714203653451
+        ],
+        "palm_position_m": [
+          0.15731461784521936,
+          0.025530383644351094,
+          0.07504810685530225
+        ],
+        "palm_rotation": [
+          [
+            -0.23990343543737414,
+            0.5819772339296024,
+            -0.7770127674967726
+          ],
+          [
+            -0.24646882800846637,
+            0.7376489006566734,
+            0.6285914541100073
+          ],
+          [
+            0.9389885294749227,
+            0.34231067548010996,
+            -0.033525258639900066
+          ]
+        ],
+        "physical_joint_limits_pass": true,
+        "root_position_m": [
+          0.3687077982800228,
+          -0.0990319471959961,
+          0.050349702207935866
+        ],
+        "root_quaternion_wxyz": [
+          0.6779232939835982,
+          -0.06888054567414387,
+          -0.6520701311250608,
+          -0.3323853516576895
+        ],
+        "source_urdf_sha256": "sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+        "tip_error_norms_m": [
+          0.015945475844415354,
+          0.001997040646086625,
+          0.004247216245507287,
+          0.0019206036852298359,
+          0.008932720179842616
+        ],
+        "tip_errors_world_m": [
+          [
+            0.014360043538676329,
+            0.006581384331731312,
+            0.0021754837968128715
+          ],
+          [
+            -0.0011360779934275651,
+            -0.0015824427505208988,
+            0.00043974205654626064
+          ],
+          [
+            0.0036507325761541073,
+            0.0005664428128901999,
+            0.002095266100817089
+          ],
+          [
+            0.0016095342348971357,
+            -0.00044666068038573536,
+            0.000947951633265047
+          ],
+          [
+            -0.005838757232526137,
+            -0.006243488093982036,
+            -0.0025925393364992153
+          ]
+        ],
+        "tip_positions_world_m": [
+          [
+            0.03733223807282994,
+            -0.01779809844030835,
+            0.09272241228233946
+          ],
+          [
+            -0.0047732925511118525,
+            0.07674531685287288,
+            0.10629069650480658
+          ],
+          [
+            -0.011684784794358034,
+            0.07883203694421748,
+            0.07559507706500465
+          ],
+          [
+            -0.006654641807000584,
+            0.07534535059653835,
+            0.049066941321533324
+          ],
+          [
+            0.011697577514247492,
+            0.06565562022029023,
+            0.02303749057806965
+          ]
+        ]
+      },
+      "summary": {
+        "continuous_coverage_status": "NOT_PROVED",
+        "definite_added": 824,
+        "definite_lost": 2359,
+        "full_orientation_status": "NOT_RUN",
+        "full_strict_mapping_status": "FAIL",
+        "native_ambiguous": 14369,
+        "native_definite_relationships_pass": false,
+        "native_far": 797200,
+        "native_near": 7143,
+        "no_mapping_pass_issued": true,
+        "preserved": 795584,
+        "required": 804343,
+        "unresolved_required": 5576
+      }
+    },
+    "feasible_search_progress_only": false,
+    "reason": "restored_start_loses_full_field_or_orientation_protection",
+    "repaired_relationship_count": 0,
+    "returned": {
+      "array_path": "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v2/run_v1/28/checkpoint_01_literal_original_baseline.npz",
+      "array_sha256": "b3e76b8b44d75881bc9d777d7b868d327c3f2010d45c4e8fd5be3fa1b670e535",
+      "field_boolean_counts": {
+        "definite_added": 824,
+        "definite_lost": 2359,
+        "native_ambiguous": 14369,
+        "native_far": 797200,
+        "native_near": 7143,
+        "preserved": 795584,
+        "required": 804343,
+        "unresolved_required": 5576
+      },
+      "full_arrays_in_bound_npz": true,
+      "label": "literal_original_baseline",
+      "orientation": {
+        "distance_m": [
+          0.0036331770499235952,
+          0.00014313363871409522
+        ],
+        "full_orientation_coverage": "NOT_PROVED",
+        "native_sign": [
+          -1.0,
+          -1.0
+        ],
+        "passed": [
+          false,
+          false
+        ],
+        "reason_masks": {
+          "buried_closest_point": [
+            false,
+            false
+          ],
+          "closest_inside_or_on_visual": [
+            false,
+            true
+          ],
+          "competing_normal": [
+            false,
+            false
+          ],
+          "competing_part": [
+            false,
+            false
+          ],
+          "different_nearest_part": [
+            false,
+            false
+          ],
+          "expected_part_geometry_unavailable": [
+            false,
+            false
+          ],
+          "invalid_hand_or_object_normal": [
+            false,
+            false
+          ],
+          "mapped_analytic_edge_corner_axis": [
+            false,
+            false
+          ],
+          "mapped_mesh_competing_facet": [
+            false,
+            true
+          ],
+          "multiple_closest_points": [
+            false,
+            false
+          ],
+          "outside_5mm_band": [
+            false,
+            false
+          ],
+          "query_inside_hand": [
+            false,
+            false
+          ],
+          "query_on_hand_boundary": [
+            false,
+            false
+          ]
+        },
+        "retained_rows": 2,
+        "score": [
+          0.01386279837515475,
+          0.005198269010839564
+        ],
+        "valid": [
+          true,
+          false
+        ]
+      },
+      "state": {
+        "engineering_domain_pass": true,
+        "joint_names": [
+          "WRJ2",
+          "WRJ1",
+          "FFJ4",
+          "FFJ3",
+          "FFJ2",
+          "FFJ1",
+          "MFJ4",
+          "MFJ3",
+          "MFJ2",
+          "MFJ1",
+          "RFJ4",
+          "RFJ3",
+          "RFJ2",
+          "RFJ1",
+          "LFJ5",
+          "LFJ4",
+          "LFJ3",
+          "LFJ2",
+          "LFJ1",
+          "THJ5",
+          "THJ4",
+          "THJ3",
+          "THJ2",
+          "THJ1"
+        ],
+        "joint_qpos_rad": [
+          -0.20424674451351166,
+          -0.05238531157374382,
+          -0.349065850399,
+          0.09606418013572693,
+          0.5778234004974365,
+          0.8296473026275635,
+          -0.2516842782497406,
+          0.378273606300354,
+          0.40383782982826233,
+          0.46021246910095215,
+          0.20845872163772583,
+          0.6677410006523132,
+          0.06240691989660263,
+          0.3584100306034088,
+          0.0,
+          0.17038622498512268,
+          0.7374956607818604,
+          0.0,
+          0.7374698519706726,
+          0.039498087018728256,
+          1.1612308025360107,
+          -0.052375566214323044,
+          0.016431543976068497,
+          0.20965750515460968
+        ],
+        "literal_tip_caps_pass": [
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "mean_tip_guard_pass": true,
+        "model_geometry_sha256": "sha256:b1ab72d92653957a2abb0b48f6e6c98d2b2fbb157de28ac33a35ee6848f71a68",
+        "original_tip_caps_m": [
+          0.015945476983185103,
+          0.001997040646086577,
+          0.00424721624550727,
+          0.001920603685229796,
+          0.008932714203653451
+        ],
+        "palm_position_m": [
+          0.15731461784521936,
+          0.025530383644351094,
+          0.07504810685530225
+        ],
+        "palm_rotation": [
+          [
+            -0.23990343543737414,
+            0.5819772339296024,
+            -0.7770127674967726
+          ],
+          [
+            -0.24646882800846637,
+            0.7376489006566734,
+            0.6285914541100073
+          ],
+          [
+            0.9389885294749227,
+            0.34231067548010996,
+            -0.033525258639900066
+          ]
+        ],
+        "physical_joint_limits_pass": true,
+        "root_position_m": [
+          0.3687077982800228,
+          -0.0990319471959961,
+          0.050349702207935866
+        ],
+        "root_quaternion_wxyz": [
+          0.6779232939835982,
+          -0.06888054567414387,
+          -0.6520701311250608,
+          -0.3323853516576895
+        ],
+        "source_urdf_sha256": "sha256:29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+        "tip_error_norms_m": [
+          0.015945475844415354,
+          0.001997040646086625,
+          0.004247216245507287,
+          0.0019206036852298359,
+          0.008932720179842616
+        ],
+        "tip_errors_world_m": [
+          [
+            0.014360043538676329,
+            0.006581384331731312,
+            0.0021754837968128715
+          ],
+          [
+            -0.0011360779934275651,
+            -0.0015824427505208988,
+            0.00043974205654626064
+          ],
+          [
+            0.0036507325761541073,
+            0.0005664428128901999,
+            0.002095266100817089
+          ],
+          [
+            0.0016095342348971357,
+            -0.00044666068038573536,
+            0.000947951633265047
+          ],
+          [
+            -0.005838757232526137,
+            -0.006243488093982036,
+            -0.0025925393364992153
+          ]
+        ],
+        "tip_positions_world_m": [
+          [
+            0.03733223807282994,
+            -0.01779809844030835,
+            0.09272241228233946
+          ],
+          [
+            -0.0047732925511118525,
+            0.07674531685287288,
+            0.10629069650480658
+          ],
+          [
+            -0.011684784794358034,
+            0.07883203694421748,
+            0.07559507706500465
+          ],
+          [
+            -0.006654641807000584,
+            0.07534535059653835,
+            0.049066941321533324
+          ],
+          [
+            0.011697577514247492,
+            0.06565562022029023,
+            0.02303749057806965
+          ]
+        ]
+      },
+      "summary": {
+        "continuous_coverage_status": "NOT_PROVED",
+        "definite_added": 824,
+        "definite_lost": 2359,
+        "full_orientation_status": "NOT_RUN",
+        "full_strict_mapping_status": "FAIL",
+        "native_ambiguous": 14369,
+        "native_definite_relationships_pass": false,
+        "native_far": 797200,
+        "native_near": 7143,
+        "no_mapping_pass_issued": true,
+        "preserved": 795584,
+        "required": 804343,
+        "unresolved_required": 5576
+      }
+    },
+    "rounds": [],
+    "status": "REFUSED_NO_PROTECTED_START"
+  },
+  "freeze_commit": "f4a616c8aa7f7e5a011c5e45439e7d769f089aff",
+  "native_fidelity_accepted": false,
+  "native_fidelity_scope": "Full required proximity field plus capped exact orientation witnesses; full continuous orientation not proved",
+  "production_promotion": false,
+  "protocol_sha256": "93ef66966dc2b6b41751725733962f4225fb2cd6f56f6b6fb48fdc1eb036ab4b",
+  "schema_version": "hug_current_full_field_exchange_pilot_v2",
+  "source_inventory_index": 28,
+  "status": "COMPLETED_BOUNDED_STATIC_REPAIR"
+}

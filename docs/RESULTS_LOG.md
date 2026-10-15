@@ -757,3 +757,41 @@ constraint-exchange pilot is being prepared. It preserves all original and
 newly passing measured relationships, literal caps and retained orientation
 eligibility. Turning a definite failure into ambiguity is not labeled a repaired
 relationship. No task rollout, new HUG generation or predictor training resumes.
+
+## 15 October 2026 — Full-field exchange v2: no accepted surface improvement
+
+The once-only pilot frozen at f4a616c completed both declared development cases.
+Protocol SHA256: 93ef66966dc2b6b41751725733962f4225fb2cd6f56f6b6fb48fdc1eb036ab4b.
+Evidence: research_artifacts/hug_full_field_mapping_repair_2026-10-15_v2/run_v1/;
+report SHA256: 801a31bc6bd9f13f82f6d827005b42b43567563f3ee2fce482efb51598facef3.
+The two workers use 710 static forwards, 349 raw callbacks and seven complete
+field checkpoints in total; every counted integration/inference/retarget attempt
+is zero. Worker elapsed times are 85.73 s and 86.24 s. Protocol completion is not
+mapping acceptance.
+
+Milk20 returns NO_ACCEPTED_SURFACE_IMPROVEMENT: both exchange candidates preserve
+old passing relationships but introduce one new definite little-finger violation
+at cell1111/band5mm. That relationship was originally unresolved and absent from
+the worst-per-stratum active set. Both candidates are refused. The returned pose
+restores literal tip caps but repairs zero relationships; all 530 original
+definite proximity mismatches remain.
+
+Mug28 returns REFUSED_NO_PROTECTED_START: the cap-restored candidate loses one
+previously preserved native-far thumb relationship at cell16107/band2mm. Its
+preservation margin changes from +3.552797912 nm to -5.339340325 nm, a distance
+change of -8.892138237 nm. The candidate is refused and the literal original pose
+is retained as an explicit diagnostic fallback, with its original strict cap
+failures visible. All 3183 original definite mismatches remain; no feasible
+mapping is admitted.
+
+Independent receipt SHA256:
+6ab84c12ca72b3ab20128e61fc5c272a71bedffd347718a86167e500051d469f.
+It verifies 348 bound files before/after, all seven saved NPZ files, every saved
+classification/margin, original-v1 field equality, exact retained-orientation
+predicates and literal serialized tip/root/joint checks without new geometry or
+optimization. Only baseline/final checkpoint digests were directly indexed by
+the v2 result; intermediate hashes are inventoried in that independent receipt.
+The unchanged legacy visual-mesh transform also emits NumPy matmul warnings;
+the earlier halfspace replay does not clear that separate operation. Preserve
+this scoped limitation. No threshold/cap was changed, no fidelity PASS or task
+label was issued, and collection/training remain paused.
