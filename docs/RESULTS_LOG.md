@@ -1510,3 +1510,40 @@ Saved-only orientation plot added separately from this experiment:
 Its write-once receipt verifies existing comparison-array hashes and recomputes
 2,060 unique reliable sites, zero sign reversals, and the explicit unresolved
 part-band cell counts. Rendering performs zero new geometry or physics queries.
+
+### 2026-10-15 — Corrected source-native geometry passes all 218 static states
+
+At source freeze `78f26d6deee192b83cb9409996a478c518e9f3a5`, protocol `92b5f9bc`
+completes cases 20/28 in 8.75/7.30 seconds. All seven declared geometry and
+coordinate checks pass in each case, with the exact operation counts and no
+physics steps, object queries, actuator commands, task collection or training.
+Both initial AA32 and translation32 payloads recover byte-for-byte before
+source/model work. Each subsequent source call uses inputs recovered from the
+actual engine state, with all 109 anchors/rotations checked independently.
+
+Maximum engine/source vertex errors: 2.498e-16/1.110e-16 m. Corresponding
+normal-component errors: 4.793e-14/4.802e-14. Against the unchanged original
+saved baseline, vertices agree within 1.665e-16/1.110e-16 m and normals within
+2.032e-14/1.971e-14. Maximum anatomical anchor errors are 0.3233/0.3163 um;
+rotation-component errors are 3.405e-7/2.879e-7. All original 5-um/1e-6 limits
+remain unchanged. The old GS64/world64 profile's FAIL remains preserved.
+
+Report SHA256:
+`5d5c4ed0b985fdbff3e525cf7c05709b02f6e160b2e6f583ce670dc1b5ff61ce`.
+Independent receipt
+`research_artifacts/manosim_native_source_pipeline_2026-10-15_v1/run_v1/independent_readback.json`
+has SHA256 `9a5d3a551a29d45049aa360dd1012fab86c32a97f45b38c4477be77b32d5a13e`.
+It checks 5,304 bindings before/after, 165 selected Git blobs and 19 creation-time
+artifacts, and replays original input bytes, coordinate branches, float32
+translation ordering, flex-local placement, oriented normals and every stored
+decision without model, MANO, skin, FK, geometry-query or physics operations.
+Verifier-development arithmetic-order/axis-reduction failures are embedded in
+that receipt; producer outputs and scientific thresholds are unchanged.
+
+Saved-array evidence plot:
+`runs/manosim_native_source_evidence_2026-10-15_v1/faithful_finger_transfer.png`.
+It shows actual engine baseline/coupled poses, displacement across the declared
+grid and the original baseline normal-error correction. These are finite
+static forwards, not an actuator trajectory. Contact orientation during motion,
+native contact forces, dynamic tracking, collection and training remain
+unqualified. The source freeze is released for the next separate qualification.

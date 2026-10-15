@@ -3054,3 +3054,24 @@ not silently acquire a useful exact derivative from the old world64 skin.
 Known-plane loads and native mass response can check generalized-force
 application without claiming object contact search, dynamic grasp execution
 or real material calibration. No collection or model training is admitted.
+
+### 2026-10-15 — Accept finite source-native geometry evidence, retain physics gates
+
+Measured: corrected source-native protocol `92b5f9bc` completes all 218 static
+states. The original source-byte guards pass, and engine vertices/normals agree
+with the literal camera-space source path at roundoff. The unchanged original
+baseline normal comparison now passes at about 2e-14, after failing in the old
+state/precision profile. Independent saved-only receipt `9a5d3a55` verifies all
+bindings, creation-time operands, coordinates and decisions.
+
+Interpretation: this is positive finite geometry evidence for the corrected
+HUG-source execution path, not a retroactive pass for the earlier GS64/world64
+domain and not a proof of dynamic finger tracking or physical grasp execution.
+The corrected source faithfully uses original float32 inputs and operation
+order. Do not infer a source32 contact derivative from that geometry pass.
+
+Next check remains the separately declared continuous64 camera-graph material
+point and native generalized-force coupling, then native dynamic stability and
+oriented object contact search. Keep ambiguous orientation cases separate and
+retain every legacy stock-contact convergence failure. Collection/training stay
+closed; no manuscript files change.
