@@ -34,7 +34,8 @@ from .schema import (
 from .translation import (
     SyntheticShadowRecordDecoder,
     load_translation_registry,
-    translate_mano_with_official_retargeter,
+    translate_mano_with_mapping_record,
+    TranslationError,
     translate_native_pose,
 )
 from .dexgraspnet import DexGraspNetRecordDecoder, validate_fk_translation
@@ -42,6 +43,19 @@ from .dexgraspnet import DexGraspNetRecordDecoder, validate_fk_translation
 
 class ProposalProvider(Protocol):
     def generate(self, request: ProposalRequest, output_directory: Path) -> list[Path]: ...
+
+
+def _write_mapping_record(path: Path, record: dict) -> None:
+    """Preserve nonfinite refused solver outputs as explicit JSON strings."""
+    def encode(value):
+        if isinstance(value, dict):
+            return {key: encode(item) for key, item in value.items()}
+        if isinstance(value, (list, tuple)):
+            return [encode(item) for item in value]
+        if isinstance(value, (float, np.floating)) and not np.isfinite(value):
+            return str(value)
+        return value
+    path.write_text(json.dumps(encode(record), indent=2, allow_nan=False) + "\n", encoding="utf-8")
 
 
 def _code_revision(project_root: Path) -> str:
@@ -173,13 +187,29 @@ class HugProposalProvider:
                 raise RuntimeError("HUG provider did not produce its declared native artifacts")
             report = json.loads(report_path.read_text(encoding="utf-8"))
             grasp = load_hug_prediction(native_proposal)
-            pose = translate_mano_with_official_retargeter(
+            pose, mapping_record = translate_mano_with_mapping_record(
                 grasp, self.spec.translation_strategy_id
             )
+            mapping_path = native / "mapping_record.json"
+            mapping_record["native_proposal_sha256"] = file_sha256(native_proposal)
+            _write_mapping_record(mapping_path, mapping_record)
+            if pose is None:
+                raise TranslationError(
+                    "hug_mapping_refused",
+                    mapping_record.get("refusal_reason", mapping_record.get("message", "HUG mapping refused")),
+                )
             validator = ShadowPoseValidator(default_dex_urdf_root())
             validation = validator.validate(pose)
             maximum = self.spec.maximum_mean_fingertip_error_m
+            mapping_record["alignment"] = {
+                "mean_fingertip_error_m": validation.mean_fingertip_error_m,
+                "maximum_fingertip_error_m": validation.maximum_fingertip_error_m,
+                "per_fingertip_error_m": validation.fingertip_errors_m.tolist(),
+                "maximum_mean_fingertip_error_m": maximum,
+            }
             if maximum is None or validation.mean_fingertip_error_m > maximum:
+                mapping_record.update(mapping_status="refused_guard", outcome=None)
+                _write_mapping_record(mapping_path, mapping_record)
                 raise ValueError(
                     "HUG retargeting alignment gate failed: "
                     f"{validation.mean_fingertip_error_m:.6f} m"
@@ -196,6 +226,9 @@ class HugProposalProvider:
                 contract["object_position_m"], contract["object_orientation_xyzw"]
             )
             object_palm = np.linalg.inv(world_object) @ world_palm
+            mapping_record["world_palm_transform"] = world_palm.tolist()
+            mapping_record["object_to_palm_transform"] = object_palm.tolist()
+            _write_mapping_record(mapping_path, mapping_record)
             proposal = GraspProposal(
                 proposal_id=f"{request.request_id}_sample_{sample_index:04d}",
                 provider=ProviderProvenance(
@@ -239,6 +272,11 @@ class HugProposalProvider:
                         role="provider_report",
                         path=Path("native/inference_report.json"),
                         sha256=file_sha256(report_path),
+                    ),
+                    NativeArtifactReference(
+                        role="mapping_record",
+                        path=Path("native/mapping_record.json"),
+                        sha256=file_sha256(mapping_path),
                     ),
                 ),
             )

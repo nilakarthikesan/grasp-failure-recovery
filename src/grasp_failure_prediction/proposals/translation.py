@@ -165,7 +165,7 @@ def translate_native_pose(native: NativeHandPose, strategy_id: str) -> Translate
     )
 
 
-def translate_mano_with_official_retargeter(grasp: Any, strategy_id: str):
+def _official_mano_retargeter(strategy_id: str):
     spec = load_translation_registry().resolve(strategy_id)
     if spec.strategy_kind != "official_retargeter" or spec.source_hand_model_id != "mano_right_hug_landmarks_v1":
         raise TranslationError("strategy_kind_mismatch", "MANO decoder requires the registered official retargeter")
@@ -174,4 +174,39 @@ def translate_mano_with_official_retargeter(grasp: Any, strategy_id: str):
     recorded = next(item.sha256 for item in spec.evidence if item.role == "retargeter_config")
     if config_digest != recorded:
         raise TranslationError("retargeter_evidence_hash_mismatch", "official retargeter configuration changed")
-    return retargeter.retarget(grasp)
+    return retargeter
+
+
+def translate_mano_with_official_retargeter(grasp: Any, strategy_id: str):
+    return _official_mano_retargeter(strategy_id).retarget(grasp)
+
+
+def translate_mano_with_mapping_record(grasp: Any, strategy_id: str):
+    """Observe a fresh legacy solve without changing its objective or commands.
+
+    Refused solves retain their partial raw/status trace. The caller must save
+    the record before handling refusal; it must never assign a physical label.
+    """
+    from grasp_failure_prediction.evaluation.fresh_mapping_qualification import capture_solve
+
+    retargeter = _official_mano_retargeter(strategy_id)
+    pose, record = capture_solve(retargeter, grasp)
+    record.update(
+        schema_version="hug_mapping_record_v1",
+        translation_strategy_id=strategy_id,
+        fresh_instance_per_proposal=True,
+        joint_limits_rad=retargeter.joint_limits.tolist(),
+        mapping_status="ok" if pose is not None else "refused_invalid_retarget",
+        outcome=None,
+    )
+    # A positive budget termination is recorded, not called convergence. Failed
+    # or unavailable statuses cannot qualify a new proposal for collection.
+    statuses = record.get("optimizer_status_codes", [])
+    status_ok = (len(statuses) == retargeter.optimizer_iterations
+                 and all(type(code) is int and code > 0 for code in statuses))
+    record["optimizer_status_gate_passed"] = status_ok
+    if pose is not None and not status_ok:
+        record.update(mapping_status="refused_invalid_retarget",
+                      refusal_reason="optimizer termination status unavailable or failed")
+        pose = None
+    return pose, record
