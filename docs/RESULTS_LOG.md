@@ -1116,3 +1116,20 @@ with zero integration calls. They preserve all 778 vertices/1,552 faces, literal
 shape, fixed anatomical labels and exact saved named pose, with independent
 compiled-readback/field guards. No native preparation/model/field execution has
 occurred: the wrapper cannot select a radius from the failed capability receipt.
+
+Final prepared 3.3.7 wrapper adds parent verification of child scalar/result
+artifact identities; 57 manufactured controls pass, integration zero. Its
+active receipt is `controls_v2.json`; the earlier 56-control receipt remains.
+No actual native preparation or run has occurred under either source condition.
+
+### 2026-10-15 — Freeze isolated 3.4.0 rigid capability experiment
+
+48 manufactured controls and independent source review pass, integration zero.
+The separate declaration preserves the exact 12 synthetic models, 84-forward
+ceiling and all original numerical requirements. It retains the full six-case
+assessment per radius and adds a prospective four-case single-owner verdict
+for locked articulation only. Multi-owner failures cannot be omitted or turned
+into articulated MANO admission. All 977 old study bindings are rechecked;
+the base 3.3.7 runtime is unchanged. Source/runtime bytes, the independently
+verified old failure and every new output identity are bound before execution.
+Actual 3.4.0 measurements remain pending at this freeze.

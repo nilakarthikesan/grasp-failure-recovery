@@ -168,7 +168,7 @@ def primitive_prior(report_path, helper_path):
 
 
 def source_inventory(specs, primitive_report, primitive_helper, evidence, primitive_paths):
-    required = {Path(__file__).resolve(), HERE/'surface_candidate.py', HERE/'README.md', HERE/'controls.json',
+    required = {Path(__file__).resolve(), HERE/'surface_candidate.py', HERE/'README.md', HERE/'controls_v2.json',
                 *HERE.glob('test_*.py'), Path(primitive_report).resolve(), Path(primitive_helper).resolve(),
                 *Path(primitive_helper).parent.glob('*.py'), *Path(primitive_helper).parent.glob('*.md'),
                 *evidence, *primitive_paths}
