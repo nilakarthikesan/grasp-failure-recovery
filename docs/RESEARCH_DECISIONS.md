@@ -2816,3 +2816,35 @@ No new native model, geometry query, physics, collection or training has run
 under this decision. The native recorder must preserve unequal 67/51/51 widths,
 mixed units, named layouts and controller/collider hashes; Shadow's equal-width
 recording and model schemas will not be reused. Manuscript files remain untouched.
+
+## 2026-10-15 — Reject the 3.3.7 flex contact response before native use
+
+Measured: primitive protocol v2 completes all 12 synthetic models and 84 static
+forwards at freeze 835b27e. Geometry, both-sided contact distance/point/normal,
+rigid-frame and concave-gap controls pass. Every model fails the independent
+contact-Jacobian requirement, so both zero and 1-micrometre radius remain
+NOT_QUALIFIED. Example: a single rigid triangle's normal translation coefficient
+has magnitude 1.688165034 instead of 1. No native candidate or task was run.
+
+Pinned source explains the discrepancy: MuJoCo 3.3.7 computes inverse-distance
+element weights and normalizes their Euclidean norm; the resulting weights do
+not sum to one. The earlier description of engine weights as barycentric was
+incorrect. The independent rigid-body derivative requirement remains valid;
+the observed failure is preserved rather than changing its reference or limit.
+Source: `engine_core_constraint.c` at f1d45bd5422c74beddfb0d1deb590a02583d21de,
+`mj_elemBodyWeight` and `mj_contactJacobian`.
+
+Choice: prepare a separate MuJoCo 3.4.0 runtime and prospective rigid-only
+capability experiment. Official tag e55fff5dea6f1d5dd7963ca52eecc41d05ad0922
+uses sum-normalized inverse-distance weights. That source change is a reason
+to test, not evidence of a passing runtime. Keep identical synthetic geometries,
+quotas and numerical limits; preserve all multi-owner derivative failures and
+the original full assessment. A new single-owner verdict can qualify only the
+locked-articulation reference. Inverse-distance multi-owner weights still do
+not equal MANO skin weights or the exact triangle barycentric derivative.
+
+Status: installed only MuJoCo 3.4.0 with no dependencies into a new ignored
+runtime directory. The base 3.3.7 environment and historical protocols remain
+unchanged. New source/preparation is pending; no 3.4.0 model or forward has run.
+Independent readback of the completed 3.3.7 failure is pending at this entry.
+Native collection/training admission remains closed.

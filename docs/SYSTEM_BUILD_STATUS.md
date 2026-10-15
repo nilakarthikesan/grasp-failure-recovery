@@ -20,13 +20,22 @@ motion. MuJoCo flex vertices follow individual bodies, whereas MANO skin uses
 weighted bones and pose correctives. Matching the rendered skin alone therefore
 does not establish matching collision geometry or articulated contact forces.
 
-Before using that candidate, a separate manufactured primitive test will check
-the pinned engine's triangle readback and two-sided sphere contacts at zero and
-positive flex radius. Zero radius is outside the documented 2D-flex contract;
-successful compilation alone will not qualify it. Positive thickness must be
-reported as geometry, not hidden in the existing numerical allowance. Native
-recording contracts are being prepared separately for 67 position coordinates,
-51 velocities and 51 commands. No native data collection or training is enabled.
+The manufactured primitive test now completes 12 models and 84 static forwards.
+Triangle geometry, two-sided contacts and the concave gap pass, but every
+contact-Jacobian check fails under MuJoCo 3.3.7. Inverse-distance weights are
+L2-normalized rather than summing to one; this changes even a single rigid
+owner's contact derivative. Independent saved-array replay confirms the cause.
+Both radii remain NOT_QUALIFIED, so the complete native-surface candidate is
+prepared and tested with manufactured arrays but has not been executed.
+
+A separately isolated MuJoCo 3.4.0 runtime is being qualified because its source
+uses sum normalization. Only a rigid, locked-articulation scope can be admitted
+by that follow-up; exact MANO finger deformation/contact remains separate.
+Zero radius is outside the documented 2D-flex contract, and positive thickness
+must never be hidden in the numerical allowance. The separate native recording
+contract is implemented for 67 positions, 51 velocities and 51 commands with
+78 passing manufactured controls. Controller/runner integration is pending.
+No native data collection or training is enabled.
 
 ## Mapping fidelity is the current prerequisite
 

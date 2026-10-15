@@ -1082,3 +1082,37 @@ The original declaration at b0e9db9 remains unexecuted and unchanged. Active
 `protocol_v2.json` binds the corrected source and 37 passing manufactured
 controls. Scientific model cases, numerical limits and operation quotas remain
 unchanged. No actual engine work occurred under the unused declaration.
+
+### 2026-10-15 — Primitive geometry passes; contact derivatives refuse admission
+
+Executed primitive v2 at 835b27e: 12 model compilations, 12 data constructions,
+84 explicit static forwards, zero integration/native/training operations;
+worker wall time 0.290 s. All geometry, both-sided contact distance/point/normal,
+rigid-frame and disconnected-gap controls pass. All 12 independent normal-row
+Jacobian checks fail, leaving both radius assessments NOT_QUALIFIED. A rigid
+triangle owner translation coefficient is 1.688165034 in magnitude instead of
+1. The sphere coefficient is 1. Report SHA
+660abd835427660b4d3d9d03005bd3bf334b2b0a0d42f6fdecf8edb946a1f28c.
+
+Pinned-source inspection identifies inverse-distance element weights normalized
+by L2 norm in 3.3.7; they do not sum to one. Earlier engine-weight descriptions
+as barycentric were incorrect. No threshold/reference or saved result changes.
+The native full-surface wrapper must refuse this capability receipt. Independent
+saved-array verification is pending. A separate 3.4.0 runtime has been installed
+without dependencies because its source uses sum normalization; its actual
+rigid-contact behavior is unmeasured and a new prospective protocol is pending.
+
+Independent `run_v1/independent_readback.json` SHA
+aac0602ae31286cc3af24332879f36469d6606817fe775543945ad83381d3369 verifies
+977 bindings before/after, eight Git blobs and 36 creation-time artifacts.
+Saved engine Jacobians match the independently reconstructed pinned L2-weight
+formula within 4.44e-16; the physical reference rows reproduce within 2.22e-16.
+Maximum vertex/contact-distance errors are 2.78e-17 / 2.54e-17 metres. Both
+NOT_QUALIFIED verdicts and the helper's refusal are confirmed without another
+model, FK, contact query or integration. The freeze is released.
+
+The full-surface candidate and bounded wrapper now pass 56 manufactured controls
+with zero integration calls. They preserve all 778 vertices/1,552 faces, literal
+shape, fixed anatomical labels and exact saved named pose, with independent
+compiled-readback/field guards. No native preparation/model/field execution has
+occurred: the wrapper cannot select a radius from the failed capability receipt.
