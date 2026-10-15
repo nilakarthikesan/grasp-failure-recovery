@@ -1581,3 +1581,47 @@ all applied, bias, passive, constraint and actuator operands are saved. Literal
 weight sums can differ from one, so rigid-root wrench equivalence is retained
 only as a diagnostic. Actual results are pending; no native dynamics or data
 admission follows from a static pass.
+
+### 2026-10-15 — Native static force coupling passes; precision alignment remains failed
+
+At source freeze `be15a1d2a0a6b65ace47194bfb0d25432d3d5b8f`, protocol `3ae68dec`
+completes both native cases with exact quotas and zero integration, MANO source
+calls, object queries, collection or training. All twelve fixed material-point
+load conditions pass per case. The 51-column camera-graph derivative matches
+central differences within 7.074e-11/8.327e-11; every plane-gap derivative passes.
+Aggregate VJP/explicit transpose discrepancy is 4.441e-16 in each case.
+
+Native M*(loaded acceleration-baseline acceleration) residuals are at most
+2.665e-15/3.664e-15 N in translations and 2.220e-16/1.769e-16 Nm in local angular
+coordinates. Common-point reaction, generalized power, original inertials,
+actual named 51-DOF layout and paired state/force guards pass. These are static
+known-plane force-application checks, including frictional load directions;
+they do not execute a dynamic grasp or search the original object surface.
+
+The distinct physical64/source32 alignment verdict FAILS on face normals:
+1.80781e-5/2.44436e-5 versus the unchanged 1e-6 limit. Vertex differences
+63.305/65.883 nm pass the original 5-um comparison. This failure does not undo
+the exact source32 transfer geometry pass, and the force-coupling pass cannot
+be used to hide it. A source32 derivative and full native contact remain
+unqualified. Rigid-root wrench equivalence is only a stored diagnostic because
+literal source weight sums are preserved rather than normalized.
+
+Report SHA256:
+`b484f256d8131c41f63af36538cdba2d01aba1c7748d643431eefc3a91337e0d`.
+Independent saved-only receipt
+`research_artifacts/manosim_native_point_contact_coupling_2026-10-15_v1/run_v1/independent_readback.json`
+has SHA256 `58ef3edebe9d46fbe634a323e9428b48ed8a33499fa2b5d9a52d77a0a0b936c8`.
+It verifies all 5,474 bindings before/after, 253 Git blobs including the
+protocol, 43 creation-time artifacts, all point/derivative/law/work decisions
+and every native mass-response condition. Each dense M is independently
+reconstructed from the saved packed qM and DOF tree with exact equality, then
+checked positive definite. No engine, model, MANO, skin, FK, geometry or physics
+operation is replayed. Producer derivative evaluation and guard assertions are
+distinguished from arithmetic that saved operands independently establish.
+
+Saved evidence plot:
+`runs/manosim_native_force_evidence_2026-10-15_v1/native_force_coupling_and_remaining_gap.png`.
+All plots use saved operands only and retain failures. Native dynamic tracking,
+contact search/orientation over motion, physical-model source alignment and
+calibration remain open. Collection/training admission is false. Source/HEAD
+freeze is released after independent verification.

@@ -3097,3 +3097,27 @@ the planes may load backfaces and provide no original-object search or dynamic
 contact evidence. Native timesteps cannot inherit the 0.2-kg sphere bound.
 Actual results, independent readback, dynamic tracking and calibrated physical
 contact remain pending. Collection/training stay closed.
+
+### 2026-10-15 — Accept native static force application only within its declared model
+
+Measured: protocol `3ae68dec` passes all 24 native static load conditions,
+including same-profile derivatives, generalized virtual work and actual native
+mass response. Independent receipt `58ef3ede` verifies all bindings and saved
+operands, independently expands packed mass matrices, and preserves both the
+static force PASS and source32 normal-alignment FAIL. Full physical64/source32
+normal errors remain 1.808e-5/2.444e-5 despite vertex differences below 66 nm.
+
+Decision: accept the finite static generalized-force component in its explicit
+continuous64 camera graph. Preserve the original source32 pipeline's separate
+exact geometry pass and this physical profile's strict normal failure. Neither
+is a full native contact or dynamic finger-tracking certificate. Do not loosen
+the old normal gate, normalize source weights, or pair a different surface and
+Jacobian to claim readiness for data collection.
+
+Remaining work is concrete: qualify a consistent operational physical surface
+and tangent with explicit numerical-error evidence, then native dynamic
+tracking/timestep stability and oriented object-contact search, preserving
+ambiguities instead of assigning physical labels to them. The synthetic sphere
+contact model already passes its own analytic tests; its timestep policy and
+material assumptions do not transfer automatically to native finger dynamics.
+No new task data or prediction training has run. Collection/training stay closed.
