@@ -2721,3 +2721,34 @@ for the remaining local discrepancies until checked against source topology.
 Do not adjust poses, thresholds or hand shape to hide field failures. Keep
 collection/training admission closed. Independent saved-array verification is
 pending at this entry; simulator physical realism remains unvalidated.
+
+## 2026-10-15 — Isolate collider construction using saved geometry
+
+Previous evidence: exact-shape native joint transfer passes while strict
+surface fields fail. Mug discrepancies concentrate in palm/index and the palm
+field is identical for both upstream variants. These results justify a
+construction investigation with joint poses fixed, not another pose fit.
+
+Choice: predeclare nine ordered saved-geometry scans: original reference,
+uncapped posed skin, neutral-LBS surrogate, rigid owner motion, cross-bone face
+removal, owner-part semantics, upstream owner-cloud hulls, OBJ decimal
+serialization and literal XML placement with saved compiled body frames. The
+reference must reproduce the six original distance columns within 1e-12 m and
+all masks exactly before any subsequent scan. Original queries, cell radii,
+target float64 weight labels, required relationships and acceptance rules stay
+fixed. Source topology and support/orphan vertices remain explicit.
+
+Interpretation limits: neutral-LBS combines omitted pose correctives and source
+precision; owner-cloud hulls combine convexification and reintroduced owner
+vertices; the last stage combines XML placement and pose representation.
+Transitions are conditional and nonadditive. Actual compiled mesh triangles
+were not saved, so a final distance residual cannot isolate compiler effects.
+No candidate is a qualified dynamic hand or production mapping.
+
+Implementation: 63 manufactured controls pass with zero integration calls.
+Protocol a64aeee9 binds 1,914 files, limits each of cases 20/28 to 600 seconds,
+nine scans and a pre-query work quota, and forbids all model/FK-engine calls,
+generation, optimization, physics, training and task labels. New full geometry
+stays in the existing ignored runs directory; tracked reports preserve every
+write-time hash. Source review and actual measurements remain pending at this
+entry. Manuscript files stay untouched.

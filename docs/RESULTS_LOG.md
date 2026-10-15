@@ -968,3 +968,21 @@ Native report SHA af7e626eb96ec94d583fc79c7a1a4fb6d71397041e9dd11597de674330c0bd
 This qualifies the tested native joint-transfer reference, not production
 Shadow retargeting, collider equivalence or physical calibration. Collection,
 training and manuscript work remain disabled in this stage.
+
+### 2026-10-15 — Freeze saved-geometry collider construction diagnostic
+
+Implemented nine ordered saved-geometry stages with a mandatory reference
+reproduction gate (1e-12 m and exact field masks), before any construction
+comparison. 63 manufactured controls pass, integration calls zero. Protocol
+a64aeee90e924d6dd0ddf92f8a80d7354d1c1d83a63dd95af03eabe5fecc48b7 binds
+1,914 files. Cases 20/28 each have a 600-second, nine-scan limit; pre-query
+triangle-point work limits are 357,019,880 and 846,912,080. No model, FK-engine,
+MANO, physics, generator, retargeting, training or task outcomes are permitted.
+All original target fields and poses remain fixed. Source review and actual
+measurements are pending at this freeze; all surfaces remain diagnostic only.
+
+Final source review and 63 controls pass on the held source. The earlier
+a64aeee9 preparation was never executed; final identity guards and partial
+receipt publication are bound in active `protocol_v2.json` SHA
+f5d80b06df40bb900861d4fa310e999e099ed468bb527e16af0838c8a671dbf7 (1,914
+bindings). No geometry queries have run before this final declaration.
