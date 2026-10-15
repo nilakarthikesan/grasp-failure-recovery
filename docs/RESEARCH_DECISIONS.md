@@ -2616,3 +2616,35 @@ audit are in preparation; no upstream MANOSim model, native pose or rollout has
 been executed at this decision. The separately prepared static-v2 Shadow audit
 remains unexecuted. Physics collection, predictor training and paper edits stay
 outside this stage. Source: https://github.com/KevinyWu/manosim/tree/c96e2d5cd70838a2b025b60b85a7e4e06af1b3ac.
+
+
+## 2026-10-15 — Freeze native pose qualification separately from collider fidelity
+
+Implemented: a named-joint upstream MANOSim static adapter, observed-source HUG
+MANO decoder, independent parent-chain FK and mesh/capsule field audit. Independent
+review and 85 manufactured controls pass with zero integration calls. No actual
+upstream native model has yet run. The two fixed development cases remain 20/28;
+the protocol cannot generate new grasps or fit a mapping.
+
+Choice: compare every joint anchor and rotation at the predeclared numerical
+limits of 5 micrometres and 1e-6 matrix elements. Decode the original wrist 6D
+representation in float64 with the same Gram-Schmidt formula, and exponentiate
+observed, mean-adjusted finger axis angles in float64. Retain residuals against
+the actual float32 source rotations; do not fit a transform or silently project
+the camera/pose. These representation and asset-precision limits are not contact
+allowances. MANOSim body origins are centroids, so anchor readback is essential.
+
+The collider comparison keeps the old whole-cell bands, radii, 10 nm allowance,
+native distances and part labels unchanged. The new capsule branch measures the
+exact encoded capsule boundary analytically; hull queries reuse the diagnosed
+frozen kernel. A native kinematic PASS is separate from skin-to-collider fidelity,
+which can only be FAIL or INCOMPLETE here because full orientation is unmeasured.
+Neither result releases collection or training. Native qpos/velocity/command
+dimensions require a new controller and dataset protocol, not Shadow reuse.
+
+Protocol d93b5f5b binds 443 inputs/sources and the pinned, clean upstream revision.
+Each case is limited to 600 seconds, 200 static forwards, two CPU parametric MANO
+forwards and two complete collider-variant scans. Every artifact gets a write-time
+hash. Decoded skin geometry stays ignored/local under the existing asset policy;
+its digest remains auditable. Actual measurements and independent saved-array
+verification are pending at this freeze. Manuscript files remain untouched.

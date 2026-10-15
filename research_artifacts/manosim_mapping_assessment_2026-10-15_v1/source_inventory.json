@@ -1,0 +1,322 @@
+{
+  "schema": "manosim_source_only_inventory_v1",
+  "commit": "c96e2d5cd70838a2b025b60b85a7e4e06af1b3ac",
+  "scope": "Read-only text/XML/hash inspection; no upstream imports, MANO forwards, MuJoCo compilation, physics, inference or fitting",
+  "files": {
+    "README.md": {
+      "sha256": "496525e4c96954eae0fd3af3cd62383d26af129f282a9d552a3c829db0289447",
+      "bytes": 5467
+    },
+    "LICENSE": {
+      "sha256": "e7e5e17c30f1edfd4725cfeeabc8e00f901944b9aa12e58ad9cbcdef91ea17f8",
+      "bytes": 1065
+    },
+    "environment.yaml": {
+      "sha256": "6f1d6034fc254afb7b7e29e9b14510fabb2ef893de612d375936ee103db7e2e0",
+      "bytes": 296
+    },
+    "pyproject.toml": {
+      "sha256": "5c67e1ebaf260adcc21eea1fde9d3e8b78acd6c04cab0b98abf295ab78511b4e",
+      "bytes": 336
+    },
+    "config/myhand.yaml": {
+      "sha256": "420df1dd62de8575c8504bac5265776f68fc6e591636606ade68a25ad1011c47",
+      "bytes": 1515
+    },
+    "assets/mano_rhand_shape.npy": {
+      "sha256": "3e9a85085ae67f36745ce647b904acb4e3620e8ac46378755498291fcf010ddf",
+      "bytes": 208
+    },
+    "src/mano_build.py": {
+      "sha256": "866a5106fa9e14ca93ab0331333658d2d85a083cb4e6181296a249696c787ada",
+      "bytes": 8378
+    },
+    "src/build_mjcf.py": {
+      "sha256": "ba85b1550684e9414869da68affe8e5373b12dae7b859a0858342644a183c8eb",
+      "bytes": 8678
+    },
+    "src/visualize_hand.py": {
+      "sha256": "b0f0ef77a19e1d6358137e4b56b45bd6b481914cdf7cb908379cb0295e5f26f3",
+      "bytes": 23392
+    },
+    "assets/myhand/mano_rhand/mesh_hand.xml": {
+      "sha256": "f36a86233b9f08b1c18b38a5b69a5fa49a86c5ae120f043c445457b40f0be0a5",
+      "bytes": 14055
+    },
+    "assets/myhand/mano_rhand/capsule_hand.xml": {
+      "sha256": "b9c446df6018bbe7ff9b938f2c5243bc220609df4931efd3d20189bbbe9b5880",
+      "bytes": 15033
+    }
+  },
+  "mesh_hand.xml": {
+    "bodies": 16,
+    "joints": 19,
+    "joint_names": [
+      "wrist_tx",
+      "wrist_ty",
+      "wrist_tz",
+      "wrist_rot",
+      "mano_joint_1",
+      "mano_joint_2",
+      "mano_joint_3",
+      "mano_joint_4",
+      "mano_joint_5",
+      "mano_joint_6",
+      "mano_joint_7",
+      "mano_joint_8",
+      "mano_joint_9",
+      "mano_joint_10",
+      "mano_joint_11",
+      "mano_joint_12",
+      "mano_joint_13",
+      "mano_joint_14",
+      "mano_joint_15"
+    ],
+    "joint_type_counts": {
+      "slide": 3,
+      "ball": 16
+    },
+    "actuators": 51,
+    "actuator_names": [
+      "wrist_motor_tx",
+      "wrist_motor_ty",
+      "wrist_motor_tz",
+      "wrist_motor_rx",
+      "wrist_motor_ry",
+      "wrist_motor_rz",
+      "mano_motor_1_x",
+      "mano_motor_1_y",
+      "mano_motor_1_z",
+      "mano_motor_2_x",
+      "mano_motor_2_y",
+      "mano_motor_2_z",
+      "mano_motor_3_x",
+      "mano_motor_3_y",
+      "mano_motor_3_z",
+      "mano_motor_4_x",
+      "mano_motor_4_y",
+      "mano_motor_4_z",
+      "mano_motor_5_x",
+      "mano_motor_5_y",
+      "mano_motor_5_z",
+      "mano_motor_6_x",
+      "mano_motor_6_y",
+      "mano_motor_6_z",
+      "mano_motor_7_x",
+      "mano_motor_7_y",
+      "mano_motor_7_z",
+      "mano_motor_8_x",
+      "mano_motor_8_y",
+      "mano_motor_8_z",
+      "mano_motor_9_x",
+      "mano_motor_9_y",
+      "mano_motor_9_z",
+      "mano_motor_10_x",
+      "mano_motor_10_y",
+      "mano_motor_10_z",
+      "mano_motor_11_x",
+      "mano_motor_11_y",
+      "mano_motor_11_z",
+      "mano_motor_12_x",
+      "mano_motor_12_y",
+      "mano_motor_12_z",
+      "mano_motor_13_x",
+      "mano_motor_13_y",
+      "mano_motor_13_z",
+      "mano_motor_14_x",
+      "mano_motor_14_y",
+      "mano_motor_14_z",
+      "mano_motor_15_x",
+      "mano_motor_15_y",
+      "mano_motor_15_z"
+    ],
+    "geom_types": {
+      "mesh": 16,
+      "capsule": 0,
+      "sphere": 0
+    },
+    "referenced_meshes": 16,
+    "dimensions_inferred_from_xml_not_compiled": {
+      "nq": 67,
+      "nv": 51,
+      "nu": 51
+    }
+  },
+  "local_HUG_shape_file_byte_identical": true,
+  "capsule_hand.xml": {
+    "bodies": 16,
+    "joints": 19,
+    "joint_names": [
+      "wrist_tx",
+      "wrist_ty",
+      "wrist_tz",
+      "wrist_rot",
+      "mano_joint_1",
+      "mano_joint_2",
+      "mano_joint_3",
+      "mano_joint_4",
+      "mano_joint_5",
+      "mano_joint_6",
+      "mano_joint_7",
+      "mano_joint_8",
+      "mano_joint_9",
+      "mano_joint_10",
+      "mano_joint_11",
+      "mano_joint_12",
+      "mano_joint_13",
+      "mano_joint_14",
+      "mano_joint_15"
+    ],
+    "joint_type_counts": {
+      "slide": 3,
+      "ball": 16
+    },
+    "actuators": 51,
+    "actuator_names": [
+      "wrist_motor_tx",
+      "wrist_motor_ty",
+      "wrist_motor_tz",
+      "wrist_motor_rx",
+      "wrist_motor_ry",
+      "wrist_motor_rz",
+      "mano_motor_1_x",
+      "mano_motor_1_y",
+      "mano_motor_1_z",
+      "mano_motor_2_x",
+      "mano_motor_2_y",
+      "mano_motor_2_z",
+      "mano_motor_3_x",
+      "mano_motor_3_y",
+      "mano_motor_3_z",
+      "mano_motor_4_x",
+      "mano_motor_4_y",
+      "mano_motor_4_z",
+      "mano_motor_5_x",
+      "mano_motor_5_y",
+      "mano_motor_5_z",
+      "mano_motor_6_x",
+      "mano_motor_6_y",
+      "mano_motor_6_z",
+      "mano_motor_7_x",
+      "mano_motor_7_y",
+      "mano_motor_7_z",
+      "mano_motor_8_x",
+      "mano_motor_8_y",
+      "mano_motor_8_z",
+      "mano_motor_9_x",
+      "mano_motor_9_y",
+      "mano_motor_9_z",
+      "mano_motor_10_x",
+      "mano_motor_10_y",
+      "mano_motor_10_z",
+      "mano_motor_11_x",
+      "mano_motor_11_y",
+      "mano_motor_11_z",
+      "mano_motor_12_x",
+      "mano_motor_12_y",
+      "mano_motor_12_z",
+      "mano_motor_13_x",
+      "mano_motor_13_y",
+      "mano_motor_13_z",
+      "mano_motor_14_x",
+      "mano_motor_14_y",
+      "mano_motor_14_z",
+      "mano_motor_15_x",
+      "mano_motor_15_y",
+      "mano_motor_15_z"
+    ],
+    "geom_types": {
+      "mesh": 1,
+      "capsule": 15,
+      "sphere": 0
+    },
+    "referenced_meshes": 16,
+    "dimensions_inferred_from_xml_not_compiled": {
+      "nq": 67,
+      "nv": 51,
+      "nu": 51
+    }
+  },
+  "prebuilt_right_mesh_files": [
+    {
+      "path": "assets/myhand/mano_rhand/meshes/mano_bone_0.obj",
+      "sha256": "0e232cde8fc667e3feb83758c00f7449e7e49f40f0aa7b727eedbcfbd8909b7f",
+      "bytes": 7666
+    },
+    {
+      "path": "assets/myhand/mano_rhand/meshes/mano_bone_1.obj",
+      "sha256": "1d1b4b402b72ce3418594f170362657d6fe60ffebd5986a230adb60f5726f360",
+      "bytes": 1433
+    },
+    {
+      "path": "assets/myhand/mano_rhand/meshes/mano_bone_10.obj",
+      "sha256": "3829ad576287f78a0f52542ddf7d6608f2e06655f17e980f81fefe4ad1b0ad35",
+      "bytes": 1264
+    },
+    {
+      "path": "assets/myhand/mano_rhand/meshes/mano_bone_11.obj",
+      "sha256": "6c2030b6c9d9d91d96c64f0db5d070a0c4b1164fc992fe20e2fcb90d8cd9bd09",
+      "bytes": 1636
+    },
+    {
+      "path": "assets/myhand/mano_rhand/meshes/mano_bone_12.obj",
+      "sha256": "125976c5d85d9f2b8e799afba93beb23ba61901d859c97822bc8566be36376b5",
+      "bytes": 2371
+    },
+    {
+      "path": "assets/myhand/mano_rhand/meshes/mano_bone_13.obj",
+      "sha256": "8188b42baf9513b62355ecfef95969d4ef79c5e6b915a7741eb04b0e0b39ebd5",
+      "bytes": 938
+    },
+    {
+      "path": "assets/myhand/mano_rhand/meshes/mano_bone_14.obj",
+      "sha256": "be7853a0c41c6f8dfce8d5b154ec75c839d4ee1c7f5e9d353caabf89b07a1d69",
+      "bytes": 1337
+    },
+    {
+      "path": "assets/myhand/mano_rhand/meshes/mano_bone_15.obj",
+      "sha256": "66a48d432b174e4884ba5a548d36f86313720f4d32d523d00f157306903f01b6",
+      "bytes": 2517
+    },
+    {
+      "path": "assets/myhand/mano_rhand/meshes/mano_bone_2.obj",
+      "sha256": "5752317517de679c4169da06ba2b42f6e64101a05b21c523110b751ef50242a3",
+      "bytes": 1541
+    },
+    {
+      "path": "assets/myhand/mano_rhand/meshes/mano_bone_3.obj",
+      "sha256": "4d4ee6d2233ee84734a07ba0b4f6a0d1b7f0054019f5f26a026b8a4ce93fe1ae",
+      "bytes": 2550
+    },
+    {
+      "path": "assets/myhand/mano_rhand/meshes/mano_bone_4.obj",
+      "sha256": "7243a14d2e51dd8ff010af71c33b3db21c993805d07aceba8dcfbe8b3bed6934",
+      "bytes": 1594
+    },
+    {
+      "path": "assets/myhand/mano_rhand/meshes/mano_bone_5.obj",
+      "sha256": "48b434aa2af4eaae81fbdc4287d49333ca18b9a46711b150fb2bebd019a3a67a",
+      "bytes": 1407
+    },
+    {
+      "path": "assets/myhand/mano_rhand/meshes/mano_bone_6.obj",
+      "sha256": "86cadcf2e3614a5ae6b1c2bebef3be00e7168b9ad3b701fb40070c7a4a49c3b9",
+      "bytes": 2523
+    },
+    {
+      "path": "assets/myhand/mano_rhand/meshes/mano_bone_7.obj",
+      "sha256": "93d17ff3a2338269dba7712fb8850cbd3c655e6d5ab47b393d7eb9d08723903a",
+      "bytes": 1079
+    },
+    {
+      "path": "assets/myhand/mano_rhand/meshes/mano_bone_8.obj",
+      "sha256": "706fcf0b8a668e975194a0e41b95f2bb1ed5e6fa1b5bc8bf94ccc7deaa0824c3",
+      "bytes": 1661
+    },
+    {
+      "path": "assets/myhand/mano_rhand/meshes/mano_bone_9.obj",
+      "sha256": "7a6432083b8422efb19a6ebc35dfc51d3b2baa323fa74dc88bcd1e854041b254",
+      "bytes": 2522
+    }
+  ]
+}
