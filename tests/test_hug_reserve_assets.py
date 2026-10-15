@@ -101,6 +101,7 @@ def test_prepare_freezes_two_cases_four_captures_and_existing_gates(assets,tmp_p
     evidence = tmp_path/"prepared"
     protocol = reserve.prepare(assets,assets.parents[1],hands.parent,evidence)
     assert len(protocol["objects"]) == 2 and len(protocol["capture_schedule"]) == 4
+    assert protocol["object_names"] == list(reserve.OBJECTS)
     assert protocol["max_physics_steps"] == 8000
     assert protocol["preparation_physics_steps"] == 0
     assert protocol["gates"]["window_samples"] == 500
@@ -132,13 +133,38 @@ def test_capture_failures_retained_without_replacement_or_labels(tmp_path,monkey
         return {"input_checks_passed":True}
     monkeypatch.setattr(sim_observations,"capture_scene",capture)
     output = tmp_path/"captured"
-    report = reserve.run(protocol_path,output,freeze_commit="manufactured")
+    report = reserve.run(protocol_path,output,freeze_commit="HEAD")
     assert len(calls) == 4 and len(report["captures"]) == 4
     assert report["captures"][1]["status"] == "CAPTURE_REJECTED"
     assert "manufactured stationary rejection" in (output/"case_1_rejection.txt").read_text()
     assert all(row["outcome"] is None for row in report["captures"])
     assert report["verdict"] == "INCOMPLETE"
     assert report["grasp_inference_calls"] == report["grasp_labels"] == report["model_fits"] == 0
+    assert len(report["freeze_commit"]) == 40 and report["freeze_commit"] != "HEAD"
+
+
+def test_explicit_coffee_selection_has_only_its_case_captures_and_quota(assets,tmp_path):
+    write_asset(assets/"coffee_cup","coffee_cup")
+    hands = tmp_path/"hands/shadow_hand"
+    hands.mkdir(parents=True)
+    (hands/"shadow_hand_right.urdf").write_text("manufactured identity only")
+    evidence = tmp_path/"coffee_prepared"
+    protocol = reserve.prepare(assets,assets.parents[1],hands.parent,evidence,
+                               objects=("coffee_cup",),protocol_id="hug_reserve_assets_coffee_v2")
+    assert protocol["object_names"] == ["coffee_cup"]
+    assert protocol["protocol_id"] == "hug_reserve_assets_coffee_v2"
+    assert len(protocol["objects"]) == 1 and protocol["objects"][0]["object_id"] == "hug_coffee_cup"
+    assert set(protocol["cases"]) == {"case_coffee_cup.json"}
+    assert len(protocol["capture_schedule"]) == 2 and protocol["max_physics_steps"] == 4000
+    assert all(row["object_id"] == "hug_coffee_cup" for row in protocol["capture_schedule"])
+    assert not (evidence/"case_bear_figure.json").exists()
+
+
+@pytest.mark.parametrize("names", [(),("coffee_cup","coffee_cup"),("../coffee_cup",),("/coffee_cup",),
+                                  ("Coffee Cup",),(None,),tuple(f"object_{i}" for i in range(17))])
+def test_object_selection_rejects_empty_duplicate_escaping_or_unbounded_names(names):
+    with pytest.raises(ValueError,match="object names"):
+        reserve.object_names(names)
 
 
 def test_capture_cannot_start_before_frozen_protocol_verification(tmp_path,monkeypatch):
@@ -146,8 +172,21 @@ def test_capture_cannot_start_before_frozen_protocol_verification(tmp_path,monke
     monkeypatch.setattr(reserve,"verify_protocol",lambda *a:(_ for _ in ()).throw(ValueError("not committed")))
     monkeypatch.setattr(sim_observations,"capture_scene",lambda *a,**kw:pytest.fail("freeze first"))
     with pytest.raises(ValueError,match="not committed"):
-        reserve.run(tmp_path/"missing",tmp_path/"output",freeze_commit="missing")
+        reserve.run(tmp_path/"missing",tmp_path/"output",freeze_commit="HEAD")
     assert not (tmp_path/"output").exists()
+
+
+def test_freeze_reference_must_resolve_to_exact_commit(monkeypatch):
+    calls = []
+    def resolve(args,**kwargs):
+        calls.append(args)
+        return SimpleNamespace(stdout="a"*40+"\n")
+    monkeypatch.setattr(reserve.subprocess,"run",resolve)
+    assert reserve.resolve_freeze_commit("HEAD") == "a"*40
+    assert calls == [["git","rev-parse","--verify","--end-of-options","HEAD^{commit}"]]
+    monkeypatch.setattr(reserve.subprocess,"run",lambda *a,**kw:SimpleNamespace(stdout="HEAD\n"))
+    with pytest.raises(ValueError,match="exact 40-character"):
+        reserve.resolve_freeze_commit("HEAD")
 
 
 def test_static_scope_blocks_all_three_integration_apis():

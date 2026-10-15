@@ -60,6 +60,32 @@ pass does not imply that the object will settle or render successfully. A later
 stationary-only pass preserves the reserve restriction until a separate model
 freeze and explicit fresh evaluation protocol exist.
 
+The first qualification was frozen at commit `6c39f66`. Its two bell pepper
+captures passed the existing stationary/calibration gates. Both bear figure
+captures were rejected by the stationary gate. Raw results remain in
+`runs/hug_reserve_capture_qualification_2026-10-15_v1/capture_qualification.json`
+in the original checkout. These are capture results without grasp labels. Bear
+is not retried, reoriented, tuned or silently replaced in that protocol.
+
+A separate v2 declaration selects only `coffee_cup`, whose pinned geometry is
+downloaded from the same official `val/medium_5` revision. It creates two fixed
+camera calls and a 4,000-step maximum, with the same source-native identity
+orientation, initial 5 mm gap and unchanged physical acceptance thresholds.
+This is an explicit new reserve asset qualification after the v1 rejection;
+it does not amend the original schedule or its rejection denominator. The
+capture source's explicit quaternion contraction replaces the runtime's
+spurious matrix-product warning, with unchanged orientation arithmetic and
+thresholds. Its new source hash belongs to the new freeze.
+
+`prepare --objects coffee_cup --protocol-id hug_reserve_assets_coffee_v2`
+selects that list explicitly. The default remains `bell_pepper bear_figure`.
+Object names, cases, capture schedule and the corresponding quota are stored
+together; verification rechecks their agreement. No command automatically
+chooses a new object in response to capture results.
+The capture driver resolves a supplied symbolic freeze reference to its exact
+40-character commit before verification and records that concrete commit in
+the new result. Historical v1 reports retain their original reference bytes.
+
 Run from the canonical project-work checkout, using the original environment:
 
 ```sh

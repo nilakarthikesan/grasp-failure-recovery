@@ -263,3 +263,34 @@ remain ignored/local. Neither object is capture-qualified or used for fitting.
 inference/recording pilot, runtime filter results, same-grasp mug comparison and
 declared collection remain pending. No system-level completion is inferred from
 unit tests. No manuscript files were changed.
+
+
+## 15 October 2026 — Phase 2 reserve stationary-capture gate
+
+**Source/freeze:** `6c39f66`. Command:
+`python scripts/qualify_hug_reserve_assets.py --runtime-project /Users/nilakarthikesan/grasp-failure-prediction run --protocol research_artifacts/hug_reserve_asset_qualification_2026-10-15_v1/protocol.json --freeze-commit 6c39f66 --output NEW_LOCAL_DIRECTORY`.
+
+**Results:** four declared independent captures: bell pepper2/2PASS, bear figure
+0/2PASS. Both bear calls exhaust the unchanged stationary-capture criterion and
+retain CAPTURE_REJECTED with null task outcomes; no pose or tolerance was repaired.
+Total settling budget at most8000steps. Zero grasp inference, task labels or
+model fits. Prior static asset/import controls passed for both;82focused static
+tests (11reserve tests) pass withzero integration attempts before capture.
+
+**Artifacts:** the reserve qualification v1 archive now includes portable
+capture_qualification.json and both bear rejection tracebacks. Raw images/scenes
+remain ignored/local. Bell's ray/depth and calibration measurements are in the
+report; this is camera/asset qualification only.
+
+**Verdict:** bell PASS_STATIONARY_ONLY; bear stationary branch FAILED and excluded
+from future grasp collection. The overall two-object reserve plan is INCOMPLETE.
+An additional coffee-cup candidate will use a new predeclared asset protocol,
+selected only after this setup failure and before any task outcome or fitting.
+Its pinned geometry download is15files/651210bytes. No reserve task success or
+predictor quality is established.
+
+The capture emitted finite-input NumPy quaternion-dot RuntimeWarnings, plus the
+renderer ARB_clip_control depth warning. The calibrated ray/depth gate still
+passed for bell; bear failed stationarity. A subsequent explicit scalar
+contraction repair preserves the gates and is tested separately before new
+captures; this run is retained without replacement.

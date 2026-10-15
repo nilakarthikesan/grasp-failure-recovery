@@ -12,6 +12,7 @@ import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import platform
+import re
 import subprocess
 import sys
 import traceback
@@ -65,6 +66,21 @@ def canonical(value):
 
 def write_json(path, value):
     Path(path).write_text(json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n")
+
+
+def object_names(values):
+    """Declare a bounded explicit list; never replace a rejected object implicitly."""
+    names = tuple(values)
+    if (not 1 <= len(names) <= 16 or len(set(names)) != len(names)
+            or any(not isinstance(name, str) or not re.fullmatch(r"[a-z][a-z0-9_]*", name) for name in names)):
+        raise ValueError("declare one to sixteen distinct relative object names")
+    return names
+
+
+def capture_schedule(names):
+    return [dict(capture_id=f"{name}_{camera}", object_id="hug_"+name,
+                 case_file=f"case_{name}.json", camera_id=camera, camera_position_m=list(position))
+            for name in object_names(names) for camera, position in CAMERAS]
 
 
 def bootstrap(runtime_project):
@@ -204,42 +220,45 @@ def runtime_identity():
     return {"python": platform.python_version(), "numpy": np.__version__, "mujoco": mujoco.__version__}
 
 
-def prepare(asset_root, runtime_project, hands_root, evidence_dir):
+def prepare(asset_root, runtime_project, hands_root, evidence_dir, *, objects=OBJECTS,
+            protocol_id="hug_reserve_assets_native_v1"):
     from grasp_failure_prediction.evaluation.registry import load_environment_registry, load_protocol_registry
     from grasp_failure_prediction.evaluation.schema import canonical_sha256
     from grasp_failure_prediction.integrations import sim_observations as capture
     asset_root, runtime_project, hands_root, evidence = map(lambda p: Path(p).resolve(),
                                                            (asset_root, runtime_project, hands_root, evidence_dir))
+    names = object_names(objects)
+    if not isinstance(protocol_id, str) or not re.fullmatch(r"[a-z][a-z0-9_]*", protocol_id):
+        raise ValueError("protocol ID must be a nonempty explicit identifier")
     if evidence.exists():
         raise FileExistsError("reserve preparation requires a fresh evidence directory")
     env = load_environment_registry().resolve("adroit_shadow_tabletop_v2")
     execution = load_protocol_registry().resolve("fixed_grasp_lift_v2")
     resolved = (canonical_sha256(env), canonical_sha256(execution))
     with no_physics():
-        reports = [static_asset_report(asset_root / name, name) for name in OBJECTS]
+        reports = [static_asset_report(asset_root / name, name) for name in names]
         cases = [_case(row, name, asset_root, runtime_project, resolved, 61000 + i)
-                 for i, (row, name) in enumerate(zip(reports, OBJECTS))]
+                 for i, (row, name) in enumerate(zip(reports, names))]
     hand_dir = hands_root / "shadow_hand"
     if not (hand_dir / "shadow_hand_right.urdf").is_file():
         raise FileNotFoundError("official Shadow hand assets required")
     hand_hashes = {str(path.relative_to(hands_root)): digest(path) for path in sorted(hand_dir.rglob("*")) if path.is_file()}
     evidence.mkdir(parents=True)
-    for name, case in zip(OBJECTS, cases):
+    for name, case in zip(names, cases):
         write_json(evidence / f"case_{name}.json", case)
     write_json(evidence / "primary_dataset_metadata.json", {"url": PRIMARY_METADATA_URL,
                 "retrieved_utc_date": "2026-10-15", "response_fields": PRIMARY_METADATA})
-    protocol = dict(schema_version="hug_reserve_asset_qualification_v1", protocol_id="hug_reserve_assets_native_v1",
+    protocol = dict(schema_version="hug_reserve_asset_qualification_v1", protocol_id=protocol_id,
+        object_names=list(names),
         purpose="stationary geometry/camera qualification only; reserve for frozen-model evaluation",
         project_root=str(PROJECT), runtime_project=str(runtime_project), asset_root=str(asset_root), hands_root=str(hands_root),
         sources_sha256={path: digest(PROJECT / path) for path in SOURCE_PATHS},
         hand_files_sha256=hand_hashes, runtime=runtime_identity(), objects=reports,
-        cases={f"case_{name}.json": digest(evidence / f"case_{name}.json") for name in OBJECTS},
+        cases={f"case_{name}.json": digest(evidence / f"case_{name}.json") for name in names},
         primary_metadata_sha256=digest(evidence / "primary_dataset_metadata.json"),
         license={"dataset": DATASET, "revision": REVISION, "license": PRIMARY_METADATA["cardData"]["license"],
                  "metadata_url": PRIMARY_METADATA_URL, "attribution": "1M-HuGs / HUG authors; pinned original geometry paths in download manifests"},
-        capture_schedule=[dict(capture_id=f"{name}_{camera}", object_id="hug_"+name,
-                              case_file=f"case_{name}.json", camera_id=camera, camera_position_m=list(position))
-                          for name in OBJECTS for camera, position in CAMERAS],
+        capture_schedule=capture_schedule(names),
         gates=dict(window_samples=capture.SETTLING_WINDOW_SAMPLES, max_physics_steps_per_capture=capture.SETTLING_MAX_PHYSICS_STEPS,
                    max_position_diagonal_m=capture.SETTLING_MAX_POSITION_DIAGONAL_M,
                    max_orientation_diameter_rad=capture.SETTLING_MAX_ORIENTATION_DIAMETER_RAD,
@@ -247,7 +266,7 @@ def prepare(asset_root, runtime_project, hands_root, evidence_dir):
                    continuous_object_table_contact=True, no_hand_object_contact=True,
                    maximum_ray_surface_error_m=.002, velocity_policy="finite; no additional speed thresholds",
                    captured_image_size=[224,224], fovy_degrees=45.),
-        max_physics_steps=4*capture.SETTLING_MAX_PHYSICS_STEPS, initial_gap_m=INITIAL_GAP_M,
+        max_physics_steps=len(names)*len(CAMERAS)*capture.SETTLING_MAX_PHYSICS_STEPS, initial_gap_m=INITIAL_GAP_M,
         no_automatic_replacement=True, grasp_inference_allowed=False, grasp_labels_allowed=False,
         fitting_allowed=False, reserve_use="fresh frozen-model evaluation only after model freeze",
         preparation_physics_steps=0, stationary_capture_status="NOT_RUN")
@@ -260,6 +279,13 @@ def verify_protocol(protocol_path, freeze_commit):
     protocol = json.loads(path.read_text())
     if protocol.get("schema_version") != "hug_reserve_asset_qualification_v1":
         raise ValueError("unknown reserve protocol")
+    # Older already-frozen v1 declarations omitted this field and used the
+    # original two objects. Their source hashes remain independently binding.
+    names = object_names(protocol.get("object_names", OBJECTS))
+    if (protocol["capture_schedule"] != capture_schedule(names)
+            or set(protocol["cases"]) != {f"case_{name}.json" for name in names}
+            or protocol["max_physics_steps"] != len(names)*len(CAMERAS)*protocol["gates"]["max_physics_steps_per_capture"]):
+        raise ValueError("capture schedule/cases/quota differ from explicit object selection")
     if protocol["runtime"] != runtime_identity():
         raise ValueError("runtime differs from frozen reserve protocol")
     # A concrete commit must contain the exact protocol, cases and implementation.
@@ -276,13 +302,22 @@ def verify_protocol(protocol_path, freeze_commit):
         if digest(Path(protocol["hands_root"]) / relative) != expected:
             raise ValueError("bound Shadow asset changed")
     with no_physics():
-        reports = [static_asset_report(Path(protocol["asset_root"])/name, name) for name in OBJECTS]
+        reports = [static_asset_report(Path(protocol["asset_root"])/name, name) for name in names]
     if canonical(reports) != canonical(protocol["objects"]):
         raise ValueError("reserve static checks differ from frozen report")
     return protocol
 
 
+def resolve_freeze_commit(reference):
+    result = subprocess.run(["git", "rev-parse", "--verify", "--end-of-options", f"{reference}^{{commit}}"],
+                            cwd=PROJECT, check=True, capture_output=True, text=True).stdout.strip()
+    if not re.fullmatch(r"[0-9a-f]{40}", result):
+        raise ValueError("freeze reference must resolve to an exact 40-character commit")
+    return result
+
+
 def run(protocol_path, output_dir, *, freeze_commit):
+    freeze_commit = resolve_freeze_commit(freeze_commit)
     protocol = verify_protocol(protocol_path, freeze_commit)
     from grasp_failure_prediction.integrations.sim_observations import capture_scene
     output = Path(output_dir).resolve()
@@ -318,6 +353,8 @@ def main():
     prep = commands.add_parser("prepare")
     for name in ("asset-root", "hands-root", "evidence-dir"):
         prep.add_argument("--"+name, type=Path, required=True)
+    prep.add_argument("--objects", nargs="+", default=list(OBJECTS))
+    prep.add_argument("--protocol-id", default="hug_reserve_assets_native_v1")
     capture = commands.add_parser("run")
     capture.add_argument("--protocol", type=Path, required=True)
     capture.add_argument("--output", type=Path, required=True)
@@ -325,7 +362,8 @@ def main():
     args = parser.parse_args()
     bootstrap(args.runtime_project)
     if args.command == "prepare":
-        result = prepare(args.asset_root, args.runtime_project, args.hands_root, args.evidence_dir)
+        result = prepare(args.asset_root, args.runtime_project, args.hands_root, args.evidence_dir,
+                         objects=args.objects, protocol_id=args.protocol_id)
         print(json.dumps({"protocol_sha256": digest(args.evidence_dir/"protocol.json"), "captures": len(result["capture_schedule"]), "physics_steps": 0}))
     else:
         result = run(args.protocol, args.output, freeze_commit=args.freeze_commit)

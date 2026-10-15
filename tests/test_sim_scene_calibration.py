@@ -106,6 +106,19 @@ def test_short_window_cannot_pass_and_old_motion_outside_trailing_window_is_igno
     assert result['sample_count'] == 500
 
 
+def test_quaternion_sign_window_remains_finite_under_strict_floating_point_checks():
+    poses, velocity, table, hand = stationary_states()
+    angles = np.linspace(0., .0005, len(poses))
+    poses[:, 3], poses[:, 6] = np.cos(angles/2), np.sin(angles/2)
+    poses[::2, 3:] *= -1.
+    before = poses.copy()
+    with np.errstate(divide='raise', over='raise', invalid='raise'):
+        result = evaluate_settling_window(poses, velocity, table, hand)
+    assert result['accepted']
+    assert result['quaternion_diameter_bound_rad'] == pytest.approx(.001, abs=1e-12)
+    np.testing.assert_array_equal(poses, before)
+
+
 @pytest.mark.parametrize('contact', ['lost_table', 'hand_contact'])
 def test_every_window_sample_must_have_table_contact_without_hand_contact(contact):
     poses, velocity, table, hand = stationary_states()

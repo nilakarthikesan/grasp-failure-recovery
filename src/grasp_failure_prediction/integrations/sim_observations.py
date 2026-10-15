@@ -96,7 +96,7 @@ def evaluate_settling_window(poses_wxyz, velocities, object_table_contact, hand_
         value[-SETTLING_WINDOW_SAMPLES:] for value in (poses, velocity, norms, table, hand))
     orientation = poses[:, 3:] / norms[:, None]
     first = orientation[0].copy()
-    orientation *= np.where(orientation @ first < 0, -1., 1.)[:, None]
+    orientation *= np.where(np.einsum("ij,j->i", orientation, first, optimize=False) < 0, -1., 1.)[:, None]
     angles = 4 * np.arctan2(np.linalg.norm(orientation - first, axis=1),
                            np.linalg.norm(orientation + first, axis=1))
     maximum_angle = float(angles.max())
