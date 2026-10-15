@@ -529,3 +529,19 @@ family-cluster uncertainty and earlier cutoffs) are being closed separately.
 Historical source-bound LOO work already exists and is being independently
 checked; its original chronology/results are preserved. These supplementary
 analyses cannot change the frozen prospective models/primary/threshold.
+
+
+## 15 October 2026 — Phase 4 reserve collection: no eligible physical prefixes
+
+Prospective protocol/source freeze3717970; actual8/8reserve native grasps map
+and generated32scenario identities were committed atc017250 before tasks.
+All32bell/coffee slots receive conservative static approachrefusals, with null
+physical outcomes; zero task physicssteps and zero retries/replacements.
+Collection is COMPLETED_BOUNDED_QUOTA as ledger accounting, not physical success.
+The reserve dataset status is NO_ELIGIBLE_PREFIXES. No physical success/failure
+rate or predictor AUROC can be estimated for these unused objects from this run.
+
+The fixed evaluator will be invoked once after this ledger commit to preserve
+an explicit undefined result for every frozen model, rather than changing poses,
+clearance thresholds, models or reserve objects after seeing this censoring.
+This is an important prospective coverage failure and limits Phase4 acceptance.
