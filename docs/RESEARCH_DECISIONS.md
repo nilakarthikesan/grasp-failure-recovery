@@ -3121,3 +3121,45 @@ ambiguities instead of assigning physical labels to them. The synthetic sphere
 contact model already passes its own analytic tests; its timestep policy and
 material assumptions do not transfer automatically to native finger dynamics.
 No new task data or prediction training has run. Collection/training stay closed.
+
+### 2026-10-15 — Use the authors' physical baseline and independent integration lessons
+
+Previous work established exact finite source geometry and static load
+application for a separate smooth skin model, retaining its normal-alignment
+failure. The user's resource request led to pinned upstream and independent
+implementation review, recorded in
+`research_artifacts/hug_manosim_external_resources_2026-10-15_v1/sources.json`.
+
+New source evidence: HUG's own simulator uses an approximate rigid collision
+hand, with capsule fingers and a convex palm. MANOSim keeps the displayed skin
+separate and validates compliance through recorded-human replay. The published
+[HUG evaluation](https://arxiv.org/html/2606.17054v1#A5) describes an open-loop
+approach/closure/lift and complementary contact/penetration/miss measurements.
+The full public benchmark controller is still unreleased. Independent Genesis
+and WUJI integrations demonstrate frame chains and retargeting, while Newton's
+MANOSim importer report demonstrates that dimensions, FK and actuator effects
+must be verified separately. These are implementation resources, not new local
+success measurements.
+
+Decision: prioritize a separately named author-style native capsule physical
+baseline and recorded-human oracle qualification before extending custom
+skinned contact. Keep exact HUG geometry as the source-transfer reference.
+Capsule contact geometry is an explicit approximation; its physical validation
+must measure tracking, contact behavior and replay outcomes. Exact full-skin
+normal equality is not a claim this collision representation makes. This does
+not change the earlier full-skin protocol, its thresholds or any FAIL verdict.
+
+Implementation remains proposed; no new physics was implemented or executed
+in this research step. Before a bounded run, bind the literal saved HUG shape (upstream
+`myhand` is not byte-equivalent), named actuator/gear semantics, inertias,
+compliance, object frames and success definition. Verify controller tracking
+and basic contact fixtures, confirm accessible human-oracle records/schema,
+and freeze a fresh replay protocol with timestep/parameter sensitivity and
+separate held-out validation. A reconstructed protocol must be distinguished
+from exact reproduction of unavailable rollout code. The previous sphere/flex
+benchmarks and custom law are different physical domains and cannot be used to
+declare the author-style capsule baseline passed or failed in advance.
+
+Collection/training admission remains closed until that named execution
+pipeline passes its declared checks. No production simulator, model, historical
+result, manuscript or other-generator work is changed by this research decision.

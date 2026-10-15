@@ -1625,3 +1625,45 @@ All plots use saved operands only and retain failures. Native dynamic tracking,
 contact search/orientation over motion, physical-model source alignment and
 calibration remain open. Collection/training admission is false. Source/HEAD
 freeze is released after independent verification.
+
+### 2026-10-15 — External HUG/MANOSim implementation research; no new simulation
+
+The user requested existing integrations and validation resources. A dated
+primary-source audit is saved at
+`research_artifacts/hug_manosim_external_resources_2026-10-15_v1/sources.json`
+(SHA256 `f2e7f2fec6af28c9b85c70381b26d5ec81c4dfdc839a567bafedf61814826b50`).
+It records pinned repositories, ten bounded public-text fetches with hashes,
+benchmark directory metadata, observed mechanisms and explicit evidence limits.
+
+Concrete independent examples: [Troy Robotics Lab's Genesis G1/Inspire integration](https://github.com/TroyRoboticsLab/Hug-G1-Sim/tree/8243b3b2d9f66d7283c5523cf76829b7030ff4f9)
+contains camera/world transforms, heuristic finger retargeting and an execution
+loop; [REVEL Robotics' WUJI integration](https://github.com/REVEL-Robotics/hug_grasp/tree/03ef1f0c5fd721f044ccae38cb763e90f6d227cd)
+contains MuJoCo landmark-Jacobian retargeting and hardware command interfaces.
+These use HUG with different hands, and do not establish native source-skin
+contact fidelity. [Eric Heiden's Newton issue #3700](https://github.com/newton-physics/newton/issues/3700)
+is a direct MANOSim import attempt, with a repair branch and regressions for
+lost wrist translations/drive semantics. The issue is open at inspection;
+related damping issue #3703 was resolved separately. Import repair is distinct
+from a published grasp-validation result.
+
+The most directly relevant physical baseline remains the original authors'
+[MANOSim](https://github.com/KevinyWu/manosim/tree/c96e2d5cd70838a2b025b60b85a7e4e06af1b3ac).
+It uses capsule collision fingers and a convex palm, with a separate displayed
+skin. Recorded-human replay motivates its compliant settings. Public HUG still
+marks the complete HUG-Bench simulator as unreleased, so the public components
+do not supply an exact ready-to-run benchmark reproduction. Related
+DexHOI2Sim, ArtiGrasp, MS-MANO, GraspTTA, DexYCB and ContactPose examples are
+classified separately in the audit rather than labeled direct adopters.
+
+A read-only parameter comparison also finds that upstream `myhand`'s float64
+shape file differs from our saved HUG float32 shape after explicit casting and
+reshaping (maximum beta coefficient difference 0.00500011444). This is not a
+measured surface error. Any new baseline must use the literal saved shape.
+HUG-Bench's public metadata lists scene tar archives; internal oracle records
+were not verified and archives were not downloaded.
+
+No downloaded code was executed. There are zero new model constructions,
+skin evaluations, physics steps, grasp generations, task data or training.
+Next baseline/validation choices are prospective and recorded in
+RESEARCH_DECISIONS.md; all existing source, physics failures and admission
+flags are unchanged. No manuscript files were edited.
