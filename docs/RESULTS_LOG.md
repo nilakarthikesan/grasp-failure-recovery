@@ -486,3 +486,46 @@ No test result selects the primary reserve model or threshold: summary_logistic
 and0.5were fixed before reserve outcomes. All60completed bundles will be frozen
 and evaluated as declared; no reserve-based refit/selection is allowed. The
 learned target remains final task outcome from beforelift, not slip onset.
+
+
+## 15 October 2026 — Conservative planner translation sensitivity diagnostic
+
+Read-only static diagnostics under the frozen v2 engine identify all4milk planner
+refusals as proposal_0023 at tableoffset0.02m. The same proposal is admitted at
+zerooffset. All active hand/proximal/object geom positions translate together by
+[0,0,0.02] within6.59e-17m, rotations/meshbytes/targets/direction are identical,
+and tableclearance stays0.0864447551220233m. At pathalpha0.75 the forearm mesh
+versus object_collision_001 distance changes0.18110005856385916m→0m. Other
+pairs differ by at most1e-10m. This is measured static distance-query sensitivity,
+not a missing palm/object/table shift. Zero integration calls;210staticforwards
+in the fullgeometry diagnostic. Portable scripts/receipts bind the ignored full
+query/geometry arrays. No source/protocol/data/refusal/label was changed.
+
+The frozen controller conservatively refuses these cases; physical task labels
+remain valid for the executed population. Table-offset nuisance invariance and
+global physical infeasibility cannot be claimed. A future planner protocol must
+address robust distance handling; the current result is retained as a limitation,
+not silently repaired after comparison. Existing collected/model artifacts stand
+under their exact declared controller condition.
+
+
+## 15 October 2026 — Phase 4 prospective reserve declaration
+
+All60learned models were committed at80bfb60 before reserve HUG/grasp outcomes.
+The new reserve protocol binds every completed bundle, exact original fitted
+source closure/Gitblobs at064bfb3, matching hand/controller/scorerlabel cohort,
+input allowlist and fixed0.5threshold. summary_logistic stays primary; all other
+bundles are diagnostic, never selected by reserve metrics.26manufactured tests
+pass withzero integrationcalls, including source/cohort tampering and bootstrap.
+
+Frozen assets: bellpepper2qualifiedcaptures+coffeecup2qualifiedcaptures; bear
+remains excluded. NewHUGseeds9000/9001 on eachcapture give8proposals;2mass×2friction
+conditions each give32task slots, maximum104320steps. No reserve task label,
+model fit or reserve predictor score exists at this declaration. Stage generation
+and task collection require separate exacthash/quotaaudit receipts and commits.
+
+Remaining brief audits (historical score/source readback, failure-mode holdouts,
+family-cluster uncertainty and earlier cutoffs) are being closed separately.
+Historical source-bound LOO work already exists and is being independently
+checked; its original chronology/results are preserved. These supplementary
+analyses cannot change the frozen prospective models/primary/threshold.
