@@ -31,20 +31,36 @@ distortion remains an approximation, not a failed numerical conversion to hide.
 - Category folds are frozen from identities before outcomes. One geometry can
   never cross categories, and one proposal/capture family stays in one fold.
 
-These are implementation contracts. A unified fresh-inference collection pilot,
-nominal closed-state filter trials, same-grasp mug before/after comparison and
-larger declared collection remain to be executed under frozen protocols. Source
-and tests do not count as physical acceptance.
+The fresh pipeline has now run under separately committed stage declarations.
+All 32 new HUG proposals pass the static mapping gate across eight calibrated
+captures. The pilot completes 16 physical tasks and retains four null planner
+refusals. Independent review matches all 16 exported causal prefixes exactly to
+their raw observables and verifies source, native, scenario and outcome bindings.
 
-Two additional pinned HUG geometries, bell pepper and bear figure, have been
-downloaded for reserve qualification. They are not qualified study assets yet.
-Their capture qualification precedes use; final held-out task outcomes must wait
-for a frozen model. Download manifests retain attribution, URLs and byte hashes.
+The frozen 256-slot study completes with 213 physical labels (126 successes,
+87 failures) and 43 null planner refusals, without runtime errors. Its causal
+dataset has 213 rows and 1,440 features per row, from 28 proposal families and
+four geometries. These diversity counts must accompany the attempt count.
+The nominal six-axis screen accepts 11 proposals, rejects 16 and cannot run on
+five unreachable approaches; its status never supplies a task label or feature.
+
+The separate eight-pair mug comparison measures four collisions and no successes
+in eight old-controller executions. The new controller executes three grasps
+without approach collision, succeeds once, and refuses five. Its planned success
+rate is 1/8; conditional physical success is 1/3. Wrist posture and direction
+change together. This is limited engineering evidence, not universal acquisition.
+
+Bell pepper and coffee cup each pass two stationary, calibrated capture gates.
+Bear figure fails both unchanged stationary gates and stays excluded. Reserve
+HUG inference and task outcomes must still wait for frozen trained models.
+Pinned geometry manifests retain attribution, source URLs and byte hashes.
 
 ## Phase 3 and Phase 4
 
-Failure-phase analysis and the new recorded-dataset model adapter are being
-prepared separately. No real new-data training or model comparison has run.
+Failure-phase analysis and the strict recorded-dataset model adapter are
+implemented and tested. Their fixed analysis/model rules were committed before
+fresh task labels. Phase 3 is auditing the completed study and its frozen category
+folds. No real new-data training or model comparison has run yet.
 The comparison must verify a structured frozen declaration binding its exact
 specification, sources, dataset, scenario schedule, fold membership and attempt
 bindings. Class-degenerate folds and failed collection gates remain explicit.
