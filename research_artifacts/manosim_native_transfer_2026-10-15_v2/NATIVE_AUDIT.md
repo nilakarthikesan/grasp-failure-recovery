@@ -44,10 +44,16 @@ Rigid hulls/capsules, neutral LBS geometry and posed MANO skin remain distinct.
 Physical gains, damping, masses and inertias are upstream assumptions and have
 not been physically calibrated by this static audit.
 
+The earlier `native_protocol.json` was frozen but never executed. A failure
+logging correction now retains each creation-time partial artifact row and
+verifies it individually; incomplete/unindexed array files remain explicitly
+unverified. It does not modify any numerical rule or quota. The corrected
+manufactured receipt is `native_controls_v2.json`.
+
 After a successful independently reviewed build, a parent may prepare the
-new declaration with `run_native_transfer.py prepare --protocol native_protocol.json`.
+new declaration with `run_native_transfer.py prepare --protocol native_protocol_v2.json`.
 Commit that declaration and all bound source/control files before invoking
-`run_native_transfer.py run --protocol native_protocol.json --freeze-commit
+`run_native_transfer.py run --protocol native_protocol_v2.json --freeze-commit
 <exact-commit> --output <fresh-output>`. Preparation and execution are not part
 of these source-only controls. Failed cases/partials are retained, no retries
 or automatic replacements occur, and the second case remains NOT_RUN after

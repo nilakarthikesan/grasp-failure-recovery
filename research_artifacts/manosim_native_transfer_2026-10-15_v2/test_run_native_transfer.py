@@ -191,3 +191,21 @@ def test_git_sources_partition_does_not_reclassify_untracked_preserved_inputs(tm
     assert str(ignored) in bindings and str(ignored) not in tracked
     with pytest.raises(ValueError,match='missing byte binding'):
         driver.source_partitions(bindings,raw,[str(root/'missing.py')],[])
+
+
+def test_failure_after_saved_arrays_retains_only_actual_creation_time_receipts(tmp_path):
+    file=tmp_path/'decoded_native_reference.npz';np.savez_compressed(file,x=[1.,2.])
+    original=dict(path=str(file),sha256=driver.sha(file),bytes=file.stat().st_size,label='saved_before_failure')
+    # A later interrupted write has no creation-time binding and cannot be
+    # retroactively relabelled as verified output.
+    (tmp_path/'partial_variant.npz').write_bytes(b'interrupted NPZ')
+    case=SimpleNamespace(checkpoint_artifacts=[],auxiliary_artifacts=[copy.deepcopy(original)])
+    receipt=driver.partial_artifact_receipt(tmp_path,case)
+    assert receipt['status']=='VERIFIED_RECORDED_ROWS_ONLY' and receipt['complete_array_inventory'] is False
+    assert receipt['recorded_rows']==receipt['verified_rows']==[original]
+    assert receipt['unindexed_array_paths']==[str(tmp_path/'partial_variant.npz')]
+    file.write_bytes(b'changed after original write')
+    bad=driver.partial_artifact_receipt(tmp_path,case)
+    assert bad['status']=='RECORDED_ROW_VERIFICATION_ERRORS' and bad['verified_rows']==[]
+    assert bad['recorded_rows']==[original] and bad['verification_errors']
+    assert case.auxiliary_artifacts==[original]

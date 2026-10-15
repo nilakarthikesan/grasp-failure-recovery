@@ -922,3 +922,12 @@ second case. Original 5 micrometre reconstruction/anchor and 1e-6 rotation
 comparison limits, cell grids, part labels and surface predicates are unchanged.
 Collection, training and fidelity admission remain disabled. Actual measurements
 and independent saved-array readback are pending at this freeze.
+
+Before any native execution, review identified that a hard stop discarded
+available creation-time artifact rows from the worker report. Corrected only
+failure logging: preserve verified partial rows, original failure and any
+unindexed interrupted files separately, without claiming complete coverage.
+The earlier 070d0593 declaration remains unexecuted. New active
+`native_protocol_v2.json` SHA c81cdd617ea98ad0a0edf1b37dddb9e5a78871b59cf2898b9d216fa847cc3207
+binds the corrected source and 136 passing manufactured controls, integration
+calls zero. All scientific rules and quotas remain unchanged.

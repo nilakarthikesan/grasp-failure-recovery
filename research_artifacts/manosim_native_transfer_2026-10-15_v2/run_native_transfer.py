@@ -170,7 +170,7 @@ def prepare(path):
     public=list((upstream/'src').glob('*.py'))
     public += [upstream/'assets/mano_rhand_shape.npy',upstream/'config/myhand.yaml',upstream/'README.md',upstream/'LICENSE',upstream/'pyproject.toml']
     upstream_identity(upstream,public)
-    required=[Path(__file__),HERE/'NATIVE_AUDIT.md',HERE/'native_controls.json',ROOT/'.gitignore',Path(p['adapter_source']),
+    required=[Path(__file__),HERE/'NATIVE_AUDIT.md',HERE/'native_controls_v2.json',ROOT/'.gitignore',Path(p['adapter_source']),
         ROOT/'tests/test_manosim_pose.py',*evidence,*build_evidence,*sources,*public,*HERE.glob('test_*.py')]
     inputs=dict(build['bindings'])
     for file in required:inputs[str(Path(file).resolve())]=sha(file)
@@ -209,7 +209,7 @@ def validate(protocol,freeze_commit):
     subprocess.run(['git','-C',str(ROOT),'diff','--quiet','HEAD','--',*relative],check=True)
     return p,commit
 
-def artifact_index(output,rows):
+def artifact_index(output,rows,*,require_complete_arrays=True):
     output=Path(output).resolve();seen=set();checked=[]
     for row in rows:
         if not isinstance(row,dict) or set(row)!={'path','sha256','bytes','label'}:
@@ -221,9 +221,26 @@ def artifact_index(output,rows):
                 or not file.is_file() or row['bytes']!=file.stat().st_size or sha(file)!=row['sha256']):
             raise ValueError('Measurement artifact changed or escaped output')
         seen.add(file);checked.append(dict(row))
-    if {x.resolve() for x in output.rglob('*.npz')}!={x for x in seen if x.suffix=='.npz'}:
+    if require_complete_arrays and {x.resolve() for x in output.rglob('*.npz')}!={x for x in seen if x.suffix=='.npz'}:
         raise ValueError('Unindexed or missing native measurement arrays')
     return checked
+
+
+def partial_artifact_receipt(output,case):
+    """Retain creation-time rows on failure without asserting complete coverage."""
+    recorded=[] if case is None else [dict(row) for row in case.checkpoint_artifacts+case.auxiliary_artifacts]
+    verified=[];errors=[]
+    for row in recorded:
+        try:verified.extend(artifact_index(output,[row],require_complete_arrays=False))
+        except Exception as error:errors.append(dict(path=row.get('path'),type=type(error).__name__,message=str(error)))
+    # Cross-row duplicate validation is separate from individual file validity.
+    paths=[row.get('path') for row in recorded]
+    if len(paths)!=len(set(paths)):errors.append(dict(type='ValueError',message='Duplicated creation-time partial artifact paths'))
+    indexed={str(Path(row['path']).resolve()) for row in recorded if isinstance(row.get('path'),str)}
+    unindexed=sorted(str(path.resolve()) for path in Path(output).rglob('*.npz') if str(path.resolve()) not in indexed)
+    return dict(status='VERIFIED_RECORDED_ROWS_ONLY' if recorded and not errors else 'NO_RECORDED_ROWS' if not recorded else 'RECORDED_ROW_VERIFICATION_ERRORS',
+        complete_array_inventory=False,recorded_rows=recorded,verified_rows=verified,verification_errors=errors,
+        unindexed_array_paths=unindexed,unindexed_files_are_not_write_time_verified=True)
 
 def check_result(value,counts,case_counts):
     if value.get('kinematic_pose_transfer_status') not in ('PASS','FAIL'):
@@ -269,7 +286,7 @@ def worker(protocol,freeze_commit,output,index):
     retargeting.ShadowHandRetargeter.retarget=refuse('official_retarget_attempts')
     for cls in (runner.AdroitShadowRunner,runner.ActuatedShadowRunner):
         cls.execute=refuse('physics_step_attempts');cls._advance=refuse('physics_step_attempts')
-    started=time.perf_counter();case=None;value=None;failure=None;artifacts=[]
+    started=time.perf_counter();case=None;value=None;failure=None;artifacts=[];partial_artifacts=None
     try:
         module=load('frozen_native_audit_case',HERE/'audit_case.py');block()
         case=module.AuditCase(index,p,output,guard_reinstall=block);block();value=case.run()
@@ -279,10 +296,11 @@ def worker(protocol,freeze_commit,output,index):
         validate(protocol,freeze_commit)
     except Exception as error:
         failure=dict(type=type(error).__name__,message=str(error));(output/'exception.txt').write_text(traceback.format_exc())
+        partial_artifacts=partial_artifact_receipt(output,case)
     report=dict(schema_version=SCHEMA,source_inventory_index=index,protocol_sha256=sha(protocol),freeze_commit=commit,
         status='COMPLETED_NATIVE_STATIC_DIAGNOSTIC' if failure is None else 'HARD_STOP',failure=failure,
         elapsed_s=time.perf_counter()-started,counts=counts,case_counts=None if case is None else case.counts,
-        measurement=value,artifacts=artifacts,source_receipt=None if case is None else case.source_receipt,
+        measurement=value,artifacts=artifacts,partial_artifacts=partial_artifacts,source_receipt=None if case is None else case.source_receipt,
         native_fidelity_accepted=False,production_promotion=False,new_collection_or_training_allowed=False)
     write(output/'result.json',report);return int(failure is not None)
 
@@ -313,7 +331,7 @@ def run(protocol,freeze_commit,output):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);sub=parser.add_subparsers(dest='command',required=True)
-    q=sub.add_parser('prepare');q.add_argument('--protocol',type=Path,default=HERE/'native_protocol.json')
+    q=sub.add_parser('prepare');q.add_argument('--protocol',type=Path,default=HERE/'native_protocol_v2.json')
     for name in ('run','worker'):
         q=sub.add_parser(name);q.add_argument('--protocol',type=Path,required=True);q.add_argument('--freeze-commit',required=True)
         q.add_argument('--output',type=Path,required=True)
