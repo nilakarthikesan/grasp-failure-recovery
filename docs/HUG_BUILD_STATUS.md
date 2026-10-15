@@ -12,7 +12,10 @@ saved-model verification; a predeclared retrospective four-object holdout
 analysis of 3,120 existing attempts; and an anonymous four-body-page workshop
 manuscript plus references. These do not constitute completed phases 1–4.
 
-Still pending: fresh-mapping and camera qualification, a declared dynamic
+Camera/export consistency now passes all 32 saved inputs, and fresh-instance
+static solves pass on four declared development inputs. Reused legacy instances
+remain order-dependent. Still pending: independent new-input mapping
+qualification, a declared dynamic
 tracking/determinism/recording pilot, the physics filter and scenario sampler,
 prospective diverse collection/splits, equal-budget extended/sequence-model
 comparison and an independently frozen fresh-model evaluation. None is reported

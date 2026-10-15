@@ -2337,3 +2337,30 @@ next work prioritizes all32 camera checks, finite fresh-solve reproducibility
 and a separately declared saved-command recorder/tracking/determinism pilot.
 No broad collection, physics filter, sequence model or native-hand promotion
 is claimed. Paid compute/other-generator work is not restarted.
+
+
+<!-- hug-camera-fresh-instance-gates-2026-10-15-v1 -->
+## 15 October 2026 — Qualify saved camera export and fresh-instance behavior
+
+**Evidence.** All 32 saved HUG camera exports pass their unchanged numerical
+checks; 672 landmarks reproduce exactly. Separate rigid-camera read-back passes.
+A four-input development qualification finds both mapper profiles bit-exact
+when freshly instantiated. Fresh legacy targets equal saved commands on these
+four inputs; reused legacy state changes commands by as much as 0.204672 rad.
+V2 is order independent but changes targets and does not uniformly improve fit.
+Protocols were committed before measurement (`9d48405`, `cd2e9de`); results and
+source/status/clipping evidence are preserved at `9546ec4`.
+
+**Decision and implemented scope.** Keep the current legacy profile with a new
+instance per proposal, as the provider already constructs it. Do not promote v2
+or call old inspected inputs an independent new-input test. The saved-camera
+claim is export/frame consistency, not observed 2D hand ground truth. Existing
+10 mm mean-tip and numerical gates remain unchanged. This closes two concrete
+implementation questions while preserving anatomical limitations and earlier
+failed surface criteria.
+
+**Next check.** Freeze and run only the declared 20-attempt saved-command Shadow
+recording/tracking/determinism pilot, with null refusals/errors and causal export.
+New inference, broad collection and training remain outside that pilot. The
+native MANO physical candidate remains unaccepted. No dynamics, outcomes or
+new data occurred in these two static checks.

@@ -106,3 +106,35 @@ plus one references page, all visually checked. Its source/PDF/style hashes are
 in `docs/paper/workshop_verification.json`. Main results preserve original,
 corrected-controller and retrospective protocols separately. No submission or
 consent action occurred. Final author review remains necessary.
+
+
+## 15 October 2026 — Phase 1 camera and fresh-instance gates
+
+**Source:** frozen fresh-solve protocol `9d48405`, camera protocol `cd2e9de`;
+completed evidence `9546ec4`. Commands are in each archive README.
+
+**Camera:** 32/32 pass unchanged numerical gates; 672/672 saved 2D landmarks
+reproduce exactly. All 672 landmarks and 24,896 native mesh vertices have
+positive depth and image-window support. Camera-pose maximum discrepancy is
+3.331e-16; intrinsics match exactly. Thirty-two static forwards, zero integration,
+inference or retargeting. Source-dtype and independent scalar read-back confirm
+float32 3D × float64 K yields float64 projection; no projection tolerance repair
+was needed. Independent rigid-camera checks also pass. Evidence:
+`research_artifacts/hug_camera_projection_2026-10-15_v1/`.
+
+**Fresh solves:** original indices 0/8/16/24, both existing profiles, 38 solves /
+760 refinements / 24 static forwards / zero integration. All four fresh-instance
+gates pass per profile; legacy fresh commands match saved commands exactly.
+Reused legacy fails order independence on all four (maximum 0.204672 rad);
+stateless v2 remains bit-exact but changes fitting and stays unpromoted. Maximum
+raw-to-legal-command clipping is 0.001000006773 rad, explicitly retained.
+Independent source limits, frame/FK/readback and existing mean-tip guard pass.
+Evidence: `research_artifacts/hug_fresh_mapping_qualification_2026-10-15_v1/`.
+
+**Verdict/claim:** saved-input camera gate PASS; fresh-instance static behavior
+PASS on four development inputs, not independent generalization. Existing
+provider construction of a fresh legacy instance per proposal remains the
+execution route. These results permit the separately frozen saved-command
+recording pilot under the current Shadow controller; they do not promote native
+physics or reused legacy state. Twenty-one additional static controls pass
+with integration APIs blocked. No outcomes or new evaluation data were produced.

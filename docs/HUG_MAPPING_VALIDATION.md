@@ -43,10 +43,16 @@ collision fidelity and a physical native-hand path remain unaccepted.
   discrepancy 6.428 mm and worst 17.518 mm retain their original protocols.
 - **Native proxy: diagnostic complete; fidelity/physical qualification NOT
   ACCEPTED.** Lower fingertip error does not establish collision equivalence.
-- **Fresh generator-to-Shadow qualification: PENDING.** The saved commands do
-  not validate fresh solves or promote the stateless profile. All-32 camera
-  projection, held-out input qualification and fresh solve provenance remain
-  unresolved.
+- **Saved camera projection: scoped PASS.** All 32 exports reproduce their
+  672 saved 2D landmarks exactly; compiled camera/intrinsics agree. This is
+  export consistency, not independently observed hand-keypoint ground truth.
+- **Fresh-instance solves: four-input development PASS; independent new-input
+  qualification PENDING.** Both profiles repeat bit-exactly on indices 0/8/16/24.
+  Fresh legacy commands match saved commands exactly. Reusing a legacy solver
+  fails input-order checks on all four, with up to 0.204672 rad command changes.
+  Keep a new legacy instance per proposal; stateless v2 remains unpromoted.
+  Complete raw/status provenance remains in the audit rather than the canonical
+  provider. Do not extend these four development inputs to arbitrary new poses.
 - **Recorder: static implementation/tests PASS; live pilot NOT RUN.** The new
   version excludes refusals from labels and isolates diagnostics. No 20-attempt
   physical round-trip, dynamic tracking or replay determinism result exists.
@@ -55,8 +61,8 @@ collision fidelity and a physical native-hand path remain unaccepted.
 
 The useful next qualification is one explicitly frozen Shadow profile whose
 labels refer to actual Shadow outcomes. Preserve the native distortion report;
-do not impose or claim exact cross-anatomy identity. Close fresh-solve/camera
-provenance first, then declare a small tracking/determinism/recorder pilot.
+do not impose or claim exact cross-anatomy identity. Preserve fresh-instance/source
+provenance and declare a small saved-command tracking/determinism/recorder pilot.
 Changing native collision decomposition would be a new diagnostic candidate,
 requiring a new protocol and comparison rather than replacement of this archive.
 
