@@ -392,3 +392,10 @@ The HUG manuscript subsection now distinguishes actual guarded fitting from save
 Separately frozen local/full-wrist covers and an all-SO(3) radial bound establish a conditional fixed-anchor palm obstruction for saved Mug B. Its existing positive-area cell is native within 4.746 mm at the 5 mm band and at least 6.646 mm from any rotated Shadow palm after allowances. Independent box/FK and high-precision arithmetic reviews pass. The paper retains the fixed-anchor/literal-surface/engineering-arithmetic limits and does not claim free-placement impossibility, physical contact, failure-label preservation or universal validation.
 
 Production and frozen scientific criteria remain unchanged; no new eval data or training. A new source-only anatomical calibration is being prepared/reviewed, with no result yet asserted. [Evidence and next mapping work](HUG_GUARDED_FIT_AND_REACHABILITY.md).
+
+
+## 15 October 2026 — HUG anatomical calibration and new-anchor proof completed
+
+The HUG subsection now records the separately frozen canonical MCP-frame experiment: one source-only 8.668706 mm anchor calibration; all 6 numerical/mean-tip passes but 21/30 individual old caps refused, so 0/6 eligible. Independent source/C/FK/world-target reconstruction confirms the result. The same old positive-area cells refute both new Mug fixed anchors under arbitrary palm orientation; independent 90-digit replay passes 1,093 checks. No full-grid audit is falsely claimed for refused poses, no native failure label is inferred, and arbitrary other placements remain outside the proof.
+
+Both runtime aborts, unchanged calibration bytes and all original results are preserved. Current strict native preservation is not accepted. The working title/main multi-generator prediction question remain unchanged; the target embodiment/failure-label meaning has been requested before another dependent mapping policy. No new native HUG inference, physics, eval data or training. [Completed calibration evidence](HUG_CANONICAL_PALM_CALIBRATION.md).

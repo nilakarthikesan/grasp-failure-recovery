@@ -1,0 +1,187 @@
+{
+  "schema": "hug_anchor_convention_source_audit_evidence_v1",
+  "created_utc": "2026-10-15T04:01:00.893580+00:00",
+  "source_bindings": [
+    {
+      "role": "HUG_wrist_definition",
+      "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/hug/src/models/mano.py",
+      "sha256": "ebc9113402846d3fd0773e7740e9ff6a70c2e59d317241b576d042b5dd683ed3",
+      "line_number_basis": "one-based inclusive in this SHA-bound file",
+      "line_excerpts": [
+        {
+          "first_line": 34,
+          "last_line": 43,
+          "text": "        super().__init__()\n        self.mano_layer = ManoLayer(\n            rot_mode=\"axisang\",\n            side=side,\n            center_idx=0,  # Wrist at origin\n            mano_assets_root=MANO_MODELS_FOLDER,\n            use_pca=use_pca,\n            flat_hand_mean=flat_hand_mean,\n            ncomps=ncomps,\n        )"
+        },
+        {
+          "first_line": 133,
+          "last_line": 146,
+          "text": "    out = mano_model(params, betas=shape)\n    joints_wrist = out[\"landmarks_3d\"][0]\n    verts_wrist = out[\"vertices\"][0]\n    R_3x3 = out[\"R_3x3\"][0]\n    pose_3x3 = out[\"pose_3x3\"][0]\n\n    translation = t[0]  # (3,) metric\n\n    landmarks_3d = joints_wrist + translation\n    verts_cam = verts_wrist + translation\n\n    T_camera_wrist = np.eye(4, dtype=np.float32)\n    T_camera_wrist[:3, :3] = R_3x3.cpu().numpy()\n    T_camera_wrist[:3, 3] = translation.cpu().numpy()"
+        }
+      ]
+    },
+    {
+      "role": "Dex_explicit_origin_correspondence",
+      "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps/dex_retargeting/configs/teleop/shadow_hand_right.yml",
+      "sha256": "e12e9aa5c8f51010793bfa04f3d92ea998b51b8503e5e61330ca8db194f7bf0e",
+      "line_number_basis": "one-based inclusive in this SHA-bound file",
+      "line_excerpts": [
+        {
+          "first_line": 1,
+          "last_line": 15,
+          "text": "retargeting:\n  type: vector\n  urdf_path: shadow_hand/shadow_hand_right.urdf\n\n  # Target refers to the retargeting target, which is the robot hand\n  target_origin_link_names: [ \"palm\", \"palm\", \"palm\", \"palm\", \"palm\", \"palm\", \"palm\", \"palm\", \"palm\", \"palm\" ]\n  target_task_link_names: [ \"thtip\", \"fftip\", \"mftip\", \"rftip\", \"lftip\",  \"thmiddle\", \"ffmiddle\", \"mfmiddle\", \"rfmiddle\", \"lfmiddle\" ]\n  scaling_factor: 1.2\n\n  # Source refers to the retargeting input, which usually corresponds to the human hand\n  # The joint indices of human hand joint which corresponds to each link in the target_link_names\n  target_link_human_indices: [ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 4, 8, 12, 16, 20, 2, 6, 10, 14, 18 ] ]\n\n  # A smaller alpha means stronger filtering, i.e. more smooth but also larger latency\n  low_pass_alpha: 0.2"
+        }
+      ]
+    },
+    {
+      "role": "project_vector_transform",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/retargeting.py",
+      "sha256": "a6631a0f0d20f6ef94c389529b7d6d677a8a8cd9f8e923efff19ccfee26aa4ff",
+      "line_number_basis": "one-based inclusive in this SHA-bound file",
+      "line_excerpts": [
+        {
+          "first_line": 44,
+          "last_line": 63,
+          "text": "def camera_landmarks_to_wrist(\n    landmarks_camera_m: np.ndarray, T_camera_wrist: np.ndarray\n) -> np.ndarray:\n    \"\"\"Convert HUG camera-frame landmarks into its local MANO wrist frame.\n\n    HUG defines ``T_camera_wrist`` as the wrist-to-camera transform and exports\n    metric landmarks in camera coordinates. Applying its inverse removes the\n    predicted global wrist rotation and translation, which is the local MANO\n    convention expected by Dex Retargeting's vector optimizer.\n    \"\"\"\n\n    landmarks = np.asarray(landmarks_camera_m, dtype=np.float64)\n    if landmarks.shape != (21, 3) or not np.all(np.isfinite(landmarks)):\n        raise RetargetingError(\"HUG landmarks must be a finite 21x3 array\")\n    transform = _validate_rigid_transform(T_camera_wrist)\n    rotation = transform[:3, :3]\n    translation = transform[:3, 3]\n    return (landmarks - translation) @ rotation\n\n"
+        },
+        {
+          "first_line": 65,
+          "last_line": 75,
+          "text": "    landmarks_wrist_m: np.ndarray, human_indices: np.ndarray\n) -> np.ndarray:\n    \"\"\"Build the origin-to-task vectors required by Dex vector retargeting.\"\"\"\n\n    indices = np.asarray(human_indices, dtype=np.int64)\n    if indices.ndim != 2 or indices.shape[0] != 2:\n        raise RetargetingError(\"Dex human landmark indices must have shape (2, N)\")\n    if np.any(indices < 0) or np.any(indices >= len(landmarks_wrist_m)):\n        raise RetargetingError(\"Dex human landmark index is outside the HUG landmark array\")\n    return landmarks_wrist_m[indices[1]] - landmarks_wrist_m[indices[0]]\n"
+        },
+        {
+          "first_line": 148,
+          "last_line": 163,
+          "text": "    def retarget(self, grasp: HugGraspPrediction) -> RetargetedHandPose:\n        landmarks = camera_landmarks_to_wrist(\n            grasp.landmarks_3d, grasp.T_camera_wrist\n        )\n        # HUG exports MANO coordinates. Dex's Shadow optimizer uses the\n        # right-hand operator convention; this proper rotation comes from\n        # Dex Retargeting's OPERATOR2MANO_RIGHT mapping.\n        landmarks = landmarks @ MANO_TO_OPERATOR_RIGHT.T\n        indices = self._retargeting.optimizer.target_link_human_indices\n        vectors = reference_vectors(landmarks, indices)\n        qpos = None\n        for _ in range(self.optimizer_iterations):\n            qpos = np.asarray(\n                self._retargeting.retarget(vectors.astype(np.float32)),\n                dtype=np.float64,\n            )"
+        }
+      ]
+    },
+    {
+      "role": "project_paired_axis_transform",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/integrations/hug_frames.py",
+      "sha256": "cd7ad9b8df1d5d6adad70e949a9c7f21ad448a25710a54f47e1ffa95fa28562a",
+      "line_number_basis": "one-based inclusive in this SHA-bound file",
+      "line_excerpts": [
+        {
+          "first_line": 4,
+          "last_line": 12,
+          "text": "# Dex's right-hand OPERATOR2MANO_RIGHT; A maps MANO column vectors to operator.\nMANO_TO_OPERATOR_RIGHT = np.array([[0., -1., 0.], [0., 0., 1.], [-1., 0., 0.]])\n\n\ndef convert_hand_frame(vectors_mano, T_world_mano, A=MANO_TO_OPERATOR_RIGHT):\n    \"\"\"Convert local vectors and their pose together, preserving world geometry.\n\n    A maps MANO coordinates to the retargeting base coordinates. Translation\n    still denotes the human wrist; choosing a robot origin is a separate step."
+        },
+        {
+          "first_line": 23,
+          "last_line": 28,
+          "text": "    if not np.allclose(A.T @ A, np.eye(3)) or not np.isclose(np.linalg.det(A), 1):\n        raise ValueError(\"Axis conversion must be a proper rotation\")\n    converted = vectors @ A.T\n    pose = transform.copy()\n    pose[:3, :3] = transform[:3, :3] @ A.T\n    return converted, pose"
+        }
+      ]
+    },
+    {
+      "role": "project_explicit_palm_placement",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/case_runner.py",
+      "sha256": "61aeef7a7125fa7698549cfbfc440a4f8374daf289bdddd87deaafe8ce108b11",
+      "line_number_basis": "one-based inclusive in this SHA-bound file",
+      "line_excerpts": [
+        {
+          "first_line": 195,
+          "last_line": 222,
+          "text": "def _hug_world_palm_pose(\n    grasp,\n    pose,\n    validator: ShadowPoseValidator,\n    observation_dir: Path,\n) -> tuple[np.ndarray, np.ndarray]:\n    \"\"\"Compose HUG's world wrist pose with Dex's corrected hand frame.\"\"\"\n\n    camera_path = observation_dir / \"T_world_camera.npy\"\n    if not camera_path.is_file():\n        raise FileNotFoundError(f\"observation has no world camera transform: {camera_path}\")\n    T_world_camera = np.asarray(np.load(camera_path), dtype=np.float64)\n    if T_world_camera.shape != (4, 4) or not np.all(np.isfinite(T_world_camera)):\n        raise ValueError(\"T_world_camera must be a finite 4x4 transform\")\n    T_world_mano = T_world_camera @ grasp.T_camera_wrist\n    world_operator_rotation = T_world_mano[:3, :3] @ MANO_TO_OPERATOR_RIGHT.T\n\n    validator.set_pose(pose)\n    base_to_palm_rotation = validator.data.xmat[\n        _body_id(validator.model, \"palm\")\n    ].reshape(3, 3)\n    world_palm_rotation = world_operator_rotation @ base_to_palm_rotation\n    quaternion = np.empty(4, dtype=np.float64)\n    mujoco.mju_mat2Quat(quaternion, world_palm_rotation.reshape(9))\n    # HUG's wrist origin is used as the Shadow palm target. This fixed origin\n    # correspondence is versioned with the environment and can be calibrated\n    # independently without changing the predicted grasp.\n    return T_world_mano[:3, 3].copy(), quaternion"
+        }
+      ]
+    },
+    {
+      "role": "runner_actual_root_compensation",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/runner.py",
+      "sha256": "4d819711660c346938ce468b06b207aaed9d0315ab1ee3dffd9d4c56e1f417e6",
+      "line_number_basis": "one-based inclusive in this SHA-bound file",
+      "line_excerpts": [
+        {
+          "first_line": 476,
+          "last_line": 492,
+          "text": "    def _root_pose_for_palm(\n        self,\n        palm_position: np.ndarray,\n        palm_quaternion_wxyz: np.ndarray,\n        wrist_qpos: np.ndarray,\n    ) -> tuple[np.ndarray, np.ndarray]:\n        self.data.qpos[self._hand_qpos_addresses] = wrist_qpos\n        root = self._root_qpos_address\n        self.data.qpos[root : root + 3] = 0.0\n        self.data.qpos[root + 3 : root + 7] = [1.0, 0.0, 0.0, 0.0]\n        mujoco.mj_forward(self.model, self.data)\n        root_to_palm_rotation = self.data.xmat[self._palm_body_id].reshape(3, 3).copy()\n        root_to_palm_translation = self.data.xpos[self._palm_body_id].copy()\n        target_rotation = _quat_to_matrix(palm_quaternion_wxyz)\n        root_rotation = target_rotation @ root_to_palm_rotation.T\n        root_position = palm_position - root_rotation @ root_to_palm_translation\n        return root_position, _matrix_to_quat(root_rotation)"
+        }
+      ]
+    },
+    {
+      "role": "URDF_palm_wrist_and_rigid_MCP_origins",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf",
+      "sha256": "29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+      "line_number_basis": "one-based inclusive in this SHA-bound file",
+      "line_excerpts": [
+        {
+          "first_line": 102,
+          "last_line": 110,
+          "text": "  <joint name=\"WRJ2\" type=\"revolute\">\n    <parent link=\"forearm\"/>\n    <child link=\"wrist\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0 -0.010 0.21301\"/>\n    <axis xyz=\"0 1 0\"/>\n    <limit effort=\"10\" lower=\"-0.523598775598\" upper=\"0.174532925199\" velocity=\"2.0\"/>\n    <dynamics damping=\"0.1\"/>\n  </joint>\n  <link name=\"palm\">"
+        },
+        {
+          "first_line": 182,
+          "last_line": 188,
+          "text": "  <joint name=\"WRJ1\" type=\"revolute\">\n    <parent link=\"wrist\"/>\n    <child link=\"palm\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0 0 0.034\"/>\n    <axis xyz=\"1 0 0\"/>\n    <limit effort=\"30\" lower=\"-0.698131700798\" upper=\"0.488692190558\" velocity=\"2.0\"/>\n    <dynamics damping=\"0.1\"/>"
+        },
+        {
+          "first_line": 214,
+          "last_line": 220,
+          "text": "  <joint name=\"FFJ4\" type=\"revolute\">\n    <parent link=\"palm\"/>\n    <child link=\"ffknuckle\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0.033 0 0.095\"/>\n    <axis xyz=\"0 -1 0\"/>\n    <limit effort=\"2\" lower=\"-0.349065850399\" upper=\"0.349065850399\" velocity=\"2.0\"/>\n    <dynamics damping=\"0.1\"/>"
+        },
+        {
+          "first_line": 346,
+          "last_line": 353,
+          "text": "  <joint name=\"MFJ4\" type=\"revolute\">\n    <parent link=\"palm\"/>\n    <child link=\"mfknuckle\"/>\n    <!--<origin xyz=\"0.033 0 0.095\" rpy=\"0 0 0\" />-->\n    <origin rpy=\"0 0 0\" xyz=\"0.011 0 0.099\"/>\n    <axis xyz=\"0 -1 0\"/>\n    <limit effort=\"2\" lower=\"-0.349065850399\" upper=\"0.349065850399\" velocity=\"2.0\"/>\n    <dynamics damping=\"0.1\"/>"
+        },
+        {
+          "first_line": 479,
+          "last_line": 486,
+          "text": "  <joint name=\"RFJ4\" type=\"revolute\">\n    <parent link=\"palm\"/>\n    <child link=\"rfknuckle\"/>\n    <!--<origin xyz=\"0.033 0 0.095\" rpy=\"0 0 0\" />-->\n    <origin rpy=\"0 0 0\" xyz=\"-0.011 0 0.095\"/>\n    <axis xyz=\"0 1 0\"/>\n    <limit effort=\"2\" lower=\"-0.349065850399\" upper=\"0.349065850399\" velocity=\"2.0\"/>\n    <dynamics damping=\"0.1\"/>"
+        },
+        {
+          "first_line": 613,
+          "last_line": 621,
+          "text": "  <joint name=\"LFJ5\" type=\"revolute\">\n    <parent link=\"palm\"/>\n    <child link=\"lfmetacarpal\"/>\n    <origin rpy=\"0 -0.9599 0\" xyz=\"-0.033 0 0.02071\"/>\n    <axis xyz=\"1 0 0\"/>\n    <limit effort=\"2\" lower=\"0\" upper=\"0.785398163397\" velocity=\"2.0\"/>\n    <dynamics damping=\"0.1\"/>\n  </joint>\n  <link name=\"lfknuckle\">"
+        }
+      ]
+    },
+    {
+      "role": "earlier_proxy_diagnostic_source",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_palm_object_validation_2026-10-14/palm/diagnose_palm_anchor.py",
+      "sha256": "7b90948bc4a144417434cdfc68606cb20607a6eb8dbea7f2a89a6153c6f103eb",
+      "line_number_basis": "one-based inclusive in this SHA-bound file",
+      "line_excerpts": [
+        {
+          "first_line": 50,
+          "last_line": 51,
+          "text": "MCP_INDICES = np.array([5, 9, 13, 17])\nMCP_JOINTS = ['FFJ3', 'MFJ3', 'RFJ3', 'LFJ3']"
+        },
+        {
+          "first_line": 78,
+          "last_line": 95,
+          "text": "def proxy_frame(anchor, mcp):\n    \"\"\"Axes are directional geometry proxies; normal is not palmar/dorsal.\"\"\"\n    longitudinal = mcp.mean(axis=0) - anchor\n    longitudinal /= np.linalg.norm(longitudinal)\n    transverse = mcp[0] - mcp[3]  # little -> index, same names on both models\n    transverse -= longitudinal * np.dot(transverse, longitudinal)\n    transverse /= np.linalg.norm(transverse)\n    normal = np.cross(transverse, longitudinal)\n    frame = np.column_stack([transverse, longitudinal, normal])\n    assert np.max(np.abs(frame.T @ frame - np.eye(3))) < 1e-10\n    assert abs(np.linalg.det(frame) - 1) < 1e-10\n    return frame\n\n\ndef decompose(residual):\n    \"\"\"Analytic point-residual diagnostic only; never updates model placement.\"\"\"\n    r = np.asarray(residual)\n    mean = r.mean(axis=0)"
+        },
+        {
+          "first_line": 365,
+          "last_line": 401,
+          "text": "        scope='32 existing native poses, four existing object families, eight observation groups; static original nominal targets only',\n        script_sha256=sha(__file__), input_sha256=inputs, production_sha256_before_and_after=production_before,\n        runtime=dict(python=sys.version, numpy=np.__version__, mujoco=mujoco.__version__),\n        guards=dict(apis=['mj_step', 'mj_step1', 'mj_step2'], installed_before_project_import_and_model_load=True,\n                    attempted_guarded_calls=len(GUARD_CALLS), physics_steps=0, learned_generator_loaded=False,\n                    deliberate_guard_rejection_selftests=guard_selftests,\n                    unique_existing_native_shape_hashes=sorted(shape_hashes),\n                    asset_wrapper_and_URDF_match_prior_confirmation_hashes=True,\n                    retarget_optimizer_loaded_or_used=False, calibration_applied=False, production_files_unchanged=True),\n        landmark_definition=dict(actual_MANO_to_21_reorder=[0,13,14,15,16,1,2,3,17,4,5,6,18,10,11,12,19,7,8,9,20],\n            wrist=0, thumb_CMC=1, nonthumb_MCP=dict(zip(FINGERS[1:], MCP_INDICES.tolist())),\n            corresponding_nonthumb_Shadow_MCP_joint_proxies=dict(zip(FINGERS[1:], MCP_JOINTS)),\n            thumb_caveat='Native thumb CMC [1] compared only to THJ5 base as a CMC/base proxy; not called an MCP correspondence.',\n            task_landmark_indices=TASK_INDICES.tolist(), task_link_names=list(TASK_LINK_NAMES)),\n        selected_actual_URDF_joint_definitions=[urdf_joint_record(joint_xml[name]) for name in chosen_joint_names],\n        measurement_policy=dict(common_frame='Native operator/fixed-URDF base directions R_world_MANO @ MANO_TO_OPERATOR_RIGHT.T; origin native saved wrist.',\n            proxy_axes='Longitudinal = anchor to nonthumb MCP centroid. Transverse = little-to-index MCP span projected perpendicular to longitudinal. Signed normal = transverse cross longitudinal. No palmar/dorsal assignment.',\n            anchor='Native wrist landmark [0] versus Shadow palm origin; actual Shadow wrist body measured separately.',\n            translation='Residual r=Shadow-native; rbar is algebraic mean over named proxies. r-rbar decomposes point error. Hypothetical -rbar is never applied to geometry/model/control. Across-source common mean uses operator coordinates.',\n            anatomical_pairs='Same anatomical names and base-chain roles define candidate proxies across different models, not certified identical anatomical locations.',\n            surface='Native majority grouped-skinning palm triangle subset is open, includes assigned wrist-cap/mixed seam triangles and their boundary vertices. Its used-vertex bounding extents are compared with union bounds of actual eight Shadow palm collision boxes. Bounds/vertex means are geometric descriptions, not volumes or contact metrics.'),\n        software_anchor_summary=dict(palm_origin_vs_native_wrist_m=stats([c['software_anchor']['palm_origin_vs_native_wrist_m'] for c in records]),\n            actual_shadow_wrist_vs_native_wrist_m=stats([c['software_anchor']['actual_shadow_wrist_vs_native_wrist_m'] for c in records]),\n            wrist_to_palm_length_m=stats([c['software_anchor']['wrist_to_palm_length_m'] for c in records]),\n            WRJ1_rad=stats([c['software_anchor']['WRJ1_rad'] for c in records]), WRJ2_rad=stats([c['software_anchor']['WRJ2_rad'] for c in records])),\n        anatomical_proxy_summary=anatomy_summary,\n        global_translation_diagnostics=dict(tips5=common_across_sources(task_residuals[:, :5]),\n            tips_and_middle10=common_across_sources(task_residuals), nonthumb_MCP_proxies4=common_across_sources(mcp_residuals)),\n        cross_point_family_translation_diagnostic=dict(\n            tip_mean_residual_vs_all10_mean_vector_distance_m=float(np.linalg.norm(global_tip_mean - global_all_mean)),\n            tip_mean_residual_vs_MCP_mean_vector_distance_m=float(np.linalg.norm(global_tip_mean - global_mcp_mean)),\n            fingertip_errors_if_MCP_mean_algebraically_removed_m=stats(np.linalg.norm((task_residuals[:, :5] - global_mcp_mean).reshape(-1, 3), axis=1)),\n            MCP_proxy_errors_if_tip_mean_algebraically_removed_m=stats(np.linalg.norm((mcp_residuals - global_tip_mean).reshape(-1, 3), axis=1)),\n            note='Pure subtraction in saved residual arrays. No geometry is moved; differing proxy families have no established shared calibration target.'),\n        by_object=by_object, differential_errors_by_finger=by_finger, cases=records,\n        limitations=['Origin agreement confirms the implemented anchor convention, not anatomical wrist/palm equivalence.',\n            'Different models have no ground-truth anatomical landmark identity; thumb base and nonthumb MCP comparisons are declared proxies.',"
+        }
+      ]
+    }
+  ],
+  "historical_proxy_diagnostic": {
+    "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_palm_object_validation_2026-10-14/palm/palm_anchor_report.json",
+    "sha256": "1e9a605161c8ba542110aa05596496f4272132907eb34e05086646700f70933d",
+    "scope": "32 existing native poses, four existing object families, eight observation groups; static original nominal targets only",
+    "original_mean_tip_error_m": 0.006427625717499644,
+    "hypothetical_MCP_mean_subtraction_tip_error_m": 0.010370765422722162,
+    "source_field_original": "global_translation_diagnostics.tips5.original_point_error_m.mean",
+    "source_field_hypothetical": "cross_point_family_translation_diagnostic.fingertip_errors_if_MCP_mean_algebraically_removed_m.mean",
+    "interpretation": "Pure saved-residual subtraction, not an executed geometry placement or successful calibration. Mean error worsens; no offset is applied.",
+    "calibration_applied": false,
+    "prior_palm_origin_native_wrist_max_error_m": 1.4288057044435644e-16,
+    "prior_wrist_palm_length_m": 0.034
+  },
+  "new_geometry_queries": 0,
+  "new_FK_or_model_executions": 0,
+  "new_inference": false,
+  "physics_steps": 0,
+  "new_eval_data": false,
+  "shared_source_or_docs_edited": false,
+  "conclusion": "The inspected current wrist0-to-palm convention is explicit and source-consistent; this read-only audit demonstrates no new frame/origin bug and does not establish anatomical or surface equivalence.",
+  "canonical_calibration_verification_status": "PLAN_ONLY_NOT_RUN",
+  "collector_sha256": "11bed2597d091a092cf527a6e4c10a0b081ae5524d565abbe06565015aa1fdea"
+}

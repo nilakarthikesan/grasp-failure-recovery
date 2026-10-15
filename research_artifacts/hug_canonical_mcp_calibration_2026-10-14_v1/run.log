@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/private/tmp/hug_canonical_mcp_calibration_2026-10-14_v1/run_calibration.py", line 115, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/private/tmp/hug_canonical_mcp_calibration_2026-10-14_v1/run_calibration.py", line 63, in main
+    C,RP0,RF,pF,validator,cal=canonical(p['canonical_settings']);cal['protocol_sha256']=ph;write_new(B/'calibration.json',cal)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/hug_canonical_mcp_calibration_2026-10-14_v1/run_calibration.py", line 50, in canonical
+    palm=_body_id(validator.model,'palm');forearm=_body_id(validator.model,'forearm')
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/pose_validation.py", line 134, in _body_id
+    raise RetargetingError(f"MuJoCo model is missing body {name!r}")
+grasp_failure_prediction.evaluation.retargeting.RetargetingError: MuJoCo model is missing body 'forearm'

@@ -539,3 +539,14 @@ A separately frozen complete wrist cover and stronger radial-shell argument esta
 Next prepare/review a separately frozen canonical anatomical calibration, using neutral MANO MCP5/9/13 and rigid Shadow FFJ4/MFJ4/RFJ4 origins without object/witness tuning. Audit found the present wrist0→palm convention intentional, not an omitted34 mm transform. Apply any new calibration consistently to placement and reference vectors, independently verify numerical admission, then use the unchanged scientific audit. Calibration is NOT yet a measured successful repair at this checkpoint. Do not endlessly rerun fixed-anchor fits, relax criteria, change production or silently reinterpret native failure prediction as retargeted-hand failure prediction.
 
 Keep six development grasps, all source poor proposals, separate protocols/results, other-provider dirty files and the existing paper path. No new HUG inference, physics, eval data/labels or training is authorized here. No new branch/PR.
+
+
+## 15 October 2026 — Latest HUG: anatomical calibration refused; target choice pending
+
+Read [HUG_CANONICAL_PALM_CALIBRATION.md](HUG_CANONICAL_PALM_CALIBRATION.md). The source-only neutral MCP-frame calibration is complete and independently reconstructed. One global C moves anchors 8.668706 mm; all 6 direct retargets pass numerical/source/FK/physical/mean 10 mm gates, but 21/30 exact ORIGINAL tip caps fail, so 0/6 are eligible. Do not rebase those caps or call numerical reconstruction a surface PASS.
+
+A separate same 7-cell/8-box radial study, independently replayed at 90 digits with 1,093 checks, refutes both new fixed Mug anchors for every palm orientation (maximum band excesses 7.135419/10.091852 mm). More finger/wrist fitting at either chosen anchor cannot fix the palm. This does not rule out arbitrary translations, other mappings/geometry, or all HUG proposals. The original mapper still has 9 strict FAIL; no new nine-grid measurement is asserted for the refused canonical poses.
+
+Keep all V1/V2/V3 history: fused-forearm body lookup stop after in-memory C; named-joint-order stop after C export; then reviewed source-chain/named-permutation corrections and exact C bytes. Production, source proposals, hand/object assets and frozen acceptance are unchanged. Six new experimental robot retargets are saved; zero fresh native HUG proposals, physics/eval data/labels or training.
+
+The asynchronous user question asks which failure label is intended: executed common-Shadow retarget (recommended for one robot across generators, requiring a declared per-grasp placement policy and distortion reporting), or native MANO hand failure (separate native-hand simulator path). Await the answer before dependent implementation; do not infer approval from elapsed time. Preserve the current paper and other-provider dirty files on codex/project-work; no new branch/PR.

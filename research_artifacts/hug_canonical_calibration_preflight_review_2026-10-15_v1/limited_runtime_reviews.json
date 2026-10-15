@@ -1,0 +1,27 @@
+{
+  "schema": "hug_canonical_calibration_limited_runtime_reviews_v1",
+  "recorded_utc": "2026-10-15T04:11:28.302945+00:00",
+  "reviews": [
+    {
+      "revision": "V2 final",
+      "draft_protocol_sha256": "da0e8b4b8afbf48329b3b13d0ab035b8055be8cd54494e991358992a1d5e86a4",
+      "driver_sha256": "3f13e59e1a5aae6d3aa571ba1d43a278613307050126f17a9d69acd4d5075607",
+      "verified_bound_hashes": 101,
+      "result": "APPROVED",
+      "change": "Use original fixed source world_joint forearm transform instead of absent MuJoCo fused body; independently verify neutral world_joint/WRJ2/WRJ1 chain against fixed source palm. Original C method/model/settings/tolerances unchanged."
+    },
+    {
+      "revision": "V3 final",
+      "draft_protocol_sha256": "09d2509db8116a27f811764deef5d2c0d5502ddfce37a0cb7897760ed35d3497",
+      "driver_sha256": "0682b83d64e0fadbafe0d6d56ee35a0802fe86d52d6cdb418a0eaa9938cbe425",
+      "verified_bound_hashes": 103,
+      "result": "APPROVED",
+      "change": "Require equal24 unique name sets, explicit prior-name\u2192q conversion for old placement/report/deltas, preserve old recorded order separately; anatomical cap order untouched. C must remain byte-identical to pinned V2 before export/fit. No C/model/objective/gate change."
+    }
+  ],
+  "actual_source_model_or_retarget_calls_by_reviewer": 0,
+  "no_shared_code_or_documents_edited": true,
+  "new_eval_data": false,
+  "new_inference": false,
+  "physics_steps": 0
+}

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/private/tmp/hug_canonical_mcp_calibration_2026-10-14_v1/runtime_v2/run_calibration.py", line 123, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/private/tmp/hug_canonical_mcp_calibration_2026-10-14_v1/runtime_v2/run_calibration.py", line 86, in main
+    names=list(retargeter.joint_names);assert names==prior['joint_names'];assert p['task_link_names'][:5]==['thtip','fftip','mftip','rftip','lftip'];limits=np.asarray([physical[n] for n in names]);history=[]
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
