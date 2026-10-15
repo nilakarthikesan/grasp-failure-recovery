@@ -30,6 +30,9 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 SCHEMA = 'manosim_flex_primitive_qualification_v1'
+PROTOCOL_NAME = 'protocol_v2.json'
+CONTROLS_NAME = 'controls_v2.json'
+UNUSED_FREEZE = 'b0e9db979853222c3ce35b8e24fb3ba210794dd3'
 MUJOCO_VERSION = '3.3.7'
 MUJOCO_REVISION = 'f1d45bd5422c74beddfb0d1deb590a02583d21de'
 RADII = (('zero', 0.0), ('positive_1um', 1e-6))
@@ -190,22 +193,30 @@ def runtime_files():
 
 def source_files():
     return [HERE/name for name in ('run_qualification.py', 'test_run_qualification.py',
-                                 'README.md', 'primary_sources.json', 'controls.json')]
+                                 'README.md', 'primary_sources.json', CONTROLS_NAME,
+                                 'protocol.json', 'controls.json')]
+
+
+def prior_unused():
+    return dict(path=str((HERE/'protocol.json').resolve()), sha256=sha(HERE/'protocol.json'),
+                freeze_commit=UNUSED_FREEZE, execution_status='NEVER_EXECUTED')
 
 
 def prepare(path):
     path = Path(path).resolve()
     if path.exists(): raise FileExistsError('Never replace a prepared declaration')
-    if path.parent != HERE or path.name != 'protocol.json':
+    if path.parent != HERE or path.name != PROTOCOL_NAME:
         raise ValueError('Use the one new primitive protocol path')
+    if (HERE/'run_v1').exists(): raise FileExistsError('No preparation after any primitive execution attempt')
     current = runtime()
     if current['mujoco'] != MUJOCO_VERSION: raise ValueError('Exactly MuJoCo3.3.7 required')
-    controls = read(HERE/'controls.json')
+    controls = read(HERE/CONTROLS_NAME)
     if controls.get('exit_code') != 0 or controls.get('integration_calls') != 0:
         raise ValueError('Successful manufactured controls receipt required')
     required = source_files() + runtime_files()
     bindings = {str(file.resolve()): sha(file) for file in required}
-    protocol = dict(schema_version=SCHEMA, prepared_utc=datetime.now(timezone.utc).isoformat(),
+    protocol = dict(schema_version=SCHEMA, preparation_version=2, prior_unused_declaration=prior_unused(),
+        prepared_utc=datetime.now(timezone.utc).isoformat(),
         runtime=current, upstream_revision=MUJOCO_REVISION, cases=cases(),
         probes={c['case_id']: probes(c) for c in cases()}, budgets=BUDGET, tolerances=TOLERANCES,
         xml_sha256={c['case_id']: hashlib.sha256(make_xml(c).encode()).hexdigest() for c in cases()},
@@ -219,7 +230,8 @@ def prepare(path):
 
 def validate(protocol, commit, *, require_head=True):
     protocol = Path(protocol).resolve(); p = read(protocol)
-    if (protocol != HERE/'protocol.json' or p.get('schema_version') != SCHEMA
+    if (protocol != HERE/PROTOCOL_NAME or p.get('schema_version') != SCHEMA
+        or p.get('preparation_version') != 2 or p.get('prior_unused_declaration') != prior_unused()
         or p.get('runtime') != runtime() or p.get('upstream_revision') != MUJOCO_REVISION
         or p.get('cases') != cases() or p.get('probes') != {c['case_id']: probes(c) for c in cases()}
         or p.get('budgets') != BUDGET or p.get('tolerances') != TOLERANCES
@@ -436,13 +448,17 @@ def measure_case(module, case, output):
                 raise RuntimeError('Unexpected contact identity or dimensionality')
             normal = np.asarray(contact.frame).reshape(3, 3)[0].copy(); position = np.asarray(contact.pos).copy()
             address = int(contact.efc_address)
-            if address < 0 or address >= int(data.nefc): raise RuntimeError('Contact has no active constraint row')
-            engine_jac = dense_jac[address].copy()
+            if address >= int(data.nefc): raise RuntimeError('Invalid contact constraint address')
+            active = address >= 0
+            # At exact zero gap, collision can retain an excluded contact with no
+            # constraint row. Touch presence/activity are descriptive, not a failure.
+            engine_jac = dense_jac[address].copy() if active else np.zeros(model.nv)
             expected_jac, columns, weights = independent_normal_jacobian(model, data, case, normal, position,
                 vertices[source_faces[int(contact.elem[1])]])
             row = dict(distance_m=float(contact.dist), position_world=position.tolist(), normal_world=normal.tolist(),
                 engine_normal_jacobian=engine_jac.tolist(), expected_vertex_normal_jacobian=expected_jac.tolist(),
-                translation_columns=columns, barycentric_weights=weights.tolist(), efc_address=address)
+                translation_columns=columns, barycentric_weights=weights.tolist(), efc_address=address,
+                constraint_active=active)
             if not all(np.isfinite(np.asarray(row[key])).all() for key in ('position_world', 'normal_world',
                 'engine_normal_jacobian', 'expected_vertex_normal_jacobian', 'barycentric_weights')) or not math.isfinite(row['distance_m']):
                 raise RuntimeError('Nonfinite contact/Jacobian')
@@ -496,6 +512,11 @@ def check_case(result):
             columns = row['translation_columns']
             if columns != sorted(set(columns)) or not columns or min(columns) < 0 or max(columns) >= result['nv']:
                 raise ValueError('Malformed translation-column declaration')
+            active = row.get('constraint_active')
+            if not isinstance(active, bool): raise ValueError('Explicit contact constraint activity required')
+            if p['placement'] == 'penetrating' and not active:
+                errors.append(p['probe_id']+':missing_active_constraint')
+            if not active: continue
             max_translation = max(max_translation, float(np.max(np.abs(engine[columns]-expected[columns]))))
             rotational = sorted(set(range(result['nv']))-set(columns))
             max_rotation = max(max_rotation, float(np.max(np.abs(engine[rotational]-expected[rotational]))))
@@ -675,7 +696,7 @@ def qualified_radius_policy(report_path, expected_sha256, radius_id):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('stage', choices=('prepare', 'run', '_worker'))
-    parser.add_argument('--protocol', type=Path, default=HERE/'protocol.json')
+    parser.add_argument('--protocol', type=Path, default=HERE/PROTOCOL_NAME)
     parser.add_argument('--freeze-commit')
     args = parser.parse_args()
     if args.stage == 'prepare': result = prepare(args.protocol)

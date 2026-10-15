@@ -22,7 +22,7 @@ def manufactured_result(case):
             contacts = [dict(distance_m=probe['expected_gap_m'], position_world=pos.tolist(),
                 normal_world=(-probe['side']*r[:, 2]).tolist(), engine_normal_jacobian=[0.]*nv,
                 expected_vertex_normal_jacobian=[0.]*nv, translation_columns=[0,1,2,6,7,8],
-                barycentric_weights=[1/3]*3, efc_address=0)]
+                barycentric_weights=[1/3]*3, efc_address=0, constraint_active=True)]
         rows.append(dict(probe=probe, contact_count=len(contacts), contacts=contacts))
     return dict(case=case, status='COMPILED_AND_MEASURED', probes=rows, vertex_max_error_m=0.,
                 exact_faces=True, exact_owner_bindings=True, nv=nv)
@@ -93,6 +93,16 @@ def test_multibody_rotation_mismatch_is_separate_from_translation_support():
     check=q.check_case(result)
     assert check['status']=='PASS' and check['max_vertex_kinematic_rotation_jacobian_error']==.02
     assert check['three_owner_rotation_is_diagnostic_only']
+
+
+def test_touching_excluded_contact_has_no_required_constraint_but_penetration_does():
+    result=manufactured_result(q.cases()[0]);touch=result['probes'][1]
+    contact=copy.deepcopy(result['probes'][0]['contacts'][0]);contact['constraint_active']=False;contact['efc_address']=-1
+    contact['distance_m']=0.;contact['position_world']=[.04/3,.04/3,0.]
+    touch['contacts']=[contact];touch['contact_count']=1
+    assert q.check_case(result)['status']=='PASS'
+    result['probes'][0]['contacts'][0]['constraint_active']=False
+    assert q.check_case(result)['status']=='FAIL'
 
 
 def test_compile_rejection_is_retained_as_not_qualified():
@@ -183,8 +193,8 @@ def frozen(tmp_path,monkeypatch):
     dependency=tmp_path/'runtime.bin';dependency.write_bytes(b'manufactured package bytes')
     monkeypatch.setattr(q,'runtime_files',lambda:[dependency])
     for path in q.source_files():path.write_text('manufactured source')
-    (here/'controls.json').write_text(json.dumps(dict(exit_code=0,integration_calls=0)))
-    protocol=here/'protocol.json';q.prepare(protocol)
+    (here/q.CONTROLS_NAME).write_text(json.dumps(dict(exit_code=0,integration_calls=0)))
+    protocol=here/q.PROTOCOL_NAME;q.prepare(protocol)
     frozen_bytes={str(path.relative_to(root)):path.read_bytes() for path in [*q.source_files(),protocol]}
     commit='a'*40
     def git(command,text=False):
@@ -215,3 +225,13 @@ def test_frozen_protocol_or_input_tamper_refused(frozen,kind):
         else:p['collection_or_training_allowed']=True
         protocol.write_text(json.dumps(p))
     with pytest.raises(ValueError):q.validate(protocol,commit)
+
+
+def test_v1_unused_declaration_is_preserved_and_new_preparation_is_explicit(frozen):
+    protocol,_,_=frozen
+    old=q.HERE/'protocol.json';before=old.read_bytes()
+    assert protocol.name=='protocol_v2.json' and q.CONTROLS_NAME=='controls_v2.json'
+    assert q.read(protocol)['prior_unused_declaration']['sha256']==q.sha(old)
+    assert q.read(protocol)['prior_unused_declaration']['execution_status']=='NEVER_EXECUTED'
+    assert old.read_bytes()==before
+    with pytest.raises(FileExistsError):q.prepare(old)

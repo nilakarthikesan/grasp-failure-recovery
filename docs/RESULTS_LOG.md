@@ -1074,3 +1074,11 @@ Jacobians have explicit numerical limits. Multi-owner rotational differences
 remain diagnostic; no MANO dynamics claim follows. Compilation rejection and
 partial attempted work remain explicit. No licensed/native asset or task label
 is read. Actual engine measurements are pending at this source freeze.
+
+Before actual execution, source review found that an exactly touching contact
+may have no active force-constraint row. Corrected the control to retain such
+touch contacts descriptively; penetrating contacts must still have a row.
+The original declaration at b0e9db9 remains unexecuted and unchanged. Active
+`protocol_v2.json` binds the corrected source and 37 passing manufactured
+controls. Scientific model cases, numerical limits and operation quotas remain
+unchanged. No actual engine work occurred under the unused declaration.

@@ -1,6 +1,6 @@
 # MuJoCo 3.3.7 primitive flex qualification
 
-Status: SOURCE PREPARED; no actual model compilation, FK, contact queries or integration has been performed by this implementation step. Root must run manufactured controls, prepare, commit the declaration and source, then execute exactly once.
+Status: SOURCE PREPARED; no actual model compilation, FK, contact queries or integration has been performed by this implementation step. The first declaration `protocol.json` at b0e9db979853222c3ce35b8e24fb3ba210794dd3 was NEVER EXECUTED. Its bytes and original `controls.json` are preserved and bound as provenance. Active preparation uses `protocol_v2.json` and `controls_v2.json`, adding correct handling for excluded exact-touch contacts without an active constraint row. Root must run manufactured controls, prepare, commit the declaration and source, then execute exactly once.
 
 This study uses synthetic vertices only. No HUG, MANO, MANOSim asset, project mapper, neural model or task outcome is loaded. It cannot admit collection or validate articulated MANO dynamics.
 
@@ -19,10 +19,10 @@ The official 3.3.7 manual requires positive radius for 2D flex. Zero radius is t
 Commands (original venv; no package installation):
 
 ```
-/Users/nilakarthikesan/grasp-failure-prediction/.venv/bin/python scripts/check_hug_build.py research_artifacts/manosim_flex_primitive_qualification_2026-10-15_v1/test_run_qualification.py -q --report research_artifacts/manosim_flex_primitive_qualification_2026-10-15_v1/controls.json
-/Users/nilakarthikesan/grasp-failure-prediction/.venv/bin/python research_artifacts/manosim_flex_primitive_qualification_2026-10-15_v1/run_qualification.py prepare
+/Users/nilakarthikesan/grasp-failure-prediction/.venv/bin/python scripts/check_hug_build.py research_artifacts/manosim_flex_primitive_qualification_2026-10-15_v1/test_run_qualification.py -q --report research_artifacts/manosim_flex_primitive_qualification_2026-10-15_v1/controls_v2.json
+/Users/nilakarthikesan/grasp-failure-prediction/.venv/bin/python research_artifacts/manosim_flex_primitive_qualification_2026-10-15_v1/run_qualification.py prepare --protocol research_artifacts/manosim_flex_primitive_qualification_2026-10-15_v1/protocol_v2.json
 # Root commits protocol and all source/runtime-control receipts before the next command.
-/Users/nilakarthikesan/grasp-failure-prediction/.venv/bin/python research_artifacts/manosim_flex_primitive_qualification_2026-10-15_v1/run_qualification.py run --freeze-commit COMMITTED_SHA
+/Users/nilakarthikesan/grasp-failure-prediction/.venv/bin/python research_artifacts/manosim_flex_primitive_qualification_2026-10-15_v1/run_qualification.py run --protocol research_artifacts/manosim_flex_primitive_qualification_2026-10-15_v1/protocol_v2.json --freeze-commit COMMITTED_SHA
 ```
 
 The protocol is generated only after controls exist. This README is the protocol draft; no empirical result is predeclared. Runtime scientific operations remain NOT_RUN until that separate frozen execution.
