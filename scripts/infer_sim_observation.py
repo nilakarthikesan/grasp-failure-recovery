@@ -127,6 +127,7 @@ def main():
         "elapsed_load_and_inference_s": time.perf_counter() - start,
         "proposal_sha256": hashlib.sha256(proposal.read_bytes()).hexdigest(),
         "checkpoint_sha256": hashlib.sha256(args.checkpoint.read_bytes()).hexdigest(),
+        "loaded_model_state_sha256": tensor_content_hash(model.state_dict()),
         "observation_hashes": checks["file_sha256"],
         "manifest_sha256": checks["manifest_sha256"],
         "hug_depth_png_sha256": hashlib.sha256((root / "depth.png").read_bytes()).hexdigest(),
