@@ -1061,3 +1061,16 @@ model/data construction, FK, forward and integration. This implements storage
 and validation only: compiled-address gathering, pose-to-control conversion,
 controller/runner integration, dataset export and prediction remain pending.
 It creates no native task data, trained model or transfer/physics claim.
+
+### 2026-10-15 — Freeze manufactured triangle-flex capability controls
+
+35 manufactured source/protocol controls pass, integration attempts zero.
+The new primitive-only declaration fixes 12 synthetic models, 12 data creations
+and 84 explicit static forwards, with a 120-second worker limit. Tests cover
+zero/1-micrometre radius, both sides, rigid frame changes, single/multiple body
+attachments and a disconnected-triangle gap that must remain contact-free.
+Exact topology/owners, analytical distances/points/normals and normal-row
+Jacobians have explicit numerical limits. Multi-owner rotational differences
+remain diagnostic; no MANO dynamics claim follows. Compilation rejection and
+partial attempted work remain explicit. No licensed/native asset or task label
+is read. Actual engine measurements are pending at this source freeze.
