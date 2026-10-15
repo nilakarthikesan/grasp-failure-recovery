@@ -399,3 +399,45 @@ Per-object planned5each: apple2success/3failed_acquisition; milk1success/
 These are pilot engineering measurements, not held-out model performance.
 Source/protocol gates unchanged. The predeclared256slot study remains separately
 authorized after integrity inspection, with no attempt to repair class balance.
+
+
+## 15 October 2026 — Phase 2 paired fresh mug controller comparison
+
+Frozen protocol507a5db43d88b089c768ee50e52afb5b3f2b1c990f38a04c3e4c45f1163e2f9b
+at522083c, all8fresh mug proposals, two captures,16planned condition slots.
+COMPLETED_PAIRED_QUOTA, zero runtime errors,35860physics steps,10.382s.
+The unchanged vertical_v2 executes8/8:4approach collisions and0successes.
+The new grasp_derived_v1 executes3/8:0approach collisions,1success and2other
+physical failures;5static plannerrefusals keep null outcomes. Thus new-condition
+physical success1/3 differs from planned-population success1/8. Exactly3pairs
+complete bothconditions; one changes finalsuccess. Wrist posture and approach
+both change, so this is a named-controller comparison, not a direction-only
+causal effect. It demonstrates limited reachability and remains separate from
+varied-physics training data and historical mug results. No rule/target/gate tuned.
+
+
+## 15 October 2026 — Phase 2 predeclared 256-slot study
+
+Generation/schedule freeze0ba5beb; pilot-integrity/authorization commit8b3d4d9.
+COMPLETED_BOUNDED_QUOTA with zero runtime errors:256planned,213physical
+completions,43static approachrefusals with null labels. Physical results:
+126successes,84failed_acquisition,3no_contact. Exactly694380task steps,
+141.326s. No failed filter proposal was removed and no candidate was replaced.
+
+Strict recorded export has213eligible close-only prefixes:126success/87failure,
+four geometry groups, seven included capture groups and28proposal families.
+Attempt count is not independent geometry/proposal count. Each feature vector is
+1440float32 values; contact/fullstate/object/seed/filter/outcome fields stay out.
+All256attempts remain accounted for in the binding and manifest exclusions.
+
+Per-object planned64each: apple36success/28failed_acquisition; milk34success/
+23failed_acquisition/3no_contact/4nullrefusals; mug2success/23failed_acquisition/
+39nullrefusals; cube54success/10failed_acquisition. Category folds, seeds, controls,
+thresholds and model budget stay as frozen before these labels. Four objects
+have both physical outcome classes, but only one geometry represents each named
+category. Generalization conclusions remain limited to these held objects.
+
+Phase2 collection/recording and causal export PASS integrity. The new approach
+still has reachability refusals; it is not universal mug acquisition. Six-axis
+filter screening is a separate nominal engineering diagnostic, not a success
+certificate. Phase3 independent audit/category analysis and Phase4 fitting follow.

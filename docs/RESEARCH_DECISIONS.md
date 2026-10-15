@@ -2451,3 +2451,16 @@ run with unchanged scientific seeds, quotas and gates before execution. The
 110focused static checks pass withzero actual integration calls. This is an
 implemented runtime repair; fresh HUG collection remains pending. System-only
 scope continues; docs/paper is untouched.
+
+
+## 2026-10-15 — Fresh HUG collection closes Phase 2 with explicit denominators
+
+The predeclared study completed256slots without runtime error:213physical
+outcomes(126success,87failure) and43null plannerrefusals. The strict causal export
+contains213prefixes across4geometries,7includedcaptures and28proposal families;
+these are distinct diversity counts. Keep every refusal/filter rejection in the
+ledger and preserve fixed category folds/model budgets. Paired mug results are
+separate: vertical0/8success with4collisions; newcontroller1/8planned success,
+3executions/5refusals, so no universal reachability claim. These are measured
+simulator results; broad category/physical transfer remain hypotheses. System
+work only continues; manuscript files remain untouched.
