@@ -2585,3 +2585,34 @@ checkpoint will be indexed by hash. Implementation and manufactured controls
 are in progress; actual v3 optimization has not run at this decision. A local
 relationship repair cannot establish continuous native fidelity. No production
 promotion, new task data or predictor training is released by this diagnostic.
+
+
+## 2026-10-15 — Qualify the authors' native MANOSim path before more Shadow fitting
+
+The completed v3 repair demonstrates protected numerical progress, not faithful
+Shadow transfer: milk resolves no new relationships; mug resolves four prior
+unknowns, while every one of its 3183 original definite mismatches persists.
+All original passing relationships remain preserved in both returned poses.
+The complete independently verified v3 measurements remain distinct from v1/v2.
+
+The user's new MANOSim reference changes the next engineering check. Upstream
+c96e2d5 provides the native articulated MANO simulator used by HUG and a shipped
+shape file byte-identical to local HUG's. Its fifteen finger ball joints support
+a direct local-rotation transfer, avoiding Shadow's additional retargeting step.
+This is a source-supported design opportunity, not an achieved fidelity result.
+
+Choice: first implement and qualify explicit HUG-to-MANOSim static pose transfer
+against independent native joint anchors/world rotations and exact source
+assets. Separate qpos quaternions from actuator axis-angle commands. Bind shape,
+hand side, camera/wrist frame, bone order, mean-pose convention and units; do not
+reuse Shadow's operator-frame rotation. Then measure mesh/capsule collider
+distortion separately: their rigid neutral convex segments cannot be assumed to
+equal HUG's posed, blend-shaped/skinned surface. Upstream's contact parameters
+and reported replay success are motivation, not validation of our simulator.
+
+Implemented status: pinned source inspection and shared shape hash comparison
+are complete. Static adapter/controls and a separately frozen native transfer
+audit are in preparation; no upstream MANOSim model, native pose or rollout has
+been executed at this decision. The separately prepared static-v2 Shadow audit
+remains unexecuted. Physics collection, predictor training and paper edits stay
+outside this stage. Source: https://github.com/KevinyWu/manosim/tree/c96e2d5cd70838a2b025b60b85a7e4e06af1b3ac.

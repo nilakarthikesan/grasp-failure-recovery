@@ -50,6 +50,15 @@ independent-static translator's actual surface fields. Its production-entry
 output needs a separate, frozen native-input surface audit; passing its numerical
 controls does not fill that evidence gap.
 
+V3 joint restoration and counterexample retention now meet the original tip
+caps and retain all previously passing fields in both development cases.
+Milk's definite failures change 530 to 529 through one newly unresolved tuple;
+mug resolves four prior unknowns while all 3183 definite failures persist.
+Neither is faithful-transfer admission. The user's MANOSim reference is the
+next priority: its native HUG hand shape matches our source bytes and permits
+direct MANO joint transfer. Static pose qualification and separate collision
+approximation measurements are being built; simulator realism remains unproved.
+
 ## Beginning of the system: decision and evidence boundary
 
 The executable chain is rendered RGB-D/calibration → pretrained HUG MANO output

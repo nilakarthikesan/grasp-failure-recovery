@@ -795,3 +795,49 @@ The unchanged legacy visual-mesh transform also emits NumPy matmul warnings;
 the earlier halfspace replay does not clear that separate operation. Preserve
 this scoped limitation. No threshold/cap was changed, no fidelity PASS or task
 label was issued, and collection/training remain paused.
+
+## 15 October 2026 — Protected exchange v3 and a native MANOSim reference
+
+The once-only v3 run frozen at 792b576 completes both cases: 1200 static forwards,
+594 raw callbacks, twelve complete field checkpoints, zero counted physics,
+HUG-inference or official-retarget attempts. Worker times: 101.24 s and 229.27 s.
+Active protocol SHA256: acd393ead3430eca81eaf053ae0b852fa9ff8bf0182fe07cbcc5c0f9711c53be.
+Report SHA256: ba3b9ff8625d17ca0b0857bd6feb2b1e6a4bfc34038e4e6cdbc5235e1bc25f75.
+Evidence: research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/.
+
+Joint restoration meets the literal original tip caps in both cases and retains
+all previous full-field preservation. Counterexamples from rejected checkpoints
+are retained as hard guards in later rounds. Final milk20 has 529 definite
+mismatches versus 530 originally: one definite failure becomes unresolved, with
+zero newly preserved relationships. Final mug28 preserves four previously
+unresolved relationships; zero original definite failures become preserved and
+all 3183 definite mismatches remain. Both final poses lose zero original passing
+relationships and introduce zero new definite failures. The four gains are
+overlapping cell/part/band tuples, not four independent contacts. Neither result
+is a full strict mapping PASS, continuous coverage proof or physical outcome.
+
+Independent receipt SHA256:
+ad42952118059f54edaadd17261cc529c25570f0be14a98a3df3f6e7ca7c6257.
+It verifies all 379 bindings before/after, twelve write-time checkpoint hashes,
+four visual artifacts, exact saved predicates/margins, complete counterexample
+unions, retained orientation predicates, caps, source joint limits and literal
+root serialization without new FK/geometry. Whole-mesh scalar arithmetic agrees
+with original visual transforms within 4.16e-17 m and 1.36e-19 m^3; original
+warnings/outputs remain preserved. This clears that named arithmetic comparison,
+not all geometry or physical realism.
+
+The focused combined controls pass 110 tests with zero integration calls. An
+initial plain pytest invocation could not import the pinned dependency bundle;
+the project check wrapper supplies it. The first unexecuted preparation
+declaration (dffea24a, archived as preparation_1_protocol.json) omitted the new
+counterexample policy from its description. This was corrected before source
+freeze and any native run; only the active acd393 declaration was executed.
+
+The user then supplied https://github.com/KevinyWu/manosim. Source inspection is
+pinned to c96e2d5cd70838a2b025b60b85a7e4e06af1b3ac. Its shipped right-hand shape
+file and the local HUG shape file have identical SHA256
+3e9a85085ae67f36745ce647b904acb4e3620e8ac46378755498291fcf010ddf.
+This supports inspecting a direct native MANO pose path. It is not a measured
+pose-transfer or collision-surface PASS. The corrected Shadow translator's
+separate audit source/tests are prepared but unexecuted while native MANOSim
+qualification takes priority. No new collection or predictor training resumes.

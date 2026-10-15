@@ -1,0 +1,984 @@
+{
+  "HEAD_remained_fixed": true,
+  "active_protocol_path": "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/protocol.json",
+  "active_protocol_sha256": "acd393ead3430eca81eaf053ae0b852fa9ff8bf0182fe07cbcc5c0f9711c53be",
+  "archived_unexecuted_preparation": {
+    "executed": false,
+    "path": "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/preparation_1_protocol.json",
+    "reason": "Descriptive active-selection and unresolved-guard metadata corrected before freeze; this declaration was archived without execution",
+    "sha256": "dffea24a5fe3fe6c132339c4eb48899cee683f1fdc7f9a41785fdca14d8c7219"
+  },
+  "artifact_inventory": {
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/20/checkpoint_01_literal_original_baseline.npz": {
+      "bytes": 3502458,
+      "sha256": "d5c648cef687ab08023e4da467114f27b8ac8295b762ca43f486503d8015d7cf"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/20/checkpoint_02_restored_start.npz": {
+      "bytes": 3502390,
+      "sha256": "0a7d80fd41497de72a33e91f7cf58e5715cc65a85e82b9d9492376f5164271d2"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/20/checkpoint_03_round_0_candidate.npz": {
+      "bytes": 3502421,
+      "sha256": "ba64ab796dab9a060e2bf3cad6a44d255501d3daf68705fab713072449f9d7d3"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/20/checkpoint_04_round_1_candidate.npz": {
+      "bytes": 3502552,
+      "sha256": "c79533a75d15a1bd77011e81dcaf82bb3a360e5de3f6daebb6e9684a45cdc3b0"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/20/checkpoint_05_round_2_candidate.npz": {
+      "bytes": 3502358,
+      "sha256": "8ad8e5640dbcf353924453332cf50c48e8056aa3e19b2e105cbe34e38ba5ae75"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/20/checkpoint_06_fresh_final.npz": {
+      "bytes": 3502552,
+      "sha256": "c79533a75d15a1bd77011e81dcaf82bb3a360e5de3f6daebb6e9684a45cdc3b0"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/20/events.jsonl": {
+      "bytes": 13156,
+      "sha256": "0e19fdddc54ed36d00213ef9a645ebc9648a883a43c7b6031384eefe448ab0ab"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/20/result.json": {
+      "bytes": 61139,
+      "sha256": "a68e9fe3ff4f8b5611ccf769747d384f9410a9ea5db80be33b95a35badd52f76"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/20/visual_transform_check/case_20_visual_transform.json": {
+      "bytes": 5069,
+      "sha256": "8b458e04f371c9442c1998f4053834694d6764fc3b6deb7375f004a559b4f43e"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/20/visual_transform_check/case_20_visual_transform.npz": {
+      "bytes": 1662186,
+      "sha256": "ea9dfd66aa283d8dccc8452efa7f5134f0950d2a11d7cc14c618f01ec27f814a"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/28/checkpoint_01_literal_original_baseline.npz": {
+      "bytes": 8296218,
+      "sha256": "b3e76b8b44d75881bc9d777d7b868d327c3f2010d45c4e8fd5be3fa1b670e535"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/28/checkpoint_02_restored_start.npz": {
+      "bytes": 8296071,
+      "sha256": "4617f362a9f44e5d0aa9893add3138b4ebcfc0d4e000f9b996b6b82c7ea39609"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/28/checkpoint_03_round_0_candidate.npz": {
+      "bytes": 8296466,
+      "sha256": "de4e82e9486be3b34244ebb30edaab77b5fde0a8c6ce0946eb063d55f61f4da9"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/28/checkpoint_04_round_1_candidate.npz": {
+      "bytes": 8296531,
+      "sha256": "b0b88620908b761dc5cd46de23e94daa5dd7c90a2be85f3d5ae7f0381b41e8c4"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/28/checkpoint_05_round_2_candidate.npz": {
+      "bytes": 8296070,
+      "sha256": "63c16a37702ce8d6e274c813bc8f0175b978715f647736821037cb255c8178fa"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/28/checkpoint_06_fresh_final.npz": {
+      "bytes": 8296531,
+      "sha256": "b0b88620908b761dc5cd46de23e94daa5dd7c90a2be85f3d5ae7f0381b41e8c4"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/28/events.jsonl": {
+      "bytes": 15692,
+      "sha256": "e42a3df15f078249ebcbcd6e485083e9c5dda033f19d98fa24cb39d44daa3a18"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/28/result.json": {
+      "bytes": 56383,
+      "sha256": "9f5ce68b017f2d5d7f9d3485db4da5e3e270492b88551f29227988ae1d2203db"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/28/visual_transform_check/case_28_visual_transform.json": {
+      "bytes": 5086,
+      "sha256": "d63f6803838cdd454664ab239da43b9dd4e33ad5d762435f62989680937dc71a"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/28/visual_transform_check/case_28_visual_transform.npz": {
+      "bytes": 1972637,
+      "sha256": "afd5bbf82b8692d56299e10a20fa5fa0ccfac3bfc838fd6e8515d680a609e2e3"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/case_20.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/case_28.log": {
+      "bytes": 2910,
+      "sha256": "4f0c38abacafe8b8a1391a42cdd0b3b1ff239937d4912313a5a39da49ff874ca"
+    },
+    "research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/report.json": {
+      "bytes": 1762,
+      "sha256": "ba3b9ff8625d17ca0b0857bd6feb2b1e6a4bfc34038e4e6cdbc5235e1bc25f75"
+    }
+  },
+  "cases": [
+    {
+      "all_counterexamples_recomputed_exact": true,
+      "baseline_rank": [
+        2456,
+        530,
+        7.980069421399685
+      ],
+      "checkpoints": [
+        {
+          "all_masks_and_margin_exact": true,
+          "bytes": 3502458,
+          "counts": {
+            "definite_added": 315,
+            "definite_lost": 215,
+            "native_ambiguous": 3411,
+            "native_far": 340218,
+            "native_near": 1503,
+            "preserved": 339265,
+            "required": 341721,
+            "unresolved_required": 1926
+          },
+          "label": "literal_original_baseline",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/20/checkpoint_01_literal_original_baseline.npz",
+          "rank": [
+            2456,
+            530,
+            7.980069421399685
+          ],
+          "retained_orientation_passed_count": 0,
+          "retained_orientation_predicate_exact": true,
+          "retained_orientation_valid_count": 10,
+          "sha256": "d5c648cef687ab08023e4da467114f27b8ac8295b762ca43f486503d8015d7cf"
+        },
+        {
+          "all_masks_and_margin_exact": true,
+          "bytes": 3502390,
+          "counts": {
+            "definite_added": 315,
+            "definite_lost": 215,
+            "native_ambiguous": 3411,
+            "native_far": 340218,
+            "native_near": 1503,
+            "preserved": 339265,
+            "required": 341721,
+            "unresolved_required": 1926
+          },
+          "label": "restored_start",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/20/checkpoint_02_restored_start.npz",
+          "rank": [
+            2456,
+            530,
+            7.98007097954158
+          ],
+          "retained_orientation_passed_count": 0,
+          "retained_orientation_predicate_exact": true,
+          "retained_orientation_valid_count": 10,
+          "sha256": "0a7d80fd41497de72a33e91f7cf58e5715cc65a85e82b9d9492376f5164271d2"
+        },
+        {
+          "all_masks_and_margin_exact": true,
+          "bytes": 3502421,
+          "counts": {
+            "definite_added": 313,
+            "definite_lost": 216,
+            "native_ambiguous": 3411,
+            "native_far": 340218,
+            "native_near": 1503,
+            "preserved": 339265,
+            "required": 341721,
+            "unresolved_required": 1927
+          },
+          "label": "round_0_candidate",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/20/checkpoint_03_round_0_candidate.npz",
+          "rank": [
+            2456,
+            529,
+            7.975280024497511
+          ],
+          "retained_orientation_passed_count": 0,
+          "retained_orientation_predicate_exact": true,
+          "retained_orientation_valid_count": 10,
+          "sha256": "ba64ab796dab9a060e2bf3cad6a44d255501d3daf68705fab713072449f9d7d3"
+        },
+        {
+          "all_masks_and_margin_exact": true,
+          "bytes": 3502552,
+          "counts": {
+            "definite_added": 314,
+            "definite_lost": 215,
+            "native_ambiguous": 3411,
+            "native_far": 340218,
+            "native_near": 1503,
+            "preserved": 339265,
+            "required": 341721,
+            "unresolved_required": 1927
+          },
+          "label": "round_1_candidate",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/20/checkpoint_04_round_1_candidate.npz",
+          "rank": [
+            2456,
+            529,
+            7.975947100737457
+          ],
+          "retained_orientation_passed_count": 0,
+          "retained_orientation_predicate_exact": true,
+          "retained_orientation_valid_count": 11,
+          "sha256": "c79533a75d15a1bd77011e81dcaf82bb3a360e5de3f6daebb6e9684a45cdc3b0"
+        },
+        {
+          "all_masks_and_margin_exact": true,
+          "bytes": 3502358,
+          "counts": {
+            "definite_added": 314,
+            "definite_lost": 216,
+            "native_ambiguous": 3411,
+            "native_far": 340218,
+            "native_near": 1503,
+            "preserved": 339266,
+            "required": 341721,
+            "unresolved_required": 1925
+          },
+          "label": "round_2_candidate",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/20/checkpoint_05_round_2_candidate.npz",
+          "rank": [
+            2455,
+            530,
+            7.974881957092977
+          ],
+          "retained_orientation_passed_count": 0,
+          "retained_orientation_predicate_exact": true,
+          "retained_orientation_valid_count": 11,
+          "sha256": "8ad8e5640dbcf353924453332cf50c48e8056aa3e19b2e105cbe34e38ba5ae75"
+        },
+        {
+          "all_masks_and_margin_exact": true,
+          "bytes": 3502552,
+          "counts": {
+            "definite_added": 314,
+            "definite_lost": 215,
+            "native_ambiguous": 3411,
+            "native_far": 340218,
+            "native_near": 1503,
+            "preserved": 339265,
+            "required": 341721,
+            "unresolved_required": 1927
+          },
+          "label": "fresh_final",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/20/checkpoint_06_fresh_final.npz",
+          "rank": [
+            2456,
+            529,
+            7.975947100737457
+          ],
+          "retained_orientation_passed_count": 0,
+          "retained_orientation_predicate_exact": true,
+          "retained_orientation_valid_count": 11,
+          "sha256": "c79533a75d15a1bd77011e81dcaf82bb3a360e5de3f6daebb6e9684a45cdc3b0"
+        }
+      ],
+      "elapsed_s": 101.24138345802203,
+      "final_original_protection": {
+        "lost_baseline_passing": 0,
+        "new_definite_violations": 0,
+        "orientation_protected": true,
+        "passed": true
+      },
+      "final_relationship_transitions": {
+        "baseline_definite_failure_to_preserved": 0,
+        "baseline_definite_failure_to_unresolved": 1,
+        "baseline_unresolved_required_to_preserved": 0,
+        "full_transition_table": {
+          "definite_failure": {
+            "definite_failure": 529,
+            "preserved": 0,
+            "unresolved_required": 1
+          },
+          "preserved": {
+            "definite_failure": 0,
+            "preserved": 339265,
+            "unresolved_required": 0
+          },
+          "unresolved_required": {
+            "definite_failure": 0,
+            "preserved": 0,
+            "unresolved_required": 1926
+          }
+        },
+        "lost_baseline_preserved": 0,
+        "returned_new_definite_failure": 0,
+        "unit": "fixed original-grid cell by same anatomical part by band tuples; overlapping bands are not independent contacts"
+      },
+      "fit_status": "FEASIBLE_SEARCH_PROGRESS_ONLY",
+      "index": 20,
+      "limits": [
+        "No FK or distance replay; serialized errors and saved orientation eligibility are the available evidence"
+      ],
+      "no_mapping_pass": true,
+      "no_task_labels": true,
+      "observed_case_counts": {
+        "cheap_callbacks": 4,
+        "full_field_checkpoints": 6,
+        "orientation_checks": 9,
+        "proximity_collider_point_queries": 4384387,
+        "raw_callbacks": 132,
+        "tip_jacobians": 4
+      },
+      "observed_counts": {
+        "inference_attempts": 0,
+        "official_dex_retarget_attempts": 0,
+        "physics_step_attempts": 0,
+        "static_forwards": 270
+      },
+      "repaired_relationship_count": 0,
+      "restored_start_protection": {
+        "lost_baseline_passing": 0,
+        "new_definite_violations": 0,
+        "orientation_protected": true,
+        "passed": true
+      },
+      "result_sha256": "a68e9fe3ff4f8b5611ccf769747d384f9410a9ea5db80be33b95a35badd52f76",
+      "retained_guard_counterexample_count": 2,
+      "returned_is_baseline_evidence_only": false,
+      "returned_rank": [
+        2456,
+        529,
+        7.975947100737457
+      ],
+      "rounds": [
+        {
+          "baseline_protection": {
+            "lost_baseline_passing": 0,
+            "new_definite_violations": 1,
+            "orientation_protected": true,
+            "passed": false
+          },
+          "checkpoint_guard_counterexample_count": 1,
+          "credited_repairs": 0,
+          "current_protection": {
+            "lost_baseline_passing": 0,
+            "new_definite_violations": 1,
+            "orientation_protected": true,
+            "passed": false
+          },
+          "newly_preserved_before_admission": 0,
+          "rank": [
+            2456,
+            529,
+            7.975280024497511
+          ],
+          "retained_guard_counterexample_count": 1,
+          "round": 0,
+          "selected": false
+        },
+        {
+          "baseline_protection": {
+            "lost_baseline_passing": 0,
+            "new_definite_violations": 0,
+            "orientation_protected": true,
+            "passed": true
+          },
+          "checkpoint_guard_counterexample_count": 0,
+          "credited_repairs": 0,
+          "current_protection": {
+            "lost_baseline_passing": 0,
+            "new_definite_violations": 0,
+            "orientation_protected": true,
+            "passed": true
+          },
+          "newly_preserved_before_admission": 0,
+          "rank": [
+            2456,
+            529,
+            7.975947100737457
+          ],
+          "retained_guard_counterexample_count": 1,
+          "round": 1,
+          "selected": true
+        },
+        {
+          "baseline_protection": {
+            "lost_baseline_passing": 0,
+            "new_definite_violations": 1,
+            "orientation_protected": true,
+            "passed": false
+          },
+          "checkpoint_guard_counterexample_count": 1,
+          "credited_repairs": 0,
+          "current_protection": {
+            "lost_baseline_passing": 0,
+            "new_definite_violations": 1,
+            "orientation_protected": true,
+            "passed": false
+          },
+          "newly_preserved_before_admission": 1,
+          "rank": [
+            2455,
+            530,
+            7.974881957092977
+          ],
+          "retained_guard_counterexample_count": 2,
+          "round": 2,
+          "selected": false
+        }
+      ],
+      "state_checks": {
+        "baseline": {
+          "all_literal_tips_pass": false,
+          "cap_minus_norm_m": [
+            5.923840966370886e-10,
+            -8.543513119185775e-17,
+            -3.122502256758253e-17,
+            -1.9081958235744878e-17,
+            5.0498118187025653e-08
+          ],
+          "individual_pass": [
+            true,
+            false,
+            false,
+            false,
+            true
+          ],
+          "mean_m": 0.008189181770087088,
+          "mean_pass": true,
+          "norms_m": [
+            0.01751752552741809,
+            0.002433830048462923,
+            0.0029920590757401932,
+            0.007817537762772248,
+            0.010184956436041987
+          ],
+          "serialized_engineering_domain_pass": true,
+          "source_joint_limits_pass": true
+        },
+        "returned": {
+          "all_literal_tips_pass": true,
+          "cap_minus_norm_m": [
+            4.116820184578429e-07,
+            1.358436856925549e-10,
+            1.6479593007052984e-09,
+            9.18196501470403e-10,
+            6.326132276272475e-06
+          ],
+          "individual_pass": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "mean_m": 0.008187843884928676,
+          "mean_pass": true,
+          "norms_m": [
+            0.01751711443778373,
+            0.002433829912619152,
+            0.0029920574277808613,
+            0.007817536844575727,
+            0.010178680801883902
+          ],
+          "serialized_engineering_domain_pass": true,
+          "source_joint_limits_pass": true
+        }
+      },
+      "status": "VERIFIED_SAVED_ARRAYS_AND_INTERPRETATION",
+      "visual_arithmetic": {
+        "all_face_coordinates_checked": 75636,
+        "arrays_rehashed": 19,
+        "coordinate_max_difference_m": 4.163336342344337e-17,
+        "face_count": 8404,
+        "independent_signed_volumes_m3": {
+          "einsum": 0.00042360004386599335,
+          "matmul": 0.00042360004386599335,
+          "original_triangles": 0.00042360004386599335,
+          "scalar": 0.00042360004386599335
+        },
+        "json_sha256": "8b458e04f371c9442c1998f4053834694d6764fc3b6deb7375f004a559b4f43e",
+        "matmul_replay_warnings": [
+          {
+            "category": "RuntimeWarning",
+            "count": 2,
+            "message": "divide by zero encountered in matmul"
+          },
+          {
+            "category": "RuntimeWarning",
+            "count": 2,
+            "message": "invalid value encountered in matmul"
+          },
+          {
+            "category": "RuntimeWarning",
+            "count": 2,
+            "message": "overflow encountered in matmul"
+          }
+        ],
+        "maximum_volume_difference_m3": 0.0,
+        "npz_sha256": "ea9dfd66aa283d8dccc8452efa7f5134f0950d2a11d7cc14c618f01ec27f814a",
+        "numerical_comparison_only": true,
+        "original_callable_warnings": [
+          {
+            "category": "RuntimeWarning",
+            "count": 2,
+            "message": "divide by zero encountered in matmul"
+          },
+          {
+            "category": "RuntimeWarning",
+            "count": 2,
+            "message": "invalid value encountered in matmul"
+          },
+          {
+            "category": "RuntimeWarning",
+            "count": 2,
+            "message": "overflow encountered in matmul"
+          }
+        ],
+        "original_outputs_retained": true,
+        "same_nonzero_volume_sign": true,
+        "scalar_coordinates_per_transform": 12612,
+        "vertex_count": 4204
+      }
+    },
+    {
+      "all_counterexamples_recomputed_exact": true,
+      "baseline_rank": [
+        8759,
+        3183,
+        15.784134571457338
+      ],
+      "checkpoints": [
+        {
+          "all_masks_and_margin_exact": true,
+          "bytes": 8296218,
+          "counts": {
+            "definite_added": 824,
+            "definite_lost": 2359,
+            "native_ambiguous": 14369,
+            "native_far": 797200,
+            "native_near": 7143,
+            "preserved": 795584,
+            "required": 804343,
+            "unresolved_required": 5576
+          },
+          "label": "literal_original_baseline",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/28/checkpoint_01_literal_original_baseline.npz",
+          "rank": [
+            8759,
+            3183,
+            15.784134571457338
+          ],
+          "retained_orientation_passed_count": 0,
+          "retained_orientation_predicate_exact": true,
+          "retained_orientation_valid_count": 1,
+          "sha256": "b3e76b8b44d75881bc9d777d7b868d327c3f2010d45c4e8fd5be3fa1b670e535"
+        },
+        {
+          "all_masks_and_margin_exact": true,
+          "bytes": 8296071,
+          "counts": {
+            "definite_added": 824,
+            "definite_lost": 2359,
+            "native_ambiguous": 14369,
+            "native_far": 797200,
+            "native_near": 7143,
+            "preserved": 795584,
+            "required": 804343,
+            "unresolved_required": 5576
+          },
+          "label": "restored_start",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/28/checkpoint_02_restored_start.npz",
+          "rank": [
+            8759,
+            3183,
+            15.78413673762568
+          ],
+          "retained_orientation_passed_count": 0,
+          "retained_orientation_predicate_exact": true,
+          "retained_orientation_valid_count": 1,
+          "sha256": "4617f362a9f44e5d0aa9893add3138b4ebcfc0d4e000f9b996b6b82c7ea39609"
+        },
+        {
+          "all_masks_and_margin_exact": true,
+          "bytes": 8296466,
+          "counts": {
+            "definite_added": 824,
+            "definite_lost": 2359,
+            "native_ambiguous": 14369,
+            "native_far": 797200,
+            "native_near": 7143,
+            "preserved": 795588,
+            "required": 804343,
+            "unresolved_required": 5572
+          },
+          "label": "round_0_candidate",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/28/checkpoint_03_round_0_candidate.npz",
+          "rank": [
+            8755,
+            3183,
+            15.782836609114261
+          ],
+          "retained_orientation_passed_count": 0,
+          "retained_orientation_predicate_exact": true,
+          "retained_orientation_valid_count": 1,
+          "sha256": "de4e82e9486be3b34244ebb30edaab77b5fde0a8c6ce0946eb063d55f61f4da9"
+        },
+        {
+          "all_masks_and_margin_exact": true,
+          "bytes": 8296531,
+          "counts": {
+            "definite_added": 824,
+            "definite_lost": 2359,
+            "native_ambiguous": 14369,
+            "native_far": 797200,
+            "native_near": 7143,
+            "preserved": 795588,
+            "required": 804343,
+            "unresolved_required": 5572
+          },
+          "label": "round_1_candidate",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/28/checkpoint_04_round_1_candidate.npz",
+          "rank": [
+            8755,
+            3183,
+            15.782757491130464
+          ],
+          "retained_orientation_passed_count": 0,
+          "retained_orientation_predicate_exact": true,
+          "retained_orientation_valid_count": 1,
+          "sha256": "b0b88620908b761dc5cd46de23e94daa5dd7c90a2be85f3d5ae7f0381b41e8c4"
+        },
+        {
+          "all_masks_and_margin_exact": true,
+          "bytes": 8296070,
+          "counts": {
+            "definite_added": 824,
+            "definite_lost": 2360,
+            "native_ambiguous": 14369,
+            "native_far": 797200,
+            "native_near": 7143,
+            "preserved": 795589,
+            "required": 804343,
+            "unresolved_required": 5570
+          },
+          "label": "round_2_candidate",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/28/checkpoint_05_round_2_candidate.npz",
+          "rank": [
+            8754,
+            3184,
+            15.781989777984249
+          ],
+          "retained_orientation_passed_count": 0,
+          "retained_orientation_predicate_exact": true,
+          "retained_orientation_valid_count": 1,
+          "sha256": "63c16a37702ce8d6e274c813bc8f0175b978715f647736821037cb255c8178fa"
+        },
+        {
+          "all_masks_and_margin_exact": true,
+          "bytes": 8296531,
+          "counts": {
+            "definite_added": 824,
+            "definite_lost": 2359,
+            "native_ambiguous": 14369,
+            "native_far": 797200,
+            "native_near": 7143,
+            "preserved": 795588,
+            "required": 804343,
+            "unresolved_required": 5572
+          },
+          "label": "fresh_final",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/run_v1/28/checkpoint_06_fresh_final.npz",
+          "rank": [
+            8755,
+            3183,
+            15.782757491130464
+          ],
+          "retained_orientation_passed_count": 0,
+          "retained_orientation_predicate_exact": true,
+          "retained_orientation_valid_count": 1,
+          "sha256": "b0b88620908b761dc5cd46de23e94daa5dd7c90a2be85f3d5ae7f0381b41e8c4"
+        }
+      ],
+      "elapsed_s": 229.26707208389416,
+      "final_original_protection": {
+        "lost_baseline_passing": 0,
+        "new_definite_violations": 0,
+        "orientation_protected": true,
+        "passed": true
+      },
+      "final_relationship_transitions": {
+        "baseline_definite_failure_to_preserved": 0,
+        "baseline_definite_failure_to_unresolved": 0,
+        "baseline_unresolved_required_to_preserved": 4,
+        "full_transition_table": {
+          "definite_failure": {
+            "definite_failure": 3183,
+            "preserved": 0,
+            "unresolved_required": 0
+          },
+          "preserved": {
+            "definite_failure": 0,
+            "preserved": 795584,
+            "unresolved_required": 0
+          },
+          "unresolved_required": {
+            "definite_failure": 0,
+            "preserved": 4,
+            "unresolved_required": 5572
+          }
+        },
+        "lost_baseline_preserved": 0,
+        "returned_new_definite_failure": 0,
+        "unit": "fixed original-grid cell by same anatomical part by band tuples; overlapping bands are not independent contacts"
+      },
+      "fit_status": "IMPROVED_RELATIONSHIPS_DIAGNOSTIC",
+      "index": 28,
+      "limits": [
+        "No FK or distance replay; serialized errors and saved orientation eligibility are the available evidence"
+      ],
+      "no_mapping_pass": true,
+      "no_task_labels": true,
+      "observed_case_counts": {
+        "cheap_callbacks": 1,
+        "full_field_checkpoints": 6,
+        "orientation_checks": 9,
+        "proximity_collider_point_queries": 10393670,
+        "raw_callbacks": 462,
+        "tip_jacobians": 12
+      },
+      "observed_counts": {
+        "inference_attempts": 0,
+        "official_dex_retarget_attempts": 0,
+        "physics_step_attempts": 0,
+        "static_forwards": 930
+      },
+      "repaired_relationship_count": 4,
+      "restored_start_protection": {
+        "lost_baseline_passing": 0,
+        "new_definite_violations": 0,
+        "orientation_protected": true,
+        "passed": true
+      },
+      "result_sha256": "9f5ce68b017f2d5d7f9d3485db4da5e3e270492b88551f29227988ae1d2203db",
+      "retained_guard_counterexample_count": 4,
+      "returned_is_baseline_evidence_only": false,
+      "returned_rank": [
+        8755,
+        3183,
+        15.782757491130464
+      ],
+      "rounds": [
+        {
+          "baseline_protection": {
+            "lost_baseline_passing": 1,
+            "new_definite_violations": 0,
+            "orientation_protected": true,
+            "passed": false
+          },
+          "checkpoint_guard_counterexample_count": 1,
+          "credited_repairs": 0,
+          "current_protection": {
+            "lost_baseline_passing": 1,
+            "new_definite_violations": 0,
+            "orientation_protected": true,
+            "passed": false
+          },
+          "newly_preserved_before_admission": 5,
+          "rank": [
+            8755,
+            3183,
+            15.782836609114261
+          ],
+          "retained_guard_counterexample_count": 1,
+          "round": 0,
+          "selected": false
+        },
+        {
+          "baseline_protection": {
+            "lost_baseline_passing": 0,
+            "new_definite_violations": 0,
+            "orientation_protected": true,
+            "passed": true
+          },
+          "checkpoint_guard_counterexample_count": 0,
+          "credited_repairs": 4,
+          "current_protection": {
+            "lost_baseline_passing": 0,
+            "new_definite_violations": 0,
+            "orientation_protected": true,
+            "passed": true
+          },
+          "newly_preserved_before_admission": 4,
+          "rank": [
+            8755,
+            3183,
+            15.782757491130464
+          ],
+          "retained_guard_counterexample_count": 1,
+          "round": 1,
+          "selected": true
+        },
+        {
+          "baseline_protection": {
+            "lost_baseline_passing": 1,
+            "new_definite_violations": 2,
+            "orientation_protected": true,
+            "passed": false
+          },
+          "checkpoint_guard_counterexample_count": 3,
+          "credited_repairs": 0,
+          "current_protection": {
+            "lost_baseline_passing": 1,
+            "new_definite_violations": 2,
+            "orientation_protected": true,
+            "passed": false
+          },
+          "newly_preserved_before_admission": 2,
+          "rank": [
+            8754,
+            3184,
+            15.781989777984249
+          ],
+          "retained_guard_counterexample_count": 4,
+          "round": 2,
+          "selected": false
+        }
+      ],
+      "state_checks": {
+        "baseline": {
+          "all_literal_tips_pass": false,
+          "cap_minus_norm_m": [
+            1.1387697486375803e-09,
+            -4.8138576458356397e-17,
+            -1.734723475976807e-17,
+            -3.9898639947466563e-17,
+            -5.9761891650633725e-09
+          ],
+          "individual_pass": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "mean_m": 0.0066086113202163425,
+          "mean_pass": true,
+          "norms_m": [
+            0.015945475844415354,
+            0.001997040646086625,
+            0.004247216245507287,
+            0.0019206036852298359,
+            0.008932720179842616
+          ],
+          "serialized_engineering_domain_pass": true,
+          "source_joint_limits_pass": true
+        },
+        "returned": {
+          "all_literal_tips_pass": true,
+          "cap_minus_norm_m": [
+            7.670405563590943e-07,
+            2.9321496029799388e-09,
+            3.1098250363736923e-10,
+            1.4208752886313118e-07,
+            7.789425357195012e-07
+          ],
+          "individual_pass": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "mean_m": 0.00660827208998183,
+          "mean_pass": true,
+          "norms_m": [
+            0.015944709942628744,
+            0.001997037713936974,
+            0.004247215934524766,
+            0.0019204615977009328,
+            0.008931935261117732
+          ],
+          "serialized_engineering_domain_pass": true,
+          "source_joint_limits_pass": true
+        }
+      },
+      "status": "VERIFIED_SAVED_ARRAYS_AND_INTERPRETATION",
+      "visual_arithmetic": {
+        "all_face_coordinates_checked": 90000,
+        "arrays_rehashed": 19,
+        "coordinate_max_difference_m": 4.163336342344337e-17,
+        "face_count": 10000,
+        "independent_signed_volumes_m3": {
+          "einsum": 0.00015694661977322223,
+          "matmul": 0.00015694661977322223,
+          "original_triangles": 0.00015694661977322223,
+          "scalar": 0.0001569466197732223
+        },
+        "json_sha256": "d63f6803838cdd454664ab239da43b9dd4e33ad5d762435f62989680937dc71a",
+        "matmul_replay_warnings": [
+          {
+            "category": "RuntimeWarning",
+            "count": 2,
+            "message": "divide by zero encountered in matmul"
+          },
+          {
+            "category": "RuntimeWarning",
+            "count": 2,
+            "message": "invalid value encountered in matmul"
+          },
+          {
+            "category": "RuntimeWarning",
+            "count": 2,
+            "message": "overflow encountered in matmul"
+          }
+        ],
+        "maximum_volume_difference_m3": 1.3552527156068805e-19,
+        "npz_sha256": "afd5bbf82b8692d56299e10a20fa5fa0ccfac3bfc838fd6e8515d680a609e2e3",
+        "numerical_comparison_only": true,
+        "original_callable_warnings": [
+          {
+            "category": "RuntimeWarning",
+            "count": 2,
+            "message": "divide by zero encountered in matmul"
+          },
+          {
+            "category": "RuntimeWarning",
+            "count": 2,
+            "message": "invalid value encountered in matmul"
+          },
+          {
+            "category": "RuntimeWarning",
+            "count": 2,
+            "message": "overflow encountered in matmul"
+          }
+        ],
+        "original_outputs_retained": true,
+        "same_nonzero_volume_sign": true,
+        "scalar_coordinates_per_transform": 15000,
+        "vertex_count": 5000
+      }
+    }
+  ],
+  "execution_started_sha256": "4adb267c794a146e125b23aa6c1cfc55f916b4516e556b8c2c6f6db0e1579caa",
+  "freeze_commit": "792b5768fc26e618c47c7dac7cb13b5830e88a63",
+  "generated_utc": "2026-10-15T15:55:24.695200+00:00",
+  "input_source_bindings_verified_before_and_after": 379,
+  "interpretation": "Case20 has one definite-to-unresolved transition and no newly preserved tuples. Case28 has four unresolved-to-preserved tuples and zero baseline-definite-to-preserved repairs. Neither is full mapping fidelity or continuous contact/orientation equivalence.",
+  "limitations": [
+    "Saved errors, margins, orientations and serialized roots verified; no independent FK/distance/normal-eligibility geometry replay",
+    "Original capped orientation witness validity/passing protection checked; continuous orientation coverage remains NOT_PROVED",
+    "Both are repeatedly inspected development grasps, not untouched mapping-generalization evidence"
+  ],
+  "native_fidelity_accepted": false,
+  "new_collection_or_training_allowed": false,
+  "no_geometry_or_FK_replay": true,
+  "no_new_solves_or_physics_or_inference_or_training": true,
+  "no_task_labels": true,
+  "predicates": {
+    "bands_mm": [
+      1,
+      2,
+      5
+    ],
+    "native_far": "max(0,distance - (radius + allowance)) > band",
+    "native_near": "distance + (radius + allowance) <= band",
+    "original_tip_caps": "sqrt(einsum(error,error)) <= original cap; mean <= .010; no acceptance allowance",
+    "visual_comparison_only": {
+      "coordinate_limit_m": 1e-14,
+      "full_scalar_three_product_sums": true,
+      "unchanged_nonzero_volume_sign": true,
+      "volume_limit_m3": 1e-14
+    },
+    "whole_cell_numerical_allowance_m": 1e-08
+  },
+  "production_promotion": false,
+  "schema_version": "hug_fullfield_v3_independent_saved_array_readback_v1",
+  "source_git_blobs_checked": true,
+  "status": "VERIFIED_SAVED_ARRAYS_AND_REPORT_INTERPRETATION",
+  "unit": "original-grid cell by same anatomical part by band relationships; overlapping bands are not independent contacts",
+  "verified_checkpoint_npz_count": 12,
+  "verified_visual_json_npz_count": 4,
+  "verifier_source_sha256": "5e6a99ebaf200720bf1dedc7ffb497edc59c1a4b67a2987280bfa1c7025ac0a9",
+  "verifier_source_text": "\"\"\"Independent v3 saved-array verifier; imports no project, geometry or simulator.\"\"\"\nfrom datetime import datetime,timezone\nimport gzip,hashlib,json,math,subprocess\nfrom pathlib import Path\nimport numpy as np\nROOT=Path('/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction')\nBASE=ROOT/'research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3'\nOUT=BASE/'run_v1'\nFREEZE='792b5768fc26e618c47c7dac7cb13b5830e88a63'\nACTIVE='acd393ead3430eca81eaf053ae0b852fa9ff8bf0182fe07cbcc5c0f9711c53be'\nUNEXECUTED='dffea24a5fe3fe6c132339c4eb48899cee683f1fdc7f9a41785fdca14d8c7219'\n\ndef sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()\ndef read(p):\n p=Path(p);return json.loads(gzip.decompress(p.read_bytes()) if p.suffix=='.gz' else p.read_bytes())\ndef arrays(p):\n with np.load(p,allow_pickle=False) as z:return {k:z[k].copy() for k in z.files}\ndef require(c,message):\n if not c:raise AssertionError(message)\ndef clas(d,r):\n require(d.ndim==2 and d.shape[1]==6 and r.shape==(len(d),),'field shape')\n require(np.isfinite(d).all() and np.isfinite(r).all() and np.all(d>=0) and np.all(r>=0),'finite/nonnegative fields')\n e=r[:,None,None]+1e-8;b=np.asarray([1,2,5])[None,None,:]/1000.\n lower=np.maximum(0.,d[:,:,None]-e);upper=d[:,:,None]+e\n near=upper<=b;far=lower>b\n return dict(near=near,far=far,ambiguous=~(near|far))\ndef fields(native,mapped,r):\n n,m=clas(native,r),clas(mapped,r);required=n['near']|n['far']\n preserved=(n['near']&m['near'])|(n['far']&m['far']);lost=n['near']&m['far'];added=n['far']&m['near']\n return dict(native_near=n['near'],native_far=n['far'],native_ambiguous=n['ambiguous'],required=required,preserved=preserved,\n             definite_lost=lost,definite_added=added,unresolved_required=required&~preserved&~(lost|added))\ndef protection(a,b):\n lost=int((a['preserved']&~b['preserved']).sum())\n new=int(((b['definite_lost']|b['definite_added'])&~(a['definite_lost']|a['definite_added'])).sum())\n ori=bool(np.all(~a['orientation_valid']|b['orientation_valid']) and np.all(~a['orientation_passed']|b['orientation_passed']))\n return dict(passed=lost==0 and new==0 and ori,lost_baseline_passing=lost,new_definite_violations=new,orientation_protected=ori)\ndef counterexamples(a,b,c):\n lost=(a['preserved']|b['preserved'])&~c['preserved']\n definite=c['definite_lost']|c['definite_added']\n new=definite&(~(a['definite_lost']|a['definite_added'])|~(b['definite_lost']|b['definite_added']))\n return [list(map(int,row)) for row in np.argwhere(lost|new)]\ndef transition_counts(a,b):\n aa={'preserved':a['preserved'],'definite_failure':a['definite_lost']|a['definite_added'],'unresolved_required':a['unresolved_required']}\n bb={'preserved':b['preserved'],'definite_failure':b['definite_lost']|b['definite_added'],'unresolved_required':b['unresolved_required']}\n table={left:{right:int((av&bv).sum()) for right,bv in bb.items()} for left,av in aa.items()}\n require(sum(sum(row.values()) for row in table.values())==int(a['required'].sum()),'complete native-definite transition partition')\n return dict(unit='fixed original-grid cell by same anatomical part by band tuples; overlapping bands are not independent contacts',\n  baseline_definite_failure_to_preserved=table['definite_failure']['preserved'],\n  baseline_unresolved_required_to_preserved=table['unresolved_required']['preserved'],\n  baseline_definite_failure_to_unresolved=table['definite_failure']['unresolved_required'],\n  returned_new_definite_failure=int(((b['definite_lost']|b['definite_added'])&~(a['definite_lost']|a['definite_added'])).sum()),\n  lost_baseline_preserved=int((a['preserved']&~b['preserved']).sum()),full_transition_table=table)\ndef rank(a):return [int((a['required']&~a['preserved']).sum()),int((a['definite_lost']|a['definite_added']).sum()),float(max(0.,-a['margin_m'][a['required']].min(initial=0.))/.001)]\n\ndef verify_bindings():\n require(subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip()==FREEZE,'HEAD changed')\n require(sha(BASE/'protocol.json')==ACTIVE,'active protocol changed')\n require(sha(BASE/'preparation_1_protocol.json')==UNEXECUTED,'archived unexecuted declaration changed')\n p=read(BASE/'protocol.json');require(len(p['bindings'])==379,'binding count')\n for name,digest in p['bindings'].items():require(sha(name)==digest,'bound input/source changed '+name)\n for file in (BASE/'protocol.json',BASE/'run_repair.py',BASE/'exchange_core.py',BASE/'repair_case.py',BASE/'visual_transform_check.py'):\n  blob=subprocess.check_output(['git','-C',str(ROOT),'show',FREEZE+':'+str(file.relative_to(ROOT))])\n  require(hashlib.sha256(blob).hexdigest()==sha(file),'frozen Git blob mismatch '+str(file))\n started=read(OUT/'started.json')\n require(started['protocol_sha256']==ACTIVE and started['freeze_commit']==FREEZE,'actual start used another protocol')\n require(started['budgets']==p['budgets'],'actual start quotas differ')\n return p\n\ndef array_hash(value):\n a=np.ascontiguousarray(value);h=hashlib.sha256();h.update(a.dtype.str.encode());h.update(str(a.shape).encode());h.update(a.tobytes());return h.hexdigest()\ndef scalar_product(a,b):\n return np.array([[math.fsum(float(row[k])*float(b[k,j]) for k in range(3)) for j in range(3)] for row in a])\ndef scalar_volume(triangles):\n def det(t):\n  a,b,c=t\n  return math.fsum((float(a[0])*float(b[1])*float(c[2]),float(a[1])*float(b[2])*float(c[0]),float(a[2])*float(b[0])*float(c[1]),\n   -float(a[0])*float(b[2])*float(c[1]),-float(a[1])*float(b[0])*float(c[2]),-float(a[2])*float(b[1])*float(c[0])))\n return math.fsum(det(t) for t in triangles)/6.\ndef visual_readback(index,result,p):\n binding=result['final_readback']['source_receipt']['visual_transform_check']\n directory=OUT/str(index)/'visual_transform_check'\n require(Path(binding['path'])==directory/f'case_{index}_visual_transform.json','visual JSON path')\n require(sha(binding['path'])==binding['sha256'],'visual outer JSON hash')\n receipt=read(binding['path']);ref=receipt['operands_and_outputs']\n require(receipt['status']=='VERIFIED_ORIGINAL_VISUAL_TRANSFORM_ARITHMETIC' and receipt['case_index']==index,'visual complete/case')\n require(ref==binding['operands_and_outputs'] and sha(ref['path'])==ref['sha256'],'visual operands outer hash')\n require(Path(ref['path'])==directory/f'case_{index}_visual_transform.npz','visual NPZ path')\n z=arrays(ref['path']);require(set(z)==set(receipt['array_hashes']),'visual array inventory')\n for name,value in z.items():\n  require(array_hash(value)==receipt['array_hashes'][name],'visual array hash '+name)\n  require(np.isfinite(value).all(),'visual nonfinite '+name)\n require(np.array_equal(z['vertices'],z['raw_compiled_vertices'].astype(float)),'literal compiled vertex conversion')\n require(np.array_equal(z['faces'],z['raw_compiled_faces'].astype(int)),'literal compiled faces')\n first=scalar_product(z['vertices'],z['geom_rotation'].T)\n centered=first+z['geom_position']-z['object_position']\n second=scalar_product(centered,z['object_rotation'])\n independent={'first':first,'centered':centered,'object_vertices':second};diffs={}\n for stage,actual in independent.items():\n  require(np.array_equal(actual,z['scalar_'+stage]),'full scalar replay changed '+stage)\n  for method in ('matmul','einsum','scalar'):\n   delta=float(np.max(np.abs(actual-z[method+'_'+stage]),initial=0.));require(delta<=1e-14,'visual arithmetic coordinate discrepancy')\n   diffs[stage+'_vs_'+method]=delta\n triangles=second[z['faces']]\n delta=float(np.max(np.abs(triangles-z['original_triangles']),initial=0.));require(delta<=1e-14,'all original face coordinates')\n diffs['all_original_triangles']=delta\n volumes={method:scalar_volume(z[method+'_object_vertices'][z['faces']]) for method in ('matmul','einsum','scalar')}\n volumes['original_triangles']=scalar_volume(z['original_triangles'])\n original=receipt['original_signed_volume_m3']\n for name,volume in volumes.items():\n  require(math.isfinite(volume) and volume!=0 and math.copysign(1.,volume)==math.copysign(1.,original),'visual volume sign')\n  require(abs(volume-original)<=1e-14,'visual full volume discrepancy')\n require(receipt['original_output_retained'] and receipt['scientific_acceptance_allowance'] is False,'original arithmetic-only scope')\n require(receipt['additional_forward_calls']==receipt['additional_distance_calls']==0,'visual extra operations')\n for indexed in result['auxiliary_artifacts']:\n  require(sha(indexed['path'])==indexed['sha256'] and Path(indexed['path']).stat().st_size==indexed['bytes'],'visual top index')\n require(result['fit']['auxiliary_artifacts']==result['auxiliary_artifacts'],'visual compact/top index differs')\n original_source=receipt['original_callable'];require(p['bindings'].get(original_source['source_path'])==original_source['source_sha256'],'original visual callable not source-bound')\n return dict(json_sha256=binding['sha256'],npz_sha256=ref['sha256'],arrays_rehashed=len(z),vertex_count=len(z['vertices']),face_count=len(z['faces']),\n     scalar_coordinates_per_transform=int(first.size),all_face_coordinates_checked=int(triangles.size),coordinate_max_difference_m=max(diffs.values()),\n     independent_signed_volumes_m3=volumes,maximum_volume_difference_m3=max(abs(v-original) for v in volumes.values()),same_nonzero_volume_sign=True,\n     original_callable_warnings=receipt['original_callable_warnings'],matmul_replay_warnings=receipt['matmul_replay_warnings'],\n     numerical_comparison_only=True,original_outputs_retained=True)\n\ndef state_readback(state,caps,limits):\n error=np.asarray(state['tip_errors_world_m']);norm=np.sqrt(np.einsum('ij,ij->i',error,error,optimize=False))\n require(np.array_equal(norm,state['tip_error_norms_m']),'serialized tip-error norms')\n require(np.array_equal(caps,state['original_tip_caps_m']),'original caps rebased')\n passed=norm<=caps;mean=bool(norm.mean()<=.010)\n require(np.array_equal(passed,state['literal_tip_caps_pass']) and mean==state['mean_tip_guard_pass'],'literal tip flags')\n q=dict(zip(state['joint_names'],state['joint_qpos_rad'],strict=True))\n jointpass=all(row['source_limits_rad'][0]<=q[row['joint_name']]<=row['source_limits_rad'][1] for row in limits)\n require(jointpass==state['physical_joint_limits_pass'],'literal source joint limit flag')\n return dict(norms_m=norm.tolist(),cap_minus_norm_m=(caps-norm).tolist(),individual_pass=passed.tolist(),mean_m=float(norm.mean()),mean_pass=mean,\n     all_literal_tips_pass=bool(passed.all() and mean),source_joint_limits_pass=jointpass,serialized_engineering_domain_pass=state['engineering_domain_pass'])\n\ndef case(index,p):\n result_path=OUT/str(index)/'result.json';r=read(result_path);fit=r['fit']\n require(r['status']=='COMPLETED_BOUNDED_STATIC_REPAIR','case did not complete bounded static protocol')\n require(r['freeze_commit']==FREEZE and r['protocol_sha256']==ACTIVE,'case protocol binding')\n require(r['native_fidelity_accepted'] is False and r['production_promotion'] is False,'no mapping promotion')\n require(fit['accepted_mapping'] is False and fit.get('full_strict_mapping_accepted',False) is False,'no mapping PASS')\n require(all(r['counts'][key]==0 for key in ('physics_step_attempts','inference_attempts','official_dex_retarget_attempts')),'forbidden call')\n require(r['counts']['static_forwards']<=1500 and r['case_counts']['raw_callbacks']<=1500,'case numeric quotas')\n old=read(p['v1_protocol']);plan=next(c for c in old['cases'] if c['source_inventory_index']==index);grid=plan['grids'][0]\n require(old['numerical_allowance_m']==1e-8 and old['bands_mm']==[1,2,5],'frozen predicates')\n native=arrays(grid['native_cache']);oldgrid=arrays(grid['original_cache'])\n require(np.array_equal(native['query_object_m'],oldgrid['query_object_m']),'full query alignment')\n nd=native['native_distance_by_part_m'][:,:6];radius=oldgrid['cell_radius_m']\n ori_policy=read(p['orientation_protocol']);ori_rows=[v for v in read(p['orientation_saved_witnesses'])['orientation_rows'] if v['source_inventory_index']==index]\n signs=np.sign([v['row']['native_facing_compatibility'] for v in ori_rows]);bands=np.array([v['band_mm']/1000. for v in ori_rows])\n indexed=r['checkpoint_artifacts'];require(indexed==fit['checkpoint_artifacts'],'compact/top checkpoint index')\n require(len(indexed)==r['case_counts']['full_field_checkpoints']<=6,'checkpoint count/cap')\n actual=list((OUT/str(index)).glob('checkpoint_*.npz'));require({str(v.resolve()) for v in actual}=={v['path'] for v in indexed},'all checkpoint paths indexed')\n zs={};records=[]\n for number,item in enumerate(indexed,1):\n  file=Path(item['path']);require(file.parent==OUT/str(index) and file.name.startswith(f'checkpoint_{number:02d}_'),'checkpoint ordinal/path')\n  require(sha(file)==item['sha256'] and file.stat().st_size==item['bytes'],'write-time checkpoint SHA/bytes')\n  z=arrays(file);zs[item['label']]=z;expected=fields(nd,z['distance_m'],radius)\n  require(set(z)==set(expected)|{'distance_m','margin_m','orientation_valid','orientation_passed','orientation_score','orientation_distance_m'},'checkpoint field inventory/no task label arrays')\n  for key,value in expected.items():require(np.array_equal(value,z[key]),'saved predicate mismatch '+file.name+' '+key)\n  error=radius[:,None,None]+1e-8;b=np.array([1,2,5])[None,None,:]/1000.\n  margin=np.where(expected['native_near'],b-error-z['distance_m'][:,:,None],z['distance_m'][:,:,None]-error-b)\n  require(np.array_equal(margin,z['margin_m']),'exact frozen margin '+file.name)\n  require(all(np.isfinite(z[key]).all() for key in ('distance_m','margin_m','orientation_score','orientation_distance_m')),'nonfinite output')\n  passed=((signs*z['orientation_score']-ori_policy['facing_dot_numerical_deadzone'])>0)&(z['orientation_distance_m']<=bands)&(z['orientation_distance_m']>ori_policy['query_boundary_tolerance_m'])&z['orientation_valid']\n  require(np.array_equal(passed,z['orientation_passed']),'retained orientation predicate')\n  counts={key:int(value.sum()) for key,value in expected.items()};require(counts['required']==grid['required_relationships'],'required denominator')\n  records.append(dict(**item,counts=counts,rank=rank(z),all_masks_and_margin_exact=True,retained_orientation_predicate_exact=True,\n       retained_orientation_valid_count=int(z['orientation_valid'].sum()),retained_orientation_passed_count=int(z['orientation_passed'].sum())))\n baseline=zs[fit['baseline']['label']];returned=zs[fit['returned']['label']]\n for key in ('baseline','returned'):\n  full=fit[key];require(sha(full['array_path'])==full['array_sha256'],'baseline/returned reference SHA')\n  z=zs[full['label']];counts={k:int(z[k].sum()) for k in fields(nd,z['distance_m'],radius)}\n  require(counts==full['field_boolean_counts'],'compacted field counts')\n  for k,v in counts.items():require(full['summary'][k]==v,'summary counts')\n  require(full['summary']['full_strict_mapping_status']==('FAIL' if counts['definite_lost']+counts['definite_added'] else 'INCOMPLETE'),'strict status')\n  for k in ('valid','passed','score','distance_m'):require(np.array_equal(z['orientation_'+k],full['orientation'][k]),'serialized orientation')\n v1base=Path(p['v1_protocol']).parent/'run_v1'/str(index)\n oldbase=arrays(v1base/f'original_{index}_density2mm.npz')\n require(np.array_equal(baseline['distance_m'],oldbase['current_distance_by_part_m']),'v1 baseline distance readback')\n for key in fields(nd,baseline['distance_m'],radius):require(np.array_equal(baseline[key],oldbase[key]),'v1 baseline field')\n capfile=read(plan['poses'][0]['historical_cap_report']);caps=np.asarray(capfile['engineering_guard_independent_audit']['original_tip_caps_sqrt_einsum_m'])\n limits=read(v1base/f'original_{index}.json')['source_limit_rows']\n states={key:state_readback(fit[key]['state'],caps,limits) for key in ('baseline','returned')}\n refused=fit['status'].startswith('REFUSED_');current=zs.get('restored_start',baseline);rounds=[];guards=set()\n require(len(fit['rounds'])<=3,'exchange round cap')\n for rr in fit['rounds']:\n  candidate=zs.get(f\"round_{rr['round']}_candidate\")\n  if not rr['candidate_found']:\n   require(candidate is None,'unexpected candidate checkpoint')\n   if rr.get('capacity_refusal'):\n    require(rr['local_constraint_rows']==len(rr['activated_rows'])+6>512 and rr['maximum_local_model_rows']==512 and rr['truncated'] is False,'full untruncated capacity refusal')\n   continue\n  require(candidate is not None,'missing candidate checkpoint')\n  pg,cg=protection(baseline,candidate),protection(current,candidate)\n  require(pg==rr['full_field_protection'] and cg==rr['current_preserved_protection'],'candidate full protection')\n  cr=rank(candidate);require(cr==rr['candidate_rank'],'candidate rank')\n  found=counterexamples(baseline,current,candidate)\n  require(found==rr['checkpoint_guard_counterexamples'],'complete checkpoint guard counterexample identity')\n  guards.update(tuple(row) for row in found)\n  require([list(row) for row in sorted(guards)]==rr['retained_guard_counterexamples'],'complete retained guard inventory')\n  newly=int((candidate['preserved']&~current['preserved']).sum());selected=rr['selected_feasible_search_step']\n  require(rr['newly_preserved_relationships']==(newly if selected else 0),'candidate repair credit')\n  require(rr['accepted_relationship_repair']==bool(selected and newly>=1),'candidate minimum same-part credit')\n  if selected:\n   require(pg['passed'] and cg['passed'] and cr<rank(current),'selected full-field admission')\n   current=candidate\n  rounds.append(dict(round=rr['round'],rank=cr,baseline_protection=pg,current_protection=cg,newly_preserved_before_admission=newly,\n       selected=selected,credited_repairs=rr['newly_preserved_relationships'],checkpoint_guard_counterexample_count=len(found),retained_guard_counterexample_count=len(guards)))\n if refused and 'restored_start' in zs:guards={tuple(row) for row in counterexamples(baseline,baseline,zs['restored_start'])}\n require([list(row) for row in sorted(guards)]==fit['retained_guard_counterexamples'],'final complete guard inventory')\n target=baseline if refused else current\n for key,value in target.items():require(np.array_equal(returned[key],value),'returned current/baseline evidence')\n pg=protection(baseline,returned);repaired=int((returned['preserved']&~baseline['preserved']).sum());progress=rank(returned)<rank(baseline)\n require(fit['repaired_relationship_count']==repaired and fit['accepted_relationship_repair']==bool(repaired>=1),'final same-part repair count')\n if not refused:\n  expected='IMPROVED_RELATIONSHIPS_DIAGNOSTIC' if repaired else 'FEASIBLE_SEARCH_PROGRESS_ONLY' if progress else 'NO_ACCEPTED_SURFACE_IMPROVEMENT'\n  require(fit['status']==expected and fit['final_protection']==pg,'status/protection interpretation')\n  require(states['returned']['all_literal_tips_pass'] and pg['passed'],'admitted returned original caps/protection')\n else:require(not fit['rounds'] and repaired==0,'refusal must stop before exchange/repair credit')\n tip_and_domain=bool(states['returned']['all_literal_tips_pass'] and states['returned']['source_joint_limits_pass'] and states['returned']['serialized_engineering_domain_pass'])\n credited=bool(repaired>=1 and pg['passed'] and tip_and_domain)\n core_expected=dict(required_relationships=int(baseline['required'].sum()),baseline_preserved_relationships=int(baseline['preserved'].sum()),\n  returned_preserved_relationships=int(returned['preserved'].sum()),newly_preserved_relationships=repaired,\n  all_baseline_preserved=pg['lost_baseline_passing']==0,lost_baseline_preserved_relationships=pg['lost_baseline_passing'],\n  new_definite_violations=pg['new_definite_violations'],original_tip_caps_mean_and_domain_pass=tip_and_domain,\n  retained_orientation_protection_pass=pg['orientation_protected'],relationship_repair_credit=credited,accepted_mapping=False)\n independent_expected=dict(required_relationships=int(baseline['required'].sum()),minimum_baseline_preserved_relationships=int(baseline['preserved'].sum()),\n  returned_preserved_relationships=int(returned['preserved'].sum()),lost_baseline_preserved=pg['lost_baseline_passing'],\n  new_definite_violations=pg['new_definite_violations'],newly_preserved_relationships=repaired,retained_orientation_protected=pg['orientation_protected'],\n  literal_original_tips_pass=states['returned']['all_literal_tips_pass'],physical_and_engineering_domain_pass=bool(states['returned']['source_joint_limits_pass'] and states['returned']['serialized_engineering_domain_pass']),\n  local_relationship_repair_admitted=credited and not refused,accepted_mapping=False,continuous_orientation_coverage='NOT_PROVED')\n for key,expected in (('same_part_admission_receipt',core_expected),('independent_same_part_admission_receipt',independent_expected)):\n  receipt=fit[key];require(receipt['policy']==p['same_part_admission'],'explicit same-part policy')\n  for field,value in expected.items():require(receipt[field]==value,'same-part admission receipt mismatch '+key+' '+field)\n def no_task_labels(value):\n  if isinstance(value,dict):\n   require(not (set(value)&{'physical_outcome','outcome','failure_mode','task_score','prediction_label','y'}),'physical task-label key')\n   for key,entry in value.items():\n    if key in ('accepted_mapping','full_strict_mapping_accepted','native_fidelity_accepted','production_promotion'):require(entry is False,'mapping PASS key')\n    no_task_labels(entry)\n  elif isinstance(value,list):\n   for entry in value:no_task_labels(entry)\n no_task_labels(r)\n serialized=r['final_readback']['serialized_pose'];s=fit['returned']['state']\n require(serialized['joint_targets_rad']==dict(zip(s['joint_names'],s['joint_qpos_rad'],strict=True)),'named final command serialization')\n for key in ('root_position_m','root_quaternion_wxyz'):require(serialized[key]==s[key],'literal final root serialization')\n visual=visual_readback(index,r,p)\n allowed={v['path'] for v in indexed+r['auxiliary_artifacts']}\n require(all(str(file.resolve()) in allowed for file in (OUT/str(index)).rglob('*.npz')),'unindexed auxiliary NPZ')\n return dict(index=index,result_sha256=sha(result_path),status='VERIFIED_SAVED_ARRAYS_AND_INTERPRETATION',fit_status=fit['status'],checkpoints=records,\n     baseline_rank=rank(baseline),returned_rank=rank(returned),repaired_relationship_count=repaired,final_original_protection=pg,\n     final_relationship_transitions=transition_counts(baseline,returned),\n     restored_start_protection=protection(baseline,zs['restored_start']) if 'restored_start' in zs else None,\n     returned_is_baseline_evidence_only=refused,state_checks=states,rounds=rounds,retained_guard_counterexample_count=len(guards),all_counterexamples_recomputed_exact=True,visual_arithmetic=visual,\n     no_mapping_pass=True,no_task_labels=True,limits=['No FK or distance replay; serialized errors and saved orientation eligibility are the available evidence'])\n"
+}
