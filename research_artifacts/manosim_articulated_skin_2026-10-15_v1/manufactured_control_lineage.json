@@ -1,0 +1,22 @@
+{
+  "schema_version": "manosim_articulated_skin_manufactured_control_lineage_v1",
+  "date": "2026-10-15",
+  "early_runs": [
+    {"scope": "skin synthetic tests only", "passed": 16, "failed": 1, "physics_integration_calls": 0},
+    {"scope": "root combined contact and skin synthetic tests", "passed": 63, "failed": 1, "physics_integration_calls": 0},
+    {"scope": "aggregate synthetic controls attempt1", "passed": 98, "failed": 1, "physics_integration_calls": 0,
+     "test": "test_body_rest_rotation_composes_before_right_local_joint_increment",
+     "arbitrary_detection_lower_bound": 0.0001,
+     "observed_noncommutation_separation": 0.000065529208596,
+     "correction": "known orthogonal90degree x/y quaternion products yield exact opposite z signs plus/minus0.5 within dtypeepsilon; no physical gate change"}
+  ],
+  "failure": {
+    "test": "test_neutral_shape_centering_and_world_translation_are_applied_once",
+    "arbitrary_absolute_threshold_m": 2e-17,
+    "observed_maximum_algebraic_roundoff_m": 2.7755575615628914e-17,
+    "correction": "gamma256(dtype epsilon) times explicit synthetic coordinate magnitude bound",
+    "scientific_acceptance_changed": false,
+    "native_asset_or_engine_operations": 0
+  },
+  "final_control_receipt": "root-owned final controls receipt will bind the corrected sources"
+}

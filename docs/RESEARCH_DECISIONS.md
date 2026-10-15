@@ -2886,3 +2886,35 @@ global mapping admission, collection and training remain closed. Independent
 saved-array verification checks all 3,041 bindings, 124 Git blobs, 18 artifacts,
 native state/frame arithmetic and every field mask without engine/FK/distance
 queries (receipt 50661b96). Manuscript files are untouched.
+
+### 2026-10-15 — Qualify articulated skin, orientation and mechanics separately
+
+Previous plan: the complete native skin fixes the diagnosed fixed-pose face
+loss, but attaching it to the palm cannot validate finger articulation. Stock
+multi-owner flex derivatives also differ from the MANO material derivative.
+The user's selected hand remains HUG's native MANO in MANOSim.
+
+Decision: implement the complete continuous shape/pose-corrective/LBS skin
+function and its51D local tangent derivative. Validate it against pinned source
+MANO at109 fixed states per saved case and against actual MuJoCo position
+increments. The original saved targets and exactfloat32 shape row remain
+unchanged. Numerical precision profiles are separate from contact allowances;
+finite-grid agreement cannot certify all poses or actuator tracking.
+
+Use full original object grids and all normal ties for orientation, retaining
+unresolved cells rather than selecting favorable facets. Separately qualify
+stock rigid contact against analytic fixtures and timestep comparisons. An
+exact-skin compliant force law with generalized load J-transpose times force
+is a new physical model, not a correction implicitly certified by stock-flex
+tests. Common-point reaction forces preserve virtual work and avoid an
+artificial tangential couple; geometric gap derivatives and integration still
+need separate qualification before any native callback is admitted.
+
+Implemented at this freeze: pure skin/J/VJP and compliant-force kernels,
+bounded read/write-once qualification runners, source/input/output binding,
+explicit partial failures and no-admission flags. 172 manufactured controls
+pass; source-control failures and unused preparations remain preserved.
+Actual native skin, saved-grid orientation and analytic dynamics results are
+pending. Next check: execute only these frozen finite declarations, verify
+saved outputs independently, then resolve measured gaps before collection or
+training. This decision and the resulting system work do not edit the paper.

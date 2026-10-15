@@ -1243,3 +1243,39 @@ reproduce without engine, FK or distance queries. The verifier explicitly
 distinguishes vertex comparisons with the rigidly re-expressed target from the
 original saved native vertices. Global INCOMPLETE/no-admission flags remain.
 The source freeze is released; collection and training stay paused.
+
+### 2026-10-15 — Freeze motion, orientation and contact qualification sources
+
+The user's next gate is finger movement, contact orientation and physical
+contact behavior before collection/training. Three separate declarations now
+have 172 passing manufactured controls: articulated skin/state tangent99,
+saved full-grid orientation26, and stock rigid contact dynamics47. These are
+source controls, with zero actual native evaluations/contact queries/physics.
+Earlier synthetic arithmetic and arbitrary noncommutation-detector failures
+are preserved separately; no scientific native gate was fitted to an outcome.
+
+Articulated skin retains all shape/135pose-corrective/16bone blend terms and
+uses51tangent coordinates. Two saved cases each have109 fixed perturbations,
+an independent source32oracle, unchanged saved baseline, full51column
+derivative/FD and VJP/virtual-work checks. Allowed engine work is one original
+model compilation and109 mj_integratePos calls per case; Data/FK/forward and
+physics are prohibited. This tests a skin function and state convention,
+not yet an articulated collision surface or actuator response.
+
+Orientation reuses both complete original grids, original triangles, bands,
+parts and ambiguity thresholds. All tied normal-facing intervals remain
+explicit; point agreement cannot grant continuous full-domain PASS. An unused
+first preparation is preserved before conservative tie-interval hardening.
+
+Stock contact fixtures predeclare14conditions/10650steps, start-force versus
+endpoint-state clocks, analytic freefall/support/friction references, full3D
+Jacobian, cone KKT residuals, momentum/reaction/work checks and timestep
+comparisons. They qualify numerical behavior of this stock model only.
+The separately implemented exact-skin J-transpose compliant-force kernel has
+manufactured energy/virtual-work/reaction controls, including overflow refusal;
+its native contact finder, callback and integration remain unqualified.
+
+All actual results are pending at this source freeze. Each run must retain
+failed/partial/NOT_RUN evidence and verify source/input/output hashes before
+publication. Global mapping, native dynamics, collection and training remain
+closed. Manuscript files are untouched.
