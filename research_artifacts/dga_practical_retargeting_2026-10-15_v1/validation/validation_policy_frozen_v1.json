@@ -1,0 +1,47 @@
+{
+  "schema_version": "dga_practical_independent_validation_policy_v1",
+  "frozen_at_utc": "2026-10-15T09:49:03.890713+00:00",
+  "native_validation_role": "all16 existing inspected/development MultiDex rows; not holdout or object generalization",
+  "input_new_results_seen": false,
+  "expected_rows": 16,
+  "source_valid_expected_from_historical_inventory": 11,
+  "source_invalid_expected_from_historical_inventory": 5,
+  "strict_source_and_target_domain": true,
+  "source_raw_bytes_preserved": true,
+  "native_palm_and_wrists_retained": true,
+  "already_legal_branches_retained": true,
+  "numerical_fk_tolerance_m_rad": 1e-09,
+  "independent_landmark_metrics": [
+    "all28site max/rms/SSE",
+    "perfinger max/rms/SSE",
+    "baseline per-finger max and SSE nonregression"
+  ],
+  "compiled_model": "live MjSpec importer, exact declared limits; mj_kinematics only",
+  "geometry_metric": "per-part sup absolute difference between native and target unsigned distance over complete50mm cube surface, uncapped",
+  "grid_h_m": [
+    0.001,
+    0.0005,
+    0.00025
+  ],
+  "grid_cell_fractions": {
+    "u": "9/23",
+    "v": "7/19"
+  },
+  "covering_radius": "h*sqrt((14/23)^2+(12/19)^2)",
+  "numerical_distance_allowance_m": 1e-09,
+  "max_field_interval": "[max(0,max_sample-2e-9), max_sample+2rho+2e-9]",
+  "candidate_nonregression_rule": "candidate continuous-max upper <= baseline continuous-max lower; exact same branch geometry may pass by identity",
+  "ambiguous_or_regressed_candidate": "baseline fallback; no scientific absolute fidelity assertion",
+  "nearest_query_method": "uncapped closed-triangle union; nearestvertex upper bound and complete triangle centroid-radius broad phase; independently implemented Ericson barycentric region distance",
+  "fresh_surface_queries_are_not_native_holdout": true,
+  "no_physics": true,
+  "no_inference": true,
+  "no_evaluation_data": true,
+  "no_training": true,
+  "code_sha256": {
+    "/private/tmp/dga_practical_validation_20261015_v1/independent_validator.py": "91c0a2f79fa53aa4b2c527b593cd78fecf50c84af8211dc0f58459d9cb759aee",
+    "/private/tmp/dga_practical_validation_20261015_v1/independent_geometry.py": "3a804cb53360d38c0c03be99b044763bff0d38f253977c37232f9403b4f7c1c7",
+    "/private/tmp/dga_practical_validation_20261015_v1/test_independent_validation.py": "bfb7d70f1323430d7d461b00cbd0a445a4830e0d3ea844ac749afad5d73ceb14",
+    "/private/tmp/dga_practical_validation_20261015_v1/inventory_saved_native.py": "0c97a52a59f1661730dad707d7c406d81aa2e59fb6f5f50551e85b1757932932"
+  }
+}

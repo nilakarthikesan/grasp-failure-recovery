@@ -1,0 +1,47 @@
+{
+  "schema_version": "dga_practical_mapping_control_receipt_v1",
+  "recorded_at_utc": "2026-10-15T10:03:33.953435+00:00",
+  "runs": [
+    {
+      "implementation": "v1",
+      "tests": 7,
+      "exit_code": 0,
+      "completed_before_method_freeze": "2026-10-15T09:48:04.191060+00:00"
+    },
+    {
+      "implementation": "v2",
+      "tests": 10,
+      "exit_code": 0,
+      "completed_before_method_freeze": "2026-10-15T09:50:35.986325+00:00"
+    },
+    {
+      "implementation": "v3",
+      "tests": 14,
+      "exit_code": 0,
+      "completed_before_method_freeze": "2026-10-15T09:57:57.078265+00:00"
+    }
+  ],
+  "test_scope": [
+    "explicit jointprojection minimum-coordinatechange/idempotence/sourcepreservation",
+    "malformedprojection refusal",
+    "maximumlandmark/maxdistance/landmarkSSE guards cannotbeoverriddenbyloweraggregateobjective",
+    "ValueError/FloatingPointError/RuntimeError solverfallback preserving reference",
+    "uncapped near/far distances andunusedvertex exclusion",
+    "degenerate triangles asclosedsegments",
+    "nonfinite/malformed uncappedquery refusal"
+  ],
+  "test_files": {
+    "/private/tmp/dga_practical_retargeting_20261015_v1/implementation_v2/test_practical_mapper.py": "sha256:0a0c2f98904c8ac9f2cb7473d8b7cfb64c8dd4aad13d97c3b138203c6cf84526",
+    "/private/tmp/dga_practical_retargeting_20261015_v1/implementation_v3/test_practical_mapper.py": "sha256:0a0c2f98904c8ac9f2cb7473d8b7cfb64c8dd4aad13d97c3b138203c6cf84526",
+    "/private/tmp/dga_practical_retargeting_20261015_v1/implementation_v3/test_uncapped_fitting.py": "sha256:4bcb1123afd67db4e4c803971207792749982014459393fb30aef996d2c3509c",
+    "/private/tmp/dga_practical_retargeting_20261015_v1/implementation/test_practical_mapper.py": "sha256:85ebb035a0d9cb55389016536efddf9441b849ba2483a62723a408f396bc51a2"
+  },
+  "v3_geometry_counting_caveat": "Each v3 record query_counts is the inherited original capped-backend dispatch counters only. Additional uncapped finger queries and triangle pair counts are not exported; these counters must not be presented as total v3 geometry work.",
+  "numerical_warnings": "Retained by category/message/file/line and counts in each report; no claim that warning count itself proves numerical correctness. All exported states/fields finite-checked; independent review/geometry validation remain separate.",
+  "prohibited_operations_in_these_control_runs": {
+    "physics": 0,
+    "native_inference": 0,
+    "evaluation_episodes": 0,
+    "training": 0
+  }
+}

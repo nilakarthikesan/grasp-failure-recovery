@@ -1,0 +1,175 @@
+{
+  "schema_version": "dga_practical_retargeting_static_protocol_v1",
+  "status": "CRITERIA_FROZEN_METHOD_AND_INPUT_SUPPLEMENT_REQUIRED_BEFORE_CANDIDATE_RUN",
+  "date": "2026-10-15",
+  "claim": "Static implementation admission of a named, deterministic DGA plus retargeting pipeline on the existing Shadow target, within the recorded input domain and tested coverage.",
+  "not_claimed": [
+    "native DGA surface equivalence",
+    "empirically calibrated acceptable fidelity",
+    "physical grasp success",
+    "equivalent source and target failure labels",
+    "unseen native-output or object generalization"
+  ],
+  "prohibitions": [
+    "physics",
+    "evaluation episodes or outcome-label generation",
+    "training",
+    "target asset edits",
+    "overwriting historical protocols or outputs",
+    "quality-based filtering of source-valid grasps"
+  ],
+  "source_contract": {
+    "source_commit": "86353d710ca71d0f547f0d8b15cc8ca959c78163",
+    "source_hand_sha256": "932fca7c411ef9ae4e6a8f17a892b3629840b5b5e1254610e0616e184d1f95c7",
+    "target_hand_sha256": "29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+    "native_state": "Untouched metric, denormalized, inverse-rotated 33-vector with pinned robust 6D rotation convention and all 24 named joints.",
+    "eligible_input": "Finite valid native representation, literal source joint limits satisfied, and both source wrist values within literal target wrist intervals.",
+    "ineligible_accounting": "Retain raw input and explicit reason. A source-invalid output is not silently repaired, dropped, or counted as an admitted mapping. Source-valid wrist incompatibility is an explicit unsupported-input status.",
+    "checkpoint_and_preprocessing": "Bind exact per-input checkpoint, dataset, normalization, physical scale, object geometry and native-export hashes. Keep original DexGraspNet and MultiDex strata separate."
+  },
+  "baseline": {
+    "id": "fixed_palm_named_joint_projection_v1",
+    "formula": "q_B[j] = min(max(q_native[j], target_lower[j]), target_upper[j]) for finger joints; wrists remain exactly native.",
+    "projection_interpretation": "An explicit retargeting operation, never part of native decoding. It is Euclidean nearest in unweighted named joint coordinates; it is not geometrically optimal or irreducible distortion.",
+    "palm": "Preserve source object_from_palm matrix.",
+    "root": "object_from_target_root = object_from_native_palm @ inverse(target_root_from_palm(q_B)).",
+    "preserved_branches": "A finger branch with no native target-limit violation retains all its native angles exactly.",
+    "no_final_clipping": "Candidate admission checks exact literal target bounds. Optimizer output is never silently clipped on export."
+  },
+  "correction_domain": {
+    "branches": {
+      "index": [
+        "FFJ4",
+        "FFJ3",
+        "FFJ2",
+        "FFJ1"
+      ],
+      "middle": [
+        "MFJ4",
+        "MFJ3",
+        "MFJ2",
+        "MFJ1"
+      ],
+      "ring": [
+        "RFJ4",
+        "RFJ3",
+        "RFJ2",
+        "RFJ1"
+      ],
+      "little": [
+        "LFJ5",
+        "LFJ4",
+        "LFJ3",
+        "LFJ2",
+        "LFJ1"
+      ],
+      "thumb": [
+        "THJ5",
+        "THJ4",
+        "THJ3",
+        "THJ2",
+        "THJ1"
+      ]
+    },
+    "active": "Only branches containing at least one native target-limit violation.",
+    "fixed": [
+      "native palm",
+      "WRJ2",
+      "WRJ1",
+      "all joints in nonoffending branches"
+    ],
+    "candidate_generation": "Use native-relative geometric residuals. Freeze exact objective, point sets, optimizer settings, iteration counts, tie-breaks, seeds and code hashes before fitting. These are search choices, not scientific tolerances.",
+    "quality_neutrality": "Minimize changes relative to the native geometry, including existing penetrations and misses. Do not attract all fingertips toward the object, remove native penetrations as a quality goal, maximize grasp quality, or use expected success to accept or reject an input.",
+    "failure_fallback": "Return the recorded baseline for solver failure, nonfinite output, domain violation, unproven nonregression or no certified improvement; retain the attempted correction status."
+  },
+  "hard_gates": {
+    "provenance": "Input, assets, code, protocol, baseline, candidate and independent-validator hashes are bound; original inputs rehash unchanged.",
+    "finite_and_rigid": "All output values finite, transforms proper with verified frame conventions, all 24 target joints present exactly once by name.",
+    "literal_limits": "Every final joint lies in its inclusive literal target interval; no epsilon expansion.",
+    "preservation": "Palm and wrists unchanged; all nonoffending finger joint values unchanged; source-native representation untouched.",
+    "independent_compiled_fk": {
+      "maximum_position_residual_m": 1e-09,
+      "maximum_rotation_residual_rad": 1e-09,
+      "interpretation": "Numerical implementation agreement only. Compute rotation residual stably from relative rotations, not acos(trace) near identity. This is not a physical or retargeting accuracy allowance."
+    },
+    "landmark_nonregression": "For every finger, maximum and sum of squared native-to-target landmark displacements must be no greater than the fixed legal reference. Compare saved numeric values without a positive geometric allowance. Record every site, mean, SSE and maximum. Aggregate improvement cannot waive either per-finger gate.",
+    "palm_field_identity": "With palm transform and declared collider geometry unchanged, candidate and baseline palm unsigned and signed-box fields are identical. This passes baseline nonregression only; native-to-target palm overlap may remain.",
+    "visual_field_nonregression": "For every affected finger, certify that the supremum over the complete declared object surface of absolute native-versus-target unsigned-distance residual is no greater than the same baseline supremum. Exact candidate/baseline geometry identity is an alternative equality certificate. A sampled-only pass does not satisfy the complete-surface gate.",
+    "correction_adoption": "All hard gates pass and at least one predefined residual strictly improves under its recorded independent comparison; otherwise retain baseline. Do not call a lower optimizer objective alone an accepted correction.",
+    "accounting": "Every input yields either an admitted baseline/correction or explicit unsupported/native-invalid/implementation-error status. Count the full denominator."
+  },
+  "independent_visual_validation": {
+    "current_object": "The unchanged 50 mm cube in its authoritative native physical frame; bind geometry hash before execution.",
+    "domain": "All six complete cube faces with explicit cell partitions, including boundaries.",
+    "grid_steps_m": [
+      0.001,
+      0.0005,
+      0.00025
+    ],
+    "sampling": {
+      "cell_fractions": [
+        "9/23",
+        "7/19"
+      ],
+      "cover_radius": "h*sqrt((14/23)^2+(12/19)^2) for whole square cells; exact 50mm side divides each listed h"
+    },
+    "cover_radius": "Compute each cell's maximum Euclidean distance to its query point, accounting for truncated edge cells; rho is the maximum declared cover radius.",
+    "residual": "r(x)=abs(uncapped distance(x,native_part_surface)-uncapped distance(x,target_part_surface)); capped fitting fields are only a search surrogate.",
+    "lipschitz_constant": 2,
+    "supremum_interval": "[max(0, max(sampled_r)-a), max(sampled_r)+2*rho+a], optionally tightened by intersecting valid grid intervals.",
+    "aggregate_float_allowance_m": 2e-09,
+    "allowance_scope": "a=2 nm covers two distance evaluations each assumed within 1 nm; conditional arithmetic allowance, not a physical tolerance or universal floating point proof.",
+    "nonregression_decision": "PASS if candidate upper <= baseline lower, or geometry identity proves equality. FAIL if candidate lower > baseline upper. Otherwise refine in fixed grid order; if still unresolved at the frozen finest grid, retain baseline. Report sampled values independently from these statuses.",
+    "surface_interpretation": "These are unsigned surface-distance fields, not signed occupancy, force-bearing contacts, normals or success probabilities. Historical band/occupancy/direction measurements remain separate diagnostics."
+  },
+  "coverage": {
+    "existing_20_outputs": "The 16 recent native outputs and four older outputs are development/regression material, never an untouched native holdout. Preserve checkpoint/cohort separation.",
+    "recent_16": {
+      "source_valid_indices": [
+        0,
+        1,
+        4,
+        6,
+        8,
+        9,
+        10,
+        12,
+        13,
+        14,
+        15
+      ],
+      "source_invalid_indices": [
+        2,
+        3,
+        5,
+        7,
+        11
+      ]
+    },
+    "regression_requirement": "Evaluate every retained input's status and all eligible mappings. Baseline identity should reproduce on repeated independent validation.",
+    "fresh_native_holdout": "Freeze method and a separate native-inference smoke protocol before collecting any new outputs. New inference, if separately run under current authorization, must create validation-only native proposals without physics, evaluation episodes, labels or training. Claim only the actual object/seed/checkpoint coverage; do not reuse outputs for fitting then call them held out.",
+    "synthetic_controls": "May test coordinate transforms, joint boundaries, exact identity, rigid-frame equivariance, malformed inputs and deliberately bad candidates. Label these manufactured contract fixtures, never native generator evidence."
+  },
+  "admission_statuses": {
+    "STATIC_PILOT_ADMITTED_TESTED_SCOPE": "All hard engineering gates and full accounting pass for the declared tested domain, corrections pass the stated baseline comparisons or use baseline fallback, and independent review confirms the claim. This does not require native equivalence or an unvalidated millimeter adequacy threshold.",
+    "INDEPENDENT_NATIVE_COVERAGE_VALIDATED": "A separately frozen fresh native cohort passes the same contract; scope is only that cohort and object coverage.",
+    "PRACTICAL_PHYSICAL_ADEQUACY": "NOT_TESTED; requires a later separately authorized execution/controller and outcome-sensitivity study.",
+    "execution_eligible": false,
+    "provider_promotion": "No automatic shared-registry promotion or evaluation start follows static pilot admission."
+  },
+  "required_reports": [
+    "input accounting by checkpoint/cohort/reason",
+    "projection angle changes",
+    "baseline and selected per-finger landmarks",
+    "palm overlap before/after relative to native",
+    "per-finger sampled and full-surface residual intervals",
+    "source and target mesh identity/hash metadata",
+    "baseline/correction/fallback provenance",
+    "independent compiled-FK checks",
+    "solver failures and numerical warnings",
+    "all prohibited-operation counters equal zero",
+    "coverage limitations and exact admission status"
+  ],
+  "method_supplement": "Before a candidate solve, write an immutable supplement binding this criteria file, implementation/settings, exact input/asset manifests, fitting queries, independent validation source and library versions by SHA256. Candidate results cannot precede their corresponding supplement. Independent validator may be finalized before any geometry validation results; repairs create additive versions.",
+  "frozen_at_utc": "2026-10-15T09:46:35.341649+00:00"
+}

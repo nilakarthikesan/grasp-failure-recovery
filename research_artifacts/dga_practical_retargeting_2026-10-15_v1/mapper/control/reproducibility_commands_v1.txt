@@ -1,0 +1,43 @@
+DGA practical v3 reproducibility note — 2026-10-15
+
+The archived v3 outputs are provisional optimizer proposals. Independent complete-surface validation makes the final branch-admission/fallback decision separately. Replaying these commands does not reproduce that independent certificate.
+
+Prerequisites: restore all exact absolute paths and bytes in each method's dependency_sha256 mapping (730 recent-cohort entries; 736 original-four entries). Python 3.12.13, NumPy 2.2.6, SciPy 1.17.1, one BLAS thread. This experiment is hash-bound but not path-relocatable. Its historical scratch helpers, runtime archives, meshes and local Python dependencies are required. The driver refuses changed dependencies and existing output directories. Do not point replay output at historical results.
+
+The commands below are documentation only; this final audit did not rerun fitting, inference, physics, training or evaluation episodes.
+
+dga_work=/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction
+dga_run=/private/tmp/dga_practical_retargeting_20261015_v1
+dga_py=/Users/nilakarthikesan/grasp-failure-prediction/.venv/bin/python
+dga_criteria=/private/tmp/dga_practical_protocol_20261015_v1/criteria_frozen_v1.json
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1
+export PYTHONPATH="$dga_work/src:$dga_work/tests:/private/tmp/grasp-partner-integration-deps"
+
+# Reproduce recent 16 previously inspected native outputs; use a new directory.
+"$dga_py" -u "$dga_run/implementation_v3/run_practical.py" --method "$dga_run/method_frozen_v3.json" --protocol "$dga_criteria" --output "$dga_run/REPLAY_RECENT_16_NEW_DIRECTORY"
+
+# Reproduce original four as a separate development/regression cohort.
+"$dga_py" -u "$dga_run/implementation_regression_v3/run_practical.py" --method "$dga_run/method_original_four_regression_frozen_v3.json" --protocol "$dga_criteria" --output "$dga_run/REPLAY_ORIGINAL_4_NEW_DIRECTORY"
+
+Expected accounting: recent16 -> 11 source-valid mapped / 5 source-invalid preserved; original4 -> 2 mapped / 2 source-invalid preserved. All 20 are development data. Exact output paths/elapsed times and report timestamps will differ on replay; compare arrays and decision traces, not serialized report-byte identity. RuntimeWarning counts are retained. Query counts in old MappingContext omit additional uncapped work and are not total geometry work.
+
+Immutable provenance:
+criteria SHA256 6eb351dc097daffb4d08f04117615714de2120d3395367f900e4cefb444d4d34
+recent method SHA256 44c2c1e12fc51d912090c7b2987af8ec0631832127c1d764215972c4826ecf6e
+original4 method SHA256 ab7880a6899729fafa53a5fbd02e1e9f9fb533cae75cfdd2c1dfd5bbffdf9c22
+recent report SHA256 a5f3eecdda58595c2aee084e7222295dcd06d7afa53f512357844da9599bcff6
+original4 report SHA256 da28b4c1552c4f99293b6c8bba9ca47c676083547831d2c9ee5965aed9be45de
+
+The final read-only source_dependency_audit_v1.json verifies all frozen dependencies, all 24 proposal output files, the raw rows for all 20 records, native-manifest/FP32-reference/archive hashes and freeze-before-run chronology. It also binds exact source/test/script bytes. The original-four method inherited an output_schema prose sentence mentioning the recent16 cohort; its scope, loader, actual accounting and emitted arrays correctly identify the original four, and the frozen file is preserved unchanged.
+
+Source/test closure for a clean checkout:
+src/grasp_failure_prediction/proposals/dga_practical.py
+src/grasp_failure_prediction/proposals/dexgrasp_anything.py
+tests/test_dga_practical.py
+tests/test_dga_practical_adversarial.py
+tests/test_dexgrasp_anything_provider.py
+scripts/infer_dexgrasp_anything_proposals.py
+
+The last script is required by the complete provider test module's offline_worker fixture. Despite its historical filename, it only inspects saved exports. It performs no inference at import, collection or execution. Decoder, original provider tests and worker script match their 2026-10-14 contract manifest byte-for-byte. Remaining package/schema imports and NumPy/Pydantic/pytest dependencies are already tracked/declared. These manufactured tests need no checkpoints, meshes, remote GPU or simulator runtime:
+
+"$dga_py" -m pytest -q -p no:cacheprovider "$dga_work/tests/test_dga_practical.py" "$dga_work/tests/test_dga_practical_adversarial.py" "$dga_work/tests/test_dexgrasp_anything_provider.py"

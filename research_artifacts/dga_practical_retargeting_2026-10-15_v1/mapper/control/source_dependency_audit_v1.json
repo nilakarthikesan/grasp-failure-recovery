@@ -1,0 +1,577 @@
+{
+  "schema_version": "dga_practical_final_source_dependency_audit_v1",
+  "created_at_utc": "2026-10-15T10:15:17.076871+00:00",
+  "scope": "Read-only source/dependency and existing proposal-output provenance audit; no fitting rerun.",
+  "sources": [
+    {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/proposals/dga_practical.py",
+      "sha256": "sha256:5a294ae0b3f9e3d26da6121e176927731bc3a8dae7ae451fc8fbf27101433043",
+      "imports": [
+        "",
+        "__future__",
+        "numpy",
+        "pathlib"
+      ],
+      "historical_contract_unchanged": null
+    },
+    {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/proposals/dexgrasp_anything.py",
+      "sha256": "sha256:977634c4dede9d6b45f80ab72047dbf1554caddd4387b6467ca0ff598851dd72",
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "hashlib",
+        "json",
+        "numpy",
+        "pathlib",
+        "pydantic",
+        "typing",
+        "xml.etree"
+      ],
+      "historical_contract_unchanged": true
+    },
+    {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/tests/test_dga_practical.py",
+      "sha256": "sha256:df4aca2bab10b027779ef4cdeee75b900eca16f783fa2f32beb0740712553e9f",
+      "imports": [
+        "dataclasses",
+        "grasp_failure_prediction.proposals",
+        "numpy",
+        "pytest",
+        "test_dexgrasp_anything_provider"
+      ],
+      "historical_contract_unchanged": null
+    },
+    {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/tests/test_dga_practical_adversarial.py",
+      "sha256": "sha256:c60414052582584ec67147d617d477f18a2f7f6bf3232017648fd017bda9e5f5",
+      "imports": [
+        "dataclasses",
+        "grasp_failure_prediction.proposals",
+        "numpy",
+        "pytest",
+        "test_dexgrasp_anything_provider",
+        "xml.etree"
+      ],
+      "historical_contract_unchanged": null
+    },
+    {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/tests/test_dexgrasp_anything_provider.py",
+      "sha256": "sha256:6e8fba156361f7455035b1d2cbb0fa904ba0805aebaa44e7c359a9edd6457ffd",
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "grasp_failure_prediction.proposals",
+        "importlib.util",
+        "json",
+        "numpy",
+        "pathlib",
+        "pydantic",
+        "pytest",
+        "subprocess",
+        "sys",
+        "xml.etree"
+      ],
+      "historical_contract_unchanged": true
+    },
+    {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/scripts/infer_dexgrasp_anything_proposals.py",
+      "sha256": "sha256:c9674ec4759e4c821161bdffb13bb70f29ceb1c776d052ddbd12467612d17652",
+      "imports": [
+        "__future__",
+        "argparse",
+        "grasp_failure_prediction.proposals.dexgrasp_anything",
+        "json",
+        "pathlib"
+      ],
+      "historical_contract_unchanged": true
+    }
+  ],
+  "historical_contract_manifest": {
+    "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/dexgrasp_anything_mapping_validation_2026-10-14_contract_v1/evidence_manifest.json",
+    "sha256": "sha256:81edffb2b6f29380350fa1a58bd5a8eb495d6476c1aa54b3ee792b21ad8d3cb4"
+  },
+  "additional_file_required_for_complete_provider_tests": "scripts/infer_dexgrasp_anything_proposals.py",
+  "all_new_source_test_files_to_include": [
+    "src/grasp_failure_prediction/proposals/dga_practical.py",
+    "src/grasp_failure_prediction/proposals/dexgrasp_anything.py",
+    "tests/test_dga_practical.py",
+    "tests/test_dga_practical_adversarial.py",
+    "tests/test_dexgrasp_anything_provider.py",
+    "scripts/infer_dexgrasp_anything_proposals.py"
+  ],
+  "already_tracked_import_dependencies": [
+    "pyproject.toml",
+    "src/grasp_failure_prediction/__init__.py",
+    "src/grasp_failure_prediction/proposals/__init__.py",
+    "src/grasp_failure_prediction/proposals/schema.py",
+    "src/grasp_failure_prediction/evaluation/__init__.py",
+    "src/grasp_failure_prediction/evaluation/schema.py"
+  ],
+  "import_execution_review": {
+    "worker_main_guarded": true,
+    "worker_imports_inference_or_physics": false,
+    "provider_tests_use_manufactured_fixtures": true,
+    "sole_provider_test_subprocess": "Import-only child explicitly rejects torch/mujoco/isaacgym/pytorch3d/csdf/hydra",
+    "tests_reexecuted_in_this_audit": false
+  },
+  "cohorts": [
+    {
+      "method": "/private/tmp/dga_practical_retargeting_20261015_v1/method_frozen_v3.json",
+      "method_sha256": "sha256:44c2c1e12fc51d912090c7b2987af8ec0631832127c1d764215972c4826ecf6e",
+      "frozen_dependency_count": 730,
+      "all_frozen_dependencies_match": true,
+      "freeze_utc": "2026-10-15T09:57:57.078265+00:00",
+      "inferred_run_start_utc": "2026-10-15T09:57:57.918139+00:00",
+      "report": "/private/tmp/dga_practical_retargeting_20261015_v1/results_v3/report.json",
+      "report_sha256": "sha256:a5f3eecdda58595c2aee084e7222295dcd06d7afa53f512357844da9599bcff6",
+      "output_files_rehashed": 18,
+      "accounting": {
+        "native_rows": 16,
+        "source_valid_mapped": 11,
+        "source_domain_rejected": 5
+      },
+      "runtime": {
+        "python": "3.12.13",
+        "numpy": "2.2.6",
+        "scipy": "1.17.1",
+        "threads": 1
+      },
+      "rows": [
+        {
+          "row": 0,
+          "status": "MAPPED_EXPLICIT_RETARGETING",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/batches/batch_0000_seed20261025/outputs.npz",
+          "raw_archive_sha256": "sha256:d1ef5af91e0f2901c9e8657cb6a1d5e5c9d734a1e5c3a66f93b40fd723475bb7",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/fp32_references/batch_0000_seed20261025/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:2a32810f8b6f2918000654b2b9960782763ef782a4dc5dd3577d924b42e5b222",
+          "raw33_row_sha256": "sha256:6c35ad3911f0543cf1126e168478f4a01404187d70f34959741a7d6daf2c4e5e",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 1,
+          "status": "MAPPED_EXPLICIT_RETARGETING",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/batches/batch_0000_seed20261025/outputs.npz",
+          "raw_archive_sha256": "sha256:d1ef5af91e0f2901c9e8657cb6a1d5e5c9d734a1e5c3a66f93b40fd723475bb7",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/fp32_references/batch_0000_seed20261025/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:2a32810f8b6f2918000654b2b9960782763ef782a4dc5dd3577d924b42e5b222",
+          "raw33_row_sha256": "sha256:280c475ea9116b16da418169080631057936bc819da9edef3bbd4ddc62079f97",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 2,
+          "status": "SOURCE_DOMAIN_REJECTED_UNALTERED",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/batches/batch_0001_seed20261026/outputs.npz",
+          "raw_archive_sha256": "sha256:0a3fd5d186978b56d77be7ae26579c8b066dc0c4c4dda94f692b4a7ee835a2bd",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/fp32_references/batch_0001_seed20261026/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:98b7055ceca182130590168e113475858ff950cde322e4919433642971e49c32",
+          "raw33_row_sha256": "sha256:af38b54ac7aa21cdf352ecd97d8691524b1be25ad3ab8bcfbdab463d650bf40f",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 3,
+          "status": "SOURCE_DOMAIN_REJECTED_UNALTERED",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/batches/batch_0001_seed20261026/outputs.npz",
+          "raw_archive_sha256": "sha256:0a3fd5d186978b56d77be7ae26579c8b066dc0c4c4dda94f692b4a7ee835a2bd",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/fp32_references/batch_0001_seed20261026/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:98b7055ceca182130590168e113475858ff950cde322e4919433642971e49c32",
+          "raw33_row_sha256": "sha256:8ee4ef29c12e8e0199058c8522dc72f1437c6482092bd28ba50ea1d7c6020c9c",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 4,
+          "status": "MAPPED_EXPLICIT_RETARGETING",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/batches/batch_0002_seed20261027/outputs.npz",
+          "raw_archive_sha256": "sha256:4c439974abe7fa809332272fc0c069fa651d6d8c596f77b3094077b4319fd530",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/fp32_references/batch_0002_seed20261027/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:18e9e45d7b3cf09be8c7aa96ab5e08f20fc2393f8e367e7f8a854af54c378aa1",
+          "raw33_row_sha256": "sha256:fbf565e0910ace4428ba46d4f834c75c183bd235b19c7af8332546f5d353f26f",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 5,
+          "status": "SOURCE_DOMAIN_REJECTED_UNALTERED",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/batches/batch_0002_seed20261027/outputs.npz",
+          "raw_archive_sha256": "sha256:4c439974abe7fa809332272fc0c069fa651d6d8c596f77b3094077b4319fd530",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/fp32_references/batch_0002_seed20261027/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:18e9e45d7b3cf09be8c7aa96ab5e08f20fc2393f8e367e7f8a854af54c378aa1",
+          "raw33_row_sha256": "sha256:5fd8bf325d729ec2d18feeb0fa78d846968e1cd455cb0ab5d1eca5a81d42a96c",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 6,
+          "status": "IDENTITY_REFERENCE",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/batches/batch_0003_seed20261028/outputs.npz",
+          "raw_archive_sha256": "sha256:ab2115d3caeb29dd4709ad1fbe7ca4cbbf9d65e62d3047dc72832b49e77376f9",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/fp32_references/batch_0003_seed20261028/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:d2f900c6e62dd13ef4c0e8d1e666e475c848ad38ba22601712e957c5bf62bc11",
+          "raw33_row_sha256": "sha256:1d4ab74ff3d5f949a024541feab67f2e1a53d19b610b171b8761af3cd3faaec4",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 7,
+          "status": "SOURCE_DOMAIN_REJECTED_UNALTERED",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/batches/batch_0003_seed20261028/outputs.npz",
+          "raw_archive_sha256": "sha256:ab2115d3caeb29dd4709ad1fbe7ca4cbbf9d65e62d3047dc72832b49e77376f9",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/fp32_references/batch_0003_seed20261028/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:d2f900c6e62dd13ef4c0e8d1e666e475c848ad38ba22601712e957c5bf62bc11",
+          "raw33_row_sha256": "sha256:64a93f0327640c8551a6d05aec6d2134cdcd96d188f0d5235cde7b791d10b220",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 8,
+          "status": "MAPPED_EXPLICIT_RETARGETING",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/batches/batch_0004_seed20261029/outputs.npz",
+          "raw_archive_sha256": "sha256:a841fa1754758978e112b3d7769b2dce1ee639d771658df214d8903e2319b126",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/fp32_references/batch_0004_seed20261029/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:dc649005d5462453cb8d98a7544527e81caa8879b034a448aa64c4829453a4d1",
+          "raw33_row_sha256": "sha256:3da7cf08b5f9e8d735b710a2169aee246cc2106f7b6706d5f0ba9da565e225e3",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 9,
+          "status": "MAPPED_EXPLICIT_RETARGETING",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/batches/batch_0004_seed20261029/outputs.npz",
+          "raw_archive_sha256": "sha256:a841fa1754758978e112b3d7769b2dce1ee639d771658df214d8903e2319b126",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/fp32_references/batch_0004_seed20261029/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:dc649005d5462453cb8d98a7544527e81caa8879b034a448aa64c4829453a4d1",
+          "raw33_row_sha256": "sha256:50b76e56cd58c6b32a775a9544ff157bfdc971d652ddedaf5f3826d43d972e1a",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 10,
+          "status": "MAPPED_EXPLICIT_RETARGETING",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/batches/batch_0005_seed20261030/outputs.npz",
+          "raw_archive_sha256": "sha256:78fb0fada6d1e8be691dcbc73bcaa93093e9884a3504c3ce9c669ead98049605",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/fp32_references/batch_0005_seed20261030/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:f761f2b49b07b0252434073a7a5d6ef130efb27d5cadc5dac58285fd15f61b8b",
+          "raw33_row_sha256": "sha256:f161ac51663ce4cb7ab65d6684a889a6e37198cead87209d6e073a349ba32083",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 11,
+          "status": "SOURCE_DOMAIN_REJECTED_UNALTERED",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/batches/batch_0005_seed20261030/outputs.npz",
+          "raw_archive_sha256": "sha256:78fb0fada6d1e8be691dcbc73bcaa93093e9884a3504c3ce9c669ead98049605",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/fp32_references/batch_0005_seed20261030/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:f761f2b49b07b0252434073a7a5d6ef130efb27d5cadc5dac58285fd15f61b8b",
+          "raw33_row_sha256": "sha256:a020087b2d37a21165673a31d2d5f8cd7c60889c56a4b0aba84939bf75cb9743",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 12,
+          "status": "MAPPED_EXPLICIT_RETARGETING",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/batches/batch_0006_seed20261031/outputs.npz",
+          "raw_archive_sha256": "sha256:c2ef3b83f7d482ead60554dd463c430eacdb60afcecb5e00c4b7a109f4a5d3ef",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/fp32_references/batch_0006_seed20261031/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:5c6f5dbd9206bcd08433ba85667612c73259417a2810c9e71494e6e23d2858da",
+          "raw33_row_sha256": "sha256:01cc142827c8576e6fc8b7683559c400d0003570dccc69b3f1f6fe4fba038771",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 13,
+          "status": "MAPPED_EXPLICIT_RETARGETING",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/batches/batch_0006_seed20261031/outputs.npz",
+          "raw_archive_sha256": "sha256:c2ef3b83f7d482ead60554dd463c430eacdb60afcecb5e00c4b7a109f4a5d3ef",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/fp32_references/batch_0006_seed20261031/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:5c6f5dbd9206bcd08433ba85667612c73259417a2810c9e71494e6e23d2858da",
+          "raw33_row_sha256": "sha256:714feec22fdb3f753417832863a82b7b9894bc453a53a64c63bfbb974eb09a17",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 14,
+          "status": "MAPPED_EXPLICIT_RETARGETING",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/batches/batch_0007_seed20261032/outputs.npz",
+          "raw_archive_sha256": "sha256:f208531dedb95d30a3eee10b462a870c6ed3c931eb260f25bcfa2fec4ee23e79",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/fp32_references/batch_0007_seed20261032/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:2b5151e9692732ef14296bfbbae650e7ed5243e9f5e56c9e0e25e01189984d23",
+          "raw33_row_sha256": "sha256:bd515d3c606a69a92b258eda25603dfddaeeda91a9841f9b9dad4042bbfed153",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 15,
+          "status": "MAPPED_EXPLICIT_RETARGETING",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/batches/batch_0007_seed20261032/outputs.npz",
+          "raw_archive_sha256": "sha256:f208531dedb95d30a3eee10b462a870c6ed3c931eb260f25bcfa2fec4ee23e79",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/independent_native_20261015_v1/sealed/independent_native_sealed_20261015_v1/fp32_references/batch_0007_seed20261032/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:2b5151e9692732ef14296bfbbae650e7ed5243e9f5e56c9e0e25e01189984d23",
+          "raw33_row_sha256": "sha256:d65fb8c111b53b2b06b2255b0cfe07c6893e886fa4fff8fee0452be615053685",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        }
+      ]
+    },
+    {
+      "method": "/private/tmp/dga_practical_retargeting_20261015_v1/method_original_four_regression_frozen_v3.json",
+      "method_sha256": "sha256:ab7880a6899729fafa53a5fbd02e1e9f9fb533cae75cfdd2c1dfd5bbffdf9c22",
+      "frozen_dependency_count": 736,
+      "all_frozen_dependencies_match": true,
+      "freeze_utc": "2026-10-15T09:58:35.038353+00:00",
+      "inferred_run_start_utc": "2026-10-15T10:01:32.267383+00:00",
+      "report": "/private/tmp/dga_practical_retargeting_20261015_v1/results_original_four_regression_v3/report.json",
+      "report_sha256": "sha256:da28b4c1552c4f99293b6c8bba9ca47c676083547831d2c9ee5965aed9be45de",
+      "output_files_rehashed": 6,
+      "accounting": {
+        "native_rows": 4,
+        "source_valid_mapped": 2,
+        "source_domain_rejected": 2
+      },
+      "runtime": {
+        "python": "3.12.13",
+        "numpy": "2.2.6",
+        "scipy": "1.17.1",
+        "threads": 1
+      },
+      "rows": [
+        {
+          "row": 0,
+          "status": "SOURCE_DOMAIN_REJECTED_UNALTERED",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/outputs.npz",
+          "raw_archive_sha256": "sha256:12b0fcc2bbbba843c557758fa86ef73987e6dab867a0c4403204b3e7bef1a864",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/fp32_references/batch_0000_seed20261023/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:535ce5ede130e6655454ef5b99586bed8138765719bef61682762aaccf15c478",
+          "raw33_row_sha256": "sha256:f7fa74670f4219e3d6f6c9980d5e242356f51e15b76c188be5606a8607652fd7",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 1,
+          "status": "MAPPED_EXPLICIT_RETARGETING",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0000_seed20261023/outputs.npz",
+          "raw_archive_sha256": "sha256:12b0fcc2bbbba843c557758fa86ef73987e6dab867a0c4403204b3e7bef1a864",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/fp32_references/batch_0000_seed20261023/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:535ce5ede130e6655454ef5b99586bed8138765719bef61682762aaccf15c478",
+          "raw33_row_sha256": "sha256:629c09c325c21d94d8eb43ed7df3e486d8bf8ec8006795094244b10513f78fb5",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 2,
+          "status": "SOURCE_DOMAIN_REJECTED_UNALTERED",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/outputs.npz",
+          "raw_archive_sha256": "sha256:d6dbadada331e35c1188534aaa61131f3eaf7d708bbaaf7f584d7d836a4a2a41",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/fp32_references/batch_0001_seed20261024/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:ec8f23a2dc2c24f945e50401f08b30aead3082024a401435c809171d93d256df",
+          "raw33_row_sha256": "sha256:e0af7be61874e795ee6c8076237984e02f05dba2625ae0c14caa69bc7143dabc",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        },
+        {
+          "row": 3,
+          "status": "MAPPED_EXPLICIT_RETARGETING",
+          "raw_archive": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/batches/batch_0001_seed20261024/outputs.npz",
+          "raw_archive_sha256": "sha256:d6dbadada331e35c1188534aaa61131f3eaf7d708bbaaf7f584d7d836a4a2a41",
+          "source_runtime_npz": "/Users/nilakarthikesan/grasp-failure-prediction/local_assets/dexgrasp_anything/multidex_20261015_v1/native_execution/multidex_smoke_20261015_v1/fp32_references/batch_0001_seed20261024/runtime_reference.npz",
+          "source_runtime_npz_sha256": "sha256:ec8f23a2dc2c24f945e50401f08b30aead3082024a401435c809171d93d256df",
+          "raw33_row_sha256": "sha256:ebd5b58a6dc17101005a2f6508115aa4416ef1dbf468592f7cc1448c40edcc41",
+          "precision_policy": {
+            "NVIDIA_TF32_OVERRIDE": null,
+            "cudnn_allow_tf32": false,
+            "fresh_hand_constructed_after_policy": true,
+            "matmul_allow_tf32": false,
+            "model_generation_policy": "original_baseline_tf32_enabled",
+            "model_sample_calls": 0,
+            "no_new_model_sample": true,
+            "policy_id": "dga_geometry_reference_fp32_tf32_disabled_v1",
+            "transform_dtype": "float32"
+          }
+        }
+      ]
+    }
+  ],
+  "full_experiment_reproducibility_limit": "Frozen experiment runners retain absolute paths and external runtime assets/dependencies. Restore exact paths and bytes before replay, or create a new separately versioned relocation implementation. Committed core tests are separately self-contained with their six-file closure and declared Python dependencies.",
+  "proposal_output_claim": "These are provisional proposal outputs, not final independently admitted poses. Independent validator applies branch fallback separately.",
+  "zero_execution": {
+    "fitting": 0,
+    "inference": 0,
+    "physics_steps": 0,
+    "training": 0,
+    "evaluation_episodes": 0
+  }
+}

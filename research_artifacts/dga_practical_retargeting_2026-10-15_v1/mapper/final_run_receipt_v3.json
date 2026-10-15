@@ -1,0 +1,233 @@
+{
+  "schema_version": "dga_practical_v3_execution_receipt_v1",
+  "recorded_at_utc": "2026-10-15T10:08:38.940465+00:00",
+  "status": "CANDIDATE_RUNS_COMPLETE_PENDING_INDEPENDENT_ADMISSION",
+  "cohorts": [
+    {
+      "cohort": "recent_16",
+      "method": {
+        "path": "/private/tmp/dga_practical_retargeting_20261015_v1/method_frozen_v3.json",
+        "sha256": "sha256:44c2c1e12fc51d912090c7b2987af8ec0631832127c1d764215972c4826ecf6e"
+      },
+      "result": {
+        "path": "/private/tmp/dga_practical_retargeting_20261015_v1/results_v3/report.json",
+        "sha256": "sha256:a5f3eecdda58595c2aee084e7222295dcd06d7afa53f512357844da9599bcff6"
+      },
+      "process_exit_code": 0,
+      "elapsed_seconds": 550.6563540829811,
+      "accounting": {
+        "native_rows": 16,
+        "source_valid_mapped": 11,
+        "source_domain_rejected": 5
+      },
+      "baseline_and_native_arrays_exactly_match_prior_method": {
+        "global_sample_indices": true,
+        "source_hand_qpos": true,
+        "object_from_source_forearm": true,
+        "object_from_source_palm": true,
+        "source_palm_from_target_palm": true,
+        "baseline_target_joint_values": true,
+        "baseline_object_from_target_palm": true,
+        "baseline_object_from_target_root_world": true,
+        "baseline_object_from_target_forearm": true,
+        "baseline_source_palm_from_target_palm": true,
+        "object_from_input": true
+      },
+      "independent_baseline_geometry_cache_reuse_permitted_for_same_asset_and_input_hashes": true,
+      "provisional_candidates": [
+        {
+          "global_sample_index": 0,
+          "baseline_max_landmark_mm": 3.8881895829127506,
+          "provisional_candidate_max_landmark_mm": 3.8881895829127506,
+          "provisional_correction_branches": [],
+          "field_states": 60,
+          "solver_exceptions": []
+        },
+        {
+          "global_sample_index": 1,
+          "baseline_max_landmark_mm": 5.57748434982599,
+          "provisional_candidate_max_landmark_mm": 5.577475912226513,
+          "provisional_correction_branches": [
+            "middle",
+            "little"
+          ],
+          "field_states": 128,
+          "solver_exceptions": []
+        },
+        {
+          "global_sample_index": 4,
+          "baseline_max_landmark_mm": 0.8528642412532685,
+          "provisional_candidate_max_landmark_mm": 0.5840960921428419,
+          "provisional_correction_branches": [
+            "little",
+            "thumb"
+          ],
+          "field_states": 192,
+          "solver_exceptions": []
+        },
+        {
+          "global_sample_index": 6,
+          "baseline_max_landmark_mm": 0.1000011795296761,
+          "provisional_candidate_max_landmark_mm": 0.1000011795296761,
+          "provisional_correction_branches": [],
+          "field_states": 0,
+          "solver_exceptions": []
+        },
+        {
+          "global_sample_index": 8,
+          "baseline_max_landmark_mm": 3.6190477469321842,
+          "provisional_candidate_max_landmark_mm": 3.6171267212450187,
+          "provisional_correction_branches": [
+            "index",
+            "ring",
+            "little"
+          ],
+          "field_states": 192,
+          "solver_exceptions": []
+        },
+        {
+          "global_sample_index": 9,
+          "baseline_max_landmark_mm": 4.270041015179536,
+          "provisional_candidate_max_landmark_mm": 4.267492597457349,
+          "provisional_correction_branches": [
+            "index",
+            "middle"
+          ],
+          "field_states": 128,
+          "solver_exceptions": []
+        },
+        {
+          "global_sample_index": 10,
+          "baseline_max_landmark_mm": 1.0164313032660586,
+          "provisional_candidate_max_landmark_mm": 0.7514237229571205,
+          "provisional_correction_branches": [
+            "ring",
+            "thumb"
+          ],
+          "field_states": 128,
+          "solver_exceptions": []
+        },
+        {
+          "global_sample_index": 12,
+          "baseline_max_landmark_mm": 3.8117236850365668,
+          "provisional_candidate_max_landmark_mm": 3.8102673878550366,
+          "provisional_correction_branches": [
+            "index",
+            "middle",
+            "little"
+          ],
+          "field_states": 192,
+          "solver_exceptions": []
+        },
+        {
+          "global_sample_index": 13,
+          "baseline_max_landmark_mm": 4.207619234709208,
+          "provisional_candidate_max_landmark_mm": 4.204800578579017,
+          "provisional_correction_branches": [
+            "index",
+            "middle",
+            "ring"
+          ],
+          "field_states": 192,
+          "solver_exceptions": []
+        },
+        {
+          "global_sample_index": 14,
+          "baseline_max_landmark_mm": 6.075599790624328,
+          "provisional_candidate_max_landmark_mm": 6.072881576989162,
+          "provisional_correction_branches": [
+            "index"
+          ],
+          "field_states": 64,
+          "solver_exceptions": []
+        },
+        {
+          "global_sample_index": 15,
+          "baseline_max_landmark_mm": 1.2803539247700464,
+          "provisional_candidate_max_landmark_mm": 1.2802629586556764,
+          "provisional_correction_branches": [
+            "ring"
+          ],
+          "field_states": 64,
+          "solver_exceptions": []
+        }
+      ],
+      "warning_count": 19356
+    },
+    {
+      "cohort": "original_4",
+      "method": {
+        "path": "/private/tmp/dga_practical_retargeting_20261015_v1/method_original_four_regression_frozen_v3.json",
+        "sha256": "sha256:ab7880a6899729fafa53a5fbd02e1e9f9fb533cae75cfdd2c1dfd5bbffdf9c22"
+      },
+      "result": {
+        "path": "/private/tmp/dga_practical_retargeting_20261015_v1/results_original_four_regression_v3/report.json",
+        "sha256": "sha256:da28b4c1552c4f99293b6c8bba9ca47c676083547831d2c9ee5965aed9be45de"
+      },
+      "process_exit_code": 0,
+      "elapsed_seconds": 125.00521237496287,
+      "accounting": {
+        "native_rows": 4,
+        "source_valid_mapped": 2,
+        "source_domain_rejected": 2
+      },
+      "baseline_and_native_arrays_exactly_match_prior_method": {
+        "global_sample_indices": true,
+        "source_hand_qpos": true,
+        "object_from_source_forearm": true,
+        "object_from_source_palm": true,
+        "source_palm_from_target_palm": true,
+        "baseline_target_joint_values": true,
+        "baseline_object_from_target_palm": true,
+        "baseline_object_from_target_root_world": true,
+        "baseline_object_from_target_forearm": true,
+        "baseline_source_palm_from_target_palm": true,
+        "object_from_input": true
+      },
+      "independent_baseline_geometry_cache_reuse_permitted_for_same_asset_and_input_hashes": true,
+      "provisional_candidates": [
+        {
+          "global_sample_index": 1,
+          "baseline_max_landmark_mm": 1.4068220846474353,
+          "provisional_candidate_max_landmark_mm": 1.4068220846474353,
+          "provisional_correction_branches": [
+            "little"
+          ],
+          "field_states": 128,
+          "solver_exceptions": []
+        },
+        {
+          "global_sample_index": 3,
+          "baseline_max_landmark_mm": 4.979574796365604,
+          "provisional_candidate_max_landmark_mm": 4.979140571436055,
+          "provisional_correction_branches": [
+            "index",
+            "middle",
+            "ring"
+          ],
+          "field_states": 192,
+          "solver_exceptions": []
+        }
+      ],
+      "warning_count": 4488
+    }
+  ],
+  "combined_accounting": {
+    "native_multiDex_outputs": 20,
+    "source_valid_mapped": 13,
+    "source_invalid_retained": 7,
+    "provisional_corrected_branches": 23,
+    "uncapped_branch_field_states": 1660
+  },
+  "prior_run_output_files_rehashed_unchanged": 42,
+  "frozen_dependencies_rehashed_unchanged": true,
+  "baseline_cache_scope": "Only exact geometry input/assets can be reused; v2 capped field values are not v3 uncapped field values.",
+  "geometry_counting_caveat": "query_counts in run reports are legacy capped-context dispatch counters; they omit additional uncapped mesh work and must not be called total geometry work.",
+  "execution_eligible": false,
+  "zero_execution": {
+    "native_inference": 0,
+    "physics": 0,
+    "evaluation_episodes": 0,
+    "training": 0
+  }
+}

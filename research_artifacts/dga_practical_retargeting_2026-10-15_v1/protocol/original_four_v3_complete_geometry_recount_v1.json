@@ -1,0 +1,1613 @@
+{
+  "schema_version": "independent_adaptive_saved_archive_recount_v3",
+  "partial_row_only": false,
+  "generated_at_utc": "2026-10-15T10:09:01.869964+00:00",
+  "status": "PASS",
+  "source_bindings": {
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/report.json": "6e5b25f78399c0394eb4d858a353ec3740414871e8134b2d5c596a7080c12ba2",
+    "/private/tmp/dga_practical_validation_20261015_v1/validation_policy_frozen_v5.json": "a37227a4ee6702ae2005f4be1159b148b9a98fa5dfe9b4fbfecfbc79a5fa18df",
+    "/private/tmp/dga_practical_validation_20261015_v1/independent_validator.py": "91c0a2f79fa53aa4b2c527b593cd78fecf50c84af8211dc0f58459d9cb759aee",
+    "/private/tmp/dga_practical_validation_20261015_v1/independent_geometry_v5.py": "13a1796af803b18f423bd272b54acd321ae4cc661cd22a574896fa80b183d286",
+    "/private/tmp/dga_practical_validation_20261015_v1/test_independent_validation_v5.py": "fd60a67ea8ac3cfc72953a849cd08db74d92c96ea669d0f0b757f41db0907604",
+    "/private/tmp/dga_practical_validation_20261015_v1/inventory_saved_native.py": "0c97a52a59f1661730dad707d7c406d81aa2e59fb6f5f50551e85b1757932932",
+    "/private/tmp/dga_practical_validation_20261015_v1/run_independent_validation_v5.py": "f9569eac43a66fe0f76785c1670531c37e868c25393b43193152bf12f467f6f2",
+    "/private/tmp/dga_practical_protocol_20261015_v1/recount_adaptive_saved_v3.py": "7afac08fb7c3fc999cbf7d26ffbb11607f9621065b4453f5f4afc0117a505015",
+    "/private/tmp/dga_practical_retargeting_20261015_v1/results_original_four_regression_v3/poses.npz": "7b5b3e18e16939b23b0f1e0a5ed26e0d3aaef2b58f18d53ed74b477849bd2385",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/final_static_poses.npz": "410a61d7a0cd2a41bd71ab5082eb98f1fa6427e0d0482b1b75b89f446bb18502",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/geometry/row1_little_level0_queries.npz": "170c8aceab44f6457e987f472107bae16f458ad34bdb18084ff040f7a15061e3",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/geometry/row1_little_level1_queries.npz": "62ff470bb1cb1512ae4791610a7b341d47f66b786e51e281e16f687f4865be7d",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/geometry/row1_little_level2_queries.npz": "05ac2cecbc295853bfabde0ae85702e8e8be21ae311a90eebc29b86f2569e4d7",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/geometry/row1_little_leaf_cover.npz": "f490c3e62df5a4f00ceda4be9b26b6d99041cea3638a453ba625594636f6312b",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/geometry/row3_index_level0_queries.npz": "38380bd9a8b4c08c2efddd122230a490b48889309f4d6d7293ea756dc02496aa",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/geometry/row3_index_level1_queries.npz": "60b09f1925c0f967e506de9a4a05d36f14ad63589bf1a119a365c6dfea33ff74",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/geometry/row3_index_level2_queries.npz": "7130d633219373cbae679fb3af111b8ca541c357f62cd35ddbca601a86d98e03",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/geometry/row3_index_leaf_cover.npz": "b136f5ce51e1c22dbc4ed6150720b179372b151d7b8fe2189127d87665f31dba",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/geometry/row3_middle_level0_queries.npz": "cacb738ff2e6d186901ae43dddd3136d8ab6cb1cd8bfded565dedace7032b177",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/geometry/row3_middle_level1_queries.npz": "2243f6eaaf6ab5fed977d676f647c49bcebb55e82965b9e528ca467eba1dd657",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/geometry/row3_middle_level2_queries.npz": "35eba37f6ea1b0246e4b333278fef393f0c35fc4aa2b2240c816a0a9aef0fd1f",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/geometry/row3_middle_leaf_cover.npz": "f626a915c2110624a623ede36ae5a1ce62a40f49a31f5875189ec0675668ae24",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/geometry/row3_ring_level0_queries.npz": "cad30a0e429b091bb47fffd24d80ad1b0d2f460f0a542675bf983d69c568d817",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/geometry/row3_ring_level1_queries.npz": "ac9c9fdbd87ab96546eeb159758f978b06c169ac83052c168733708345baa502",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/geometry/row3_ring_level2_queries.npz": "6a54a64028a0b9f35b647cfcfc89570d59e946134c2be7035bbf3d6f572ff840",
+    "/private/tmp/dga_practical_validation_20261015_v1/original4_authoritative_v3/geometry/row3_ring_leaf_cover.npz": "5666f775656bed60966cfa8b0d6f837969aec2546428f778f246916ac4982fb5"
+  },
+  "checks": [
+    {
+      "check": "policy_hash_binding",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "validator_module_hash_binding",
+      "pass": true,
+      "detail": "/private/tmp/dga_practical_validation_20261015_v1/independent_validator.py"
+    },
+    {
+      "check": "validator_module_hash_binding",
+      "pass": true,
+      "detail": "/private/tmp/dga_practical_validation_20261015_v1/independent_geometry_v5.py"
+    },
+    {
+      "check": "validator_module_hash_binding",
+      "pass": true,
+      "detail": "/private/tmp/dga_practical_validation_20261015_v1/test_independent_validation_v5.py"
+    },
+    {
+      "check": "validator_module_hash_binding",
+      "pass": true,
+      "detail": "/private/tmp/dga_practical_validation_20261015_v1/inventory_saved_native.py"
+    },
+    {
+      "check": "validator_module_hash_binding",
+      "pass": true,
+      "detail": "/private/tmp/dga_practical_validation_20261015_v1/run_independent_validation_v5.py"
+    },
+    {
+      "check": "source_invalid_not_in_proposals",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "check": "branch_identity_matches_q",
+      "pass": true,
+      "detail": [
+        1,
+        "index"
+      ]
+    },
+    {
+      "check": "identity_status",
+      "pass": true,
+      "detail": [
+        1,
+        "index"
+      ]
+    },
+    {
+      "check": "branch_identity_matches_q",
+      "pass": true,
+      "detail": [
+        1,
+        "middle"
+      ]
+    },
+    {
+      "check": "identity_status",
+      "pass": true,
+      "detail": [
+        1,
+        "middle"
+      ]
+    },
+    {
+      "check": "branch_identity_matches_q",
+      "pass": true,
+      "detail": [
+        1,
+        "ring"
+      ]
+    },
+    {
+      "check": "identity_status",
+      "pass": true,
+      "detail": [
+        1,
+        "ring"
+      ]
+    },
+    {
+      "check": "branch_identity_matches_q",
+      "pass": true,
+      "detail": [
+        1,
+        "little"
+      ]
+    },
+    {
+      "check": "complete_refinement_cells",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        0
+      ]
+    },
+    {
+      "check": "no_duplicate_query_cells",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        0
+      ]
+    },
+    {
+      "check": "inherited_parent_upper",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        0
+      ]
+    },
+    {
+      "check": "rational_cell_query_locations",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        0
+      ]
+    },
+    {
+      "check": "finite_nonnegative_distances",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        0
+      ]
+    },
+    {
+      "check": "per_cell_upper_recount",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        0
+      ]
+    },
+    {
+      "check": "cover_radius_recount",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        0
+      ]
+    },
+    {
+      "check": "global_lower_recount",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        0
+      ]
+    },
+    {
+      "check": "no_refinement_after_decisive_bound",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        0
+      ]
+    },
+    {
+      "check": "complete_refinement_cells",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        1
+      ]
+    },
+    {
+      "check": "no_duplicate_query_cells",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        1
+      ]
+    },
+    {
+      "check": "inherited_parent_upper",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        1
+      ]
+    },
+    {
+      "check": "rational_cell_query_locations",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        1
+      ]
+    },
+    {
+      "check": "finite_nonnegative_distances",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        1
+      ]
+    },
+    {
+      "check": "per_cell_upper_recount",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        1
+      ]
+    },
+    {
+      "check": "cover_radius_recount",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        1
+      ]
+    },
+    {
+      "check": "global_lower_recount",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        1
+      ]
+    },
+    {
+      "check": "no_refinement_after_decisive_bound",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        1
+      ]
+    },
+    {
+      "check": "complete_refinement_cells",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        2
+      ]
+    },
+    {
+      "check": "no_duplicate_query_cells",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        2
+      ]
+    },
+    {
+      "check": "inherited_parent_upper",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        2
+      ]
+    },
+    {
+      "check": "rational_cell_query_locations",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        2
+      ]
+    },
+    {
+      "check": "finite_nonnegative_distances",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        2
+      ]
+    },
+    {
+      "check": "per_cell_upper_recount",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        2
+      ]
+    },
+    {
+      "check": "cover_radius_recount",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        2
+      ]
+    },
+    {
+      "check": "global_lower_recount",
+      "pass": true,
+      "detail": [
+        1,
+        "little",
+        2
+      ]
+    },
+    {
+      "check": "leaf_keys_unique",
+      "pass": true,
+      "detail": [
+        1,
+        "little"
+      ]
+    },
+    {
+      "check": "leaf_partition_recount",
+      "pass": true,
+      "detail": [
+        1,
+        "little"
+      ]
+    },
+    {
+      "check": "all_leaf_upper_bounds_recount",
+      "pass": true,
+      "detail": {
+        "row": 1,
+        "part": "little",
+        "leaf_count": 240000
+      }
+    },
+    {
+      "check": "full_cube_exact_once_coverage",
+      "pass": true,
+      "detail": [
+        1,
+        "little"
+      ]
+    },
+    {
+      "check": "cover_global_bounds",
+      "pass": true,
+      "detail": [
+        1,
+        "little"
+      ]
+    },
+    {
+      "check": "report_global_bounds",
+      "pass": true,
+      "detail": [
+        1,
+        "little"
+      ]
+    },
+    {
+      "check": "independent_geometry_decision",
+      "pass": true,
+      "detail": [
+        1,
+        "little"
+      ]
+    },
+    {
+      "check": "independent_adoption_decision",
+      "pass": true,
+      "detail": [
+        1,
+        "little"
+      ]
+    },
+    {
+      "check": "branch_identity_matches_q",
+      "pass": true,
+      "detail": [
+        1,
+        "thumb"
+      ]
+    },
+    {
+      "check": "identity_status",
+      "pass": true,
+      "detail": [
+        1,
+        "thumb"
+      ]
+    },
+    {
+      "check": "final_q_exact_branch_selection",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "check": "final_root_unchanged",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "check": "final_raw_unchanged",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "check": "source_invalid_not_in_proposals",
+      "pass": true,
+      "detail": 2
+    },
+    {
+      "check": "branch_identity_matches_q",
+      "pass": true,
+      "detail": [
+        3,
+        "index"
+      ]
+    },
+    {
+      "check": "complete_refinement_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        0
+      ]
+    },
+    {
+      "check": "no_duplicate_query_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        0
+      ]
+    },
+    {
+      "check": "inherited_parent_upper",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        0
+      ]
+    },
+    {
+      "check": "rational_cell_query_locations",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        0
+      ]
+    },
+    {
+      "check": "finite_nonnegative_distances",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        0
+      ]
+    },
+    {
+      "check": "per_cell_upper_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        0
+      ]
+    },
+    {
+      "check": "cover_radius_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        0
+      ]
+    },
+    {
+      "check": "global_lower_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        0
+      ]
+    },
+    {
+      "check": "no_refinement_after_decisive_bound",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        0
+      ]
+    },
+    {
+      "check": "complete_refinement_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        1
+      ]
+    },
+    {
+      "check": "no_duplicate_query_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        1
+      ]
+    },
+    {
+      "check": "inherited_parent_upper",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        1
+      ]
+    },
+    {
+      "check": "rational_cell_query_locations",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        1
+      ]
+    },
+    {
+      "check": "finite_nonnegative_distances",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        1
+      ]
+    },
+    {
+      "check": "per_cell_upper_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        1
+      ]
+    },
+    {
+      "check": "cover_radius_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        1
+      ]
+    },
+    {
+      "check": "global_lower_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        1
+      ]
+    },
+    {
+      "check": "no_refinement_after_decisive_bound",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        1
+      ]
+    },
+    {
+      "check": "complete_refinement_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        2
+      ]
+    },
+    {
+      "check": "no_duplicate_query_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        2
+      ]
+    },
+    {
+      "check": "inherited_parent_upper",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        2
+      ]
+    },
+    {
+      "check": "rational_cell_query_locations",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        2
+      ]
+    },
+    {
+      "check": "finite_nonnegative_distances",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        2
+      ]
+    },
+    {
+      "check": "per_cell_upper_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        2
+      ]
+    },
+    {
+      "check": "cover_radius_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        2
+      ]
+    },
+    {
+      "check": "global_lower_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "index",
+        2
+      ]
+    },
+    {
+      "check": "leaf_keys_unique",
+      "pass": true,
+      "detail": [
+        3,
+        "index"
+      ]
+    },
+    {
+      "check": "leaf_partition_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "index"
+      ]
+    },
+    {
+      "check": "all_leaf_upper_bounds_recount",
+      "pass": true,
+      "detail": {
+        "row": 3,
+        "part": "index",
+        "leaf_count": 24831
+      }
+    },
+    {
+      "check": "full_cube_exact_once_coverage",
+      "pass": true,
+      "detail": [
+        3,
+        "index"
+      ]
+    },
+    {
+      "check": "cover_global_bounds",
+      "pass": true,
+      "detail": [
+        3,
+        "index"
+      ]
+    },
+    {
+      "check": "report_global_bounds",
+      "pass": true,
+      "detail": [
+        3,
+        "index"
+      ]
+    },
+    {
+      "check": "independent_geometry_decision",
+      "pass": true,
+      "detail": [
+        3,
+        "index"
+      ]
+    },
+    {
+      "check": "independent_adoption_decision",
+      "pass": true,
+      "detail": [
+        3,
+        "index"
+      ]
+    },
+    {
+      "check": "branch_identity_matches_q",
+      "pass": true,
+      "detail": [
+        3,
+        "middle"
+      ]
+    },
+    {
+      "check": "complete_refinement_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        0
+      ]
+    },
+    {
+      "check": "no_duplicate_query_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        0
+      ]
+    },
+    {
+      "check": "inherited_parent_upper",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        0
+      ]
+    },
+    {
+      "check": "rational_cell_query_locations",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        0
+      ]
+    },
+    {
+      "check": "finite_nonnegative_distances",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        0
+      ]
+    },
+    {
+      "check": "per_cell_upper_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        0
+      ]
+    },
+    {
+      "check": "cover_radius_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        0
+      ]
+    },
+    {
+      "check": "global_lower_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        0
+      ]
+    },
+    {
+      "check": "no_refinement_after_decisive_bound",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        0
+      ]
+    },
+    {
+      "check": "complete_refinement_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        1
+      ]
+    },
+    {
+      "check": "no_duplicate_query_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        1
+      ]
+    },
+    {
+      "check": "inherited_parent_upper",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        1
+      ]
+    },
+    {
+      "check": "rational_cell_query_locations",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        1
+      ]
+    },
+    {
+      "check": "finite_nonnegative_distances",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        1
+      ]
+    },
+    {
+      "check": "per_cell_upper_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        1
+      ]
+    },
+    {
+      "check": "cover_radius_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        1
+      ]
+    },
+    {
+      "check": "global_lower_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        1
+      ]
+    },
+    {
+      "check": "no_refinement_after_decisive_bound",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        1
+      ]
+    },
+    {
+      "check": "complete_refinement_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        2
+      ]
+    },
+    {
+      "check": "no_duplicate_query_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        2
+      ]
+    },
+    {
+      "check": "inherited_parent_upper",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        2
+      ]
+    },
+    {
+      "check": "rational_cell_query_locations",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        2
+      ]
+    },
+    {
+      "check": "finite_nonnegative_distances",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        2
+      ]
+    },
+    {
+      "check": "per_cell_upper_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        2
+      ]
+    },
+    {
+      "check": "cover_radius_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        2
+      ]
+    },
+    {
+      "check": "global_lower_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "middle",
+        2
+      ]
+    },
+    {
+      "check": "leaf_keys_unique",
+      "pass": true,
+      "detail": [
+        3,
+        "middle"
+      ]
+    },
+    {
+      "check": "leaf_partition_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "middle"
+      ]
+    },
+    {
+      "check": "all_leaf_upper_bounds_recount",
+      "pass": true,
+      "detail": {
+        "row": 3,
+        "part": "middle",
+        "leaf_count": 240000
+      }
+    },
+    {
+      "check": "full_cube_exact_once_coverage",
+      "pass": true,
+      "detail": [
+        3,
+        "middle"
+      ]
+    },
+    {
+      "check": "cover_global_bounds",
+      "pass": true,
+      "detail": [
+        3,
+        "middle"
+      ]
+    },
+    {
+      "check": "report_global_bounds",
+      "pass": true,
+      "detail": [
+        3,
+        "middle"
+      ]
+    },
+    {
+      "check": "independent_geometry_decision",
+      "pass": true,
+      "detail": [
+        3,
+        "middle"
+      ]
+    },
+    {
+      "check": "independent_adoption_decision",
+      "pass": true,
+      "detail": [
+        3,
+        "middle"
+      ]
+    },
+    {
+      "check": "branch_identity_matches_q",
+      "pass": true,
+      "detail": [
+        3,
+        "ring"
+      ]
+    },
+    {
+      "check": "complete_refinement_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        0
+      ]
+    },
+    {
+      "check": "no_duplicate_query_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        0
+      ]
+    },
+    {
+      "check": "inherited_parent_upper",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        0
+      ]
+    },
+    {
+      "check": "rational_cell_query_locations",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        0
+      ]
+    },
+    {
+      "check": "finite_nonnegative_distances",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        0
+      ]
+    },
+    {
+      "check": "per_cell_upper_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        0
+      ]
+    },
+    {
+      "check": "cover_radius_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        0
+      ]
+    },
+    {
+      "check": "global_lower_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        0
+      ]
+    },
+    {
+      "check": "no_refinement_after_decisive_bound",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        0
+      ]
+    },
+    {
+      "check": "complete_refinement_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        1
+      ]
+    },
+    {
+      "check": "no_duplicate_query_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        1
+      ]
+    },
+    {
+      "check": "inherited_parent_upper",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        1
+      ]
+    },
+    {
+      "check": "rational_cell_query_locations",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        1
+      ]
+    },
+    {
+      "check": "finite_nonnegative_distances",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        1
+      ]
+    },
+    {
+      "check": "per_cell_upper_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        1
+      ]
+    },
+    {
+      "check": "cover_radius_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        1
+      ]
+    },
+    {
+      "check": "global_lower_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        1
+      ]
+    },
+    {
+      "check": "no_refinement_after_decisive_bound",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        1
+      ]
+    },
+    {
+      "check": "complete_refinement_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        2
+      ]
+    },
+    {
+      "check": "no_duplicate_query_cells",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        2
+      ]
+    },
+    {
+      "check": "inherited_parent_upper",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        2
+      ]
+    },
+    {
+      "check": "rational_cell_query_locations",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        2
+      ]
+    },
+    {
+      "check": "finite_nonnegative_distances",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        2
+      ]
+    },
+    {
+      "check": "per_cell_upper_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        2
+      ]
+    },
+    {
+      "check": "cover_radius_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        2
+      ]
+    },
+    {
+      "check": "global_lower_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "ring",
+        2
+      ]
+    },
+    {
+      "check": "leaf_keys_unique",
+      "pass": true,
+      "detail": [
+        3,
+        "ring"
+      ]
+    },
+    {
+      "check": "leaf_partition_recount",
+      "pass": true,
+      "detail": [
+        3,
+        "ring"
+      ]
+    },
+    {
+      "check": "all_leaf_upper_bounds_recount",
+      "pass": true,
+      "detail": {
+        "row": 3,
+        "part": "ring",
+        "leaf_count": 36237
+      }
+    },
+    {
+      "check": "full_cube_exact_once_coverage",
+      "pass": true,
+      "detail": [
+        3,
+        "ring"
+      ]
+    },
+    {
+      "check": "cover_global_bounds",
+      "pass": true,
+      "detail": [
+        3,
+        "ring"
+      ]
+    },
+    {
+      "check": "report_global_bounds",
+      "pass": true,
+      "detail": [
+        3,
+        "ring"
+      ]
+    },
+    {
+      "check": "independent_geometry_decision",
+      "pass": true,
+      "detail": [
+        3,
+        "ring"
+      ]
+    },
+    {
+      "check": "independent_adoption_decision",
+      "pass": true,
+      "detail": [
+        3,
+        "ring"
+      ]
+    },
+    {
+      "check": "branch_identity_matches_q",
+      "pass": true,
+      "detail": [
+        3,
+        "little"
+      ]
+    },
+    {
+      "check": "identity_status",
+      "pass": true,
+      "detail": [
+        3,
+        "little"
+      ]
+    },
+    {
+      "check": "branch_identity_matches_q",
+      "pass": true,
+      "detail": [
+        3,
+        "thumb"
+      ]
+    },
+    {
+      "check": "identity_status",
+      "pass": true,
+      "detail": [
+        3,
+        "thumb"
+      ]
+    },
+    {
+      "check": "final_q_exact_branch_selection",
+      "pass": true,
+      "detail": 3
+    },
+    {
+      "check": "final_root_unchanged",
+      "pass": true,
+      "detail": 3
+    },
+    {
+      "check": "final_raw_unchanged",
+      "pass": true,
+      "detail": 3
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "row_02.json"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "final_static_poses.npz"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "row_03.json"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "target_compiled.mjb"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "row_00.json"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "row_01.json"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "geometry/row3_middle_level0_queries.npz"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "geometry/row1_little_level0_queries.npz"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "geometry/row1_little_leaf_cover.npz"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "geometry/row3_index_level2_queries.npz"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "geometry/row3_index_level1_queries.npz"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "geometry/row3_ring_level0_queries.npz"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "geometry/row1_little_level1_queries.npz"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "geometry/row3_ring_level2_queries.npz"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "geometry/row3_middle_leaf_cover.npz"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "geometry/row3_middle_level1_queries.npz"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "geometry/row3_ring_leaf_cover.npz"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "geometry/row3_middle_level2_queries.npz"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "geometry/row3_ring_level1_queries.npz"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "geometry/row1_little_level2_queries.npz"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "geometry/row3_index_level0_queries.npz"
+    },
+    {
+      "check": "output_hash",
+      "pass": true,
+      "detail": "geometry/row3_index_leaf_cover.npz"
+    }
+  ],
+  "check_count": 188,
+  "individual_leaf_upper_bounds_verified": 541068,
+  "nonidentity_branch_results": [
+    {
+      "row": 1,
+      "part": "little",
+      "decision": "UNRESOLVED",
+      "adopted": false,
+      "baseline_interval_m": [
+        0.0004318725532938158,
+        0.0008703130660347993
+      ],
+      "candidate_interval_m": [
+        0.00025813336362696845,
+        0.0006966950307732518
+      ],
+      "leaf_cells": 240000,
+      "queried_cells": 315000
+    },
+    {
+      "row": 3,
+      "part": "index",
+      "decision": "UNRESOLVED",
+      "adopted": false,
+      "baseline_interval_m": [
+        0.003218806247746098,
+        0.0036573881666312224
+      ],
+      "candidate_interval_m": [
+        0.00289542048223329,
+        0.003334002401118414
+      ],
+      "leaf_cells": 24831,
+      "queried_cells": 28108
+    },
+    {
+      "row": 3,
+      "part": "middle",
+      "decision": "UNRESOLVED",
+      "adopted": false,
+      "baseline_interval_m": [
+        0.0007036957607315035,
+        0.0011422776796166283
+      ],
+      "candidate_interval_m": [
+        0.0006966274557154244,
+        0.0011352093746005492
+      ],
+      "leaf_cells": 240000,
+      "queried_cells": 315000
+    },
+    {
+      "row": 3,
+      "part": "ring",
+      "decision": "UNRESOLVED",
+      "adopted": false,
+      "baseline_interval_m": [
+        0.002697859769637919,
+        0.0031364331275803036
+      ],
+      "candidate_interval_m": [
+        0.0026888217567813946,
+        0.003127391590989017
+      ],
+      "leaf_cells": 36237,
+      "queried_cells": 43316
+    }
+  ],
+  "new_triangle_queries": 0,
+  "physics_steps": 0,
+  "native_inference_calls": 0,
+  "training_calls": 0,
+  "claim": "Independent recount of saved conditional bounds, cell coverage, pruning, numerical decisions and final branch selection. No assertion that the assumed 1 nm per-distance arithmetic error is universally proven."
+}

@@ -461,3 +461,13 @@ DGA feasibility-audit compilation confirmed with the desktop compiler; whole-sou
 - Feasible-step fitting and exact eligibility guidance improve the two existing difficult candidates with original fingertip caps intact. Current retained witnesses still show definite native proximity/direction changes; neither a general replacement nor a strict native-equivalence pass is claimed.
 - Diagnosed the old strict checker's missing positive-certification capability;25 manufactured identity controls now establish a narrowly supported positive route without changing old failures.
 - HUG subsection and abstract updated in the canonical paper. Evidence/report: [HUG_MAPPING_ACCEPTANCE_REPAIR.md](HUG_MAPPING_ACCEPTANCE_REPAIR.md), `research_artifacts/hug_mapping_acceptance_repair_2026-10-15_v1/`. No new eval data, proposals, physics or training.
+
+
+<!-- dga-practical-static-2026-10-15-v1 -->
+## 15 October 2026 — Practical DGA static contract completed on saved outputs
+
+The existing DGA manuscript section now distinguishes historical failed native preservation from the newly authorized practical Shadow pipeline. All 20 saved MultiDex outputs are accounted for: 13 native-valid static mappings, seven explicit native-invalid refusals, one independently admitted thumb correction and 22 unresolved branch proposals falling back to the fixed legal reference. The positive bound concerns each finger's worst uncapped distance residual over the complete cube surface, conditional on the declared arithmetic allowance; it does not prove pointwise contact preservation. Maximum landmark error remains 6.075600 mm, known palm overlap remains, and physical/native-fidelity acceptance is not asserted.
+
+Status is `STATIC_PILOT_ADMITTED_TESTED_SCOPE` for these previously inspected cube outputs, with execution disabled. No new native inference, physics, evaluation episodes/labels or training. Historical protocols/results and other manuscript sections remain preserved. [Protocol and evidence](DGA_PRACTICAL_RETARGETING_PROTOCOL.md). The canonical paper is compiled after this edit; the source snapshot and compiler receipt bind the exact working file.
+
+DGA practical-study compilation confirmed with the desktop compiler at whole-source SHA-256 `8d55b452eb31e1f978a27933d7deb2dc8075eb4127e777d287bcbe2d32da3c54`. The exact working-source snapshot and tool receipt are archived; unrelated sections and the open paper path were preserved.

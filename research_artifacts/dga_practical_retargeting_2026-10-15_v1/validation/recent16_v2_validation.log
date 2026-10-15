@@ -1,0 +1,17 @@
+{"row": 0, "part": "ring", "decision": "UNRESOLVED", "adopt_candidate": false, "queried_cells": 38336, "elapsed_s": 27.919943541986868}
+{"row": 0, "status": "STATIC_RELATIVE_BASELINE_GATE_PASS", "elapsed_s": 27.925865541910753}
+{"row": 1, "part": "middle", "decision": "UNRESOLVED", "adopt_candidate": false, "queried_cells": 58112, "elapsed_s": 59.926346709020436}
+Traceback (most recent call last):
+  File "/private/tmp/dga_practical_validation_20261015_v1/run_independent_validation.py", line 83, in <module>
+    with warnings.catch_warnings():warnings.simplefilter('error');main(args)
+                                                                  ^^^^^^^^^^
+  File "/private/tmp/dga_practical_validation_20261015_v1/run_independent_validation.py", line 62, in main
+    out=adaptive_compare_meshes(source,bm,cm,output_dir=args.output/'geometry',prefix=f'row{g}_{part}')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/dga_practical_validation_20261015_v1/independent_geometry.py", line 141, in adaptive_compare_meshes
+    s,ns=source.query(p);b,nb=baseline.query(p);c,nc=candidate.query(p);residual=np.column_stack([abs(s-b),abs(s-c)])
+                              ^^^^^^^^^^^^^^^^^
+  File "/private/tmp/dga_practical_validation_20261015_v1/independent_geometry.py", line 51, in query
+    hits=self.center_tree.query_ball_point(p,upper+self.max_radius+BROADPHASE_MARGIN_M,eps=0,workers=1,return_sorted=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

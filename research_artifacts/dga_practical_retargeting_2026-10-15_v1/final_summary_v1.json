@@ -1,0 +1,69 @@
+{
+  "schema_version": "dga_practical_static_admission_decision_v1",
+  "created_at_utc": "2026-10-15T10:16:32.551618+00:00",
+  "status": "STATIC_PILOT_ADMITTED_TESTED_SCOPE",
+  "pipeline": "Pinned DGA MultiDex plus explicit legal-reference projection and independently gated practical correction on unchanged Shadow",
+  "accounting": {
+    "recent16": {
+      "native_total": 16,
+      "source_valid_mapped": 11,
+      "source_invalid_retained": 5
+    },
+    "original4": {
+      "native_total": 4,
+      "source_valid_mapped": 2,
+      "source_invalid_retained": 2
+    }
+  },
+  "branch_accounting": {
+    "identity_branches": 42,
+    "source_valid_mapped": 13,
+    "explicit_baseline_fallback_branches": 22,
+    "UNRESOLVED": 22,
+    "source_invalid": 7,
+    "certified_corrected_branches": 1,
+    "PASS_NONREGRESSION": 1
+  },
+  "max_final_landmark_mm": 6.0755997906243175,
+  "pooled_final_rms_mm": 1.1795374182183573,
+  "source_invalid_handling": "Refuse before projection; preserve unmodified source and full denominator",
+  "native_holdout": false,
+  "objects_tested": "One unchanged 50 mm cube; 20 previously inspected native outputs",
+  "native_fidelity_accepted": false,
+  "physically_calibrated_distortion_tolerance": null,
+  "geometry_property": "Conditional nonincrease of each finger worst uncapped native-relative distance residual over full cube surface versus legal reference; not pointwise nonregression",
+  "arithmetic_assumption_m_per_distance": 1e-09,
+  "absolute_native_palm_overlap_repaired": false,
+  "execution_eligible": false,
+  "physics_steps": 0,
+  "native_inference_calls": 0,
+  "evaluation_data_generated": false,
+  "training_calls": 0,
+  "authoritative_summary": {
+    "path": "validation/authoritative_all20_summary_v1.json",
+    "sha256": "370e898269b73c5714efd64fc5aa5f6baea6944812f548dfa1164c5012e7d991"
+  },
+  "final_pose_archive": {
+    "path": "validation/authoritative_all20_final_static_poses.npz",
+    "sha256": "bd6953a8c3fff27048d00d74d594b2502fb0159c76ab7b8c23286acc60a11a93"
+  },
+  "independent_reviews": {
+    "authoritative_all20_independent_review_v2.json": "8969a89691927e565eeab9158b466cb71792f5e179cc9870217b357fd65243f4",
+    "positive_row4_thumb_independent_review_v1.json": "c2ae5dedf156fd93ad0a6aa65b9e0a7895cf22560f2124c108350f99a608739f",
+    "receipt_integrity_audit_v1.json": "fa9eaccfac4d8211ac5d9b365359f02ff20abe2364913eb37c45a71ec92e263a"
+  },
+  "prior_evidence_preservation": [
+    {
+      "study": "dexgrasp_anything_mapping_validation_2026-10-15_component_constraints_v1",
+      "manifest_sha256": "e490f405740ca121b294d019bed53bb3408cf53f98c697ac23fa7092fee98fd4",
+      "files_checked": 949,
+      "mismatches": []
+    },
+    {
+      "study": "dexgrasp_anything_mapping_validation_2026-10-15_acceptance_feasibility_v2",
+      "manifest_sha256": "3ad4ad3db5c3e3d7b309c54f3f766ec39aa107aa7673ad8b82f4a0159421b789",
+      "files_checked": 678,
+      "mismatches": []
+    }
+  ]
+}
