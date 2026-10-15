@@ -568,3 +568,35 @@ translation-sensitive query limit physicalfidelity claims. These distinctions
 and each construction decision's reason/evidence/limit are now explained in
 SYSTEM_BUILD_STATUS.md. No studyhand, labelrule, threshold, oldresult or paper
 file changed in this review.
+
+
+## 15 October 2026 — Supplementary historical readback and fixed cutoff replay
+
+The later read-only historical audit performs zero fits/physics and reproduces
+all four original saved-weight AUROCs: 0.852253328781154 / 0.6419426425401161,
+and familiar/new 0.917318763408498 / 0.558765241945835. It verifies all 12 archived
+LOO metric/calibration cells and group memberships over 3,120 historical attempts
+(1,103 success, 2,017 failure; 4 geometries, 12 captures, 48 families). Archived
+LOO coefficients were not saved, so that part is prediction/metric replay, not
+coefficient readback. Old and new controller datasets remain separate.
+Reproduction: original .venv Python, scripts/audit_hug_historical_prediction.py
+--project CANONICAL_CHECKOUT audit --output NEW_JSON.
+
+The four-cutoff declaration at 8d611c0 executes once without fits or physics:
+2.96, 2.76, 2.56, 2.36 s; 213 eligible prefixes at each, 43 null exclusions.
+All 60 frozen bundles score only their original held-test IDs. Baseline arrays,
+labels, groups and probabilities reproduce the original comparison; all earlier
+contracts are explicitly shifted-input diagnostics. Unweighted summary-logistic
+mean failure AUROC is 0.593973 at 2.96 and 0.500000 at each earlier cutoff.
+Fixed-threshold mean failure recall/false-warning rate changes 0.376702/0.327614
+to 0.25/0.25. This does not establish useful early warning or slip onset. No
+cutoff is selected using these results. Reproduction: scripts/audit_hug_cutoff_sensitivity.py
+prepare with the documented original bindings, freeze, commit, then run --output
+FROZEN_DECLARATION_DIRECTORY; new directories are required for a replay.
+
+A final separate summary-only failure-family audit declaration now freezes all
+six physical-cause folds, deterministic family validation, four L2 candidates,
+fixed threshold 0.5 and 1,000 whole-family bootstrap draws per existing category/
+model/seed. It does not change the original five-model comparison or prospective
+models. Missing modes and single-class roles will skip. No real fitting or
+bootstrap at this declaration; execution follows its source/protocol commit.
