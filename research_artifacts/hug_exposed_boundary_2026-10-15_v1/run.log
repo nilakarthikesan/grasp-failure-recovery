@@ -1,0 +1,350 @@
+/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/static_boundary_audit.py:93: RuntimeWarning: divide by zero encountered in matmul
+  return np.max(_points(points)@self.equations[:, :3].T+self.equations[:, 3], axis=1) <= 0
+/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/static_boundary_audit.py:93: RuntimeWarning: overflow encountered in matmul
+  return np.max(_points(points)@self.equations[:, :3].T+self.equations[:, 3], axis=1) <= 0
+/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/static_boundary_audit.py:93: RuntimeWarning: invalid value encountered in matmul
+  return np.max(_points(points)@self.equations[:, :3].T+self.equations[:, 3], axis=1) <= 0
+/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/static_boundary_audit.py:65: RuntimeWarning: divide by zero encountered in matmul
+  along = np.clip((points-self.start)@self.delta/self.length2, 0, 1)
+/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/static_boundary_audit.py:65: RuntimeWarning: overflow encountered in matmul
+  along = np.clip((points-self.start)@self.delta/self.length2, 0, 1)
+/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/static_boundary_audit.py:65: RuntimeWarning: invalid value encountered in matmul
+  along = np.clip((points-self.start)@self.delta/self.length2, 0, 1)
+/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/static_boundary_audit.py:59: RuntimeWarning: divide by zero encountered in matmul
+  along = np.clip((points-self.start)@self.delta/self.length2, 0, 1)
+/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/static_boundary_audit.py:59: RuntimeWarning: overflow encountered in matmul
+  along = np.clip((points-self.start)@self.delta/self.length2, 0, 1)
+/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/static_boundary_audit.py:59: RuntimeWarning: invalid value encountered in matmul
+  along = np.clip((points-self.start)@self.delta/self.length2, 0, 1)
+{"index": 0, "object_id": "object01", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 172, "proxy_union_inside": 214, "proxy_boundary_unknown": 0, "added_proxy_penetration": 66, "lost_skin_penetration": 24, "buried_component_projections": 69, "penetration_lower_m": {"count": 214, "mean": 0.0025658717283063032, "p95": 0.0062316394297959364, "max": 0.007431753406295412}, "penetration_upper_m": {"count": 214, "mean": 0.002816650951845201, "p95": 0.006606499724274003, "max": 0.00774983470831005}, "penetration_bound_width_m": {"count": 214, "mean": 0.0002507792235388979, "p95": 0.0006290986347707124, "max": 0.0017128581992179141}, "exterior_union_distance_error_m": {"count": 1834, "mean": 0.003978982793654922, "p95": 0.008758994220689516, "max": 0.00890061911718001}, "normal_region_count": 371, "normals_compared": 128, "normal_region_unknown": 243, "normal_angle_degrees": {"count": 128, "mean": 23.76301482058875, "p95": 86.52058899110797, "max": 165.49360983234516}, "normal_reversals": 7, "near_bands": [{"band_m": 0.001, "skin_near": 82, "proxy_definitely_near": 91, "proxy_definitely_far": 1951, "proxy_near_unknown": 6, "definitely_lost": 52, "definitely_added": 62}, {"band_m": 0.002, "skin_near": 164, "proxy_definitely_near": 196, "proxy_definitely_far": 1845, "proxy_near_unknown": 7, "definitely_lost": 69, "definitely_added": 105}, {"band_m": 0.005, "skin_near": 371, "proxy_definitely_near": 431, "proxy_definitely_far": 1609, "proxy_near_unknown": 8, "definitely_lost": 47, "definitely_added": 113}]}
+{"index": 1, "object_id": "object01", "probe_count": 2048, "skin_occupancy_unknown": 1, "skin_winding_inside": 154, "proxy_union_inside": 189, "proxy_boundary_unknown": 0, "added_proxy_penetration": 54, "lost_skin_penetration": 20, "buried_component_projections": 46, "penetration_lower_m": {"count": 189, "mean": 0.0027409462244617224, "p95": 0.005501537090658022, "max": 0.006746196369952656}, "penetration_upper_m": {"count": 189, "mean": 0.0029585507535829017, "p95": 0.005606442934216063, "max": 0.006776441922180907}, "penetration_bound_width_m": {"count": 189, "mean": 0.00021760452912117934, "p95": 0.0006257841184728249, "max": 0.0010266064405379002}, "exterior_union_distance_error_m": {"count": 1859, "mean": 0.0036270873961248102, "p95": 0.008865147503054963, "max": 0.008921100594278784}, "normal_region_count": 338, "normals_compared": 127, "normal_region_unknown": 211, "normal_angle_degrees": {"count": 127, "mean": 20.840188138482336, "p95": 37.67709120138588, "max": 157.61854641122176}, "normal_reversals": 2, "near_bands": [{"band_m": 0.001, "skin_near": 69, "proxy_definitely_near": 72, "proxy_definitely_far": 1972, "proxy_near_unknown": 4, "definitely_lost": 52, "definitely_added": 55}, {"band_m": 0.002, "skin_near": 145, "proxy_definitely_near": 157, "proxy_definitely_far": 1880, "proxy_near_unknown": 11, "definitely_lost": 53, "definitely_added": 69}, {"band_m": 0.005, "skin_near": 338, "proxy_definitely_near": 378, "proxy_definitely_far": 1663, "proxy_near_unknown": 7, "definitely_lost": 40, "definitely_added": 85}]}
+{"index": 2, "object_id": "object01", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 191, "proxy_union_inside": 241, "proxy_boundary_unknown": 0, "added_proxy_penetration": 82, "lost_skin_penetration": 32, "buried_component_projections": 72, "penetration_lower_m": {"count": 241, "mean": 0.0027581873598298617, "p95": 0.005409786534686165, "max": 0.006815035097210304}, "penetration_upper_m": {"count": 241, "mean": 0.003012289124786855, "p95": 0.005732577187251121, "max": 0.006979111952337577}, "penetration_bound_width_m": {"count": 241, "mean": 0.00025410176495699284, "p95": 0.0006250004048244488, "max": 0.001372268682097463}, "exterior_union_distance_error_m": {"count": 1807, "mean": 0.0035616179978069486, "p95": 0.008649392769222197, "max": 0.008905952892053173}, "normal_region_count": 406, "normals_compared": 154, "normal_region_unknown": 252, "normal_angle_degrees": {"count": 154, "mean": 21.64754709392567, "p95": 38.78473912852886, "max": 163.0925052439146}, "normal_reversals": 3, "near_bands": [{"band_m": 0.001, "skin_near": 100, "proxy_definitely_near": 87, "proxy_definitely_far": 1955, "proxy_near_unknown": 6, "definitely_lost": 73, "definitely_added": 61}, {"band_m": 0.002, "skin_near": 176, "proxy_definitely_near": 199, "proxy_definitely_far": 1835, "proxy_near_unknown": 14, "definitely_lost": 68, "definitely_added": 95}, {"band_m": 0.005, "skin_near": 406, "proxy_definitely_near": 479, "proxy_definitely_far": 1560, "proxy_near_unknown": 9, "definitely_lost": 39, "definitely_added": 118}]}
+{"index": 3, "object_id": "object01", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 148, "proxy_union_inside": 215, "proxy_boundary_unknown": 0, "added_proxy_penetration": 77, "lost_skin_penetration": 10, "buried_component_projections": 99, "penetration_lower_m": {"count": 215, "mean": 0.00258366711608964, "p95": 0.005650072752952253, "max": 0.007221397993209839}, "penetration_upper_m": {"count": 215, "mean": 0.0028284823245362106, "p95": 0.006036076998624808, "max": 0.00825319754879895}, "penetration_bound_width_m": {"count": 215, "mean": 0.00024481520844657115, "p95": 0.0006717424653179447, "max": 0.0010317995555891102}, "exterior_union_distance_error_m": {"count": 1833, "mean": 0.003479018315901918, "p95": 0.008748087220441738, "max": 0.008900691730140829}, "normal_region_count": 421, "normals_compared": 143, "normal_region_unknown": 278, "normal_angle_degrees": {"count": 143, "mean": 20.382255964585973, "p95": 40.94786352438566, "max": 133.80275589419347}, "normal_reversals": 4, "near_bands": [{"band_m": 0.001, "skin_near": 89, "proxy_definitely_near": 114, "proxy_definitely_far": 1929, "proxy_near_unknown": 5, "definitely_lost": 50, "definitely_added": 76}, {"band_m": 0.002, "skin_near": 183, "proxy_definitely_near": 203, "proxy_definitely_far": 1835, "proxy_near_unknown": 10, "definitely_lost": 60, "definitely_added": 87}, {"band_m": 0.005, "skin_near": 421, "proxy_definitely_near": 500, "proxy_definitely_far": 1539, "proxy_near_unknown": 9, "definitely_lost": 38, "definitely_added": 124}]}
+{"index": 4, "object_id": "object01", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 130, "proxy_union_inside": 156, "proxy_boundary_unknown": 0, "added_proxy_penetration": 49, "lost_skin_penetration": 23, "buried_component_projections": 62, "penetration_lower_m": {"count": 156, "mean": 0.00247903294535962, "p95": 0.0056256112848518626, "max": 0.007122684936876575}, "penetration_upper_m": {"count": 156, "mean": 0.0027966320281534777, "p95": 0.005995857509132264, "max": 0.007509458422309575}, "penetration_bound_width_m": {"count": 156, "mean": 0.0003175990827938574, "p95": 0.0008269058325416108, "max": 0.002241309335790865}, "exterior_union_distance_error_m": {"count": 1892, "mean": 0.0042090801710892335, "p95": 0.008856126111788805, "max": 0.008897490835691486}, "normal_region_count": 346, "normals_compared": 149, "normal_region_unknown": 197, "normal_angle_degrees": {"count": 149, "mean": 22.294207398281213, "p95": 106.32869406253316, "max": 167.8736837791391}, "normal_reversals": 9, "near_bands": [{"band_m": 0.001, "skin_near": 69, "proxy_definitely_near": 89, "proxy_definitely_far": 1956, "proxy_near_unknown": 3, "definitely_lost": 38, "definitely_added": 60}, {"band_m": 0.002, "skin_near": 151, "proxy_definitely_near": 181, "proxy_definitely_far": 1862, "proxy_near_unknown": 5, "definitely_lost": 58, "definitely_added": 90}, {"band_m": 0.005, "skin_near": 346, "proxy_definitely_near": 429, "proxy_definitely_far": 1609, "proxy_near_unknown": 10, "definitely_lost": 37, "definitely_added": 129}]}
+{"index": 5, "object_id": "object01", "probe_count": 2048, "skin_occupancy_unknown": 1, "skin_winding_inside": 167, "proxy_union_inside": 201, "proxy_boundary_unknown": 0, "added_proxy_penetration": 59, "lost_skin_penetration": 26, "buried_component_projections": 59, "penetration_lower_m": {"count": 201, "mean": 0.0028838293615472, "p95": 0.00617570125123695, "max": 0.006726979776594178}, "penetration_upper_m": {"count": 201, "mean": 0.00309757366526431, "p95": 0.006355115848370006, "max": 0.006994080759790421}, "penetration_bound_width_m": {"count": 201, "mean": 0.00021374430371710968, "p95": 0.0005866064511143923, "max": 0.0008747146135212932}, "exterior_union_distance_error_m": {"count": 1847, "mean": 0.0037095951673549884, "p95": 0.008853795312551658, "max": 0.008986888858500939}, "normal_region_count": 350, "normals_compared": 128, "normal_region_unknown": 222, "normal_angle_degrees": {"count": 128, "mean": 22.54045154347544, "p95": 47.006457338121464, "max": 150.3405395516152}, "normal_reversals": 3, "near_bands": [{"band_m": 0.001, "skin_near": 80, "proxy_definitely_near": 84, "proxy_definitely_far": 1960, "proxy_near_unknown": 4, "definitely_lost": 54, "definitely_added": 59}, {"band_m": 0.002, "skin_near": 155, "proxy_definitely_near": 152, "proxy_definitely_far": 1892, "proxy_near_unknown": 4, "definitely_lost": 69, "definitely_added": 67}, {"band_m": 0.005, "skin_near": 350, "proxy_definitely_near": 404, "proxy_definitely_far": 1639, "proxy_near_unknown": 5, "definitely_lost": 45, "definitely_added": 101}]}
+{"index": 6, "object_id": "object01", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 119, "proxy_union_inside": 175, "proxy_boundary_unknown": 0, "added_proxy_penetration": 73, "lost_skin_penetration": 17, "buried_component_projections": 80, "penetration_lower_m": {"count": 175, "mean": 0.0021076925333891666, "p95": 0.005207203393821817, "max": 0.007260419758666064}, "penetration_upper_m": {"count": 175, "mean": 0.0023682791814997606, "p95": 0.0056357996484889235, "max": 0.007499143446963822}, "penetration_bound_width_m": {"count": 175, "mean": 0.000260586648110594, "p95": 0.0008760084735157783, "max": 0.0016843078882866711}, "exterior_union_distance_error_m": {"count": 1873, "mean": 0.003914407566519548, "p95": 0.008642454069390317, "max": 0.008900628817937621}, "normal_region_count": 372, "normals_compared": 163, "normal_region_unknown": 209, "normal_angle_degrees": {"count": 163, "mean": 26.170291069335573, "p95": 122.57165089967229, "max": 168.4802919733176}, "normal_reversals": 10, "near_bands": [{"band_m": 0.001, "skin_near": 77, "proxy_definitely_near": 124, "proxy_definitely_far": 1920, "proxy_near_unknown": 4, "definitely_lost": 44, "definitely_added": 91}, {"band_m": 0.002, "skin_near": 150, "proxy_definitely_near": 215, "proxy_definitely_far": 1823, "proxy_near_unknown": 10, "definitely_lost": 51, "definitely_added": 119}, {"band_m": 0.005, "skin_near": 372, "proxy_definitely_near": 481, "proxy_definitely_far": 1561, "proxy_near_unknown": 6, "definitely_lost": 22, "definitely_added": 136}]}
+{"index": 7, "object_id": "object01", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 143, "proxy_union_inside": 194, "proxy_boundary_unknown": 0, "added_proxy_penetration": 65, "lost_skin_penetration": 14, "buried_component_projections": 96, "penetration_lower_m": {"count": 194, "mean": 0.002632572546090556, "p95": 0.005837219999474271, "max": 0.007173034882321684}, "penetration_upper_m": {"count": 194, "mean": 0.0028996561443330945, "p95": 0.006217103942792985, "max": 0.00744511136529327}, "penetration_bound_width_m": {"count": 194, "mean": 0.00026708359824253856, "p95": 0.0006566795279680486, "max": 0.0013029297154793194}, "exterior_union_distance_error_m": {"count": 1854, "mean": 0.003615968623465253, "p95": 0.008868055834922435, "max": 0.008899609914861686}, "normal_region_count": 389, "normals_compared": 154, "normal_region_unknown": 235, "normal_angle_degrees": {"count": 154, "mean": 20.063673177565903, "p95": 39.590038802975705, "max": 130.27282946750674}, "normal_reversals": 3, "near_bands": [{"band_m": 0.001, "skin_near": 81, "proxy_definitely_near": 109, "proxy_definitely_far": 1936, "proxy_near_unknown": 3, "definitely_lost": 44, "definitely_added": 73}, {"band_m": 0.002, "skin_near": 165, "proxy_definitely_near": 198, "proxy_definitely_far": 1837, "proxy_near_unknown": 13, "definitely_lost": 50, "definitely_added": 92}, {"band_m": 0.005, "skin_near": 389, "proxy_definitely_near": 482, "proxy_definitely_far": 1556, "proxy_near_unknown": 10, "definitely_lost": 44, "definitely_added": 145}]}
+{"index": 8, "object_id": "hug_apple", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 75, "proxy_union_inside": 105, "proxy_boundary_unknown": 0, "added_proxy_penetration": 39, "lost_skin_penetration": 9, "buried_component_projections": 31, "penetration_lower_m": {"count": 105, "mean": 0.002558868999214875, "p95": 0.00580810336043047, "max": 0.00738303830608205}, "penetration_upper_m": {"count": 105, "mean": 0.00280284358909611, "p95": 0.006282480162984614, "max": 0.008106743624508583}, "penetration_bound_width_m": {"count": 105, "mean": 0.00024397458988123497, "p95": 0.0007441943475611959, "max": 0.000974948676257731}, "exterior_union_distance_error_m": {"count": 1943, "mean": 0.0037212924592706018, "p95": 0.008894562627291781, "max": 0.00890045519643404}, "normal_region_count": 211, "normals_compared": 77, "normal_region_unknown": 134, "normal_angle_degrees": {"count": 77, "mean": 23.45076000313971, "p95": 63.59070511751928, "max": 162.47218530179552}, "normal_reversals": 4, "near_bands": [{"band_m": 0.001, "skin_near": 41, "proxy_definitely_near": 42, "proxy_definitely_far": 2003, "proxy_near_unknown": 3, "definitely_lost": 28, "definitely_added": 29}, {"band_m": 0.002, "skin_near": 78, "proxy_definitely_near": 93, "proxy_definitely_far": 1949, "proxy_near_unknown": 6, "definitely_lost": 32, "definitely_added": 49}, {"band_m": 0.005, "skin_near": 211, "proxy_definitely_near": 274, "proxy_definitely_far": 1772, "proxy_near_unknown": 2, "definitely_lost": 28, "definitely_added": 93}]}
+{"index": 9, "object_id": "hug_apple", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 69, "proxy_union_inside": 124, "proxy_boundary_unknown": 0, "added_proxy_penetration": 61, "lost_skin_penetration": 6, "buried_component_projections": 25, "penetration_lower_m": {"count": 124, "mean": 0.002501286746723315, "p95": 0.005494267452168523, "max": 0.006925715544900296}, "penetration_upper_m": {"count": 124, "mean": 0.002727074326841361, "p95": 0.0060002496878821905, "max": 0.007791901136781652}, "penetration_bound_width_m": {"count": 124, "mean": 0.0002257875801180465, "p95": 0.0006259016551488652, "max": 0.0009418419283645819}, "exterior_union_distance_error_m": {"count": 1924, "mean": 0.0036189817151815193, "p95": 0.008799186851695364, "max": 0.008897172059516616}, "normal_region_count": 231, "normals_compared": 74, "normal_region_unknown": 157, "normal_angle_degrees": {"count": 74, "mean": 26.95737246122957, "p95": 156.81841641702022, "max": 167.38810998878463}, "normal_reversals": 6, "near_bands": [{"band_m": 0.001, "skin_near": 39, "proxy_definitely_near": 53, "proxy_definitely_far": 1992, "proxy_near_unknown": 3, "definitely_lost": 23, "definitely_added": 38}, {"band_m": 0.002, "skin_near": 81, "proxy_definitely_near": 105, "proxy_definitely_far": 1933, "proxy_near_unknown": 10, "definitely_lost": 35, "definitely_added": 63}, {"band_m": 0.005, "skin_near": 231, "proxy_definitely_near": 279, "proxy_definitely_far": 1767, "proxy_near_unknown": 2, "definitely_lost": 25, "definitely_added": 75}]}
+{"index": 10, "object_id": "hug_apple", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 96, "proxy_union_inside": 113, "proxy_boundary_unknown": 0, "added_proxy_penetration": 27, "lost_skin_penetration": 10, "buried_component_projections": 40, "penetration_lower_m": {"count": 113, "mean": 0.002644933793681082, "p95": 0.00565846009546388, "max": 0.007931989196742966}, "penetration_upper_m": {"count": 113, "mean": 0.0028656179323670182, "p95": 0.0060904557426828205, "max": 0.008452920794143753}, "penetration_bound_width_m": {"count": 113, "mean": 0.0002206841386859359, "p95": 0.0005864736333501408, "max": 0.0010349814051868892}, "exterior_union_distance_error_m": {"count": 1935, "mean": 0.003607572111715156, "p95": 0.008903275747554432, "max": 0.008927950377644087}, "normal_region_count": 236, "normals_compared": 91, "normal_region_unknown": 145, "normal_angle_degrees": {"count": 91, "mean": 15.82108425349999, "p95": 25.56939326557707, "max": 159.4874856024933}, "normal_reversals": 2, "near_bands": [{"band_m": 0.001, "skin_near": 52, "proxy_definitely_near": 57, "proxy_definitely_far": 1990, "proxy_near_unknown": 1, "definitely_lost": 30, "definitely_added": 35}, {"band_m": 0.002, "skin_near": 89, "proxy_definitely_near": 112, "proxy_definitely_far": 1931, "proxy_near_unknown": 5, "definitely_lost": 19, "definitely_added": 46}, {"band_m": 0.005, "skin_near": 236, "proxy_definitely_near": 296, "proxy_definitely_far": 1749, "proxy_near_unknown": 3, "definitely_lost": 24, "definitely_added": 87}]}
+{"index": 11, "object_id": "hug_apple", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 94, "proxy_union_inside": 110, "proxy_boundary_unknown": 0, "added_proxy_penetration": 36, "lost_skin_penetration": 20, "buried_component_projections": 47, "penetration_lower_m": {"count": 110, "mean": 0.002785313446464113, "p95": 0.0073968262317901596, "max": 0.00867011046174744}, "penetration_upper_m": {"count": 110, "mean": 0.003044834322108685, "p95": 0.007938876336662633, "max": 0.008981483304785137}, "penetration_bound_width_m": {"count": 110, "mean": 0.00025952087564457113, "p95": 0.0006877742953047797, "max": 0.0013000895864021282}, "exterior_union_distance_error_m": {"count": 1938, "mean": 0.003721494455335595, "p95": 0.008751292548212636, "max": 0.008912771936873322}, "normal_region_count": 261, "normals_compared": 124, "normal_region_unknown": 137, "normal_angle_degrees": {"count": 124, "mean": 16.261055526227253, "p95": 32.88313368807866, "max": 163.93386280337006}, "normal_reversals": 1, "near_bands": [{"band_m": 0.001, "skin_near": 65, "proxy_definitely_near": 75, "proxy_definitely_far": 1971, "proxy_near_unknown": 2, "definitely_lost": 33, "definitely_added": 44}, {"band_m": 0.002, "skin_near": 112, "proxy_definitely_near": 138, "proxy_definitely_far": 1903, "proxy_near_unknown": 7, "definitely_lost": 33, "definitely_added": 62}, {"band_m": 0.005, "skin_near": 261, "proxy_definitely_near": 337, "proxy_definitely_far": 1707, "proxy_near_unknown": 4, "definitely_lost": 25, "definitely_added": 105}]}
+{"index": 12, "object_id": "hug_apple", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 86, "proxy_union_inside": 120, "proxy_boundary_unknown": 0, "added_proxy_penetration": 49, "lost_skin_penetration": 15, "buried_component_projections": 37, "penetration_lower_m": {"count": 120, "mean": 0.0023347104811040796, "p95": 0.005411850988877837, "max": 0.006634023327432853}, "penetration_upper_m": {"count": 120, "mean": 0.00256349008790689, "p95": 0.005811930420513359, "max": 0.007387843151645593}, "penetration_bound_width_m": {"count": 120, "mean": 0.00022877960680280952, "p95": 0.000761065319346046, "max": 0.0011878352166212309}, "exterior_union_distance_error_m": {"count": 1928, "mean": 0.0037384082584097523, "p95": 0.008862675438586733, "max": 0.008899514173748874}, "normal_region_count": 247, "normals_compared": 106, "normal_region_unknown": 141, "normal_angle_degrees": {"count": 106, "mean": 18.130498817023135, "p95": 40.05970109349154, "max": 167.3658887247545}, "normal_reversals": 1, "near_bands": [{"band_m": 0.001, "skin_near": 58, "proxy_definitely_near": 58, "proxy_definitely_far": 1987, "proxy_near_unknown": 3, "definitely_lost": 38, "definitely_added": 38}, {"band_m": 0.002, "skin_near": 96, "proxy_definitely_near": 127, "proxy_definitely_far": 1917, "proxy_near_unknown": 4, "definitely_lost": 39, "definitely_added": 71}, {"band_m": 0.005, "skin_near": 247, "proxy_definitely_near": 333, "proxy_definitely_far": 1712, "proxy_near_unknown": 3, "definitely_lost": 21, "definitely_added": 110}]}
+{"index": 13, "object_id": "hug_apple", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 97, "proxy_union_inside": 131, "proxy_boundary_unknown": 0, "added_proxy_penetration": 57, "lost_skin_penetration": 23, "buried_component_projections": 40, "penetration_lower_m": {"count": 131, "mean": 0.0023873470509058214, "p95": 0.005603579248998031, "max": 0.00789219460830529}, "penetration_upper_m": {"count": 131, "mean": 0.0025892138370748937, "p95": 0.0061128628050573924, "max": 0.007976854516489886}, "penetration_bound_width_m": {"count": 131, "mean": 0.00020186678616907215, "p95": 0.0005880358222286435, "max": 0.0007531917728080539}, "exterior_union_distance_error_m": {"count": 1917, "mean": 0.003729015833460014, "p95": 0.00844803939613091, "max": 0.008902131032012185}, "normal_region_count": 282, "normals_compared": 120, "normal_region_unknown": 162, "normal_angle_degrees": {"count": 120, "mean": 18.75108451241069, "p95": 42.27266802782064, "max": 169.4300870528323}, "normal_reversals": 3, "near_bands": [{"band_m": 0.001, "skin_near": 55, "proxy_definitely_near": 83, "proxy_definitely_far": 1962, "proxy_near_unknown": 3, "definitely_lost": 34, "definitely_added": 62}, {"band_m": 0.002, "skin_near": 120, "proxy_definitely_near": 156, "proxy_definitely_far": 1885, "proxy_near_unknown": 7, "definitely_lost": 36, "definitely_added": 77}, {"band_m": 0.005, "skin_near": 282, "proxy_definitely_near": 345, "proxy_definitely_far": 1702, "proxy_near_unknown": 1, "definitely_lost": 32, "definitely_added": 96}]}
+{"index": 14, "object_id": "hug_apple", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 92, "proxy_union_inside": 104, "proxy_boundary_unknown": 0, "added_proxy_penetration": 28, "lost_skin_penetration": 16, "buried_component_projections": 37, "penetration_lower_m": {"count": 104, "mean": 0.002671087535823636, "p95": 0.005692690426169684, "max": 0.007723913816560275}, "penetration_upper_m": {"count": 104, "mean": 0.0029145964008897114, "p95": 0.00601959348929322, "max": 0.008029349071083075}, "penetration_bound_width_m": {"count": 104, "mean": 0.00024350886506607566, "p95": 0.0007536185678961064, "max": 0.0015738988559120893}, "exterior_union_distance_error_m": {"count": 1944, "mean": 0.003809874589009816, "p95": 0.008797300789083943, "max": 0.008930013680339487}, "normal_region_count": 257, "normals_compared": 113, "normal_region_unknown": 144, "normal_angle_degrees": {"count": 113, "mean": 17.05283363582256, "p95": 39.18417302668756, "max": 155.11232561398916}, "normal_reversals": 2, "near_bands": [{"band_m": 0.001, "skin_near": 56, "proxy_definitely_near": 53, "proxy_definitely_far": 1994, "proxy_near_unknown": 1, "definitely_lost": 33, "definitely_added": 31}, {"band_m": 0.002, "skin_near": 102, "proxy_definitely_near": 119, "proxy_definitely_far": 1927, "proxy_near_unknown": 2, "definitely_lost": 34, "definitely_added": 51}, {"band_m": 0.005, "skin_near": 257, "proxy_definitely_near": 325, "proxy_definitely_far": 1715, "proxy_near_unknown": 8, "definitely_lost": 29, "definitely_added": 101}]}
+{"index": 15, "object_id": "hug_apple", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 98, "proxy_union_inside": 133, "proxy_boundary_unknown": 0, "added_proxy_penetration": 50, "lost_skin_penetration": 15, "buried_component_projections": 49, "penetration_lower_m": {"count": 133, "mean": 0.002508365190490397, "p95": 0.005778181439823519, "max": 0.007259237414384131}, "penetration_upper_m": {"count": 133, "mean": 0.002790041373772849, "p95": 0.006298134996785576, "max": 0.007471216187072571}, "penetration_bound_width_m": {"count": 133, "mean": 0.0002816761832824512, "p95": 0.0007057184815258194, "max": 0.0013644768540122879}, "exterior_union_distance_error_m": {"count": 1915, "mean": 0.0037705803533624577, "p95": 0.008706693856679089, "max": 0.00891755973226472}, "normal_region_count": 286, "normals_compared": 117, "normal_region_unknown": 169, "normal_angle_degrees": {"count": 117, "mean": 16.234481489381515, "p95": 30.300552946304226, "max": 168.83976761799806}, "normal_reversals": 1, "near_bands": [{"band_m": 0.001, "skin_near": 48, "proxy_definitely_near": 71, "proxy_definitely_far": 1974, "proxy_near_unknown": 3, "definitely_lost": 25, "definitely_added": 50}, {"band_m": 0.002, "skin_near": 102, "proxy_definitely_near": 139, "proxy_definitely_far": 1903, "proxy_near_unknown": 6, "definitely_lost": 31, "definitely_added": 71}, {"band_m": 0.005, "skin_near": 286, "proxy_definitely_near": 340, "proxy_definitely_far": 1700, "proxy_near_unknown": 8, "definitely_lost": 35, "definitely_added": 95}]}
+{"index": 16, "object_id": "hug_milk_box", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 68, "proxy_union_inside": 100, "proxy_boundary_unknown": 0, "added_proxy_penetration": 43, "lost_skin_penetration": 11, "buried_component_projections": 30, "penetration_lower_m": {"count": 100, "mean": 0.0023295323288968026, "p95": 0.005651449309525498, "max": 0.0068767304189719415}, "penetration_upper_m": {"count": 100, "mean": 0.002521884111525789, "p95": 0.0060958780163601865, "max": 0.007344566865616783}, "penetration_bound_width_m": {"count": 100, "mean": 0.0001923517826289856, "p95": 0.0005901648687064387, "max": 0.0006904329672613955}, "exterior_union_distance_error_m": {"count": 1948, "mean": 0.005003576983299492, "p95": 0.00886595773393633, "max": 0.008881763460385841}, "normal_region_count": 175, "normals_compared": 58, "normal_region_unknown": 117, "normal_angle_degrees": {"count": 58, "mean": 15.294537274723757, "p95": 33.47286607066364, "max": 41.955949951873514}, "normal_reversals": 0, "near_bands": [{"band_m": 0.001, "skin_near": 40, "proxy_definitely_near": 51, "proxy_definitely_far": 1993, "proxy_near_unknown": 4, "definitely_lost": 14, "definitely_added": 27}, {"band_m": 0.002, "skin_near": 65, "proxy_definitely_near": 91, "proxy_definitely_far": 1953, "proxy_near_unknown": 4, "definitely_lost": 22, "definitely_added": 50}, {"band_m": 0.005, "skin_near": 175, "proxy_definitely_near": 208, "proxy_definitely_far": 1838, "proxy_near_unknown": 2, "definitely_lost": 17, "definitely_added": 52}]}
+{"index": 17, "object_id": "hug_milk_box", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 30, "proxy_union_inside": 26, "proxy_boundary_unknown": 0, "added_proxy_penetration": 4, "lost_skin_penetration": 8, "buried_component_projections": 9, "penetration_lower_m": {"count": 26, "mean": 0.0011954185931119543, "p95": 0.0036760371916085563, "max": 0.003788869081031552}, "penetration_upper_m": {"count": 26, "mean": 0.0012518451417508397, "p95": 0.003735222943269652, "max": 0.004104610734945799}, "penetration_bound_width_m": {"count": 26, "mean": 5.64265486388855e-05, "p95": 0.00022548681661109786, "max": 0.00031574165391424743}, "exterior_union_distance_error_m": {"count": 2022, "mean": 0.004553564673838807, "p95": 0.008861447897098338, "max": 0.008898486929127376}, "normal_region_count": 127, "normals_compared": 70, "normal_region_unknown": 57, "normal_angle_degrees": {"count": 70, "mean": 16.038987310863323, "p95": 34.26259433763808, "max": 43.243513748076644}, "normal_reversals": 0, "near_bands": [{"band_m": 0.001, "skin_near": 23, "proxy_definitely_near": 28, "proxy_definitely_far": 2019, "proxy_near_unknown": 1, "definitely_lost": 13, "definitely_added": 18}, {"band_m": 0.002, "skin_near": 54, "proxy_definitely_near": 47, "proxy_definitely_far": 2000, "proxy_near_unknown": 1, "definitely_lost": 24, "definitely_added": 17}, {"band_m": 0.005, "skin_near": 127, "proxy_definitely_near": 132, "proxy_definitely_far": 1916, "proxy_near_unknown": 0, "definitely_lost": 18, "definitely_added": 23}]}
+{"index": 18, "object_id": "hug_milk_box", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 86, "proxy_union_inside": 113, "proxy_boundary_unknown": 0, "added_proxy_penetration": 38, "lost_skin_penetration": 11, "buried_component_projections": 51, "penetration_lower_m": {"count": 113, "mean": 0.0032266045233472493, "p95": 0.00635955914793086, "max": 0.007394861190658169}, "penetration_upper_m": {"count": 113, "mean": 0.0034792662057950238, "p95": 0.006727795114140502, "max": 0.00788028208864578}, "penetration_bound_width_m": {"count": 113, "mean": 0.0002526616824477746, "p95": 0.0007371277903929228, "max": 0.0011452472795204687}, "exterior_union_distance_error_m": {"count": 1935, "mean": 0.004866331447177812, "p95": 0.008899609295452342, "max": 0.008908927312829797}, "normal_region_count": 166, "normals_compared": 61, "normal_region_unknown": 105, "normal_angle_degrees": {"count": 61, "mean": 21.403841281414532, "p95": 41.6577780581029, "max": 161.63225106116855}, "normal_reversals": 3, "near_bands": [{"band_m": 0.001, "skin_near": 42, "proxy_definitely_near": 40, "proxy_definitely_far": 2005, "proxy_near_unknown": 3, "definitely_lost": 28, "definitely_added": 26}, {"band_m": 0.002, "skin_near": 80, "proxy_definitely_near": 80, "proxy_definitely_far": 1964, "proxy_near_unknown": 4, "definitely_lost": 30, "definitely_added": 34}, {"band_m": 0.005, "skin_near": 166, "proxy_definitely_near": 208, "proxy_definitely_far": 1835, "proxy_near_unknown": 5, "definitely_lost": 20, "definitely_added": 67}]}
+{"index": 19, "object_id": "hug_milk_box", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 95, "proxy_union_inside": 126, "proxy_boundary_unknown": 0, "added_proxy_penetration": 38, "lost_skin_penetration": 7, "buried_component_projections": 49, "penetration_lower_m": {"count": 126, "mean": 0.0029734746489451414, "p95": 0.006058543340522571, "max": 0.007909072022672565}, "penetration_upper_m": {"count": 126, "mean": 0.003245245570518092, "p95": 0.006699673845389857, "max": 0.00817453714152085}, "penetration_bound_width_m": {"count": 126, "mean": 0.00027177092157295034, "p95": 0.000710307701167047, "max": 0.0013132935025370832}, "exterior_union_distance_error_m": {"count": 1922, "mean": 0.005025709728097494, "p95": 0.00878804451188794, "max": 0.008892532796051383}, "normal_region_count": 204, "normals_compared": 71, "normal_region_unknown": 133, "normal_angle_degrees": {"count": 71, "mean": 14.36390555981, "p95": 29.98645056985907, "max": 48.82585027928791}, "normal_reversals": 0, "near_bands": [{"band_m": 0.001, "skin_near": 44, "proxy_definitely_near": 53, "proxy_definitely_far": 1993, "proxy_near_unknown": 2, "definitely_lost": 26, "definitely_added": 36}, {"band_m": 0.002, "skin_near": 81, "proxy_definitely_near": 105, "proxy_definitely_far": 1940, "proxy_near_unknown": 3, "definitely_lost": 29, "definitely_added": 54}, {"band_m": 0.005, "skin_near": 204, "proxy_definitely_near": 247, "proxy_definitely_far": 1795, "proxy_near_unknown": 6, "definitely_lost": 28, "definitely_added": 76}]}
+{"index": 20, "object_id": "hug_milk_box", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 76, "proxy_union_inside": 78, "proxy_boundary_unknown": 0, "added_proxy_penetration": 12, "lost_skin_penetration": 10, "buried_component_projections": 45, "penetration_lower_m": {"count": 78, "mean": 0.0027171856826955715, "p95": 0.006304852587739405, "max": 0.007035856935547431}, "penetration_upper_m": {"count": 78, "mean": 0.0030469997595076437, "p95": 0.007155017864623666, "max": 0.0073657066126243745}, "penetration_bound_width_m": {"count": 78, "mean": 0.00032981407681207254, "p95": 0.001027232358461851, "max": 0.00191437274035773}, "exterior_union_distance_error_m": {"count": 1970, "mean": 0.005022773432454473, "p95": 0.008880135875556699, "max": 0.008888038090067316}, "normal_region_count": 190, "normals_compared": 78, "normal_region_unknown": 112, "normal_angle_degrees": {"count": 78, "mean": 19.73238410063753, "p95": 50.85293389534876, "max": 113.85190143124593}, "normal_reversals": 1, "near_bands": [{"band_m": 0.001, "skin_near": 42, "proxy_definitely_near": 50, "proxy_definitely_far": 1997, "proxy_near_unknown": 1, "definitely_lost": 17, "definitely_added": 26}, {"band_m": 0.002, "skin_near": 76, "proxy_definitely_near": 87, "proxy_definitely_far": 1960, "proxy_near_unknown": 1, "definitely_lost": 19, "definitely_added": 30}, {"band_m": 0.005, "skin_near": 190, "proxy_definitely_near": 202, "proxy_definitely_far": 1843, "proxy_near_unknown": 3, "definitely_lost": 12, "definitely_added": 27}]}
+{"index": 21, "object_id": "hug_milk_box", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 76, "proxy_union_inside": 92, "proxy_boundary_unknown": 0, "added_proxy_penetration": 30, "lost_skin_penetration": 14, "buried_component_projections": 45, "penetration_lower_m": {"count": 92, "mean": 0.0026075428336936853, "p95": 0.005730912095252584, "max": 0.007946910366331777}, "penetration_upper_m": {"count": 92, "mean": 0.0029056942226512606, "p95": 0.006415957012178783, "max": 0.007967626273058392}, "penetration_bound_width_m": {"count": 92, "mean": 0.0002981513889575749, "p95": 0.0007921021045837957, "max": 0.0011060669019602159}, "exterior_union_distance_error_m": {"count": 1956, "mean": 0.005128073850038255, "p95": 0.008286338967969927, "max": 0.008856396967782551}, "normal_region_count": 204, "normals_compared": 94, "normal_region_unknown": 110, "normal_angle_degrees": {"count": 94, "mean": 19.260861779167904, "p95": 40.324372337966345, "max": 171.35313977132353}, "normal_reversals": 2, "near_bands": [{"band_m": 0.001, "skin_near": 46, "proxy_definitely_near": 59, "proxy_definitely_far": 1986, "proxy_near_unknown": 3, "definitely_lost": 22, "definitely_added": 36}, {"band_m": 0.002, "skin_near": 104, "proxy_definitely_near": 112, "proxy_definitely_far": 1933, "proxy_near_unknown": 3, "definitely_lost": 31, "definitely_added": 41}, {"band_m": 0.005, "skin_near": 204, "proxy_definitely_near": 251, "proxy_definitely_far": 1792, "proxy_near_unknown": 5, "definitely_lost": 16, "definitely_added": 64}]}
+{"index": 22, "object_id": "hug_milk_box", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 92, "proxy_union_inside": 115, "proxy_boundary_unknown": 0, "added_proxy_penetration": 29, "lost_skin_penetration": 6, "buried_component_projections": 57, "penetration_lower_m": {"count": 115, "mean": 0.0026811922281934587, "p95": 0.00580361102895168, "max": 0.00766091150149084}, "penetration_upper_m": {"count": 115, "mean": 0.0029643227107468365, "p95": 0.006146910359536811, "max": 0.008009452270786702}, "penetration_bound_width_m": {"count": 115, "mean": 0.00028313048255337766, "p95": 0.0007592722224263254, "max": 0.000966718987971767}, "exterior_union_distance_error_m": {"count": 1933, "mean": 0.005020786124004966, "p95": 0.008771960876695054, "max": 0.008897353490359552}, "normal_region_count": 216, "normals_compared": 70, "normal_region_unknown": 146, "normal_angle_degrees": {"count": 70, "mean": 18.366659793539537, "p95": 41.506974722808835, "max": 109.31297476773226}, "normal_reversals": 1, "near_bands": [{"band_m": 0.001, "skin_near": 48, "proxy_definitely_near": 50, "proxy_definitely_far": 1996, "proxy_near_unknown": 2, "definitely_lost": 28, "definitely_added": 30}, {"band_m": 0.002, "skin_near": 88, "proxy_definitely_near": 107, "proxy_definitely_far": 1936, "proxy_near_unknown": 5, "definitely_lost": 27, "definitely_added": 47}, {"band_m": 0.005, "skin_near": 216, "proxy_definitely_near": 257, "proxy_definitely_far": 1785, "proxy_near_unknown": 6, "definitely_lost": 19, "definitely_added": 66}]}
+{"index": 23, "object_id": "hug_milk_box", "probe_count": 2048, "skin_occupancy_unknown": 1, "skin_winding_inside": 94, "proxy_union_inside": 123, "proxy_boundary_unknown": 0, "added_proxy_penetration": 31, "lost_skin_penetration": 3, "buried_component_projections": 59, "penetration_lower_m": {"count": 123, "mean": 0.0025470867009183594, "p95": 0.0065636521860811875, "max": 0.007103117860014502}, "penetration_upper_m": {"count": 123, "mean": 0.002832175187883985, "p95": 0.006917689137356177, "max": 0.007595832588858458}, "penetration_bound_width_m": {"count": 123, "mean": 0.00028508848696562507, "p95": 0.0008038393892773275, "max": 0.001156148800034556}, "exterior_union_distance_error_m": {"count": 1925, "mean": 0.005134882500164899, "p95": 0.008885157239406185, "max": 0.00889246221309176}, "normal_region_count": 215, "normals_compared": 76, "normal_region_unknown": 139, "normal_angle_degrees": {"count": 76, "mean": 15.717606343264896, "p95": 32.447960781602994, "max": 135.4647351149945}, "normal_reversals": 1, "near_bands": [{"band_m": 0.001, "skin_near": 37, "proxy_definitely_near": 53, "proxy_definitely_far": 1989, "proxy_near_unknown": 6, "definitely_lost": 20, "definitely_added": 37}, {"band_m": 0.002, "skin_near": 94, "proxy_definitely_near": 88, "proxy_definitely_far": 1949, "proxy_near_unknown": 11, "definitely_lost": 28, "definitely_added": 33}, {"band_m": 0.005, "skin_near": 215, "proxy_definitely_near": 250, "proxy_definitely_far": 1793, "proxy_near_unknown": 5, "definitely_lost": 30, "definitely_added": 68}]}
+{"index": 24, "object_id": "hug_mug", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 167, "proxy_union_inside": 207, "proxy_boundary_unknown": 0, "added_proxy_penetration": 49, "lost_skin_penetration": 9, "buried_component_projections": 92, "penetration_lower_m": {"count": 207, "mean": 0.002953833268469482, "p95": 0.006766242687364685, "max": 0.01061484995808432}, "penetration_upper_m": {"count": 207, "mean": 0.0032674206427733762, "p95": 0.007417483526061434, "max": 0.011346181859733302}, "penetration_bound_width_m": {"count": 207, "mean": 0.0003135873743038933, "p95": 0.000913089916393618, "max": 0.002592774999311055}, "exterior_union_distance_error_m": {"count": 1841, "mean": 0.0028374957992871428, "p95": 0.007650226763919202, "max": 0.009175002844496294}, "normal_region_count": 373, "normals_compared": 134, "normal_region_unknown": 239, "normal_angle_degrees": {"count": 134, "mean": 17.410132932447073, "p95": 35.4474247236284, "max": 130.77441219806673}, "normal_reversals": 1, "near_bands": [{"band_m": 0.001, "skin_near": 84, "proxy_definitely_near": 88, "proxy_definitely_far": 1950, "proxy_near_unknown": 10, "definitely_lost": 38, "definitely_added": 48}, {"band_m": 0.002, "skin_near": 169, "proxy_definitely_near": 178, "proxy_definitely_far": 1866, "proxy_near_unknown": 4, "definitely_lost": 49, "definitely_added": 61}, {"band_m": 0.005, "skin_near": 373, "proxy_definitely_near": 416, "proxy_definitely_far": 1626, "proxy_near_unknown": 6, "definitely_lost": 27, "definitely_added": 76}]}
+{"index": 25, "object_id": "hug_mug", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 167, "proxy_union_inside": 207, "proxy_boundary_unknown": 0, "added_proxy_penetration": 50, "lost_skin_penetration": 10, "buried_component_projections": 105, "penetration_lower_m": {"count": 207, "mean": 0.0030714534506390587, "p95": 0.007612386500025254, "max": 0.009488251880865543}, "penetration_upper_m": {"count": 207, "mean": 0.0033939294902393313, "p95": 0.008273244935699864, "max": 0.011877768708226825}, "penetration_bound_width_m": {"count": 207, "mean": 0.0003224760396002733, "p95": 0.001157339262803966, "max": 0.003648158673064287}, "exterior_union_distance_error_m": {"count": 1841, "mean": 0.0031125857519946434, "p95": 0.008012218942224529, "max": 0.00877676540437131}, "normal_region_count": 336, "normals_compared": 130, "normal_region_unknown": 206, "normal_angle_degrees": {"count": 130, "mean": 16.394871435862473, "p95": 37.87049368964633, "max": 53.91557671252644}, "normal_reversals": 0, "near_bands": [{"band_m": 0.001, "skin_near": 72, "proxy_definitely_near": 86, "proxy_definitely_far": 1958, "proxy_near_unknown": 4, "definitely_lost": 37, "definitely_added": 54}, {"band_m": 0.002, "skin_near": 154, "proxy_definitely_near": 173, "proxy_definitely_far": 1868, "proxy_near_unknown": 7, "definitely_lost": 39, "definitely_added": 61}, {"band_m": 0.005, "skin_near": 336, "proxy_definitely_near": 387, "proxy_definitely_far": 1653, "proxy_near_unknown": 8, "definitely_lost": 17, "definitely_added": 76}]}
+{"index": 26, "object_id": "hug_mug", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 127, "proxy_union_inside": 170, "proxy_boundary_unknown": 0, "added_proxy_penetration": 49, "lost_skin_penetration": 6, "buried_component_projections": 85, "penetration_lower_m": {"count": 170, "mean": 0.003158372138455133, "p95": 0.007380605538436831, "max": 0.010212660278028432}, "penetration_upper_m": {"count": 170, "mean": 0.0034826762779721038, "p95": 0.008371267809310991, "max": 0.011252272325840623}, "penetration_bound_width_m": {"count": 170, "mean": 0.00032430413951697044, "p95": 0.0011446361613208016, "max": 0.0020619635316027783}, "exterior_union_distance_error_m": {"count": 1878, "mean": 0.003007233102991294, "p95": 0.007958292591970836, "max": 0.009007451049063284}, "normal_region_count": 299, "normals_compared": 112, "normal_region_unknown": 187, "normal_angle_degrees": {"count": 112, "mean": 13.884047641392659, "p95": 31.389024521570946, "max": 40.9914434673925}, "normal_reversals": 0, "near_bands": [{"band_m": 0.001, "skin_near": 56, "proxy_definitely_near": 80, "proxy_definitely_far": 1965, "proxy_near_unknown": 3, "definitely_lost": 21, "definitely_added": 46}, {"band_m": 0.002, "skin_near": 126, "proxy_definitely_near": 143, "proxy_definitely_far": 1900, "proxy_near_unknown": 5, "definitely_lost": 28, "definitely_added": 47}, {"band_m": 0.005, "skin_near": 299, "proxy_definitely_near": 320, "proxy_definitely_far": 1720, "proxy_near_unknown": 8, "definitely_lost": 25, "definitely_added": 53}]}
+{"index": 27, "object_id": "hug_mug", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 150, "proxy_union_inside": 186, "proxy_boundary_unknown": 0, "added_proxy_penetration": 42, "lost_skin_penetration": 6, "buried_component_projections": 98, "penetration_lower_m": {"count": 186, "mean": 0.0029245721383501346, "p95": 0.0064476946927009395, "max": 0.008801616056791157}, "penetration_upper_m": {"count": 186, "mean": 0.003270465828268584, "p95": 0.007243229488986931, "max": 0.009160649282881066}, "penetration_bound_width_m": {"count": 186, "mean": 0.0003458936899184493, "p95": 0.001213156785363376, "max": 0.0018704430717355917}, "exterior_union_distance_error_m": {"count": 1862, "mean": 0.003133238777226879, "p95": 0.00808523836548377, "max": 0.00895260330495654}, "normal_region_count": 333, "normals_compared": 126, "normal_region_unknown": 207, "normal_angle_degrees": {"count": 126, "mean": 15.572572151271116, "p95": 31.224339009304842, "max": 165.82233161435968}, "normal_reversals": 1, "near_bands": [{"band_m": 0.001, "skin_near": 60, "proxy_definitely_near": 65, "proxy_definitely_far": 1976, "proxy_near_unknown": 7, "definitely_lost": 36, "definitely_added": 42}, {"band_m": 0.002, "skin_near": 128, "proxy_definitely_near": 143, "proxy_definitely_far": 1892, "proxy_near_unknown": 13, "definitely_lost": 36, "definitely_added": 61}, {"band_m": 0.005, "skin_near": 333, "proxy_definitely_near": 367, "proxy_definitely_far": 1675, "proxy_near_unknown": 6, "definitely_lost": 20, "definitely_added": 58}]}
+{"index": 28, "object_id": "hug_mug", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 145, "proxy_union_inside": 181, "proxy_boundary_unknown": 0, "added_proxy_penetration": 48, "lost_skin_penetration": 12, "buried_component_projections": 78, "penetration_lower_m": {"count": 181, "mean": 0.002842935310633066, "p95": 0.0066017019449625455, "max": 0.007908113792672474}, "penetration_upper_m": {"count": 181, "mean": 0.003199823239207816, "p95": 0.007122142766154387, "max": 0.009578957621592329}, "penetration_bound_width_m": {"count": 181, "mean": 0.0003568879285747497, "p95": 0.001217431379045738, "max": 0.0017217468695929494}, "exterior_union_distance_error_m": {"count": 1867, "mean": 0.0029987863298954207, "p95": 0.008024769275172297, "max": 0.00908047344646213}, "normal_region_count": 358, "normals_compared": 137, "normal_region_unknown": 221, "normal_angle_degrees": {"count": 137, "mean": 14.942199743517357, "p95": 36.06717608844309, "max": 52.827760436362006}, "normal_reversals": 0, "near_bands": [{"band_m": 0.001, "skin_near": 84, "proxy_definitely_near": 83, "proxy_definitely_far": 1964, "proxy_near_unknown": 1, "definitely_lost": 45, "definitely_added": 44}, {"band_m": 0.002, "skin_near": 154, "proxy_definitely_near": 160, "proxy_definitely_far": 1877, "proxy_near_unknown": 11, "definitely_lost": 48, "definitely_added": 61}, {"band_m": 0.005, "skin_near": 358, "proxy_definitely_near": 391, "proxy_definitely_far": 1645, "proxy_near_unknown": 12, "definitely_lost": 28, "definitely_added": 73}]}
+{"index": 29, "object_id": "hug_mug", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 172, "proxy_union_inside": 205, "proxy_boundary_unknown": 0, "added_proxy_penetration": 50, "lost_skin_penetration": 17, "buried_component_projections": 89, "penetration_lower_m": {"count": 205, "mean": 0.0030609820266520875, "p95": 0.006778070159723201, "max": 0.009695288458068387}, "penetration_upper_m": {"count": 205, "mean": 0.0033842052520960614, "p95": 0.007583469642179447, "max": 0.012121605827569455}, "penetration_bound_width_m": {"count": 205, "mean": 0.00032322322544397434, "p95": 0.0009518514463709676, "max": 0.0024263173695010676}, "exterior_union_distance_error_m": {"count": 1843, "mean": 0.0032334301751642835, "p95": 0.008195547176201624, "max": 0.008968865532030978}, "normal_region_count": 343, "normals_compared": 117, "normal_region_unknown": 226, "normal_angle_degrees": {"count": 117, "mean": 17.045779734075154, "p95": 35.3995317042874, "max": 115.91400437639084}, "normal_reversals": 1, "near_bands": [{"band_m": 0.001, "skin_near": 74, "proxy_definitely_near": 76, "proxy_definitely_far": 1968, "proxy_near_unknown": 4, "definitely_lost": 33, "definitely_added": 38}, {"band_m": 0.002, "skin_near": 151, "proxy_definitely_near": 144, "proxy_definitely_far": 1894, "proxy_near_unknown": 10, "definitely_lost": 44, "definitely_added": 43}, {"band_m": 0.005, "skin_near": 343, "proxy_definitely_near": 378, "proxy_definitely_far": 1661, "proxy_near_unknown": 9, "definitely_lost": 25, "definitely_added": 68}]}
+{"index": 30, "object_id": "hug_mug", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 116, "proxy_union_inside": 145, "proxy_boundary_unknown": 0, "added_proxy_penetration": 31, "lost_skin_penetration": 2, "buried_component_projections": 78, "penetration_lower_m": {"count": 145, "mean": 0.003284104022276596, "p95": 0.007492229040240677, "max": 0.009501712023414618}, "penetration_upper_m": {"count": 145, "mean": 0.003596512023621085, "p95": 0.008109455768000288, "max": 0.009715009209296027}, "penetration_bound_width_m": {"count": 145, "mean": 0.0003124080013444892, "p95": 0.0009391948033274578, "max": 0.0019084021676161553}, "exterior_union_distance_error_m": {"count": 1903, "mean": 0.0031841171634698785, "p95": 0.008133511141328077, "max": 0.009011670871548114}, "normal_region_count": 268, "normals_compared": 111, "normal_region_unknown": 157, "normal_angle_degrees": {"count": 111, "mean": 12.711904289119834, "p95": 25.68986074950046, "max": 28.953488142319912}, "normal_reversals": 0, "near_bands": [{"band_m": 0.001, "skin_near": 58, "proxy_definitely_near": 54, "proxy_definitely_far": 1991, "proxy_near_unknown": 3, "definitely_lost": 26, "definitely_added": 23}, {"band_m": 0.002, "skin_near": 102, "proxy_definitely_near": 116, "proxy_definitely_far": 1927, "proxy_near_unknown": 5, "definitely_lost": 27, "definitely_added": 44}, {"band_m": 0.005, "skin_near": 268, "proxy_definitely_near": 303, "proxy_definitely_far": 1736, "proxy_near_unknown": 9, "definitely_lost": 17, "definitely_added": 60}]}
+{"index": 31, "object_id": "hug_mug", "probe_count": 2048, "skin_occupancy_unknown": 0, "skin_winding_inside": 132, "proxy_union_inside": 163, "proxy_boundary_unknown": 0, "added_proxy_penetration": 45, "lost_skin_penetration": 14, "buried_component_projections": 72, "penetration_lower_m": {"count": 163, "mean": 0.0025836876418135713, "p95": 0.0059965797779760344, "max": 0.008133968471884504}, "penetration_upper_m": {"count": 163, "mean": 0.002893708149558605, "p95": 0.006348099819072629, "max": 0.008158557088782844}, "penetration_bound_width_m": {"count": 163, "mean": 0.0003100205077450333, "p95": 0.0007748676841108217, "max": 0.001867092008211722}, "exterior_union_distance_error_m": {"count": 1885, "mean": 0.003285396984973698, "p95": 0.008271659157650546, "max": 0.008990721609921062}, "normal_region_count": 298, "normals_compared": 113, "normal_region_unknown": 185, "normal_angle_degrees": {"count": 113, "mean": 14.610118645436065, "p95": 31.197020530582932, "max": 144.8415183454192}, "normal_reversals": 1, "near_bands": [{"band_m": 0.001, "skin_near": 64, "proxy_definitely_near": 69, "proxy_definitely_far": 1975, "proxy_near_unknown": 4, "definitely_lost": 32, "definitely_added": 39}, {"band_m": 0.002, "skin_near": 127, "proxy_definitely_near": 139, "proxy_definitely_far": 1898, "proxy_near_unknown": 11, "definitely_lost": 36, "definitely_added": 54}, {"band_m": 0.005, "skin_near": 298, "proxy_definitely_near": 344, "proxy_definitely_far": 1698, "proxy_near_unknown": 6, "definitely_lost": 16, "definitely_added": 67}]}
+{
+  "schema": "hug_exposed_boundary_static_diagnosis_v1",
+  "protocol_sha256": "4b0e841bfd91fa5583fe73ebdaffbcd1997cc9fd9c9bc3ce970ba6d4325ab461",
+  "case_count": 32,
+  "counts": {
+    "static_forwards": 65,
+    "physics_steps": 0,
+    "retarget_solves": 0,
+    "inference_calls": 0
+  },
+  "runtime": {
+    "numpy": "2.2.6",
+    "mujoco": "3.3.7",
+    "torch": "2.11.0",
+    "trimesh": "4.12.2"
+  },
+  "all_input_source_bindings_unchanged": true,
+  "native_collision_fidelity_accepted": false,
+  "physical_execution_qualified": false,
+  "original_acceptance_changed": false,
+  "new_eval_data": false,
+  "shadow_replayed": false,
+  "shadow_reference_sha256": "7986628893e17f2b5b5aeb0517a9a3f9e751d69e60f409dd0e7f3c66a9fb1f6c",
+  "case_reports": [
+    {
+      "index": 0,
+      "sha256": "5cbf6c3944b7e70a3070d8f794f6002e0cdfe3fb6fb82416a4e031c48f3b9367"
+    },
+    {
+      "index": 1,
+      "sha256": "a1ff8f4099585a6322b0843092b2779ef849af238e7a3e3f293551ff2736d4c4"
+    },
+    {
+      "index": 2,
+      "sha256": "f8181cea57496f4e78a41c23728135a513dd03e7431be6e93a46e94d93c69f16"
+    },
+    {
+      "index": 3,
+      "sha256": "8b4b77e375d37128052fee12da468e2055e5399f773f09be2ffaae4c8f6e7cbe"
+    },
+    {
+      "index": 4,
+      "sha256": "0c9765fe09f75c99ce75fc4e475a8e93683fdef4f852748ae811815aade8f3b2"
+    },
+    {
+      "index": 5,
+      "sha256": "18dea4e449da7efdd53e9da2e93d2f3e46adfd3d6764109cbd3567a39d0eec18"
+    },
+    {
+      "index": 6,
+      "sha256": "7111f8de0ecaa178dac3d8b57e879f830b56fa55b251abb52064062d7ec375af"
+    },
+    {
+      "index": 7,
+      "sha256": "0ac9a90eb52d9c229dafdfb812a7f2798104879eb3c745c4706eb95b6d66b0f4"
+    },
+    {
+      "index": 8,
+      "sha256": "bf7f6a07195590d3039b5270c791813ca8c3d2bedef5192f964c989d17a4bcc9"
+    },
+    {
+      "index": 9,
+      "sha256": "77215d48a527f9a4edb3aeb39b7f4469e879cef79a5a008955c79d2facceecc4"
+    },
+    {
+      "index": 10,
+      "sha256": "111c8a614e419b0ddbd2476fe7dccc375dbec581689a44fe67a7ae1375577f9b"
+    },
+    {
+      "index": 11,
+      "sha256": "b573b327733ace818d0d23af3f596e87486b8cda03875346c79de8e11626ae2c"
+    },
+    {
+      "index": 12,
+      "sha256": "6bd689d0563cd249b64eabbae86f7334bd7cb273589c1f500b0f1d2585200f29"
+    },
+    {
+      "index": 13,
+      "sha256": "d89b505c5b8ca2e4d4a68c1c8fc026c474415d95d079f4b1c0a3202d0884c4f6"
+    },
+    {
+      "index": 14,
+      "sha256": "b7ea16bd8e15544156f2b0eae8a683ae4463f52f41a2f77676b1f8ae2094ba59"
+    },
+    {
+      "index": 15,
+      "sha256": "770a68ac1bbb3e95b1de35373730338c7c611c40606f4c4b9a0cdb7f35309785"
+    },
+    {
+      "index": 16,
+      "sha256": "30d2a65292fab096302a4be899cc93eeab1550d7dda8caf32d4d02fea16276b9"
+    },
+    {
+      "index": 17,
+      "sha256": "828ec14d8ed4e1e294013ccdf23e3a579c1934328cca464f3f0250a73b8b1004"
+    },
+    {
+      "index": 18,
+      "sha256": "558852683f088d8b76d0ec1f8f4c5e54662a43e797253cadada746214cb2a035"
+    },
+    {
+      "index": 19,
+      "sha256": "9e88ba773b7fdd94fb6dad7819f2a7ff4bc6920535259057b054dda71465318d"
+    },
+    {
+      "index": 20,
+      "sha256": "32c21abd07514859ddc11749d2835174bf3ac665774c1b754a8d917b58a1779b"
+    },
+    {
+      "index": 21,
+      "sha256": "b0a9d639d3b107147f3db32d26713c79af3fcfc9e0a2fc3851df50e67a09b114"
+    },
+    {
+      "index": 22,
+      "sha256": "5d05d2f925c204f7016ea524f5153cedeed64e2257dc719ec99642a2055f15e8"
+    },
+    {
+      "index": 23,
+      "sha256": "56fa1559ee03af4ffe00a9a94af7ec2f61e9e16b380854a0abc99e0a7628ab2d"
+    },
+    {
+      "index": 24,
+      "sha256": "eea214acbbd029f824f6ea1db26150f070b037f978cd2e3ab3e689c58146a638"
+    },
+    {
+      "index": 25,
+      "sha256": "d9254f643c73813658e0c7db4e2c6df4bcf5871226ed84ce7d47e36270a7517d"
+    },
+    {
+      "index": 26,
+      "sha256": "f43cc68d1b7d402ce0f0b97d5a228d901fcb5e01aa138a182ac1a9fb18fe887b"
+    },
+    {
+      "index": 27,
+      "sha256": "f895c0a49a726c899f8ee3240f938f2e6b7c52db6ce1dd057bf2ddc0ca8a0026"
+    },
+    {
+      "index": 28,
+      "sha256": "f8b08d28db3c222ea2496e282c65e570b1febbb711e31102de6df1566ff7e2c6"
+    },
+    {
+      "index": 29,
+      "sha256": "a63eccc8d4b8f004a7993e458e0ff1a2601ff53c5d91104579db4d45cafeaf32"
+    },
+    {
+      "index": 30,
+      "sha256": "22d731ebe30e1d916f7b7cde9cf2edd9c4f841be2286036a21cabbb290b8d75f"
+    },
+    {
+      "index": 31,
+      "sha256": "23029ad7c689df113177079e38853a54c700151c554af5f2c8c524e10cb642c1"
+    }
+  ],
+  "totals": [
+    {
+      "probe_count": 4096,
+      "skin_occupancy_unknown": 0,
+      "skin_winding_inside": 214,
+      "proxy_union_inside": 295,
+      "proxy_boundary_unknown": 0,
+      "added_proxy_penetration": 105,
+      "lost_skin_penetration": 24,
+      "buried_component_projections": 100,
+      "normal_region_count": 547,
+      "normals_compared": 197,
+      "normal_region_unknown": 350,
+      "normal_reversals": 3,
+      "probes_per_case": 128,
+      "max_penetration_lower_m": 0.008507875942477023,
+      "max_penetration_upper_m": 0.008592480549442633,
+      "max_penetration_bound_width_m": 0.0011684365329803492,
+      "max_exterior_union_distance_error_m": 0.008969003279955822,
+      "near_bands": [
+        {
+          "skin_near": 124,
+          "proxy_definitely_near": 120,
+          "proxy_definitely_far": 3970,
+          "proxy_near_unknown": 6,
+          "definitely_lost": 75,
+          "definitely_added": 73,
+          "band_m": 0.001
+        },
+        {
+          "skin_near": 215,
+          "proxy_definitely_near": 239,
+          "proxy_definitely_far": 3847,
+          "proxy_near_unknown": 10,
+          "definitely_lost": 90,
+          "definitely_added": 120,
+          "band_m": 0.002
+        },
+        {
+          "skin_near": 547,
+          "proxy_definitely_near": 649,
+          "proxy_definitely_far": 3435,
+          "proxy_near_unknown": 12,
+          "definitely_lost": 54,
+          "definitely_added": 165,
+          "band_m": 0.005
+        }
+      ]
+    },
+    {
+      "probe_count": 16384,
+      "skin_occupancy_unknown": 0,
+      "skin_winding_inside": 933,
+      "proxy_union_inside": 1170,
+      "proxy_boundary_unknown": 0,
+      "added_proxy_penetration": 366,
+      "lost_skin_penetration": 129,
+      "buried_component_projections": 463,
+      "normal_region_count": 2310,
+      "normals_compared": 899,
+      "normal_region_unknown": 1411,
+      "normal_reversals": 19,
+      "probes_per_case": 512,
+      "max_penetration_lower_m": 0.009540558342855296,
+      "max_penetration_upper_m": 0.011129431461411887,
+      "max_penetration_bound_width_m": 0.001884645876023286,
+      "max_exterior_union_distance_error_m": 0.00908047344646213,
+      "near_bands": [
+        {
+          "skin_near": 499,
+          "proxy_definitely_near": 560,
+          "proxy_definitely_far": 15801,
+          "proxy_near_unknown": 23,
+          "definitely_lost": 300,
+          "definitely_added": 368,
+          "band_m": 0.001
+        },
+        {
+          "skin_near": 971,
+          "proxy_definitely_near": 1087,
+          "proxy_definitely_far": 15250,
+          "proxy_near_unknown": 47,
+          "definitely_lost": 333,
+          "definitely_added": 472,
+          "band_m": 0.002
+        },
+        {
+          "skin_near": 2310,
+          "proxy_definitely_near": 2665,
+          "proxy_definitely_far": 13673,
+          "proxy_near_unknown": 46,
+          "definitely_lost": 237,
+          "definitely_added": 627,
+          "band_m": 0.005
+        }
+      ]
+    },
+    {
+      "probe_count": 65536,
+      "skin_occupancy_unknown": 3,
+      "skin_winding_inside": 3724,
+      "proxy_union_inside": 4762,
+      "proxy_boundary_unknown": 0,
+      "added_proxy_penetration": 1461,
+      "lost_skin_penetration": 426,
+      "buried_component_projections": 1931,
+      "normal_region_count": 9109,
+      "normals_compared": 3526,
+      "normal_region_unknown": 5583,
+      "normal_reversals": 73,
+      "probes_per_case": 2048,
+      "max_penetration_lower_m": 0.01061484995808432,
+      "max_penetration_upper_m": 0.012121605827569455,
+      "max_penetration_bound_width_m": 0.003648158673064287,
+      "max_exterior_union_distance_error_m": 0.009175002844496294,
+      "near_bands": [
+        {
+          "skin_near": 1935,
+          "proxy_definitely_near": 2247,
+          "proxy_definitely_far": 63177,
+          "proxy_near_unknown": 112,
+          "definitely_lost": 1087,
+          "definitely_added": 1434,
+          "band_m": 0.001
+        },
+        {
+          "skin_near": 3822,
+          "proxy_definitely_near": 4403,
+          "proxy_definitely_far": 60914,
+          "proxy_near_unknown": 219,
+          "definitely_lost": 1254,
+          "definitely_added": 1952,
+          "band_m": 0.002
+        },
+        {
+          "skin_near": 9109,
+          "proxy_definitely_near": 10774,
+          "proxy_definitely_far": 54571,
+          "proxy_near_unknown": 191,
+          "definitely_lost": 866,
+          "definitely_added": 2687,
+          "band_m": 0.005
+        }
+      ]
+    }
+  ]
+}

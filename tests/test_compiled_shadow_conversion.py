@@ -100,8 +100,22 @@ def test_native_object_mesh_and_inertia_precision_survives_scene(asset, hand_roo
     native = mujoco.MjModel.from_xml_path(str(asset))
     runner = runner_for(kind, hand_root, geometry)
     model, bid = runner.model, runner._object_body_id
-    for field in ("body_pos", "body_quat", "body_mass", "body_inertia", "body_ipos", "body_iquat"):
+    for field in ("body_pos", "body_quat", "body_mass", "body_ipos"):
         np.testing.assert_allclose(getattr(model, field)[bid], getattr(native, field)[1], rtol=0, atol=2e-15)
+    # Principal-axis ordering and quaternion are not unique. The precision
+    # importer deliberately uses a different eigensolver than MuJoCo's direct
+    # fullinertia import. Compare the realized body-frame tensor with the literal
+    # source, preserving this test's numerical allowance rather than requiring
+    # equality to the older eigensolver's arbitrary principal frame.
+    from xml.etree import ElementTree as ET
+    values = np.fromstring(ET.parse(asset).find("worldbody/body/inertial").get("fullinertia"), sep=" ")
+    xx, yy, zz, xy, xz, yz = values
+    source_tensor = np.array([[xx, xy, xz], [xy, yy, yz], [xz, yz, zz]])
+    rotation = np.empty(9)
+    mujoco.mju_quat2Mat(rotation, model.body_iquat[bid])
+    rotation = rotation.reshape(3, 3)
+    realized_tensor = np.einsum("ik,k,jk->ij", rotation, model.body_inertia[bid], rotation)
+    np.testing.assert_allclose(realized_tensor, source_tensor, rtol=0, atol=2e-15)
     gids = sorted(runner.object_geom_ids)
     for field in ("geom_pos", "geom_quat", "geom_size", "geom_friction", "geom_solref", "geom_solimp"):
         np.testing.assert_allclose(getattr(model, field)[gids], getattr(native, field), rtol=0, atol=2e-15)
