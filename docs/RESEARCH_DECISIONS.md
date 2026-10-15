@@ -2399,3 +2399,20 @@ reports the pilot as recording validation, not generalization. Next qualify
 fresh HUG outputs with complete mapping provenance, then a separate approach/
 filter/diversity protocol before broader collection and new-model comparison.
 This is a working project foundation, not evidence that the full study is done.
+
+
+## 15 October 2026 — System build only, phase order restored
+
+Previous work included manuscript editing alongside system development. The
+user now explicitly assigns the paper outside this repository and prohibits
+changes to `docs/paper`. Decision: all further work is HUG-only system build,
+Phase1 mapping automation followed by Phase2 recording/filter/approach/sampling,
+Phase3 frozen category evaluation and Phase4 model comparison. Do not update
+manuscripts or PAPER_PROGRESS as part of build work. Historical protocols and
+other-generator dirty work remain preserved.
+
+Implemented evidence: `3181301` preserves canonical raw/status mapping records;
+77 focused static tests pass with zero integration calls. The solver/settings
+and fresh legacy target values are unchanged. This is a provenance fix, not a
+new physical-fidelity result. Next check: consolidated per-proposal Phase1
+validator and 32-case gate, then bounded freshly generated recorder collection.

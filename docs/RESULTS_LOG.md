@@ -183,3 +183,25 @@ model is claimed. All raw scenes/full states remain ignored/local; portable
 prefixes/scalars/manifests are committed separately from historical datasets.
 The existing manuscript gains one measured-pilot paragraph and desktop
 compilation succeeds; no new separate PDF is exported after that editor update.
+
+
+## 15 October 2026 — Phase 1 canonical mapping provenance
+
+**Source:** `3181301` (`phase1: preserve raw HUG mapping provenance and refusals`).
+The HUG provider now writes `native/mapping_record.json` before accepting or
+refusing a solve: all raw refinement commands, actual optimizer statuses,
+clamped commands/limits, profile/settings, native hash and alignment metrics.
+Missing/failed status refuses new proposals with no physical outcome. Existing
+fresh legacy commands and solver settings are unchanged. Nonfinite refused
+outputs remain explicit strings in valid JSON; they cannot qualify a pose.
+
+**Command:** `.venv/bin/python scripts/check_hug_build.py --report
+research_artifacts/hug_build_phase1_provenance_2026-10-15_v1/static_tests.json`
+with the eight test files and selection recorded in that receipt. Use the
+existing pinned base runtime plus dependency directories recorded by the script.
+**Result:** 77 passed, zero integration calls; six new provenance/refusal tests.
+Python3.12.13 / NumPy2.2.6 / MuJoCo3.3.7 / Pydantic2.13.5.
+
+**Verdict:** provenance increment PASS. Does not yet establish new-input mapping
+acceptance or complete the consolidated Phase1 gate. No inference, physical
+collection, model fitting or manuscript change occurred.
