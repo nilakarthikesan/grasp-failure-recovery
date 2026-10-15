@@ -374,3 +374,12 @@ pointwise orientation FAIL results. This repairs constraint handling, not comple
 grasp preservation. The default mapper, predictor and historical results remain
 unchanged. No new eval data or training was generated. The existing paper's HUG
 subsection is updated and compiles. [Evidence and remaining work](HUG_FEASIBLE_REFINEMENT.md).
+
+
+## 14 October 2026 — HUG scalar-objective gap diagnosed; direction selector tested
+
+Saved-array analysis finds all six lower-cost feasible fits worsen the fixed facing objective and invalidate49–104 direction bins. Twenty of43 saved coarse orientation witnesses were already selected fitting sites; sparse coverage alone is insufficient. A conservative optional selector now separately preserves per-part direction SSE and original-valid bins. All 182 installed surface API tests pass (36 new manufactured controls), plus9 diagnostic math/identity controls. Independently reproduced saved replay accepts 6 baseline identities and refuses 6 previous selected fits; all 30 existing tip caps still pass.
+
+No new geometry fit, query, inference, physics, eval episode/label or training ran. These are post-hoc development diagnostics and selector checks, not corrected poses or held-out evidence. All 9 strict HUG mapping audits remain FAIL; default mapper and acceptance rule are unchanged. The HUG manuscript block records this distinction. Next is a separately frozen bounded guarded geometry study. [Detailed note](HUG_SURFACE_SELECTION_GUARD.md).
+
+The separately authorized replacement A40 is running with the saved DGA runtime restored and CUDA/import/hash controls passed; the original is kept stopped. This infrastructure recovery creates no scientific validation result. [Connection, cost and restore record](GPU_RUNTIME_RECOVERY_2026-10-14.md).

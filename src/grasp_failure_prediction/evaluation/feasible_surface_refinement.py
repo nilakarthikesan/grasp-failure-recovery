@@ -8,6 +8,7 @@ guard in the computed arithmetic. No acceptance allowance is added to a cap.
 Finite budgets and local pattern-search refusal imply no global infeasibility.
 """
 from collections import OrderedDict
+import json
 from dataclasses import asdict, dataclass
 
 import numpy as np
@@ -75,7 +76,8 @@ class _BudgetStop(Exception):
 
 
 def solve_feasible_refinement(initial_q, physical_bounds, evaluate, *, evaluate_fingertips,
-                              config=FeasibleRefinementConfig(), predeclared_seed_qpos_rad=None):
+                              config=FeasibleRefinementConfig(), predeclared_seed_qpos_rad=None,
+                              candidate_guard=None):
     """Search only FK-feasible surface points; return exact q0 on refusal.
 
 The caller must preserve frozen native geometry, quadrature, direction scores,
@@ -86,11 +88,18 @@ an optional stricter projection target, never an acceptance relaxation.
 Every proposed/restored/accepted point and every callback/cache/budget event is
 recorded. A new surface pose is eligible only after exact FK guards, agreement
 with a full evaluation, lower frozen cost and a fresh final evaluation.
+An optional candidate_guard(q, evaluation) returns a JSON-compatible assessment
+with boolean accepted and a list of refusal_reasons. Ordinary guard refusals
+skip that candidate; guard errors trigger the existing exact-original fallback.
+The guard is rechecked after a fresh selected terminal evaluation. It is an
+additional development selector, never a scientific mapping certificate.
 """
     if not isinstance(config, FeasibleRefinementConfig):
         raise ValueError("FeasibleRefinementConfig required")
     if not callable(evaluate) or not callable(evaluate_fingertips):
         raise ValueError("full and cheap FK callbacks are both required")
+    if candidate_guard is not None and not callable(candidate_guard):
+        raise ValueError("candidate_guard must be callable or None")
     q0 = np.array(initial_q, float, copy=True)
     bounds = np.array(physical_bounds, float, copy=True)
     if q0.shape != (24,) or not np.isfinite(q0).all():
@@ -112,6 +121,8 @@ with a full evaluation, lower frozen cost and a fresh final evaluation.
     full_cache, tip_cache = OrderedDict(), OrderedDict()
     counts = {"full": 0, "FK": 0, "full_cache_hits": 0, "FK_cache_hits": 0,
               "restorations": 0, "agreement_checks": 0}
+    if candidate_guard is not None:
+        counts["candidate_guard"] = 0
     residual_size = None
     max_agreement = 0.0
     original_norms = None
@@ -230,6 +241,35 @@ with a full evaluation, lower frozen cost and a fresh final evaluation.
             raise ValueError("numerically unrepresentable surface objective")
         stored(full_cache, key, (value, cost))
         return value, cost
+
+    def guard_assessment(q, value, *, terminal=False):
+        if candidate_guard is None:
+            return None
+        counts["candidate_guard"] += 1
+        callback_q = validated_q(q)
+        preserved_q = callback_q.copy()
+        callback_value = ConstrainedEvaluation(value.residuals, value.fingertip_error_vectors_m)
+        preserved_residuals = callback_value.residuals.copy()
+        preserved_tips = callback_value.fingertip_error_vectors_m.copy()
+        try:
+            supplied = candidate_guard(callback_q, callback_value)
+            if (not np.array_equal(callback_q, preserved_q)
+                or not np.array_equal(callback_value.residuals, preserved_residuals)
+                or not np.array_equal(callback_value.fingertip_error_vectors_m, preserved_tips)):
+                raise ValueError("candidate guard modified callback inputs")
+            if (not isinstance(supplied, dict)
+                or not isinstance(supplied.get("accepted"), bool)
+                or not isinstance(supplied.get("refusal_reasons"), list)
+                or not all(isinstance(reason, str) and reason for reason in supplied["refusal_reasons"])
+                or supplied["accepted"] != (not supplied["refusal_reasons"])):
+                raise ValueError("candidate guard must return consistent accepted and refusal_reasons")
+            # Detach recorded audit fields from mutable callback-owned objects.
+            result = json.loads(json.dumps(supplied, allow_nan=False))
+        except Exception as exc:
+            event("candidate_guard_error", terminal=terminal, error_type=type(exc).__name__)
+            raise ValueError(f"candidate guard callback failed: {exc}") from exc
+        event("candidate_guard_assessment", terminal=terminal, qpos_rad=callback_q.tolist(), assessment=result)
+        return result
 
     initial_errors = tips(q0)
     original_norms = tip_norms(initial_errors)
@@ -382,6 +422,12 @@ with a full evaluation, lower frozen cost and a fresh final evaluation.
                     continue
                 value, cost = full(candidate)
                 entry["full_assessment"] = {**assessment(value.fingertip_error_vectors_m), "objective": cost}
+                selection_guard = guard_assessment(candidate, value)
+                if selection_guard is not None:
+                    entry["candidate_guard"] = selection_guard
+                    if not selection_guard["accepted"]:
+                        entry["refusal"] = "candidate_guard_refused"
+                        continue
                 if cost < current_cost-config.minimum_objective_improvement:
                     current, current_cost = candidate.copy(), cost
                     entry["accepted"] = True
@@ -414,6 +460,12 @@ with a full evaluation, lower frozen cost and a fresh final evaluation.
                         continue
                     value, cost = full(candidate)
                     entry["full_assessment"] = {**assessment(value.fingertip_error_vectors_m), "objective": cost}
+                    selection_guard = guard_assessment(candidate, value)
+                    if selection_guard is not None:
+                        entry["candidate_guard"] = selection_guard
+                        if not selection_guard["accepted"]:
+                            entry["refusal"] = "candidate_guard_refused"
+                            continue
                     if cost < current_cost-config.minimum_objective_improvement:
                         current, current_cost = candidate.copy(), cost
                         entry["accepted"] = True
@@ -443,6 +495,10 @@ with a full evaluation, lower frozen cost and a fresh final evaluation.
                                              allow_infeasible_baseline=np.array_equal(current, q0))
         if not np.array_equal(current, q0) and not terminal_cost < original_cost-config.minimum_objective_improvement:
             raise ValueError("fresh final objective failed original-relative improvement")
+        if not np.array_equal(current, q0):
+            terminal_guard = guard_assessment(current, terminal_value, terminal=True)
+            if terminal_guard is not None and not terminal_guard["accepted"]:
+                raise ValueError("fresh final candidate guard refused: " + "; ".join(terminal_guard["refusal_reasons"]))
         if abs(terminal_cost-current_cost) > 1e-10:
             raise ValueError("fresh final objective changed from cached objective")
     except (ValueError, FloatingPointError, _BudgetStop) as exc:

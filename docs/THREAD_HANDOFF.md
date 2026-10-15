@@ -519,3 +519,12 @@ new authorized manuscript revision is separately recorded in
 research_artifacts/parallel_validation_coordination_2026-10-14/.
 Preserve previous run records, assets, existing untracked files and this paper
 path. Do not rerun unchanged HUG audits or loosen its rule to obtain a PASS.
+
+
+## 14 October 2026 — Latest HUG selector diagnosis and available A40 runtime
+
+Read [HUG_SURFACE_SELECTION_GUARD.md](HUG_SURFACE_SELECTION_GUARD.md) before another fit. Exact saved direction costs worsen in all six lower-total-cost fits; each invalidates 49–104 original fitting bins. The new optional per-part direction selector refuses all six saved candidates; six identity controls pass only selector consistency. 182 installed surface API checks pass. No new geometry fitting or queries ran. All 9 original strict surface comparisons remain FAIL, and the default mapper/acceptance thresholds stay unchanged. Independent coverage and guard reports replay exactly; their bound original inputs remain unchanged.
+
+Next wire a separately frozen finite-budget geometry driver using q-keyed authoritative normal metadata, then rerun the unchanged independent audit for actual selected poses. Do not treat saved selector replay as a new surface solve or convert refusal to a physical-failure label.
+
+Original pod 8ibam2z5n6ea5r remains stopped and preserved after another capacity failure. Replacement A40 pod 10fvywuiko09rk is running in CA-MTL-1 at observed $0.59/hour with the verified DGA runtime/source/checkpoint/input restored; CUDA arithmetic, imports, byte hashes and pip check pass. [GPU_RUNTIME_RECOVERY_2026-10-14.md](GPU_RUNTIME_RECOVERY_2026-10-14.md) contains the live verified connection and restore paths. No new inference/eval data/training ran. The saved GPU runtime is DGA's; HUG still uses the existing CPU geometry runtime. No automatic speedup is claimed.

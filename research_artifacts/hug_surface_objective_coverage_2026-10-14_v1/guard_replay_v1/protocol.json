@@ -1,0 +1,45 @@
+{
+  "schema": "hug_direction_guard_saved_replay_protocol_v1",
+  "frozen_utc": "2026-10-15T02:59:26.129375+00:00",
+  "analysis_kind": "POST_HOC_CONSERVATIVE_SELECTOR_REPLAY_NOT_MAPPING_ACCEPTANCE",
+  "guard_module_path": "src/grasp_failure_prediction/evaluation/surface_component_guard.py",
+  "candidate_report_path": "research_artifacts/hug_feasible_refinement_2026-10-14/seed_stage/candidate_targets.json.gz",
+  "source_inventory_indices": [
+    8,
+    12,
+    16,
+    20,
+    24,
+    28
+  ],
+  "input_sha256": {
+    "src/grasp_failure_prediction/evaluation/surface_component_guard.py": "77cebfcbfcfff22da591f9cda2dbbe2f072bd32953d7b9145c1e5d4004d5efc9",
+    "research_artifacts/hug_feasible_refinement_2026-10-14/seed_stage/candidate_targets.json.gz": "28eff46d72c208b1628ff7b128b7ed3c4809e42a21e1abfddb21dd6c48f8503c",
+    "src/grasp_failure_prediction/evaluation/constrained_surface_refinement.py": "0b29f867337cd11bb9128f5aa6ca92800338543055b286b40873d10f4d74f409",
+    "src/grasp_failure_prediction/evaluation/__init__.py": "8f1a89a1cf1bd5848362d879f44a406d1d871d4fd9f106e9a279755a27e0c110",
+    "src/grasp_failure_prediction/evaluation/schema.py": "48f56b918adf207368a9e05a040ca19d4b94928e50e786282f6927f45bd19d9d",
+    "research_artifacts/hug_surface_objective_coverage_2026-10-14_v1/protocol.json": "f18a160c1c08669374d081ad106bfcafe2bece3384ef215e1c151652a675f847",
+    "research_artifacts/hug_surface_objective_coverage_2026-10-14_v1/analysis.json": "e37c47ab9ba3d8e3a65773b899ec8631fe382d01aa9ff634fd0d720dadb5c5ac"
+  },
+  "replay_script_sha256": "ff022b7cd24e7265061834d622c4c440cbc6b61d16dc2fd168960b53ab6795b5",
+  "runtime_environment": {
+    "python": "/Users/nilakarthikesan/grasp-failure-prediction/.venv/bin/python",
+    "PYTHONPATH": "src:/private/tmp/grasp-partner-integration-deps"
+  },
+  "expected_controls_predeclared_before_guard_execution": {
+    "all_six_original_identity_controls_accepted": true,
+    "all_six_prior_selected_direction_regressing_poses_refused": true
+  },
+  "guard_rules": [
+    "Fixed native targets andpositive weights copied,no renormalization.",
+    "Each available anatomical part weighted direction SSE may not exceed original baseline SSE usingliteral dot(weights,delta**2),no arithmeticincrease allowance.",
+    "Any original-valid fixed site becominginvalid refusescandidate; invalidresidual remains2.0.",
+    "Unavailable parts stayUNAVAILABLE, no missing mass redistributed; malformedcandidateevidence refused."
+  ],
+  "interpretation": "A conservative new selection safeguard is replayed on saved arrays. Baseline identity acceptance verifies selectorconsistency only; q0stillfailsstrictmapping. Sixselectedrefusals are expected fromalreadyknowncomponentregressions. No correctedpose,improvedfit,continuoussurfacepreservation orphysicaloutcomeclaim follows. AllnineoriginalstrictmappingFAILresults remain unchanged.",
+  "new_generator_proposals": false,
+  "new_fits": false,
+  "physics_steps": 0,
+  "new_eval_data": false,
+  "training": false
+}

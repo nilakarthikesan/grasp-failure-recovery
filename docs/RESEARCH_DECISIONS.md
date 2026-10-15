@@ -2103,3 +2103,16 @@ The same manuscript's HUG subsection is updated and compiles successfully.
 No inference, integrated physics, eval episodes, outcome labels or training ran.
 Original scientific bundles/protocols remain immutable.
 [Completed phase](HUG_FEASIBLE_REFINEMENT.md).
+
+
+## 14 October 2026 — A40 recovery and HUG direction-selection diagnosis
+
+**Previous plan:** retain the original stopped A40, restore its verified runtime on another available A40 only after another failed restart, and continue HUG validation without new eval data.
+
+**Operational result:** original 8ibam2z5n6ea5r again returned insufficient free GPUs on its host. Fresh Secure Cloud stock showed A40 Medium in CA-MTL-1 at $0.59/hour. One replacement 10fvywuiko09rk is running; the original remains stopped and preserved. Both backup hashes and 21,079 restored regular files/three symlinks verify. Python 3.8.12/Torch 1.11/CUDA 11.3, compiled imports, pip check, pinned source/input hashes and a fixed CUDA arithmetic control pass. No model/checkpoint load, generator call, physics or eval data was produced. Compute remains billable while running; retained disks also bill. This is runtime recovery, not HUG GPU acceleration or scientific acceptance.
+
+**New measured HUG evidence:** saved residual analysis shows the total fitting objective falls while its exact facing soft-L1 contribution rises in every one of six fits. Each invalidates 49–104 fixed direction sites. Of 43 unique saved coarse direction witnesses, 20 are fixed direction-fitting sites, 3 are originally eligible but unselected and 20 are outside the original eligible stratum. Only 5 match part-specific distance-fitting sites. Fine indices/coordinate proximity are distinguished; all six parts/three bands/three numeric allowances are retained per domain without area pooling. No normal-lookup bug or global impossibility is proved.
+
+**Implemented decision:** add an optional conservative candidate selector to the isolated feasible solver: no per-part fixed direction-SSE increase and no original-valid site invalidation; fixed targets, positive mass and invalid residual 2 remain. Ordinary refusal skips a candidate; malformed/error/mutation fails safely and fresh terminal evidence is rechecked. Thirty-six new manufactured controls and 182 installed surface API tests pass. Post-hoc, separately frozen replay accepts 6 baseline identity controls and refuses 6 saved regressing fits while all 30 saved tip caps still pass. Independent report replay, input/hash checks and all per-part arithmetic agree. No new fit or geometry query ran; baseline selector acceptance is not mapping acceptance. All 9 strict mapping comparisons still FAIL. Production mapping, original proposals, acceptance rule, predictor and historical scientific bundles are preserved.
+
+**Next check:** a separately frozen bounded geometry driver must key normal metadata by q, use the new selector during search and reapply the unchanged independent audit to any selected new pose. Expanded strata and per-part/per-band constraints are proposed. HUG surface/contact and failure-label equivalence remain unconfirmed; no training or new evaluation collection is begun. [HUG report](HUG_SURFACE_SELECTION_GUARD.md); [runtime handoff](GPU_RUNTIME_RECOVERY_2026-10-14.md).

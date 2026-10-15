@@ -197,6 +197,28 @@ comparable failure rates. They show that the average fitting objective and
 tip constraints do not certify the complete native grasp. The production
 mapper therefore remains unchanged; continuous physical contact and
 failure-label preservation are still unconfirmed.
+
+A post-hoc saved-array diagnosis finds that the exact fixed-facing soft-L1
+contribution worsens in all six lower-total-cost fits. Each invalidates
+49--104 originally valid fixed direction bins. Of 43 unique saved coarse
+orientation witnesses, 20 were selected direction-fitting sites, three were
+originally eligible but unselected, and 20 were outside the original eligible
+stratum. These capped examples are not all counterexamples or independent
+grasps; fine-grid indices are treated separately. Sparse coverage alone
+therefore does not explain the observed failures.
+
+We implement a conservative optional development selector that refuses any
+per-part fixed native-relative direction-SSE increase or original-valid site
+invalidation, preserving all frozen targets and weights without renormalizing
+missing mass. Thirty-six new manufactured controls pass, together with all
+182 installed surface API checks. Separately frozen replay refuses all six
+previously selected candidates and accepts six baseline identity controls;
+all 30 saved fingertip caps still pass. Independent replay reproduces the
+reports and per-part arithmetic exactly. Identity acceptance verifies only
+the selector, not the original mapping. No new geometry fit or physical
+episode is run, all nine strict mapping results remain FAIL, and the
+production mapper is unchanged. A guarded geometry study and complete
+independent surface validation remain future work.
 % END GFP SECTION hug
 
 % BEGIN GFP SECTION contactgen

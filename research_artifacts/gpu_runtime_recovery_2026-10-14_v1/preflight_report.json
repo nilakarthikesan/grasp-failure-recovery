@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "runtime_restore_and_fixed_cuda_arithmetic_only",
+  "utc": "2026-10-15T02:59:03Z",
+  "python": "3.8.12 (default, Oct 12 2021, 13:49:34) \n[GCC 7.5.0]",
+  "executable": "/opt/dga/runtime_py38_fast/bin/python",
+  "torch": "1.11.0",
+  "torch_cuda": "11.3",
+  "gpu": "NVIDIA A40, 46068 MiB, 570.211.01",
+  "compute_capability": [
+    8,
+    6
+  ],
+  "fixed_cuda_product": [
+    [
+      7.0,
+      10.0
+    ],
+    [
+      15.0,
+      22.0
+    ]
+  ],
+  "module_origins": {
+    "torch": "/opt/conda/lib/python3.8/site-packages/torch/__init__.py",
+    "torchvision": "/opt/conda/lib/python3.8/site-packages/torchvision/__init__.py",
+    "numpy": "/opt/dga/runtime_py38_fast/lib/python3.8/site-packages/numpy/__init__.py",
+    "scipy": "/opt/dga/runtime_py38_fast/lib/python3.8/site-packages/scipy/__init__.py",
+    "hydra": "/opt/dga/runtime_py38_fast/lib/python3.8/site-packages/hydra/__init__.py",
+    "omegaconf": "/opt/dga/runtime_py38_fast/lib/python3.8/site-packages/omegaconf/__init__.py",
+    "pytorch_kinematics": "/opt/dga/deps/pytorch_kinematics/pytorch_kinematics/__init__.py",
+    "pointops_cuda": "/opt/dga/runtime_py38_fast/lib/python3.8/site-packages/pointops_cuda.cpython-38-x86_64-linux-gnu.so",
+    "pointnet2._ext": "/opt/dga/runtime_py38_fast/lib/python3.8/site-packages/pointnet2/_ext.cpython-38-x86_64-linux-gnu.so",
+    "csdf": "/opt/dga/deps/CSDF/csdf/__init__.py",
+    "pytorch3d._C": "/opt/dga/runtime_py38_fast/lib/python3.8/site-packages/pytorch3d/_C.cpython-38-x86_64-linux-gnu.so"
+  },
+  "source_commit": "86353d710ca71d0f547f0d8b15cc8ca959c78163",
+  "source_files_checked": 283,
+  "source_unchanged": true,
+  "input_hashes": {
+    "DexGraspNet.pth": "f7675d8eb93b3978b2c2d72ec9f54ead6b936d1dd307e07605daa0c02bcac14f",
+    "input/manifest.json": "e00f34eb513de1812ad2ab163fc7cb5278e84e88d8c64bb35c3fb160147b4854",
+    "input/analytic_geometry_contract.json": "45c1162a4f815d65c43254f2f499f53bde1eecea4d39912d8ce36d2c5cd92a81",
+    "input/mesh.obj": "e3abe7b101ecc6ebe02e38931674fd7991e445b752dca0d41f51eeaef148cbac",
+    "input/points.npy": "03d9c6ffd06868427010d5dbc6b5db0edd848f9d62bd0209a970c328554f1d71",
+    "input/normals.npy": "20bb8a503d8c0cebf3bf1537328fb08a26577fdd5daa0d7106d548833c681bb4"
+  },
+  "pip_check": "No broken requirements found.",
+  "checkpoint_deserialization_calls": 0,
+  "generator_imports_prohibited": true,
+  "physics_imports_prohibited": true,
+  "new_inference_calls": 0,
+  "new_eval_episodes": 0,
+  "training_runs": 0,
+  "preflight_script_sha256": "ddc1409f73fc382544c7e1048152f9b117b33e6eb10b93587d2b88c78de1dae5"
+}
