@@ -3031,3 +3031,26 @@ manufactured coordinate controls, a fresh bounded protocol and actual engine
 readback. Any source32 surface requires its own consistent derivative/contact
 qualification; the existing continuous64 Jacobian cannot be promoted by this
 geometry correction. Collection and training remain blocked.
+
+### 2026-10-15 — Freeze exact source ordering before measuring its corrected state domain
+
+Implemented source: the new source-initialized quaternion domain, exact
+AA32/translation32 recovery guard, pinned float32 camera-space MANO call,
+float32 translation, original cameraWorld64 transform and read-state engine
+surface update. All 46 manufactured controls pass independently twice.
+Source review additionally fixes a quaternion-log branch crossing and enforces
+the exact 109-state perturbation specification before actual operations.
+
+Decision: freeze protocol `92b5f9bc` with 5,304 bindings and run only its two
+declared native development cases. Keep unchanged original geometry and
+numeric thresholds, and retain prior failed profiles. The correction changes
+the state/precision execution domain, not the target geometry or pass criteria.
+Actual results and independent saved-array verification are still pending.
+
+Next physics check will be separately declared static material-point load
+coupling, using a continuous64 camera graph and its own matching derivative.
+This is an explicit ideal numerical model; a quantized float32 program does
+not silently acquire a useful exact derivative from the old world64 skin.
+Known-plane loads and native mass response can check generalized-force
+application without claiming object contact search, dynamic grasp execution
+or real material calibration. No collection or model training is admitted.

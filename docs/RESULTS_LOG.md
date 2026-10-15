@@ -1478,3 +1478,35 @@ Saved-array illustration source:
 output: `runs/manosim_engine_bridge_evidence_2026-10-15_v1/engine_fingers_and_normal_failure.png`.
 The figure shows actual engine meshes and the failed source-normal gate; it is
 not a physics or actuator-motion demonstration.
+
+### 2026-10-15 — Freeze the literal HUG camera pipeline in a distinct state domain
+
+New source-only protocol `92b5f9bc2552b7a56cc0698aa981ae565f1701d665395095ae55ec6558c2ec9b`
+binds 5,304 files. The 46 manufactured controls pass, with an independent
+46-control peer pass and zero native/model/skin/physics operations. Peer review
+corrects the equivalent-axis-angle branch at a 2-pi crossing and requires the
+exact inherited 109 perturbation IDs/deltas before any actual work. Controls
+also exercise byte-level baseline refusal and float32 translation ordering.
+
+The new domain initializes root orientation from the original post-conversion
+AA32 and original camera transform. It recovers AA32/translation32 from actual
+named qpos, calls pinned ManoLayer in float32 camera coordinates, adds float32
+translation there, and only then applies the original cameraWorld64 transform.
+The original baseline inputs must recover byte-for-byte before any source or
+model constructor. Baseline source geometry and the original 5-um/1e-6 gates
+are unchanged. The old GS64 state grid, continuous64 profile and normal FAIL
+remain historical results rather than new acceptance targets.
+
+Per case: 600 seconds; one model, Data and source layer; 109 source forwards,
+109 static engine forwards and 109 direct flex updates; zero steps, object
+queries or actuator commands. All original masks/actuation are disabled for
+this geometry condition; protected state, original inertials and model buffers
+remain checked. Source/actual joint anchors and rotations provide an additional
+coordinate check beyond placing source vertices in the engine. Actual results
+are pending at this freeze. Native contact, collection and training remain closed.
+
+Saved-only orientation plot added separately from this experiment:
+`runs/manosim_saved_orientation_figure_2026-10-15_v1/orientation_evidence.png`.
+Its write-once receipt verifies existing comparison-array hashes and recomputes
+2,060 unique reliable sites, zero sign reversals, and the explicit unresolved
+part-band cell counts. Rendering performs zero new geometry or physics queries.
