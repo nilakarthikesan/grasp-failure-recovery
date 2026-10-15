@@ -180,6 +180,12 @@ class HugProposalProvider:
                 "--checkpoint", str(self.checkpoint),
                 "--seed", str(sample_seed),
             ]
+            # The shared local environment has an external, validated dependency
+            # bundle. Propagate the parent's search paths after the child's base
+            # numerical imports; do not shadow its pinned NumPy with PYTHONPATH.
+            for directory in dict.fromkeys(sys.path):
+                if directory and Path(directory).is_dir():
+                    command.extend(["--dependency-dir", str(Path(directory).resolve())])
             subprocess.run(command, cwd=self.project_root, check=True)
             native_proposal = native / "proposal.pkl"
             report_path = native / "inference_report.json"

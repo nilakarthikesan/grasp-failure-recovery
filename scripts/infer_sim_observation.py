@@ -12,6 +12,15 @@ import types
 import numpy as np
 import torch
 
+# Select this checkout even when the shared virtualenv's editable install points
+# at another worktree. Base NumPy/Torch load before external dependencies.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+if "--dependency-dir" in sys.argv:
+    bootstrap = argparse.ArgumentParser(add_help=False)
+    bootstrap.add_argument("--dependency-dir", type=Path, action="append", default=[])
+    runtime_args, _ = bootstrap.parse_known_args()
+    sys.path.extend(str(path.resolve()) for path in runtime_args.dependency_dir)
+
 from grasp_failure_prediction.integrations.hug import normalize_hug_prediction
 from grasp_failure_prediction.integrations.hug_preprocessing import seeded_point_cloud, tensor_content_hash
 from grasp_failure_prediction.integrations.hug_rng import seed_cpu_generation
@@ -25,6 +34,7 @@ def main():
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--steps", type=int, default=50)
+    parser.add_argument("--dependency-dir", type=Path, action="append", default=[])
     args = parser.parse_args()
     root = args.observation.resolve()
     checks = check_manifest(root / "observation_manifest.json", root / "checks")
@@ -105,6 +115,7 @@ def main():
     proposal.write_bytes(pickle.dumps(grasp))
     report = {
         "real_hug_inference_passed": True, "device": "cpu", "dtype": "float32",
+        "extra_dependency_dirs": [str(path.resolve()) for path in args.dependency_dir],
         "object_name": object_name,
         "hug_code_commit": subprocess.check_output(
             ["git", "-C", str(args.hug_root), "rev-parse", "HEAD"], text=True).strip(),
