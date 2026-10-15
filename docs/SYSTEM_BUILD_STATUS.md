@@ -44,6 +44,12 @@ not weaken the acceptance rule. Continuous fidelity remains unproved. The
 legacy object visual-transform warning is a separate unresolved arithmetic
 limitation; the halfspace replay only cleared its named products.
 
+Scope distinction: these full-field replays and local repair pilots begin from
+saved legacy translator poses. They do not measure the newly registered
+independent-static translator's actual surface fields. Its production-entry
+output needs a separate, frozen native-input surface audit; passing its numerical
+controls does not fill that evidence gap.
+
 ## Beginning of the system: decision and evidence boundary
 
 The executable chain is rendered RGB-D/calibration → pretrained HUG MANO output
