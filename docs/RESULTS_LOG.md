@@ -931,3 +931,40 @@ The earlier 070d0593 declaration remains unexecuted. New active
 `native_protocol_v2.json` SHA c81cdd617ea98ad0a0edf1b37dddb9e5a78871b59cf2898b9d216fa847cc3207
 binds the corrected source and 136 passing manufactured controls, integration
 calls zero. All scientific rules and quotas remain unchanged.
+
+### 2026-10-15 — Measured native pose PASS, strict collider fidelity FAIL
+
+Active protocol c81cdd61 at freeze be46e622a5ddbdcf97539fd2689bccc917289146
+completed both saved development cases. Each used five static MuJoCo forwards,
+two CPU MANO forwards and two complete field scans, with zero physics,
+generation or retarget attempts. All sixteen native joint anchors and body
+rotations pass for both variants. Worst anchor error: 3.3261657e-7 m; worst
+rotation element error: 2.1846116e-7. Source mesh reconstruction is within
+3.0034251e-8 m. Numerical limits remain 5e-6 m / 1e-6 rotation elements.
+
+On the unchanged six-part fields and 1/2/5 mm bands: milk has 341,721 required
+relationships across 19,174 cells; mesh lost/added/unresolved = 5/11/540 and
+capsule = 8/61/1,223. Mug has 804,343 required relationships across 45,484 cells;
+mesh = 200/22/2,158 and capsule = 193/206/4,891. These are overlapping
+cell/part/band tuples, not contacts or success rates. All four strict fields
+fail; full orientation remains NOT_RUN and continuous equivalence NOT_PROVED.
+
+Independent `run_v1/independent_readback_v2.json` (SHA
+5cff858388ff1edb7ab34d4c17868907d8b701198c024a9bc2e70e12201ab13d) verifies all
+1,879 bindings before/after, saved source parameters, sixteen-bone arithmetic,
+literal quaternion/XML replay and all field masks/denominators without any
+model or reference geometry calls. Initial compiled arrays were not separately
+saved: in-run initial/replay equality is source-bound, while saved replay is
+independently reconstructed. The first verifier's scope error (checking an
+unused auxiliary cache column) remains preserved; the corrected verifier uses
+exactly the frozen six anatomical columns. Experimental results did not change.
+
+Saved-field diagnosis: 214/222 mug mesh discrepancies involve palm/index; the
+index witness at cell 32,591 is 0.637 mm from native skin versus 9.244 mm from
+the collider. Palm fields are identical between variants. Investigate neutral
+rigid segmentation, posed skin deformation and convexification with the now
+validated pose fixed. Pose-fitting and threshold relaxation are excluded.
+Native report SHA af7e626eb96ec94d583fc79c7a1a4fb6d71397041e9dd11597de674330c0bd14.
+This qualifies the tested native joint-transfer reference, not production
+Shadow retargeting, collider equivalence or physical calibration. Collection,
+training and manuscript work remain disabled in this stage.

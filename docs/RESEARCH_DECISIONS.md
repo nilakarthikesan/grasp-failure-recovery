@@ -2693,3 +2693,31 @@ acceptance limits. Joint-anchor/rotation transfer and collision-surface
 preservation receive separate verdicts. Collection/training stay disabled.
 Status: build complete; independent readback and actual native audit pending at
 this entry. No manuscript edits.
+
+## 2026-10-15 — Native joint transfer passes; collider geometry remains separate
+
+Measured under native protocol c81cdd61 at freeze be46e62: both saved
+development cases complete with five static MuJoCo forwards, two parametric
+MANO forwards and two field scans each; all forbidden operations remain zero.
+Both collision variants reproduce all sixteen native joint anchors and body
+rotations within the unchanged numerical limits. Worst anchor error is
+0.332617 micrometres and worst rotation-element error is 2.184612e-7. Original
+HUG skin/landmark reconstruction also passes without changing exported data.
+
+The separate surface gate fails. Mesh lost/added relationships are 5/11 for
+milk and 200/22 for mug; capsule counts are 8/61 and 193/206. Unresolved
+relationships remain explicit, and full orientation remains unmeasured. These
+are cell/part/band tuples, not independent contacts or task outcomes. A saved
+mug index witness differs by approximately 8.61 mm in native versus mesh
+surface distance, far above the measured pose or mesh serialization errors.
+
+Decision: use the exact-shape native model as a checked joint-transfer
+reference; do not declare the current Shadow retargeting fixed, replace the
+production hand, or reuse its 24D controller/data/model with the native 51D
+domain. The next geometry investigation fixes the validated pose and examines
+neutral rigid segmentation/convexification versus posed skinned surfaces,
+especially the mug palm/index. These construction effects are a hypothesis
+for the remaining local discrepancies until checked against source topology.
+Do not adjust poses, thresholds or hand shape to hide field failures. Keep
+collection/training admission closed. Independent saved-array verification is
+pending at this entry; simulator physical realism remains unvalidated.

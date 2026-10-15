@@ -1,0 +1,1049 @@
+{
+  "artifacts": [
+    {
+      "bytes": 2281726,
+      "label": "mesh_complete_fixed_field",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/mesh_full_field.npz",
+      "sha256": "20f7608da82f0ed23d4aac467d3c70341cdf561e579ce7eeed8d6c1641231d36"
+    },
+    {
+      "bytes": 2282982,
+      "label": "capsule_complete_fixed_field",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/capsule_full_field.npz",
+      "sha256": "059e53dd4c9ac48e59fe9ddac6f22409fcee20f4ec3e8c28dac3d4299471736b"
+    },
+    {
+      "bytes": 63523,
+      "label": "actual_source_MANO_and_independent_FK",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/decoded_native_reference.npz",
+      "sha256": "b5f9635d0ff17112aeed6ece65c18eac941045683b79337401ee84b1519981bd"
+    },
+    {
+      "bytes": 2002,
+      "label": "native_decode_receipt",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/native_decode_receipt.json",
+      "sha256": "d06545acecc24f6db37308ac9c5a425ce0bff7d04ad2236f0e0843a021861b29"
+    },
+    {
+      "bytes": 3220,
+      "label": "mesh_literal_pose",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/mesh_literal_pose.json",
+      "sha256": "96c7251c922b1aa11e17b5e771da98ec0c8396072937685ad7fe0434b7e0085e"
+    },
+    {
+      "bytes": 7490,
+      "label": "mesh_compiled_and_independent_kinematic_readback",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/mesh_kinematic_readback.npz",
+      "sha256": "c1f73e894b844a2ea1f2240a9e27ff06e27863c53cfd7fe022fdf56ca4dffcec"
+    },
+    {
+      "bytes": 8627,
+      "label": "mesh_kinematic_receipt",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/mesh_kinematic_receipt.json",
+      "sha256": "9bb30673ef5117d1700729e3f1834299658f942853b3374fbd71c65e58d105ae"
+    },
+    {
+      "bytes": 3220,
+      "label": "capsule_literal_pose",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/capsule_literal_pose.json",
+      "sha256": "4892e454da5f07e24d8e34ae7e86b662ed9a6bede251ed1f32b7506e78a9e62c"
+    },
+    {
+      "bytes": 7490,
+      "label": "capsule_compiled_and_independent_kinematic_readback",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/capsule_kinematic_readback.npz",
+      "sha256": "c1f73e894b844a2ea1f2240a9e27ff06e27863c53cfd7fe022fdf56ca4dffcec"
+    },
+    {
+      "bytes": 8633,
+      "label": "capsule_kinematic_receipt",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/capsule_kinematic_receipt.json",
+      "sha256": "f154cfea2f4c914047b85214e79bd6140067e7eac16e657ab2eaea48c1010d7d"
+    }
+  ],
+  "case_counts": {
+    "collider_point_queries": 613568,
+    "full_field_variant_scans": 2,
+    "parametric_mano_forwards": 2
+  },
+  "counts": {
+    "HUG_generator_attempts": 0,
+    "official_retarget_attempts": 0,
+    "physics_step_attempts": 0,
+    "static_forwards": 5
+  },
+  "elapsed_s": 4.221631875028834,
+  "failure": null,
+  "freeze_commit": "be46e622a5ddbdcf97539fd2689bccc917289146",
+  "measurement": {
+    "counts": {
+      "collider_point_queries": 613568,
+      "full_field_variant_scans": 2,
+      "parametric_mano_forwards": 2
+    },
+    "full_orientation_status": "NOT_RUN",
+    "kinematic_pose_transfer_status": "PASS",
+    "kinematic_scope": "native joint anchors and body rotations only; rigid bone hull/capsule and posed LBS skin remain distinct",
+    "native_fidelity_accepted": false,
+    "new_collection_or_training_allowed": false,
+    "no_physics_or_HUG_generator": true,
+    "production_promotion": false,
+    "source_reconstruction": {
+      "anchor_order": "original sixteen MANO bones; SNAP_TO_NATIVE gives corresponding saved 21 landmarks",
+      "center_idx": 0,
+      "classification": "saved_parameter_MANO_FK_not_HUG_grasp_generator_inference",
+      "explicit_float64_axisangle_representation_max_change": 9.142430701380988e-08,
+      "face_table_exact": true,
+      "flat_hand_mean": true,
+      "hug_mano_source_sha256": "ebc9113402846d3fd0773e7740e9ff6a70c2e59d317241b576d042b5dd683ed3",
+      "independent_fk_pass": true,
+      "licensed_asset_copied": false,
+      "licensed_mano_asset_sha256": "45d60aa3b27ef9107a7afd4e00808f307fd91111e1cfa35afd5c4a62de264767",
+      "limits_are_contact_allowances": false,
+      "max_independent_anchor_error_m": 1.3458104864955105e-08,
+      "max_independent_rotation_element_error": 8.724107487898675e-08,
+      "max_landmark_reconstruction_error_m": 2.9802322387695312e-08,
+      "max_saved_21_to_16_anchor_error_m": 3.638078561310784e-08,
+      "max_vertex_reconstruction_error_m": 3.003425057343598e-08,
+      "native_fidelity_accepted": false,
+      "native_reconstruction_pass": true,
+      "native_sha256": "52ec7441c108f7a9704535c63611ff9d9da3d5f2871b57396b33fdb1e73a7d8b",
+      "no_shadow_operator_basis": true,
+      "numerical_position_limit_m": 5e-06,
+      "numerical_rotation_limit": 1e-06,
+      "parametric_forwards": 2,
+      "physical_outcome": null,
+      "raw_6d_saved_wrist_rotation_error": 0.0,
+      "raw_6d_to_actual_axisangle_rotation_change": 8.940696716308594e-08,
+      "root_world_rotation": "camera rotation times ACTUAL post-axisangle MANO root rotation",
+      "rotation_convention": "parent_to_child_body_rotation_v1",
+      "shape_file_sha256": "4ffb005c8ce6636506c2bfee215d3c0e3dc3a561fc4206a8a9cbec27f3b33937",
+      "shape_values_exact": true,
+      "staging_root_vs_raw6d_rotation_error": 6.797970364402772e-08,
+      "staging_root_vs_saved_wrist_rotation_error": 6.797970364402772e-08,
+      "staging_rotation_representation": "root:float64 same-source6D Gram-Schmidt; locals:float64 Exp of observed actual mean-adjusted source axis angles; no SVD or fit",
+      "use_pca": false
+    },
+    "surface_fidelity_status": "FAIL",
+    "variants": [
+      {
+        "actual_collider_count": 16,
+        "adapter_independent_readback": {
+          "anchor_max_error_m": 5.551115123125783e-17,
+          "body_origin_max_error_m": 6.938893903907228e-17,
+          "body_origin_substitution_used": false,
+          "ctrl_written": false,
+          "independent_reference": "compiled rest poses, ball pivot offsets and named qpos; separate recursive SE(3) arithmetic",
+          "integration_steps": 0,
+          "time_s": 0.0,
+          "units": "m",
+          "world_rotation_max_error": 7.771561172376096e-16
+        },
+        "adapter_static_forwards": 2,
+        "array_artifact": {
+          "bytes": 2281726,
+          "label": "mesh_complete_fixed_field",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/mesh_full_field.npz",
+          "sha256": "20f7608da82f0ed23d4aac467d3c70341cdf561e579ce7eeed8d6c1641231d36"
+        },
+        "asset_closure": {
+          "absolute_files": {
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/capsule_hand.xml": "94916fec51405d64efbdb2e6515b83c6d317d48421f669d06db2845145b59177",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/mesh_hand.xml": "412ccc2e1be6d5aced31707fed506b9c37cfa0f432f5ab7b6b7856e05bd0c40b",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_0.obj": "7a6a6b3394f2817c5310247a0dfdeadc6d1e8058ad301c68321dd9cd90ec6396",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_1.obj": "b13a479e491192f5aef1cbc7446b281135d2e148bb03943d640290751d1ccd20",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_10.obj": "bc52c4e507f806dfa1461f6ce4165ea90d549924ff5c0ac1b9e61593964dfb81",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_11.obj": "e42aaafd253599b2da1882b739f732edf132f575ac7be00dba621c9ab451a377",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_12.obj": "623354f75900652bdd4a6575f86af51b83ea93e80af886170e6d0234208554bb",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_13.obj": "4befc1a948fd2828fff8b039b79596698472157429fd101670da3756c27f4ba8",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_14.obj": "13e18c1d09cc3debe5309ac676ce8683c93f9b2b4c6a07f30a95611b76ace125",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_15.obj": "49111d40ef47a60cd1aa248ddb1a12b90ed2f501e6ce9c99bea0f7b541945bbd",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_2.obj": "4681bb4aa9b491f81cb16cbda21ef986695fc2f357fdcfb3ad8fefc4252214fb",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_3.obj": "859200cc8e57db0f8c8d9209c1f9b4ae4381f721f0e9ec17da4e9423f329927a",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_4.obj": "14fee150e7e0d82a3146cf48a684de2b51240a45e50b82c323017da932d0ffb4",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_5.obj": "daf18dd00d036f9ff7e1bb17958c518c6c3bdd9d14b58714679e75d5ef3c0377",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_6.obj": "c48e96cc438ed55705af1c0660bd000b818046c1ea53ef1d5b7911e0d28a5a1c",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_7.obj": "1aa949455ea084ad790da7917403faa866f084f40250333a20113f5f660015d8",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_8.obj": "05050bc4a3a5ac54da9675320e215615496fcc333c442d9fb58c0a41d5e1a310",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_9.obj": "976614b3e9d7c89bc6cdb486d4c5b600d1531447889ace529b287134ebe73947",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/mano_rhand_shape.npy": "4ffb005c8ce6636506c2bfee215d3c0e3dc3a561fc4206a8a9cbec27f3b33937",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/LICENSE": "e7e5e17c30f1edfd4725cfeeabc8e00f901944b9aa12e58ad9cbcdef91ea17f8",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/README.md": "496525e4c96954eae0fd3af3cd62383d26af129f282a9d552a3c829db0289447",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/config/myhand.yaml": "420df1dd62de8575c8504bac5265776f68fc6e591636606ade68a25ad1011c47",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/environment.yaml": "6f1d6034fc254afb7b7e29e9b14510fabb2ef893de612d375936ee103db7e2e0",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/src/build_mjcf.py": "ba85b1550684e9414869da68affe8e5373b12dae7b859a0858342644a183c8eb",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/src/mano_build.py": "866a5106fa9e14ca93ab0331333658d2d85a083cb4e6181296a249696c787ada",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/src/paths.py": "defafc3dce980efb8f1e8bbc342c77a30b43f59f42b0e789b91ef8c09d8d029a"
+          },
+          "asset_shape_identity": {
+            "handedness": "right",
+            "linear_units": "m",
+            "schema_version": "manosim_right_shape_asset_identity_v1",
+            "shape_asset_sha256": "4ffb005c8ce6636506c2bfee215d3c0e3dc3a561fc4206a8a9cbec27f3b33937",
+            "upstream_revision": "c96e2d5cd70838a2b025b60b85a7e4e06af1b3ac"
+          },
+          "builder_provenance": {
+            "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/builder_report.json",
+            "sha256": "178b66db3881b202ace1163cf8a3af1c957c811a04e16ddf00a1fe133cdceb31"
+          },
+          "closure_sha256": "6e6029e0819bc1ed0d9bf18d34cd566c1096f7802ce0806da21dd09d749431b7",
+          "expected_shape_sha256": "4ffb005c8ce6636506c2bfee215d3c0e3dc3a561fc4206a8a9cbec27f3b33937",
+          "files": {
+            "assets/literal_native/mano_rhand/capsule_hand.xml": "94916fec51405d64efbdb2e6515b83c6d317d48421f669d06db2845145b59177",
+            "assets/literal_native/mano_rhand/mesh_hand.xml": "412ccc2e1be6d5aced31707fed506b9c37cfa0f432f5ab7b6b7856e05bd0c40b",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_0.obj": "7a6a6b3394f2817c5310247a0dfdeadc6d1e8058ad301c68321dd9cd90ec6396",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_1.obj": "b13a479e491192f5aef1cbc7446b281135d2e148bb03943d640290751d1ccd20",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_10.obj": "bc52c4e507f806dfa1461f6ce4165ea90d549924ff5c0ac1b9e61593964dfb81",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_11.obj": "e42aaafd253599b2da1882b739f732edf132f575ac7be00dba621c9ab451a377",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_12.obj": "623354f75900652bdd4a6575f86af51b83ea93e80af886170e6d0234208554bb",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_13.obj": "4befc1a948fd2828fff8b039b79596698472157429fd101670da3756c27f4ba8",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_14.obj": "13e18c1d09cc3debe5309ac676ce8683c93f9b2b4c6a07f30a95611b76ace125",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_15.obj": "49111d40ef47a60cd1aa248ddb1a12b90ed2f501e6ce9c99bea0f7b541945bbd",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_2.obj": "4681bb4aa9b491f81cb16cbda21ef986695fc2f357fdcfb3ad8fefc4252214fb",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_3.obj": "859200cc8e57db0f8c8d9209c1f9b4ae4381f721f0e9ec17da4e9423f329927a",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_4.obj": "14fee150e7e0d82a3146cf48a684de2b51240a45e50b82c323017da932d0ffb4",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_5.obj": "daf18dd00d036f9ff7e1bb17958c518c6c3bdd9d14b58714679e75d5ef3c0377",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_6.obj": "c48e96cc438ed55705af1c0660bd000b818046c1ea53ef1d5b7911e0d28a5a1c",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_7.obj": "1aa949455ea084ad790da7917403faa866f084f40250333a20113f5f660015d8",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_8.obj": "05050bc4a3a5ac54da9675320e215615496fcc333c442d9fb58c0a41d5e1a310",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_9.obj": "976614b3e9d7c89bc6cdb486d4c5b600d1531447889ace529b287134ebe73947",
+            "assets/mano_rhand_shape.npy": "4ffb005c8ce6636506c2bfee215d3c0e3dc3a561fc4206a8a9cbec27f3b33937",
+            "source_snapshots/LICENSE": "e7e5e17c30f1edfd4725cfeeabc8e00f901944b9aa12e58ad9cbcdef91ea17f8",
+            "source_snapshots/README.md": "496525e4c96954eae0fd3af3cd62383d26af129f282a9d552a3c829db0289447",
+            "source_snapshots/config/myhand.yaml": "420df1dd62de8575c8504bac5265776f68fc6e591636606ade68a25ad1011c47",
+            "source_snapshots/environment.yaml": "6f1d6034fc254afb7b7e29e9b14510fabb2ef893de612d375936ee103db7e2e0",
+            "source_snapshots/src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "source_snapshots/src/build_mjcf.py": "ba85b1550684e9414869da68affe8e5373b12dae7b859a0858342644a183c8eb",
+            "source_snapshots/src/mano_build.py": "866a5106fa9e14ca93ab0331333658d2d85a083cb4e6181296a249696c787ada",
+            "source_snapshots/src/paths.py": "defafc3dce980efb8f1e8bbc342c77a30b43f59f42b0e789b91ef8c09d8d029a"
+          },
+          "identity_is_not_mesh_generation_or_fidelity_proof": true,
+          "schema_version": "manosim_static_source_asset_closure_v2",
+          "shape_asset_path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/mano_rhand_shape.npy",
+          "source_root": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw",
+          "source_variant": "mesh_hand.xml",
+          "upstream_revision": "c96e2d5cd70838a2b025b60b85a7e4e06af1b3ac",
+          "xml_path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/mesh_hand.xml",
+          "xml_relative_path": "assets/literal_native/mano_rhand/mesh_hand.xml"
+        },
+        "continuous_surface_equivalence": "NOT_PROVED",
+        "field_scope": "all original native-definite cell/part/band relationships; individual collider surfaces, not exterior union",
+        "full_orientation_status": "NOT_RUN",
+        "initial_matrix_to_quaternion_precision": {
+          "mano_joint_1": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 0.0
+          },
+          "mano_joint_10": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 2.220446049250313e-16
+          },
+          "mano_joint_11": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 1.1102230246251565e-16,
+            "raw_norm": 0.9999999999999999,
+            "rotation_max_error": 1.6653345369377348e-16
+          },
+          "mano_joint_12": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 1.1102230246251565e-16
+          },
+          "mano_joint_13": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 1.1102230246251565e-16
+          },
+          "mano_joint_14": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 1.1102230246251565e-16,
+            "raw_norm": 0.9999999999999999,
+            "rotation_max_error": 4.163336342344337e-17
+          },
+          "mano_joint_15": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 1.1102230246251565e-16,
+            "raw_norm": 0.9999999999999999,
+            "rotation_max_error": 1.1102230246251565e-16
+          },
+          "mano_joint_2": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 1.734723475976807e-18
+          },
+          "mano_joint_3": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 1.1102230246251565e-16,
+            "raw_norm": 0.9999999999999999,
+            "rotation_max_error": 2.220446049250313e-16
+          },
+          "mano_joint_4": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 1.1102230246251565e-16
+          },
+          "mano_joint_5": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 1.1102230246251565e-16
+          },
+          "mano_joint_6": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 1.1102230246251565e-16
+          },
+          "mano_joint_7": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 1.1102230246251565e-16
+          },
+          "mano_joint_8": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 1.3877787807814457e-17
+          },
+          "mano_joint_9": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 1.1102230246251565e-16,
+            "raw_norm": 0.9999999999999999,
+            "rotation_max_error": 1.1102230246251565e-16
+          },
+          "wrist_rot": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 1.1102230246251565e-16,
+            "raw_norm": 0.9999999999999999,
+            "rotation_max_error": 2.220446049250313e-16
+          }
+        },
+        "kinematic_comparison": {
+          "body_centroid_used_as_joint_anchor": false,
+          "max_joint_anchor_error_m": 3.3232484971546826e-07,
+          "max_world_rotation_element_error": 1.5695894461931204e-07,
+          "numerical_limits_are_contact_allowances": false,
+          "numerical_pose_pass": true,
+          "per_bone_joint_anchor_errors_m": [
+            0.0,
+            2.0907349283292897e-07,
+            1.7044644582126212e-07,
+            1.5608220646494902e-07,
+            2.6159842823925163e-07,
+            2.3272906720510977e-07,
+            2.368721357911227e-07,
+            4.4808039752423234e-08,
+            4.454055926182514e-08,
+            4.291671029852293e-08,
+            2.805245708358995e-07,
+            3.3232484971546826e-07,
+            3.245081542339399e-07,
+            6.819079428757175e-08,
+            1.6340632814665494e-07,
+            1.344480821046067e-07
+          ]
+        },
+        "kinematic_readback_artifact": {
+          "bytes": 7490,
+          "label": "mesh_compiled_and_independent_kinematic_readback",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/mesh_kinematic_readback.npz",
+          "sha256": "c1f73e894b844a2ea1f2240a9e27ff06e27863c53cfd7fe022fdf56ca4dffcec"
+        },
+        "literal_pose_readback_pass": true,
+        "literal_replay_quaternion_precision": {
+          "mano_joint_1": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_10": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_11": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_12": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_13": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_14": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_15": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_2": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_3": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_4": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_5": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_6": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_7": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_8": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_9": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "wrist_rot": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          }
+        },
+        "native_fidelity_accepted": false,
+        "same_anatomical_part_order": [
+          "palm",
+          "index",
+          "middle",
+          "ring",
+          "little",
+          "thumb"
+        ],
+        "source_model_sha256": "59fe7fad59a745695369f87a129625bf1bbf0fc976b62af0c2f4c968953ed624",
+        "summary": {
+          "continuous_coverage_status": "NOT_PROVED",
+          "definite_added": 11,
+          "definite_lost": 5,
+          "full_orientation_status": "NOT_RUN",
+          "full_strict_mapping_status": "FAIL",
+          "native_ambiguous": 3411,
+          "native_definite_relationships_pass": false,
+          "native_far": 340218,
+          "native_near": 1503,
+          "no_mapping_pass_issued": true,
+          "preserved": 341165,
+          "required": 341721,
+          "unresolved_required": 540
+        },
+        "surface_fidelity_status": "FAIL",
+        "variant": "mesh"
+      },
+      {
+        "actual_collider_count": 16,
+        "adapter_independent_readback": {
+          "anchor_max_error_m": 5.551115123125783e-17,
+          "body_origin_max_error_m": 6.938893903907228e-17,
+          "body_origin_substitution_used": false,
+          "ctrl_written": false,
+          "independent_reference": "compiled rest poses, ball pivot offsets and named qpos; separate recursive SE(3) arithmetic",
+          "integration_steps": 0,
+          "time_s": 0.0,
+          "units": "m",
+          "world_rotation_max_error": 7.771561172376096e-16
+        },
+        "adapter_static_forwards": 2,
+        "array_artifact": {
+          "bytes": 2282982,
+          "label": "capsule_complete_fixed_field",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/capsule_full_field.npz",
+          "sha256": "059e53dd4c9ac48e59fe9ddac6f22409fcee20f4ec3e8c28dac3d4299471736b"
+        },
+        "asset_closure": {
+          "absolute_files": {
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/capsule_hand.xml": "94916fec51405d64efbdb2e6515b83c6d317d48421f669d06db2845145b59177",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/mesh_hand.xml": "412ccc2e1be6d5aced31707fed506b9c37cfa0f432f5ab7b6b7856e05bd0c40b",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_0.obj": "7a6a6b3394f2817c5310247a0dfdeadc6d1e8058ad301c68321dd9cd90ec6396",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_1.obj": "b13a479e491192f5aef1cbc7446b281135d2e148bb03943d640290751d1ccd20",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_10.obj": "bc52c4e507f806dfa1461f6ce4165ea90d549924ff5c0ac1b9e61593964dfb81",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_11.obj": "e42aaafd253599b2da1882b739f732edf132f575ac7be00dba621c9ab451a377",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_12.obj": "623354f75900652bdd4a6575f86af51b83ea93e80af886170e6d0234208554bb",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_13.obj": "4befc1a948fd2828fff8b039b79596698472157429fd101670da3756c27f4ba8",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_14.obj": "13e18c1d09cc3debe5309ac676ce8683c93f9b2b4c6a07f30a95611b76ace125",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_15.obj": "49111d40ef47a60cd1aa248ddb1a12b90ed2f501e6ce9c99bea0f7b541945bbd",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_2.obj": "4681bb4aa9b491f81cb16cbda21ef986695fc2f357fdcfb3ad8fefc4252214fb",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_3.obj": "859200cc8e57db0f8c8d9209c1f9b4ae4381f721f0e9ec17da4e9423f329927a",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_4.obj": "14fee150e7e0d82a3146cf48a684de2b51240a45e50b82c323017da932d0ffb4",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_5.obj": "daf18dd00d036f9ff7e1bb17958c518c6c3bdd9d14b58714679e75d5ef3c0377",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_6.obj": "c48e96cc438ed55705af1c0660bd000b818046c1ea53ef1d5b7911e0d28a5a1c",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_7.obj": "1aa949455ea084ad790da7917403faa866f084f40250333a20113f5f660015d8",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_8.obj": "05050bc4a3a5ac54da9675320e215615496fcc333c442d9fb58c0a41d5e1a310",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/meshes/mano_bone_9.obj": "976614b3e9d7c89bc6cdb486d4c5b600d1531447889ace529b287134ebe73947",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/mano_rhand_shape.npy": "4ffb005c8ce6636506c2bfee215d3c0e3dc3a561fc4206a8a9cbec27f3b33937",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/LICENSE": "e7e5e17c30f1edfd4725cfeeabc8e00f901944b9aa12e58ad9cbcdef91ea17f8",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/README.md": "496525e4c96954eae0fd3af3cd62383d26af129f282a9d552a3c829db0289447",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/config/myhand.yaml": "420df1dd62de8575c8504bac5265776f68fc6e591636606ade68a25ad1011c47",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/environment.yaml": "6f1d6034fc254afb7b7e29e9b14510fabb2ef893de612d375936ee103db7e2e0",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/src/build_mjcf.py": "ba85b1550684e9414869da68affe8e5373b12dae7b859a0858342644a183c8eb",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/src/mano_build.py": "866a5106fa9e14ca93ab0331333658d2d85a083cb4e6181296a249696c787ada",
+            "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/src/paths.py": "defafc3dce980efb8f1e8bbc342c77a30b43f59f42b0e789b91ef8c09d8d029a"
+          },
+          "asset_shape_identity": {
+            "handedness": "right",
+            "linear_units": "m",
+            "schema_version": "manosim_right_shape_asset_identity_v1",
+            "shape_asset_sha256": "4ffb005c8ce6636506c2bfee215d3c0e3dc3a561fc4206a8a9cbec27f3b33937",
+            "upstream_revision": "c96e2d5cd70838a2b025b60b85a7e4e06af1b3ac"
+          },
+          "builder_provenance": {
+            "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/builder_report.json",
+            "sha256": "178b66db3881b202ace1163cf8a3af1c957c811a04e16ddf00a1fe133cdceb31"
+          },
+          "closure_sha256": "ac39b86207a4cd25e5204836076b81f53ef25190cdcf00e895dbbcdb4f120ad6",
+          "expected_shape_sha256": "4ffb005c8ce6636506c2bfee215d3c0e3dc3a561fc4206a8a9cbec27f3b33937",
+          "files": {
+            "assets/literal_native/mano_rhand/capsule_hand.xml": "94916fec51405d64efbdb2e6515b83c6d317d48421f669d06db2845145b59177",
+            "assets/literal_native/mano_rhand/mesh_hand.xml": "412ccc2e1be6d5aced31707fed506b9c37cfa0f432f5ab7b6b7856e05bd0c40b",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_0.obj": "7a6a6b3394f2817c5310247a0dfdeadc6d1e8058ad301c68321dd9cd90ec6396",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_1.obj": "b13a479e491192f5aef1cbc7446b281135d2e148bb03943d640290751d1ccd20",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_10.obj": "bc52c4e507f806dfa1461f6ce4165ea90d549924ff5c0ac1b9e61593964dfb81",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_11.obj": "e42aaafd253599b2da1882b739f732edf132f575ac7be00dba621c9ab451a377",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_12.obj": "623354f75900652bdd4a6575f86af51b83ea93e80af886170e6d0234208554bb",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_13.obj": "4befc1a948fd2828fff8b039b79596698472157429fd101670da3756c27f4ba8",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_14.obj": "13e18c1d09cc3debe5309ac676ce8683c93f9b2b4c6a07f30a95611b76ace125",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_15.obj": "49111d40ef47a60cd1aa248ddb1a12b90ed2f501e6ce9c99bea0f7b541945bbd",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_2.obj": "4681bb4aa9b491f81cb16cbda21ef986695fc2f357fdcfb3ad8fefc4252214fb",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_3.obj": "859200cc8e57db0f8c8d9209c1f9b4ae4381f721f0e9ec17da4e9423f329927a",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_4.obj": "14fee150e7e0d82a3146cf48a684de2b51240a45e50b82c323017da932d0ffb4",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_5.obj": "daf18dd00d036f9ff7e1bb17958c518c6c3bdd9d14b58714679e75d5ef3c0377",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_6.obj": "c48e96cc438ed55705af1c0660bd000b818046c1ea53ef1d5b7911e0d28a5a1c",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_7.obj": "1aa949455ea084ad790da7917403faa866f084f40250333a20113f5f660015d8",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_8.obj": "05050bc4a3a5ac54da9675320e215615496fcc333c442d9fb58c0a41d5e1a310",
+            "assets/literal_native/mano_rhand/meshes/mano_bone_9.obj": "976614b3e9d7c89bc6cdb486d4c5b600d1531447889ace529b287134ebe73947",
+            "assets/mano_rhand_shape.npy": "4ffb005c8ce6636506c2bfee215d3c0e3dc3a561fc4206a8a9cbec27f3b33937",
+            "source_snapshots/LICENSE": "e7e5e17c30f1edfd4725cfeeabc8e00f901944b9aa12e58ad9cbcdef91ea17f8",
+            "source_snapshots/README.md": "496525e4c96954eae0fd3af3cd62383d26af129f282a9d552a3c829db0289447",
+            "source_snapshots/config/myhand.yaml": "420df1dd62de8575c8504bac5265776f68fc6e591636606ade68a25ad1011c47",
+            "source_snapshots/environment.yaml": "6f1d6034fc254afb7b7e29e9b14510fabb2ef893de612d375936ee103db7e2e0",
+            "source_snapshots/src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "source_snapshots/src/build_mjcf.py": "ba85b1550684e9414869da68affe8e5373b12dae7b859a0858342644a183c8eb",
+            "source_snapshots/src/mano_build.py": "866a5106fa9e14ca93ab0331333658d2d85a083cb4e6181296a249696c787ada",
+            "source_snapshots/src/paths.py": "defafc3dce980efb8f1e8bbc342c77a30b43f59f42b0e789b91ef8c09d8d029a"
+          },
+          "identity_is_not_mesh_generation_or_fidelity_proof": true,
+          "schema_version": "manosim_static_source_asset_closure_v2",
+          "shape_asset_path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/mano_rhand_shape.npy",
+          "source_root": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw",
+          "source_variant": "capsule_hand.xml",
+          "upstream_revision": "c96e2d5cd70838a2b025b60b85a7e4e06af1b3ac",
+          "xml_path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/capsule_hand.xml",
+          "xml_relative_path": "assets/literal_native/mano_rhand/capsule_hand.xml"
+        },
+        "continuous_surface_equivalence": "NOT_PROVED",
+        "field_scope": "all original native-definite cell/part/band relationships; individual collider surfaces, not exterior union",
+        "full_orientation_status": "NOT_RUN",
+        "initial_matrix_to_quaternion_precision": {
+          "mano_joint_1": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 0.0
+          },
+          "mano_joint_10": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 2.220446049250313e-16
+          },
+          "mano_joint_11": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 1.1102230246251565e-16,
+            "raw_norm": 0.9999999999999999,
+            "rotation_max_error": 1.6653345369377348e-16
+          },
+          "mano_joint_12": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 1.1102230246251565e-16
+          },
+          "mano_joint_13": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 1.1102230246251565e-16
+          },
+          "mano_joint_14": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 1.1102230246251565e-16,
+            "raw_norm": 0.9999999999999999,
+            "rotation_max_error": 4.163336342344337e-17
+          },
+          "mano_joint_15": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 1.1102230246251565e-16,
+            "raw_norm": 0.9999999999999999,
+            "rotation_max_error": 1.1102230246251565e-16
+          },
+          "mano_joint_2": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 1.734723475976807e-18
+          },
+          "mano_joint_3": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 1.1102230246251565e-16,
+            "raw_norm": 0.9999999999999999,
+            "rotation_max_error": 2.220446049250313e-16
+          },
+          "mano_joint_4": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 1.1102230246251565e-16
+          },
+          "mano_joint_5": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 1.1102230246251565e-16
+          },
+          "mano_joint_6": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 1.1102230246251565e-16
+          },
+          "mano_joint_7": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 1.1102230246251565e-16
+          },
+          "mano_joint_8": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 0.0,
+            "raw_norm": 1.0,
+            "rotation_max_error": 1.3877787807814457e-17
+          },
+          "mano_joint_9": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 1.1102230246251565e-16,
+            "raw_norm": 0.9999999999999999,
+            "rotation_max_error": 1.1102230246251565e-16
+          },
+          "wrist_rot": {
+            "applied_norm": 1.0,
+            "decimal_rounding_applied": false,
+            "dtype": "float64",
+            "normalization_max_change": 1.1102230246251565e-16,
+            "raw_norm": 0.9999999999999999,
+            "rotation_max_error": 2.220446049250313e-16
+          }
+        },
+        "kinematic_comparison": {
+          "body_centroid_used_as_joint_anchor": false,
+          "max_joint_anchor_error_m": 3.3232484971546826e-07,
+          "max_world_rotation_element_error": 1.5695894461931204e-07,
+          "numerical_limits_are_contact_allowances": false,
+          "numerical_pose_pass": true,
+          "per_bone_joint_anchor_errors_m": [
+            0.0,
+            2.0907349283292897e-07,
+            1.7044644582126212e-07,
+            1.5608220646494902e-07,
+            2.6159842823925163e-07,
+            2.3272906720510977e-07,
+            2.368721357911227e-07,
+            4.4808039752423234e-08,
+            4.454055926182514e-08,
+            4.291671029852293e-08,
+            2.805245708358995e-07,
+            3.3232484971546826e-07,
+            3.245081542339399e-07,
+            6.819079428757175e-08,
+            1.6340632814665494e-07,
+            1.344480821046067e-07
+          ]
+        },
+        "kinematic_readback_artifact": {
+          "bytes": 7490,
+          "label": "capsule_compiled_and_independent_kinematic_readback",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/capsule_kinematic_readback.npz",
+          "sha256": "c1f73e894b844a2ea1f2240a9e27ff06e27863c53cfd7fe022fdf56ca4dffcec"
+        },
+        "literal_pose_readback_pass": true,
+        "literal_replay_quaternion_precision": {
+          "mano_joint_1": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_10": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_11": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_12": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_13": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_14": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_15": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_2": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_3": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_4": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_5": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_6": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_7": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_8": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "mano_joint_9": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          },
+          "wrist_rot": {
+            "decimal_rounding_applied": false,
+            "input_norm": 1.0,
+            "literal_roundtrip": true,
+            "normalization_applied": false
+          }
+        },
+        "native_fidelity_accepted": false,
+        "same_anatomical_part_order": [
+          "palm",
+          "index",
+          "middle",
+          "ring",
+          "little",
+          "thumb"
+        ],
+        "source_model_sha256": "902ff77b345becab043652b94003f8280f294bebd5815e193560e161af1dbfbd",
+        "summary": {
+          "continuous_coverage_status": "NOT_PROVED",
+          "definite_added": 61,
+          "definite_lost": 8,
+          "full_orientation_status": "NOT_RUN",
+          "full_strict_mapping_status": "FAIL",
+          "native_ambiguous": 3411,
+          "native_definite_relationships_pass": false,
+          "native_far": 340218,
+          "native_near": 1503,
+          "no_mapping_pass_issued": true,
+          "preserved": 340429,
+          "required": 341721,
+          "unresolved_required": 1223
+        },
+        "surface_fidelity_status": "FAIL",
+        "variant": "capsule"
+      }
+    ]
+  },
+  "native_fidelity_accepted": false,
+  "new_collection_or_training_allowed": false,
+  "partial_artifacts": null,
+  "production_promotion": false,
+  "protocol_sha256": "c81cdd617ea98ad0a0edf1b37dddb9e5a78871b59cf2898b9d216fa847cc3207",
+  "schema_version": "hug_literal_shape_manosim_static_transfer_v2",
+  "source_inventory_index": 20,
+  "source_receipt": {
+    "decoded_reference_artifact": {
+      "bytes": 63523,
+      "label": "actual_source_MANO_and_independent_FK",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/decoded_native_reference.npz",
+      "sha256": "b5f9635d0ff17112aeed6ece65c18eac941045683b79337401ee84b1519981bd"
+    },
+    "generated_assets": {
+      "build_protocol_sha256": "fc93126db674f6653614a89269616fda65e816928db361a6c98f97ac4739406f",
+      "builder_provenance": {
+        "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/builder_report.json",
+        "sha256": "178b66db3881b202ace1163cf8a3af1c957c811a04e16ddf00a1fe133cdceb31"
+      },
+      "expected_shape_sha256": "4ffb005c8ce6636506c2bfee215d3c0e3dc3a561fc4206a8a9cbec27f3b33937",
+      "native_inputs": [
+        {
+          "index": 20,
+          "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_0/proposal.pkl",
+          "sha256": "52ec7441c108f7a9704535c63611ff9d9da3d5f2871b57396b33fdb1e73a7d8b",
+          "shape_array_sha256": "82ee5f103633dbc735db486f4261bd60c68fd263869cd8a6479036af1dbb8918"
+        },
+        {
+          "index": 28,
+          "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/proposal.pkl",
+          "sha256": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+          "shape_array_sha256": "82ee5f103633dbc735db486f4261bd60c68fd263869cd8a6479036af1dbb8918"
+        }
+      ],
+      "public_source_snapshots": [
+        "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/src/__init__.py",
+        "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/src/build_mjcf.py",
+        "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/src/mano_build.py",
+        "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/src/paths.py",
+        "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/config/myhand.yaml",
+        "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/LICENSE",
+        "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/README.md",
+        "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/source_snapshots/environment.yaml"
+      ],
+      "right_hand_directory": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand",
+      "shape_asset": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/mano_rhand_shape.npy",
+      "source_root": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw",
+      "variant_xmls": {
+        "capsule": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/capsule_hand.xml",
+        "mesh": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/literal_native/mano_rhand/mesh_hand.xml"
+      }
+    },
+    "literal_native_shape_build_provenance": {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/builder_report.json",
+      "sha256": "178b66db3881b202ace1163cf8a3af1c957c811a04e16ddf00a1fe133cdceb31"
+    },
+    "native_decoder_receipt": {
+      "anchor_order": "original sixteen MANO bones; SNAP_TO_NATIVE gives corresponding saved 21 landmarks",
+      "center_idx": 0,
+      "classification": "saved_parameter_MANO_FK_not_HUG_grasp_generator_inference",
+      "explicit_float64_axisangle_representation_max_change": 9.142430701380988e-08,
+      "face_table_exact": true,
+      "flat_hand_mean": true,
+      "hug_mano_source_sha256": "ebc9113402846d3fd0773e7740e9ff6a70c2e59d317241b576d042b5dd683ed3",
+      "independent_fk_pass": true,
+      "licensed_asset_copied": false,
+      "licensed_mano_asset_sha256": "45d60aa3b27ef9107a7afd4e00808f307fd91111e1cfa35afd5c4a62de264767",
+      "limits_are_contact_allowances": false,
+      "max_independent_anchor_error_m": 1.3458104864955105e-08,
+      "max_independent_rotation_element_error": 8.724107487898675e-08,
+      "max_landmark_reconstruction_error_m": 2.9802322387695312e-08,
+      "max_saved_21_to_16_anchor_error_m": 3.638078561310784e-08,
+      "max_vertex_reconstruction_error_m": 3.003425057343598e-08,
+      "native_fidelity_accepted": false,
+      "native_reconstruction_pass": true,
+      "native_sha256": "52ec7441c108f7a9704535c63611ff9d9da3d5f2871b57396b33fdb1e73a7d8b",
+      "no_shadow_operator_basis": true,
+      "numerical_position_limit_m": 5e-06,
+      "numerical_rotation_limit": 1e-06,
+      "parametric_forwards": 2,
+      "physical_outcome": null,
+      "raw_6d_saved_wrist_rotation_error": 0.0,
+      "raw_6d_to_actual_axisangle_rotation_change": 8.940696716308594e-08,
+      "root_world_rotation": "camera rotation times ACTUAL post-axisangle MANO root rotation",
+      "rotation_convention": "parent_to_child_body_rotation_v1",
+      "shape_file_sha256": "4ffb005c8ce6636506c2bfee215d3c0e3dc3a561fc4206a8a9cbec27f3b33937",
+      "shape_values_exact": true,
+      "staging_root_vs_raw6d_rotation_error": 6.797970364402772e-08,
+      "staging_root_vs_saved_wrist_rotation_error": 6.797970364402772e-08,
+      "staging_rotation_representation": "root:float64 same-source6D Gram-Schmidt; locals:float64 Exp of observed actual mean-adjusted source axis angles; no SVD or fit",
+      "use_pca": false
+    },
+    "native_sha256": "52ec7441c108f7a9704535c63611ff9d9da3d5f2871b57396b33fdb1e73a7d8b",
+    "native_shape_source": "literal saved native beta from separately frozen generated-asset build; no nominal-shape collider substitution",
+    "numerical_math_only": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_full_field_mapping_repair_2026-10-15_v3/geometry_kernel.py",
+    "object_reference_scope": "one bound historical object-only frame; historical target-hand geometry never queried",
+    "object_reference_world_position_m": [
+      0.030404313965826494,
+      0.0204154094041141,
+      0.07148965735594014
+    ],
+    "object_reference_world_rotation": [
+      [
+        0.9999840191664428,
+        -1.2617426781312743e-05,
+        0.005653428387378131
+      ],
+      [
+        -2.0281414548755042e-05,
+        0.9999830682372827,
+        0.005819177555044316
+      ],
+      [
+        -0.005653406087916857,
+        -0.005819199219261106,
+        0.9999670874184082
+      ]
+    ],
+    "old_target_hand_geometry_used": false,
+    "query_count": 19174,
+    "required_relationships": 341721,
+    "scientific_predicates_rebased": false,
+    "shape_identity": {
+      "handedness": "right",
+      "linear_units": "m",
+      "schema_version": "manosim_right_shape_asset_identity_v1",
+      "shape_asset_sha256": "4ffb005c8ce6636506c2bfee215d3c0e3dc3a561fc4206a8a9cbec27f3b33937",
+      "upstream_revision": "c96e2d5cd70838a2b025b60b85a7e4e06af1b3ac"
+    },
+    "source_inventory_index": 20,
+    "static_only": true
+  },
+  "status": "COMPLETED_NATIVE_STATIC_DIAGNOSTIC"
+}

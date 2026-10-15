@@ -71,8 +71,21 @@ right-only MANOSim builder. Independent saved-data readback verifies 1,832 input
 bindings, all 19 generated assets, exact beta equality and 91 producer arrays.
 The raw mass is 0.4 kg; raw and serialized inertia checks pass. This stage used
 one neutral MANO forward, zero MuJoCo models/forwards and zero integration.
-Native pose and collider-field validation are the next separate experiment;
-this build receipt does not establish faithful transfer or simulator realism.
+The separate two-case native audit now passes all sixteen joint anchors and
+body rotations for both variants (worst anchor 0.333 micrometres; rotation
+element 2.185e-7). Original HUG skin reconstruction also passes. Independent
+saved-array verification confirms the numerical result, original fields and
+all 1,879 input bindings. The native pose interface is now a tested reference.
+
+Collision-surface fidelity still fails: mesh variants have 16/222 definite
+cell/part/band discrepancies for milk/mug; capsules have 69/399. Mesh unresolved
+counts remain 540/2,158, and full orientation is unmeasured. The mug's failures
+concentrate on palm/index; its worst index witness has native distance 0.637 mm
+versus mesh 9.244 mm. Palm fields are identical between collision variants.
+The next bounded investigation isolates collider construction with the validated
+joint poses fixed. Current production hand/controller/data remain unchanged;
+collection and training stay blocked. Static checks do not establish physical
+simulator realism.
 
 ## Beginning of the system: decision and evidence boundary
 
