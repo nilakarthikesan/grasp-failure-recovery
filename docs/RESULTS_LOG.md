@@ -1547,3 +1547,37 @@ grid and the original baseline normal-error correction. These are finite
 static forwards, not an actuator trajectory. Contact orientation during motion,
 native contact forces, dynamic tracking, collection and training remain
 unqualified. The source freeze is released for the next separate qualification.
+
+### 2026-10-15 — Freeze native static material-point force coupling
+
+39 manufactured controls and an independent 39-control peer repeat pass with
+zero native operations. New protocol
+`3ae68dec49abb8e70c1b14903be8b01eff9955feafc3f3501a1a15eaaaef1641`
+binds 5,474 files and 252 selected Git sources, including completed source-native
+geometry and the separate synthetic compliant-contact benchmark. Preparation
+reads/hashes saved labels to select original face IDs [0,28,142,127,1001,2]
+for palm/index/middle/ring/little/thumb, each at fixed centroid barycentrics.
+
+This distinct continuous64 physical profile evaluates the full MANO skin in
+camera coordinates, then places it in world64. Its own JVP, central difference
+and VJP use that same graph. Registered surface/Jacobian and state/profile
+hashes refuse source32/old-world64 mixtures. Literal skin weights are preserved.
+Source32 alignment keeps a separate original 5-um/1e-6 verdict; no alignment
+failure can be hidden by a force-coupling pass.
+
+Per case: 600 seconds; one model/Data, one baseline skin, 51 JVP and 102 FD
+evaluations, one aggregate VJP, six material points, twelve fixed law/load
+conditions, 24 paired static forwards and twelve full mass readouts. There are
+zero steps, MANO source calls, object queries, inference, collection or training.
+Known planes have fixed axis normals and 100-um penetration; they may load
+backfaces and do not qualify original-object contact orientation or search.
+
+Actual named 51-DOF addresses/types/tree, original inertials and unchanged
+paired q/v/ctrl/time are required. Required checks are gap derivatives,
+generalized virtual work, common-point force/moment reaction and native
+M*(acceleration_loaded-acceleration_baseline)=tau. Translational/angular mass
+residual limits are 1e-8 N/1e-10 Nm. Engine contacts and actuation are disabled;
+all applied, bias, passive, constraint and actuator operands are saved. Literal
+weight sums can differ from one, so rigid-root wrench equivalence is retained
+only as a diagnostic. Actual results are pending; no native dynamics or data
+admission follows from a static pass.

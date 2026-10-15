@@ -3075,3 +3075,25 @@ point and native generalized-force coupling, then native dynamic stability and
 oriented object contact search. Keep ambiguous orientation cases separate and
 retain every legacy stock-contact convergence failure. Collection/training stay
 closed; no manuscript files change.
+
+### 2026-10-15 — Separate exact source transfer from a consistent smooth force model
+
+Previous evidence establishes exact source32 geometry for a finite static
+grid and a separately tested compliant law on analytic sphere/plane fixtures.
+It does not establish the force derivative of the quantized source program or
+application of material-point forces through the native hand's inertia.
+
+Decision: use an explicitly distinct continuous64 camera-space skin and derive
+its own 51-dimensional tangent through exactly that graph. Keep source32
+alignment as a separate unchanged verdict. Do not silently pair source32
+geometry with the earlier direct-world64 Jacobian. Preserve literal weight
+rows, including their tiny departure from exact rigid-root covariance.
+
+Implementation: six deterministic material points, fixed synthetic plane loads,
+same-profile derivative/transpose checks and paired native static mass response.
+39 manufactured controls pass independently twice. Freeze protocol `3ae68dec`
+before either native case. This verifies a necessary force-application component;
+the planes may load backfaces and provide no original-object search or dynamic
+contact evidence. Native timesteps cannot inherit the 0.2-kg sphere bound.
+Actual results, independent readback, dynamic tracking and calibrated physical
+contact remain pending. Collection/training stay closed.
