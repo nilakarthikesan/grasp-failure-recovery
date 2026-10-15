@@ -441,3 +441,23 @@ Phase2 collection/recording and causal export PASS integrity. The new approach
 still has reachability refusals; it is not universal mug acquisition. Six-axis
 filter screening is a separate nominal engineering diagnostic, not a success
 certificate. Phase3 independent audit/category analysis and Phase4 fitting follow.
+
+
+## 15 October 2026 — Phase 3 frozen category accounting and Phase 4 declaration
+
+Analyzer source0dfa869 and31manufactured controls(0integration calls) preceded
+the actual read-only audit. study_analysis.json is COMPLETED_READ_ONLY_ANALYSIS:
+all256raw records,213physical/exported labels and43null outcomes bind exact
+frozen scenarios/source/assets; all category/geometry/capture/proposal splits
+pass the strict training adapter. No schedule/fold/label was changed. All4folds
+have two-class training, validation and test partitions and are eligible.
+The measured study has3pre_contact(no_contact),84acquisition failures and0hold
+failures. The pilot drop is separate and is not pooled into this study. Thus
+this dataset cannot support a claim of learned slip-onset/hold-failure prediction.
+
+The structured Phase4 protocol now binds exact213×1440features/labels, immutable
+folds/binding/manifest, all predictor dependency sources and runtime versions.
+Five models×3seeds×4folds=60slots; at most4candidates each, fixed0.5warning
+threshold, validation logloss selection only. GRU50epochs and logistic400iteration
+caps remain as committed before task labels. No real fitting has occurred at
+this declaration. Learned models must be frozen before reserve HUG/task outcomes.

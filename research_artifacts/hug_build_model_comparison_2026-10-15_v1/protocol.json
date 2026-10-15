@@ -1,0 +1,128 @@
+{
+  "input_contract": {
+    "control_timestep_s": 0.04,
+    "dtype": "float32",
+    "excluded_features": [
+      "requested targets",
+      "contacts",
+      "diagnostics",
+      "full simulator state",
+      "object state/properties",
+      "outcome/failure labels",
+      "mapping/filter status",
+      "native/mapped pose metadata",
+      "phase/time",
+      "provenance/seeds"
+    ],
+    "features": 1440,
+    "fields": [
+      "hand_qpos",
+      "hand_qvel",
+      "applied_target_rad"
+    ],
+    "flatten_order": "time-major, then field, then joint",
+    "history_steps": 20,
+    "joint_names": [
+      "WRJ2",
+      "WRJ1",
+      "FFJ4",
+      "FFJ3",
+      "FFJ2",
+      "FFJ1",
+      "MFJ4",
+      "MFJ3",
+      "MFJ2",
+      "MFJ1",
+      "RFJ4",
+      "RFJ3",
+      "RFJ2",
+      "RFJ1",
+      "LFJ5",
+      "LFJ4",
+      "LFJ3",
+      "LFJ2",
+      "LFJ1",
+      "THJ5",
+      "THJ4",
+      "THJ3",
+      "THJ2",
+      "THJ1"
+    ],
+    "prediction_time_s": 2.96,
+    "protocol_id": "hug_grasp_approach_close_prefix_v1"
+  },
+  "prepared_utc": "2026-10-15T13:56:15.261798+00:00",
+  "requires_commit_before_fit": true,
+  "runtime": {
+    "device": "cpu",
+    "numpy": "2.2.6",
+    "python": "3.12.13",
+    "scipy": "1.17.1",
+    "torch": "2.11.0"
+  },
+  "schema_version": "hug_recorded_training_protocol_v1",
+  "scope": "predeclared final-task-outcome model comparison; no training during preparation",
+  "source_bindings": {
+    "attempt_binding_sha256": "sha256:4649a019329dbaee2447abc1b751b49dcdc9b440cfe52f19033f7640f39799b9",
+    "binding_file_sha256": "sha256:581f6a07f09e0486032d5ee48bc296e7bd944df3c454f2a79c0419c75d467931",
+    "dataset_manifest_sha256": "sha256:311b40ce94c052b577503185fb0ff236ec1aadb2a6fa8ee065ad7af7347b0992",
+    "dataset_sha256": "sha256:ef7b8715ec2e8b579520b1035c458f9428948353510990785e42bcd2f35419b5",
+    "folds_file_sha256": "sha256:65da43cabfd35c8a6b5db8c503633f932e35a4b2795e3bd92a1c863083e57992",
+    "folds_sha256": "sha256:e2dedb1fdab105c6dd62e9c15f1ab36511a55bb35ba57d5f8f619065f1ff10ef",
+    "input_files": {
+      "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_build_collection_2026-10-15_v2/study_attempt_scenario_binding.json": "sha256:581f6a07f09e0486032d5ee48bc296e7bd944df3c454f2a79c0419c75d467931",
+      "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_build_collection_2026-10-15_v2/study_folds.json": "sha256:65da43cabfd35c8a6b5db8c503633f932e35a4b2795e3bd92a1c863083e57992",
+      "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_build_collection_2026-10-15_v2/study_prefixes/dataset.npz": "sha256:ef7b8715ec2e8b579520b1035c458f9428948353510990785e42bcd2f35419b5",
+      "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_build_collection_2026-10-15_v2/study_prefixes/manifest.json": "sha256:311b40ce94c052b577503185fb0ff236ec1aadb2a6fa8ee065ad7af7347b0992",
+      "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_build_collection_2026-10-15_v2/study_schedule.json": "sha256:3d3d1582a2da25e3cbec13c5ed78e870b265a72109d00803b9be5b4d23eea098"
+    },
+    "loaded_data_sha256": "sha256:148496c7952fe1af72964312a7a87bfadf417440a8457994a7025367c0233150",
+    "schedule_file_sha256": "sha256:3d3d1582a2da25e3cbec13c5ed78e870b265a72109d00803b9be5b4d23eea098",
+    "schedule_sha256": "sha256:7850353434d6fcf3fa481628078f6835ffd8146ce0cdbc93e2b0df5d4d7621b2"
+  },
+  "source_files": {
+    "src/grasp_failure_prediction/evaluation/prediction_recording.py": "sha256:7c86a820a5bdae74d72211f0100643055945f4b2958a4e3b93cfcb8d1a5bf91a",
+    "src/grasp_failure_prediction/evaluation/scenario_sampler.py": "sha256:d10a0de71e239c6fb22d04e2120e37dee5141d8b78f25806851222bbe2a5579c",
+    "src/grasp_failure_prediction/prediction/model.py": "sha256:f5fbe2762efd7099a05b75ccca11cdae670eac9e20f7b265632d98b2a24fdea8",
+    "src/grasp_failure_prediction/prediction/recorded_dataset.py": "sha256:ada8ee9dac7ccb8a04d61bb1bbce59bc128eb8184d7e598d7222cc12a3fd1bea",
+    "src/grasp_failure_prediction/prediction/recorded_training.py": "sha256:e23c9fbbd383a65fd857aeb2ffd7bf6d646e4b532312529f947d7c401998b337"
+  },
+  "specification": {
+    "calibration_bins": 10,
+    "comparison_id": "hug_recorded_model_comparison_v1",
+    "gru_candidates": [
+      [
+        16,
+        0.001
+      ],
+      [
+        16,
+        0.003
+      ],
+      [
+        32,
+        0.001
+      ],
+      [
+        32,
+        0.003
+      ]
+    ],
+    "gru_epochs": 50,
+    "gru_weight_decay": 0.0001,
+    "include_gru": true,
+    "max_logistic_iterations": 400,
+    "regularization_grid": [
+      0.001,
+      0.01,
+      0.1,
+      1.0
+    ],
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "warning_threshold": 0.5
+  }
+}
