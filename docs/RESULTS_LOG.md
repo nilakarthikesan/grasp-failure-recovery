@@ -1044,3 +1044,20 @@ cannot qualify finger-motion deformation or articulated contact forces. A
 distinct native recorder will preserve 67 position, 51 velocity and 51 command
 channels with their actual units. No native collection/training or manuscript
 work is enabled; source/protocol review precedes the next bounded run.
+
+### 2026-10-15 — Native recording contract implemented with collection closed
+
+Implemented `manosim_native_recording_v1` independently of the historical Shadow
+format. The contract binds exact shape/assets/collider/controller/model hashes,
+named 67/51/51 layouts, actual per-channel units and frames, and sampling policy.
+The array-only recorder preserves raw wxyz quaternions, separate requested and
+effective scalar controls, interval/phase clocks, and diagnostic isolation.
+Mapping/setup refusals and runtime errors retain null physical outcomes.
+Native loaders reject Shadow domains, width coercion, artifact/hash mismatches
+and asserted positive admission. No supported native admission certifier exists.
+
+Focused manufactured controls: 78 passed, zero integration attempts. Tests block
+model/data construction, FK, forward and integration. This implements storage
+and validation only: compiled-address gathering, pose-to-control conversion,
+controller/runner integration, dataset export and prediction remain pending.
+It creates no native task data, trained model or transfer/physics claim.
