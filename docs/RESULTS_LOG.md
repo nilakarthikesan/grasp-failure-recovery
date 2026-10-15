@@ -294,3 +294,38 @@ renderer ARB_clip_control depth warning. The calibrated ray/depth gate still
 passed for bell; bear failed stationarity. A subsequent explicit scalar
 contraction repair preserves the gates and is tested separately before new
 captures; this run is retained without replacement.
+
+
+## 15 October 2026 — Phase 2 fresh-pipeline source/plan freeze
+
+**Source:** `1115f91`. The driver connects fresh calibrated captures, pretrained
+HUG inference, canonical-command mapping validation, nominal close-only filters,
+scenario interventions, immediate2ms numerical guards, recorder, causal export
+and exact scenario bindings for training. Its complete loaded model state hash
+also binds encoder weights absent from the HUG checkpoint.
+
+**Checks:** final321focused controls pass,zero real integration calls, receipt
+`research_artifacts/hug_build_phase2_pipeline_2026-10-15_v1/final_static_tests.json`.
+The preserved earlier receipt has316pass/1failure from an incorrect manufactured
+manifest-key assertion; that test was corrected to the new schema. Independent
+review found and fixed missing refusal messages, canonical versus mapping-record
+semantic binding, source closure and late result-marker quarantine before freeze.
+
+**Declared live plan:** `research_artifacts/hug_build_collection_2026-10-15_v1/`
+contains preparation/source/input/config/asset bindings and generation authorization.
+Eight new captures,32fresh proposals(seeds3000..3003),20pilot attempts, then a
+separately authorized256attempt study. All filter accepted/rejected proposals
+remain in schedules; mapping/setup/runtime errors have null physical outcomes.
+Every new native mapping is checked. Stop conditions and exact per-stage step
+quotas are in preparation.json. Scenario identities/folds are frozen after
+generation and before task labels. No fresh task outcome exists at this freeze.
+
+**Reserve update:** coffee-cup v2freeze `464f08f` passes2/2stationary/calibrated
+camera captures with exact source commit recorded in its portable capture report.
+Bell+coffee are now two qualified reserve geometries; bear's2failedcaptures stay
+excluded without retries. No reserve HUG inference/task labels/model fits.
+The unchanged ray/depth gate passes despite the renderer clip-control warning;
+the repaired scalar quaternion contraction emits no prior NumPy matmul warning.
+
+**Verdict:** Phase2 unified implementation/static contracts PASS; physical
+fresh-pipeline acceptance still pending the declared run. No manuscript edits.
