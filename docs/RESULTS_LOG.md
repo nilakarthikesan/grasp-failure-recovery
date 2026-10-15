@@ -884,3 +884,9 @@ The first preparation exposed a nominalfloat64 versus nativefloat32 metadata
 assumption; it wrote no protocol and performed no build. The corrected code
 records the nominal conversion explicitly and keeps exported beta literal.
 Actual shape build and independent readback remain pending at this freeze.
+
+2026-10-15 follow-up: parent preflight at1380ebb refused Git tracking of ignored
+historical geometry/provider inputs before creating an output directory or
+launching a worker. Preserved the original declaration and explicit refusal.
+Corrected only committed-code selection; all1832 input hashes remain required.
+New `build_protocol_v2.json` and107-pass controls precede the first actual build.

@@ -58,7 +58,7 @@ def prepare(path):
     plan=helper().build_plan(inputs,old['manosim_root'],old['mano_asset_path'])
     dependencies=load('prior_native_inventory',PRIOR/'audit_case.py').source_inputs(old)
     required=[Path(__file__),HERE/'shape_build.py',HERE/'test_shape_build.py',HERE/'test_run_shape_build.py',
-        HERE/'README.md',HERE/'build_controls.json',ROOT/'.gitignore',PRIOR/'run_native_transfer.py',
+        HERE/'README.md',HERE/'build_controls_v2.json',ROOT/'.gitignore',PRIOR/'run_native_transfer.py',
         PRIOR/'protocol.json',PRIOR/'run_v1/report.json',PRIOR/'run_v1/20/result.json',
         PRIOR/'run_v1/independent_readback.json',*evidence,*dependencies]
     versions,support=builder_dependency_bindings()
@@ -66,7 +66,11 @@ def prepare(path):
     for file in required:bindings[str(Path(file).resolve())]=helper().sha(file)
     upstream_files=[p for p in bindings if Path(p).is_relative_to(plan['upstream_root'])]
     util.upstream_identity(plan['upstream_root'],upstream_files)
-    tracked_sources=sorted(p for p in bindings if Path(p).is_relative_to(ROOT))
+    # Historical inputs include intentionally ignored third-party geometry and
+    # preserved work from other providers. Their bytes stay bound, while the
+    # actual transaction program and declaration must be committed and clean.
+    tracked_sources=sorted({str(Path(x).resolve()) for x in required
+        if Path(x).resolve().is_relative_to(ROOT)})
     p=dict(schema_version=SCHEMA,prepared_utc=datetime.now(timezone.utc).isoformat(),runtime=r,budgets=BUDGET,
         plan=plan,bindings=bindings,tracked_sources=tracked_sources,builder_dependency_versions=versions,
         upstream_files=upstream_files,scientific_acceptance_sha256=v3['scientific_acceptance_sha256'],

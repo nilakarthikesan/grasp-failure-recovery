@@ -1,0 +1,14 @@
+{
+  "schema_version": "manosim_build_parent_preflight_refusal_v1",
+  "date": "2026-10-15",
+  "freeze_commit": "1380ebb030d2dab90f5c24d812469bd4f575ab1e",
+  "protocol_sha256": "14285bf11df570b69d76a479f327a6a25d233382e4c735bad64bac6cf8b44787",
+  "status": "REFUSED_BEFORE_OUTPUT_DIRECTORY_OR_WORKER",
+  "reason": "Git tracked_sources incorrectly included all inherited repository-local inputs, including ignored third-party geometry and preserved untracked provider source.",
+  "exception": "subprocess.CalledProcessError: git ls-files --error-unmatch returned 1",
+  "worker_launched": false,
+  "build_launched": false,
+  "shape_or_thresholds_changed": false,
+  "original_declaration_preserved": "build_protocol.json",
+  "followup_declaration": "build_protocol_v2.json"
+}
