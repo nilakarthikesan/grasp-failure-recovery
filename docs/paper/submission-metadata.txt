@@ -1,0 +1,11 @@
+Title: Auditing Transfer Before Predicting Dexterous Grasp Failure
+
+Abstract:
+Failure prediction from simulated grasps depends on proposal transfer, execution and the meaning of the outcome label. We study a HUG-only pipeline with static mapping audits, a fixed Shadow Hand lift-and-hold task and joint-state/command logistic predictors. A 1,040-attempt development collection yields failure AUROC 0.8523 versus 0.6419 for commands alone on a held-out observation; frozen evaluation on 2,080 fresh attempts yields 0.9173 on familiar geometries and 0.5588 on two new geometries pooled together. All 520 original mugs fail during approach before the prediction cutoff, while separate corrected-controller checks trigger warnings on all 20 successful mugs. New retrospective object-held-out fits also show that ranking and warning reliability differ: cube AUROC is 0.8729, but 471/648 successful cube attempts trigger alerts. Static audits accept realization of 32 saved Shadow commands while rejecting strict native-surface preservation; none of these results establishes physical transfer or future-slip warning.
+
+Keywords: Dexterous grasping; failure prediction; simulation validation
+
+TL;DR: HUG-to-Shadow audits and retrospective prediction show that useful ranking can coexist with warnings on successful unfamiliar grasps.
+
+Track: Late-Breaking Track
+Length: 4 body pages + 1 references page

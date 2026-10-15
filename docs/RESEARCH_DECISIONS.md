@@ -2300,3 +2300,40 @@ A separately frozen simultaneous joint/palm band-fitting experiment explores 2,2
 The explicit new scope is HUG as the sole generator, mapping qualification first and evaluation/prediction later. Clarified the existing handoff so its earlier Shadow-only wording does not discard the latest native MANO investigation. Shadow remains the execution default; native MANO remains a static-only candidate whose skeleton import and descriptive geometric improvements are measured, but whose collision/physical adequacy remains open. No final physical-hand replacement is inferred from choosing one generator.
 
 The next bounded static task is exposed collision-boundary/direction/penetration/uncertainty diagnosis on the existing 32 grasps, followed by an evidence-backed choice of one qualified execution pipeline. A future Shadow claim describes retargeted Shadow outcomes; adopting native MANO would require a distinct physical-model/controller protocol. Original criteria/results remain immutable. Added exact inventory/runtime pointers, the distinction between independent situations and repeated perturbations, conditional phase gates and a paste-ready starter to the existing HUG-only handoff. No code behavior, inference, physics, eval data or training changed. The older handoff receipt remains evidence of its original version; this clarification is additive research history.
+
+
+<!-- hug-build-foundation-2026-10-15-v1 -->
+## 15 October 2026 — Build the HUG pipeline before broad collection
+
+**Previous plan.** The HUG-only handoff proposed a bounded native/Shadow mapping
+diagnosis, followed by recording/label validation and broader prediction work.
+The supplied build brief/manuscript were checked as context against current
+source and frozen artifacts. Four pasted handoffs have identical bytes.
+
+**New evidence and decision.** A source/protocol freeze at `5fe44be` precedes a
+32-pose exposed-boundary audit: 1,461 added/426 lost native-proxy penetration
+flags, 1,931 buried projections, finite maximum-depth bounds10.615–12.122 mm.
+This diagnoses approximation and sampling limits; native physical qualification
+remains unaccepted. Shadow stays the current execution candidate and legacy
+mapping remains default. A saved-command replay pilot is a narrower claim than
+fresh generator-to-Shadow qualification; neither is inferred from the other.
+No historical criterion, geometry, controller or result is relabeled.
+
+**Implemented results.** `c35b473` adds versioned refusal-safe recording,
+measured/applied control histories and a causal exporter, without changing old
+schemas. Static checks pass201 with integration APIs blocked. At protocol
+`7b41f14`, a separate retrospective four-object analysis of3,120 old prefixes
+shows cubeAUROC0.872925 alongside471/648 successful attempts falsely warned.
+Original model read-back reproduces0.852253/0.641943 and0.917319/0.558765.
+These are development diagnostics, not prospective predictor improvements.
+Measured artifacts are committed in `6f7f848`; details/limitations are in
+[RESULTS_LOG](RESULTS_LOG.md).
+
+**Paper and next checks.** The existing paper path now presents these scoped
+HUG diagnostics in the official anonymous workshop template; exact prior source
+is archived rather than discarded. It compiles to four body pages plus
+references. The user explicitly re-emphasized building the actual project;
+next work prioritizes all32 camera checks, finite fresh-solve reproducibility
+and a separately declared saved-command recorder/tracking/determinism pilot.
+No broad collection, physics filter, sequence model or native-hand promotion
+is claimed. Paid compute/other-generator work is not restarted.

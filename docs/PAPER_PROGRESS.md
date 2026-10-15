@@ -501,3 +501,29 @@ The user selected HUG as the sole active generator for the next phase. The new h
 Clarified the handoff and its marked manuscript scope note: HUG-only is settled; Shadow remains the current execution default, while the latest native MANO static candidate remains in the fidelity investigation. The next bounded saved-cohort check and conditional later execution/data/model gates are explicit. No final-hand promotion or mapping pass is asserted. The historical multiple-generator manuscript and results remain preserved behind the prospective scope note. No experiments or new eval data.
 
 The clarified scope note compiled successfully in the existing paper at SHA-256 `84fc5e1a640986b72427a11687c74b8c707c607c99d0702784dc0f47c885f353`. The handoff and compiler hashes are saved in `research_artifacts/hug_only_handoff_2026-10-15_v1/clarification_receipt.json`.
+
+
+<!-- hug-build-foundation-2026-10-15-v1 -->
+## 15 October 2026 — Active HUG build and workshop version
+
+The active project now uses HUG alone. The existing manuscript path has been
+converted to an anonymous four-body-page workshop source plus references;
+its prior complete bytes are archived under `docs/paper/archive/`. Desktop
+compilation succeeds. Earlier writing-plan statements about an unconverted
+manuscript describe the prior state. [Build status](HUG_BUILD_STATUS.md) records
+verified workshop requirements, exact source/PDF paths and outstanding gates.
+
+Implemented project code includes a32-pose exposed-boundary audit, refusal-safe
+prediction recording, an opt-in actuated recorder bridge and a new causal
+exporter. The final focused suite passes201 tests, with two optional skips and
+two explicit free-fall deselections. Live pilot acceptance remains pending.
+The native proxy still has measurable occupancy/normal changes and is not a
+physical replacement. [Mapping qualification](HUG_MAPPING_VALIDATION.md).
+
+A separately predeclared retrospective fit reuses3,120 historical attempts;
+full-model cubeAUROC0.872925 coexists with471/648 false warnings on successes.
+Original frozen-model results remain unchanged and re-score exactly. The new
+fits, old frozen results and corrected-controller checks remain distinct in
+both the paper and [append-only result log](RESULTS_LOG.md). New collection and
+new architecture claims await the mapping/recording gates. The user's current
+priority is a runnable, validated project, with the paper following evidence.
