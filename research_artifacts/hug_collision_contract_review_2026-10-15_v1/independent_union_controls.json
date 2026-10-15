@@ -1,0 +1,126 @@
+{
+  "schema": "independent_collision_union_semantics_controls_v1",
+  "passed": true,
+  "control_count": 6,
+  "controls": [
+    {
+      "name": "nested_spheres_component_boundary_differs_inside_union",
+      "passed": true,
+      "values": {
+        "query": [
+          0,
+          0,
+          0
+        ],
+        "radii": [
+          0.25,
+          1.0
+        ],
+        "min_component_surface_distance": 0.25,
+        "union_boundary_distance": 1.0
+      },
+      "argument": "The union is the radius-one sphere. Its inner radius-quarter component has no exposed boundary."
+    },
+    {
+      "name": "outside_union_global_nearest_is_exposed",
+      "passed": true,
+      "values": {
+        "query": [
+          2,
+          0,
+          0
+        ],
+        "component_distances": [
+          1.75,
+          1.0
+        ],
+        "union_boundary_distance": 1.0
+      },
+      "argument": "A closest point on any component from outside the union cannot be strictly buried in another component, which would intersect the joining segment first."
+    },
+    {
+      "name": "overlap_inside_depth_is_only_lower_bound",
+      "passed": true,
+      "values": {
+        "centers": [
+          [
+            -0.5,
+            0,
+            0
+          ],
+          [
+            0.5,
+            0,
+            0
+          ]
+        ],
+        "radii": [
+          1,
+          1
+        ],
+        "query": [
+          0,
+          0,
+          0
+        ],
+        "max_component_penetration_lower_bound": 0.5,
+        "exact_union_boundary_distance": 0.8660254037844386
+      },
+      "argument": "The two component nearest surfaces at x=\u00b1.5 are buried; the nearest union exit lies on the intersection circle, distance sqrt(.75)."
+    },
+    {
+      "name": "per_part_buried_surface_does_not_prove_exposed_part_available",
+      "passed": true,
+      "values": {
+        "inner_part": "A",
+        "outer_part": "B",
+        "query": [
+          2,
+          0,
+          0
+        ],
+        "part_A_component_distance": 1.75,
+        "part_A_exposed_subset": "empty in this analytic construction"
+      },
+      "argument": "Per-part minimum component distance remains a lower bound; missing finite exposed witness must not become a fabricated exact distance or a passing orientation."
+    },
+    {
+      "name": "touching_box_shared_face_is_union_interior",
+      "passed": true,
+      "values": {
+        "query": [
+          0,
+          0,
+          0
+        ],
+        "component_signed_distances": [
+          0,
+          0
+        ],
+        "any_component_strict_inside": false,
+        "union_interior": true,
+        "exact_union_boundary_distance": 1.0
+      },
+      "argument": "The union is [-1,1]\u00b3. Shared-face center has an open unit-radius ball in the union despite zero individual signed distances."
+    },
+    {
+      "name": "finite_probe_endpoint_can_skip_thin_neighbor",
+      "passed": true,
+      "values": {
+        "ray_occupied_interval_m": [
+          2e-06,
+          3e-06
+        ],
+        "probe_t_m": 1e-05,
+        "probe_endpoint_outside_neighbor": true,
+        "ray_intersects_neighbor": true
+      },
+      "argument": "Analytic interval overlap detects the intervening micrometer-thick component; one endpoint membership query does not."
+    }
+  ],
+  "primary_implementation_tested": false,
+  "new_saved_grasp_queries": 0,
+  "new_eval_data": false,
+  "new_physics_steps": 0,
+  "scope": "Analytic checks demonstrate distinctions and necessary edge cases. They do not verify a specific numerical union-query implementation."
+}

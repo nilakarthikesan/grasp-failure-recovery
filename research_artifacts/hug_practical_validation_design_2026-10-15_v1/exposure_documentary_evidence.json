@@ -1,0 +1,40 @@
+{
+  "excerpts": [
+    {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/docs/HUG_STATIC_VALIDATION_PROTOCOL.md",
+      "sha256": "d048316a2fb6be6616ac4d28b2bb3e7ae76f1a558546a68308aad91b63ab63a9",
+      "start_line": 90,
+      "end_line": 109,
+      "excerpt": "\nFreeze measurement definitions and the fixed reference-method comparison before\nrunning it. Do not declare an overall scientific pass threshold by inspecting\nwhether the current 32 development poses pass. These poses, including all four\nobjects and eight observation groups, have already informed the investigation;\nthey cannot become independent validation merely by splitting them now.\n\nKeep three separate conclusions:\n\n1. Native output reconstruction and numerical conversion are supported within\n   explicitly tested scope.\n2. Cross-hand geometric preservation is an approximation whose changes are\n   measured, including changes to poor native proposals.\n3. Execution success/failure and the impact of mapping changes on those outcomes\n   remain later questions under a declared controller and physics protocol.\n\nThe currently implemented 10 mm mean tip gate is an engineering guard. Neither\nthat value, HUG's reported error numbers, nor a competing retargeter's reported\nerrors establishes an acceptable mapping error for our simulator or predictor.\n"
+    },
+    {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/docs/HUG_STATIC_VALIDATION_PROTOCOL.md",
+      "sha256": "d048316a2fb6be6616ac4d28b2bb3e7ae76f1a558546a68308aad91b63ab63a9",
+      "start_line": 320,
+      "end_line": 360,
+      "excerpt": "Report all 32 native poses for available point/FK checks and the six previously\nselected seed-0 noncube poses for currently available detailed surfaces. Give\nevery count: objects, observation groups, native proposals, reconstructable\ninputs, attempted mappings, valid inverse solves, rejected mappings and metric-\navailable denominators. Do not imply six selected surface cases cover all 32\nsurface configurations. Keep the duplicate cube separate from distinct-pose\ncounts. State that one fixed native MANO shape is represented.\n\nUse paired per-case differences, per-object/per-observation summaries, every\nfinger's tails/maxima, and source-poor versus changed-by-mapping descriptions.\nThese are descriptive development measurements. Confidence intervals or claims\nof source-wide generalization are not established by treating thousands of\nsurface samples or repeated seeds as independent observations. Future intervals\nshould respect object/observation clusters; four existing objects give limited\nsupport for population inference.\n\nFreeze a later independent validation plan with unseen object geometry and\nobservations as groups, not random pose rows from the same object. Record shapes,\ngrasp types, scale and quality strata in advance. Keep calibration geometry,\nmapper settings, threshold choice and future acceptance tests separate. A later\nchanging retargeter requires a new version and calibration record.\n\nAn overall acceptance margin must be justified from the intended claim and use:\nresolution/numerical uncertainty, actual collider/reference approximation,\nanatomical correspondence, simulator contact tolerance and later outcome-\nsensitivity evidence. The current object approximation can exceed the existing\ndiagnostic bands; static measurements cannot establish that such differences\nare outcome-irrelevant. A geometry-only claim can use externally justified\ngeometric margins without execution data, when such margins and their scope\nare available. A claim that retargeting preserves the eventual task outcome\nrequires separately authorized outcome-sensitivity evidence. It is defensible\nnow to accept numerical conversion\nchecks and publish bounded geometric errors. It is not defensible now to certify\ngenerator-independent contact or failure-label equivalence using an arbitrary\nmean error, IoU, normal angle, contact count or successful lift.\n\nFailure prediction trained on a declared mapped-hand/controller pipeline is a\ndifferent claim from predicting the native generator's own outcome. Retargeting\ndistortion can confound source-diversity comparisons and should remain recorded\nand investigated. Preserve bad native misses/penetration; an unsupported or\nunrepresentable translation has its own mapping status, not a fabricated task"
+    },
+    {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/docs/HUG_MAPPING_CONFIRMATION.md",
+      "sha256": "c453f49a58796af6e2c7c70d5f8e1807b0a0b5c433289af4a407390131d5e8f4",
+      "start_line": 146,
+      "end_line": 159,
+      "excerpt": "\nThe static follow-up uses 32 distinct existing HUG native poses across cube,\napple, milk box and mug, in eight observation groups. Each object has two scenes\nand four seeds. All share one MANO shape. The Oct 13 cube is a duplicate of one\nof these sources. These are previously inspected development families, not a\nnew independent holdout or newly generated evaluation data.\n\nEach native pose is bound by hashes and inference reports to the same recorded\nHUG source/checkpoint. Saved mapping-code hashes match the current code. The\noriginal Shadow target is recovered from each zero-noise episode's closing\nendpoint at 2.16 s, before force-close: 24 named targets and a world carrier\npose. The cube's joint values match the current canonical proposal exactly.\n\nGuarded static FK through each captured scene preserves its initial object"
+    },
+    {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/docs/HUG_MAPPING_CONFIRMATION.md",
+      "sha256": "c453f49a58796af6e2c7c70d5f8e1807b0a0b5c433289af4a407390131d5e8f4",
+      "start_line": 226,
+      "end_line": 233,
+      "excerpt": "## 14 October continuation: wrist/palm and other existing objects\n\nThe [new evidence bundle](../research_artifacts/hug_palm_object_validation_2026-10-14/README.md)\nchecks all 32 existing poses for anchors and anatomical proxies, and both\nexisting seed-0 groups for apple, milk box and mug for finger surfaces. No\ninference, physics rollout, evaluation case, label or fitting is performed.\nThe original targets and initial objects are held fixed; poor native proposals\nare retained. These are development diagnostics with one MANO shape."
+    },
+    {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/docs/HUG_MAPPING_CONFIRMATION.md",
+      "sha256": "c453f49a58796af6e2c7c70d5f8e1807b0a0b5c433289af4a407390131d5e8f4",
+      "start_line": 370,
+      "end_line": 380,
+      "excerpt": "change. No per-case tuning is used.\n\nCurrent targets regenerate all 32 saved joint vectors exactly. Independent\nPinocchio/fixed MuJoCo FK agrees within 2.23e-16 m; fixed model/captured-scene\nlinks within 1.01e-7 m. Mean tip error is 6.428 mm current, 21.343 mm released\nreference and 2.353 mm metric/static sensitivity. Mean middle-link proxy error\nis 6.829/26.377/13.811 mm. The sensitivity improves tips but increases ten-link\nmean error from 6.628 to 8.082 mm. All optimizer calls return FTOL_REACHED\nwithout fallback; no projected pinch activates in this sample. Raw, filtered and\nphysically clamped outputs remain distinct, with maximum clamp effects on links\nat most 0.130 mm."
+    }
+  ],
+  "input_binding_policy": "Snapshot hashes and exact excerpts; no claim mutable shared docs stay byte-identical after this audit."
+}

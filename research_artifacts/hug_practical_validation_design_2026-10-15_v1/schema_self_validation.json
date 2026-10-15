@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "validator": "jsonschema Draft202012Validator",
+  "schema_sha256": "3cbad1c5c0037de1c2fd98bb280fe39956b4123ec8e14af4f97efbedb7604a3c",
+  "controls": [
+    {
+      "name": "unassessed synthetic record valid",
+      "expected_valid": true,
+      "passed": true
+    },
+    {
+      "name": "no execution cannot have success label",
+      "expected_valid": false,
+      "passed": true
+    },
+    {
+      "name": "mapping refusal is not binary task failure",
+      "expected_valid": false,
+      "passed": true
+    },
+    {
+      "name": "executed label needs execution and pose hashes",
+      "expected_valid": false,
+      "passed": true
+    },
+    {
+      "name": "bound executed synthetic failure valid",
+      "expected_valid": true,
+      "passed": true
+    },
+    {
+      "name": "native fidelity cannot pass without budget and independent evidence",
+      "expected_valid": false,
+      "passed": true
+    },
+    {
+      "name": "pipeline readiness needs correctness and receipt",
+      "expected_valid": false,
+      "passed": true
+    },
+    {
+      "name": "measured distortion readiness needs metric records",
+      "expected_valid": false,
+      "passed": true
+    },
+    {
+      "name": "scoped pipeline can pass with no native fidelity budget",
+      "expected_valid": true,
+      "passed": true
+    },
+    {
+      "name": "prediction assessment needs protocol and heldout receipts",
+      "expected_valid": false,
+      "passed": true
+    },
+    {
+      "name": "historical scientific rule identity cannot be rebased",
+      "expected_valid": false,
+      "passed": true
+    }
+  ],
+  "scope": "Synthetic schema checks only; no actual pose evaluated or example written into eval data.",
+  "synthetic_case_records_persisted": false,
+  "new_geometry_queries": 0
+}

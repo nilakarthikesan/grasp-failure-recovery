@@ -1,0 +1,112 @@
+{
+  "schema": "hug_current_static_claim_manifest_v1",
+  "status": "SCOPED_SAVED_EVIDENCE_REPLAY_NOT_NEW_GEOMETRIC_VALIDATION",
+  "bindings": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/native_contract/native_contract.json": "2dbc05ca3757c80da3d8f821d9dbde4f603a61a05acb51e8d222928053feba1e",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/native_contract/protocol.json": "e1e647c7353f3c7cd5e77203ecfdc4447ccd965b082e72b116d5ef69dc19a2ad",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/static_saved_hug_fk.json": "04ebe393388193cf4ac256ea0fa0f61d8f2869805618d339c2572673f7445ae8",
+    "/private/tmp/hug_collision_contract_review_2026-10-15_v1/compiled_contract.json": "a77c8c565216b3f545897ff4ea77aef5a8c9c600e1364ec2437dfac458028151"
+  },
+  "inventory_binding": "a3429a527aa47b0fc3227ddcfef16e12e0bee48e4ef6ea7efcc844dd7d105599",
+  "identity_agreement": {
+    "native_contract_and_original_FK_same32_native_hashes": true,
+    "compiled_contract_exact_subset_indices": [
+      8,
+      12,
+      16,
+      20,
+      24,
+      28
+    ]
+  },
+  "supported": [
+    {
+      "claim": "Saved native MANO decoding reconstructs the saved export for these32 sources.",
+      "receipt": "native_contract",
+      "passed_cases": 32,
+      "vertices_per_case": 778,
+      "landmarks_per_case": 21,
+      "closed_faces_per_case": 1552,
+      "maximum_vertex_error_m": 0.0,
+      "maximum_landmark_error_m": 0.0,
+      "maximum_rotation_element_error": 0.0,
+      "all_face_indices_equal": true,
+      "original_numeric_allowances": {
+        "vertex_landmark_m": 5e-06,
+        "rotation_element": 1e-06
+      },
+      "does_not_establish": "Correct physical human grasp, new inference, contact fidelity, or grasp outcome."
+    },
+    {
+      "claim": "Original nominal Shadow command implementation, captured object/camera/world frame consistency, and independent fixed-URDF versus stored-scene FK were measured on all32.",
+      "receipt": "original_FK",
+      "cases": 32,
+      "joint_limit_comparisons": 768,
+      "joint_limit_violations": 0,
+      "all_time_zero": true,
+      "all_initial_object_qpos_unchanged": true,
+      "maximum_residuals": {
+        "native_landmark_wrist_vs_T_camera_wrist_translation_error_m": 0.0,
+        "object_position_vs_scene_contract_error_m": 0.0,
+        "object_rotation_vs_scene_contract_max_abs_error": 1.4432899320127035e-15,
+        "palm_position_vs_native_wrist_translation_error_m": 1.3455014484288012e-16,
+        "fixed_urdf_vs_stored_scene_link_position_max_error_m": 7.844885670333317e-08,
+        "palm_rotation_vs_native_operator_times_local_palm_rotation_max_abs_error": 1.0429444574633351e-07,
+        "world_vs_object_link_error_max_delta_m": 2.7755575615628914e-17,
+        "mean_tip_world_error_m": 0.00830475808045036,
+        "maximum_tip_world_error_m": 0.017517526119802184
+      },
+      "mean_tip_guard_m": 0.01,
+      "cases_meeting_existing_mean_tip_guard": 32,
+      "guard_basis": "Historical researcher-selected engineering guard; not paper-calibrated fidelity acceptance.",
+      "does_not_establish": "Legacy translation locates Shadow palm at native MANO wrist using operator axes; numerical consistency checks this implemented policy, not anatomical wrist/palm equivalence.",
+      "limits": [
+        "Historical source families are not independent held-out validation.",
+        "Task-link point residuals do not establish surface/contact-patch, normal or force preservation.",
+        "This uses original nominal grasp endpoint only; later force-close, noise and dynamics are excluded.",
+        "Native source quality, including any existing penetration, is not evaluated or repaired here."
+      ]
+    },
+    {
+      "claim": "Compiled scene collider representation and configuration checked for exact six original stored scenes, including geometry transforms, mesh hull representation, masks and exclusions.",
+      "receipt": "compiled_contract",
+      "reported_checks": 2756,
+      "reported_pass": true,
+      "indices": [
+        8,
+        12,
+        16,
+        20,
+        24,
+        28
+      ],
+      "simulator_version": "3.3.7",
+      "recorded_static_forward_calls": 6,
+      "recorded_physics_steps": 0,
+      "recorded_hand_object_distance_queries": 0,
+      "does_not_establish": "No fresh pairwise contact/dynamics verification; no proof that visual/compiled/source surfaces coincide; no exposed-union equivalence to simulator contacts."
+    }
+  ],
+  "unknown_or_unsupported": [
+    "Source native geometry and Shadow morphology/contact correspondence are not exactly preserved; historical nine strict failures remain.",
+    "The declared source wrist-to-Shadow-palm anchoring is numerically implemented but not an established anatomical identity.",
+    "Literal-part, exposed-union, visible-object and compiled-object measures describe different geometric domains; reference diagnosis is ongoing.",
+    "Static realization does not establish dynamic tracking or native MANO versus Shadow outcome equivalence.",
+    "No genuinely untouched object-level validation set has been established within this scoped saved-proposal inventory.",
+    "No generalization or failure-prediction adequacy has been demonstrated by these static receipts."
+  ],
+  "claim_levels": {
+    "C1_declared_pipeline": "PARTLY_SUPPORTED_IN_LISTED_STATIC_SCOPE; a complete frozen pipeline readiness receipt is not issued here",
+    "C2_historical_strict_native_preservation": "FAIL_UNCHANGED",
+    "C3_approximate_native_fidelity": "NOT_ASSESSED_NO_JUSTIFIED_BUDGET",
+    "C4_Shadow_prediction_and_generator_diversity": "NOT_TESTED",
+    "C5_native_outcome_equivalence": "NOT_ESTABLISHED_NOT_REQUIRED_FOR_C1_OR_C4"
+  },
+  "read_only_replay": {
+    "new_FK": 0,
+    "new_geometry_queries": 0,
+    "physics_steps": 0,
+    "new_inference": false,
+    "new_eval_data": false
+  }
+}

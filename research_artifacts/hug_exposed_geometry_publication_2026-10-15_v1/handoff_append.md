@@ -1,0 +1,10 @@
+
+<!-- hug-exposed-geometry-2026-10-15-v1 -->
+
+## 15 October 2026 — Latest HUG: exposed geometry diagnosis complete, no mapping promotion
+
+Read [HUG_EXPOSED_GEOMETRY_AUDIT.md](HUG_EXPOSED_GEOMETRY_AUDIT.md). Six saved compiled scenes match the audited hulls/transforms/collision filters; no import defect was found. The separately frozen 624-record exposed-boundary diagnostic at original and previously selected poses reports 575 exposed nearest-part points and 49 buried. All six retain conditional proximity counterexamples at both poses (156 original,114 selected retained rows); these are repeated witnesses, not independent grasps, full coverage or an improvement score. No new normals, full grids or fit. All nine historical strict FAILs remain unchanged; production is not promoted.
+
+The current evidence manifest binds exact native reconstruction and nominal-pose/FK checks for 32 saved sources separately from six compiled-scene checks. All 32 are development evidence across four geometries. The declared executed Shadow target does not require native MANO outcome equivalence or a universal morphology allowance merely to define its outcome. It still needs disclosed distortion and later empirical prediction/mapper-confounding evidence; no blanket readiness certificate, practical threshold or retrospective PASS is issued.
+
+Next proposed work: freeze continuous object-relative measurements and a finite candidate objective around actual surviving exposed-region differences, then compare fixed baseline/candidate across saved development inputs with unchanged individual fingertip/domain guards. Do not repeat unchanged broad optimization, treat missing evidence as repair or silently replace the old scientific contract. No new inference, eval episodes, labels or training remains the active restriction. User approval to commit/publish the owned work on codex/project-work persists; no new branch/PR or repeated publication permission is needed. Preserve other-provider work and the open canonical paper path.

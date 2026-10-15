@@ -1,0 +1,15 @@
+{
+  "reviewed_initial_core_path": "/private/tmp/hug_exposed_geometry_2026-10-15_v1/exposed_classifier.py",
+  "reviewed_initial_core_sha256": "f03b823284573b7520e0a3a5998df44959fea1c2604307870bb4d46ac046dc8e",
+  "initial_test_count": 12,
+  "review_findings": [
+    {
+      "kind": "fail_closed_oracle_consistency",
+      "issue": "Whole-union exact conditional claim currently survives OWN_SURFACE_RESIDUAL_UNRESOLVED; per-part exact upper replaces witness length with signed-distance magnitude without checking consistency.",
+      "requested_fix": "Gate exact and upper claims on finite oracle shape plus own-surface residual and signed-distance magnitude/closest-point-length agreement; preserve disagreement as explicit diagnostic, add malformed-oracle controls.",
+      "affects_actual_saved_case_result": false,
+      "actual_saved_queries_executed": false
+    }
+  ],
+  "mathematical_semantics": "Sound for a consistent exact component signed-distance/closest-point oracle; all numerical bounds explicitly conditional, no ray/global distance computation inside union."
+}

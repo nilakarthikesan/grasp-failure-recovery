@@ -1,0 +1,635 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hug:practical-shadow-case-record:v1",
+  "title": "Prospective HUG Shadow static/task validity case record",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "record_role",
+    "provenance",
+    "split_exposure",
+    "geometry_references",
+    "pose_states",
+    "correctness",
+    "metrics",
+    "historical_strict",
+    "approximate_native_fidelity",
+    "task_outcome",
+    "pipeline_readiness",
+    "prediction_adequacy"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "hug_practical_shadow_case_v1"
+    },
+    "record_role": {
+      "enum": [
+        "DEVELOPMENT_MEASUREMENT",
+        "CALIBRATION_MEASUREMENT",
+        "LOCKED_TEST_MEASUREMENT",
+        "SCHEMA_TEMPLATE_NOT_MEASUREMENT"
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "native_sha256",
+        "checkpoint_sha256",
+        "generator_source_revision",
+        "geometry_identity_group",
+        "observation_group",
+        "mapper_sha256",
+        "hand_asset_sha256",
+        "scene_sha256",
+        "protocol_sha256"
+      ],
+      "properties": {
+        "native_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "checkpoint_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "mapper_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "hand_asset_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "scene_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "protocol_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "generator_source_revision": {
+          "type": "string"
+        },
+        "geometry_identity_group": {
+          "type": "string"
+        },
+        "observation_group": {
+          "type": "string"
+        }
+      }
+    },
+    "split_exposure": {
+      "type": "object",
+      "required": [
+        "role",
+        "tuning_exposures",
+        "same_geometry_as_development",
+        "independent_holdout_provenance"
+      ],
+      "properties": {
+        "role": {
+          "enum": [
+            "EXPOSED_DEVELOPMENT",
+            "CALIBRATION",
+            "PROSPECTIVELY_LOCKED_TEST",
+            "UNESTABLISHED"
+          ]
+        },
+        "tuning_exposures": {
+          "type": "array"
+        },
+        "same_geometry_as_development": {
+          "type": "boolean"
+        },
+        "independent_holdout_provenance": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      }
+    },
+    "geometry_references": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "reference_id",
+          "kind",
+          "content_sha256",
+          "frame",
+          "processing_chain",
+          "inside_outside_definition",
+          "contact_semantics"
+        ],
+        "properties": {
+          "reference_id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "source_visual_mesh",
+              "source_collision_geometry",
+              "compiled_shadow_collision_geometry",
+              "literal_part_collider_surfaces",
+              "exposed_geometric_union_boundary",
+              "simulator_pairwise_contact_geometry"
+            ]
+          },
+          "content_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "frame": {
+            "type": "string"
+          },
+          "processing_chain": {
+            "type": "array"
+          },
+          "inside_outside_definition": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "contact_semantics": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "pose_states": {
+      "type": "object",
+      "required": [
+        "native",
+        "original_mapped",
+        "candidate_mapped",
+        "commanded",
+        "achieved",
+        "intentional_repair"
+      ],
+      "properties": {
+        "native": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "original_mapped": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "candidate_mapped": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "commanded": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "achieved": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "intentional_repair": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      }
+    },
+    "correctness": {
+      "type": "object",
+      "required": [
+        "status",
+        "checks",
+        "numerical_tolerance_provenance"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNRESOLVED",
+            "NOT_TESTED",
+            "NOT_RUN"
+          ]
+        },
+        "checks": {
+          "type": "array"
+        },
+        "numerical_tolerance_provenance": {
+          "type": "array"
+        }
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "metric_id",
+          "reference_domain",
+          "correspondence_version",
+          "values",
+          "available_denominator",
+          "missing_denominator",
+          "uncertainty",
+          "interpretation"
+        ],
+        "properties": {
+          "metric_id": {
+            "enum": [
+              "native_target_landmarks",
+              "bone_direction_alignment",
+              "same_object_part_distance_field",
+              "closest_region_displacement_proxy",
+              "object_relative_signed_profiles",
+              "orientation",
+              "representation_difference"
+            ]
+          },
+          "reference_domain": {
+            "type": "string"
+          },
+          "correspondence_version": {
+            "type": "string"
+          },
+          "values": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "available_denominator": {
+            "type": "object"
+          },
+          "missing_denominator": {
+            "type": "object"
+          },
+          "uncertainty": {
+            "type": "object"
+          },
+          "interpretation": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "historical_strict": {
+      "type": "object",
+      "required": [
+        "rule_sha256",
+        "status",
+        "receipt_sha256",
+        "fresh_or_prior"
+      ],
+      "properties": {
+        "rule_sha256": {
+          "const": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+        },
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNRESOLVED",
+            "NOT_TESTED",
+            "NOT_RUN"
+          ]
+        },
+        "receipt_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fresh_or_prior": {
+          "enum": [
+            "FRESH",
+            "PRIOR_EVIDENCE",
+            "NOT_RUN"
+          ]
+        }
+      }
+    },
+    "task_outcome": {
+      "type": "object",
+      "required": [
+        "execution_status",
+        "label",
+        "execution_protocol_sha256",
+        "executed_pose_sha256",
+        "mapping_refusal_reason"
+      ],
+      "properties": {
+        "execution_status": {
+          "enum": [
+            "NOT_RUN",
+            "EXECUTED",
+            "MAPPING_REFUSED"
+          ]
+        },
+        "label": {
+          "enum": [
+            null,
+            "TASK_SUCCESS",
+            "TASK_FAILURE",
+            "INDETERMINATE"
+          ]
+        },
+        "execution_protocol_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "executed_pose_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mapping_refusal_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "execution_status": {
+                "enum": [
+                  "NOT_RUN",
+                  "MAPPING_REFUSED"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "execution_status": {
+                "const": "EXECUTED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "execution_protocol_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "executed_pose_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "label": {
+                "enum": [
+                  "TASK_SUCCESS",
+                  "TASK_FAILURE",
+                  "INDETERMINATE"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "approximate_native_fidelity": {
+      "type": "object",
+      "required": [
+        "status",
+        "budget_protocol_sha256",
+        "independent_evidence_sha256",
+        "scope"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "NOT_ASSESSED",
+            "UNRESOLVED",
+            "PASS",
+            "FAIL"
+          ]
+        },
+        "budget_protocol_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "independent_evidence_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scope": {
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "PASS",
+                  "FAIL"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "budget_protocol_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "independent_evidence_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "pipeline_readiness": {
+      "type": "object",
+      "required": [
+        "status",
+        "scope",
+        "receipt_sha256"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "UNVERIFIED",
+            "STATIC_CHECKED_WITH_MEASURED_DISTORTION",
+            "NOT_TESTED"
+          ]
+        },
+        "scope": {
+          "type": "string"
+        },
+        "receipt_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "prediction_adequacy": {
+      "type": "object",
+      "required": [
+        "status",
+        "analysis_protocol_sha256",
+        "heldout_evidence_sha256"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "NOT_ASSESSED",
+            "ASSESSED_WITH_LIMITATIONS"
+          ]
+        },
+        "analysis_protocol_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "heldout_evidence_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ASSESSED_WITH_LIMITATIONS"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "analysis_protocol_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "heldout_evidence_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "pipeline_readiness": {
+            "properties": {
+              "status": {
+                "const": "STATIC_CHECKED_WITH_MEASURED_DISTORTION"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "correctness": {
+            "properties": {
+              "status": {
+                "const": "PASS"
+              }
+            }
+          },
+          "pipeline_readiness": {
+            "properties": {
+              "receipt_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            }
+          },
+          "metrics": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

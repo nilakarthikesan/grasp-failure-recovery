@@ -1,0 +1,316 @@
+{
+  "schema": "hug_practical_shadow_validation_design_v1",
+  "created_utc": "2026-10-15T07:55:08.031088+00:00",
+  "status": "PROSPECTIVE_DESIGN_NOT_OPERATIONAL_ACCEPTANCE",
+  "target": "Outcome of the executed retargeted Shadow grasp under a declared controller/object/physics pipeline.",
+  "native_outcome_equivalence": "SEPARATE_STRONGER_CLAIM_NOT_ESTABLISHED",
+  "historical_strict_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4",
+  "historical_nine_FAIL_reclassified": false,
+  "historical_constraints_changed": false,
+  "new_tolerances": null,
+  "practical_acceptance_budget": null,
+  "external_error_requirement": null,
+  "calibration_dataset": null,
+  "heldout_dataset": null,
+  "statistical_decision_rule": null,
+  "sample_size_and_power_rationale": null,
+  "existing_inventory_sha256": "a3429a527aa47b0fc3227ddcfef16e12e0bee48e4ef6ea7efcc844dd7d105599",
+  "current_inventory_roles": {
+    "all32": "EXPOSED_DEVELOPMENT",
+    "six_non_cube": "REPEATED_SURFACE_FITTING_DEVELOPMENT",
+    "one_cube": "DETAILED_SURFACE_DEVELOPMENT",
+    "remaining25": "ADDITIONAL_SAME_OBJECT_DEVELOPMENT_STRESS_CASES",
+    "legacy43": "UNESTABLISHED_PROVENANCE_AND_EXPOSURE_NOT_BLIND_HOLDOUT"
+  },
+  "uncertainty_policy": {
+    "numeric": "Carry independently justified/conditional arithmetic bounds without rebasing physical criteria.",
+    "sampling": "Report cell radii/weights/coverage; upper/lower estimates and adaptive query history; samepoint normal evidence does not certify cells.",
+    "reference_geometry": "Quantify visual/collider and reconstruction discrepancy as its own source of uncertainty or model mismatch, not an unearned allowance.",
+    "anatomical_correspondence": "Mark landmark/link/part matches as explicit proxies where no true homology is established.",
+    "morphology": "Systematic source-to-Shadow distortion is measured signal, not an error bar to subtract away. Do not sum unrelated uncertainties without a justified bound.",
+    "missingness": "Report unavailable/tied/buried/nonphysical domains; never convert missing comparisons to zero error or PASS."
+  },
+  "metrics": [
+    {
+      "id": "native_target_landmarks",
+      "definition": "Per named homologous/proxy landmark, ||p_robot_object-p_native_object||; preserve all individual vectors, norms, tail/max and correspondence names.",
+      "unit": "m",
+      "reference": "same object frame; explicit native MANO landmark to Shadow body-site correspondence",
+      "meaning": "Kinematic displacement, not fingertip-to-object quality or physical contact.",
+      "required_coverage": "all declared tips and non-tip landmarks; missing points stay missing"
+    },
+    {
+      "id": "bone_direction_alignment",
+      "definition": "For each declared native/robot keyvector pair, acos(clamp(dot(unit(v_native),unit(v_robot)),-1,1)); record length difference separately.",
+      "unit": "rad",
+      "reference": "frozen anatomical proxy correspondence",
+      "meaning": "Pose morphology descriptor, distinct from hand/object surface-normal alignment.",
+      "required_coverage": "all declared vectors; zero lengths undefined"
+    },
+    {
+      "id": "same_object_part_distance_field",
+      "definition": "At common object queries q and each declared hand part f, report u_robot,f(q)-u_native,f(q), absolute change, both underlying distances and area-weighted distributions.",
+      "unit": "m",
+      "reference": "each geometry domain measured separately; same queries/weights for the pair",
+      "meaning": "Continuous native-relative geometry change. Original 1/2/5mm strata remain diagnostic scales; no new acceptance cutoff.",
+      "required_coverage": "whole requested domain with available/missing area and every part; no sum of overlapping part areas as physical contact area"
+    },
+    {
+      "id": "closest_region_displacement_proxy",
+      "definition": "At fixed source object queries, retain nearest native/robot part feature identities and closest points; report displacement of closest points plus distance-field change. Separately report nearest object locations for corresponding source/robot hand sites.",
+      "unit": "m",
+      "reference": "explicit source-based query domain and nearest-feature tie policy; no task contact annotations are available",
+      "meaning": "Geometric region correspondence proxy, not annotated-contact precision or measured force-bearing contact.",
+      "required_coverage": "source-near, source-far and unavailable strata retained; ties are ambiguous, not zero"
+    },
+    {
+      "id": "object_relative_signed_profiles",
+      "definition": "Signed distances of corresponding hand sites and area-weighted hand surface samples to each validated closed object reference; positive outside, negative inside. Report source and robot distributions plus paired changes where correspondence exists.",
+      "unit": "m",
+      "reference": "visible object closed mesh and compiled object collision representation are separate reports",
+      "meaning": "Miss/intersection descriptors. Surface sampling gives conditional bounds or estimates, not automatically exact volume or maximum penetration.",
+      "required_coverage": "full declared site/surface scope; sign unavailable on unvalidated/open geometry; normals and centroids are not forces"
+    },
+    {
+      "id": "orientation",
+      "definition": "At fixed declared object queries, a=-dot(hand outward normal,object outward normal). Retain native and mapped scores, score difference, angular difference, eligible counts/area, reason masks and reliable sign reversals.",
+      "unit": "dimensionless_and_rad",
+      "reference": "tie-free/exterior features with frozen part and domain definitions",
+      "meaning": "Conditional pointwise direction evidence; no continuous claim without feature stability bounds. Missing eligibility cannot be treated as improvement.",
+      "required_coverage": "all requested queries counted, including lost/new/buried/tied/inside/unavailable categories"
+    },
+    {
+      "id": "representation_difference",
+      "definition": "Report object/hand visual versus compiled geometry differences separately from native-to-robot mapping distortion: transforms, scaling, convexification, cavity retention, bidirectional boundaries and occupancy where valid.",
+      "unit": "m_and_area_or_volume_if_certified",
+      "reference": "actual compiled geometry, not just URDF file names or rendered meshes",
+      "meaning": "Identifies geometry confounding. Exposed geometric union and MuJoCo pairwise contacts are distinct.",
+      "required_coverage": "global and grasp-local regions; exact versus estimated domain clearly separated"
+    }
+  ],
+  "stages": [
+    {
+      "id": "S0",
+      "name": "freeze claim and source/exposure manifest",
+      "status": "IMPLEMENTABLE_READ_ONLY_NOW",
+      "inputs": [
+        "inventory_exposure.json",
+        "native/checkpoint/source hashes",
+        "mapper and controller version descriptors"
+      ],
+      "operations": [
+        "deduplicate by native hash and source geometry identity",
+        "record every exposure and mapping refusal",
+        "name executed Shadow outcome as target; native MANO outcome equivalence separate"
+      ],
+      "outputs": [
+        "source_manifest.json",
+        "exposure_ledger.json",
+        "claim_manifest.json"
+      ],
+      "exit": "Complete source provenance and explicit limitations; no blind holdout may be asserted from this collection."
+    },
+    {
+      "id": "S1",
+      "name": "close implementation correctness and reference geometry",
+      "status": "PARTLY_VERIFIED_EXISTING_DATA_MORE_STATIC_WORK_REQUIRED",
+      "inputs": [
+        "saved native parameters and exports",
+        "recorded scenes/commands/frames",
+        "actual compiled hand and object geometry",
+        "version-pinned simulator semantics"
+      ],
+      "operations": [
+        "retain prior exact native reconstruction scope and independent FK receipts",
+        "audit wrist/palm convention, global object/camera transforms, source precision and actual physical joint limits",
+        "bind input rendered/pointcloud object reference to the preserved scene geometry and processing chain",
+        "separate raw mesh, compiled convex collider, part-boundary union, exposed union and pairwise contact semantics; record cavity/mesh mismatch"
+      ],
+      "outputs": [
+        "conversion_certificate.json",
+        "geometry_reference_manifest.json",
+        "reference_discrepancy_report.json"
+      ],
+      "exit": "C1 can be verified within checked source/frame/pose/compiled-scene scope while representation distortion is disclosed. Unknown or incorrect implementation metadata blocks the relevant correctness check. Cross-morphology difference alone is not a software conversion failure."
+    },
+    {
+      "id": "S2",
+      "name": "freeze continuous static measurement contract",
+      "status": "DESIGN_READY_NOT_EXECUTED",
+      "inputs": [
+        "S1 reference manifest",
+        "case_record.schema.json",
+        "fixed source-based queries/correspondence",
+        "historical strict rule as separate immutable output"
+      ],
+      "operations": [
+        "declare each metric/reference/membership/normal rule before new values",
+        "carry numerical, sampling and correspondence uncertainty separately",
+        "use paired source/native/robot states without repairing native poor poses",
+        "validate algorithms on identity, frame-change, known geometric perturbation and deliberately ambiguous examples before real metric runs"
+      ],
+      "outputs": [
+        "measurement_protocol.json",
+        "manufactured_control_receipt.json",
+        "per_case_static_measurements.json"
+      ],
+      "exit": "Metric implementation and scope review complete. Measurements alone do not assign practical PASS. No manufactured control is an eval example."
+    },
+    {
+      "id": "S3",
+      "name": "bounded development comparison and freeze mapper",
+      "status": "AVAILABLE_ON_EXISTING_CASES_ONLY_AFTER_MEASUREMENT_FREEZE",
+      "inputs": [
+        "fixed baseline mapper",
+        "candidate mapper version",
+        "same saved cases; six repeatedly fitted and 25 less surface-studied cases labeled development"
+      ],
+      "operations": [
+        "compare on same source inputs with paired per-case/per-object reports",
+        "report every refusal, all fingers and unavailable metric mass",
+        "allow fixed per-input solver behavior; forbid selecting only successful or visually pleasing grasps",
+        "use full geometry/reference diagnosis to avoid tuning a proxy that is unrelated to the intended representation"
+      ],
+      "outputs": [
+        "development_comparison.json",
+        "frozen_mapper_manifest.json",
+        "remaining_failure_taxonomy.json"
+      ],
+      "exit": "A deterministic version with passing implementation checks and clearly measured distortion can be statically ready for a later authorized study of its own Shadow outcomes (C1). This is not C2/C3 native fidelity or C4 predictor adequacy; no arbitrary geometric cutoff is needed merely to name the executed pipeline."
+    },
+    {
+      "id": "S4",
+      "name": "optional approximate-native-fidelity allowance or task-specific scientific decision design",
+      "status": "OPTIONAL_C3_BUDGET_UNDEFINED_C4_EMPIRICAL_POLICY_STILL_REQUIRED",
+      "inputs": [
+        "intended task/controller claim",
+        "external geometric accuracy requirements or a distinct calibration study",
+        "separate measurement/reference uncertainties",
+        "prospectively selected strata and analysis method"
+      ],
+      "operations": [
+        "justify every allowance by external requirements or independent calibration, never current six-case pass scores",
+        "state whether the claim is geometry-only or downstream outcome adequacy",
+        "predeclare equivalence/noninferiority or sensitivity estimand, confidence procedure and sample size rationale if outcome claims are intended",
+        "freeze thresholds, aggregation/tail rules, exclusions and mapper version before locked testing"
+      ],
+      "outputs": [
+        "practical_acceptance_protocol.json",
+        "calibration_provenance.json",
+        "locked_split_manifest.json"
+      ],
+      "exit": "For C3, a non-null justified geometric budget and independent evidence are required. C1 does not need this margin. For C4, predeclare an empirical prediction/source-diversity analysis and confounding controls; do not make a universal geometric cutoff an automatic prerequisite."
+    },
+    {
+      "id": "S5",
+      "name": "independent static generalization assessment",
+      "status": "REQUIRES_NEW_AUTHORIZED_DATA_OR_PROVEN_UNEXPOSED_EXTERNAL_CORPUS",
+      "inputs": [
+        "frozen S3 mapper/measurement method and prospective split/analysis",
+        "S4 geometric budget only if C3 approximate-native-fidelity acceptance is claimed",
+        "new unseen geometry/observations; shared object split across generators"
+      ],
+      "operations": [
+        "keep source-geometry aliases/decompositions/transformed copies in one split",
+        "run frozen mapper and evaluator once under prespecified stopping/accounting",
+        "retain unsupported mappings in coverage denominators",
+        "if policy or mapper is retuned, retire that test set into development rather than reuse it as blind confirmation"
+      ],
+      "outputs": [
+        "heldout_static_validation.json",
+        "coverage_and_refusals.json"
+      ],
+      "exit": "Tests the frozen pipeline and distortion outside development objects. Apply a geometric budget only when C3 is the intended claim. No source-wide generalization is inferred from the existing32."
+    },
+    {
+      "id": "S6",
+      "name": "executed Shadow sensitivity and prediction-use validation",
+      "status": "DEFERRED_REQUIRES_LATER_USER_AUTHORIZATION_FOR_EVAL_DATA",
+      "inputs": [
+        "frozen hand/object/collider/controller/physics definitions",
+        "paired candidate/baseline task design",
+        "calibration/test groups kept separate",
+        "prospective statistical policy"
+      ],
+      "operations": [
+        "measure whether declared retargeting/geometry differences affect Shadow outcomes under fixed controller and paired perturbations",
+        "use outcomes from actual executed mapped configurations, never transfer labels from different poses",
+        "report failure/success and mapping refusal separately; successful lift is not mandatory mapping acceptance",
+        "for multi-generator prediction keep common object splits, mapper versions and source-quality strata; compare generator mix without hiding mapper coverage artifacts"
+      ],
+      "outputs": [
+        "authorized_sensitivity_results.json",
+        "task_label_provenance.json",
+        "prediction_validation_design.json"
+      ],
+      "exit": "Supports C4 within declared execution/prediction scope through empirical performance and confounding analysis. C3 or C5 is not implicitly established or mandatory merely because the labels describe Shadow execution."
+    }
+  ],
+  "readiness_states": {
+    "numerical_conversion_existing_scope": "SUPPORTED_BY_SAVED_RECEIPTS",
+    "source_faithful_geometry": "PARTLY_MEASURED_REFERENCE_AUDIT_PENDING",
+    "continuous_static_distortion": "DEVELOPMENT_EVIDENCE_PARTIAL_SCOPE",
+    "strict_native_relationships": "HISTORICAL_FAIL_UNCHANGED",
+    "practical_geometry_margin": "UNDEFINED",
+    "independent_static_generalization": "NOT_ESTABLISHED",
+    "executed_Shadow_task_adequacy": "NOT_ESTABLISHED",
+    "native_MANO_label_equivalence": "NOT_ESTABLISHED_NOT_TARGET",
+    "declared_deterministic_pipeline": "Can be statically supported in checked scope with distortion; no universal morphology tolerance required."
+  },
+  "phase_allowed_operations_now": [
+    "read_existing_metadata",
+    "hash_existing_files",
+    "inspect_source_and_provenance",
+    "author_protocol_and_schema"
+  ],
+  "phase_executed_new_geometry": false,
+  "new_inference": false,
+  "physics_steps": 0,
+  "new_eval_data": false,
+  "training": false,
+  "implementation_order_now": [
+    "resolve source/collider reference semantics on existing witnesses",
+    "freeze measurement and anatomical proxy definitions",
+    "then measure a fixed baseline/candidate comparison on development cases",
+    "Keep optional approximate-native-fidelity acceptance unset until justified budget and independent evidence exist; C1 pipeline correctness and C4 Shadow prediction claims follow their separate requirements."
+  ],
+  "claim_levels": [
+    {
+      "id": "C1_DECLARED_PIPELINE_CORRECTNESS",
+      "claim": "The native proposal is decoded correctly and a specified deterministic retargeter/scene realizes its declared Shadow pose, with measured distortion and refusals disclosed.",
+      "can_be_supported_from_static_existing_data": true,
+      "requires_universal_geometric_tolerance": false,
+      "does_not_claim": "Native contact/outcome equivalence, source-population generalization or useful prediction."
+    },
+    {
+      "id": "C2_STRICT_NATIVE_RELATIONSHIPS",
+      "claim": "Historical declared same-part band/sign relationship preservation.",
+      "status": "HISTORICAL_FAIL_UNCHANGED",
+      "rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+    },
+    {
+      "id": "C3_APPROXIMATE_NATIVE_FIDELITY",
+      "claim": "Native-relative geometric distortion lies within a justified allowance for a stated use/domain.",
+      "optional": true,
+      "budget": null,
+      "requires_prospective_justification_and_independent_evidence": true,
+      "does_not_block": "Defining the outcome of a declared Shadow pipeline or studying it as that pipeline."
+    },
+    {
+      "id": "C4_SHADOW_PREDICTION_AND_SOURCE_DIVERSITY",
+      "claim": "Prediction works on executed Shadow attempts, and measured generator-mix effects survive mapper/geometry/coverage confounding controls.",
+      "status": "NOT_TESTED",
+      "requires_later_authorized_outcome_and_prediction_validation": true,
+      "requires_universal_native_fidelity_tolerance": false
+    },
+    {
+      "id": "C5_NATIVE_OUTCOME_EQUIVALENCE",
+      "claim": "The native MANO proposal and mapped robot have equivalent task outcomes.",
+      "status": "NOT_ESTABLISHED_NOT_REQUIRED_FOR_C1_OR_C4",
+      "requires_separate_paired_reference_and_execution_protocol": true
+    }
+  ],
+  "practical_budget_applies_only_to": "Optional C3 approximate-native-fidelity claim; not a prerequisite for C1 declared-pipeline correctness or merely defining Shadow outcomes.",
+  "current_claim_manifest_sha256": "91791985bcd844dafba89e9557893aee1d739c4ea8025156b8e09dd831151097",
+  "extra_saved_file_disposition_sha256": "dfd9daad84994b71e989ed8319dc8661209227d1b0ef7eb99ce2c72df40b257e"
+}

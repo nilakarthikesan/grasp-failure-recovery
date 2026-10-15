@@ -427,3 +427,11 @@ The existing HUG subsection and abstract now distinguish our strict native-relat
 The HUG subsection also records all twelve saved-endpoint fingertip restorations, zero eligible surface improvements, six unchanged reference poses, and the distinction between invalid direction evidence and actual reversals. The historical nine FAIL results remain prior measurements; no fresh grids or evaluation episodes ran. [Criteria explanation](HUG_CRITERIA_ALIGNMENT.md) links the review and bounded study. No other provider section was replaced.
 
 The canonical open paper compiled successfully with the built-in desktop compiler at SHA-256 `750cf9d599afdb525d110375e1d323c7cabcc4e1721ccd0940a08c30f342423e`; HUG section SHA `6ae011b3e3af2b175b89f86fb74b93cd1b16265d53f6e7120666318938f11d4e`, abstract SHA `bd5a6b8ac68d4f57c5450e2290b07d2ad5e110ad91c8e9bf08760f2c2f1cb44d`. The user's existing editor and document path are preserved. No alternate document was compiled or opened.
+
+<!-- hug-exposed-geometry-2026-10-15-v1 -->
+
+## 15 October 2026 — HUG exposed-boundary diagnosis documented
+
+HUG's subsection now records a separately frozen 624-record diagnostic on six existing grasps at original/previously selected poses. 575 nearest-part points are exposed and 49 buried; all six retain conditional proximity counterexamples (156 original,114 selected retained rows). The counts do not establish a new improvement, whole-surface agreement or practical PASS. Fifteen primary and ten independent controls pass; compiled scene geometry/transforms/filtering have no identified defect. No new eval data, inference, fits, physics or full grids.
+
+The shared validation framework distinguishes realization of the declared Shadow pipeline from optional approximate native fidelity and empirical prediction adequacy. Historical nine strict failures remain unchanged. The new evidence manifest binds 32-case native/FK checks separately from six-case compiled geometry. All 32 are development evidence; no untouched object split is asserted. The canonical working paper remains open at its existing path and is compiled after this edit. Other provider sections remain preserved.

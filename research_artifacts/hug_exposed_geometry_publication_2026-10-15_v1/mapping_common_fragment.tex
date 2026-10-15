@@ -1,0 +1,41 @@
+\section{Grasp sources and simulator mapping}
+\subsection{Validation framework}
+Each source record identifies its input geometry, physical scale, coordinate
+frames, hand assets, checkpoint, configuration and output stage. We first
+reconstruct the native proposal and independently check transformation,
+joint-order and forward-kinematic consistency. We then compare native and
+translated configurations in a shared object frame, reporting per-finger
+landmark errors, object proximity, penetration, lost and added near-surface
+regions, and reliable surface-direction comparisons. Visual and collision
+surfaces are distinct references, with unmatched regions and sampling uncertainty
+retained in every report.
+
+Numerical decoding, geometric preservation and execution adequacy are separate
+claims. Agreement of joints or fingertips does not establish equivalent
+collision surfaces, contact forces or task outcomes. Poor native proposals
+remain in the audit; successful lifting is not a mapping acceptance criterion.
+Thresholds and sampling assumptions are declared explicitly, and inspected
+development cases are distinguished from later independent validation.
+Our common executor differs from source-specific policies and quality tests.
+
+For the current HUG development audit, a frozen strict encoded-surface claim
+is refuted by a positive same-part lost/added proximity-area lower bound or a
+reliable object-facing sign reversal, under declared numerical assumptions.
+An absent sampled reversal cannot certify continuous normal agreement. That
+claim defines strict preservation, not a universal tolerance for all useful
+retargeters. An approximate native-fidelity claim requires a separately
+justified distortion budget and independent evidence. By contrast, checking
+that a declared retargeter and simulator realize the specified Shadow pose
+does not require native outcome equivalence or a universal morphology
+allowance. Studying that executed pipeline still requires distortion reporting,
+mapper/geometry confounding controls and independent prediction evidence.
+None of these narrower claims retroactively turns the recorded HUG strict
+failures into passes.
+
+Provider audits and their evidence-backed manuscript subsections can proceed
+in parallel. Shared retargeters, assets, measurement code and execution settings
+are versioned dependencies: a change requires reviewing affected audits.
+The current phase uses static reconstruction of saved inputs and manufactured
+checks. It generates no new evaluation episodes, physical outcome labels or
+training data. Actual-native validation remains pending where authentic source
+outputs or assets have not been established.

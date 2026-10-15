@@ -1,0 +1,285 @@
+{
+  "passed": true,
+  "aggregate": {
+    "original": {
+      "row_count": 312,
+      "exposure": {
+        "STRICTLY_SEPARATED_EXPOSED_POINT": 288,
+        "STRICTLY_BURIED_IN_OTHER_COMPONENT": 24
+      },
+      "occupancy": {
+        "STRICT_UNION_EXTERIOR": 258,
+        "STRICT_COMPONENT_INTERIOR": 54
+      },
+      "by_kind": {
+        "proximity": {
+          "n": 178,
+          "exposure": {
+            "STRICTLY_SEPARATED_EXPOSED_POINT": 156,
+            "STRICTLY_BURIED_IN_OTHER_COMPONENT": 22
+          },
+          "strict_inside": 52,
+          "historical_passed": 0,
+          "persist_by_direction": {
+            "lost_native": {
+              "rows": 98,
+              "persist": 98
+            },
+            "new_mapped": {
+              "rows": 80,
+              "persist": 58
+            }
+          }
+        },
+        "orientation": {
+          "n": 134,
+          "exposure": {
+            "STRICTLY_SEPARATED_EXPOSED_POINT": 132,
+            "STRICTLY_BURIED_IN_OTHER_COMPONENT": 2
+          },
+          "strict_inside": 2,
+          "historical_passed": 2,
+          "historical_valid": 128
+        }
+      },
+      "unique_part_coordinate_sites": 221
+    },
+    "pooled": {
+      "row_count": 312,
+      "exposure": {
+        "STRICTLY_SEPARATED_EXPOSED_POINT": 287,
+        "STRICTLY_BURIED_IN_OTHER_COMPONENT": 25
+      },
+      "occupancy": {
+        "STRICT_UNION_EXTERIOR": 254,
+        "STRICT_COMPONENT_INTERIOR": 58
+      },
+      "by_kind": {
+        "proximity": {
+          "n": 178,
+          "exposure": {
+            "STRICTLY_SEPARATED_EXPOSED_POINT": 153,
+            "STRICTLY_BURIED_IN_OTHER_COMPONENT": 25
+          },
+          "strict_inside": 58,
+          "historical_passed": 12,
+          "persist_by_direction": {
+            "lost_native": {
+              "rows": 98,
+              "persist": 71
+            },
+            "new_mapped": {
+              "rows": 80,
+              "persist": 43
+            }
+          }
+        },
+        "orientation": {
+          "n": 134,
+          "exposure": {
+            "STRICTLY_SEPARATED_EXPOSED_POINT": 134
+          },
+          "strict_inside": 0,
+          "historical_passed": 3,
+          "historical_valid": 133
+        }
+      },
+      "unique_part_coordinate_sites": 221
+    }
+  },
+  "all_six_cases_have_surviving_counterexamples_at_both_poses": true,
+  "illustrative_examples": [
+    {
+      "index": 8,
+      "pose_role": "original",
+      "selection_rule": "first persistent proximity row in unchanged source order; illustrative only",
+      "saved_witness_json_pointer": "/whole_cell_rows/0",
+      "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+      "part": "middle",
+      "change": "lost_native",
+      "band_mm": 1,
+      "native_centroid_distance_m": 1.4709883719668114e-05,
+      "native_cell_radius_plus_allowance_m": 0.0009220708628200026,
+      "mapped_exposed_cell_lower_m": 0.001909616715617823,
+      "mapped_exposed_cell_upper_m": 0.003753778441257828,
+      "conditional_counterexample_persists": true
+    },
+    {
+      "index": 8,
+      "pose_role": "pooled",
+      "selection_rule": "first persistent proximity row in unchanged source order; illustrative only",
+      "saved_witness_json_pointer": "/whole_cell_rows/0",
+      "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+      "part": "middle",
+      "change": "lost_native",
+      "band_mm": 1,
+      "native_centroid_distance_m": 1.4709883719668114e-05,
+      "native_cell_radius_plus_allowance_m": 0.0009220708628200026,
+      "mapped_exposed_cell_lower_m": 0.0018854766135337243,
+      "mapped_exposed_cell_upper_m": 0.0037296383391737294,
+      "conditional_counterexample_persists": true
+    },
+    {
+      "index": 12,
+      "pose_role": "original",
+      "selection_rule": "first persistent proximity row in unchanged source order; illustrative only",
+      "saved_witness_json_pointer": "/whole_cell_rows/33",
+      "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+      "part": "middle",
+      "change": "lost_native",
+      "band_mm": 1,
+      "native_centroid_distance_m": 3.365605653135053e-05,
+      "native_cell_radius_plus_allowance_m": 0.0009543238551559173,
+      "mapped_exposed_cell_lower_m": 0.0017289712869953417,
+      "mapped_exposed_cell_upper_m": 0.0036376389973071764,
+      "conditional_counterexample_persists": true
+    },
+    {
+      "index": 12,
+      "pose_role": "pooled",
+      "selection_rule": "first persistent proximity row in unchanged source order; illustrative only",
+      "saved_witness_json_pointer": "/whole_cell_rows/33",
+      "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+      "part": "middle",
+      "change": "lost_native",
+      "band_mm": 1,
+      "native_centroid_distance_m": 3.365605653135053e-05,
+      "native_cell_radius_plus_allowance_m": 0.0009543238551559173,
+      "mapped_exposed_cell_lower_m": 0.0011798674717227505,
+      "mapped_exposed_cell_upper_m": 0.003088535182034585,
+      "conditional_counterexample_persists": true
+    },
+    {
+      "index": 16,
+      "pose_role": "original",
+      "selection_rule": "first persistent proximity row in unchanged source order; illustrative only",
+      "saved_witness_json_pointer": "/whole_cell_rows/48",
+      "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+      "part": "thumb",
+      "change": "lost_native",
+      "band_mm": 1,
+      "native_centroid_distance_m": 0.0005177668086410074,
+      "native_cell_radius_plus_allowance_m": 0.00038462789434109154,
+      "mapped_exposed_cell_lower_m": 0.0010021636164528644,
+      "mapped_exposed_cell_upper_m": 0.0017714394051350471,
+      "conditional_counterexample_persists": true
+    },
+    {
+      "index": 16,
+      "pose_role": "pooled",
+      "selection_rule": "first persistent proximity row in unchanged source order; illustrative only",
+      "saved_witness_json_pointer": "/whole_cell_rows/48",
+      "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+      "part": "thumb",
+      "change": "lost_native",
+      "band_mm": 1,
+      "native_centroid_distance_m": 0.0005177668086410074,
+      "native_cell_radius_plus_allowance_m": 0.00038462789434109154,
+      "mapped_exposed_cell_lower_m": 0.0010021636164528644,
+      "mapped_exposed_cell_upper_m": 0.0017714394051350471,
+      "conditional_counterexample_persists": true
+    },
+    {
+      "index": 20,
+      "pose_role": "original",
+      "selection_rule": "first persistent proximity row in unchanged source order; illustrative only",
+      "saved_witness_json_pointer": "/whole_cell_rows/85",
+      "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+      "part": "middle",
+      "change": "lost_native",
+      "band_mm": 1,
+      "native_centroid_distance_m": 0.0004529590006650182,
+      "native_cell_radius_plus_allowance_m": 0.0005243114099414907,
+      "mapped_exposed_cell_lower_m": 0.0021090475322181317,
+      "mapped_exposed_cell_upper_m": 0.0031576903521011133,
+      "conditional_counterexample_persists": true
+    },
+    {
+      "index": 20,
+      "pose_role": "pooled",
+      "selection_rule": "first persistent proximity row in unchanged source order; illustrative only",
+      "saved_witness_json_pointer": "/whole_cell_rows/85",
+      "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+      "part": "middle",
+      "change": "lost_native",
+      "band_mm": 1,
+      "native_centroid_distance_m": 0.0004529590006650182,
+      "native_cell_radius_plus_allowance_m": 0.0005243114099414907,
+      "mapped_exposed_cell_lower_m": 0.0023351023255749545,
+      "mapped_exposed_cell_upper_m": 0.003383745145457936,
+      "conditional_counterexample_persists": true
+    },
+    {
+      "index": 24,
+      "pose_role": "original",
+      "selection_rule": "first persistent proximity row in unchanged source order; illustrative only",
+      "saved_witness_json_pointer": "/whole_cell_rows/99",
+      "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+      "part": "index",
+      "change": "lost_native",
+      "band_mm": 1,
+      "native_centroid_distance_m": 0.00024756874569379473,
+      "native_cell_radius_plus_allowance_m": 0.0006460824766044369,
+      "mapped_exposed_cell_lower_m": 0.0011952364111771463,
+      "mapped_exposed_cell_upper_m": 0.00248742136438602,
+      "conditional_counterexample_persists": true
+    },
+    {
+      "index": 24,
+      "pose_role": "pooled",
+      "selection_rule": "first persistent proximity row in unchanged source order; illustrative only",
+      "saved_witness_json_pointer": "/whole_cell_rows/103",
+      "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+      "part": "palm",
+      "change": "lost_native",
+      "band_mm": 2,
+      "native_centroid_distance_m": 3.004574831228198e-06,
+      "native_cell_radius_plus_allowance_m": 0.0019266550051572056,
+      "mapped_exposed_cell_lower_m": 0.002257143810642198,
+      "mapped_exposed_cell_upper_m": 0.006110473820956609,
+      "conditional_counterexample_persists": true
+    },
+    {
+      "index": 28,
+      "pose_role": "original",
+      "selection_rule": "first persistent proximity row in unchanged source order; illustrative only",
+      "saved_witness_json_pointer": "/whole_cell_rows/156",
+      "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+      "part": "index",
+      "change": "lost_native",
+      "band_mm": 1,
+      "native_centroid_distance_m": 2.385234530600008e-05,
+      "native_cell_radius_plus_allowance_m": 0.0009132594884664704,
+      "mapped_exposed_cell_lower_m": 0.004197564434606546,
+      "mapped_exposed_cell_upper_m": 0.006024103411539486,
+      "conditional_counterexample_persists": true
+    },
+    {
+      "index": 28,
+      "pose_role": "pooled",
+      "selection_rule": "first persistent proximity row in unchanged source order; illustrative only",
+      "saved_witness_json_pointer": "/whole_cell_rows/156",
+      "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+      "part": "index",
+      "change": "lost_native",
+      "band_mm": 1,
+      "native_centroid_distance_m": 2.385234530600008e-05,
+      "native_cell_radius_plus_allowance_m": 0.0009132594884664704,
+      "mapped_exposed_cell_lower_m": 0.0036480574852156456,
+      "mapped_exposed_cell_upper_m": 0.005474596462148587,
+      "conditional_counterexample_persists": true
+    }
+  ],
+  "source_bindings": {
+    "/private/tmp/hug_exposed_geometry_2026-10-15_v1/summary.json": "4d516e5fc3230dc9cab67c02f2df7c487deebe3366bfafc7f4824a262f37b65e",
+    "/private/tmp/hug_collision_contract_review_2026-10-15_v1/diagnostic_output_review.json": "a236551300b54de167e65673de4e4162ccaeb29b575536fe94d98f6bc120d90a"
+  },
+  "limitations": [
+    "Counts are not an improvement score: capped witnesses include repeated cells/sites/bands/resolutions, and do not measure total mismatch area.",
+    "A candidate can make a retained cell straddle a threshold or have an unavailable exposed upper bound; failure to prove persistence is not repair.",
+    "The native labels remain those of the historical MANO triangle reference. This is not native occupied-union certification.",
+    "Exposed closest-point status does not establish normal uniqueness, force closure, contact outcome, or global mapping validity."
+  ],
+  "new_geometry_queries": 0,
+  "new_eval_data": false
+}

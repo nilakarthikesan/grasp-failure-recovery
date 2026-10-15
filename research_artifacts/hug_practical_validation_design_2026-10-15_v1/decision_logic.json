@@ -1,0 +1,41 @@
+{
+  "schema": "hug_practical_validity_decision_design_v1",
+  "steps": [
+    {
+      "condition": "source/native/frame/FK/physical-bound invariant fails",
+      "classification": "CONVERSION_INVALID",
+      "action": "record refusal; no fabricated task label"
+    },
+    {
+      "condition": "reference geometry or correspondence unresolved",
+      "classification": "REFERENCE_UNRESOLVED",
+      "action": "report numeric correctness separately; scope metric claims to established references"
+    },
+    {
+      "condition": "historical strict counterexample exists",
+      "classification": "HISTORICAL_STRICT_FAIL",
+      "action": "retain unchanged rule/results; continue only separately named development/approximate investigation"
+    },
+    {
+      "condition": "C3 approximate-native-fidelity budget or independent evidence absent",
+      "classification": "APPROXIMATE_NATIVE_FIDELITY_NOT_ASSESSED",
+      "action": "do not claim approximate native fidelity; C1 static pipeline correctness can still be reported"
+    },
+    {
+      "condition": "claim-specific prospective policy and independent evidence exist",
+      "classification": "APPLY_REGISTERED_POLICY_ONLY",
+      "action": "publish scope/uncertainty/refusal denominators; do not repair failures post hoc"
+    },
+    {
+      "condition": "no actual execution of this exact mapped pose/controller",
+      "classification": "TASK_LABEL_NOT_AVAILABLE",
+      "action": "do not copy a native, legacy or different-mapper label"
+    }
+  ],
+  "C1_pipeline_correctness_requires_universal_geometric_margin": false,
+  "C4_prediction_study_requires_native_outcome_equivalence": false,
+  "all_grasps_must_lift": false,
+  "historical_FAIL_is_automatically_approximate_FAIL": false,
+  "tip_guard_PASS_is_automatically_practical_PASS": false,
+  "measurement_refusal_is_physical_failure": false
+}

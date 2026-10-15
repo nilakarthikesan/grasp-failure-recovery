@@ -1,0 +1,55 @@
+{
+  "schema": "independent_exposure_classifier_controls_v1",
+  "passed": true,
+  "control_count": 10,
+  "controls": [
+    {
+      "name": "analytic_overlapping_union_lower_bound_not_exact",
+      "passed": true
+    },
+    {
+      "name": "buried_nearest_does_not_supply_fake_upper",
+      "passed": true
+    },
+    {
+      "name": "rigid_transform_preserves_distances",
+      "passed": true
+    },
+    {
+      "name": "rigid_transform_preserves_exposure_states",
+      "passed": true
+    },
+    {
+      "name": "rigid_transform_preserves_points",
+      "passed": true
+    },
+    {
+      "name": "component_order_invariance_unique_nearest",
+      "passed": true
+    },
+    {
+      "name": "numerical_boundary_not_strict_exterior",
+      "passed": true
+    },
+    {
+      "name": "inconsistent_oracle_cannot_claim_exact_global_or_part",
+      "passed": true
+    },
+    {
+      "name": "inconsistent_oracle_cannot_invent_upper",
+      "passed": true
+    },
+    {
+      "name": "nonfinite_oracle_fails_closed",
+      "passed": true
+    }
+  ],
+  "source_bindings": {
+    "/private/tmp/hug_exposed_geometry_2026-10-15_v1/exposed_classifier.py": "e20df3285680e6e92f157704f076a5d60fe1bcaa86333d2402ec94abbe5781a9",
+    "/private/tmp/hug_collision_contract_review_2026-10-15_v1/review_classifier_controls.py": "e5028ca72662d3b4a77be1b2e0cd8c4ea773e953c786548993d73298c9aa4026"
+  },
+  "new_saved_grasp_queries": 0,
+  "new_eval_data": false,
+  "physics_steps": 0,
+  "scope": "Manufactured analytic spheres, independent rigid transform/order checks and deliberately inconsistent-oracle refusal. No sampling of actual grasps."
+}
