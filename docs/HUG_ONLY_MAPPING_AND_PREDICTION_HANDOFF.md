@@ -4,7 +4,7 @@ Prepared 15 October 2026 for a new Codex chat. Evidence includes the DGA decisio
 
 ## User objective and latest decision
 
-Focus on **HUG as the sole grasp generator**. Continue fixing and validating the mapping to the existing Shadow hand in MuJoCo. Once the appropriate mapping gate is documented as satisfied, move into bounded evaluation, trustworthy data collection and failure-prediction model development. Do not make DGA, ContactGen, UniDexGrasp or a four-generator comparison prerequisites.
+Focus on **HUG as the sole grasp generator**. Continue fixing and validating how its saved grasps are represented in MuJoCo, using the existing Shadow pipeline and the newly implemented native MANO comparison as evidence. Shadow remains the current execution default; native MANO is a static-only candidate with substantially lower measured distortion. The latest HUG-only decision does not itself select a new physical hand or prove either route fully validated. Once a named mapping/hand pipeline passes its declared gate, move into bounded evaluation, trustworthy data collection and failure-prediction model development. Do not make DGA, ContactGen, UniDexGrasp or a four-generator comparison prerequisites.
 
 The user accepted the recommendation to prioritize one dependable execution pipeline and obtain diversity through objects, observations, poses and grasp configurations. Additional generators are deferred. The user wants autonomous progress on routine fixes and verification rather than repeated permission questions or an indefinite sequence of increasingly strong acceptance tests.
 
@@ -42,7 +42,7 @@ The primary local Python used in recent static work is `/Users/nilakarthikesan/g
 
 ## Scientific claim to validate
 
-The prediction target is failure of the **actual executed HUG-plus-retargeter-plus-controller Shadow attempt**. It is not the outcome HUG would obtain on native MANO, and it is not an official HUG benchmark score.
+The current prediction target is failure of the **actual executed HUG-plus-retargeter-plus-controller Shadow attempt**. If the native MANO candidate is subsequently developed and selected, document a new hand/controller/protocol identity and predict that actual execution instead. Do not pool the two label populations silently. Neither path is an official HUG benchmark reproduction. Keep one qualified hand/controller fixed within the initial HUG-only study.
 
 Keep three conclusions distinct:
 
@@ -73,11 +73,13 @@ The acceptance is **static realization of those saved commands**. It does not co
 
 Authoritative bundle: `research_artifacts/hug_mapping_acceptance_repair_2026-10-15_v1/`. Read its protocols/manifests for exact hashes and reproductions. Earlier conversion evidence is in `research_artifacts/compiled_hand_mapping_audit_2026-10-15_v1/`.
 
-## Additional native MANO reference, not a target replacement
+## Native MANO candidate and current Shadow baseline
 
 A parallel completed static investigation is recorded in [HUG native MANO comparison](/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/docs/HUG_NATIVE_MANO_COMPARISON.md) and `research_artifacts/hug_native_mano_comparison_2026-10-15_v1/` (commit `74ae888`). It reconstructs the same 32 saved proposals in an isolated articulated MANO reference with capsule phalanges and a convex palm. Skeleton import passes; mean fingertip discrepancy is 0.453 mm versus 6.428 mm for the literal saved Shadow commands, and the equally averaged 192 part/case surface-distance means are 1.463 versus 4.727 mm. These finite, one-directional measurements support an anatomical explanation for some distortion, not a best-possible Shadow bound or continuous contact certificate. Near-object changes remain in the native approximation too.
 
-This reference has disabled gravity/contact masks, placeholder inertias and no actuators/controller or evaluation registration. It is **not a validated physical hand**, not an official reproduction of HUG's unpublished simulator, and not the target for this HUG-only Shadow continuation. Use it as diagnostic evidence; do not silently switch hands or start its separate proposed collision-development path. The saved aggregate was recovered after a JSON integer serialization failure without rerunning geometry; the evidence explains that recovery. Commit `a23db18` separately repairs numerical warnings in object collision-bound arithmetic; it is not a new mapping or physics acceptance.
+This reference has disabled gravity/contact masks, placeholder inertias and no actuators/controller or evaluation registration. It is **not a validated physical hand** or an official reproduction of HUG's unpublished simulator. The last requested and completed engineering step was to add this path and compare the existing grasps. The immediate native-path follow-up is exposed collision-boundary, direction, penetration and sampling-uncertainty checking on those same grasps. Do not discard this route merely because the historical default is Shadow, and do not turn it into a physics runner without a separately documented design and validation. Choose one execution route from the evidence before collection; changing the physical hand is a study-design decision, not an unnoticed mapper correction.
+
+The saved aggregate was recovered after a JSON integer serialization failure without rerunning geometry; the evidence explains that recovery. All 33 manufactured native-model/metric controls pass. The independent scalar FK agrees with native joints/rigid tips/capsule endpoints within 3.39e-16 m. Mean improvements do not establish complete surface preservation: at 5 mm the native approximation has 236 lost and 729 added pointwise near flags, versus 680 and 690 for Shadow. These are correlated finite probes, not physical contacts or independent trials. Commit `a23db18` separately repairs numerical warnings in object collision-bound arithmetic; it is not a new mapping or physics acceptance.
 
 ## Retargeter profiles and remaining mapping issues
 
@@ -89,18 +91,18 @@ The live API is `ShadowHandRetargeter` in `src/grasp_failure_prediction/evaluati
 
 The shared translation path currently calls `ShadowHandRetargeter()` without selecting v2, so HUG's provider still uses legacy. The canonical provider output retains mean/max fingertip error but does not yet propagate all `RetargetingProvenance` fields. Future accepted fresh outputs should record profile/settings, solver statuses, initialization/reset policy and raw versus physically clamped commands. The solver's optimization margin and later clipping must not be presented as unchanged native output.
 
-The reliability audit observed a 0.192417 rad change in repeated A under reused legacy A–B–A solver order; the stateless profile repeated its inspected inputs bit-exactly. This motivates a fresh-solve reproducibility gate, not automatic geometric promotion of v2. A previous canonical palm calibration also failed; the source URDF's approximately 34 mm wrist-to-palm offset was already composed. Do not assume another missing offset explains the surface differences.
+The reliability audit observed a 0.192417 rad change in repeated A under reused legacy A–B–A solver order; the stateless profile repeated its inspected inputs bit-exactly. The current provider already creates a fresh retargeter for each proposal: reused-instance leakage is a library/wrapper hazard, not an explanation for the six historical single-case surface failures. This motivates a fresh-solve reproducibility gate, not automatic geometric promotion of v2. A previous canonical palm calibration also failed; the source URDF's approximately 34 mm wrist-to-palm offset was already composed. Do not assume another missing offset explains the surface differences.
 
 The original six coarse and three finer strict surface audits remain nine FAILs. The old checker also lacked a general positive-certification path: uncertain threshold-crossing cells and unresolved continuous orientation meant “optimize until this returns PASS” was an invalid stopping rule. Its definite counterexamples remain valid. A new identity certifier passes 25 manufactured controls, but its supported geometry is narrow and does not make MANO and Shadow identical.
 
 On two difficult development cases, protected fitting improved the retained objective while preserving the specified fingertip guards, but surface failures remained. Final mean fingertip errors were about 7.139 mm for milk-box B and 5.322 mm for mug B. The mug's tightest guard had only approximately 8.6 nm slack; this is not a robust physical margin. Do not promote these candidates on objective improvement alone.
 
-Immediate remaining mapping work should be bounded:
+If continuing with the current Shadow execution route, the remaining mapping work should be bounded:
 
 1. Freeze the exact profile, asset closure, initialization, solver settings and intended static claim before inspecting new validation outcomes.
 2. Separate replaying the accepted 32 saved commands from running fresh solves. Verify repeated-run and input-order behavior for the selected fresh profile.
 3. Check input decoding, camera/world/object/wrist/palm transforms, literal limits, units, named joints, geometry and independent compiled FK. Include nonidentity poses and manufactured failure controls.
-4. Measure per-finger maxima/tails, surface proximity, introduced/lost near regions and penetration on predeclared new inputs. Preserve poor native proposals and all refusals. Do not convert lack of exact anatomical equality into an automatic blocker for the executed-Shadow research claim.
+4. Start by measuring per-finger maxima/tails, surface proximity, introduced/lost near regions and penetration on the existing saved inputs. Define additional-input qualification prospectively rather than relabeling these development cases as a holdout. Preserve poor native proposals and all refusals. Do not convert lack of exact anatomical equality into an automatic blocker for the executed-Shadow research claim.
 5. Record a scoped acceptance or a concrete remaining implementation defect. Do not repeatedly invent stronger tests after observing a pass, or tune on a nominal holdout and continue calling it unseen.
 
 For source interpretation: HUG supplies right-MANO camera-frame predictions. `T_camera_wrist` is wrist-to-camera; its inverse removes the global wrist transform before local retargeting. The MANO-to-operator basis change and explicit wrist/palm placement convention must be retained and checked. The target hand has 24 named commands. Do not confuse a correct frame convention with equal anatomy.
@@ -150,7 +152,7 @@ Historical results, to preserve separately from corrected future runs:
 - A later frozen-model test had AUROC 0.9173 on fresh cube/apple scenes and 0.5588 on new milk/mug attempts. Original mug executions had table collisions. Separately corrected mug executions included twenty successes, all warned as failures. These diagnostics show a reliability/generalization problem; they do not establish its remedy.
 - Wrist-range attribution and paired tests are diagnostic, not proof of isolated wrist causality. Historical controller versions and cutoff-sensitive examples remain separate.
 
-The historical task rule includes contact, at least 14 cm maximum lift, a two-second hold, no more than 2 cm final drop from peak, and no approach collision/timeout. The authoritative code/configuration governs the exact label. A task-cutoff crossing is not automatically a slip. Freeze any revised task or prediction horizon prospectively and never relabel historical results silently.
+The historical task rule includes contact, at least 14 cm maximum lift, a continuous two-second HOLD interval at least 12 cm above initial object height (14 cm minus the 2 cm hold allowance), no more than 2 cm final drop from peak, and no approach collision/timeout. The authoritative code/configuration governs the exact label. A task-cutoff crossing is not automatically a slip. Freeze any revised task or prediction horizon prospectively and never relabel historical results silently.
 
 Relevant existing portable evidence: `research_artifacts/object_scene_pilot_v1/`, `research_artifacts/task_outcome_baseline_v1/`, `research_artifacts/fresh_object_scene_eval_v1/`, and the corrected-mug/wrist diagnostic bundles linked from `docs/PAPER_PROGRESS.md`. Original larger runs live in the original checkout's ignored `runs/` tree; verify paths from manifests.
 
@@ -176,13 +178,31 @@ DGA work was committed and pushed as `1370e18`. See `docs/DGA_ACCEPTANCE_FEASIBI
 
 Do not reopen DGA optimization, acquire other generators, pool their labels, copy their tolerances to HUG, or modify their dirty files as part of the new HUG-only chat. Their code/results remain useful history. The new focus is a prospective project decision, not a claim that earlier research never happened.
 
+## Why HUG-only is a reasonable next scope
+
+A failure predictor can be trained with one generator; the number of generators is not itself a validity requirement. The existing HUG-only baseline is direct project evidence of learnable signal, with limited generalization. Objects, viewpoints, object placement, distinct HUG proposals and controlled execution conditions offer additional diversity. Their benefit is a hypothesis to test, not a promised improvement. The research question should concern generalization across HUG grasp situations; claims of cross-generator generalization are deferred.
+
+The present problem is not one unexplained mapping bug. Real importer/reproducibility defects have been found and repaired; different hand anatomy also causes genuine discrepancies; collision proxies approximate deforming skin; and the original all-surface certifier could not always certify even identity. High numerical accuracy remains appropriate for implementation checks. Zero native-to-robot contact changes is a stronger scientific claim than a practical executed-hand predictor needs. Any practical geometric allowance needs an independent rationale and a versioned protocol, not a threshold chosen so current examples pass.
+
+Do not estimate a date for fixing every limitation. Use finite milestones: one saved-cohort surface diagnosis, one frozen candidate decision, independent qualification, then a recording/execution pilot. At each milestone report what passed, what failed, what remains uncertain and the next specific defect to address. GPU scale does not remove anatomical mismatch or establish a correct acceptance claim. If a bounded diagnostic cannot identify an actionable defect, state the modeling limitation rather than repeating unchanged optimization.
+
+## Exact restart inputs and runtime
+
+- Existing 32-case inventory: `research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/existing_hug_inventory.json`. It resolves saved native outputs, literal Shadow commands, camera transforms, captured scene/state and object metadata in the original checkout. Do not overwrite them.
+- Native comparison protocol: `research_artifacts/hug_native_mano_comparison_2026-10-15_v1/measurement/protocol.json`; SHA-256 `ddd895ade2ab03c9d48110693df472cc39425157ddbb9496ce7505962a982ea7`.
+- Native comparison results and all 32 per-case reports are alongside that protocol. The archived measured driver differs from the live driver only in a summary integer cast; use the documented binding substitution when verifying the historical protocol.
+- Original strict rule: `research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/acceptance/acceptance_rule.json`; SHA-256 `87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4`. Preserve it and its historical failures.
+- External HUG source and licensed MANO assets: `/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/hug/`. Model and asset identities are bound in the protocol. Do not redistribute the licensed MANO model.
+- Existing dependency directories: the sibling `hug-deps/` and `deps/`, `deps/cmeel.prefix/lib/python3.12/site-packages`, and `/private/tmp/grasp-provider-mesh-deps`. Load base NumPy/MuJoCo before extending dependency search paths; mixing NumPy installations caused earlier setup problems. Temporary paths can expire; verify availability before rerunning.
+- Static checks can run locally. No current GPU/pod status or credit balance has been checked in this handoff. No additional paid compute is needed merely to read this evidence.
+
 ## First actions for the new chat
 
-1. Read this handoff, applicable AGENTS/project workflow, and current Git status/worktree/HEAD. Read `HUG_MAPPING_ACCEPTANCE_REPAIR.md` before older mapping reports.
-2. Produce a short current gap list separating accepted saved-command replay, fresh-solve qualification, dynamic tracking, recorder compatibility and predictor evaluation. Identify the exact profile and file hashes involved.
-3. Freeze a bounded HUG-only static validation protocol with justified numerical gates and explicit anatomical diagnostics. Preserve the target and existing results. Fix demonstrated conversion/reproducibility defects; do not require native anatomical identity as the stopping rule for the executed-Shadow claim.
-4. Qualify the chosen mapping on predeclared inputs with independent checks. State scope and all refusals. Use a clear go/no-go milestone rather than continuing optimization indefinitely.
-5. Once the scoped mapping gate is satisfied, complete the recorder bridge and a bounded execution/label audit before large collection. Keep new runs/protocols versioned.
+1. Read this handoff, applicable AGENTS/project workflow, and current Git status/worktree/HEAD. Read `HUG_NATIVE_MANO_COMPARISON.md` and `HUG_MAPPING_ACCEPTANCE_REPAIR.md` before older reports.
+2. Summarize the current state simply before changes: saved-command Shadow realization passes its scoped checks; native MANO imports its skeleton accurately and reduces distortion; neither result alone establishes complete contact/dynamic fidelity. Identify the candidate hand, mapping profile and source hashes.
+3. Begin with a bounded static diagnosis on the existing 32 native grasps: examine the exposed native collision boundary against the saved skinned hand near each object, including reliable normals, penetration and sampling uncertainty. Reuse the frozen Shadow comparison. Separate skinning residual, collision approximation and implementation error. Do not start more broad fits until this diagnosis identifies a specific cause.
+4. State which hand/mapping route is being qualified and why. Preserve the current default until an explicit candidate promotion is justified; define prospective numerical and geometric checks for that claim. For Shadow, close fresh-solve reproducibility/provenance gaps. For native MANO, close collision approximation and physical-model design gaps. Do not impose cross-anatomy identity on a claim limited to actual Shadow execution.
+5. Record acceptance scope, unresolved limitations and all refusals. Independent new-input qualification must remain distinct from these 32 development poses. Once static qualification is documented, complete a bounded execution/recorder/label pilot before large collection. Keep new runs/protocols versioned and do not skip physical checks on a newly selected hand.
 6. Freeze the HUG-only diversity study and independent split, collect appropriate data, then compare prediction baselines. Expand based on measured coverage and learning behavior.
 
 No defensible deadline exists for eliminating every anatomical difference. The useful next milestone is one qualified HUG execution-and-recording pipeline, followed by a validated small pilot. Do not promise that all mappings will become exact or that more data automatically improves prediction.
@@ -196,7 +216,7 @@ Paths in this table are relative to the canonical `codex/project-work` checkout 
 | Native HUG decoding and frame convention | `src/grasp_failure_prediction/integrations/hug.py`, `hug_frames.py` |
 | Input preprocessing and random state | `src/grasp_failure_prediction/integrations/hug_preprocessing.py`, `hug_rng.py` |
 | HUG inference and sampling | `scripts/infer_sim_observation.py`, `scripts/sample_hug_sim_proposals.py` |
-| Native MANO reconstruction | `src/grasp_failure_prediction/evaluation/native_mano.py`, `scripts/audit_hug_native_mano.py` |
+| Native MANO static reference/comparison | `src/grasp_failure_prediction/evaluation/native_mano.py`, `scripts/audit_hug_native_mano.py` |
 | Mapper and provenance | `src/grasp_failure_prediction/evaluation/retargeting.py` |
 | Target import and static pose checks | `src/grasp_failure_prediction/evaluation/pose_validation.py` |
 | Object geometry and inertia import | `src/grasp_failure_prediction/evaluation/object_assets.py` |
@@ -215,11 +235,11 @@ For historical source details, read `docs/HUG_MAPPING_PROCESS_REPAIR.md`, `docs/
 ```text
 Read /Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/docs/HUG_ONLY_MAPPING_AND_PREDICTION_HANDOFF.md and follow its evidence links.
 
-We are focusing only on HUG as our grasp generator, using the existing Shadow hand and MuJoCo pipeline. Continue on codex/project-work in its existing worktree, preserving dirty files, assets, historical results and the open paper path.
+We are focusing only on HUG as our grasp generator. Continue on codex/project-work in its existing worktree, preserving dirty files, assets, historical results and the open paper path. Shadow is the current execution default; native MANO has been added as a static diagnostic candidate and must remain part of the accuracy investigation.
 
-First close the remaining HUG mapping/reproducibility and static validation gaps. Validate correct realization of the declared retargeted Shadow grasp; do not make exact MANO-to-Shadow surface equality a prerequisite for predicting actual Shadow outcomes. Keep distortion visible and do not weaken numerical conversion checks or silently promote experimental mapper profiles.
+First close the HUG mapping/static-validation gaps using the existing 32 saved grasps. Start from the native MANO versus Shadow comparison and diagnose exposed collision surfaces, directions and sampling uncertainty. Distinguish correct coordinate import, anatomical approximation and physical execution. Explain which hand/mapping route you propose to qualify; do not silently change the default, weaken criteria, or promote experimental profiles. Exact MANO-to-Shadow surface equality is not required for a claim limited to actual Shadow outcomes, but distortion must remain visible.
 
 Once the scoped mapping gate is documented as satisfied, proceed to a small execution/recorder/label validation pilot, then HUG-only diverse data collection and prediction-model development under frozen protocols. Preserve all refusals and separate protocol versions. Routine authorized fixes do not need repeated confirmation. Do not resume other-generator work or launch large collection/training before the prerequisites pass.
 
-Start by reading the current authoritative HUG acceptance report and inspecting code/state. Give me a concise gap list and begin the first bounded mapping-validation step.
+Start by reading both current HUG reports and inspecting code/state. Explain where we are and the next step simply before changing anything, then begin the first bounded static mapping-validation step. Do not generate new eval data while mapping qualification is incomplete.
 ```

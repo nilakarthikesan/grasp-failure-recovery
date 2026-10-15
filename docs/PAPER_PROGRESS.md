@@ -493,3 +493,11 @@ The canonical working paper compiled successfully at source SHA-256 `67979b5ecf3
 ## 15 October 2026 — HUG-only continuation handoff prepared
 
 The user selected HUG as the sole active generator for the next phase. The new handoff records accepted 32-command static realization, unresolved fresh-solve/native-fidelity scope, mapper/provenance and recorder/export gaps, historical prediction results, and conditional gates for later evaluation and model work. Other generators and their results remain preserved and deferred. A front-of-manuscript scope note marks the earlier multiple-generator plan as deferred; no historical findings or provider sections are rewritten. No new inference, physics, evaluation data or training ran. [Handoff](HUG_ONLY_MAPPING_AND_PREDICTION_HANDOFF.md). Desktop compilation is recorded separately in the handoff receipt.
+
+
+<!-- hug-only-native-reference-clarification-2026-10-15 -->
+## 15 October 2026 — HUG-only handoff and scope note reconciled
+
+Clarified the handoff and its marked manuscript scope note: HUG-only is settled; Shadow remains the current execution default, while the latest native MANO static candidate remains in the fidelity investigation. The next bounded saved-cohort check and conditional later execution/data/model gates are explicit. No final-hand promotion or mapping pass is asserted. The historical multiple-generator manuscript and results remain preserved behind the prospective scope note. No experiments or new eval data.
+
+The clarified scope note compiled successfully in the existing paper at SHA-256 `84fc5e1a640986b72427a11687c74b8c707c607c99d0702784dc0f47c885f353`. The handoff and compiler hashes are saved in `research_artifacts/hug_only_handoff_2026-10-15_v1/clarification_receipt.json`.

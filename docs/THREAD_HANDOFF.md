@@ -1,5 +1,7 @@
 # New-thread handoff: grasp failure project
 
+> **Latest scope, 15 October 2026:** Continue from [the HUG-only mapping and prediction handoff](HUG_ONLY_MAPPING_AND_PREDICTION_HANDOFF.md). HUG is the sole generator for the next study; complete mapping qualification before evaluation/data/model work. The native MANO comparison remains a static candidate alongside the current Shadow baseline. Other-generator history below is preserved, not the new chat's work plan.
+
 > **Current HUG status, 15 October 2026:** [Native MANO static comparison](HUG_NATIVE_MANO_COMPARISON.md) now passes native skeleton import and improves fidelity on all 32 saved grasps. Complete collision/dynamic validation remains open. The prior Shadow static-input acceptance and strict native-surface failures remain unchanged. Read the latest continuation below. No new eval data.
 
 > **Earlier continuation, 15 October 2026:** Read the
