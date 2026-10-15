@@ -383,3 +383,12 @@ Saved-array analysis finds all six lower-cost feasible fits worsen the fixed fac
 No new geometry fit, query, inference, physics, eval episode/label or training ran. These are post-hoc development diagnostics and selector checks, not corrected poses or held-out evidence. All 9 strict HUG mapping audits remain FAIL; default mapper and acceptance rule are unchanged. The HUG manuscript block records this distinction. Next is a separately frozen bounded guarded geometry study. [Detailed note](HUG_SURFACE_SELECTION_GUARD.md).
 
 The separately authorized replacement A40 is running with the saved DGA runtime restored and CUDA/import/hash controls passed; the original is kept stopped. This infrastructure recovery creates no scientific validation result. [Connection, cost and restore record](GPU_RUNTIME_RECOVERY_2026-10-14.md).
+
+
+## 14 October 2026 — HUG guarded search completed; fixed-anchor claim refuted
+
+The HUG manuscript subsection now distinguishes actual guarded fitting from saved selector replay. All six fits fall back to exact original complete scene poses; all-six independent source/FK and 30 tip-cap checks pass. The nine original surface reports are reused explicitly (zero new full-grid measurements), retaining strict 0 PASS/9 FAIL and pointwise orientation 7 FAIL/2 UNRESOLVED. New driver and independent consistency controls are implementation/provenance evidence, not surface sign-off.
+
+Separately frozen local/full-wrist covers and an all-SO(3) radial bound establish a conditional fixed-anchor palm obstruction for saved Mug B. Its existing positive-area cell is native within 4.746 mm at the 5 mm band and at least 6.646 mm from any rotated Shadow palm after allowances. Independent box/FK and high-precision arithmetic reviews pass. The paper retains the fixed-anchor/literal-surface/engineering-arithmetic limits and does not claim free-placement impossibility, physical contact, failure-label preservation or universal validation.
+
+Production and frozen scientific criteria remain unchanged; no new eval data or training. A new source-only anatomical calibration is being prepared/reviewed, with no result yet asserted. [Evidence and next mapping work](HUG_GUARDED_FIT_AND_REACHABILITY.md).

@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/private/tmp/hug_radial_control_independent_verification_2026-10-14_v1/verify_radial_control.py", line 113, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/private/tmp/hug_radial_control_independent_verification_2026-10-14_v1/verify_radial_control.py", line 77, in main
+    for j in range(3):close(box['size'][j],g['size'][j]);close(box['position'][j],g['geom_local_position_m'][j]);close(box['anchor_local'][j],ag['anchor_box_local_m'][j])
+                                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/hug_radial_control_independent_verification_2026-10-14_v1/verify_radial_control.py", line 28, in close
+    def close(a,b,eps=Decimal('1e-14')):ck(abs(a-dec(b))<eps,(str(a),b))
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/hug_radial_control_independent_verification_2026-10-14_v1/verify_radial_control.py", line 27, in ck
+    if not ok:raise AssertionError(message)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('-0.0254287752160775638502349307067466245989161650622302692147488504631625797353463813508223780', -0.025428776059317218)

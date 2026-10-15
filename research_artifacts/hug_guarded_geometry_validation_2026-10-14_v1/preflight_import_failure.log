@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/private/tmp/hug_guarded_geometry_validation_2026-10-14_v1/run_validation.py", line 11, in <module>
+    import validate_candidate as runner
+  File "/private/tmp/hug_guarded_geometry_validation_2026-10-14_v1/validate_candidate.py", line 14, in <module>
+    from grasp_failure_prediction.evaluation.pose_validation import ShadowPoseValidator,_link_positions,_body_id
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/__init__.py", line 3, in <module>
+    from .schema import EvaluationCase, EvaluationResult, canonical_sha256
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/schema.py", line 10, in <module>
+    from pydantic import BaseModel, ConfigDict, Field, field_validator
+ModuleNotFoundError: No module named 'pydantic'

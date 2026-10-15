@@ -1,0 +1,44 @@
+--- local_v1/verify_midpoints.py
++++ full_wrist_v2/verify_midpoints.py
+@@ -1,4 +1,4 @@
+-"""Independent analytic-box verification of recorded MugB local-cover leaves.
++"""Independent analytic-box verification of recorded MugB full-source-URDF-wrist cover leaves.
+ 
+ No branch/search/model inference, physics step or new object-query selection.
+ """
+@@ -52,7 +52,7 @@
+         else:raise AssertionError('Physics guard selftest failed')
+     TEST=False
+     bound=read(p['bound_report']);bp=read(p['bound_protocol']);case_result=next(c for c in bound['cases'] if c['source_inventory_index']==28)
+-    assert len(case_result['covered_leaves'])==149 and not case_result['unresolved_leaves']
++    assert len(case_result['covered_leaves'])==p['leaf_midpoint_count']==171 and not case_result['unresolved_leaves']
+     assert bound['protocol_sha256']==sha(p['bound_protocol'])
+     inventory=read(p['inventory'])['modern_cases'];case=inventory[28]
+     assert case_result['native_sha256']==case['native']['sha256']
+@@ -121,7 +121,7 @@
+     assert ancestors==case_result['palm_ancestor_joints']==['WRJ1','WRJ2']
+     physical={j.get('name'):[float(j.find('limit').get(k)) for k in ('lower','upper')] for j in ET.parse(p['urdf']).getroot().findall('joint') if j.find('limit') is not None}
+     wi=np.asarray([names.index(n) for n in ['WRJ1','WRJ2']],int)
+-    limits=np.asarray([physical[n] for n in names]);domain=np.column_stack([np.maximum(limits[wi,0],q0[wi]-.35),np.minimum(limits[wi,1],q0[wi]+.35)])
++    limits=np.asarray([physical[n] for n in names]);domain=limits[wi].copy();assert p['domain_mode']=='full_source_URDF_WRJ_limits'
+     assert np.array_equal(domain,case_result['wrist_domain_rad']) and np.array_equal(q0[wi],case_result['wrist_q0_rad'])
+     witnesses=case_result['existing_witnesses'];frozen=read(p['witness_file'])['witnesses']
+     assert witnesses==[w for w in frozen if w['native_sha256']==case_result['native_sha256'] and w['anatomical_part']=='palm'] and len(witnesses)==2
+@@ -171,7 +171,7 @@
+         records.append({'path':leaf['path'],'wrist_midpoint_rad':center.tolist(),'witness_index':j,'independent_box_union_surface_distance_m':dist,'recorded_distance_difference_m':difference,'independent_lower_m':lower,'independent_strict_margin_m':margin,'root_quaternion_fixed':True,'only_wrist_and_required_root_translation_changed':True})
+     for path,h in p['input_sha256'].items():assert sha(path)==h,path
+     assert sha(pp)==ph and sha(__file__)==p['script_sha256'] and COUNTS['actual']==0
+-    report={'schema':'hug_palm_local_bound_independent_geometry_verification_v1','result':'PASS','protocol_sha256':ph,'script_sha256':sha(__file__),'bound_report_sha256':sha(p['bound_report']),
++    report={'schema':'hug_palm_full_wrist_bound_independent_geometry_verification_v2','result':'PASS','protocol_sha256':ph,'script_sha256':sha(__file__),'bound_report_sha256':sha(p['bound_report']),
+         'bound_protocol_sha256':sha(p['bound_protocol']),'source_inventory_index':28,'native_sha256':case_result['native_sha256'],'initial_scene_qpos_float64_sha256':array_sha(nominal),'matches_prior_independent_complete_scene_hash':True,
+         'native_wrist_palm_position_error_m':anchor_error,'source_URDF_palm_rotation_maxabs':source_R_error,'source_URDF_scene_max_link_error_m':source_link_error,
+         'palm_geom_ids':palm_geoms,'all_palm_geoms_are_direct_rigid_boxes':True,'collision_compatibility':compatibility,'palm_ancestor_hinges':ancestors,
+@@ -179,7 +179,7 @@
+         'native_witness_cell_verification':witness_records,'recorded_leaf_midpoints_verified':len(records),'maximum_midpoint_distance_difference_m':max_difference,
+         'minimum_independently_recomputed_strict_margin_m':min(r['independent_strict_margin_m'] for r in records),'maximum_leaf_palm_anchor_hold_error_m':max_anchor_error,
+         'root_orientation_fixed_and_translation_uniquely_anchor_determined':True,'leaves':records,'guards':COUNTS,'physics_steps':0,'new_inference':False,'new_eval_data':False,'new_query_sites':False,
+-        'runtime_seconds':time.perf_counter()-started,'scope':'Only fixed recorded149 MugB leaves within original q0+/-0.35 source-URDF WRJ domain, fixed root rotation/native palm position. Conditional uniform100nm distance+100nm transform arithmetic allowances. No bound search rerun or all-source/free-root claim.',
++        'runtime_seconds':time.perf_counter()-started,'scope':'Only fixed recorded171 MugB leaves across full source-URDF WRJ limits, fixed original root rotation/native palm position and actual eight palm boxes. Conditional uniform100nm distance+100nm transform arithmetic allowances. No bound search rerun, arbitrary free-root impossibility or all-HUG-source claim.',
+         'full_surface_HUG_mapping_accepted':False,'native_failure_label_preservation':'NOT_TESTED','input_sha256':p['input_sha256']}
+     with (OUT/'report.json').open('x') as f:json.dump(report,f,indent=2,allow_nan=False);f.write('\n')
+     print(json.dumps({k:report[k] for k in ['result','recorded_leaf_midpoints_verified','maximum_midpoint_distance_difference_m','minimum_independently_recomputed_strict_margin_m','initial_scene_qpos_float64_sha256','runtime_seconds']},indent=2))

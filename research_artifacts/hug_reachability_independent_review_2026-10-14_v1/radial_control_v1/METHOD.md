@@ -1,0 +1,13 @@
+# Post-hoc radial-shell control on existing palm witnesses
+
+This separate control freezes its script, old inputs and arithmetic assumptions before computing any witness radial margin. It uses only the seven already published palm cells from saved MugA/MugB and the same eight analytic box collider surfaces. No fitting, geometry query, MuJoCo, new cell sampling, inference, physics, labels or training.
+
+For the literal union of individual box SURFACES about the fixed palm anchor a, let Rmin=min_g distance(a,surface_g), Rmax=max of all box corner norms about a. For each box, unsigned distance to its surface is abs(norm(max(abs(p_local)-halfsize,0)) + min(max(abs(p_local)-halfsize),0)). Corners bound all surface point norms above by convexity. Min over box surface distances bounds norms below. A fixed padding of100nm lowers Rmin (clamped0) and raises Rmax. These are conditional arithmetic budgets, not formally directed interval bounds.
+
+For any orientation R in SO(3), every corresponding palm surface point a+Rv retains the norm of v. Thus every surface lies in the same radial shell [Rmin,Rmax]. For an existing triangular object cell with centroid radial norm rho_z about a and inherited radius r, every point's radial norm lies in [max(0,rho_z-r),rho_z+r] by reverse triangle inequality. Euclidean distance is at least radial norm difference.
+
+A native DEFINITE_NEAR cell is mapped DEFINITE_FAR at band tau for ALL SO(3) if either Rmin-(rho_z+r)-tau-epsilon_d-epsilon_transform >0 or (rho_z-r)-Rmax-tau-epsilon_d-epsilon_transform >0. Distance and radial-transform arithmetic allowances are each100nm, inherited from the bound protocol; shell padding is separately100nm. NativeNEAR also uses100nm. All seven witness margins, including nonpositive values, are retained. No new query sites are selected.
+
+The anchor comes from the independently verified original saved feasible-study target_palm_world_position_m and is crosschecked against the original T_world_camera @T_camera_wrist. Object world pose comes from the same saved scene contract previously crossvalidated against the compiled scene. Frame transforms and all files are hash-bound. Source geometry and native relationships stay unchanged.
+
+A positive witness refutes strict same-part proximity preservation for this saved case, this palm geometry and this fixed anchor, even if arbitrary palm orientation were allowed. It does not cover arbitrary free-root translations or different geometries, and says nothing about failure labels or predictor performance. A nonpositive result only means these radial witnesses do not decide the claim.

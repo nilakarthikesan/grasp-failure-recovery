@@ -1,0 +1,248 @@
+--- /Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_feasible_refinement_2026-10-14/validation/validate_candidate.py
++++ /private/tmp/hug_guarded_geometry_validation_2026-10-14_v1/validate_candidate.py
+@@ -52,111 +52,7 @@
+     normal='FAIL' if any(x['pointwise_status']=='FAIL' for x in normals) else 'UNRESOLVED'
+     return {'proximity_status_conditional':prox,'pointwise_orientation_status':normal,'strict_relationship_status_conditional':'FAIL' if prox=='FAIL' or normal=='FAIL' else 'UNRESOLVED','proximity_checks':checks,'orientation_checks':normals,'full_physical_contact_equivalence':'UNRESOLVED','failure_label_preservation':'NOT_TESTED','independent_unseen_object_validation':'NOT_TESTED'}
+ 
+-def verify_recorded_selection(target, physical_ranges, protocol):
+-    audit=target['solver_audit']; original=np.asarray(target['original_qpos_rad'],float)
+-    bounds=np.asarray([physical_ranges[n] for n in target['joint_names']],float)
+-    low=np.maximum(bounds[:,0],original-protocol['maximum_joint_delta_rad'])
+-    high=np.minimum(bounds[:,1],original+protocol['maximum_joint_delta_rad'])
+-    assert audit['schema']=='hug_feasible_only_static_pattern_refinement_v1'
+-    assert audit['config']['maximum_pattern_sweeps']==0
+-    assert audit['config']['maximum_full_geometry_evaluations']==4
+-    assert audit['feasibility_error_allowance_m']==0
+-    assert audit['final_callbacks_fresh_outside_cache'] and not audit['mapping_fidelity_acceptance']
+-    assert np.array_equal(original,np.asarray(audit['original_qpos_rad']))
+-    assert np.array_equal(bounds,np.asarray(audit['physical_bounds_rad']))
+-    assert np.array_equal(np.column_stack([low,high]),np.asarray(audit['bounded_correction_domain_rad']))
+-    original_vectors=np.asarray(audit['baseline']['tip_error_vectors_m'],float)
+-    assert original_vectors.shape==(5,3) and np.isfinite(original_vectors).all()
+-    original_norms=np.sqrt(np.einsum('ij,ij->i',original_vectors,original_vectors))
+-    baseline_cost=float(audit['baseline']['objective'])
+-    assert np.isfinite(baseline_cost) and baseline_cost>=0
+-    mean_limit=protocol['existing_engineering_mean_tip_guard_m']
+-    improvement=protocol['minimum_objective_improvement']
+-
+-    def checked_q(q):
+-        v=np.asarray(q,float)
+-        assert v.shape==(24,) and np.isfinite(v).all()
+-        assert np.all(v>=low) and np.all(v<=high)
+-        return v
+-
+-    def check_assessment(row):
+-        errors=np.asarray(row['tip_error_vectors_m'],float)
+-        assert errors.shape==(5,3) and np.isfinite(errors).all()
+-        norm=np.sqrt(np.einsum('ij,ij->i',errors,errors))
+-        assert np.array_equal(norm,np.asarray(row['tip_error_norm_m']))
+-        assert np.array_equal(norm-original_norms,np.asarray(row['tip_error_increase_m']))
+-        caps=norm<=original_norms; mean=float(norm.mean()); feasible=bool(caps.all() and mean<=mean_limit)
+-        assert caps.tolist()==row['individual_tip_nonworsening_pass']
+-        assert mean==row['mean_fingertip_error_m']
+-        assert bool(mean<=mean_limit)==row['strict_existing_mean_guard_pass']
+-        assert feasible==row['exact_computed_engineering_feasible']
+-        return feasible
+-
+-    assert check_assessment(audit['baseline'])
+-    seeds=np.asarray(audit['predeclared_seed_qpos_rad'],float)
+-    assert seeds.shape==(1,24)
+-    seed=checked_q(seeds[0]);assert np.array_equal(seed,np.asarray(target['predeclared_seed_qpos_rad']))
+-    assert np.array_equal(seed,np.asarray(target['raw_candidate_qpos_rad']))
+-    assert target['seed_source_cohort_sha256']==audit['predeclared_seed_source_sha256']
+-    proposals=audit['proposals'];accepted=audit['accepted_candidates']
+-    assert len(proposals)<=1 and len(accepted)<=1
+-    chosen=None
+-    for number,row in enumerate(proposals,1):
+-        assert row['sequence']==number and row['sweep']==0 and row['seed_index']==0
+-        assert row['direction']=='predeclared_seed' and row['radius_rad'] is None
+-        assert np.array_equal(np.asarray(row['anchor_qpos_rad']),original)
+-        assert np.array_equal(checked_q(row['proposal_qpos_rad']),seed)
+-        if 'proposal_assessment' in row:check_assessment(row['proposal_assessment'])
+-        if 'restored_assessment' in row:check_assessment(row['restored_assessment'])
+-        for backtrack in row.get('restoration_backtracking',[]):
+-            checked_q(backtrack['qpos_rad']);check_assessment(backtrack['assessment'])
+-        if 'full_assessment' not in row:
+-            assert not row['accepted'];continue
+-        candidate=checked_q(row['candidate_qpos_rad']);assessment=row['full_assessment']
+-        assert check_assessment(assessment)
+-        cost=float(assessment['objective']);assert np.isfinite(cost) and cost>=0
+-        improved=bool(cost<baseline_cost-improvement)
+-        assert improved==row['accepted']
+-        if improved:chosen=(candidate,cost,row['sequence'])
+-    if chosen is None:
+-        assert accepted==[]
+-    else:
+-        assert len(accepted)==1
+-        assert np.array_equal(np.asarray(accepted[0]['qpos_rad']),chosen[0])
+-        assert accepted[0]['objective']==chosen[1] and accepted[0]['proposal_sequence']==chosen[2]
+-    refused=audit['callback_or_geometry_refusal'] is not None
+-    if refused or chosen is None:
+-        expected=original; source='original_fallback'; chosen_sequence=None; cost=baseline_cost
+-    else:
+-        expected=chosen[0];source='predeclared_seed_after_FK_restore';cost=chosen[1];chosen_sequence=chosen[2]
+-    returned=checked_q(target['qpos_rad'])
+-    assert np.array_equal(returned,expected) and np.array_equal(returned,np.asarray(audit['returned_qpos_rad']))
+-    assert audit['selected_candidate_source']==source and audit['selected_major_iteration'] is None
+-    assert bool(source!='original_fallback')==audit['surface_candidate_returned']
+-    assert bool(source=='original_fallback')==audit['exact_original_fallback']
+-    final=audit['final_assessment'];assert final==audit['final'] and check_assessment(final)
+-    assert abs(final['objective']-cost)<1e-10
+-    assert abs(final['objective']-target['selected_fresh_diagnostics']['objective'])<1e-10
+-    events=audit['events'];counts=audit['counters']
+-    assert [e['sequence'] for e in events]==list(range(1,len(events)+1))
+-    full_events=[e for e in events if e['kind']=='full_callback']
+-    fk_events=[e for e in events if e['kind']=='FK_callback']
+-    assert len(full_events)==counts['full']<=audit['config']['maximum_full_geometry_evaluations']
+-    assert len(fk_events)==counts['FK']<=audit['config']['maximum_FK_evaluations']
+-    assert full_events[-1]['fresh'] and full_events[-1]['terminal']
+-    assert fk_events[-1]['fresh'] and fk_events[-1]['terminal']
+-    assert np.array_equal(np.asarray(full_events[-1]['qpos_rad']),returned)
+-    assert np.array_equal(np.asarray(fk_events[-1]['qpos_rad']),returned)
+-    assert target['full_callback_count_including_fresh_final']==counts['full']
+-    assert audit['full_FK_agreement_maxabs_m']<=audit['config']['full_FK_agreement_allowance_m']
+-    return {'recorded_seed_restoration_selection_verified':True,'selected_candidate_source':source,
+-        'selected_proposal_sequence':chosen_sequence,'recorded_seed_proposal_count':len(proposals),
+-        'historically_accepted_seed_count':len(accepted),'fresh_final_refusal_forces_original':refused,
+-        'exact_computed_all_five_caps_verified_in_recorded_assessments':True,
+-        'norm_arithmetic':'sqrt(einsum(ij,ij->i)) on independently recovered vectors',
+-        'feasibility_error_allowance_m':0.,'full_and_FK_terminal_events_fresh_verified':True,
+-        'objective_values_not_independently_recomputed_for_all_trace_poses':True,
+-        'not_scientific_mapping_acceptance':True}
++from selection_audit import verify_recorded_selection
+ 
+ def main():
+     global TEST
+@@ -169,40 +65,53 @@
+     assert candidate['protocol_sha256']==protocol['candidate_protocol_expected_sha256']
+     candidate_protocol_file=args.candidate.parent/'protocol.json';assert sha(candidate_protocol_file)==candidate['protocol_sha256']
+     candidate_protocol=read(candidate_protocol_file)
+-    assert candidate['method_version']==2 and candidate['method_stage']=='predeclared_seed_only'
+-    assert candidate_protocol['method_version']==2 and candidate_protocol['method_stage']=='predeclared_seed_only'
+-    assert candidate_protocol['solver_configuration']['maximum_pattern_sweeps']==0
+-    assert sha(args.candidate.parent/'run_seed_stage.py')==candidate['script_sha256']
++    assert candidate['method_version']==protocol['candidate_method_version'] and candidate['method_stage']==protocol['candidate_method_stage']
++    assert candidate_protocol['method_version']==protocol['candidate_method_version'] and candidate_protocol['method_stage']==protocol['candidate_method_stage']
++    assert sha(args.candidate.parent/'run_guarded_geometry.py')==candidate['script_sha256']
+     assert sha(args.candidate.parent/'feasible_surface_refinement.py')==candidate['solver_implementation_sha256']
+-    assert sha(Path(candidate_protocol['direction_helper_path']))==candidate['direction_implementation_sha256']
++    assert sha(args.candidate.parent/'exact_direction.py')==candidate['direction_implementation_sha256']
++    assert sha(args.candidate.parent/'merge_guarded_geometry.py')==candidate['merge_script_sha256']
+     for file,h in candidate_protocol['implementation_sha256'].items():assert sha(file)==h,file
+     for file,h in candidate_protocol['source_sha256'].items():assert sha(file)==h,file
+-    if 'merge_script_sha256' in candidate:
+-        assert sha(protocol['candidate_merge_script_path'])==candidate['merge_script_sha256']
+-    cohorts=candidate['cohort_provenance'];assert len(cohorts)==1
+-    cohort=cohorts[0];assert cohort['cohort_case_indices']==protocol['case_indices']
+-    assert sha(cohort['path'])==cohort['sha256'];cohort_report=read(cohort['path'])
+-    assert cohort_report['schema']=='hug_feasible_seed_stage_surface_candidate_cohort_v2'
+-    assert cohort_report['protocol_sha256']==candidate['protocol_sha256']
+-    assert cohort_report['method_version']==2 and cohort_report['method_stage']=='predeclared_seed_only'
+-    assert cohort_report['cohort_case_indices']==protocol['case_indices']
+-    assert cohort_report['guards']['actual']==0 and cohort_report['guards']['selftests']==3
+-    assert cohort_report['physics_steps']==0 and cohort_report['protected_hashes_unchanged']
+-    assert len(cohort_report['cases'])==6 and candidate['guards']['actual']==0 and candidate['guards']['selftests']==3
+-    assert {x['native_sha256'] for x in cohort_report['cases']}==set(targets)
+-    assert all(x==targets[x['native_sha256']] for x in cohort_report['cases'])
+-    for target in targets.values():
+-        seed_binding=candidate_protocol['seed_bindings'][str(target['source_inventory_index'])]
+-        assert sha(seed_binding['old_cohort_path'])==seed_binding['old_cohort_sha256']
+-        old_case=read(seed_binding['old_cohort_path'])['cases'][0]
+-        assert old_case['native_sha256']==target['native_sha256']
+-        assert old_case['joint_names']==target['joint_names']
++    assert candidate['physics_steps']==0 and candidate['guards']['actual']==0 and candidate['guards']['selftests']==6
++    assert not candidate['new_generator_proposal'] and not candidate['new_eval_data'] and not candidate['training'] and not candidate['production_changes']
++    assert sorted(c['source_inventory_index'] for c in candidate['cases'])==protocol['case_indices']
++    assert candidate['cohort_case_indices']==protocol['case_indices']
++    assert candidate['strict_acceptance_rule_unchanged_sha256']=='87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4'
++    assert candidate['protected_hashes_unchanged'] and candidate['original_inputs_and_implementations_unchanged']
++    cohorts=candidate['cohort_provenance'];assert len(cohorts)==2
++    assert [c['cohort_case_indices'] for c in cohorts]==candidate_protocol['allowed_cohorts']==[[8,16,24],[12,20,28]]
++    cohort_cases=[]
++    for cohort in cohorts:
++        assert sha(cohort['path'])==cohort['sha256'];report=read(cohort['path'])
++        assert report['schema']=='hug_guarded_geometry_surface_candidate_cohort_v1'
++        assert report['protocol_sha256']==candidate['protocol_sha256']
++        assert report['method_version']==3 and report['method_stage']==candidate['method_stage']
++        assert report['cohort_case_indices']==cohort['cohort_case_indices']
++        assert [c['source_inventory_index'] for c in report['cases']]==cohort['cohort_case_indices']
++        assert report['guards']['actual']==0 and report['guards']['selftests']==3 and report['physics_steps']==0
++        assert not report['new_eval_data'] and not report['new_generator_proposal'] and not report['training']
++        assert report['protected_hashes_unchanged'] and report['original_inputs_and_implementations_unchanged']
++        assert report['strict_acceptance_rule_unchanged_sha256']==candidate['strict_acceptance_rule_unchanged_sha256']
++        for key in ['script_sha256','solver_implementation_sha256','direction_implementation_sha256']:
++            assert report[key]==candidate[key]
++        cohort_cases+=report['cases']
++    assert len(cohort_cases)==len({c['source_inventory_index'] for c in cohort_cases})==len({c['native_sha256'] for c in cohort_cases})==6
++    assert sorted(cohort_cases,key=lambda c:c['source_inventory_index'])==candidate['cases']
++    assert {c['source_inventory_index']:c['native_sha256'] for c in candidate['cases']}=={c['source_inventory_index']:c['native_sha256'] for c in candidate_protocol['cases']}
++    for target in candidate['cases']:
++        seed=candidate_protocol['seed_bindings'][str(target['source_inventory_index'])]
++        assert sha(seed['old_cohort_path'])==seed['old_cohort_sha256']
++        old_case=read(seed['old_cohort_path'])['cases'][0]
++        assert old_case['native_sha256']==target['native_sha256'] and old_case['joint_names']==target['joint_names']
+         assert np.array_equal(np.asarray(old_case['original_qpos_rad']),np.asarray(target['original_qpos_rad']))
+         assert np.array_equal(np.asarray(old_case['raw_candidate_qpos_rad']),np.asarray(target['predeclared_seed_qpos_rad']))
+-        assert target['seed_source_cohort_sha256']==seed_binding['old_cohort_sha256']
++        assert target['seed_source_cohort_sha256']==seed['old_cohort_sha256']
+     if args.preflight_only:
+         assert args.case_index is None, 'All six preflight cases must complete together'
+     else:
++        assert not args.skip_orientation, 'Full audit cannot omit orientation'
++        assert args.case_index in protocol['allowed_full_audit_cohorts']
+         preflight_path=args.out/'candidate_validation_preflight_only.json.gz'
+         preflight_binding=read(args.out/'candidate_validation_preflight_only.json.gz.binding.json')
+         preflight_raw=gzip.decompress(preflight_path.read_bytes());preflight=json.loads(preflight_raw)
+@@ -303,8 +212,43 @@
+         for g in hand:gg=a.geom_rep(m,d,g['id'],R,pos);gg['part']=g['part'];newhand.append(gg)
+         vt,on,_=ori.visual_mesh(meta,m,d,pos,R);caseid=case['object_id']+'_'+Path(case['native']['path']).parent.name
+         rec={'source_inventory_index':index,'native_sha256':h,'case_id':caseid,'candidate_joint_range_checks':bound,'engineering_guard_independent_audit':guard_audit,'root_policy':{'native_wrist_to_palm_position_error_m':palm_error,'declared_world_operator_times_base_palm_rotation_maxabs':rotation_error,'independent_fixed_URDF_vs_scene_max_link_error_m':link_error,'V1_fixed_root_WRJ_palm_bitwise_unchanged':not v2,'V2_q_dependent_carrier_preserving_native_palm_position':v2,'not_an_anatomy_equivalence_certificate':True},'input_sha256':meta['input_sha256'],'resolutions':{}}
++        object_body=a.ident(m,mujoco.mjtObj.mjOBJ_BODY,'object')
++        assert np.array_equal(d.xpos[object_body],pos) and np.array_equal(d.xmat[object_body].reshape(3,3),R)
++        rec['scene_state_binding']={'original_qpos_float64_sha256':hashlib.sha256(np.asarray(original_q,dtype='<f8').tobytes()).hexdigest(),
++            'selected_qpos_float64_sha256':hashlib.sha256(np.asarray(d.qpos,dtype='<f8').tobytes()).hexdigest(),
++            'qpos24_exact_original':bool(np.array_equal(qv,np.asarray(target['original_qpos_rad']))),
++            'entire_scene_qpos_exact_original_including_root':bool(np.array_equal(d.qpos,original_q)),
++            'time_s':float(d.time),'object_qpos_exact_original':bool(np.array_equal(d.qpos[objadr:objadr+7],initial)),
++            'object_world_position_and_rotation_exact_original':True}
+         if args.preflight_only:
+             records.append(rec);assert d.time==0 and np.array_equal(d.qpos,nominal) and np.array_equal(d.qpos[objadr:objadr+7],initial);print(json.dumps({'preflight':caseid,'passed':True,'actual_mean_tip_mm':actual_mean*1000}),flush=True);continue
++        if np.array_equal(d.qpos,original_q):
++            assert np.array_equal(qv,np.asarray(target['original_qpos_rad'])) and d.time==0
++            assert np.array_equal(rootpos,original_q[rootadr:rootadr+3]) and np.array_equal(rootquat,original_q[rootadr+3:rootadr+7])
++            for file,expected in meta['input_sha256'].items():assert sha(file)==expected,file
++            for density in selected['densities_mm']:
++                key=str(density);cache=Path(p['original_query_cache_root'])/f'{caseid}_density{density}mm_queries.npz'
++                assert sha(cache)==p['query_cache_sha256'][str(cache)]
++                prior_sampling=cm[h]['resolutions'][key]['numerical_allowances'];prior_orientation=om[h]['resolutions'][key]
++                with np.load(cache,allow_pickle=False) as f:
++                    assert len(f['query_object_m'])==prior_orientation['query_count']
++                    assert f['query_object_m'].dtype==np.float64 and np.isfinite(f['query_object_m']).all()
++                check=status(prior_sampling,prior_orientation,rule,sp['primary_allowance_m'])
++                rec['resolutions'][key]={'query_cache_sha256':sha(cache),'query_count':prior_orientation['query_count'],
++                    'conditional_sampling':prior_sampling,'orientation':prior_orientation,'frozen_acceptance_application':check,
++                    'baseline_acceptance':am[h,key],'baseline_conditional_sampling':prior_sampling,'baseline_orientation':prior_orientation,
++                    'runtime_seconds':0.0,'audit_provenance':{'measurement_mode':'REUSED_EXACT_ORIGINAL_SCENE_STATE_NO_GEOMETRY_RERUN',
++                        'fresh_source_FK_preflight_this_run':True,'new_surface_or_orientation_measurement_executed':False,
++                        'original_sampling_report_sha256':sha(OLD/'sampling/sampling_uncertainty.json'),
++                        'original_orientation_report_sha256':sha(OLD/'orientation/orientation_report_full.json.gz'),
++                        'sampling_protocol_sha256':sha(OLD/'sampling/protocol.json'),'orientation_protocol_sha256':sha(OLD/'orientation/protocol.json'),
++                        'acceptance_rule_sha256':sha(OLD/'acceptance/acceptance_rule.json'),'native_sha256':h,
++                        'input_sha256':meta['input_sha256'],'original_and_selected_scene_qpos_float64_sha256':rec['scene_state_binding']['original_qpos_float64_sha256']}}
++            records.append(rec)
++            assert np.array_equal(d.qpos,nominal) and d.time==0 and np.array_equal(d.qpos[objadr:objadr+7],initial)
++            write(args.out/f'{caseid}_validation.json',rec)
++            print(json.dumps({'reused_original_audit':caseid,'densities_mm':selected['densities_mm'],'geometry_rerun':False}),flush=True)
++            continue
+         for density in selected['densities_mm']:
+             cache=Path(p['original_query_cache_root'])/f'{caseid}_density{density}mm_queries.npz';assert sha(cache)==p['query_cache_sha256'][str(cache)]
+             with np.load(cache,allow_pickle=False) as f:old={k:f[k].copy() for k in f.files}
+@@ -329,7 +273,7 @@
+     for file,h in protected.items():assert sha(file)==h,file
+     for file,h in protocol['fixed_files_sha256'].items():assert sha(file)==h,file
+     assert sha(args.candidate)==cp and sha(args.out/'protocol.json')==ph and sha(__file__)==protocol['script_sha256'];assert COUNTS['actual']==0
+-    report={'schema':'hug_feasible_seed_candidate_independent_static_validation_v2','candidate_sha256':cp,'candidate_path':str(args.candidate),'protocol_sha256':ph,'script_sha256':sha(__file__),'all_source_geometry_and_protected_hashes_unchanged':True,'protected_source_count':len(protected),'physics_steps':0,'guards':COUNTS,'new_eval_data':False,'new_inference':False,'training':False,'development_cases_only':True,'preflight_only':args.preflight_only,'skip_orientation_pilot':args.skip_orientation,'runtime_seconds':time.perf_counter()-tic,'cases':records,'limitations':protocol['limitations']}
++    report={'schema':'hug_guarded_geometry_candidate_independent_static_validation_v1','candidate_sha256':cp,'candidate_path':str(args.candidate),'protocol_sha256':ph,'script_sha256':sha(__file__),'all_source_geometry_and_protected_hashes_unchanged':True,'protected_source_count':len(protected),'physics_steps':0,'guards':COUNTS,'new_eval_data':False,'new_inference':False,'training':False,'development_cases_only':True,'preflight_only':args.preflight_only,'skip_orientation_pilot':args.skip_orientation,'runtime_seconds':time.perf_counter()-tic,'cases':records,'limitations':protocol['limitations']}
+     raw=(json.dumps(report,indent=2,allow_nan=False)+'\n').encode();name='candidate_validation'+('_'+','.join(map(str,args.case_index)) if args.case_index else '')+('_sampling_only' if args.skip_orientation else '')+('_preflight_only' if args.preflight_only else '')+'.json.gz';(args.out/name).write_bytes(gzip.compress(raw,mtime=0));write(args.out/(name+'.binding.json'),{'uncompressed_sha256':hashlib.sha256(raw).hexdigest(),'gzip_sha256':sha(args.out/name),'case_count':len(records),'protocol_sha256':ph,'candidate_sha256':cp})
+     print(json.dumps({'report':str(args.out/name),'seconds':time.perf_counter()-tic,'cases':len(records)}),flush=True)
+ if __name__=='__main__':main()
