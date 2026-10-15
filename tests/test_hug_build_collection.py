@@ -94,6 +94,7 @@ def _install_fake_generation(prepared,monkeypatch,*,refusal_seed=None,error_seed
         driver.write(out/"observation_manifest.json",dict(capture=case["case_id"]))
         calls["capture"].append((case,kwargs))
     def infer(request_path,output_dir,**kwargs):
+        assert kwargs["runtime_dependency_dirs"]==prepared.protocol["dependency_dirs"]
         request=json.loads(Path(request_path).read_text());calls["generation"].append(request)
         out=Path(output_dir);out.mkdir(parents=True)
         driver.write(out/"sample_0000/native/inference_report.json",dict(loaded_model_state_sha256="sha256:"+"a"*64))

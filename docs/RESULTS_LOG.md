@@ -329,3 +329,26 @@ the repaired scalar quaternion contraction emits no prior NumPy matmul warning.
 
 **Verdict:** Phase2 unified implementation/static contracts PASS; physical
 fresh-pipeline acceptance still pending the declared run. No manuscript edits.
+
+
+## 15 October 2026 — Phase 2 stopped generation and explicit runtime repair
+
+The committed v1 preparation at e2ee3bd was executed once. It stopped before
+native generation: ERROR1/NOT_RUN31, one calibrated capture/500settling steps,
+zero native outputs, zero task outcomes, zero fits. The base Hub1.33.0 was
+selected beside bundled Transformers4.57.1, whose supported Hub range is
+>=0.34,<1. The preserved generation.draft.json records HARD_STOP; this is an
+infrastructure error with null physical labels, never a grasp failure.
+
+The repair selects only the declared dependency directories in the child,
+prioritizing them after loading base NumPy/Torch. A real import probe resolves
+NumPy2.2.6, Torch2.11.0, Transformers4.57.1 and bundled Hub0.36.2. Child logs now
+persist with each native record and stale copied mapping/log files are cleared.
+No requirement bypass or model/scientific gate changed. The affected provider,
+core HUG mapping and collector controls pass110tests,1deselected,zero real
+integration calls; receipt hug_build_phase2_runtime_repair_2026-10-15_v2/static_tests.json.
+A preliminary test selection hit the static guard in an integration-only test;
+its first step was blocked and it is excluded from the static rerun.
+
+A new v2 preparation/run will retain the same declared32generation seeds,
+20pilot slots and256study slots. V1 is retained without retries or replacement.

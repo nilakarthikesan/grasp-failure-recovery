@@ -19,7 +19,11 @@ if "--dependency-dir" in sys.argv:
     bootstrap = argparse.ArgumentParser(add_help=False)
     bootstrap.add_argument("--dependency-dir", type=Path, action="append", default=[])
     runtime_args, _ = bootstrap.parse_known_args()
-    sys.path.extend(str(path.resolve()) for path in runtime_args.dependency_dir)
+    for path in reversed(runtime_args.dependency_dir):
+        if not path.is_dir():
+            raise FileNotFoundError(f"HUG dependency directory unavailable: {path}")
+        sys.path.insert(0, str(path.resolve()))
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from grasp_failure_prediction.integrations.hug import normalize_hug_prediction
 from grasp_failure_prediction.integrations.hug_preprocessing import seeded_point_cloud, tensor_content_hash

@@ -2439,3 +2439,15 @@ Implemented checks:247focused controls pass withzero real integration. Actual
 new collection/filter/approach evidence is pending a frozen bounded driver.
 Reserve bell-pepper/bear geometry is downloaded at a pinned revision; qualify
 captures before use and withhold their task outcomes until a model is frozen.
+
+
+## 2026-10-15 — Separate runtime repair from scientific run versions
+
+Measured v1 fresh generation stopped at its first native import (ERROR1,
+NOT_RUN31) from mixed Hub/Transformers installations; no native/task outcomes
+exist. Preserve the stopped receipt. Select the declared curated dependency
+bundle after base numerical imports, persist child logs, and freeze a new v2
+run with unchanged scientific seeds, quotas and gates before execution. The
+110focused static checks pass withzero actual integration calls. This is an
+implemented runtime repair; fresh HUG collection remains pending. System-only
+scope continues; docs/paper is untouched.

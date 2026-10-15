@@ -437,7 +437,8 @@ def generate(output,authorization):
             try:
                 with physics_budget(0):
                     manifest=generate_proposals(request_path,directory,project_root=protocol["inputs_project"],
-                        hug_root=protocol["hug_root"],checkpoint=protocol["checkpoint"])
+                        hug_root=protocol["hug_root"],checkpoint=protocol["checkpoint"],
+                        runtime_dependency_dirs=protocol["dependency_dirs"])
             except Exception:
                 mapping_path=directory/"sample_0000/native/mapping_record.json"
                 mapping=json.loads(mapping_path.read_text()) if mapping_path.is_file() else None

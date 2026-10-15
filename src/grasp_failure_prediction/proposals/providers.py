@@ -129,12 +129,16 @@ def _binding(
 class HugProposalProvider:
     """Run official HUG, retarget MANO, and emit execution-ready proposals."""
 
-    def __init__(self, spec: ProviderSpec, *, project_root: Path, hug_root: Path, checkpoint: Path):
+    def __init__(self, spec: ProviderSpec, *, project_root: Path, hug_root: Path, checkpoint: Path,
+                 runtime_dependency_dirs: tuple[str | Path, ...] = ()):
         self.spec = spec
         self.project_root = project_root
         self.adapter_root = Path(__file__).resolve().parents[3]
         self.hug_root = hug_root.resolve()
         self.checkpoint = checkpoint.resolve()
+        self.runtime_dependency_dirs = tuple(Path(path).resolve() for path in runtime_dependency_dirs)
+        if any(not path.is_dir() for path in self.runtime_dependency_dirs):
+            raise FileNotFoundError("declared HUG runtime dependency directory is unavailable")
         if not self.hug_root.is_dir():
             raise FileNotFoundError(f"HUG checkout does not exist: {self.hug_root}")
         if not self.checkpoint.is_file():
@@ -171,7 +175,9 @@ class HugProposalProvider:
             if sample_dir.exists():
                 raise FileExistsError(f"proposal sample directory already exists: {sample_dir}")
             shutil.copytree(observation, native)
-            for stale in (native / "proposal.pkl", native / "inference_report.json"):
+            for stale in (native / name for name in (
+                "proposal.pkl", "inference_report.json", "mapping_record.json", "inference.log"
+            )):
                 stale.unlink(missing_ok=True)
             command = [
                 sys.executable,
@@ -181,13 +187,14 @@ class HugProposalProvider:
                 "--checkpoint", str(self.checkpoint),
                 "--seed", str(sample_seed),
             ]
-            # The shared local environment has an external, validated dependency
-            # bundle. Propagate the parent's search paths after the child's base
-            # numerical imports; do not shadow its pinned NumPy with PYTHONPATH.
-            for directory in dict.fromkeys(sys.path):
-                if directory and Path(directory).is_dir():
-                    command.extend(["--dependency-dir", str(Path(directory).resolve())])
-            subprocess.run(command, cwd=self.project_root, check=True)
+            # Select the declared bundle, rather than accidentally mixing base
+            # Hub packages with its pinned Transformers. The child loads base
+            # NumPy/Torch before prioritizing these explicit dependency paths.
+            for directory in self.runtime_dependency_dirs:
+                command.extend(["--dependency-dir", str(directory)])
+            with (native / "inference.log").open("x", encoding="utf-8") as log:
+                subprocess.run(command, cwd=self.project_root, check=True,
+                               stdout=log, stderr=subprocess.STDOUT, text=True)
             native_proposal = native / "proposal.pkl"
             report_path = native / "inference_report.json"
             if not native_proposal.is_file() or not report_path.is_file():
@@ -442,6 +449,7 @@ def load_local_provider(
     project_root: Path,
     hug_root: Path | None = None,
     checkpoint: Path | None = None,
+    runtime_dependency_dirs: tuple[str | Path, ...] = (),
 ) -> ProposalProvider:
     """Construct a registered in-process provider without dynamic code loading."""
 
@@ -449,7 +457,8 @@ def load_local_provider(
         if hug_root is None or checkpoint is None:
             raise ValueError("HUG provider requires --hug-root and --checkpoint")
         return HugProposalProvider(
-            spec, project_root=project_root, hug_root=hug_root, checkpoint=checkpoint
+            spec, project_root=project_root, hug_root=hug_root, checkpoint=checkpoint,
+            runtime_dependency_dirs=runtime_dependency_dirs,
         )
     if spec.provider_id == "shadow_saved_record_v1":
         return SavedShadowProposalProvider(spec, project_root=project_root)

@@ -1,0 +1,26 @@
+{
+  "exit_code": 0,
+  "integration_calls": 0,
+  "pytest_arguments": [
+    "tests/test_hug_adapter.py",
+    "tests/test_hug_frames.py",
+    "tests/test_hug_preprocessing.py",
+    "tests/test_hug_rng.py",
+    "tests/test_retargeting.py",
+    "tests/test_compiled_shadow_conversion.py",
+    "tests/test_object_geometry_schema.py",
+    "tests/test_hug_mapping_record.py",
+    "tests/test_grasp_proposals.py",
+    "tests/test_hug_build_collection.py",
+    "-k",
+    "not freefall and not executes_through_generic_mujoco_runner",
+    "-q"
+  ],
+  "elapsed_s": 5.134090124862269,
+  "runtime": {
+    "python": "3.12.13",
+    "numpy": "2.2.6",
+    "mujoco": "3.3.7",
+    "pydantic": "2.13.5"
+  }
+}

@@ -249,6 +249,7 @@ def generate_proposals(
     project_root: str | Path | None = None,
     hug_root: str | Path | None = None,
     checkpoint: str | Path | None = None,
+    runtime_dependency_dirs: tuple[str | Path, ...] = (),
     external_command: str | None = None,
     endpoint: str | None = None,
     bearer_token_env: str | None = None,
@@ -291,6 +292,7 @@ def generate_proposals(
             project_root=project,
             hug_root=Path(hug_root).resolve() if hug_root else None,
             checkpoint=Path(checkpoint).resolve() if checkpoint else None,
+            runtime_dependency_dirs=runtime_dependency_dirs,
         )
         paths = provider.generate(request, output)
     if len(paths) != request.sample_count:
@@ -342,6 +344,7 @@ def main() -> None:
     parser.add_argument("--project-root", default=".")
     parser.add_argument("--hug-root")
     parser.add_argument("--checkpoint")
+    parser.add_argument("--dependency-dir", action="append", default=[])
     parser.add_argument(
         "--external-command",
         help="command that accepts --request PATH --output DIRECTORY",
@@ -356,6 +359,7 @@ def main() -> None:
         project_root=args.project_root,
         hug_root=args.hug_root,
         checkpoint=args.checkpoint,
+        runtime_dependency_dirs=tuple(args.dependency_dir),
         external_command=args.external_command,
         endpoint=args.endpoint,
         bearer_token_env=args.bearer_token_env,
