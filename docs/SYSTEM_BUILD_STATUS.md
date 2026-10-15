@@ -4,6 +4,30 @@ The user assigns the manuscript outside this repository. Build work must not
 edit `docs/paper` or maintain manuscript progress. Continue on the existing
 `codex/project-work` checkout; preserve unrelated dirty work and old experiments.
 
+## Current target: native MANO in MANOSim
+
+The user explicitly selected HUG's native MANO hand in MANOSim on 15 October:
+prioritize faithful HUG transfer. This supersedes the target-hand question below.
+The Shadow controller, recordings and predictors are historical systems; their
+results do not establish native MANO performance or qualify a native controller.
+
+The exact exported shape and all sixteen native joint transforms already pass
+the two-case numerical audit. Collision admission remains closed. The next
+repair preserves every original posed-skin triangle rather than dropping faces
+at bone boundaries or replacing them with hulls. A locked-articulation surface
+reference is the first scoped test; it cannot establish fidelity during finger
+motion. MuJoCo flex vertices follow individual bodies, whereas MANO skin uses
+weighted bones and pose correctives. Matching the rendered skin alone therefore
+does not establish matching collision geometry or articulated contact forces.
+
+Before using that candidate, a separate manufactured primitive test will check
+the pinned engine's triangle readback and two-sided sphere contacts at zero and
+positive flex radius. Zero radius is outside the documented 2D-flex contract;
+successful compilation alone will not qualify it. Positive thickness must be
+reported as geometry, not hidden in the existing numerical allowance. Native
+recording contracts are being prepared separately for 67 position coordinates,
+51 velocities and 51 commands. No native data collection or training is enabled.
+
 ## Mapping fidelity is the current prerequisite
 
 The user's renewed decision on 15 October is to repair and validate transfer

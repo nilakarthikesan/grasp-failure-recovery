@@ -1030,3 +1030,17 @@ The evidence supports a joint-spanning collider repair with fixed validated
 poses. It does not admit these diagnostic surfaces as dynamic hands or release
 collection/training. Production target remains unchanged while the user
 clarifies native MANO versus Shadow; physical calibration is still pending.
+
+### 2026-10-15 — Native MANO target selected; next repair scoped
+
+The user selects HUG's native MANO hand in MANOSim with faithful transfer as the
+priority. Existing Shadow results remain historical and are not pooled into the
+new embodiment. Exact-shape native joint transfer has measured PASS; strict
+surface fidelity remains FAIL. No new execution result follows from this choice.
+
+In preparation: manufactured 3.3.7 triangle-flex radius/contact controls and a
+full-face posed-skin reference with locked articulation. A static surface match
+cannot qualify finger-motion deformation or articulated contact forces. A
+distinct native recorder will preserve 67 position, 51 velocity and 51 command
+channels with their actual units. No native collection/training or manuscript
+work is enabled; source/protocol review precedes the next bounded run.

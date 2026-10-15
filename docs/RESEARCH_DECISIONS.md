@@ -2787,3 +2787,32 @@ physical systems and datasets; the target-hand choice is now explicitly pending
 with the user before a production-hand change. Collection/training stay closed.
 Independent readback verifies 1,914 bindings and 38 artifacts with no new
 geometry queries (receipt 964e55f9). Physical calibration remains outstanding.
+
+## 2026-10-15 — User selects native MANO in MANOSim as the predictor domain
+
+Previous plan: retain the existing Shadow production path while the target hand
+was unresolved. The user now explicitly chooses HUG's native MANO hand in
+MANOSim and prioritizes faithful transfer. This changes the intended system,
+not the interpretation of any historical Shadow dataset or result.
+
+Choice: build a distinct native path with exact exported shape, native joint
+layout, controller and recording identity. Preserve previous protocols and
+outputs. The numerical pose PASS remains separate from the measured surface
+FAIL. Collection and training remain disabled until the native collision and
+execution requirements are independently met.
+
+Next implementation: qualify manufactured MuJoCo 3.3.7 triangle-flex primitives,
+then test a complete posed-skin collision reference using all original faces and
+fixed anatomical labels. A rigid surface can first be checked at the saved pose
+and during whole-hand motion; it does not reproduce MANO finger deformation.
+Stock flex binds each vertex to one body (or a fixed trilinear node grid), while
+MANO uses arbitrary bone weights and pose correctives. A state-dependent SDF
+alone also leaves rigid-owner contact Jacobians. Consequently exact surface
+positions and physically correct articulated reaction forces are separate
+requirements; neither is inferred from a detailed visual mesh.
+
+Status: source implementation and manufactured controls are in preparation.
+No new native model, geometry query, physics, collection or training has run
+under this decision. The native recorder must preserve unequal 67/51/51 widths,
+mixed units, named layouts and controller/collider hashes; Shadow's equal-width
+recording and model schemas will not be reused. Manuscript files remain untouched.
