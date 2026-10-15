@@ -1,0 +1,581 @@
+{
+  "accepted_mapping": false,
+  "artifacts": [
+    {
+      "bytes": 39320,
+      "label": "native_reference_sealed_prequery_geometry",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v2/run_v1/raw/20/native_reference_geometry.npz",
+      "sha256": "3e4eb09e612f9cfdaa612b755991677e561f52d959387aa4ce40933155d7d55a"
+    },
+    {
+      "bytes": 2280208,
+      "label": "native_reference_complete_fixed_field",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v2/run_v1/raw/20/native_reference_field.npz",
+      "sha256": "af7cc77b18459b0fb24893574c37ec6406023f33055b94c3ab3513074a621853"
+    },
+    {
+      "bytes": 119583,
+      "label": "complete_original_native_surface_and_membership",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v2/run_v1/raw/20/candidate/candidate_surface.npz",
+      "sha256": "547f0026be8706fa822dbe2347e9a7453a5b4ac5746d5443cd9ebe9ae3e4a11f"
+    },
+    {
+      "bytes": 68855,
+      "label": "single_palm_complete_face_flex_include",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v2/run_v1/raw/20/candidate/candidate_flex.xml",
+      "sha256": "f5cdcb0b2b40d7d74918baf83887391f50a7c2f59c8a82231e58bccefc420b32"
+    },
+    {
+      "bytes": 8924,
+      "label": "locked_native_full_surface_preparation_receipt",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v2/run_v1/raw/20/candidate/candidate_receipt.json",
+      "sha256": "3710ab0c8cac7c1fcfbc517fca6e16b19e34029f267df88cd38144ace08fefd9"
+    },
+    {
+      "bytes": 17995,
+      "label": "new_scene_only_old_collision_bits_disabled_and_flex_added",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v2/run_v1/raw/20/compiled_scene.xml",
+      "sha256": "d78b9c480f8786469b7ed009039d93d993a3c1a7bc10e75298ef71fa34e458a8"
+    },
+    {
+      "bytes": 141933,
+      "label": "actual_compiled_skin_vertices_topology_normals_and_native_body_state",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v2/run_v1/raw/20/compiled_native_surface_readback.npz",
+      "sha256": "c14f0e12fdfecdc2c914b41f9ae57163369761618a8283f8264143076ff7471b"
+    },
+    {
+      "bytes": 38586,
+      "label": "compiled_locked_native_surface_sealed_prequery_geometry",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v2/run_v1/raw/20/compiled_locked_native_surface_geometry.npz",
+      "sha256": "04db2e0ec29bd2b0f8abe1b8f68e7decf5fc176e925452855796173e7b98c7fd"
+    },
+    {
+      "bytes": 2280237,
+      "label": "compiled_locked_native_surface_complete_fixed_field",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v2/run_v1/raw/20/compiled_locked_native_surface_field.npz",
+      "sha256": "8ae0cf5a4f19db6a2dbbb879d1983b5da1cc9fc2d7989e9ab546f6b1c4b816cb"
+    }
+  ],
+  "elapsed_s": 7.378293041838333,
+  "failure": null,
+  "forbidden_counts": {
+    "HUG_generator_attempts": 0,
+    "MANO_import_attempts": 0,
+    "MuJoCo_FK_attempts": 0,
+    "MuJoCo_data_attempts": 0,
+    "MuJoCo_forward_attempts": 0,
+    "MuJoCo_model_attempts": 0,
+    "physics_step_attempts": 0,
+    "retarget_attempts": 0,
+    "training_attempts": 0
+  },
+  "freeze_commit": "5d55bb184b6f4078838f02c72793a7baca8ce39a",
+  "guarded_counts": {
+    "data": 1,
+    "forwards": 2,
+    "full_field_stages": [
+      "native_reference",
+      "compiled_locked_native_surface"
+    ],
+    "models": 1,
+    "triangle_point_tests": 59516096
+  },
+  "measurement": {
+    "accepted_mapping": false,
+    "compiled_readback": {
+      "accepted_mapping": false,
+      "barycentric_bound_scope": "fixed corresponding triangles at this pose only; no joint-configuration or contact-search coverage",
+      "corresponding_face_normals_only": true,
+      "corresponding_triangle_barycentric_discrepancy_bound_m": 4.163336342344337e-17,
+      "finger_articulation_allowed": false,
+      "limits_are_contact_allowances": false,
+      "maximum_normal_component_error": 1.432187701766452e-14,
+      "maximum_vertex_error_m": 2.7755575615628914e-17,
+      "maximum_vertex_l2_error_m": 4.163336342344337e-17,
+      "native_fidelity_accepted": false,
+      "new_collection_or_training_allowed": false,
+      "normal_component_limit": 1e-10,
+      "object_query_orientation_status": "NOT_RUN",
+      "physical_outcome": null,
+      "production_promotion": false,
+      "radius_changes_collision_boundary": false,
+      "radius_m": 0.0,
+      "representation_limit_m": 1e-12,
+      "schema_version": "manosim_locked_surface_compiled_readback_mj340_v2",
+      "status": "NUMERICAL_GEOMETRY_READBACK_ONLY",
+      "topology": {
+        "edges": 2328,
+        "face_inventory": {
+          "index": 241,
+          "little": 226,
+          "middle": 232,
+          "palm": 394,
+          "ring": 243,
+          "thumb": 216
+        },
+        "faces": 1552,
+        "minimum_double_area_m2": 3.7536457620217117e-06,
+        "signed_volume_m3": 0.00045060441678367475,
+        "vertices": 778
+      }
+    },
+    "continuous_surface_equivalence": "NOT_PROVED",
+    "corresponding_face_normals_only": true,
+    "fixed_articulation": true,
+    "full_orientation_status": "NOT_RUN",
+    "maximum_distance_delta_from_reference_m": 6.938893903907228e-17,
+    "native_fidelity_accepted": false,
+    "new_collection_or_training_allowed": false,
+    "physical_outcome": null,
+    "production_promotion": false,
+    "reference_control": {
+      "acceptance_allowance_changed": false,
+      "exact_masks": true,
+      "max_distance_error_m": 0.0,
+      "numerical_replay_limit_m": 1e-12,
+      "passed": true,
+      "scope": "evaluator/reference consistency only; not hand or physics fidelity"
+    },
+    "schema_version": "manosim_locked_native_full_surface_reference_mj340_v2",
+    "source_inventory_index": 20,
+    "stages": [
+      {
+        "accepted_mapping": false,
+        "field_artifact": {
+          "bytes": 2280208,
+          "label": "native_reference_complete_fixed_field",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v2/run_v1/raw/20/native_reference_field.npz",
+          "sha256": "af7cc77b18459b0fb24893574c37ec6406023f33055b94c3ab3513074a621853"
+        },
+        "geometry_artifact": {
+          "bytes": 39320,
+          "label": "native_reference_sealed_prequery_geometry",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v2/run_v1/raw/20/native_reference_geometry.npz",
+          "sha256": "3e4eb09e612f9cfdaa612b755991677e561f52d959387aa4ce40933155d7d55a"
+        },
+        "native_fidelity_accepted": false,
+        "new_collection_or_training_allowed": false,
+        "physical_outcome": null,
+        "production_promotion": false,
+        "stage_id": "native_reference",
+        "summary": {
+          "continuous_coverage_status": "NOT_PROVED",
+          "definite_added": 0,
+          "definite_lost": 0,
+          "full_orientation_status": "NOT_RUN",
+          "full_strict_mapping_status": "INCOMPLETE",
+          "native_ambiguous": 3411,
+          "native_definite_relationships_pass": true,
+          "native_far": 340218,
+          "native_near": 1503,
+          "no_mapping_pass_issued": true,
+          "preserved": 341721,
+          "required": 341721,
+          "unresolved_required": 0
+        }
+      },
+      {
+        "accepted_mapping": false,
+        "field_artifact": {
+          "bytes": 2280237,
+          "label": "compiled_locked_native_surface_complete_fixed_field",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v2/run_v1/raw/20/compiled_locked_native_surface_field.npz",
+          "sha256": "8ae0cf5a4f19db6a2dbbb879d1983b5da1cc9fc2d7989e9ab546f6b1c4b816cb"
+        },
+        "geometry_artifact": {
+          "bytes": 38586,
+          "label": "compiled_locked_native_surface_sealed_prequery_geometry",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v2/run_v1/raw/20/compiled_locked_native_surface_geometry.npz",
+          "sha256": "04db2e0ec29bd2b0f8abe1b8f68e7decf5fc176e925452855796173e7b98c7fd"
+        },
+        "native_fidelity_accepted": false,
+        "new_collection_or_training_allowed": false,
+        "physical_outcome": null,
+        "production_promotion": false,
+        "stage_id": "compiled_locked_native_surface",
+        "summary": {
+          "continuous_coverage_status": "NOT_PROVED",
+          "definite_added": 0,
+          "definite_lost": 0,
+          "full_orientation_status": "NOT_RUN",
+          "full_strict_mapping_status": "INCOMPLETE",
+          "native_ambiguous": 3411,
+          "native_definite_relationships_pass": true,
+          "native_far": 340218,
+          "native_near": 1503,
+          "no_mapping_pass_issued": true,
+          "preserved": 341721,
+          "required": 341721,
+          "unresolved_required": 0
+        }
+      }
+    ],
+    "surface_fidelity_status": "INCOMPLETE"
+  },
+  "native_fidelity_accepted": false,
+  "new_collection_or_training_allowed": false,
+  "partial_artifacts": null,
+  "physical_outcome": null,
+  "production_promotion": false,
+  "protocol_sha256": "00b3ee6d13c3f2c9ed88fe1f07977905ea0f09de3cdea0ccb8327ff9f7246a76",
+  "schema_version": "manosim_locked_native_full_surface_reference_mj340_v2",
+  "source_inventory_index": 20,
+  "source_receipt": {
+    "accepted_mapping": false,
+    "candidate_receipt": {
+      "accepted_mapping": false,
+      "array_hashes": {
+        "local_oriented_face_normals": "ce682fde55b50a4a89bb4b12acef517163ee1dee2d61d1102c53d85ea255cb40",
+        "local_vertices_m": "d7f6842fc047733e1814964b1356f388faa76a7eb2998d405af988079ef2b85a",
+        "native_face_ids": "0474c577a5319a6b51146842ae840fed247322413a1798571a3d1ab23ebcb875",
+        "native_face_labels": "92bfbb76736c693e00af5acc846031df4244cb4e522de8189adadc27ce0d02c6",
+        "native_faces": "51b80aac87d9208570aa298f8c8957f5ef11cd22c8331ec5265334f714b1984a",
+        "native_oriented_face_normals_world": "d50c1fb452520549da8cfa18bfd73e2cbea6c80eb151a5609caf5f2060610d2e",
+        "native_vertex_ids": "b8a51e9f3a8a77284151c8732b8a6e20d9550a11d4a3f1164a4cf7f1cfd3439b",
+        "native_vertices_world_m": "193a4bcb284a51f43e112dd31c1c0ac57adac14ad4c385917f125fdb0ef11b81",
+        "original_shape_float32": "82ee5f103633dbc735db486f4261bd60c68fd263869cd8a6479036af1dbb8918",
+        "saved_owner_world_transform": "d809c7a63712ecd7d0a0b493e840d6492fd9c8efcc9d29339cc9335d407943be"
+      },
+      "artifacts": [
+        {
+          "bytes": 119583,
+          "label": "complete_original_native_surface_and_membership",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v2/run_v1/raw/20/candidate/candidate_surface.npz",
+          "sha256": "547f0026be8706fa822dbe2347e9a7453a5b4ac5746d5443cd9ebe9ae3e4a11f"
+        },
+        {
+          "bytes": 68855,
+          "label": "single_palm_complete_face_flex_include",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v2/run_v1/raw/20/candidate/candidate_flex.xml",
+          "sha256": "f5cdcb0b2b40d7d74918baf83887391f50a7c2f59c8a82231e58bccefc420b32"
+        }
+      ],
+      "compiled_readback_status": "NOT_RUN",
+      "convexification": false,
+      "coordinate_arithmetic": "float64 inverse SAVED actual body transform; nonoptimized einsum;17-digit XML",
+      "distance_fields_status": "NOT_RUN",
+      "finger_articulation_allowed": false,
+      "flex_name": "literal_native_closed_skin_locked_v1",
+      "full_face_deletion_count": 0,
+      "full_orientation_status": "NOT_RUN",
+      "inputs": {
+        "decoded_reference": {
+          "bytes": 63523,
+          "label": "actual_source_MANO_and_independent_FK",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/decoded_native_reference.npz",
+          "sha256": "b5f9635d0ff17112aeed6ece65c18eac941045683b79337401ee84b1519981bd"
+        },
+        "kinematic_readback": {
+          "bytes": 7490,
+          "label": "mesh_compiled_and_independent_kinematic_readback",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/mesh_kinematic_readback.npz",
+          "sha256": "c1f73e894b844a2ea1f2240a9e27ff06e27863c53cfd7fe022fdf56ca4dffcec"
+        },
+        "literal_pose": {
+          "bytes": 3220,
+          "label": "mesh_literal_pose",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/mesh_literal_pose.json",
+          "sha256": "96c7251c922b1aa11e17b5e771da98ec0c8396072937685ad7fe0434b7e0085e"
+        },
+        "membership_provenance": {
+          "bytes": 5348,
+          "label": "frozen_membership_and_support",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_geometry_ablation_2026-10-15_v1/run_v1/raw/20/membership_provenance.npz",
+          "sha256": "3986ed75f5510999edb2c595da24e3cd2b04e8cd2dd179384ea1cfe4ba74d25a"
+        },
+        "shape_asset": {
+          "bytes": 168,
+          "label": "literal_native_shape_from_completed_build",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/build_run_v1/raw/assets/mano_rhand_shape.npy",
+          "sha256": "4ffb005c8ce6636506c2bfee215d3c0e3dc3a561fc4206a8a9cbec27f3b33937"
+        }
+      },
+      "inverse_transform_max_error_m": 8.326672684688674e-17,
+      "limitations": [
+        "Reference geometry only; no physical hand qualification",
+        "Finger changes invalidate this fixed-articulation condition",
+        "Corresponding-face normals do not certify object-query orientation",
+        "No continuous surface/contact or dynamics acceptance is issued"
+      ],
+      "native_fidelity_accepted": false,
+      "native_sha256": "52ec7441c108f7a9704535c63611ff9d9da3d5f2871b57396b33fdb1e73a7d8b",
+      "new_collection_or_training_allowed": false,
+      "owner_body_name": "mano_body_0",
+      "ownership": "single_saved_actual_palm_body",
+      "physical_outcome": null,
+      "prior_evidence": {
+        "ablation_case": {
+          "bytes": 50573,
+          "label": "ablation_case",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_geometry_ablation_2026-10-15_v1/run_v1/20/result.json",
+          "sha256": "7a843dc618efae486f11164a071f6e670c137bb325182b90c4a732915cab38f7"
+        },
+        "ablation_independent": {
+          "bytes": 53205,
+          "label": "ablation_independent",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_geometry_ablation_2026-10-15_v1/run_v1/independent_readback.json",
+          "sha256": "964e55f90bdaea6af2f2b316ac36aa19e0e508bbdb038737b0fb3bc36d96c546"
+        },
+        "ablation_protocol": {
+          "bytes": 428971,
+          "label": "ablation_protocol",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_geometry_ablation_2026-10-15_v1/protocol_v2.json",
+          "sha256": "f5d80b06df40bb900861d4fa310e999e099ed468bb527e16af0838c8a671dbf7"
+        },
+        "native_case": {
+          "bytes": 66371,
+          "label": "native_case",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/20/result.json",
+          "sha256": "c21548fa9c3244299c3ec752150f0e9c1802d131948d8bbcd20ee275681bc819"
+        },
+        "native_independent": {
+          "bytes": 78533,
+          "label": "native_independent",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/run_v1/independent_readback_v2.json",
+          "sha256": "5cff858388ff1edb7ab34d4c17868907d8b701198c024a9bc2e70e12201ab13d"
+        },
+        "native_protocol": {
+          "bytes": 423478,
+          "label": "native_protocol",
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_transfer_2026-10-15_v2/native_protocol_v2.json",
+          "sha256": "c81cdd617ea98ad0a0edf1b37dddb9e5a78871b59cf2898b9d216fa847cc3207"
+        }
+      },
+      "production_promotion": false,
+      "radius_changes_collision_boundary": false,
+      "radius_m": 0.0,
+      "radius_policy": {
+        "articulated_MANO_dynamics_validated": false,
+        "collection_or_training_allowed": false,
+        "full_qualification_status": "NOT_QUALIFIED",
+        "locked_articulation_snapshot_only": true,
+        "native_surface_gate_still_required": true,
+        "qualification_case_ids": [
+          "zero__single_body__identity",
+          "zero__single_body__rigid_nonzero",
+          "zero__disconnected__identity",
+          "zero__disconnected__rigid_nonzero"
+        ],
+        "qualification_receipt": {
+          "bytes": 164590,
+          "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_flex_rigid_qualification_mj340_2026-10-15_v1/run_v1/report.json",
+          "sha256": "3728a2bd58c3375de78975980a97dfb6c06cff2f2885120cf90170630146dc1a"
+        },
+        "radius_id": "zero",
+        "radius_m": 0.0,
+        "rigid_only": true,
+        "schema_version": "manosim_qualified_rigid_flex_radius_selection_mj340_v1",
+        "scope": "Single-owner locked-articulation snapshot only; no multiowner MANO skin, articulated dynamics, native fidelity or task admission",
+        "undocumented_zero_radius": true
+      },
+      "root_rigid_motion_only": true,
+      "schema_version": "manosim_locked_native_full_surface_candidate_mj340_v2",
+      "scientific_acceptance_changed": false,
+      "shape_asset_sha256": "4ffb005c8ce6636506c2bfee215d3c0e3dc3a561fc4206a8a9cbec27f3b33937",
+      "source_inventory_index": 20,
+      "status": "PREPARED_STATIC_REFERENCE_ONLY",
+      "topology": {
+        "edges": 2328,
+        "face_inventory": {
+          "index": 241,
+          "little": 226,
+          "middle": 232,
+          "palm": 394,
+          "ring": 243,
+          "thumb": 216
+        },
+        "faces": 1552,
+        "minimum_double_area_m2": 3.75364576202163e-06,
+        "signed_volume_m3": 0.0004506044167836743,
+        "vertices": 778
+      }
+    },
+    "compiled_readback": {
+      "accepted_mapping": false,
+      "barycentric_bound_scope": "fixed corresponding triangles at this pose only; no joint-configuration or contact-search coverage",
+      "corresponding_face_normals_only": true,
+      "corresponding_triangle_barycentric_discrepancy_bound_m": 4.163336342344337e-17,
+      "finger_articulation_allowed": false,
+      "limits_are_contact_allowances": false,
+      "maximum_normal_component_error": 1.432187701766452e-14,
+      "maximum_vertex_error_m": 2.7755575615628914e-17,
+      "maximum_vertex_l2_error_m": 4.163336342344337e-17,
+      "native_fidelity_accepted": false,
+      "new_collection_or_training_allowed": false,
+      "normal_component_limit": 1e-10,
+      "object_query_orientation_status": "NOT_RUN",
+      "physical_outcome": null,
+      "production_promotion": false,
+      "radius_changes_collision_boundary": false,
+      "radius_m": 0.0,
+      "representation_limit_m": 1e-12,
+      "schema_version": "manosim_locked_surface_compiled_readback_mj340_v2",
+      "status": "NUMERICAL_GEOMETRY_READBACK_ONLY",
+      "topology": {
+        "edges": 2328,
+        "face_inventory": {
+          "index": 241,
+          "little": 226,
+          "middle": 232,
+          "palm": 394,
+          "ring": 243,
+          "thumb": 216
+        },
+        "faces": 1552,
+        "minimum_double_area_m2": 3.7536457620217117e-06,
+        "signed_volume_m3": 0.00045060441678367475,
+        "vertices": 778
+      }
+    },
+    "compiled_readback_artifact": {
+      "bytes": 141933,
+      "label": "actual_compiled_skin_vertices_topology_normals_and_native_body_state",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v2/run_v1/raw/20/compiled_native_surface_readback.npz",
+      "sha256": "c14f0e12fdfecdc2c914b41f9ae57163369761618a8283f8264143076ff7471b"
+    },
+    "fixed_articulation": true,
+    "index": 20,
+    "named_joint_addresses": [
+      {
+        "dof_address": 0,
+        "name": "wrist_tx",
+        "qpos_address": 0,
+        "type": 2
+      },
+      {
+        "dof_address": 1,
+        "name": "wrist_ty",
+        "qpos_address": 1,
+        "type": 2
+      },
+      {
+        "dof_address": 2,
+        "name": "wrist_tz",
+        "qpos_address": 2,
+        "type": 2
+      },
+      {
+        "dof_address": 3,
+        "name": "wrist_rot",
+        "qpos_address": 3,
+        "type": 1
+      },
+      {
+        "dof_address": 6,
+        "name": "mano_joint_1",
+        "qpos_address": 7,
+        "type": 1
+      },
+      {
+        "dof_address": 9,
+        "name": "mano_joint_2",
+        "qpos_address": 11,
+        "type": 1
+      },
+      {
+        "dof_address": 12,
+        "name": "mano_joint_3",
+        "qpos_address": 15,
+        "type": 1
+      },
+      {
+        "dof_address": 15,
+        "name": "mano_joint_4",
+        "qpos_address": 19,
+        "type": 1
+      },
+      {
+        "dof_address": 18,
+        "name": "mano_joint_5",
+        "qpos_address": 23,
+        "type": 1
+      },
+      {
+        "dof_address": 21,
+        "name": "mano_joint_6",
+        "qpos_address": 27,
+        "type": 1
+      },
+      {
+        "dof_address": 24,
+        "name": "mano_joint_7",
+        "qpos_address": 31,
+        "type": 1
+      },
+      {
+        "dof_address": 27,
+        "name": "mano_joint_8",
+        "qpos_address": 35,
+        "type": 1
+      },
+      {
+        "dof_address": 30,
+        "name": "mano_joint_9",
+        "qpos_address": 39,
+        "type": 1
+      },
+      {
+        "dof_address": 33,
+        "name": "mano_joint_10",
+        "qpos_address": 43,
+        "type": 1
+      },
+      {
+        "dof_address": 36,
+        "name": "mano_joint_11",
+        "qpos_address": 47,
+        "type": 1
+      },
+      {
+        "dof_address": 39,
+        "name": "mano_joint_12",
+        "qpos_address": 51,
+        "type": 1
+      },
+      {
+        "dof_address": 42,
+        "name": "mano_joint_13",
+        "qpos_address": 55,
+        "type": 1
+      },
+      {
+        "dof_address": 45,
+        "name": "mano_joint_14",
+        "qpos_address": 59,
+        "type": 1
+      },
+      {
+        "dof_address": 48,
+        "name": "mano_joint_15",
+        "qpos_address": 63,
+        "type": 1
+      }
+    ],
+    "native_fidelity_accepted": false,
+    "new_collection_or_training_allowed": false,
+    "production_promotion": false,
+    "reference_control": {
+      "acceptance_allowance_changed": false,
+      "exact_masks": true,
+      "max_distance_error_m": 0.0,
+      "numerical_replay_limit_m": 1e-12,
+      "passed": true,
+      "scope": "evaluator/reference consistency only; not hand or physics fidelity"
+    },
+    "saved_native_kinematic_comparison": {
+      "kinematic_limits_are_contact_allowances": false,
+      "maximum_saved_body_origin_error_m": 0.0,
+      "maximum_saved_joint_anchor_error_m": 0.0,
+      "maximum_saved_rotation_element_error": 0.0,
+      "native_pose_adjustment_or_refitting": false
+    },
+    "scene_assembly": {
+      "body_joint_inertia_actuator_parameters_changed": false,
+      "disabled_original_collision_geoms": 16,
+      "old_visual_meshes_retained": true,
+      "original_actuator_elements_sha256": "1b936a61f1eda494de941bae9ea690a0a767b820ab36e39555199e7cf0bff90d",
+      "original_body_joint_inertial_elements_sha256": "ab9b3506426e5df12fbe4eddfdb430dbd1fff69ae9bbf2259811c3b482b2ac52"
+    }
+  },
+  "status": "COMPLETED_LOCKED_SURFACE_STATIC_REFERENCE"
+}

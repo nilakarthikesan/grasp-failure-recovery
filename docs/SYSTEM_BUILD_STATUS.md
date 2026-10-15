@@ -12,10 +12,10 @@ The Shadow controller, recordings and predictors are historical systems; their
 results do not establish native MANO performance or qualify a native controller.
 
 The exact exported shape and all sixteen native joint transforms already pass
-the two-case numerical audit. Collision admission remains closed. The next
-repair preserves every original posed-skin triangle rather than dropping faces
-at bone boundaries or replacing them with hulls. A locked-articulation surface
-reference is the first scoped test; it cannot establish fidelity during finger
+the two-case numerical audit. Collision admission remains closed. The new
+reference preserves every original posed-skin triangle, including connections
+at bone boundaries. This locked-articulation surface
+reference supplies the first scoped test; it cannot establish fidelity during finger
 motion. MuJoCo flex vertices follow individual bodies, whereas MANO skin uses
 weighted bones and pose correctives. Matching the rendered skin alone therefore
 does not establish matching collision geometry or articulated contact forces.
@@ -25,16 +25,24 @@ Triangle geometry, two-sided contacts and the concave gap pass, but every
 contact-Jacobian check fails under MuJoCo 3.3.7. Inverse-distance weights are
 L2-normalized rather than summing to one; this changes even a single rigid
 owner's contact derivative. Independent saved-array replay confirms the cause.
-Both radii remain NOT_QUALIFIED, so the complete native-surface candidate is
-prepared and tested with manufactured arrays but has not been executed.
+Both 3.3.7 radii remain NOT_QUALIFIED; their results are preserved.
 
-A separately isolated MuJoCo 3.4.0 runtime is being qualified because its source
-uses sum normalization. Only a rigid, locked-articulation scope can be admitted
-by that follow-up; exact MANO finger deformation/contact remains separate.
-Zero radius is outside the documented 2D-flex contract, and positive thickness
-must never be hidden in the numerical allowance. The separate native recording
-contract is implemented for 67 positions, 51 velocities and 51 commands with
-78 passing manufactured controls. Controller/runner integration is pending.
+The separately isolated MuJoCo 3.4.0 runtime now passes all eight single-owner
+primitive cases. Four multi-owner derivative checks still fail; the full verdict
+remains NOT_QUALIFIED. Its rigid-only capability supports the subsequent complete
+skin reference. Both native fixed-pose cases now retain all 778 vertices/1,552
+faces and preserve all 341,721 / 804,343 required near/far relationships, with
+zero lost, added or unresolved required tuples under unchanged rules. The first
+attempt's shape-layout refusal is preserved; v2 fixes only its literal row
+contract. Parameters, poses and thresholds are unchanged.
+
+This skin is attached to the palm with fingers fixed. It is a mapping reference,
+not the final execution hand. Full object-query orientation is NOT_RUN, finger
+deformation/contact derivatives remain unqualified, and physical calibration is
+pending. Zero radius is outside the documented 2D-flex contract; positive
+thickness must never be hidden in the numerical allowance. The separate native
+recording contract is implemented for 67 positions, 51 velocities and 51 commands
+with 78 passing manufactured controls. Controller/runner integration is pending.
 No native data collection or training is enabled.
 
 ## Mapping fidelity is the current prerequisite

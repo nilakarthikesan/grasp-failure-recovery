@@ -1205,3 +1205,41 @@ pose, field predicate or numerical limit is introduced. V1 source and the
 verified hard stop remain immutable and enter the new declaration's lineage.
 The same two saved cases, operation quotas and locked-articulation limits apply.
 Actual v2 measurements remain pending at this freeze.
+
+### 2026-10-15 — Complete native skin preserves both fixed-pose fields
+
+Native snapshot v2 completes at 5d55bb1 under protocol
+00b3ee6d13c3f2c9ed88fe1f07977905ea0f09de3cdea0ccb8327ff9f7246a76.
+Case 20/28 parent times: 10.31/13.80 s. Each uses one model/data creation, two
+static forwards and two full field scans; triangle-point work is 59,516,096 /
+141,182,336, within the original per-case caps. All physics, native generation,
+retargeting and training counts are zero; physical outcomes remain null.
+
+All 778 vertices and 1,552 original faces retain their labels and oriented
+topology. Max vertex component error against the rigidly re-expressed target:
+2.78e-17 / 5.55e-17 m; direct comparison with original saved native vertices is
+8.33e-17 m for both cases. Corresponding-normal component error <=1.44e-14.
+Original reference fields reproduce exactly. Both
+candidate fields preserve every required relationship: milk 341,721/341,721;
+mug 804,343/804,343. Lost, added and unresolved-required counts are all zero.
+Maximum distance delta is 6.94e-17 / 8.33e-17 m. Original native-ambiguous tuples
+(3,411 / 14,369) remain reported separately and are not new required successes.
+
+This resolves the measured near/far construction loss in two fixed poses, using
+the whole skin attached to one palm. Finger articulation is prohibited; full
+object-query orientation is NOT_RUN and the complete mapping verdict remains
+INCOMPLETE. No native collection or training admission is issued. Report SHA
+6c4f180aa2579c16a14f07a29bd046466c0a4cbdfebdea5042ee667424839d06.
+Independent saved-array verification is pending; no further queries are needed
+for that readback.
+
+Independent receipt SHA50661b96420355a59f01a2893c0ec4ebb288d1862a37f6eb0d22e4dec4b8f1ca
+verifies all 3,041 bindings before/after, 124 Git blobs, 18 creation-time
+artifacts, raw/tracked result equality and every array hash. Literal 67/51/51
+state inventory, native frames, exact shape, complete closed topology/parts and
+unchanged skeleton/inertial/actuator XML are checked separately from the old
+collider masks and added flex. All masks, denominators and operation counts
+reproduce without engine, FK or distance queries. The verifier explicitly
+distinguishes vertex comparisons with the rigidly re-expressed target from the
+original saved native vertices. Global INCOMPLETE/no-admission flags remain.
+The source freeze is released; collection and training stay paused.

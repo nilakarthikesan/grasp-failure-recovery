@@ -2848,3 +2848,41 @@ runtime directory. The base 3.3.7 environment and historical protocols remain
 unchanged. New source/preparation is pending; no 3.4.0 model or forward has run.
 Independent readback of the completed 3.3.7 failure is pending at this entry.
 Native collection/training admission remains closed.
+
+## 2026-10-15 — Complete skin preserves the two tested fixed-pose fields
+
+Previous plan: remove the measured cross-bone face deletion and convexification
+loss while retaining literal HUG poses and shape. MuJoCo 3.3.7's primitive force
+derivative failure prevents using its flex response. The isolated 3.4.0 study
+passes the single-owner controls while retaining multi-owner failures; this
+supports a locked-pose reference only. The first native attempt then exposed a
+loader shape-layout bug: the exact asset is a (1,10) row, not a flat vector.
+Preserve that refusal; correct its exact layout contract in a separate v2.
+
+Measured at v2 freeze 5d55bb1: both saved development grasps complete. Each
+compiles one model and performs two static forwards and two field scans with
+zero physics/generation/retargeting/training. All 778 vertices and 1,552 faces
+are retained, including cross-joint connections. Maximum compiled vertex error
+against the rigidly re-expressed target is 5.55e-17 m; comparison directly with
+the original saved native vertices is 8.33e-17 m. Corresponding normal-component
+error is 1.44e-14. All 341,721 milk
+and 804,343 mug native-definite relationships are preserved, with zero lost,
+added or unresolved required tuples under unchanged predicates. The original
+reference fields reproduce exactly; candidate distance residual is <=8.33e-17 m.
+
+Reasoning: inverse-transforming the actual posed skin into its saved palm frame
+and retaining its complete topology removes the diagnosed construction loss
+without fitting object queries or changing the joint pose. At a fixed pose,
+corresponding triangle points are bounded by their maximum vertex error through
+barycentric interpolation. This does not bound other joint configurations or
+collision-search coverage. Assigning the whole surface to the palm deliberately
+does not implement weighted MANO deformation or finger reaction forces.
+
+Decision: retain this as the complete-skin fixed-pose reference for subsequent
+articulation work, not the final execution hand. Do not simulate fictitious
+finger closing by leaving a fixed skin behind. Full object-query orientation,
+joint-motion/contact-Jacobian fidelity and physical calibration remain open;
+global mapping admission, collection and training remain closed. Independent
+saved-array verification checks all 3,041 bindings, 124 Git blobs, 18 artifacts,
+native state/frame arithmetic and every field mask without engine/FK/distance
+queries (receipt 50661b96). Manuscript files are untouched.
