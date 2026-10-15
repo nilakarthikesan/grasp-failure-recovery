@@ -231,3 +231,35 @@ MANO-to-Shadow mapping. Does not establish exact contact equivalence or arbitrar
 new-input acceptance. Every new proposal must pass the reusable validator before
 execution; failed gates retain null physical labels. Phase2 bounded collection
 can proceed with the validated Shadow hand, not the static native proxy.
+
+
+## 15 October 2026 — Phase 2 system foundations
+
+**Source:** `86f2480`. Explicit generic HUG recording mode now retains aligned
+velocity/applied/requested commands, null refusal/error outcomes and guarded
+artifact publication. `shadow_physics_filter_v1` implements six independent
+gravity snapshots, per-window contact support, penetration/displacement codes,
+finite quotas and unchanged source state. `hug_grasp_approach_v1` is a distinct
+palm-preserving wrist/approach condition with fixed outcome-independent candidate
+order and sampled table/proximal-object clearance. The sampler freezes identities,
+physical variation and category folds before labels. Historical defaults remain
+separate. Numerical mesh support uses an explicit scalar contraction to avoid
+observed finite-input BLAS warnings; margins are unchanged.
+
+**Command/result:** `python scripts/check_hug_build.py --report
+research_artifacts/hug_build_phase2_foundation_2026-10-15_v1/static_tests.json`
+with exact17test files/selection in the receipt:247passed,zero integration calls.
+These static/manufactured controls do not establish live filter or approach
+acceptance. New fresh collection/generation remains NOT_RUN at this increment.
+
+**Reserve geometry:** `scripts/fetch_hug_object_assets.py --object-path
+val/medium_5/OBJECT --output NEW_LOCAL_DIRECTORY`, pinned revision
+56ea3f100b1a4ec38bb35e986c0dd14d38977283. Bell pepper:9files/577749bytes;
+bear figure:19files/632526bytes. Only geometry files, no grasp labels. Portable
+source/attribution/byte-hash manifests are beside the test receipt; raw assets
+remain ignored/local. Neither object is capture-qualified or used for fitting.
+
+**Verdict/claim:** Phase2 foundations PASS as software contracts. Unified new
+inference/recording pilot, runtime filter results, same-grasp mug comparison and
+declared collection remain pending. No system-level completion is inferred from
+unit tests. No manuscript files were changed.

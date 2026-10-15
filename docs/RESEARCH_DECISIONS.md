@@ -2416,3 +2416,26 @@ Implemented evidence: `3181301` preserves canonical raw/status mapping records;
 and fresh legacy target values are unchanged. This is a provenance fix, not a
 new physical-fidelity result. Next check: consolidated per-proposal Phase1
 validator and 32-case gate, then bounded freshly generated recorder collection.
+
+
+## 15 October 2026 — Phase 1 signoff and explicit Phase 2 conditions
+
+Previous uncertainty: saved audits were separate and fresh mappings lost raw
+status provenance. Evidence: `7d157dd` validator, recorded at `d6601d1`, recomputes
+32/32static gates with96forwards/zero integration. Canonical provenance increment
+`3181301` keeps complete raw/status/clamping records. Decision: advance the
+qualified Shadow approximation to bounded Phase2 preparation; every new proposal
+still requires its own static gate, and native contact fidelity stays unaccepted.
+
+`86f2480` implements explicit recording, six-axis screen and a new
+`hug_grasp_approach_v1` controller condition. Existing10mm table/1mm proximal
+margins remain; the filter's20mm/5mm and persistence thresholds are predeclared
+engineering screens, never labels or predictor inputs. All selected accepted and
+rejected filter proposals will run; no outcome selects a path or repairs a grasp.
+Mass/friction/table changes and Gaussian qpos observation noise require an
+explicit scenario contract, separate from nominal captured-scene truth.
+
+Implemented checks:247focused controls pass withzero real integration. Actual
+new collection/filter/approach evidence is pending a frozen bounded driver.
+Reserve bell-pepper/bear geometry is downloaded at a pinned revision; qualify
+captures before use and withhold their task outcomes until a model is frozen.
