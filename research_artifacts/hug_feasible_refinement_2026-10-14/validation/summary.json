@@ -1,0 +1,1625 @@
+{
+  "schema": "hug_feasible_static_post_audit_summary_v2",
+  "candidate_sha256": "90fd9186fb72c174644fd806b1af26f49e372d066c36295430a37636b3c9d2c5",
+  "fit_protocol_sha256": "b0e095b39897c6c2d337f53b0c26d82ef5bd6b7632d3c21f60dd9d8e574a98c6",
+  "validation_protocol_sha256": "2c0e5b0002fcef7e5f9b86ca1674d5c194f71b9dd6c1d2940c7f5f78d822f3a5",
+  "summary_script_sha256": "fb24e5b04f9c9cf3d55ab043c79173727ba40c9ffe204752bd5ebdd6701fc66b",
+  "case_count": 6,
+  "resolution_count": 9,
+  "strict_status_counts": {
+    "PASS": 0,
+    "FAIL": 9,
+    "UNRESOLVED": 0
+  },
+  "pointwise_orientation_status_counts": {
+    "PASS": 0,
+    "FAIL": 9,
+    "UNRESOLVED": 0
+  },
+  "all_six_independent_source_and_engineering_preflights_pass": true,
+  "all_six_feasible_improving_poses_selected": true,
+  "new_fit_full_surface_evaluations": 18,
+  "new_fit_runtime_seconds": 49.57205491699278,
+  "protected_numeric_dependency_count": 89,
+  "all_protected_numeric_hashes_unchanged": true,
+  "physics_steps": 0,
+  "new_eval_data": false,
+  "training": false,
+  "native_grasp_failure_labels": "NOT_TESTED",
+  "heldout_generators_or_objects": "NOT_TESTED",
+  "continuous_physical_contact_equivalence": "UNRESOLVED",
+  "measurement_files_sha256": {
+    "/private/tmp/hug_feasible_refinement_2026-10-14/validation/candidate_validation_preflight_only.json.gz": "9263d56d1b5eb4179eaf028493fb2bb0c153c47ecf5b58aa57139450372b944b",
+    "/private/tmp/hug_feasible_refinement_2026-10-14/validation/candidate_validation_8,12,16.json.gz": "5139a730825ac5e2b94b680e765cc9cc6f1f2755ed64f8913cde94d815b63f9a",
+    "/private/tmp/hug_feasible_refinement_2026-10-14/validation/candidate_validation_20,24,28.json.gz": "9bb50b7418319886c196f7d41a7e999300e7acc9cffba6f951197b1dc8a1c3d2"
+  },
+  "records": [
+    {
+      "index": 8,
+      "case_id": "hug_apple_scene_002_seed_0",
+      "fit": {
+        "index": 8,
+        "object_id": "hug_apple",
+        "source_case": "scene_002_seed_0",
+        "original_objective": 7.567033421375607,
+        "returned_objective": 5.735661159756074,
+        "objective_reduction_percent": 24.201984577552047,
+        "original_mean_tip_mm": 5.844763229805265,
+        "returned_mean_tip_mm": 5.410838568251751,
+        "returned_tip_increases_mm": [
+          -1.2677720922720637,
+          -9.999927563526106e-07,
+          -0.7780177158483339,
+          -9.999948317324092e-07,
+          -0.12383149965958848
+        ],
+        "all_five_exact_caps_pass": true,
+        "selected_new_pose": true,
+        "full_callbacks": 3,
+        "FK_callbacks": 2035,
+        "independent_fixed_URDF_vs_scene_max_link_error_m": 7.121538989251441e-08
+      },
+      "independent_engineering_and_source_preflight": "PASS",
+      "resolutions": [
+        {
+          "density_mm": 2.0,
+          "query_count": 14365,
+          "strict_status": "FAIL",
+          "proximity_status": "FAIL",
+          "pointwise_orientation_status": "FAIL",
+          "continuous_contact_equivalence": "UNRESOLVED",
+          "bands": [
+            {
+              "band_mm": 1,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 2.0763260185586696,
+              "sum_added_lower_mm2": 2.2508892392095357,
+              "original_sum_lost_lower_mm2": 2.0763260185586696,
+              "original_sum_added_lower_mm2": 1.0720541361217129,
+              "sampled_reliable_sign_reversal_count": 0,
+              "original_sampled_reliable_sign_reversal_count": 0,
+              "pointwise_orientation_status": "UNRESOLVED",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 2.0763260185586696,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 2.0763260185586696,
+                  "original_added_lower_mm2": 0.0
+                },
+                "ring": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 1.0720541361217129,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 1.0720541361217129
+                },
+                "little": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 1.178835103087823,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            },
+            {
+              "band_mm": 2,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 81.35780342185745,
+              "sum_added_lower_mm2": 149.6867393820932,
+              "original_sum_lost_lower_mm2": 116.34250309955485,
+              "original_sum_added_lower_mm2": 174.36098732201026,
+              "sampled_reliable_sign_reversal_count": 0,
+              "original_sampled_reliable_sign_reversal_count": 2,
+              "pointwise_orientation_status": "UNRESOLVED",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 15.178412080780333,
+                  "added_lower_mm2": 8.058921891753563,
+                  "original_lost_lower_mm2": 19.60942611081698,
+                  "original_added_lower_mm2": 1.0144789808611485
+                },
+                "ring": {
+                  "lost_lower_mm2": 38.77189352767559,
+                  "added_lower_mm2": 102.6653916065338,
+                  "original_lost_lower_mm2": 53.94514751082018,
+                  "original_added_lower_mm2": 118.96973157900987
+                },
+                "little": {
+                  "lost_lower_mm2": 27.40749781340153,
+                  "added_lower_mm2": 38.96242588380583,
+                  "original_lost_lower_mm2": 42.787929477917686,
+                  "original_added_lower_mm2": 54.37677676213925
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            },
+            {
+              "band_mm": 5,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 106.36157002517417,
+              "sum_added_lower_mm2": 327.81688159294987,
+              "original_sum_lost_lower_mm2": 159.15458723303138,
+              "original_sum_added_lower_mm2": 408.5217813062037,
+              "sampled_reliable_sign_reversal_count": 10,
+              "original_sampled_reliable_sign_reversal_count": 9,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 4.988947840170383,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 2.846928603502413,
+                  "added_lower_mm2": 37.73357757559498,
+                  "original_lost_lower_mm2": 14.65541608209017,
+                  "original_added_lower_mm2": 0.0
+                },
+                "ring": {
+                  "lost_lower_mm2": 67.5050605005572,
+                  "added_lower_mm2": 176.94501789244407,
+                  "original_lost_lower_mm2": 57.947243991656,
+                  "original_added_lower_mm2": 128.36245563307645
+                },
+                "little": {
+                  "lost_lower_mm2": 31.020633080944172,
+                  "added_lower_mm2": 113.13828612491082,
+                  "original_lost_lower_mm2": 86.5519271592852,
+                  "original_added_lower_mm2": 280.1593256731273
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "density_mm": 1.0,
+          "query_count": 56812,
+          "strict_status": "FAIL",
+          "proximity_status": "FAIL",
+          "pointwise_orientation_status": "FAIL",
+          "continuous_contact_equivalence": "UNRESOLVED",
+          "bands": [
+            {
+              "band_mm": 1,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 89.63841778021617,
+              "sum_added_lower_mm2": 127.83107579164977,
+              "original_sum_lost_lower_mm2": 85.60472339511321,
+              "original_sum_added_lower_mm2": 118.29295694077355,
+              "sampled_reliable_sign_reversal_count": 0,
+              "original_sampled_reliable_sign_reversal_count": 1,
+              "pointwise_orientation_status": "UNRESOLVED",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 30.127558061175108,
+                  "added_lower_mm2": 18.459450963229244,
+                  "original_lost_lower_mm2": 24.359408538313048,
+                  "original_added_lower_mm2": 8.428145816491092
+                },
+                "ring": {
+                  "lost_lower_mm2": 34.52580327320394,
+                  "added_lower_mm2": 75.31366621069748,
+                  "original_lost_lower_mm2": 35.936493964601596,
+                  "original_added_lower_mm2": 74.15237557895112
+                },
+                "little": {
+                  "lost_lower_mm2": 24.985056445837127,
+                  "added_lower_mm2": 34.057958617723045,
+                  "original_lost_lower_mm2": 25.30882089219856,
+                  "original_added_lower_mm2": 35.71243554533134
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            },
+            {
+              "band_mm": 2,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 263.74152511386205,
+              "sum_added_lower_mm2": 406.46957360383317,
+              "original_sum_lost_lower_mm2": 287.2090783895183,
+              "original_sum_added_lower_mm2": 417.0435834643726,
+              "sampled_reliable_sign_reversal_count": 3,
+              "original_sampled_reliable_sign_reversal_count": 10,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 77.59160789148714,
+                  "added_lower_mm2": 43.3732434347956,
+                  "original_lost_lower_mm2": 59.081978636056434,
+                  "original_added_lower_mm2": 17.51070774764847
+                },
+                "ring": {
+                  "lost_lower_mm2": 110.90592768688903,
+                  "added_lower_mm2": 239.5015463246387,
+                  "original_lost_lower_mm2": 130.29995632112363,
+                  "original_added_lower_mm2": 241.9570447508185
+                },
+                "little": {
+                  "lost_lower_mm2": 75.24398953548587,
+                  "added_lower_mm2": 123.59478384439885,
+                  "original_lost_lower_mm2": 97.82714343233825,
+                  "original_added_lower_mm2": 157.5758309659056
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            },
+            {
+              "band_mm": 5,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 273.29911269378533,
+              "sum_added_lower_mm2": 578.3409634623488,
+              "original_sum_lost_lower_mm2": 346.5391608812074,
+              "original_sum_added_lower_mm2": 630.3478586903452,
+              "sampled_reliable_sign_reversal_count": 35,
+              "original_sampled_reliable_sign_reversal_count": 35,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 46.423309589786555,
+                  "added_lower_mm2": 3.078829147345045,
+                  "original_lost_lower_mm2": 32.171787065573575,
+                  "original_added_lower_mm2": 6.485502486292619
+                },
+                "middle": {
+                  "lost_lower_mm2": 35.37504909847699,
+                  "added_lower_mm2": 79.90699333090868,
+                  "original_lost_lower_mm2": 51.75162131240407,
+                  "original_added_lower_mm2": 20.386949618726923
+                },
+                "ring": {
+                  "lost_lower_mm2": 129.9434434009555,
+                  "added_lower_mm2": 298.68381439808195,
+                  "original_lost_lower_mm2": 121.26690404792376,
+                  "original_added_lower_mm2": 241.76141589656646
+                },
+                "little": {
+                  "lost_lower_mm2": 61.55731060456627,
+                  "added_lower_mm2": 196.67132658601315,
+                  "original_lost_lower_mm2": 141.34884845530598,
+                  "original_added_lower_mm2": 361.71399068875917
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "case_id": "hug_apple_scene_003_seed_0",
+      "fit": {
+        "index": 12,
+        "object_id": "hug_apple",
+        "source_case": "scene_003_seed_0",
+        "original_objective": 8.037699129880897,
+        "returned_objective": 6.699976119912242,
+        "objective_reduction_percent": 16.6431087846464,
+        "original_mean_tip_mm": 5.866398814300645,
+        "returned_mean_tip_mm": 5.671854892619399,
+        "returned_tip_increases_mm": [
+          -0.8746559415505357,
+          -9.999906148364796e-07,
+          -0.02210782619759162,
+          -0.020827061466334798,
+          -0.055127779201153554
+        ],
+        "all_five_exact_caps_pass": true,
+        "selected_new_pose": true,
+        "full_callbacks": 3,
+        "FK_callbacks": 968,
+        "independent_fixed_URDF_vs_scene_max_link_error_m": 6.5027168637659e-08
+      },
+      "independent_engineering_and_source_preflight": "PASS",
+      "resolutions": [
+        {
+          "density_mm": 2.0,
+          "query_count": 14365,
+          "strict_status": "FAIL",
+          "proximity_status": "FAIL",
+          "pointwise_orientation_status": "FAIL",
+          "continuous_contact_equivalence": "UNRESOLVED",
+          "bands": [
+            {
+              "band_mm": 1,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 1.1003308997682169,
+              "sum_added_lower_mm2": 0.0,
+              "original_sum_lost_lower_mm2": 1.1003308997682169,
+              "original_sum_added_lower_mm2": 0.0,
+              "sampled_reliable_sign_reversal_count": 0,
+              "original_sampled_reliable_sign_reversal_count": 0,
+              "pointwise_orientation_status": "UNRESOLVED",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 1.1003308997682169,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 1.1003308997682169,
+                  "original_added_lower_mm2": 0.0
+                },
+                "ring": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "little": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            },
+            {
+              "band_mm": 2,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 62.628429564697726,
+              "sum_added_lower_mm2": 112.63229749913668,
+              "original_sum_lost_lower_mm2": 103.13482485520578,
+              "original_sum_added_lower_mm2": 158.30235097150106,
+              "sampled_reliable_sign_reversal_count": 1,
+              "original_sampled_reliable_sign_reversal_count": 0,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 6.908316373632566,
+                  "added_lower_mm2": 1.1257407595036872,
+                  "original_lost_lower_mm2": 5.807985473864349,
+                  "original_added_lower_mm2": 1.1257407595036872
+                },
+                "ring": {
+                  "lost_lower_mm2": 42.1928368936304,
+                  "added_lower_mm2": 91.03176445093442,
+                  "original_lost_lower_mm2": 58.493451572383876,
+                  "original_added_lower_mm2": 88.92894024625626
+                },
+                "little": {
+                  "lost_lower_mm2": 13.527276297434758,
+                  "added_lower_mm2": 20.474792288698584,
+                  "original_lost_lower_mm2": 38.83338780895756,
+                  "original_added_lower_mm2": 68.24766996574111
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            },
+            {
+              "band_mm": 5,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 50.82370975519493,
+              "sum_added_lower_mm2": 250.817050208567,
+              "original_sum_lost_lower_mm2": 148.408996561087,
+              "original_sum_added_lower_mm2": 435.99055800328995,
+              "sampled_reliable_sign_reversal_count": 9,
+              "original_sampled_reliable_sign_reversal_count": 4,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 17.525962943494715,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 8.231488419330674
+                },
+                "middle": {
+                  "lost_lower_mm2": 11.896684547700977,
+                  "added_lower_mm2": 4.082695294803023,
+                  "original_lost_lower_mm2": 5.533850689917893,
+                  "original_added_lower_mm2": 2.8459513899676776
+                },
+                "ring": {
+                  "lost_lower_mm2": 15.9365208454318,
+                  "added_lower_mm2": 140.1816406420306,
+                  "original_lost_lower_mm2": 47.61532037795173,
+                  "original_added_lower_mm2": 128.16097351026866
+                },
+                "little": {
+                  "lost_lower_mm2": 22.990504362062158,
+                  "added_lower_mm2": 89.02675132823866,
+                  "original_lost_lower_mm2": 85.80850703766386,
+                  "original_added_lower_mm2": 296.7521446837229
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 9.451318455553537,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "case_id": "hug_milk_box_scene_000_seed_0",
+      "fit": {
+        "index": 16,
+        "object_id": "hug_milk_box",
+        "source_case": "scene_000_seed_0",
+        "original_objective": 10.194886947384989,
+        "returned_objective": 9.33067622078785,
+        "objective_reduction_percent": 8.476903481689023,
+        "original_mean_tip_mm": 6.646874932330682,
+        "returned_mean_tip_mm": 5.565093765489007,
+        "returned_tip_increases_mm": [
+          -1.3068318151618283,
+          -0.6842404231777052,
+          -1.6680715578855698,
+          -1.349971194821489,
+          -0.39979084316178054
+        ],
+        "all_five_exact_caps_pass": true,
+        "selected_new_pose": true,
+        "full_callbacks": 3,
+        "FK_callbacks": 2077,
+        "independent_fixed_URDF_vs_scene_max_link_error_m": 6.109389860101599e-08
+      },
+      "independent_engineering_and_source_preflight": "PASS",
+      "resolutions": [
+        {
+          "density_mm": 2.0,
+          "query_count": 19174,
+          "strict_status": "FAIL",
+          "proximity_status": "FAIL",
+          "pointwise_orientation_status": "FAIL",
+          "continuous_contact_equivalence": "UNRESOLVED",
+          "bands": [
+            {
+              "band_mm": 1,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 0.0,
+              "sum_added_lower_mm2": 1.2486141581517507,
+              "original_sum_lost_lower_mm2": 1.3222938060495426,
+              "original_sum_added_lower_mm2": 1.3643144890622914,
+              "sampled_reliable_sign_reversal_count": 4,
+              "original_sampled_reliable_sign_reversal_count": 0,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "ring": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 1.2486141581517507,
+                  "original_lost_lower_mm2": 1.2012671342080805,
+                  "original_added_lower_mm2": 0.8665158207003095
+                },
+                "little": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.49779866836198194
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.12102667184146211,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            },
+            {
+              "band_mm": 2,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 83.63662370240411,
+              "sum_added_lower_mm2": 108.42968597391553,
+              "original_sum_lost_lower_mm2": 65.07653841448393,
+              "original_sum_added_lower_mm2": 84.27959958651373,
+              "sampled_reliable_sign_reversal_count": 7,
+              "original_sampled_reliable_sign_reversal_count": 3,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 7.592694380618151,
+                  "added_lower_mm2": 13.85919583967139,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 1.5065095437448512
+                },
+                "ring": {
+                  "lost_lower_mm2": 30.390005410646857,
+                  "added_lower_mm2": 58.017307865247815,
+                  "original_lost_lower_mm2": 19.905160879149093,
+                  "original_added_lower_mm2": 41.932508885717745
+                },
+                "little": {
+                  "lost_lower_mm2": 45.653923911139096,
+                  "added_lower_mm2": 36.55318226899632,
+                  "original_lost_lower_mm2": 45.171377535334834,
+                  "original_added_lower_mm2": 40.840581157051126
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            },
+            {
+              "band_mm": 5,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 301.96296955422827,
+              "sum_added_lower_mm2": 359.5870699181753,
+              "original_sum_lost_lower_mm2": 245.20422655681043,
+              "original_sum_added_lower_mm2": 322.12807196389184,
+              "sampled_reliable_sign_reversal_count": 16,
+              "original_sampled_reliable_sign_reversal_count": 14,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 13.185737851529733,
+                  "added_lower_mm2": 21.251111176567345,
+                  "original_lost_lower_mm2": 2.709538239027696,
+                  "original_added_lower_mm2": 8.859577355889913
+                },
+                "ring": {
+                  "lost_lower_mm2": 45.99341024231682,
+                  "added_lower_mm2": 110.39361923965387,
+                  "original_lost_lower_mm2": 8.125330990627786,
+                  "original_added_lower_mm2": 106.6904272256718
+                },
+                "little": {
+                  "lost_lower_mm2": 236.34642711393394,
+                  "added_lower_mm2": 227.9423395019541,
+                  "original_lost_lower_mm2": 203.08619205026952,
+                  "original_added_lower_mm2": 206.57806738233012
+                },
+                "thumb": {
+                  "lost_lower_mm2": 6.437394346447768,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 31.283165276885416,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "density_mm": 1.0,
+          "query_count": 71809,
+          "strict_status": "FAIL",
+          "proximity_status": "FAIL",
+          "pointwise_orientation_status": "FAIL",
+          "continuous_contact_equivalence": "UNRESOLVED",
+          "bands": [
+            {
+              "band_mm": 1,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 57.166014575906495,
+              "sum_added_lower_mm2": 79.76636369390684,
+              "original_sum_lost_lower_mm2": 54.0516053594564,
+              "original_sum_added_lower_mm2": 78.24299884711868,
+              "sampled_reliable_sign_reversal_count": 4,
+              "original_sampled_reliable_sign_reversal_count": 1,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 9.202712012626373,
+                  "added_lower_mm2": 10.926264426283714,
+                  "original_lost_lower_mm2": 15.132407436456251,
+                  "original_added_lower_mm2": 19.86699462857061
+                },
+                "ring": {
+                  "lost_lower_mm2": 20.688648715224918,
+                  "added_lower_mm2": 47.53936188133565,
+                  "original_lost_lower_mm2": 12.022212946226192,
+                  "original_added_lower_mm2": 35.80736136454399
+                },
+                "little": {
+                  "lost_lower_mm2": 27.274653848055205,
+                  "added_lower_mm2": 21.300737386287476,
+                  "original_lost_lower_mm2": 25.927923052979484,
+                  "original_added_lower_mm2": 22.568642854004075
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.969061923794473,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            },
+            {
+              "band_mm": 2,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 309.45600545191417,
+              "sum_added_lower_mm2": 425.32388767937186,
+              "original_sum_lost_lower_mm2": 244.6733691588397,
+              "original_sum_added_lower_mm2": 336.3779839655268,
+              "sampled_reliable_sign_reversal_count": 8,
+              "original_sampled_reliable_sign_reversal_count": 4,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 24.263196233266072,
+                  "added_lower_mm2": 46.33570449144774,
+                  "original_lost_lower_mm2": 28.15485545973491,
+                  "original_added_lower_mm2": 40.52311724414166
+                },
+                "ring": {
+                  "lost_lower_mm2": 121.33638074691802,
+                  "added_lower_mm2": 234.11202683471697,
+                  "original_lost_lower_mm2": 58.5171750019781,
+                  "original_added_lower_mm2": 152.30905679569162
+                },
+                "little": {
+                  "lost_lower_mm2": 163.85642847173008,
+                  "added_lower_mm2": 144.87615635320714,
+                  "original_lost_lower_mm2": 155.97851715546935,
+                  "original_added_lower_mm2": 143.54580992569353
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 2.0228215416573487,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            },
+            {
+              "band_mm": 5,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 526.8658346413821,
+              "sum_added_lower_mm2": 629.2169045900819,
+              "original_sum_lost_lower_mm2": 465.833848417127,
+              "original_sum_added_lower_mm2": 536.317121359028,
+              "sampled_reliable_sign_reversal_count": 29,
+              "original_sampled_reliable_sign_reversal_count": 30,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 42.302199569819685,
+                  "added_lower_mm2": 68.84772010268446,
+                  "original_lost_lower_mm2": 7.089309810631559,
+                  "original_added_lower_mm2": 61.07883350549692
+                },
+                "ring": {
+                  "lost_lower_mm2": 115.84914915283763,
+                  "added_lower_mm2": 206.3613505198174,
+                  "original_lost_lower_mm2": 35.93913115049453,
+                  "original_added_lower_mm2": 168.79954999820114
+                },
+                "little": {
+                  "lost_lower_mm2": 324.83882749984275,
+                  "added_lower_mm2": 354.00783396758004,
+                  "original_lost_lower_mm2": 298.12576744919534,
+                  "original_added_lower_mm2": 306.4387378553299
+                },
+                "thumb": {
+                  "lost_lower_mm2": 43.87565841888203,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 124.67964000680556,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 20,
+      "case_id": "hug_milk_box_scene_001_seed_0",
+      "fit": {
+        "index": 20,
+        "object_id": "hug_milk_box",
+        "source_case": "scene_001_seed_0",
+        "original_objective": 12.4496473461063,
+        "returned_objective": 7.707918459069349,
+        "objective_reduction_percent": 38.087254644365125,
+        "original_mean_tip_mm": 8.189191988187519,
+        "returned_mean_tip_mm": 8.102360063533569,
+        "returned_tip_increases_mm": [
+          -0.43116408207131973,
+          -0.001761246176655313,
+          -0.0007492323400577587,
+          -1.0000002041710143e-06,
+          -0.0004840626815043325
+        ],
+        "all_five_exact_caps_pass": true,
+        "selected_new_pose": true,
+        "full_callbacks": 3,
+        "FK_callbacks": 253,
+        "independent_fixed_URDF_vs_scene_max_link_error_m": 6.311630733222666e-08
+      },
+      "independent_engineering_and_source_preflight": "PASS",
+      "resolutions": [
+        {
+          "density_mm": 2.0,
+          "query_count": 19174,
+          "strict_status": "FAIL",
+          "proximity_status": "FAIL",
+          "pointwise_orientation_status": "FAIL",
+          "continuous_contact_equivalence": "UNRESOLVED",
+          "bands": [
+            {
+              "band_mm": 1,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 0.9325423261969837,
+              "sum_added_lower_mm2": 3.1505601682569004,
+              "original_sum_lost_lower_mm2": 0.5907190940515985,
+              "original_sum_added_lower_mm2": 0.0,
+              "sampled_reliable_sign_reversal_count": 0,
+              "original_sampled_reliable_sign_reversal_count": 0,
+              "pointwise_orientation_status": "UNRESOLVED",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 0.5907190940515985,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.5907190940515985,
+                  "original_added_lower_mm2": 0.0
+                },
+                "ring": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 1.2864042781788618,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "little": {
+                  "lost_lower_mm2": 0.34182323214538524,
+                  "added_lower_mm2": 1.8641558900780386,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            },
+            {
+              "band_mm": 2,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 70.16174479650607,
+              "sum_added_lower_mm2": 244.99529197262484,
+              "original_sum_lost_lower_mm2": 89.789545857672,
+              "original_sum_added_lower_mm2": 142.30618557227083,
+              "sampled_reliable_sign_reversal_count": 3,
+              "original_sampled_reliable_sign_reversal_count": 1,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 2.5728973979803644,
+                  "added_lower_mm2": 29.446861967447052,
+                  "original_lost_lower_mm2": 2.9832459389778703,
+                  "original_added_lower_mm2": 25.26554673554402
+                },
+                "ring": {
+                  "lost_lower_mm2": 27.108787724765094,
+                  "added_lower_mm2": 64.66259271352597,
+                  "original_lost_lower_mm2": 31.86081979129912,
+                  "original_added_lower_mm2": 37.964406228822654
+                },
+                "little": {
+                  "lost_lower_mm2": 40.48005967376061,
+                  "added_lower_mm2": 150.88583729165182,
+                  "original_lost_lower_mm2": 54.945480127395,
+                  "original_added_lower_mm2": 79.07623260790416
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            },
+            {
+              "band_mm": 5,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 223.40393866810163,
+              "sum_added_lower_mm2": 826.2607546909326,
+              "original_sum_lost_lower_mm2": 221.713382139897,
+              "original_sum_added_lower_mm2": 370.34694843139954,
+              "sampled_reliable_sign_reversal_count": 18,
+              "original_sampled_reliable_sign_reversal_count": 11,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 16.197311578491636,
+                  "original_lost_lower_mm2": 1.0304257853602394,
+                  "original_added_lower_mm2": 5.525818033466615
+                },
+                "ring": {
+                  "lost_lower_mm2": 66.11599530074409,
+                  "added_lower_mm2": 44.52150914233145,
+                  "original_lost_lower_mm2": 44.97673914682015,
+                  "original_added_lower_mm2": 39.66859155758218
+                },
+                "little": {
+                  "lost_lower_mm2": 157.28794336735754,
+                  "added_lower_mm2": 765.5419339701095,
+                  "original_lost_lower_mm2": 173.4081243609275,
+                  "original_added_lower_mm2": 325.15253884035076
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 2.2980928467891104,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 24,
+      "case_id": "hug_mug_scene_002_seed_0",
+      "fit": {
+        "index": 24,
+        "object_id": "hug_mug",
+        "source_case": "scene_002_seed_0",
+        "original_objective": 8.241252674342935,
+        "returned_objective": 7.4380204172688,
+        "objective_reduction_percent": 9.74648258965286,
+        "original_mean_tip_mm": 6.609029663771959,
+        "returned_mean_tip_mm": 6.530048399053708,
+        "returned_tip_increases_mm": [
+          -0.39490232370507916,
+          -9.999884015461646e-07,
+          -9.999243594585594e-07,
+          -9.999827905830816e-07,
+          -9.99990618089086e-07
+        ],
+        "all_five_exact_caps_pass": true,
+        "selected_new_pose": true,
+        "full_callbacks": 3,
+        "FK_callbacks": 1930,
+        "independent_fixed_URDF_vs_scene_max_link_error_m": 6.014674124988813e-08
+      },
+      "independent_engineering_and_source_preflight": "PASS",
+      "resolutions": [
+        {
+          "density_mm": 2.0,
+          "query_count": 45484,
+          "strict_status": "FAIL",
+          "proximity_status": "FAIL",
+          "pointwise_orientation_status": "FAIL",
+          "continuous_contact_equivalence": "UNRESOLVED",
+          "bands": [
+            {
+              "band_mm": 1,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 0.14559364763448757,
+              "sum_added_lower_mm2": 2.238452750809541,
+              "original_sum_lost_lower_mm2": 1.1775477788645645,
+              "original_sum_added_lower_mm2": 5.874278482068659,
+              "sampled_reliable_sign_reversal_count": 0,
+              "original_sampled_reliable_sign_reversal_count": 0,
+              "pointwise_orientation_status": "UNRESOLVED",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 0.14559364763448757,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.14559364763448757,
+                  "original_added_lower_mm2": 1.3973729804495774
+                },
+                "middle": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 1.031954131230077,
+                  "original_added_lower_mm2": 0.0
+                },
+                "ring": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 2.238452750809541,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 4.476905501619082
+                },
+                "little": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            },
+            {
+              "band_mm": 2,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 503.30604627363243,
+              "sum_added_lower_mm2": 466.5750578516493,
+              "original_sum_lost_lower_mm2": 608.9585717210623,
+              "original_sum_added_lower_mm2": 551.8789360760603,
+              "sampled_reliable_sign_reversal_count": 0,
+              "original_sampled_reliable_sign_reversal_count": 0,
+              "pointwise_orientation_status": "UNRESOLVED",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 105.16150328964352,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 105.16150328964352,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 193.03471748024168,
+                  "added_lower_mm2": 188.63049257564177,
+                  "original_lost_lower_mm2": 221.85150735290102,
+                  "original_added_lower_mm2": 245.15026228048154
+                },
+                "middle": {
+                  "lost_lower_mm2": 66.97141969360318,
+                  "added_lower_mm2": 12.114561724261307,
+                  "original_lost_lower_mm2": 98.17931799970677,
+                  "original_added_lower_mm2": 23.08673620585113
+                },
+                "ring": {
+                  "lost_lower_mm2": 62.9760583160673,
+                  "added_lower_mm2": 105.05157261520961,
+                  "original_lost_lower_mm2": 106.57901661001691,
+                  "original_added_lower_mm2": 118.50122932657153
+                },
+                "little": {
+                  "lost_lower_mm2": 72.6211425121253,
+                  "added_lower_mm2": 160.77843093653664,
+                  "original_lost_lower_mm2": 69.21682465599415,
+                  "original_added_lower_mm2": 165.14070826315606
+                },
+                "thumb": {
+                  "lost_lower_mm2": 2.541204981951463,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 7.9704018127999,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            },
+            {
+              "band_mm": 5,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 2666.4652749631473,
+              "sum_added_lower_mm2": 1129.8098911344566,
+              "original_sum_lost_lower_mm2": 3116.247806438588,
+              "original_sum_added_lower_mm2": 1339.148857157836,
+              "sampled_reliable_sign_reversal_count": 7,
+              "original_sampled_reliable_sign_reversal_count": 0,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 912.6934108195646,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 985.7741037716521,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 915.3861443804814,
+                  "added_lower_mm2": 390.7042579612647,
+                  "original_lost_lower_mm2": 1093.179462045095,
+                  "original_added_lower_mm2": 561.2495158882734
+                },
+                "middle": {
+                  "lost_lower_mm2": 298.224064528124,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 431.8571022377398,
+                  "original_added_lower_mm2": 1.121370091630934
+                },
+                "ring": {
+                  "lost_lower_mm2": 89.21296702794572,
+                  "added_lower_mm2": 48.44379034366213,
+                  "original_lost_lower_mm2": 165.18538047580074,
+                  "original_added_lower_mm2": 43.187492268382805
+                },
+                "little": {
+                  "lost_lower_mm2": 423.79792189434096,
+                  "added_lower_mm2": 690.6618428295299,
+                  "original_lost_lower_mm2": 388.94925364672343,
+                  "original_added_lower_mm2": 733.5904789095487
+                },
+                "thumb": {
+                  "lost_lower_mm2": 27.150766312690536,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 51.30250426157694,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "density_mm": 1.0,
+          "query_count": 178990,
+          "strict_status": "FAIL",
+          "proximity_status": "FAIL",
+          "pointwise_orientation_status": "FAIL",
+          "continuous_contact_equivalence": "UNRESOLVED",
+          "bands": [
+            {
+              "band_mm": 1,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 393.082799118219,
+              "sum_added_lower_mm2": 419.2935300016932,
+              "original_sum_lost_lower_mm2": 470.9920694382326,
+              "original_sum_added_lower_mm2": 419.80870507181623,
+              "sampled_reliable_sign_reversal_count": 0,
+              "original_sampled_reliable_sign_reversal_count": 0,
+              "pointwise_orientation_status": "UNRESOLVED",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 48.12514622863259,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 48.12514622863259,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 110.17315018334752,
+                  "added_lower_mm2": 115.01188168482132,
+                  "original_lost_lower_mm2": 120.25158680569592,
+                  "original_added_lower_mm2": 127.38318585581925
+                },
+                "middle": {
+                  "lost_lower_mm2": 88.86271018533341,
+                  "added_lower_mm2": 68.64753511687543,
+                  "original_lost_lower_mm2": 105.0982298512071,
+                  "original_added_lower_mm2": 45.94170239354888
+                },
+                "ring": {
+                  "lost_lower_mm2": 93.50704814634086,
+                  "added_lower_mm2": 115.83927052309122,
+                  "original_lost_lower_mm2": 124.60842476770671,
+                  "original_added_lower_mm2": 136.50689207242473
+                },
+                "little": {
+                  "lost_lower_mm2": 45.334886803244004,
+                  "added_lower_mm2": 107.25398018508979,
+                  "original_lost_lower_mm2": 45.828830725318284,
+                  "original_added_lower_mm2": 92.9765933576646
+                },
+                "thumb": {
+                  "lost_lower_mm2": 7.079857571320609,
+                  "added_lower_mm2": 12.540862491815489,
+                  "original_lost_lower_mm2": 27.079851059671974,
+                  "original_added_lower_mm2": 17.00033139235875
+                }
+              }
+            },
+            {
+              "band_mm": 2,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 1860.9149463439958,
+              "sum_added_lower_mm2": 1606.300263723601,
+              "original_sum_lost_lower_mm2": 2162.3071008166958,
+              "original_sum_added_lower_mm2": 1790.3902238230635,
+              "sampled_reliable_sign_reversal_count": 1,
+              "original_sampled_reliable_sign_reversal_count": 0,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 324.08776885972986,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 324.08776885972986,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 649.3979500502302,
+                  "added_lower_mm2": 574.6166577562908,
+                  "original_lost_lower_mm2": 700.9327968298651,
+                  "original_added_lower_mm2": 677.8080508022094
+                },
+                "middle": {
+                  "lost_lower_mm2": 276.94004057457494,
+                  "added_lower_mm2": 112.6705412646881,
+                  "original_lost_lower_mm2": 398.0920311796005,
+                  "original_added_lower_mm2": 108.4085567101664
+                },
+                "ring": {
+                  "lost_lower_mm2": 343.2741275263262,
+                  "added_lower_mm2": 384.61036473203944,
+                  "original_lost_lower_mm2": 429.8256482782182,
+                  "original_added_lower_mm2": 426.97790822212784
+                },
+                "little": {
+                  "lost_lower_mm2": 244.54726510077975,
+                  "added_lower_mm2": 513.1454241782228,
+                  "original_lost_lower_mm2": 244.96582406427768,
+                  "original_added_lower_mm2": 552.7982076872934
+                },
+                "thumb": {
+                  "lost_lower_mm2": 22.667794232354904,
+                  "added_lower_mm2": 21.25727579235977,
+                  "original_lost_lower_mm2": 64.4030316050044,
+                  "original_added_lower_mm2": 24.397500401266406
+                }
+              }
+            },
+            {
+              "band_mm": 5,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 4163.105169975201,
+              "sum_added_lower_mm2": 1792.252841723927,
+              "original_sum_lost_lower_mm2": 4889.514915519448,
+              "original_sum_added_lower_mm2": 2105.5354599775224,
+              "sampled_reliable_sign_reversal_count": 30,
+              "original_sampled_reliable_sign_reversal_count": 0,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 1243.9073999184593,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 1300.554417695327,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 1303.024483053497,
+                  "added_lower_mm2": 638.2605050403549,
+                  "original_lost_lower_mm2": 1601.6219621325126,
+                  "original_added_lower_mm2": 809.5887665767899
+                },
+                "middle": {
+                  "lost_lower_mm2": 608.481207185585,
+                  "added_lower_mm2": 17.174167230341386,
+                  "original_lost_lower_mm2": 845.7397308104388,
+                  "original_added_lower_mm2": 31.74752493314387
+                },
+                "ring": {
+                  "lost_lower_mm2": 295.3569334641194,
+                  "added_lower_mm2": 172.67857861123855,
+                  "original_lost_lower_mm2": 421.7858096795667,
+                  "original_added_lower_mm2": 177.05222433768026
+                },
+                "little": {
+                  "lost_lower_mm2": 633.2864122792226,
+                  "added_lower_mm2": 953.0914395821494,
+                  "original_lost_lower_mm2": 596.459248104028,
+                  "original_added_lower_mm2": 1078.8901279853887
+                },
+                "thumb": {
+                  "lost_lower_mm2": 79.04873407431697,
+                  "added_lower_mm2": 11.048151259842822,
+                  "original_lost_lower_mm2": 123.35374709757419,
+                  "original_added_lower_mm2": 8.256816144519753
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 28,
+      "case_id": "hug_mug_scene_003_seed_0",
+      "fit": {
+        "index": 28,
+        "object_id": "hug_mug",
+        "source_case": "scene_003_seed_0",
+        "original_objective": 8.410831540504665,
+        "returned_objective": 8.282650670169856,
+        "objective_reduction_percent": 1.5239975942630517,
+        "original_mean_tip_mm": 6.608610352732439,
+        "returned_mean_tip_mm": 6.60860935273487,
+        "returned_tip_increases_mm": [
+          -9.999992431342086e-07,
+          -9.999965660222043e-07,
+          -9.999975179517118e-07,
+          -9.999945782459413e-07,
+          -9.99999937023599e-07
+        ],
+        "all_five_exact_caps_pass": true,
+        "selected_new_pose": true,
+        "full_callbacks": 3,
+        "FK_callbacks": 2074,
+        "independent_fixed_URDF_vs_scene_max_link_error_m": 5.573915387788611e-08
+      },
+      "independent_engineering_and_source_preflight": "PASS",
+      "resolutions": [
+        {
+          "density_mm": 2.0,
+          "query_count": 45484,
+          "strict_status": "FAIL",
+          "proximity_status": "FAIL",
+          "pointwise_orientation_status": "FAIL",
+          "continuous_contact_equivalence": "UNRESOLVED",
+          "bands": [
+            {
+              "band_mm": 1,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 1.0477567767192637,
+              "sum_added_lower_mm2": 3.286209527528818,
+              "original_sum_lost_lower_mm2": 1.0477567767192637,
+              "original_sum_added_lower_mm2": 2.266088293529009,
+              "sampled_reliable_sign_reversal_count": 0,
+              "original_sampled_reliable_sign_reversal_count": 0,
+              "pointwise_orientation_status": "UNRESOLVED",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 1.0477567767192637,
+                  "added_lower_mm2": 1.0477567767192637,
+                  "original_lost_lower_mm2": 1.0477567767192637,
+                  "original_added_lower_mm2": 0.0
+                },
+                "middle": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "ring": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 2.238452750809554,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 2.266088293529009
+                },
+                "little": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                },
+                "thumb": {
+                  "lost_lower_mm2": 0.0,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 0.0,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            },
+            {
+              "band_mm": 2,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 510.53824578486393,
+              "sum_added_lower_mm2": 341.81176199138486,
+              "original_sum_lost_lower_mm2": 595.5115830958495,
+              "original_sum_added_lower_mm2": 385.82632339142367,
+              "sampled_reliable_sign_reversal_count": 0,
+              "original_sampled_reliable_sign_reversal_count": 0,
+              "pointwise_orientation_status": "UNRESOLVED",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 53.09008901473882,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 53.09008901473882,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 320.1432254118735,
+                  "added_lower_mm2": 125.99715010051015,
+                  "original_lost_lower_mm2": 343.55997602419126,
+                  "original_added_lower_mm2": 170.2508942400102
+                },
+                "middle": {
+                  "lost_lower_mm2": 20.958145242558402,
+                  "added_lower_mm2": 12.589092814951128,
+                  "original_lost_lower_mm2": 61.58522250364571,
+                  "original_added_lower_mm2": 4.333960743333803
+                },
+                "ring": {
+                  "lost_lower_mm2": 41.7075202182353,
+                  "added_lower_mm2": 68.25527665247989,
+                  "original_lost_lower_mm2": 60.38441646790976,
+                  "original_added_lower_mm2": 67.92030083108104
+                },
+                "little": {
+                  "lost_lower_mm2": 71.02165424986295,
+                  "added_lower_mm2": 130.7627903662628,
+                  "original_lost_lower_mm2": 66.9386976868708,
+                  "original_added_lower_mm2": 143.32116757699862
+                },
+                "thumb": {
+                  "lost_lower_mm2": 3.61761164759493,
+                  "added_lower_mm2": 4.2074520571809035,
+                  "original_lost_lower_mm2": 9.953181398493065,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            },
+            {
+              "band_mm": 5,
+              "part_area_sums_are_not_unique_union_areas": true,
+              "sum_lost_lower_mm2": 2742.9145522205363,
+              "sum_added_lower_mm2": 890.5490040957186,
+              "original_sum_lost_lower_mm2": 3014.8128178972106,
+              "original_sum_added_lower_mm2": 982.070454498259,
+              "sampled_reliable_sign_reversal_count": 2,
+              "original_sampled_reliable_sign_reversal_count": 1,
+              "pointwise_orientation_status": "FAIL",
+              "per_part": {
+                "palm": {
+                  "lost_lower_mm2": 705.5255173261212,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 709.1357096088541,
+                  "original_added_lower_mm2": 0.0
+                },
+                "index": {
+                  "lost_lower_mm2": 1447.5600808935528,
+                  "added_lower_mm2": 223.53293797625122,
+                  "original_lost_lower_mm2": 1556.261693383269,
+                  "original_added_lower_mm2": 294.6562039599547
+                },
+                "middle": {
+                  "lost_lower_mm2": 73.32598563500949,
+                  "added_lower_mm2": 0.0,
+                  "original_lost_lower_mm2": 241.6462428353581,
+                  "original_added_lower_mm2": 2.279321612699699
+                },
+                "ring": {
+                  "lost_lower_mm2": 109.88875064551854,
+                  "added_lower_mm2": 46.5611563496475,
+                  "original_lost_lower_mm2": 123.12607814532066,
+                  "original_added_lower_mm2": 57.12611875995845
+                },
+                "little": {
+                  "lost_lower_mm2": 370.51170130903193,
+                  "added_lower_mm2": 617.3601035640854,
+                  "original_lost_lower_mm2": 335.3707457811769,
+                  "original_added_lower_mm2": 628.0088101656461
+                },
+                "thumb": {
+                  "lost_lower_mm2": 36.1025164113025,
+                  "added_lower_mm2": 3.094806205734451,
+                  "original_lost_lower_mm2": 49.27234814323205,
+                  "original_added_lower_mm2": 0.0
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

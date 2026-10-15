@@ -357,3 +357,20 @@ All prior scientific bundles and results remain immutable; shared model and
 simulation inputs/code remain unchanged. No fresh inference, integration,
 eval episodes, task labels or predictor fitting occurs in this writing phase.
 [Parallel handoffs](PARALLEL_GENERATOR_VALIDATION_HANDOFF.md).
+
+
+## 14 October 2026 — HUG feasible restoration completed; fidelity still fails
+
+The old constraint failures are traced to the unsuccessful surface-search
+trajectory, with feasible movement demonstrated on all six saved cases. A new
+frozen seed-restoration stage returns six improving poses and passes all 30
+original-relative fingertip caps plus independent source checks. It uses 18
+surface calls in 49.57 s, reusing the old raw fits. Two cheap projections converge
+and four reach their iteration budget; final feasibility is independently checked.
+All 146 new/prior surface API tests pass.
+
+The unchanged nine-resolution audit still returns 0 PASS/9 FAIL, now with nine
+pointwise orientation FAIL results. This repairs constraint handling, not complete
+grasp preservation. The default mapper, predictor and historical results remain
+unchanged. No new eval data or training was generated. The existing paper's HUG
+subsection is updated and compiles. [Evidence and remaining work](HUG_FEASIBLE_REFINEMENT.md).

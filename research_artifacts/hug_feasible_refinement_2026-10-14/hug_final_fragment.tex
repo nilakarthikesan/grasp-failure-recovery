@@ -1,0 +1,59 @@
+\subsection{HUG}
+HUG supplies MANO hand hypotheses from observations \cite{hug}. Our conversion
+places the native wrist at the Shadow palm position and retargets object-relative
+landmarks through Dex Retargeting \cite{dex}. Native and target hands have
+different surface geometry, so numerical reconstruction and correct forward
+kinematics are necessary but insufficient evidence of grasp preservation.
+
+All 32 saved native exports reconstruct exactly in the recorded 3D audit;
+this does not assert all-32 camera-projection equivalence. Detailed surface
+measurements on six existing apple, milk-box and mug development cases, together
+with three finer repeats, reject the declared strict preservation claim.
+Definite lost/added proximity regions and reliable sampled orientation reversals
+remain counterexamples. The nine resolutions are repeated measurements of six
+grasps, not nine independent physical failures.
+
+The first experimental local fit adds five individual fingertip nonworsening
+constraints, a separate strict 10 mm mean-error guard and native-relative facing
+targets, including away-facing targets. Final engineering assessment separately
+declares a 10 nm arithmetic allowance; original tip errors are approximation
+errors, rather than scientific acceptance margins. None of the six fits provides
+an eligible improving candidate; each returns its exact original joint/root pose.
+Independent source checks pass, while the unchanged surface audit returns zero
+PASS and nine FAIL. Pointwise orientation separately has seven FAIL and two
+UNRESOLVED results. This is not a repaired mapping or evidence of global
+infeasibility. Physical contact and failure-label preservation remain unconfirmed.
+
+
+A subsequent time-zero diagnosis reproduces all 649 recorded fingertip vectors
+exactly and finds full-rank local fingertip-cap Jacobians in all six cases.
+Nonzero inward steps satisfying the original caps exist. The unsuccessful
+surface-optimization trajectories, rather than contradictory fingertip caps,
+explain the first method's refusals; nearby direction-eligibility discontinuities
+are observed but are not established as the cause of every refusal.
+
+A separately frozen restoration stage projects each previously rejected raw
+pose using cheap forward kinematics before evaluating the unchanged surface
+objective. All six restored poses improve that objective by 1.52--38.09\% while
+satisfying all 30 individual original-relative fingertip caps in the declared
+computed arithmetic and the strict 10 mm mean guard. The projection targets
+are tightened inward by 1 nm; no acceptance allowance is added. Fresh terminal
+checks bypass the cache, and independent source-URDF versus captured-scene
+checks pass. This stage uses 18 full surface evaluations in 49.57 s on the
+existing development cases, with no new inference or physical episodes. These
+are feasible improving points. Two cheap projections converge and four reach
+their 40-iteration budget; final feasibility is checked independently of the
+optimizer's status. This is not a full-convergence or surface-preservation claim.
+
+The unchanged independent mapping audit gives zero PASS and nine FAIL; all
+nine pointwise orientation results now FAIL. Definite lost/added proximity
+regions remain despite the improved fitting cost. For example, the coarse
+2 mm milk-box B summed added-area lower bound changes from 142.31 to
+245.00 mm$^2$, while its fitting cost falls by 38.09\%. At the coarse 5 mm
+band, mug A supplies seven reliable sampled sign-reversal witnesses, compared
+with none observed previously. These are conditional anatomical-part area
+sums and pose-specific eligible sample counts, not unique contact areas or
+comparable failure rates. They show that the average fitting objective and
+tip constraints do not certify the complete native grasp. The production
+mapper therefore remains unchanged; continuous physical contact and
+failure-label preservation are still unconfirmed.

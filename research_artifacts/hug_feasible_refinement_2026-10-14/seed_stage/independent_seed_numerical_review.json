@@ -1,0 +1,1026 @@
+{
+  "schema": "hug_feasible_seed_stage_independent_arithmetic_binding_review_v1",
+  "review_utc": "2026-10-15T00:06:59.218085+00:00",
+  "result": "PASS",
+  "input_sha256": {
+    "/private/tmp/hug_feasible_refinement_2026-10-14/seed_stage/candidate_targets.json": "90fd9186fb72c174644fd806b1af26f49e372d066c36295430a37636b3c9d2c5",
+    "/private/tmp/hug_feasible_refinement_2026-10-14/seed_stage/fit_summary.json": "87aa642f4a659ac9bafb96441e90a2a6996a43bab97ca11c8eedb493e7038465",
+    "/private/tmp/hug_feasible_refinement_2026-10-14/seed_stage/protocol.json": "b0e095b39897c6c2d337f53b0c26d82ef5bd6b7632d3c21f60dd9d8e574a98c6",
+    "/private/tmp/hug_feasible_refinement_2026-10-14/seed_stage/protected_hashes.json": "731eea20d74d575d54e812509586b0de73c0cdb0ff6fb8195203eccb761b3654",
+    "/private/tmp/hug_feasible_refinement_2026-10-14/seed_stage/candidate_cohort_8_12_16_20_24_28.json": "543924f2bfc74a259a3d012394671d13c65d22a08928f0f1de3d28f47b17c309",
+    "/private/tmp/hug_constrained_refinement_runtime_v2_1_2026-10-14/candidate_cohort_8.json": "ce4153660c096900244d16af0364ab96c8c7cbab6f298860b68bf99a627e7290",
+    "/private/tmp/hug_constrained_refinement_runtime_v2_1_2026-10-14/candidate_cohort_12.json": "8525c804d5db1412c8240e1ceb3b45ce6a49eed57c00942ca8d7d6ac65e3fe38",
+    "/private/tmp/hug_constrained_refinement_runtime_v2_1_2026-10-14/candidate_cohort_16.json": "08618971d0da476847d1c8dc483d09f8e1514c5ef05b79852bcdecc855e87a5a",
+    "/private/tmp/hug_constrained_refinement_runtime_v2_1_2026-10-14/candidate_cohort_20.json": "a8b584519714de20103b62822c1105a0501553309e84d608ee99af0e6b420e2a",
+    "/private/tmp/hug_constrained_refinement_runtime_v2_1_2026-10-14/candidate_cohort_24.json": "01363af9754dee1b17efba6930e4ca04f0f85a12be378daf295678c254dfbfe3",
+    "/private/tmp/hug_constrained_refinement_runtime_v2_1_2026-10-14/candidate_cohort_28.json": "1c5855877e9be877447e72e8c7bcdd877f9c643b747f803db3a5ab779990e6eb",
+    "/private/tmp/hug_constrained_refinement_runtime_v2_1_2026-10-14/protocol.json": "e42b74b787a8a1a5b5a661596466fe66b24c14eea39db25ad039fda2a462b8ff"
+  },
+  "review_script_sha256": "37f0741c0b0d37715fde0fde2f2a067c734ff4bdcf0a910b462a50769eaaa384",
+  "checks": [
+    {
+      "check": "ordered_all_six_unique_cases",
+      "pass": true
+    },
+    {
+      "check": "candidate_protocol_binding",
+      "pass": true
+    },
+    {
+      "check": "summary_candidate_binding",
+      "pass": true
+    },
+    {
+      "check": "summary_protocol_binding",
+      "pass": true
+    },
+    {
+      "check": "merge_script_binding",
+      "pass": true
+    },
+    {
+      "check": "frozen_solver_binding",
+      "pass": true
+    },
+    {
+      "check": "frozen_driver_binding",
+      "pass": true
+    },
+    {
+      "check": "original_direction_binding",
+      "pass": true
+    },
+    {
+      "check": "protected_snapshot_binding",
+      "pass": true
+    },
+    {
+      "check": "source_current_hashes_match",
+      "pass": true
+    },
+    {
+      "check": "implementation_current_hashes_match",
+      "pass": true
+    },
+    {
+      "check": "protected_current_hashes_match",
+      "pass": true
+    },
+    {
+      "check": "cohort_file_binding",
+      "pass": true
+    },
+    {
+      "check": "cohort_cases_identical",
+      "pass": true
+    },
+    {
+      "check": "seed_stage_predeclared",
+      "pass": true
+    },
+    {
+      "check": "caps_and_budget_unrelaxed",
+      "pass": true
+    },
+    {
+      "check": "static_scope_guards",
+      "pass": true
+    },
+    {
+      "check": "case_8_seed_source_binding",
+      "pass": true
+    },
+    {
+      "check": "case_8_seed_native_identity",
+      "pass": true
+    },
+    {
+      "check": "case_8_original_unchanged",
+      "pass": true
+    },
+    {
+      "check": "case_8_old_raw_seed_exact",
+      "pass": true
+    },
+    {
+      "check": "case_8_physical_bounds_rederived",
+      "pass": true
+    },
+    {
+      "check": "case_8_all_seed_original_returned_bounds",
+      "pass": true
+    },
+    {
+      "check": "case_8_selected_new_pose",
+      "pass": true
+    },
+    {
+      "check": "case_8_all_five_caps_recomputed_exact",
+      "pass": true
+    },
+    {
+      "check": "case_8_cap_fields_match",
+      "pass": true
+    },
+    {
+      "check": "case_8_strict_mean_recomputed",
+      "pass": true
+    },
+    {
+      "check": "case_8_no_feasibility_allowance",
+      "pass": true
+    },
+    {
+      "check": "case_8_fresh_diagnostic_vectors_match",
+      "pass": true
+    },
+    {
+      "check": "case_8_strict_objective_improvement",
+      "pass": true
+    },
+    {
+      "check": "case_8_fresh_objective_fields_match",
+      "pass": true
+    },
+    {
+      "check": "case_8_full_final_alias_equal",
+      "pass": true
+    },
+    {
+      "check": "case_8_only_predeclared_seed_proposal",
+      "pass": true
+    },
+    {
+      "check": "case_8_accepted_seed_selected",
+      "pass": true
+    },
+    {
+      "check": "case_8_event_sequence_complete",
+      "pass": true
+    },
+    {
+      "check": "case_8_event_counters_match",
+      "pass": true
+    },
+    {
+      "check": "case_8_three_full_calls_actual",
+      "pass": true
+    },
+    {
+      "check": "case_8_cheap_FK_plus_one_driver_preflight",
+      "pass": true
+    },
+    {
+      "check": "case_8_FK_and_full_budget_respected",
+      "pass": true
+    },
+    {
+      "check": "case_8_full_call_pose_trace",
+      "pass": true
+    },
+    {
+      "check": "case_8_fresh_terminal_call",
+      "pass": true
+    },
+    {
+      "check": "case_8_all_event_targets_within_bounds",
+      "pass": true
+    },
+    {
+      "check": "case_8_full_FK_agreement_recorded",
+      "pass": true
+    },
+    {
+      "check": "case_8_palm_and_independent_FK_statuses",
+      "pass": true
+    },
+    {
+      "check": "case_8_root_rotation_unchanged",
+      "pass": true
+    },
+    {
+      "check": "case_8_source_ranges_records_match",
+      "pass": true
+    },
+    {
+      "check": "case_8_source_inputs_current",
+      "pass": true
+    },
+    {
+      "check": "case_8_no_physics_or_claims",
+      "pass": true
+    },
+    {
+      "check": "case_8_summary_values_rederived",
+      "pass": true
+    },
+    {
+      "check": "case_12_seed_source_binding",
+      "pass": true
+    },
+    {
+      "check": "case_12_seed_native_identity",
+      "pass": true
+    },
+    {
+      "check": "case_12_original_unchanged",
+      "pass": true
+    },
+    {
+      "check": "case_12_old_raw_seed_exact",
+      "pass": true
+    },
+    {
+      "check": "case_12_physical_bounds_rederived",
+      "pass": true
+    },
+    {
+      "check": "case_12_all_seed_original_returned_bounds",
+      "pass": true
+    },
+    {
+      "check": "case_12_selected_new_pose",
+      "pass": true
+    },
+    {
+      "check": "case_12_all_five_caps_recomputed_exact",
+      "pass": true
+    },
+    {
+      "check": "case_12_cap_fields_match",
+      "pass": true
+    },
+    {
+      "check": "case_12_strict_mean_recomputed",
+      "pass": true
+    },
+    {
+      "check": "case_12_no_feasibility_allowance",
+      "pass": true
+    },
+    {
+      "check": "case_12_fresh_diagnostic_vectors_match",
+      "pass": true
+    },
+    {
+      "check": "case_12_strict_objective_improvement",
+      "pass": true
+    },
+    {
+      "check": "case_12_fresh_objective_fields_match",
+      "pass": true
+    },
+    {
+      "check": "case_12_full_final_alias_equal",
+      "pass": true
+    },
+    {
+      "check": "case_12_only_predeclared_seed_proposal",
+      "pass": true
+    },
+    {
+      "check": "case_12_accepted_seed_selected",
+      "pass": true
+    },
+    {
+      "check": "case_12_event_sequence_complete",
+      "pass": true
+    },
+    {
+      "check": "case_12_event_counters_match",
+      "pass": true
+    },
+    {
+      "check": "case_12_three_full_calls_actual",
+      "pass": true
+    },
+    {
+      "check": "case_12_cheap_FK_plus_one_driver_preflight",
+      "pass": true
+    },
+    {
+      "check": "case_12_FK_and_full_budget_respected",
+      "pass": true
+    },
+    {
+      "check": "case_12_full_call_pose_trace",
+      "pass": true
+    },
+    {
+      "check": "case_12_fresh_terminal_call",
+      "pass": true
+    },
+    {
+      "check": "case_12_all_event_targets_within_bounds",
+      "pass": true
+    },
+    {
+      "check": "case_12_full_FK_agreement_recorded",
+      "pass": true
+    },
+    {
+      "check": "case_12_palm_and_independent_FK_statuses",
+      "pass": true
+    },
+    {
+      "check": "case_12_root_rotation_unchanged",
+      "pass": true
+    },
+    {
+      "check": "case_12_source_ranges_records_match",
+      "pass": true
+    },
+    {
+      "check": "case_12_source_inputs_current",
+      "pass": true
+    },
+    {
+      "check": "case_12_no_physics_or_claims",
+      "pass": true
+    },
+    {
+      "check": "case_12_summary_values_rederived",
+      "pass": true
+    },
+    {
+      "check": "case_16_seed_source_binding",
+      "pass": true
+    },
+    {
+      "check": "case_16_seed_native_identity",
+      "pass": true
+    },
+    {
+      "check": "case_16_original_unchanged",
+      "pass": true
+    },
+    {
+      "check": "case_16_old_raw_seed_exact",
+      "pass": true
+    },
+    {
+      "check": "case_16_physical_bounds_rederived",
+      "pass": true
+    },
+    {
+      "check": "case_16_all_seed_original_returned_bounds",
+      "pass": true
+    },
+    {
+      "check": "case_16_selected_new_pose",
+      "pass": true
+    },
+    {
+      "check": "case_16_all_five_caps_recomputed_exact",
+      "pass": true
+    },
+    {
+      "check": "case_16_cap_fields_match",
+      "pass": true
+    },
+    {
+      "check": "case_16_strict_mean_recomputed",
+      "pass": true
+    },
+    {
+      "check": "case_16_no_feasibility_allowance",
+      "pass": true
+    },
+    {
+      "check": "case_16_fresh_diagnostic_vectors_match",
+      "pass": true
+    },
+    {
+      "check": "case_16_strict_objective_improvement",
+      "pass": true
+    },
+    {
+      "check": "case_16_fresh_objective_fields_match",
+      "pass": true
+    },
+    {
+      "check": "case_16_full_final_alias_equal",
+      "pass": true
+    },
+    {
+      "check": "case_16_only_predeclared_seed_proposal",
+      "pass": true
+    },
+    {
+      "check": "case_16_accepted_seed_selected",
+      "pass": true
+    },
+    {
+      "check": "case_16_event_sequence_complete",
+      "pass": true
+    },
+    {
+      "check": "case_16_event_counters_match",
+      "pass": true
+    },
+    {
+      "check": "case_16_three_full_calls_actual",
+      "pass": true
+    },
+    {
+      "check": "case_16_cheap_FK_plus_one_driver_preflight",
+      "pass": true
+    },
+    {
+      "check": "case_16_FK_and_full_budget_respected",
+      "pass": true
+    },
+    {
+      "check": "case_16_full_call_pose_trace",
+      "pass": true
+    },
+    {
+      "check": "case_16_fresh_terminal_call",
+      "pass": true
+    },
+    {
+      "check": "case_16_all_event_targets_within_bounds",
+      "pass": true
+    },
+    {
+      "check": "case_16_full_FK_agreement_recorded",
+      "pass": true
+    },
+    {
+      "check": "case_16_palm_and_independent_FK_statuses",
+      "pass": true
+    },
+    {
+      "check": "case_16_root_rotation_unchanged",
+      "pass": true
+    },
+    {
+      "check": "case_16_source_ranges_records_match",
+      "pass": true
+    },
+    {
+      "check": "case_16_source_inputs_current",
+      "pass": true
+    },
+    {
+      "check": "case_16_no_physics_or_claims",
+      "pass": true
+    },
+    {
+      "check": "case_16_summary_values_rederived",
+      "pass": true
+    },
+    {
+      "check": "case_20_seed_source_binding",
+      "pass": true
+    },
+    {
+      "check": "case_20_seed_native_identity",
+      "pass": true
+    },
+    {
+      "check": "case_20_original_unchanged",
+      "pass": true
+    },
+    {
+      "check": "case_20_old_raw_seed_exact",
+      "pass": true
+    },
+    {
+      "check": "case_20_physical_bounds_rederived",
+      "pass": true
+    },
+    {
+      "check": "case_20_all_seed_original_returned_bounds",
+      "pass": true
+    },
+    {
+      "check": "case_20_selected_new_pose",
+      "pass": true
+    },
+    {
+      "check": "case_20_all_five_caps_recomputed_exact",
+      "pass": true
+    },
+    {
+      "check": "case_20_cap_fields_match",
+      "pass": true
+    },
+    {
+      "check": "case_20_strict_mean_recomputed",
+      "pass": true
+    },
+    {
+      "check": "case_20_no_feasibility_allowance",
+      "pass": true
+    },
+    {
+      "check": "case_20_fresh_diagnostic_vectors_match",
+      "pass": true
+    },
+    {
+      "check": "case_20_strict_objective_improvement",
+      "pass": true
+    },
+    {
+      "check": "case_20_fresh_objective_fields_match",
+      "pass": true
+    },
+    {
+      "check": "case_20_full_final_alias_equal",
+      "pass": true
+    },
+    {
+      "check": "case_20_only_predeclared_seed_proposal",
+      "pass": true
+    },
+    {
+      "check": "case_20_accepted_seed_selected",
+      "pass": true
+    },
+    {
+      "check": "case_20_event_sequence_complete",
+      "pass": true
+    },
+    {
+      "check": "case_20_event_counters_match",
+      "pass": true
+    },
+    {
+      "check": "case_20_three_full_calls_actual",
+      "pass": true
+    },
+    {
+      "check": "case_20_cheap_FK_plus_one_driver_preflight",
+      "pass": true
+    },
+    {
+      "check": "case_20_FK_and_full_budget_respected",
+      "pass": true
+    },
+    {
+      "check": "case_20_full_call_pose_trace",
+      "pass": true
+    },
+    {
+      "check": "case_20_fresh_terminal_call",
+      "pass": true
+    },
+    {
+      "check": "case_20_all_event_targets_within_bounds",
+      "pass": true
+    },
+    {
+      "check": "case_20_full_FK_agreement_recorded",
+      "pass": true
+    },
+    {
+      "check": "case_20_palm_and_independent_FK_statuses",
+      "pass": true
+    },
+    {
+      "check": "case_20_root_rotation_unchanged",
+      "pass": true
+    },
+    {
+      "check": "case_20_source_ranges_records_match",
+      "pass": true
+    },
+    {
+      "check": "case_20_source_inputs_current",
+      "pass": true
+    },
+    {
+      "check": "case_20_no_physics_or_claims",
+      "pass": true
+    },
+    {
+      "check": "case_20_summary_values_rederived",
+      "pass": true
+    },
+    {
+      "check": "case_24_seed_source_binding",
+      "pass": true
+    },
+    {
+      "check": "case_24_seed_native_identity",
+      "pass": true
+    },
+    {
+      "check": "case_24_original_unchanged",
+      "pass": true
+    },
+    {
+      "check": "case_24_old_raw_seed_exact",
+      "pass": true
+    },
+    {
+      "check": "case_24_physical_bounds_rederived",
+      "pass": true
+    },
+    {
+      "check": "case_24_all_seed_original_returned_bounds",
+      "pass": true
+    },
+    {
+      "check": "case_24_selected_new_pose",
+      "pass": true
+    },
+    {
+      "check": "case_24_all_five_caps_recomputed_exact",
+      "pass": true
+    },
+    {
+      "check": "case_24_cap_fields_match",
+      "pass": true
+    },
+    {
+      "check": "case_24_strict_mean_recomputed",
+      "pass": true
+    },
+    {
+      "check": "case_24_no_feasibility_allowance",
+      "pass": true
+    },
+    {
+      "check": "case_24_fresh_diagnostic_vectors_match",
+      "pass": true
+    },
+    {
+      "check": "case_24_strict_objective_improvement",
+      "pass": true
+    },
+    {
+      "check": "case_24_fresh_objective_fields_match",
+      "pass": true
+    },
+    {
+      "check": "case_24_full_final_alias_equal",
+      "pass": true
+    },
+    {
+      "check": "case_24_only_predeclared_seed_proposal",
+      "pass": true
+    },
+    {
+      "check": "case_24_accepted_seed_selected",
+      "pass": true
+    },
+    {
+      "check": "case_24_event_sequence_complete",
+      "pass": true
+    },
+    {
+      "check": "case_24_event_counters_match",
+      "pass": true
+    },
+    {
+      "check": "case_24_three_full_calls_actual",
+      "pass": true
+    },
+    {
+      "check": "case_24_cheap_FK_plus_one_driver_preflight",
+      "pass": true
+    },
+    {
+      "check": "case_24_FK_and_full_budget_respected",
+      "pass": true
+    },
+    {
+      "check": "case_24_full_call_pose_trace",
+      "pass": true
+    },
+    {
+      "check": "case_24_fresh_terminal_call",
+      "pass": true
+    },
+    {
+      "check": "case_24_all_event_targets_within_bounds",
+      "pass": true
+    },
+    {
+      "check": "case_24_full_FK_agreement_recorded",
+      "pass": true
+    },
+    {
+      "check": "case_24_palm_and_independent_FK_statuses",
+      "pass": true
+    },
+    {
+      "check": "case_24_root_rotation_unchanged",
+      "pass": true
+    },
+    {
+      "check": "case_24_source_ranges_records_match",
+      "pass": true
+    },
+    {
+      "check": "case_24_source_inputs_current",
+      "pass": true
+    },
+    {
+      "check": "case_24_no_physics_or_claims",
+      "pass": true
+    },
+    {
+      "check": "case_24_summary_values_rederived",
+      "pass": true
+    },
+    {
+      "check": "case_28_seed_source_binding",
+      "pass": true
+    },
+    {
+      "check": "case_28_seed_native_identity",
+      "pass": true
+    },
+    {
+      "check": "case_28_original_unchanged",
+      "pass": true
+    },
+    {
+      "check": "case_28_old_raw_seed_exact",
+      "pass": true
+    },
+    {
+      "check": "case_28_physical_bounds_rederived",
+      "pass": true
+    },
+    {
+      "check": "case_28_all_seed_original_returned_bounds",
+      "pass": true
+    },
+    {
+      "check": "case_28_selected_new_pose",
+      "pass": true
+    },
+    {
+      "check": "case_28_all_five_caps_recomputed_exact",
+      "pass": true
+    },
+    {
+      "check": "case_28_cap_fields_match",
+      "pass": true
+    },
+    {
+      "check": "case_28_strict_mean_recomputed",
+      "pass": true
+    },
+    {
+      "check": "case_28_no_feasibility_allowance",
+      "pass": true
+    },
+    {
+      "check": "case_28_fresh_diagnostic_vectors_match",
+      "pass": true
+    },
+    {
+      "check": "case_28_strict_objective_improvement",
+      "pass": true
+    },
+    {
+      "check": "case_28_fresh_objective_fields_match",
+      "pass": true
+    },
+    {
+      "check": "case_28_full_final_alias_equal",
+      "pass": true
+    },
+    {
+      "check": "case_28_only_predeclared_seed_proposal",
+      "pass": true
+    },
+    {
+      "check": "case_28_accepted_seed_selected",
+      "pass": true
+    },
+    {
+      "check": "case_28_event_sequence_complete",
+      "pass": true
+    },
+    {
+      "check": "case_28_event_counters_match",
+      "pass": true
+    },
+    {
+      "check": "case_28_three_full_calls_actual",
+      "pass": true
+    },
+    {
+      "check": "case_28_cheap_FK_plus_one_driver_preflight",
+      "pass": true
+    },
+    {
+      "check": "case_28_FK_and_full_budget_respected",
+      "pass": true
+    },
+    {
+      "check": "case_28_full_call_pose_trace",
+      "pass": true
+    },
+    {
+      "check": "case_28_fresh_terminal_call",
+      "pass": true
+    },
+    {
+      "check": "case_28_all_event_targets_within_bounds",
+      "pass": true
+    },
+    {
+      "check": "case_28_full_FK_agreement_recorded",
+      "pass": true
+    },
+    {
+      "check": "case_28_palm_and_independent_FK_statuses",
+      "pass": true
+    },
+    {
+      "check": "case_28_root_rotation_unchanged",
+      "pass": true
+    },
+    {
+      "check": "case_28_source_ranges_records_match",
+      "pass": true
+    },
+    {
+      "check": "case_28_source_inputs_current",
+      "pass": true
+    },
+    {
+      "check": "case_28_no_physics_or_claims",
+      "pass": true
+    },
+    {
+      "check": "case_28_summary_values_rederived",
+      "pass": true
+    },
+    {
+      "check": "literal_objective_and_placement_AST_unchanged",
+      "pass": true
+    },
+    {
+      "check": "source_surface_configuration_unchanged",
+      "pass": true
+    },
+    {
+      "check": "source_direction_configuration_unchanged",
+      "pass": true
+    },
+    {
+      "check": "total_full_calls_18",
+      "pass": true
+    },
+    {
+      "check": "parsed_inputs_unchanged_during_review",
+      "pass": true
+    }
+  ],
+  "failed_checks": [],
+  "source_current_hash_mismatches": {
+    "source": {},
+    "implementation": {},
+    "protected": {}
+  },
+  "six_case_rows": [
+    {
+      "index": 8,
+      "all_five_exact_caps_pass": true,
+      "recomputed_cap_increases_m": [
+        -0.0012677720922720636,
+        -9.999927563526106e-10,
+        -0.0007780177158483339,
+        -9.999948317324092e-10,
+        -0.00012383149965958847
+      ],
+      "recomputed_mean_tip_m": 0.005410838568251751,
+      "linalg_mean_tip_m": 0.005410838568251751,
+      "returned_objective": 5.735661159756074,
+      "original_objective": 7.567033421375607,
+      "selected_q_delta_l2_rad": 0.953003162993799,
+      "projection_success": false,
+      "projection_status": 9,
+      "projection_iterations": 40,
+      "full_calls": 3,
+      "FK_calls": 2035,
+      "full_FK_maxabs_m": 0.0
+    },
+    {
+      "index": 12,
+      "all_five_exact_caps_pass": true,
+      "recomputed_cap_increases_m": [
+        -0.0008746559415505357,
+        -9.999906148364796e-10,
+        -2.210782619759162e-05,
+        -2.0827061466334798e-05,
+        -5.5127779201153554e-05
+      ],
+      "recomputed_mean_tip_m": 0.005671854892619399,
+      "linalg_mean_tip_m": 0.005671854892619399,
+      "returned_objective": 6.699976119912242,
+      "original_objective": 8.037699129880897,
+      "selected_q_delta_l2_rad": 0.6536750529279801,
+      "projection_success": true,
+      "projection_status": 0,
+      "projection_iterations": 19,
+      "full_calls": 3,
+      "FK_calls": 968,
+      "full_FK_maxabs_m": 0.0
+    },
+    {
+      "index": 16,
+      "all_five_exact_caps_pass": true,
+      "recomputed_cap_increases_m": [
+        -0.0013068318151618283,
+        -0.0006842404231777051,
+        -0.00166807155788557,
+        -0.001349971194821489,
+        -0.00039979084316178054
+      ],
+      "recomputed_mean_tip_m": 0.005565093765489007,
+      "linalg_mean_tip_m": 0.005565093765489007,
+      "returned_objective": 9.33067622078785,
+      "original_objective": 10.194886947384989,
+      "selected_q_delta_l2_rad": 0.5756987329566787,
+      "projection_success": false,
+      "projection_status": 9,
+      "projection_iterations": 40,
+      "full_calls": 3,
+      "FK_calls": 2077,
+      "full_FK_maxabs_m": 0.0
+    },
+    {
+      "index": 20,
+      "all_five_exact_caps_pass": true,
+      "recomputed_cap_increases_m": [
+        -0.00043116408207131973,
+        -1.761246176655313e-06,
+        -7.492323400577587e-07,
+        -1.0000002041710143e-09,
+        -4.840626815043325e-07
+      ],
+      "recomputed_mean_tip_m": 0.008102360063533568,
+      "linalg_mean_tip_m": 0.008102360063533568,
+      "returned_objective": 7.707918459069349,
+      "original_objective": 12.4496473461063,
+      "selected_q_delta_l2_rad": 1.2173431822142526,
+      "projection_success": true,
+      "projection_status": 0,
+      "projection_iterations": 5,
+      "full_calls": 3,
+      "FK_calls": 253,
+      "full_FK_maxabs_m": 0.0
+    },
+    {
+      "index": 24,
+      "all_five_exact_caps_pass": true,
+      "recomputed_cap_increases_m": [
+        -0.00039490232370507916,
+        -9.999884015461646e-10,
+        -9.999243594585594e-10,
+        -9.999827905830816e-10,
+        -9.99990618089086e-10
+      ],
+      "recomputed_mean_tip_m": 0.006530048399053709,
+      "linalg_mean_tip_m": 0.006530048399053709,
+      "returned_objective": 7.4380204172688,
+      "original_objective": 8.241252674342935,
+      "selected_q_delta_l2_rad": 0.6166129927413658,
+      "projection_success": false,
+      "projection_status": 9,
+      "projection_iterations": 40,
+      "full_calls": 3,
+      "FK_calls": 1930,
+      "full_FK_maxabs_m": 0.0
+    },
+    {
+      "index": 28,
+      "all_five_exact_caps_pass": true,
+      "recomputed_cap_increases_m": [
+        -9.999992431342086e-10,
+        -9.999965660222043e-10,
+        -9.999975179517118e-10,
+        -9.999945782459413e-10,
+        -9.99999937023599e-10
+      ],
+      "recomputed_mean_tip_m": 0.0066086093527348705,
+      "linalg_mean_tip_m": 0.0066086093527348705,
+      "returned_objective": 8.282650670169856,
+      "original_objective": 8.410831540504665,
+      "selected_q_delta_l2_rad": 0.27927086816007973,
+      "projection_success": false,
+      "projection_status": 9,
+      "projection_iterations": 40,
+      "full_calls": 3,
+      "FK_calls": 2074,
+      "full_FK_maxabs_m": 0.0
+    }
+  ],
+  "all_30_computed_caps_pass": true,
+  "converged_projection_count": 2,
+  "budget_exhausted_projection_count": 4,
+  "scope": "Recompute arithmetic from stored vectors; source/code bindings and event consistency. No independent geometry/FK replay in this review.",
+  "scientific_mapping_acceptance": "INDEPENDENT_AUDIT_PENDING",
+  "full_geometry_calls": 0,
+  "physics_steps": 0,
+  "new_eval_data": false
+}

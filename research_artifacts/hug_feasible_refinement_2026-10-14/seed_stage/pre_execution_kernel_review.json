@@ -1,0 +1,19 @@
+{
+  "schema": "hug_seed_stage_kernel_review_v1",
+  "syntax_compile_pass": true,
+  "literal_full_geometry_kernel_AST_equal": {
+    "set_pose": true,
+    "evaluate": true,
+    "evaluate_tips": true
+  },
+  "new_solver_sha256": "2b4d8c30fe639d70bd8e4da0aa6406c2782ee2a3e7997683ed89db9edb935c4e",
+  "old_solver_sha256": "0b29f867337cd11bb9128f5aa6ca92800338543055b286b40873d10f4d74f409",
+  "driver_sha256": "a3964fad49f6acdb8a49080b3211b6c0816f34c361b945c507ef7d2f23426808",
+  "protocol_draft_sha256": "65bf4dd0bd8c39a6848c928559ad94e1ef937379a69723d8028b942d7f679894",
+  "draft_only_no_execution": true,
+  "dependency_count": 89,
+  "nominal_calls_per_case": 3,
+  "hard_full_call_limit": 4,
+  "guard_arithmetic_allowance_m": 0.0,
+  "exact_guard_norm_definition": "sqrt(einsum(ij,ij->i, vectors, vectors)); diagnostic linalg norm retained separately."
+}

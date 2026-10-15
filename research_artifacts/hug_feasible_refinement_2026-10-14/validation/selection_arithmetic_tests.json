@@ -1,0 +1,104 @@
+{
+  "schema": "hug_feasible_seed_selection_arithmetic_tamper_tests_v2",
+  "candidate_sha256": "90fd9186fb72c174644fd806b1af26f49e372d066c36295430a37636b3c9d2c5",
+  "script_sha256": "74fc2e2c431b2ce03fe9619cd94438915759c4a3d2feec82aeea65bb190fdc05",
+  "selection_script_sha256": "28bc918ae9d5bd765028afb4c71959e807bf2f8e0e13d4b626ba225db014acc1",
+  "tests": [
+    {
+      "name": "authentic_case_8",
+      "expected": "accept recorded trace",
+      "passed": true
+    },
+    {
+      "name": "authentic_case_12",
+      "expected": "accept recorded trace",
+      "passed": true
+    },
+    {
+      "name": "authentic_case_16",
+      "expected": "accept recorded trace",
+      "passed": true
+    },
+    {
+      "name": "authentic_case_20",
+      "expected": "accept recorded trace",
+      "passed": true
+    },
+    {
+      "name": "authentic_case_24",
+      "expected": "accept recorded trace",
+      "passed": true
+    },
+    {
+      "name": "authentic_case_28",
+      "expected": "accept recorded trace",
+      "passed": true
+    },
+    {
+      "name": "returned_q_disagrees_with_selected",
+      "expected": "reject modified trace",
+      "passed": true,
+      "exception_type": "AssertionError"
+    },
+    {
+      "name": "seed_disagrees_with_declared_old_raw",
+      "expected": "reject modified trace",
+      "passed": true,
+      "exception_type": "AssertionError"
+    },
+    {
+      "name": "seed_outside_source_and_trust_bounds",
+      "expected": "reject modified trace",
+      "passed": true,
+      "exception_type": "AssertionError"
+    },
+    {
+      "name": "reported_tip_norm_inconsistent",
+      "expected": "reject modified trace",
+      "passed": true,
+      "exception_type": "AssertionError"
+    },
+    {
+      "name": "tip_eligibility_boolean_inconsistent",
+      "expected": "reject modified trace",
+      "passed": true,
+      "exception_type": "AssertionError"
+    },
+    {
+      "name": "full_budget_counter_exceeded",
+      "expected": "reject modified trace",
+      "passed": true,
+      "exception_type": "AssertionError"
+    },
+    {
+      "name": "accepted_objective_inconsistent",
+      "expected": "reject modified trace",
+      "passed": true,
+      "exception_type": "AssertionError"
+    },
+    {
+      "name": "trace_event_order_inconsistent",
+      "expected": "reject modified trace",
+      "passed": true,
+      "exception_type": "AssertionError"
+    },
+    {
+      "name": "terminal_full_callback_not_fresh",
+      "expected": "reject modified trace",
+      "passed": true,
+      "exception_type": "AssertionError"
+    },
+    {
+      "name": "terminal_fk_callback_not_terminal",
+      "expected": "reject modified trace",
+      "passed": true,
+      "exception_type": "AssertionError"
+    }
+  ],
+  "test_count": 16,
+  "all_passed": true,
+  "geometry_calls": 0,
+  "physics_steps": 0,
+  "independent_pose_preflight": false,
+  "new_eval_data": false
+}

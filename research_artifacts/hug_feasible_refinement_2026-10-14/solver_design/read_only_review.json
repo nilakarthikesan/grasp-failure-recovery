@@ -1,0 +1,23 @@
+{
+  "schema": "hug_feasible_solver_read_only_review_v2",
+  "module_sha256": "2b4d8c30fe639d70bd8e4da0aa6406c2782ee2a3e7997683ed89db9edb935c4e",
+  "tests_sha256": "015970ddde40999e037015a23fcdedd7e663b659047f83316bc09de500ce2b8d",
+  "actionable_findings": [],
+  "checked": [
+    "exact-computed original full-reference five-tip caps and strict mean guard",
+    "seed shape/finite/source-range/original-trust bounds validation and copies",
+    "independent preserved callback q snapshots and readonly arguments",
+    "fixed residual shape and full/FK comparison independent of guard tolerances",
+    "full-geometry calls permitted only after exact cheap FK, then checked full FK",
+    "reserved two terminal full/FK calls, fresh verification, forced original on disagreement/refusal",
+    "historical accepted candidates explicitly retained after terminal refusal",
+    "bounded projection and independently checked backtracks; no convexity/global feasibility assumption"
+  ],
+  "integration_caution": {
+    "norm_method": "sqrt(einsum) may differ by1ULP from np.linalg.norm",
+    "resolution": "Seed driver and independent audit declare exact sqrt(einsum) caps separately while retaining np.linalg.norm diagnostics; no acceptance tolerance added."
+  },
+  "manufactured_test_result": "26passed reported by implementing agent, independently read all tests; no unnecessary rerun",
+  "actual_geometry_calls": 0,
+  "checkout_edits": false
+}

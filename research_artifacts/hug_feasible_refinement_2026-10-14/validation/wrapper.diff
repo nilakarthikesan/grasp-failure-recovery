@@ -1,0 +1,259 @@
+--- /private/tmp/hug_constrained_validation_runtime_v2_1_2026-10-14/validate_candidate.py
++++ /private/tmp/hug_feasible_refinement_2026-10-14/validation/validate_candidate.py
+@@ -52,53 +52,173 @@
+     normal='FAIL' if any(x['pointwise_status']=='FAIL' for x in normals) else 'UNRESOLVED'
+     return {'proximity_status_conditional':prox,'pointwise_orientation_status':normal,'strict_relationship_status_conditional':'FAIL' if prox=='FAIL' or normal=='FAIL' else 'UNRESOLVED','proximity_checks':checks,'orientation_checks':normals,'full_physical_contact_equivalence':'UNRESOLVED','failure_label_preservation':'NOT_TESTED','independent_unseen_object_validation':'NOT_TESTED'}
+ 
+-def verify_recorded_selection(target,physical_ranges,protocol):
+-    """Check best feasible major/raw trace selection, never mapping acceptance."""
+-    audit=target['solver_audit'];names=target['joint_names'];original=np.asarray(target['original_qpos_rad'],float);bounds=np.asarray([physical_ranges[n] for n in names]);low=np.maximum(bounds[:,0],original-protocol['maximum_joint_delta_rad']);high=np.minimum(bounds[:,1],original+protocol['maximum_joint_delta_rad']);baseline=audit['baseline'];original_norms=np.sqrt(np.einsum('ij,ij->i',np.asarray(baseline['tip_error_vectors_m']),np.asarray(baseline['tip_error_vectors_m'])));base_cost=float(baseline['objective']);allow=protocol['individual_fingertip_arithmetic_allowance_m'];mean_limit=protocol['existing_engineering_mean_tip_guard_m'];improvement=protocol['minimum_objective_improvement'];best=None;eligible_count=0
+-    def eligible(q,assessment):
+-        if q is None or assessment is None:return False
++def verify_recorded_selection(target, physical_ranges, protocol):
++    audit=target['solver_audit']; original=np.asarray(target['original_qpos_rad'],float)
++    bounds=np.asarray([physical_ranges[n] for n in target['joint_names']],float)
++    low=np.maximum(bounds[:,0],original-protocol['maximum_joint_delta_rad'])
++    high=np.minimum(bounds[:,1],original+protocol['maximum_joint_delta_rad'])
++    assert audit['schema']=='hug_feasible_only_static_pattern_refinement_v1'
++    assert audit['config']['maximum_pattern_sweeps']==0
++    assert audit['config']['maximum_full_geometry_evaluations']==4
++    assert audit['feasibility_error_allowance_m']==0
++    assert audit['final_callbacks_fresh_outside_cache'] and not audit['mapping_fidelity_acceptance']
++    assert np.array_equal(original,np.asarray(audit['original_qpos_rad']))
++    assert np.array_equal(bounds,np.asarray(audit['physical_bounds_rad']))
++    assert np.array_equal(np.column_stack([low,high]),np.asarray(audit['bounded_correction_domain_rad']))
++    original_vectors=np.asarray(audit['baseline']['tip_error_vectors_m'],float)
++    assert original_vectors.shape==(5,3) and np.isfinite(original_vectors).all()
++    original_norms=np.sqrt(np.einsum('ij,ij->i',original_vectors,original_vectors))
++    baseline_cost=float(audit['baseline']['objective'])
++    assert np.isfinite(baseline_cost) and baseline_cost>=0
++    mean_limit=protocol['existing_engineering_mean_tip_guard_m']
++    improvement=protocol['minimum_objective_improvement']
++
++    def checked_q(q):
+         v=np.asarray(q,float)
+-        if v.shape!=(24,) or not np.isfinite(v).all() or np.any(v<low) or np.any(v>high):return False
+-        errors=np.asarray(assessment['tip_error_vectors_m'],float);assert errors.shape==(5,3) and np.isfinite(errors).all();norm=np.sqrt(np.einsum('ij,ij->i',errors,errors));assert np.max(np.abs(norm-np.asarray(assessment['tip_error_norm_m'])))<1e-12
++        assert v.shape==(24,) and np.isfinite(v).all()
++        assert np.all(v>=low) and np.all(v<=high)
++        return v
++
++    def check_assessment(row):
++        errors=np.asarray(row['tip_error_vectors_m'],float)
++        assert errors.shape==(5,3) and np.isfinite(errors).all()
++        norm=np.sqrt(np.einsum('ij,ij->i',errors,errors))
++        assert np.array_equal(norm,np.asarray(row['tip_error_norm_m']))
++        assert np.array_equal(norm-original_norms,np.asarray(row['tip_error_increase_m']))
++        caps=norm<=original_norms; mean=float(norm.mean()); feasible=bool(caps.all() and mean<=mean_limit)
++        assert caps.tolist()==row['individual_tip_nonworsening_pass']
++        assert mean==row['mean_fingertip_error_m']
++        assert bool(mean<=mean_limit)==row['strict_existing_mean_guard_pass']
++        assert feasible==row['exact_computed_engineering_feasible']
++        return feasible
++
++    assert check_assessment(audit['baseline'])
++    seeds=np.asarray(audit['predeclared_seed_qpos_rad'],float)
++    assert seeds.shape==(1,24)
++    seed=checked_q(seeds[0]);assert np.array_equal(seed,np.asarray(target['predeclared_seed_qpos_rad']))
++    assert np.array_equal(seed,np.asarray(target['raw_candidate_qpos_rad']))
++    assert target['seed_source_cohort_sha256']==audit['predeclared_seed_source_sha256']
++    proposals=audit['proposals'];accepted=audit['accepted_candidates']
++    assert len(proposals)<=1 and len(accepted)<=1
++    chosen=None
++    for number,row in enumerate(proposals,1):
++        assert row['sequence']==number and row['sweep']==0 and row['seed_index']==0
++        assert row['direction']=='predeclared_seed' and row['radius_rad'] is None
++        assert np.array_equal(np.asarray(row['anchor_qpos_rad']),original)
++        assert np.array_equal(checked_q(row['proposal_qpos_rad']),seed)
++        if 'proposal_assessment' in row:check_assessment(row['proposal_assessment'])
++        if 'restored_assessment' in row:check_assessment(row['restored_assessment'])
++        for backtrack in row.get('restoration_backtracking',[]):
++            checked_q(backtrack['qpos_rad']);check_assessment(backtrack['assessment'])
++        if 'full_assessment' not in row:
++            assert not row['accepted'];continue
++        candidate=checked_q(row['candidate_qpos_rad']);assessment=row['full_assessment']
++        assert check_assessment(assessment)
+         cost=float(assessment['objective']);assert np.isfinite(cost) and cost>=0
+-        return bool(np.all(norm<=original_norms+allow) and norm.mean()<=mean_limit and cost<base_cost-improvement)
+-    trace=audit['major_iteration_assessments']
+-    for i,row in enumerate(trace,1):
+-        assert row['major_iteration']==i;yes=eligible(row['qpos_rad'],row['assessment']);assert yes==row['eligible_lower_objective_candidate'];eligible_count+=yes
+-        if yes and (best is None or row['assessment']['objective']<best['assessment']['objective']):best={'source':'major_iteration','major_iteration':i,'qpos_rad':row['qpos_rad'],'assessment':row['assessment']}
+-    raw_eligible=eligible(audit['raw_candidate_qpos_rad'],audit['raw_assessment']) and not audit['raw_final_refusal_reasons'];assert raw_eligible==audit['raw_final_eligible_lower_objective_candidate'];eligible_count+=raw_eligible
+-    if raw_eligible and (best is None or audit['raw_assessment']['objective']<best['assessment']['objective']):best={'source':'raw_final','major_iteration':None,'qpos_rad':audit['raw_candidate_qpos_rad'],'assessment':audit['raw_assessment']}
+-    source='original_fallback' if best is None else best['source'];iteration=None if best is None else best['major_iteration'];q=original if best is None else np.asarray(best['qpos_rad']);cost=base_cost if best is None else float(best['assessment']['objective']);assert source==audit['selected_candidate_source'] and iteration==audit['selected_major_iteration'];assert np.array_equal(q,np.asarray(target['qpos_rad'])) and np.array_equal(q,np.asarray(audit['returned_qpos_rad']));assert cost==audit['final_assessment']['objective'];assert abs(cost-target['selected_fresh_diagnostics']['objective'])<1e-10
+-    return {'recorded_major_and_raw_selection_verified':True,'selected_candidate_source':source,'selected_major_iteration':iteration,'selected_lowest_recorded_eligible_objective':cost,'eligible_recorded_candidate_count':int(eligible_count),'major_iteration_count':len(trace),'source_and_trust_bounds_of_recorded_eligible_candidates_verified':True,'recorded_tip_vectors_and_boolean_eligibility_verified':True,'objective_values_not_independently_recomputed_for_all_trace_poses':True,'tie_policy':'Earliest strict-cost improvement among ordered major iterates; raw final replaces only on strictly lower cost.','not_scientific_mapping_acceptance':True}
++        improved=bool(cost<baseline_cost-improvement)
++        assert improved==row['accepted']
++        if improved:chosen=(candidate,cost,row['sequence'])
++    if chosen is None:
++        assert accepted==[]
++    else:
++        assert len(accepted)==1
++        assert np.array_equal(np.asarray(accepted[0]['qpos_rad']),chosen[0])
++        assert accepted[0]['objective']==chosen[1] and accepted[0]['proposal_sequence']==chosen[2]
++    refused=audit['callback_or_geometry_refusal'] is not None
++    if refused or chosen is None:
++        expected=original; source='original_fallback'; chosen_sequence=None; cost=baseline_cost
++    else:
++        expected=chosen[0];source='predeclared_seed_after_FK_restore';cost=chosen[1];chosen_sequence=chosen[2]
++    returned=checked_q(target['qpos_rad'])
++    assert np.array_equal(returned,expected) and np.array_equal(returned,np.asarray(audit['returned_qpos_rad']))
++    assert audit['selected_candidate_source']==source and audit['selected_major_iteration'] is None
++    assert bool(source!='original_fallback')==audit['surface_candidate_returned']
++    assert bool(source=='original_fallback')==audit['exact_original_fallback']
++    final=audit['final_assessment'];assert final==audit['final'] and check_assessment(final)
++    assert abs(final['objective']-cost)<1e-10
++    assert abs(final['objective']-target['selected_fresh_diagnostics']['objective'])<1e-10
++    events=audit['events'];counts=audit['counters']
++    assert [e['sequence'] for e in events]==list(range(1,len(events)+1))
++    full_events=[e for e in events if e['kind']=='full_callback']
++    fk_events=[e for e in events if e['kind']=='FK_callback']
++    assert len(full_events)==counts['full']<=audit['config']['maximum_full_geometry_evaluations']
++    assert len(fk_events)==counts['FK']<=audit['config']['maximum_FK_evaluations']
++    assert full_events[-1]['fresh'] and full_events[-1]['terminal']
++    assert fk_events[-1]['fresh'] and fk_events[-1]['terminal']
++    assert np.array_equal(np.asarray(full_events[-1]['qpos_rad']),returned)
++    assert np.array_equal(np.asarray(fk_events[-1]['qpos_rad']),returned)
++    assert target['full_callback_count_including_fresh_final']==counts['full']
++    assert audit['full_FK_agreement_maxabs_m']<=audit['config']['full_FK_agreement_allowance_m']
++    return {'recorded_seed_restoration_selection_verified':True,'selected_candidate_source':source,
++        'selected_proposal_sequence':chosen_sequence,'recorded_seed_proposal_count':len(proposals),
++        'historically_accepted_seed_count':len(accepted),'fresh_final_refusal_forces_original':refused,
++        'exact_computed_all_five_caps_verified_in_recorded_assessments':True,
++        'norm_arithmetic':'sqrt(einsum(ij,ij->i)) on independently recovered vectors',
++        'feasibility_error_allowance_m':0.,'full_and_FK_terminal_events_fresh_verified':True,
++        'objective_values_not_independently_recomputed_for_all_trace_poses':True,
++        'not_scientific_mapping_acceptance':True}
+ 
+ def main():
+     global TEST
+     ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--out',type=Path,default=Path(__file__).parent);ap.add_argument('--case-index',type=int,nargs='*');ap.add_argument('--skip-orientation',action='store_true',help='Separate sampling-only pilot; strict orientation remains NOT_TESTED');ap.add_argument('--preflight-only',action='store_true',help='Check every original/final source pose first, without costly surface metrics');args=ap.parse_args();args.out.mkdir(exist_ok=True);tic=time.perf_counter()
+     protocol=read(args.out/'protocol.json');ph=sha(args.out/'protocol.json');assert sha(__file__)==protocol['script_sha256']
+     for file,h in protocol['fixed_files_sha256'].items():assert sha(file)==h,file
+-    cp=sha(args.candidate);candidate=read(args.candidate);assert candidate['schema']=='hug_global_constrained_surface_candidate_v1';v3=False;v2=True;targets={c['native_sha256']:c for c in candidate['cases']};assert len(targets)==len(candidate['cases'])==6
++    assert protocol['execution_authorized_by_root_review'], 'Frozen root review required before audit execution'
++    cp=sha(args.candidate);candidate=read(args.candidate);assert candidate['schema']==protocol['candidate_schema'];v3=False;v2=True
++    targets={c['native_sha256']:c for c in candidate['cases']};assert len(targets)==len(candidate['cases'])==6
+     assert candidate['protocol_sha256']==protocol['candidate_protocol_expected_sha256']
+-    assert candidate['runtime_protocol_version']==protocol['candidate_runtime_protocol_version']
+-    assert candidate['runtime_amendment']==protocol['candidate_runtime_amendment']
+     candidate_protocol_file=args.candidate.parent/'protocol.json';assert sha(candidate_protocol_file)==candidate['protocol_sha256']
+-    assert sha(args.candidate.parent/'run_constrained_refinement.py')==candidate['script_sha256']
+-    assert sha(args.candidate.parent/'merge_cohorts.py')==candidate['merge_script_sha256']
+-    assert sha(args.candidate.parent/'constrained_refinement.py')==candidate['solver_implementation_sha256']
+     candidate_protocol=read(candidate_protocol_file)
++    assert candidate['method_version']==2 and candidate['method_stage']=='predeclared_seed_only'
++    assert candidate_protocol['method_version']==2 and candidate_protocol['method_stage']=='predeclared_seed_only'
++    assert candidate_protocol['solver_configuration']['maximum_pattern_sweeps']==0
++    assert sha(args.candidate.parent/'run_seed_stage.py')==candidate['script_sha256']
++    assert sha(args.candidate.parent/'feasible_surface_refinement.py')==candidate['solver_implementation_sha256']
+     assert sha(Path(candidate_protocol['direction_helper_path']))==candidate['direction_implementation_sha256']
+     for file,h in candidate_protocol['implementation_sha256'].items():assert sha(file)==h,file
+     for file,h in candidate_protocol['source_sha256'].items():assert sha(file)==h,file
+-    cohorts=candidate['cohort_provenance'];assert [x['cohort_case_indices'] for x in cohorts]==candidate_protocol['allowed_cohorts'];assert candidate_protocol['allowed_cohorts']==[[8],[12],[16],[20],[24],[28]];bound_cases=[]
+-    for cohort in cohorts:
+-        assert sha(cohort['path'])==cohort['sha256'];cohort_report=read(cohort['path']);assert cohort_report['protocol_sha256']==candidate['protocol_sha256'];assert cohort_report['runtime_protocol_version']==protocol['candidate_runtime_protocol_version'];assert cohort_report['runtime_amendment']==protocol['candidate_runtime_amendment'];assert cohort_report['guards']['actual']==0 and cohort_report['guards']['selftests']==3 and cohort_report['physics_steps']==0;assert len(cohort_report['cases'])==len(cohort['cohort_case_indices'])==1;assert [x['source_inventory_index'] for x in cohort_report['cases']]==cohort['cohort_case_indices'];bound_cases.extend(cohort_report['cases'])
+-    assert candidate['guards']['actual']==0 and candidate['guards']['selftests']==18
+-    assert {x['native_sha256'] for x in bound_cases}==set(targets) and len(bound_cases)==6
+-    assert all(x==targets[x['native_sha256']] for x in bound_cases)
++    if 'merge_script_sha256' in candidate:
++        assert sha(protocol['candidate_merge_script_path'])==candidate['merge_script_sha256']
++    cohorts=candidate['cohort_provenance'];assert len(cohorts)==1
++    cohort=cohorts[0];assert cohort['cohort_case_indices']==protocol['case_indices']
++    assert sha(cohort['path'])==cohort['sha256'];cohort_report=read(cohort['path'])
++    assert cohort_report['schema']=='hug_feasible_seed_stage_surface_candidate_cohort_v2'
++    assert cohort_report['protocol_sha256']==candidate['protocol_sha256']
++    assert cohort_report['method_version']==2 and cohort_report['method_stage']=='predeclared_seed_only'
++    assert cohort_report['cohort_case_indices']==protocol['case_indices']
++    assert cohort_report['guards']['actual']==0 and cohort_report['guards']['selftests']==3
++    assert cohort_report['physics_steps']==0 and cohort_report['protected_hashes_unchanged']
++    assert len(cohort_report['cases'])==6 and candidate['guards']['actual']==0 and candidate['guards']['selftests']==3
++    assert {x['native_sha256'] for x in cohort_report['cases']}==set(targets)
++    assert all(x==targets[x['native_sha256']] for x in cohort_report['cases'])
++    for target in targets.values():
++        seed_binding=candidate_protocol['seed_bindings'][str(target['source_inventory_index'])]
++        assert sha(seed_binding['old_cohort_path'])==seed_binding['old_cohort_sha256']
++        old_case=read(seed_binding['old_cohort_path'])['cases'][0]
++        assert old_case['native_sha256']==target['native_sha256']
++        assert old_case['joint_names']==target['joint_names']
++        assert np.array_equal(np.asarray(old_case['original_qpos_rad']),np.asarray(target['original_qpos_rad']))
++        assert np.array_equal(np.asarray(old_case['raw_candidate_qpos_rad']),np.asarray(target['predeclared_seed_qpos_rad']))
++        assert target['seed_source_cohort_sha256']==seed_binding['old_cohort_sha256']
++    if args.preflight_only:
++        assert args.case_index is None, 'All six preflight cases must complete together'
++    else:
++        preflight_path=args.out/'candidate_validation_preflight_only.json.gz'
++        preflight_binding=read(args.out/'candidate_validation_preflight_only.json.gz.binding.json')
++        preflight_raw=gzip.decompress(preflight_path.read_bytes());preflight=json.loads(preflight_raw)
++        assert sha(preflight_path)==preflight_binding['gzip_sha256']
++        assert hashlib.sha256(preflight_raw).hexdigest()==preflight_binding['uncompressed_sha256']
++        assert preflight['protocol_sha256']==ph and preflight['candidate_sha256']==cp
++        assert preflight['preflight_only'] and not preflight['skip_orientation_pilot']
++        assert preflight['physics_steps']==0 and preflight['guards']['actual']==0
++        assert preflight['all_source_geometry_and_protected_hashes_unchanged']
++        assert sorted(x['source_inventory_index'] for x in preflight['cases'])==protocol['case_indices']
++        assert all(x['engineering_guard_independent_audit']['source_preflight_status']=='PASS' for x in preflight['cases'])
+     p=read(OLD/'orientation/protocol.json');sp=read(OLD/'sampling/protocol.json');rule=read(OLD/'acceptance/acceptance_rule.json')
+     current=read(OLD/'sampling/sampling_uncertainty.json');oldori=json.loads(gzip.decompress((OLD/'orientation/orientation_report_full.json.gz').read_bytes()));cm={x['native_sha256']:x for x in current['cases']};om={x['native_sha256']:x for x in oldori['cases']}
+     acceptance=read(OLD/'acceptance/acceptance_application.json');am={(x['native_sha256'],str(x['density_mm'])):x for x in acceptance['records']}
+     previous=ROOT/'research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals';inventory=read(previous/'existing_hug_inventory.json');fk={c['native_sha256']:c for c in read(previous/'static_saved_hug_fk.json')['cases']}
+-    assert sha(args.out/'protected_hashes.json')==protocol['protected_snapshot_sha256'];protected=read(args.out/'protected_hashes.json');assert len(protected)==114
++    assert sha(args.out/'protected_hashes.json')==protocol['protected_snapshot_sha256'];protected=read(args.out/'protected_hashes.json');assert len(protected)==protocol['protected_file_count']
+     for file,h in protected.items():assert sha(file)==h,file
+     xml=ET.parse(a.URDF).getroot();ranges={j.get('name'):(float(j.find('limit').get('lower')),float(j.find('limit').get('upper'))) for j in xml.findall('joint') if j.find('limit') is not None}
+     TEST=True
+@@ -134,7 +254,15 @@
+             bound.append({'joint':name,'delta_from_original_rad':delta,'source_URDF_range_rad':[low,high],'scene_range_rad':[float(sl),float(sh)],'scene_representation_difference_rad':float(difference),'strict_scene_overflow_rad':float(max(sl-value,value-sh,0))})
+         rootpos=np.asarray(target['root_target_position_m'],float);rootquat=np.asarray(target['root_target_quaternion_wxyz'],float);assert rootpos.shape==(3,) and rootquat.shape==(4,) and np.isfinite(rootpos).all() and np.isfinite(rootquat).all();assert abs(np.linalg.norm(rootquat)-1)<1e-8
+         grasp=load_hug_prediction(case['native']['path']);T_wc=np.load(case['frame_files']['T_world_camera.npy']['path'],allow_pickle=False);T_wrist=T_wc@grasp.T_camera_wrist;Rop=T_wrist[:3,:3]@MANO_TO_OPERATOR_RIGHT.T
+-        local_landmarks=camera_landmarks_to_wrist(grasp.landmarks_3d,grasp.T_camera_wrist)@MANO_TO_OPERATOR_RIGHT.T;pose=RetargetedHandPose(tuple(target['joint_names']),qv,local_landmarks,np.zeros((10,3)),grasp.T_camera_wrist);validator.set_pose(pose)
++        local_landmarks=camera_landmarks_to_wrist(grasp.landmarks_3d,grasp.T_camera_wrist)@MANO_TO_OPERATOR_RIGHT.T
++        original_pose=RetargetedHandPose(tuple(target['joint_names']),np.asarray(target['original_qpos_rad']),local_landmarks,np.zeros((10,3)),grasp.T_camera_wrist);validator.set_pose(original_pose)
++        original_fixed_palm=validator.data.xpos[_body_id(validator.model,'palm')].copy();original_fixed_R=validator.data.xmat[_body_id(validator.model,'palm')].reshape(3,3).copy();original_fixed_links=_link_positions(validator.model,validator.data,validator.source_urdf)
++        original_expected_links=(original_fixed_links-original_fixed_palm)@Rop.T+T_wrist[:3,3]
++        original_source_scene_link_error=float(np.linalg.norm(original_scene_links-original_expected_links,axis=1).max())
++        original_source_palm_rotation_error=float(np.max(np.abs(original_palm_R-Rop@original_fixed_R)))
++        original_source_palm_position_error=float(np.linalg.norm(original_palm_pos-T_wrist[:3,3]))
++        assert original_source_scene_link_error<1.1e-7 and original_source_palm_rotation_error<1e-6 and original_source_palm_position_error<1e-7
++        pose=RetargetedHandPose(tuple(target['joint_names']),qv,local_landmarks,np.zeros((10,3)),grasp.T_camera_wrist);validator.set_pose(pose)
+         fixed_palm=validator.data.xpos[_body_id(validator.model,'palm')].copy();fixed_palm_R=validator.data.xmat[_body_id(validator.model,'palm')].reshape(3,3).copy();fixed_links=_link_positions(validator.model,validator.data,validator.source_urdf);desired_R=Rop@fixed_palm_R
+         if not v2:assert np.array_equal(rootpos,original_q[rootadr:rootadr+3]) and np.array_equal(rootquat,original_q[rootadr+3:rootadr+7])
+         d.qpos[rootadr:rootadr+3]=rootpos;d.qpos[rootadr+3:rootadr+7]=rootquat
+@@ -146,8 +274,25 @@
+         assert np.max(np.abs(original_errors-np.asarray(target['baseline_fresh_diagnostics']['task_link_error_norm_m'])))<1e-12;assert np.max(np.abs(candidate_errors-np.asarray(target['selected_fresh_diagnostics']['task_link_error_norm_m'])))<1e-12
+         if 'original_task_link_error_m' in target:assert np.array_equal(np.asarray(target['original_task_link_error_m']),np.asarray(target['baseline_fresh_diagnostics']['task_link_error_norm_m']))
+         if 'candidate_task_link_error_m' in target:assert np.array_equal(np.asarray(target['candidate_task_link_error_m']),np.asarray(target['selected_fresh_diagnostics']['task_link_error_norm_m']))
+-        allowance=protocol['individual_fingertip_arithmetic_allowance_m'];limits=original_errors[:5]+allowance;actual_mean=float(candidate_errors[:5].mean());assert np.all(candidate_errors[:5]<=limits),{'errors':candidate_errors[:5].tolist(),'original_plus_allowance':limits.tolist()};assert actual_mean<=protocol['existing_engineering_mean_tip_guard_m']
+-        guard_audit={'native_landmark_errors_independently_recomputed':True,'original_task_link_errors_m':original_errors.tolist(),'candidate_task_link_errors_m':candidate_errors.tolist(),'individual_fingertip_arithmetic_allowance_m':allowance,'each_final_fingertip_nonworsening_with_declared_allowance':True,'fingertip_error_change_m':(candidate_errors[:5]-original_errors[:5]).tolist(),'actual_mean_fingertip_error_m':actual_mean,'strict_actual_mean_guard_m':protocol['existing_engineering_mean_tip_guard_m'],'actual_mean_guard_pass':True,'source_preflight_status':'PASS','selected_candidate_source':target['solver_audit']['selected_candidate_source'],'recorded_solver_selection':selection_audit,'fallback_original_target_exact':bool(np.array_equal(qv,np.asarray(target['original_qpos_rad']))),'does_not_mean_scientific_mapping_acceptance':True}
++        original_tip_vectors=original_scene_links[:5]-native_tasks[:5];candidate_tip_vectors=scene_links[:5]-native_tasks[:5]
++        original_cap_norms=np.sqrt(np.einsum('ij,ij->i',original_tip_vectors,original_tip_vectors))
++        candidate_cap_norms=np.sqrt(np.einsum('ij,ij->i',candidate_tip_vectors,candidate_tip_vectors))
++        assert protocol['individual_fingertip_arithmetic_allowance_m']==0
++        assert np.max(np.abs(original_cap_norms-np.asarray(target['authoritative_original_tip_caps_sqrt_einsum_m'])))<1e-12
++        assert np.max(np.abs(candidate_cap_norms-np.asarray(target['selected_tip_norms_sqrt_einsum_m'])))<1e-12
++        actual_mean=float(candidate_cap_norms.mean());assert np.all(candidate_cap_norms<=original_cap_norms),{'errors':candidate_cap_norms.tolist(),'original_caps':original_cap_norms.tolist()};assert actual_mean<=protocol['existing_engineering_mean_tip_guard_m']
++        guard_audit={'native_landmark_errors_independently_recomputed':True,'original_task_link_errors_m':original_errors.tolist(),'candidate_task_link_errors_m':candidate_errors.tolist(),
++            'original_tip_caps_sqrt_einsum_m':original_cap_norms.tolist(),'candidate_tip_norms_sqrt_einsum_m':candidate_cap_norms.tolist(),
++            'norm_arithmetic':'sqrt(einsum(ij,ij->i)); np.linalg.norm is a separate diagnostic',
++            'individual_fingertip_arithmetic_allowance_m':0.,'each_final_fingertip_nonworsening_exact_computed':True,
++            'fingertip_error_change_m':(candidate_cap_norms-original_cap_norms).tolist(),'actual_mean_fingertip_error_m':actual_mean,
++            'strict_actual_mean_guard_m':protocol['existing_engineering_mean_tip_guard_m'],'actual_mean_guard_pass':True,
++            'original_source_URDF_vs_scene_max_link_error_m':original_source_scene_link_error,
++            'original_source_URDF_vs_scene_palm_rotation_maxabs':original_source_palm_rotation_error,
++            'original_native_wrist_to_palm_position_error_m':original_source_palm_position_error,
++            'source_preflight_status':'PASS','selected_candidate_source':target['solver_audit']['selected_candidate_source'],
++            'recorded_solver_selection':selection_audit,'fallback_original_target_exact':bool(np.array_equal(qv,np.asarray(target['original_qpos_rad']))),
++            'does_not_mean_scientific_mapping_acceptance':True}
+         if v3:
+             native_world=grasp.landmarks_3d@T_wc[:3,:3].T+T_wc[:3,3];native_tasks=native_world[np.array([4,8,12,16,20,2,6,10,14,18])];errors=np.linalg.norm(scene_links-native_tasks,axis=1);computed_mean=float(errors[:5].mean());final=target['final_assessment'];assert np.max(np.abs(errors-np.asarray(final['task_link_error_m'])))<1e-12;assert abs(computed_mean-final['mean_fingertip_error_m'])<1e-12;assert computed_mean<=protocol['existing_engineering_mean_tip_guard_m'];guard_audit.update({'native_landmark_error_independently_recomputed':True,'task_link_errors_m':errors.tolist(),'mean_fingertip_error_m':computed_mean,'existing_engineering_guard_status':'PASS'})
+         if not v2:assert np.array_equal(d.xpos[palm],original_palm_pos) and np.array_equal(d.xmat[palm].reshape(3,3),original_palm_R)
+@@ -184,7 +329,7 @@
+     for file,h in protected.items():assert sha(file)==h,file
+     for file,h in protocol['fixed_files_sha256'].items():assert sha(file)==h,file
+     assert sha(args.candidate)==cp and sha(args.out/'protocol.json')==ph and sha(__file__)==protocol['script_sha256'];assert COUNTS['actual']==0
+-    report={'schema':'hug_constrained_candidate_independent_static_validation_v1','candidate_sha256':cp,'candidate_path':str(args.candidate),'protocol_sha256':ph,'script_sha256':sha(__file__),'all_source_geometry_and_protected_hashes_unchanged':True,'protected_source_count':len(protected),'physics_steps':0,'guards':COUNTS,'new_eval_data':False,'new_inference':False,'training':False,'development_cases_only':True,'preflight_only':args.preflight_only,'skip_orientation_pilot':args.skip_orientation,'runtime_seconds':time.perf_counter()-tic,'cases':records,'limitations':protocol['limitations']}
++    report={'schema':'hug_feasible_seed_candidate_independent_static_validation_v2','candidate_sha256':cp,'candidate_path':str(args.candidate),'protocol_sha256':ph,'script_sha256':sha(__file__),'all_source_geometry_and_protected_hashes_unchanged':True,'protected_source_count':len(protected),'physics_steps':0,'guards':COUNTS,'new_eval_data':False,'new_inference':False,'training':False,'development_cases_only':True,'preflight_only':args.preflight_only,'skip_orientation_pilot':args.skip_orientation,'runtime_seconds':time.perf_counter()-tic,'cases':records,'limitations':protocol['limitations']}
+     raw=(json.dumps(report,indent=2,allow_nan=False)+'\n').encode();name='candidate_validation'+('_'+','.join(map(str,args.case_index)) if args.case_index else '')+('_sampling_only' if args.skip_orientation else '')+('_preflight_only' if args.preflight_only else '')+'.json.gz';(args.out/name).write_bytes(gzip.compress(raw,mtime=0));write(args.out/(name+'.binding.json'),{'uncompressed_sha256':hashlib.sha256(raw).hexdigest(),'gzip_sha256':sha(args.out/name),'case_count':len(records),'protocol_sha256':ph,'candidate_sha256':cp})
+     print(json.dumps({'report':str(args.out/name),'seconds':time.perf_counter()-tic,'cases':len(records)}),flush=True)
+ if __name__=='__main__':main()

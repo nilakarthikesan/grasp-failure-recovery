@@ -2054,3 +2054,52 @@ All prior scientific bundles and results remain immutable; shared model and
 simulation inputs/code remain unchanged. No fresh inference, integration,
 eval episodes, task labels or predictor fitting occurs in this writing phase.
 [Parallel handoffs](PARALLEL_GENERATOR_VALIDATION_HANDOFF.md).
+
+
+## 14 October 2026 — HUG feasible-step repair; full mapping remains failed
+
+**Previous plan:** Six surface fits were refused because every eligible major/raw
+candidate violated an original-relative fingertip cap. The user authorizes
+continued HUG diagnosis/repair, concurrent provider work and ongoing paper updates,
+with no new eval data.
+
+**Measured diagnosis:** All 649 recorded major fingertip vectors replay exactly;
+all six original cap Jacobians have rank five and admit inward feasible steps.
+Cheap FK controls restore all six old raw poses. The first surface optimizer
+takes large nonlinear steps and lacks feasible-step restoration; its refused
+trajectory does not establish contradictory constraints or global infeasibility.
+A bounded 60-call stencil observes nearby direction-eligibility jumps but does
+not identify them as the sole cause of all six failures. No demonstrated frame,
+cache or constraint-sign bug was found in these recorded checks.
+
+**Implemented and frozen:** An isolated feasible-refinement API restores/checks
+cheap FK before new full-surface scores, retains original caps/source bounds and
+native poor relationships, and independently recomputes terminal results. The
+actual study is seed-only on one immutable old raw pose per original case, no
+pattern sweeps. Its 1-nm inward target tightens projection; computed final caps
+have zero added allowance, and the five-tip mean remains strictly ≤10 mm. The
+scientific 1/2/5-mm surface rule is unchanged. Twenty-six new manufactured and
+120 prior surface checks pass (146 total).
+
+**Completed result:** All six poses improve frozen cost by 1.52–38.09% while
+passing all 30 original-relative fingertip caps and independent source/scene
+checks. This restoration stage uses 18 full calls in 49.57 s, reusing previously
+computed raw seeds; it is not a from-scratch speed claim. Two cheap projections
+converge, four exhaust their 40-iteration budget while returning verified
+feasible improving points. All six source preflights PASS. The unchanged six
+coarse/three fine surface audits give 0 PASS/9 FAIL; pointwise orientation is
+9 FAIL, versus 7 FAIL/2 UNRESOLVED on original fallback poses. Larger computed
+added-area lower bounds and new reliable reversal witnesses show that the
+fitting objective cannot certify contact preservation. Counts have pose-specific
+eligibility and are not physical failure rates.
+
+**Decision and scope:** Retain the feasibility repair as experimental. Do not
+promote it to the default mapper, loosen acceptance, or call complete HUG mapping
+validated. Study the remaining anatomical contact/surface witnesses separately
+with this feasibility mechanism. The general pattern path has manufactured
+evidence only. All 89 bound numerical dependencies, saved inputs and predictor
+remain unchanged; mutable paper/unrelated provider code is outside that closure.
+The same manuscript's HUG subsection is updated and compiles successfully.
+No inference, integrated physics, eval episodes, outcome labels or training ran.
+Original scientific bundles/protocols remain immutable.
+[Completed phase](HUG_FEASIBLE_REFINEMENT.md).

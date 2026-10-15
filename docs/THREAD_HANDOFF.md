@@ -1,5 +1,13 @@
 # New-thread handoff: grasp failure project
 
+> **Latest continuation, 14 October 2026:** Read the
+> [parallel-provider coordination guide](PARALLEL_GENERATOR_VALIDATION_HANDOFF.md)
+> and [completed HUG feasibility repair](HUG_FEASIBLE_REFINEMENT.md) before the
+> historical snapshot below. Six improved HUG fits now pass all fingertip caps,
+> but all nine strict surface comparisons still FAIL. The current title is
+> *Evaluating Simulation Diversity for Grasp Failure Prediction*. No new eval
+> data or training is authorized in this mapping-validation phase.
+
 Prepared 13 October 2026. Verified project state through `0bc3bf4`; this handoff
 adds documentation only. Start by reading `AGENTS.md` and checking current Git
 state rather than assuming these branch references have not changed.
