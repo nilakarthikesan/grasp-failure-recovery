@@ -686,3 +686,39 @@ so this audit cannot certifyPASS. A qualified current-scene30Dadapter and any
 subsequent constraint-exchange repair require their own source/protocol freeze.
 No new task data, inference, labels or predictor fits were produced. Paper files
 remain untouched.
+
+
+## 15 October 2026 — Complete-field current-geometry mapping counterexamples
+
+Frozen commit354452e and protocol6b4b3004 execute the two-case diagnostic once:
+four saved robot poses,10static forwards,0physics/retarget/inference calls.
+Workers complete in27.208s(milk20) and64.481s(mug28), within the fixed budgets.
+Raw arrays/logs and read-only predicate replay are preserved under
+research_artifacts/hug_full_field_mapping_repair_2026-10-15_v1/run_v1/.
+
+Milk: the original current pose has530definite lost/added proximity tuples;
+the previous fitted pose has684, with321new definite violations and909lost
+baseline-passing relationships. It repairs17old definite tuples;150become
+unresolved and363remain definite failures. Mug: original3183, previous fit2874;
+515new definite violations and2112lost baseline-passing relationships. It repairs
+53old definite tuples;771become unresolved and2359remain definite failures.
+Every original historical definite counterexample persists in the current
+original poses. All original historical caps remain literal; the two experimental
+poses pass them, while tiny current-original cap excesses remain explicit.
+
+These are overlapping cell/part/band tuples from two development grasps, not
+independent contacts, disjoint areas or task labels. Native-required relations
+total341721 and804343; ambiguity is retained. Neither reducing a count nor
+turning a definite failure into an ambiguous interval is an accepted repair.
+Full orientation isNOT_RUN and continuous coverageNOT_PROVED; all four measured
+poses have proximityFAIL under the declared geometry/arithmetic assumptions.
+
+The historical kernel emits divide/overflow/invalid matmul warnings at halfspace
+products despite finite output distances. A separate manufactured-operand probe
+reproduces warning flags with bounded operands and agrees with scalar/einsum to
+1.11e-16m. This does not clear actual operands: their independently frozen replay
+is pending. Preserve the warning limitation with this diagnostic. No old result,
+threshold, cap, dataset, controller or paper is rewritten. The previous capped-row
+improvements cannot be promoted as a full-field faithful mapping. Current-scene
+pose-adapter qualification and a separately bounded full-field exchange repair
+are subsequent work; no production collection or predictor training resumes.

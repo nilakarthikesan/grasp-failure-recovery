@@ -2507,3 +2507,25 @@ candidate optimization remain pending at this decision. No new inference,
 task-data collection or predictor training is authorized by numerical PASS;
 simulator gap experiments follow a distinct mapping verdict. Paper files remain
 outside this system-build task.
+
+
+## 2026-10-15 — Protect complete measured fields during mapping repair
+
+The current-geometry full-field replay refutes promotion of the earlier
+capped-witness fits. Milk definite proximity failures increase530to684; mug
+decreases3183to2874 while losing2112previously passing relationships. Counts
+overlap parts/bands and are not independent contacts. Unknown intervals remain
+unknown, not repairs. All four poses fail; no broad impossibility claim follows
+from these two repeatedly inspected development grasps.
+
+Choice: qualify a current-scene30D placement/Jacobian adapter, then test a
+separately frozen finite constraint-exchange repair that retains activated
+constraints and checks every baseline-passing full-field relationship before
+accepting a candidate. The historical Case loader is unsuitable for current
+geometry and must not be reused blindly. Neither source caps nor scientific
+bands are rebased. Actual halfspace operands need independent arithmetic replay
+because the old kernel emitted matmul warnings; the frozen diagnostic remains
+unchanged with that limitation. Adapter code/tests are in development; candidate
+optimization and complete orientation certification remain unimplemented at this
+decision. More task data, simulator gap experiments and model training remain
+paused while mapping fidelity is unqualified.

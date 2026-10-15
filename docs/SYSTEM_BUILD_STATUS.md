@@ -17,9 +17,19 @@ verdict, rather than being evidence that a failed mapping works.
 The independent-static solver profile fixes a measured objective/gradient and
 state-reuse defect. It is an explicitly separate mapping strategy for validation,
 not an accepted replacement for the legacy mapping. Surface fidelity still needs
-its own verdict under the unchanged acceptance rule. The next bounded static
+its own verdict under the unchanged acceptance rule. The bounded static
 check covers all native-definite near/far relationships in the saved development
 grids, preserving previous passing regions as well as previously failed ones.
+
+The complete measured fields now refute the previous two fitted candidates:
+milk case 20 has 530→684 definite mismatches; mug case 28 has 3183→2874 but loses 2112
+previously passing relationships. Both fail; overlapping tuple counts are not
+independent contacts. The static current-scene 30D pose adapter passes 17 controls
+including independent source FK, all-column Jacobians, saved-root replay and
+object/state invariance. It supplies a qualified numerical interface for a new
+bounded repair, not a fidelity result. The full-field run's matmul warnings
+remain explicit pending actual-operand arithmetic replay. Task collection and
+model training remain paused.
 
 ## Beginning of the system: decision and evidence boundary
 
