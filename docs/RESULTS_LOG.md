@@ -1279,3 +1279,43 @@ All actual results are pending at this source freeze. Each run must retain
 failed/partial/NOT_RUN evidence and verify source/input/output hashes before
 publication. Global mapping, native dynamics, collection and training remain
 closed. Manuscript files are untouched.
+
+### 2026-10-15 — Articulated skin passes; mechanics retains a sliding failure
+
+At freeze eac84d987201739944b615ee14a7cb5779c7d876, skin protocol166a1d04
+completes both109state cases (7.62/6.23s). All declared numerical checks pass:
+source32/candidate32 coordinate residual<=2.98023224e-8m; continuous64/source32
+<=5.95767092e-8m; baseline continuous64/original saved native<=7.30089949e-8m.
+The independent original AA source reconstruction is exactly the saved target.
+All51 J/FD columns pass (max4.11393050e-11); actual MuJoCo right-increment
+residual<=1.11e-16. There are two model compilations/218position increments,
+zero Data/FK/forwards/physics. All global admission flags remain closed:
+running engine collision-surface articulation and contact forces are NOT_RUN.
+Report44453ca5; independent saved-array receipt3bf9dbed verifies5235bindings,
+138Gitblobs/17artifacts, all state/precision/derivative/work arithmetic without
+a native skin, FK, engine utility or query replay.
+
+Stock contact protocolfd69fde5 completes all14conditions/10650steps in5.55s.
+Thirteen conditions pass. Strong sliding at1ms fails the declared acceleration
+reference:1.57242002 versus2.4525m/s2. The0.5ms scalar check passes at2.54129105,
+but the final velocity difference0.164840826m/s fails the unchanged timestep
+comparison. Overall numerical qualification is NOT_QUALIFIED. Saved final100ms
+shows intermittent contact at both steps:11/100 and19/200 active samples,
+normal-force peaks26.2282/24.1732N, and airborne gaps up to670.5/487.3um.
+KKT, impulse/work and action/reaction identities pass; those alone do not prove
+stable sliding. Freefall, support, low-force creep and isolated impact pass;
+support penetration is98.1um and low-force creep0.000613125m/s as declared.
+Independent receiptca52e5b verifies1071bindings/50Gitblobs/42artifacts and
+replays all10650saved endpoint metrics without engine calls. A separate finer
+timestep declaration will retain the same model, gates and original failure.
+These stock fixtures do not qualify the new skin force law.
+
+Orientation protocolfd726019 hard-stops case20 before all query classes;
+case28NOT_RUN. The source cache is(Q,8): six finite hand fields and two all+Inf
+carrier fields; the canonical saved field is(Q,6). Both original first-six
+fields match exactly. Independent receiptdc0b6f7b verifies3946bindings/140Git
+blobs, zero query/engine work and the complete failed receipt. A distinct v2
+requires that literal layout and compares the first six columns exactly;
+31manufactured controls pass. No geometry, grid, target, mask, tolerance or work
+quota changes. V1 remains immutable. All original source freezes are released
+after independent readback; no collection or training has occurred.

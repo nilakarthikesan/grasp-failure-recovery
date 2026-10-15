@@ -1,0 +1,42 @@
+{
+  "admission_allowed": false,
+  "artifacts": [],
+  "elapsed_s": 0.16237566689960659,
+  "failure": {
+    "message": "Original query/radius/label/face alignment changed",
+    "traceback": "Traceback (most recent call last):\n  File \"/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_orientation_qualification_2026-10-15_v1/run_orientation.py\", line 216, in worker\n    g=arrays(spec['inputs'][prefix+'_geometry.npz']['path']);f=arrays(spec['inputs'][prefix+'_field.npz']['path']);check_queries(q,f,g);saved[stage]=f\n                                                                                                                   ^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_orientation_qualification_2026-10-15_v1/run_orientation.py\", line 204, in check_queries\n    raise ValueError('Original query/radius/label/face alignment changed')\nValueError: Original query/radius/label/face alignment changed\n",
+    "type": "ValueError"
+  },
+  "forbidden_operations": {
+    "HUG": 0,
+    "MANO": 0,
+    "data": 0,
+    "fits": 0,
+    "forwards": 0,
+    "models": 0,
+    "physics": 0,
+    "retarget": 0,
+    "task_outcomes": 0
+  },
+  "freeze_commit": "eac84d987201739944b615ee14a7cb5779c7d876",
+  "native_fidelity_accepted": false,
+  "new_collection_or_training_allowed": false,
+  "physical_outcome": null,
+  "protocol_sha256": "fd72601922c754c3728b2435aada0ccdd372115263d24ca9c521fe7be602e27a",
+  "query_work_counts": {
+    "hand_triangle_tests": 0,
+    "hand_winding_triangle_tests": 0,
+    "object_distance_triangle_tests": 0,
+    "object_winding_triangle_tests": 0
+  },
+  "schema_version": "manosim_saved_full_grid_orientation_qualification_v1",
+  "source_inventory_index": 20,
+  "stages": [
+    {
+      "stage": "native",
+      "status": "HARD_STOPPED_PARTIAL"
+    }
+  ],
+  "status": "HARD_STOP",
+  "unindexed_partial_files": []
+}

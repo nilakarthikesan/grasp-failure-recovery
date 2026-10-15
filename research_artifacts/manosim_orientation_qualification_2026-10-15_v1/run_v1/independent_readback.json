@@ -1,0 +1,139 @@
+{
+  "active_protocol_sha256": "fd72601922c754c3728b2435aada0ccdd372115263d24ca9c521fe7be602e27a",
+  "actual_execution_status": "HARD_STOP",
+  "all_bindings_verified_after": true,
+  "all_bindings_verified_before": true,
+  "artifact_inventory": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_orientation_qualification_2026-10-15_v1/protocol_v2.json": {
+      "bytes": 839824,
+      "sha256": "fd72601922c754c3728b2435aada0ccdd372115263d24ca9c521fe7be602e27a"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_orientation_qualification_2026-10-15_v1/run_v1/20/result.json": {
+      "bytes": 2006,
+      "sha256": "28593b668077816a0ab49ff3c59a771defaf0a529ce5cfaf643300fafd578f58"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_orientation_qualification_2026-10-15_v1/run_v1/STARTED.json": {
+      "bytes": 155,
+      "sha256": "80ed013e5af3e4023b12a6f3fc577bfb3cc3ad4725d6b0a76f34f4adcc1e0596"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_orientation_qualification_2026-10-15_v1/run_v1/case_20.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_orientation_qualification_2026-10-15_v1/run_v1/report.json": {
+      "bytes": 1639,
+      "sha256": "3d7b05b47c0dd742533110b92e2dff84bd26873dbaa1446ef13457dd3b434789"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_orientation_qualification_2026-10-15_v1/run_v1/raw/20/result.json": {
+      "bytes": 2006,
+      "sha256": "28593b668077816a0ab49ff3c59a771defaf0a529ce5cfaf643300fafd578f58"
+    }
+  },
+  "cases": [
+    {
+      "forbidden_operations": {
+        "HUG": 0,
+        "MANO": 0,
+        "data": 0,
+        "fits": 0,
+        "forwards": 0,
+        "models": 0,
+        "physics": 0,
+        "retarget": 0,
+        "task_outcomes": 0
+      },
+      "index": 20,
+      "physical_outcome": null,
+      "query_work_counts": {
+        "hand_triangle_tests": 0,
+        "hand_winding_triangle_tests": 0,
+        "object_distance_triangle_tests": 0,
+        "object_winding_triangle_tests": 0
+      },
+      "status": "HARD_STOPPED_PARTIAL"
+    },
+    {
+      "index": 28,
+      "physical_outcome": null,
+      "status": "NOT_RUN_AFTER_HARD_STOP"
+    }
+  ],
+  "diagnosis": [
+    {
+      "areas_and_radii_finite_positive": true,
+      "canonical_field_distance_shape": [
+        19174,
+        6
+      ],
+      "comparison_that_failed": "np.array_equal(original Qx8 matrix, canonical Qx6 matrix)",
+      "correction_scope": "Require exact Qx8 cache with first6 finite + trailing2 all+Inf, compare only fixed canonical0..5; no data/target/threshold changes",
+      "diagnosis_uses_saved_arithmetic_only": true,
+      "face_IDs_arange1552": true,
+      "finite_columns": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "firstsix_columns_exact": true,
+      "firstsix_maximum_absolute_difference_m": 0.0,
+      "index": 20,
+      "original_cache_distance_shape": [
+        19174,
+        8
+      ],
+      "query_coordinates_exact": true,
+      "unused_positive_infinity_columns": [
+        6,
+        7
+      ]
+    },
+    {
+      "areas_and_radii_finite_positive": true,
+      "canonical_field_distance_shape": [
+        45484,
+        6
+      ],
+      "comparison_that_failed": "np.array_equal(original Qx8 matrix, canonical Qx6 matrix)",
+      "correction_scope": "Require exact Qx8 cache with first6 finite + trailing2 all+Inf, compare only fixed canonical0..5; no data/target/threshold changes",
+      "diagnosis_uses_saved_arithmetic_only": true,
+      "face_IDs_arange1552": true,
+      "finite_columns": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "firstsix_columns_exact": true,
+      "firstsix_maximum_absolute_difference_m": 0.0,
+      "index": 28,
+      "original_cache_distance_shape": [
+        45484,
+        8
+      ],
+      "query_coordinates_exact": true,
+      "unused_positive_infinity_columns": [
+        6,
+        7
+      ]
+    }
+  ],
+  "errors": [],
+  "expected_bindings": 3946,
+  "freeze_commit": "eac84d987201739944b615ee14a7cb5779c7d876",
+  "native_fidelity_accepted": false,
+  "new_collection_or_training_allowed": false,
+  "physical_outcome": null,
+  "proposed_versioned_fix": "Separate v2 protocol/source preserving failedv1, exact observed8columncachelayout projection to canonical6 with manufactured tests; scientific thresholds and grid unchanged",
+  "report_sha256": "3d7b05b47c0dd742533110b92e2dff84bd26873dbaa1446ef13457dd3b434789",
+  "schema_version": "manosim_orientation_failed_saved_readback_v1",
+  "selected_Git_blob_count": 140,
+  "status": "VERIFIED_HARD_STOP_CACHE_WIDTH_BEFORE_ALL_QUERY_WORK",
+  "verification_model_FK_distance_orientation_physics_calls": 0,
+  "verifier_source": "\"\"\"Saved-only failed orientation verification; no producer/geometry/engine import.\"\"\"\nimport hashlib,json,subprocess\nfrom pathlib import Path\nimport numpy as np\nROOT=Path('/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction')\nBASE=ROOT/'research_artifacts/manosim_orientation_qualification_2026-10-15_v1'\nFREEZE='eac84d987201739944b615ee14a7cb5779c7d876'\nPSHA='fd72601922c754c3728b2435aada0ccdd372115263d24ca9c521fe7be602e27a'\ndef sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()\ndef read(p):return json.loads(Path(p).read_text())\ndef arrays(p):\n with np.load(p,allow_pickle=False) as z:return {k:z[k] for k in z.files}\ndef need(ok,msg):\n if not bool(ok):raise ValueError(msg)\ndef git(*a):return subprocess.check_output(['git','-C',str(ROOT),*a])\ndef verify(bindings):\n for name,value in bindings.items():need(sha(name)==value,'Bound input/source changed: '+name)\ndef main():\n protocol=BASE/'protocol_v2.json';rp=BASE/'run_v1/report.json';p=read(protocol);r=read(rp)\n need(sha(protocol)==PSHA and len(p['bindings'])==3946 and len(p['tracked_sources'])==139,'Protocol closure identity')\n need(git('rev-parse','HEAD').decode().strip()==FREEZE,'Exact HEAD hold before');verify(p['bindings'])\n for name in [*p['tracked_sources'],str(protocol)]:need(hashlib.sha256(git('show',FREEZE+':'+str(Path(name).relative_to(ROOT)))).hexdigest()==sha(name),'Exact frozen Git blob')\n need(r['status']=='HARD_STOP' and r['publication_failure'] is None and r['freeze_commit']==FREEZE and r['protocol_sha256']==PSHA,'Failed report identity')\n need([(x['index'],x['status']) for x in r['cases']]==[(20,'HARD_STOPPED_PARTIAL'),(28,'NOT_RUN_AFTER_HARD_STOP')],'Case attempted/NOT_RUN accounting')\n need(read(BASE/'run_v1/STARTED.json')==dict(freeze_commit=FREEZE,protocol_sha256=PSHA),'Once-only STARTED')\n row=r['cases'][0];need(row['returncode']==1,'Failure return code');inventory={}\n def item(path):\n  path=Path(path).resolve();inventory[str(path)]=dict(sha256=sha(path),bytes=path.stat().st_size)\n for name in ('result','raw_result','log'):\n  info=row[name];need(sha(info['path'])==info['sha256'] and Path(info['path']).stat().st_size==info['bytes'],'Original scalar/log hashes');item(info['path'])\n need(Path(row['result']['path']).read_bytes()==Path(row['raw_result']['path']).read_bytes(),'Tracked/raw scalar byte copies')\n result=read(row['result']['path'])\n need(result['status']=='HARD_STOP' and result['source_inventory_index']==20 and result['freeze_commit']==FREEZE and result['protocol_sha256']==PSHA,'Child failure lineage')\n need(result['failure']['type']=='ValueError' and result['failure']['message']=='Original query/radius/label/face alignment changed','Exact frozen failure')\n need(result['artifacts']==[] and result['unindexed_partial_files']==[] and result['stages']==[dict(stage='native',status='HARD_STOPPED_PARTIAL')],'No fabricated geometry measurement')\n need(set(result['query_work_counts'])=={'hand_triangle_tests','hand_winding_triangle_tests','object_distance_triangle_tests','object_winding_triangle_tests'} and all(v==0 for v in result['query_work_counts'].values()),'No orientation/geometry queries charged')\n need(set(result['forbidden_operations'])=={'HUG','MANO','data','fits','forwards','models','physics','retarget','task_outcomes'} and all(v==0 for v in result['forbidden_operations'].values()),'No engine/model/physics/inference/fitting')\n need(result['physical_outcome'] is None and r['physical_outcome'] is None,'Null physical outcomes')\n for x in (r,result):\n  need(x['admission_allowed'] is False and x['native_fidelity_accepted'] is False and x['new_collection_or_training_allowed'] is False,'No admission promotion')\n need(not list(Path(p['raw_root']).rglob('*.npz')),'No emitted numeric query artifacts')\n need(not (Path(p['raw_root'])/'28').exists() and not (BASE/'run_v1/28').exists(),'Case28 not attempted')\n diagnoses=[]\n for index in (20,28):\n  spec=p['cases'][str(index)];q=arrays(spec['query']['path']);f=arrays(spec['inputs']['native_reference_field.npz']['path']);g=arrays(spec['inputs']['native_reference_geometry.npz']['path'])\n  original=q['native_distance_by_part_m'];canonical=f['native_distance_by_part_m'];n=spec['query_count']\n  need(original.shape==(n,8) and canonical.shape==(n,6),'Exact observed cache layout')\n  need(np.isfinite(original[:,:6]).all() and np.isposinf(original[:,6:]).all(),'Six finite canonical columns, two unused+Inf columns')\n  need(np.array_equal(original[:,:6],canonical),'Firstsix native distances already exact')\n  need(np.array_equal(q['query_object_m'],f['query_object_m']),'Original querycoords exact')\n  need(g['triangles_object_m'].shape==(1552,3,3) and g['anatomical_part_index'].shape==(1552,) and np.array_equal(g['native_face_id'],np.arange(1552)),'Allface labels/IDs intact')\n  need(np.isfinite(q['area_mm2']).all() and (q['area_mm2']>0).all() and np.isfinite(f['cell_radius_m']).all() and (f['cell_radius_m']>0).all(),'Areas/radii valid')\n  diagnoses.append(dict(index=index,original_cache_distance_shape=list(original.shape),canonical_field_distance_shape=list(canonical.shape),finite_columns=list(range(6)),unused_positive_infinity_columns=[6,7],\n   firstsix_columns_exact=True,firstsix_maximum_absolute_difference_m=0.,query_coordinates_exact=True,face_IDs_arange1552=True,areas_and_radii_finite_positive=True,\n   comparison_that_failed='np.array_equal(original Qx8 matrix, canonical Qx6 matrix)',\n   correction_scope='Require exact Qx8 cache with first6 finite + trailing2 all+Inf, compare only fixed canonical0..5; no data/target/threshold changes',\n   diagnosis_uses_saved_arithmetic_only=True))\n for file in (protocol,rp,BASE/'run_v1/STARTED.json'):item(file)\n verify(p['bindings']);need(git('rev-parse','HEAD').decode().strip()==FREEZE,'Exact HEAD hold after')\n for file,info in inventory.items():need(sha(file)==info['sha256'] and Path(file).stat().st_size==info['bytes'],'After-read output mutation')\n receipt=dict(schema_version='manosim_orientation_failed_saved_readback_v1',status='VERIFIED_HARD_STOP_CACHE_WIDTH_BEFORE_ALL_QUERY_WORK',freeze_commit=FREEZE,active_protocol_sha256=PSHA,\n  report_sha256=sha(rp),expected_bindings=3946,selected_Git_blob_count=140,all_bindings_verified_before=True,all_bindings_verified_after=True,\n  artifact_inventory=inventory,actual_execution_status=r['status'],cases=[dict(index=20,status='HARD_STOPPED_PARTIAL',query_work_counts=result['query_work_counts'],forbidden_operations=result['forbidden_operations'],physical_outcome=None),dict(index=28,status='NOT_RUN_AFTER_HARD_STOP',physical_outcome=None)],\n  diagnosis=diagnoses,verification_model_FK_distance_orientation_physics_calls=0,native_fidelity_accepted=False,new_collection_or_training_allowed=False,physical_outcome=None,\n  proposed_versioned_fix='Separate v2 protocol/source preserving failedv1, exact observed8columncachelayout projection to canonical6 with manufactured tests; scientific thresholds and grid unchanged',\n  verifier_source=Path(__file__).read_text(),verifier_source_sha256=sha(__file__),errors=[])\n out=BASE/'run_v1/independent_readback.json'\n with out.open('x') as stream:json.dump(receipt,stream,indent=2,sort_keys=True,allow_nan=False);stream.write('\\n')\n print(json.dumps(dict(status=receipt['status'],sha256=sha(out),bindings=3946,diagnosis='Qx8 cache versus Qx6 canonical field; first6 exact;2trailingInfslots')))\nif __name__=='__main__':main()\n",
+  "verifier_source_sha256": "3af7cf1b5e198f7f6c23ba286bd3e692210d35bd5cf0c4d1834f074141573f28"
+}

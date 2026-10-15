@@ -1,0 +1,383 @@
+{
+  "accepted_mapping": false,
+  "artifacts": [
+    {
+      "bytes": 1331879,
+      "label": "literal_float32_source_buffers_and_exact_beta",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_articulated_skin_2026-10-15_v1/run_v1/raw/28/literal_source_skin_buffers.npz",
+      "sha256": "58865d418fdfe6b1381ff7b5b52f74505790ecd930e900eb3d6831fe533bfe10"
+    },
+    {
+      "bytes": 3480798,
+      "label": "all_fixed_motion_source32_candidate32_continuous64_and_actual_tangents",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_articulated_skin_2026-10-15_v1/run_v1/raw/28/all109_skin_states.npz",
+      "sha256": "231a55f3f964b7b535340a02e3f2a11cc34b290edc82283752996d3a3b54cc0d"
+    },
+    {
+      "bytes": 1588881,
+      "label": "full_pose_corrective_LBS_JVP_FD_VJP_virtual_work",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_articulated_skin_2026-10-15_v1/run_v1/raw/28/all51_tangent_derivatives.npz",
+      "sha256": "bcfa0dfeadd0e8ea52fef62410375f9cf58592038ac2de644ca3b56454cf4037"
+    }
+  ],
+  "check_passed": true,
+  "checks": {
+    "all109_actual_engine_tangent_integration": true,
+    "all109_continuous64_precision_comparison": true,
+    "all109_source_float32_parity": true,
+    "all51_derivative_columns": true,
+    "continuous64_named_state_baseline_matches_saved": true,
+    "force_transpose": true,
+    "nonzero_finger_motion": true,
+    "saved_native_qpos_unchanged": true,
+    "source32_named_state_baseline_matches_saved": true,
+    "source_original_native_reconstruction": true,
+    "virtual_work": true
+  },
+  "contact_force_application_status": "NOT_RUN",
+  "contact_orientation_over_motion_status": "NOT_RUN",
+  "counts": {
+    "candidate_float32_evaluations": 109,
+    "candidate_float64_evaluations": 109,
+    "data_constructions": 0,
+    "finite_difference_evaluations": 102,
+    "jacobian_forward_evaluations": 51,
+    "model_compilations": 1,
+    "mujoco_forward_calls": 0,
+    "mujoco_integratePos_calls": 109,
+    "physics_steps": 0,
+    "source_axisangle_evaluations": 1,
+    "source_layer_constructions": 1,
+    "source_matrix_skin_evaluations": 109,
+    "vjp_evaluations": 1
+  },
+  "failure": null,
+  "finished_utc": "2026-10-15T18:38:55.094637+00:00",
+  "forbidden_counts": {
+    "HUG_generator_attempts": 0,
+    "mujoco_data_attempts": 0,
+    "mujoco_forward_attempts": 0,
+    "object_geometry_query_attempts": 0,
+    "physics_integration_attempts": 0,
+    "retarget_attempts": 0,
+    "training_attempts": 0
+  },
+  "freeze_commit": "eac84d987201739944b615ee14a7cb5779c7d876",
+  "index": 28,
+  "integration_guards": {
+    "physics_integration_attempts": 0
+  },
+  "motion_states": 109,
+  "native_contact_qualified": false,
+  "new_collection_or_training_allowed": false,
+  "partial_artifacts": [
+    {
+      "bytes": 3480798,
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_articulated_skin_2026-10-15_v1/run_v1/raw/28/all109_skin_states.npz",
+      "sha256": "231a55f3f964b7b535340a02e3f2a11cc34b290edc82283752996d3a3b54cc0d"
+    },
+    {
+      "bytes": 1588881,
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_articulated_skin_2026-10-15_v1/run_v1/raw/28/all51_tangent_derivatives.npz",
+      "sha256": "bcfa0dfeadd0e8ea52fef62410375f9cf58592038ac2de644ca3b56454cf4037"
+    },
+    {
+      "bytes": 1331879,
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_articulated_skin_2026-10-15_v1/run_v1/raw/28/literal_source_skin_buffers.npz",
+      "sha256": "58865d418fdfe6b1381ff7b5b52f74505790ecd930e900eb3d6831fe533bfe10"
+    },
+    {
+      "bytes": 332929,
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_articulated_skin_2026-10-15_v1/run_v1/raw/28/progress.jsonl",
+      "sha256": "18d8213461d8c3d6da5bf085939c441f3508ded7a36324128b67b4de002f82a6"
+    }
+  ],
+  "physical_contact_status": "NOT_RUN",
+  "physical_outcome": null,
+  "precision_comparisons": {
+    "baseline_continuous64_to_original_saved_m": 7.300899484974366e-08,
+    "baseline_source32_to_original_saved_m": 5.148538606558617e-08,
+    "max_actual_integrate_pos_component_error": 1.1102230246251565e-16,
+    "max_continuous64_source32_m": 5.957670920486713e-08,
+    "max_derivative_absolute_error": 3.216430711317853e-11,
+    "max_source32_candidate32_m": 2.9802322387695312e-08,
+    "original_source_vs_saved_native_m": 0.0,
+    "virtual_work_error": 2.710505431213761e-19,
+    "vjp_transpose_error": 3.426078865054194e-17
+  },
+  "protocol_sha256": "166a1d040dcb41eaf8008f737f50a6c753ac9d64aa2bec6b432926df4c25d58f",
+  "runtime": {
+    "mujoco": "3.4.0",
+    "numpy": "2.2.6",
+    "torch": "2.11.0",
+    "torch_interop_threads": 10,
+    "torch_threads": 1
+  },
+  "schema_version": "manosim_articulated_skin_bounded_qualification_v1_case",
+  "simulator_articulated_geometry_status": "NOT_RUN",
+  "simulator_state_binding": {
+    "body_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "body_rest_quaternions_wxyz": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "engine_tangent_convention": "local_ball_right_increment_world_slides",
+    "geometric_simulator_articulation_status": "NOT_RUN",
+    "named_joint_addresses": [
+      {
+        "dof_address": 0,
+        "name": "wrist_tx",
+        "qpos_address": 0,
+        "type": 2
+      },
+      {
+        "dof_address": 1,
+        "name": "wrist_ty",
+        "qpos_address": 1,
+        "type": 2
+      },
+      {
+        "dof_address": 2,
+        "name": "wrist_tz",
+        "qpos_address": 2,
+        "type": 2
+      },
+      {
+        "dof_address": 3,
+        "name": "wrist_rot",
+        "qpos_address": 3,
+        "type": 1
+      },
+      {
+        "dof_address": 6,
+        "name": "mano_joint_1",
+        "qpos_address": 7,
+        "type": 1
+      },
+      {
+        "dof_address": 9,
+        "name": "mano_joint_2",
+        "qpos_address": 11,
+        "type": 1
+      },
+      {
+        "dof_address": 12,
+        "name": "mano_joint_3",
+        "qpos_address": 15,
+        "type": 1
+      },
+      {
+        "dof_address": 15,
+        "name": "mano_joint_4",
+        "qpos_address": 19,
+        "type": 1
+      },
+      {
+        "dof_address": 18,
+        "name": "mano_joint_5",
+        "qpos_address": 23,
+        "type": 1
+      },
+      {
+        "dof_address": 21,
+        "name": "mano_joint_6",
+        "qpos_address": 27,
+        "type": 1
+      },
+      {
+        "dof_address": 24,
+        "name": "mano_joint_7",
+        "qpos_address": 31,
+        "type": 1
+      },
+      {
+        "dof_address": 27,
+        "name": "mano_joint_8",
+        "qpos_address": 35,
+        "type": 1
+      },
+      {
+        "dof_address": 30,
+        "name": "mano_joint_9",
+        "qpos_address": 39,
+        "type": 1
+      },
+      {
+        "dof_address": 33,
+        "name": "mano_joint_10",
+        "qpos_address": 43,
+        "type": 1
+      },
+      {
+        "dof_address": 36,
+        "name": "mano_joint_11",
+        "qpos_address": 47,
+        "type": 1
+      },
+      {
+        "dof_address": 39,
+        "name": "mano_joint_12",
+        "qpos_address": 51,
+        "type": 1
+      },
+      {
+        "dof_address": 42,
+        "name": "mano_joint_13",
+        "qpos_address": 55,
+        "type": 1
+      },
+      {
+        "dof_address": 45,
+        "name": "mano_joint_14",
+        "qpos_address": 59,
+        "type": 1
+      },
+      {
+        "dof_address": 48,
+        "name": "mano_joint_15",
+        "qpos_address": 63,
+        "type": 1
+      }
+    ],
+    "nq": 67,
+    "nu": 51,
+    "nv": 51,
+    "physical_contact_status": "NOT_RUN",
+    "slide_basis_world": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "source_buffers_artifact": {
+    "bytes": 1331879,
+    "label": "literal_float32_source_buffers_and_exact_beta",
+    "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_articulated_skin_2026-10-15_v1/run_v1/raw/28/literal_source_skin_buffers.npz",
+    "sha256": "58865d418fdfe6b1381ff7b5b52f74505790ecd930e900eb3d6831fe533bfe10"
+  },
+  "started_utc": "2026-10-15T18:38:50.792987+00:00",
+  "status": "COMPLETED"
+}

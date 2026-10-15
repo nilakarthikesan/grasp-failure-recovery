@@ -2918,3 +2918,32 @@ Actual native skin, saved-grid orientation and analytic dynamics results are
 pending. Next check: execute only these frozen finite declarations, verify
 saved outputs independently, then resolve measured gaps before collection or
 training. This decision and the resulting system work do not edit the paper.
+
+### 2026-10-15 — Preserve failed contact behavior and correct cache identity
+
+New evidence at eac84d9: the complete articulated skin matches the independent
+source over both109state grids within29.8nm, with all51finite-difference
+columns and actual engine quaternion increments passing. Saved-only readback
+3bf9dbed verifies the full5235binding closure. This supports the implemented
+skin/state derivative, not yet a running articulated simulator surface.
+
+The stock physics benchmark passes13of14conditions but fails strong sliding
+and its timestep comparison. Saved traces show intermittent bounce/traction
+at both1ms/0.5ms; exact force balance and cone optimality do not establish
+stable contact. Independent readbackca52e5b preserves NOT_QUALIFIED. Decision:
+test a prospectively fixed finer timestep pair with the same model/solver,
+physical constants, horizon and numerical gates. Do not accept the0.5ms scalar
+pass as convergence or treat this stock test as validation of the new law.
+
+The first orientation run exposes a cache-width loader error before any
+queries. The historical8slot cache has six finite canonical hand parts and two
+all+Inf carrier columns. Its first six match the newer6column field exactly.
+Independent failure receiptdc0b6f7b verifies zero query work. Decision: retain
+that failure and use a separate exact-contract correction, with no changed
+geometry, predicates, tolerances or uncertainty treatment. V2 has31passing
+manufactured controls and is pending actual execution at this decision.
+
+Next checks: run that corrected orientation declaration, test finer contact
+timesteps, and qualify the actual read-state→skin→engine-surface bridge under
+an explicit geometry-only condition. Collection/training stay closed until
+native oriented contact, force application and dynamics requirements pass.
