@@ -1,0 +1,396 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1129,
+      "label": "exact_synthetic_XML",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_flex_rigid_qualification_mj340_2026-10-15_v1/run_v1/zero__disconnected__rigid_nonzero/model.xml",
+      "sha256": "0c0b665fd45d8697cca849fb4e475c611cf2f281563543156aa00cd5b4349986"
+    },
+    {
+      "bytes": 4975,
+      "label": "primitive_readback",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_flex_rigid_qualification_mj340_2026-10-15_v1/run_v1/zero__disconnected__rigid_nonzero/readback.npz",
+      "sha256": "ee134a2083b37669edbea0d6c09c494f6656719cbafa88d483a373d62409be66"
+    }
+  ],
+  "case": {
+    "attachment": "single_body",
+    "case_id": "zero__disconnected__rigid_nonzero",
+    "frame": "rigid_nonzero",
+    "geometry": "disconnected",
+    "radius_id": "zero",
+    "radius_m": 0.0
+  },
+  "checks": {
+    "failures": [],
+    "max_contact_point_error_m": 1.3877787807814457e-17,
+    "max_distance_error_m": 2.5419035230627926e-17,
+    "max_normal_error": 1.3322676295501878e-15,
+    "max_translation_jacobian_error": 3.3306690738754696e-16,
+    "max_vertex_kinematic_rotation_jacobian_error": 1.0408340855860843e-17,
+    "status": "PASS",
+    "three_owner_rotation_is_diagnostic_only": false,
+    "touching_contact_presence_is_descriptive": true
+  },
+  "exact_faces": true,
+  "exact_owner_bindings": true,
+  "nv": 12,
+  "probes": [
+    {
+      "contact_count": 1,
+      "contacts": [
+        {
+          "barycentric_weights": [
+            0.33333333333333415,
+            0.33333333333333276,
+            0.33333333333333315
+          ],
+          "constraint_active": true,
+          "distance_m": -1.999999999999398e-06,
+          "efc_address": 0,
+          "engine_normal_jacobian": [
+            0.2737741568431522,
+            0.23972948468292296,
+            -0.9314383958257685,
+            0.0033333333333333383,
+            -0.03000000000000001,
+            8.537699828179227e-18,
+            -0.27377415684315226,
+            -0.23972948468292302,
+            0.9314383958257687,
+            -1.112556386005895e-18,
+            5.417343685927983e-18,
+            4.4302785268321094e-20
+          ],
+          "expected_vertex_normal_jacobian": [
+            0.27377415684315226,
+            0.23972948468292304,
+            -0.9314383958257688,
+            0.00333333333333334,
+            -0.03000000000000002,
+            8.601337235051671e-18,
+            -0.27377415684315226,
+            -0.23972948468292302,
+            0.9314383958257687,
+            -1.3010426069826053e-18,
+            5.421010862427522e-18,
+            -4.79589916669293e-21
+          ],
+          "normal_world": [
+            0.27377415684315226,
+            0.23972948468292302,
+            -0.9314383958257687
+          ],
+          "position_world": [
+            0.10001404996871766,
+            -0.18022427736324245,
+            0.22106702065715472
+          ],
+          "translation_columns": [
+            0,
+            1,
+            2,
+            6,
+            7,
+            8
+          ]
+        }
+      ],
+      "probe": {
+        "expected_gap_m": -2e-06,
+        "placement": "penetrating",
+        "probe_id": "penetrating__triangle_0__side_+1",
+        "side": 1,
+        "sphere_center_world": [
+          0.09864545295865874,
+          -0.18142268505717238,
+          0.22572328119788773
+        ],
+        "surface_center_local": [
+          -0.03,
+          -0.0033333333333333335,
+          0.0
+        ],
+        "triangle_index": 0
+      }
+    },
+    {
+      "contact_count": 1,
+      "contacts": [
+        {
+          "barycentric_weights": [
+            0.33333333333333315,
+            0.3333333333333339,
+            0.3333333333333329
+          ],
+          "constraint_active": true,
+          "distance_m": -2.000000000013276e-06,
+          "efc_address": 0,
+          "engine_normal_jacobian": [
+            0.27377415684315354,
+            0.23972948468292368,
+            -0.9314383958257682,
+            0.003333333333333342,
+            0.03000000000000001,
+            -6.508832131124661e-18,
+            -0.2737741568431536,
+            -0.2397294846829237,
+            0.9314383958257683,
+            -8.011486651614732e-18,
+            1.604441305223781e-18,
+            4.2062727919702276e-20
+          ],
+          "expected_vertex_normal_jacobian": [
+            0.2737741568431536,
+            0.2397294846829237,
+            -0.9314383958257683,
+            0.0033333333333333422,
+            0.030000000000000006,
+            -7.372574772901424e-18,
+            -0.2737741568431536,
+            -0.2397294846829237,
+            0.9314383958257683,
+            -7.752045533271357e-18,
+            1.5178830414797062e-18,
+            6.81071370983108e-21
+          ],
+          "normal_world": [
+            0.2737741568431536,
+            0.2397294846829237,
+            -0.9314383958257683
+          ],
+          "position_world": [
+            0.14931843971753755,
+            -0.1535277551221318,
+            0.24242990556828853
+          ],
+          "translation_columns": [
+            0,
+            1,
+            2,
+            6,
+            7,
+            8
+          ]
+        }
+      ],
+      "probe": {
+        "expected_gap_m": -2e-06,
+        "placement": "penetrating",
+        "probe_id": "penetrating__triangle_1__side_+1",
+        "side": 1,
+        "sphere_center_world": [
+          0.14794984270747863,
+          -0.15472616281606172,
+          0.24708616610902154
+        ],
+        "surface_center_local": [
+          0.03,
+          -0.0033333333333333335,
+          0.0
+        ],
+        "triangle_index": 1
+      }
+    },
+    {
+      "contact_count": 0,
+      "contacts": [],
+      "probe": {
+        "expected_gap_m": -2e-06,
+        "placement": "gap_clearance",
+        "probe_id": "gap_clearance__triangle_None__side_+1",
+        "side": 1,
+        "sphere_center_world": [
+          0.1232976478330687,
+          -0.16807442393661703,
+          0.23640472365345463
+        ],
+        "surface_center_local": [
+          1.1564823173178713e-18,
+          -0.0033333333333333327,
+          0.0
+        ],
+        "triangle_index": null
+      }
+    },
+    {
+      "contact_count": 1,
+      "contacts": [
+        {
+          "barycentric_weights": [
+            0.3333333333333335,
+            0.3333333333333334,
+            0.33333333333333315
+          ],
+          "constraint_active": true,
+          "distance_m": -2.000000000025419e-06,
+          "efc_address": 0,
+          "engine_normal_jacobian": [
+            -0.2737741568431522,
+            -0.23972948468292316,
+            0.9314383958257684,
+            -0.0033333333333333366,
+            0.02999999999999999,
+            -4.964478918211881e-18,
+            0.27377415684315226,
+            0.2397294846829232,
+            -0.9314383958257686,
+            -1.9674338594487307e-18,
+            6.048631414817334e-18,
+            4.4302785268321997e-20
+          ],
+          "expected_vertex_normal_jacobian": [
+            -0.27377415684315226,
+            -0.2397294846829232,
+            0.9314383958257686,
+            -0.00333333333333334,
+            0.03,
+            -3.758567531283082e-18,
+            0.27377415684315226,
+            0.2397294846829232,
+            -0.9314383958257686,
+            -2.168404344971009e-18,
+            6.071532165918825e-18,
+            -4.795899166692064e-21
+          ],
+          "normal_world": [
+            -0.27377415684315226,
+            -0.2397294846829232,
+            0.9314383958257686
+          ],
+          "position_world": [
+            0.10001350242040398,
+            -0.1802247568222118,
+            0.22106888353394638
+          ],
+          "translation_columns": [
+            0,
+            1,
+            2,
+            6,
+            7,
+            8
+          ]
+        }
+      ],
+      "probe": {
+        "expected_gap_m": -2e-06,
+        "placement": "penetrating",
+        "probe_id": "penetrating__triangle_0__side_-1",
+        "side": -1,
+        "sphere_center_world": [
+          0.10138209943046289,
+          -0.1790263491282819,
+          0.21641262299321337
+        ],
+        "surface_center_local": [
+          -0.03,
+          -0.0033333333333333335,
+          0.0
+        ],
+        "triangle_index": 0
+      }
+    },
+    {
+      "contact_count": 1,
+      "contacts": [
+        {
+          "barycentric_weights": [
+            0.3333333333333329,
+            0.33333333333333376,
+            0.3333333333333333
+          ],
+          "constraint_active": true,
+          "distance_m": -2.000000000008939e-06,
+          "efc_address": 0,
+          "engine_normal_jacobian": [
+            -0.27377415684315365,
+            -0.23972948468292346,
+            0.9314383958257682,
+            -0.003333333333333334,
+            -0.030000000000000006,
+            1.4081587648459878e-17,
+            0.27377415684315365,
+            0.23972948468292346,
+            -0.9314383958257682,
+            -6.752169888710833e-18,
+            1.8020481651189307e-18,
+            4.654284261692202e-20
+          ],
+          "expected_vertex_normal_jacobian": [
+            -0.27377415684315365,
+            -0.23972948468292346,
+            0.9314383958257682,
+            -0.0033333333333333335,
+            -0.030000000000000006,
+            1.3516387083652627e-17,
+            0.27377415684315365,
+            0.23972948468292346,
+            -0.9314383958257682,
+            -6.613633252161577e-18,
+            1.5178830414797062e-18,
+            6.810713709832621e-21
+          ],
+          "normal_world": [
+            -0.27377415684315365,
+            -0.23972948468292346,
+            0.9314383958257682
+          ],
+          "position_world": [
+            0.14931789216922386,
+            -0.15352823458110115,
+            0.2424317684450802
+          ],
+          "translation_columns": [
+            0,
+            1,
+            2,
+            6,
+            7,
+            8
+          ]
+        }
+      ],
+      "probe": {
+        "expected_gap_m": -2e-06,
+        "placement": "penetrating",
+        "probe_id": "penetrating__triangle_1__side_-1",
+        "side": -1,
+        "sphere_center_world": [
+          0.1506864891792828,
+          -0.15232982688717123,
+          0.23777550790434718
+        ],
+        "surface_center_local": [
+          0.03,
+          -0.0033333333333333335,
+          0.0
+        ],
+        "triangle_index": 1
+      }
+    },
+    {
+      "contact_count": 0,
+      "contacts": [],
+      "probe": {
+        "expected_gap_m": -2e-06,
+        "placement": "gap_clearance",
+        "probe_id": "gap_clearance__triangle_None__side_-1",
+        "side": -1,
+        "sphere_center_world": [
+          0.12603429430487284,
+          -0.16567808800772654,
+          0.22709406544878027
+        ],
+        "surface_center_local": [
+          1.1564823173178713e-18,
+          -0.0033333333333333327,
+          0.0
+        ],
+        "triangle_index": null
+      }
+    }
+  ],
+  "status": "COMPILED_AND_MEASURED",
+  "vertex_max_error_m": 2.7755575615628914e-17
+}

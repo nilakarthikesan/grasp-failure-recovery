@@ -1133,3 +1133,41 @@ into articulated MANO admission. All 977 old study bindings are rechecked;
 the base 3.3.7 runtime is unchanged. Source/runtime bytes, the independently
 verified old failure and every new output identity are bound before execution.
 Actual 3.4.0 measurements remain pending at this freeze.
+
+### 2026-10-15 — Isolated 3.4.0 rigid contact capability passes
+
+The separately frozen run at 21f07ef completes 12 model/data constructions and
+84 static forwards in 0.578 s, zero physics/native/training operations. All
+eight single-owner cases pass (four per radius), including the disconnected
+gap, both sides, transformed frames and independent rigid normal derivatives.
+Maximum rigid translation/rotation Jacobian errors are 3.33e-16 / 1.04e-17.
+The four multi-owner translation checks still fail (max 0.108185); both full
+six-case radius assessments remain NOT_QUALIFIED. Rigid-only capability cannot
+admit finger deformation, native fidelity, physical tasks or model training.
+Report SHA3728a2bd58c3375de78975980a97dfb6c06cff2f2885120cf90170630146dc1a.
+
+Independent receipt SHA40f8ab4e2c6c918eea206a788b497fdf15253bc4f563ae8a298ed3a4652e8c4a
+verifies 1,022 new bindings plus all 977 preserved bindings, 27 Git blobs and
+36 artifacts. Source sum-normalized inverse-distance/common-point Jacobians
+match all active saved rows within 3.33e-16; physical reference rows reproduce
+within 2.22e-16. Capability selection returns only the locked-rigid scope and
+retains the full NOT_QUALIFIED result. No engine calls or reruns are used for
+readback. The freeze is released for a separately declared native snapshot test.
+
+### 2026-10-15 — Freeze two native full-surface snapshots on isolated 3.4.0
+
+64 manufactured controls pass, integration zero; independent source/test review
+is clear. The separate native declaration fixes saved development cases 20/28,
+all 778 original vertices/1,552 faces, original six-part labels, literal shape
+and saved named joint pose. Prior skeleton/actuator content is retained while
+16 old mesh colliders are disabled and the complete surface is attached to the
+palm. Fingers stay fixed; this is a saved-pose reference, not articulated MANO.
+
+Per case: one compilation/data creation, at most two static forwards, two full
+field scans, 600 seconds and query_count*3,104 triangle-point work. Reference
+fields must reproduce within 1e-12 m before the candidate field. All original
+queries/radii, 1/2/5 mm predicates and numerical allowance remain unchanged;
+compiled topology/vertices/oriented normals and original 5-micrometre native
+kinematics are checked without adjustment. Full orientation/continuous contact,
+native admission, physics, collection and training remain disabled. Actual
+measurements are pending at this freeze.
