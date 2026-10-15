@@ -1171,3 +1171,37 @@ compiled topology/vertices/oriented normals and original 5-micrometre native
 kinematics are checked without adjustment. Full orientation/continuous contact,
 native admission, physics, collection and training remain disabled. Actual
 measurements are pending at this freeze.
+
+### 2026-10-15 — Native snapshot v1 stops on a serialized shape-layout bug
+
+At freeze af2ac9c, case 20 completes only the reference scan (29,758,048
+triangle-point tests); its saved reference field reproduces the prior field
+bytes. The candidate loader then refuses because it incorrectly expects a
+flat ten-element shape file. The bound producer asset and decoded shape are
+both literal float32 arrays of shape (1,10), with all values exactly equal.
+No shape parameter, hash, pose, threshold or field predicate changes are needed.
+
+All native model/data/forward/FK and physics counts remain zero. Case 28 is
+NOT_RUN; physical outcome and measurement remain null. Both sealed partial
+artifacts and the failure are preserved. The stopped version will remain
+immutable; a separate v2 will correct only the exact row-layout contract,
+retain the same field gates and bind this failure. Independent readback is
+pending. No collection/training admission follows.
+
+Independent receipt ac808d73b2c3921308f299f9f44a0a2be416256c4d39311211a0c419c209449f
+verifies all 3,027 bindings before/after, 114 Git blobs, both partial artifact
+hashes/arrays and the exact old reference-field bytes. All 341,721 required
+reference relationships are preserved. Both serialized shape arrays are (1,10)
+float32; the source's expected flat layout caused the refusal. No engine or
+field query is rerun during independent verification; the freeze is released.
+
+### 2026-10-15 — Freeze exact row-shape contract correction in native v2
+
+68 manufactured controls pass, integration zero; independent source review is
+clear. New v2 requires both literal shape arrays to be float32 (1,10), exactly
+equal and bound to the unchanged original asset hash. Flat/wrong-row/wrong-type
+or changed-value inputs refuse. No reshape, coercion, changed beta, geometry,
+pose, field predicate or numerical limit is introduced. V1 source and the
+verified hard stop remain immutable and enter the new declaration's lineage.
+The same two saved cases, operation quotas and locked-articulation limits apply.
+Actual v2 measurements remain pending at this freeze.

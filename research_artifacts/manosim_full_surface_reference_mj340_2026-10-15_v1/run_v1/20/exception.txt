@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_full_surface_reference_mj340_2026-10-15_v1/run_surface_reference.py", line 568, in worker
+    measurement = case.run(original_model, original_data, original_forward, mujoco, reinstall)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_full_surface_reference_mj340_2026-10-15_v1/run_surface_reference.py", line 494, in run
+    prepared, prep_binding = s.prepare_saved_candidate(self.index, p['cases'][str(self.index)], self.raw/'candidate', radius_policy=p['radius_policy'])
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_full_surface_reference_mj340_2026-10-15_v1/surface_candidate.py", line 221, in prepare_saved_candidate
+    raise ValueError("Exact literal native float32 shape identity required")
+ValueError: Exact literal native float32 shape identity required

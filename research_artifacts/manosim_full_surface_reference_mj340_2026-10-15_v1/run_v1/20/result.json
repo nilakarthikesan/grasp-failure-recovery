@@ -1,0 +1,88 @@
+{
+  "accepted_mapping": false,
+  "artifacts": [],
+  "elapsed_s": 3.192922332789749,
+  "failure": {
+    "message": "Exact literal native float32 shape identity required",
+    "type": "ValueError"
+  },
+  "forbidden_counts": {
+    "HUG_generator_attempts": 0,
+    "MANO_import_attempts": 0,
+    "MuJoCo_FK_attempts": 0,
+    "MuJoCo_data_attempts": 0,
+    "MuJoCo_forward_attempts": 0,
+    "MuJoCo_model_attempts": 0,
+    "physics_step_attempts": 0,
+    "retarget_attempts": 0,
+    "training_attempts": 0
+  },
+  "freeze_commit": "af2ac9cbee332401dc0dbc435130bbcaab2d57ed",
+  "guarded_counts": {
+    "data": 0,
+    "forwards": 0,
+    "full_field_stages": [
+      "native_reference"
+    ],
+    "models": 0,
+    "triangle_point_tests": 29758048
+  },
+  "measurement": null,
+  "native_fidelity_accepted": false,
+  "new_collection_or_training_allowed": false,
+  "partial_artifacts": {
+    "complete_array_inventory": false,
+    "recorded_rows": [
+      {
+        "bytes": 39320,
+        "label": "native_reference_sealed_prequery_geometry",
+        "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v1/run_v1/raw/20/native_reference_geometry.npz",
+        "sha256": "3e4eb09e612f9cfdaa612b755991677e561f52d959387aa4ce40933155d7d55a"
+      },
+      {
+        "bytes": 2280208,
+        "label": "native_reference_complete_fixed_field",
+        "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v1/run_v1/raw/20/native_reference_field.npz",
+        "sha256": "af7cc77b18459b0fb24893574c37ec6406023f33055b94c3ab3513074a621853"
+      }
+    ],
+    "unindexed_array_paths": [],
+    "verification_errors": [],
+    "verified_rows": [
+      {
+        "bytes": 39320,
+        "label": "native_reference_sealed_prequery_geometry",
+        "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v1/run_v1/raw/20/native_reference_geometry.npz",
+        "sha256": "3e4eb09e612f9cfdaa612b755991677e561f52d959387aa4ce40933155d7d55a"
+      },
+      {
+        "bytes": 2280208,
+        "label": "native_reference_complete_fixed_field",
+        "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_full_surface_reference_mj340_2026-10-15_v1/run_v1/raw/20/native_reference_field.npz",
+        "sha256": "af7cc77b18459b0fb24893574c37ec6406023f33055b94c3ab3513074a621853"
+      }
+    ]
+  },
+  "physical_outcome": null,
+  "production_promotion": false,
+  "protocol_sha256": "7442bd947c194249e16d992af9930c5581e085e2c8f8e3102f41bc5bc92e5d5c",
+  "schema_version": "manosim_locked_native_full_surface_reference_mj340_v1",
+  "source_inventory_index": 20,
+  "source_receipt": {
+    "accepted_mapping": false,
+    "fixed_articulation": true,
+    "index": 20,
+    "native_fidelity_accepted": false,
+    "new_collection_or_training_allowed": false,
+    "production_promotion": false,
+    "reference_control": {
+      "acceptance_allowance_changed": false,
+      "exact_masks": true,
+      "max_distance_error_m": 0.0,
+      "numerical_replay_limit_m": 1e-12,
+      "passed": true,
+      "scope": "evaluator/reference consistency only; not hand or physics fidelity"
+    }
+  },
+  "status": "HARD_STOP"
+}
