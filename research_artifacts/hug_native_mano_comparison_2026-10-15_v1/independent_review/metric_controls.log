@@ -1,0 +1,50 @@
+test_box_surface_inside_outside (__main__.Metrics.test_box_surface_inside_outside) ... ERROR
+test_capsule (__main__.Metrics.test_capsule) ... ok
+test_component_min_not_union_signed_distance (__main__.Metrics.test_component_min_not_union_signed_distance) ... ok
+test_cylinder (__main__.Metrics.test_cylinder) ... ok
+test_rigid_covariance_all_primitives (__main__.Metrics.test_rigid_covariance_all_primitives) ... ok
+test_source_geometry_compiled_fromto_and_transform (__main__.Metrics.test_source_geometry_compiled_fromto_and_transform) ... ok
+test_sphere (__main__.Metrics.test_sphere) ... ok
+test_triangle_interior_edge_vertex (__main__.Metrics.test_triangle_interior_edge_vertex) ... ERROR
+test_triangle_multiple_chunk_order (__main__.Metrics.test_triangle_multiple_chunk_order) ... ERROR
+
+======================================================================
+ERROR: test_box_surface_inside_outside (__main__.Metrics.test_box_surface_inside_outside)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/hug_native_mano_review_2026-10-15_v1/test_comparison_metrics.py", line 21, in test_box_surface_inside_outside
+    self.assertclose(audit.surface_distance(q,[{'kind':'triangles','triangles':audit.box_triangles([1,2,3])}]),[1,1,0,3**.5,0])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/scripts/audit_hug_native_mano.py", line 77, in surface_distance
+    d=triangle_distance(points,g['triangles'])
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/scripts/audit_hug_native_mano.py", line 40, in triangle_distance
+    import trimesh
+ModuleNotFoundError: No module named 'trimesh'
+
+======================================================================
+ERROR: test_triangle_interior_edge_vertex (__main__.Metrics.test_triangle_interior_edge_vertex)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/hug_native_mano_review_2026-10-15_v1/test_comparison_metrics.py", line 14, in test_triangle_interior_edge_vertex
+    self.assertclose(audit.triangle_distance(queries,triangle),[0,3,1,2**.5,.5**.5])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/scripts/audit_hug_native_mano.py", line 40, in triangle_distance
+    import trimesh
+ModuleNotFoundError: No module named 'trimesh'
+
+======================================================================
+ERROR: test_triangle_multiple_chunk_order (__main__.Metrics.test_triangle_multiple_chunk_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/hug_native_mano_review_2026-10-15_v1/test_comparison_metrics.py", line 18, in test_triangle_multiple_chunk_order
+    self.assertclose(audit.triangle_distance(q,triangles),np.minimum(abs(q[:,2]),abs(q[:,2]-2)))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/scripts/audit_hug_native_mano.py", line 40, in triangle_distance
+    import trimesh
+ModuleNotFoundError: No module named 'trimesh'
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.003s
+
+FAILED (errors=3)

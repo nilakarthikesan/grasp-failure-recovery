@@ -1,0 +1,16 @@
+{
+  "scope": "manufactured native MANO and scalar metric controls; no saved-cohort geometry rerun",
+  "pytest_exit_code": 0,
+  "physics_step_apis_guarded": [
+    "mj_step",
+    "mj_step1",
+    "mj_step2"
+  ],
+  "source_sha256": {
+    "src/grasp_failure_prediction/evaluation/native_mano.py": "930e7652b53b2a5d64b2d170d830b74d3dce142dadb662ea758c44c8b4294a51",
+    "scripts/audit_hug_native_mano.py": "f68df98af6f9d5b562afd6f90f6117ab6f3143396cc99e1c1058d50e53100899",
+    "tests/test_native_mano.py": "d0282432ffe7787c3b8ff3cb95a82158abd6bfbe687cdb2e4966ebbbb751a522",
+    "tests/test_native_mano_comparison.py": "9c48ea55217a45a1299e52c282920abe8dd48befa557aca4009148f40549027f"
+  },
+  "test_portability_change": "Both test modules now skip when optional SciPy is unavailable; no calculation/assertion change."
+}

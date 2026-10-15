@@ -1,0 +1,14 @@
+{
+  "scope": "Native MANO static articulated model; manufactured no-physics checks",
+  "model_source_sha256": "930e7652b53b2a5d64b2d170d830b74d3dce142dadb662ea758c44c8b4294a51",
+  "test_source_sha256": "c11f4aacef88cd7d067fbdb43da0fc3b49d30566387b0c4902d6b518aa135fd6",
+  "test_result": "21 passed in 0.26s",
+  "step_guards": ["mj_step", "mj_step1", "mj_step2"],
+  "new_native_inference_calls": 0,
+  "physics_steps": 0,
+  "new_evaluation_records": 0,
+  "normalization": "Reject proper-rotation errors above 1e-6; record nearest-SO3 SVD projection and quaternion roundtrip error for each assigned pose.",
+  "collision_approximation": "Neutral source argmax LBS ownership; 15 capsules with owner RMS radial radius; convex hull of owner0 wrist points; shape-specific, no measured-case tuning.",
+  "unvalidated": ["physical inertias", "contact properties", "dynamic execution", "controller", "exact HUG simulator reproduction", "surface equivalence"],
+  "corrected_during_manufactured_verification": "MuJoCo fromto first endpoint is +local-z, so readback orders centers+deltas then centers-deltas. Test and independent reviewer both detected the reversed array order; actual capsule geometry was unaffected."
+}

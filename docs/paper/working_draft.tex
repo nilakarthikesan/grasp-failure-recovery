@@ -647,6 +647,64 @@ reviews and source/runtime hashes are retained in
 No new native inference, physics integration, outcome labels, evaluation data
 or training were performed.
 
+
+\paragraph{Native MANO reference path on the existing cohort.}
+A separate static path removes the human-to-robot anatomical substitution.
+We reconstruct the saved MANO shape at neutral pose, preserve its free wrist
+and 15 articulated bone rotations, assign vertices by maximum skinning
+weight, and construct phalanx capsules and a convex palm. This follows the
+high-level simulated-hand design described by HUG~\cite{hug}, but our RMS
+capsule-radius rule and implementation are not a reproduction of its
+unreleased simulation code. Contact and gravity are disabled; inertias are
+placeholders, with no controller or evaluation-runner registration.
+The original 32 proposals and literal nominal Shadow commands are reused;
+no optimization or new native sampling occurs.
+
+All 32 native reconstructions and numerical skeleton imports pass a
+prospectively fixed $1\,\mu$m implementation check. The maximum bone-position
+difference from upstream float32 MANO is $4.774\times10^{-8}$\,m. An independent
+scalar FK calculation agrees with compiled native joints, rigid tips and
+capsule endpoints within $3.39\times10^{-16}$\,m. Native rigid terminal sites
+still differ from skinned fingertip vertices because the latter also depend
+on skinning and pose corrections. Over the same 160 fingertips, mean error
+falls from 6.428\,mm for saved Shadow commands to 0.453\,mm for native MANO;
+the respective 95th percentiles are 15.256 and 0.914\,mm, and maxima 17.518
+and 1.551\,mm. Every case has a lower native mean.
+
+For each of six anatomical parts, native triangle centroids are compared
+with the corresponding compiled component boundaries, weighting by triangle
+area within each part/case. All 192 part/case means decrease; their equally
+weighted average is 1.463\,mm for native MANO versus 4.727\,mm for Shadow.
+This is a finite one-directional component-surface metric, not a continuous
+or exposed-union certificate. Skin-part assignment uses grouped skinning
+weights. The maximum sampled discrepancies remain 11.892 and 30.165\,mm.
+A further 512 distinct deterministic object probes per case use identical
+area-quantile/Halton locations for both representations. The native proxy
+still changes proximity: at 1/2/5\,mm its lost counts are 276/298/236 and
+added counts 488/636/729, versus Shadow's 353/491/680 and 454/669/690.
+Thus improved means do not imply every near-object relationship improves.
+These correlated pointwise counts are not a rerun of the historical
+continuous-cell criteria; buried interfaces, surface directions and unsampled
+regions remain outside this comparison.
+
+The 33 manufactured model/distance controls pass. All 32 scalar case files
+were saved before a NumPy-integer summary-serialization error; an archived
+postprocessor recovered the aggregate without repeating geometry. Both source
+versions and the failure log remain preserved. The reported 97 static forwards
+are reconstructed from completed control flow; no physics integration,
+retargeting solve, new evaluation data or training occurred.
+Evidence is retained in
+\path{research_artifacts/hug_native_mano_comparison_2026-10-15_v1}.
+
+This establishes improved static native fidelity on the existing development
+cohort, not complete collision or dynamic acceptance. The historical strict
+criteria and default Shadow pipeline are unchanged. The next proposed check
+is native exposed-boundary, direction and uncertainty validation before any
+physical controller or data collection. Adopting different hands for different
+generators would change the outcome definition and confound generator with
+embodiment unless controlled explicitly; this diagnostic reference does not
+by itself alter the common-Shadow experiment.
+
 % END GFP SECTION hug
 
 % BEGIN GFP SECTION contactgen

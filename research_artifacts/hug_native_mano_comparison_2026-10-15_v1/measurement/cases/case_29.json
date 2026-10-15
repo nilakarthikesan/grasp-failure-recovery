@@ -1,0 +1,398 @@
+{
+  "index": 29,
+  "object_id": "hug_mug",
+  "native_sha256": "f49c9b92760f981da6a12f97191d4f9c986d7e8d61fc0aefff5aa136327824ea",
+  "source_reconstruction": {
+    "max_vertex_error_m": 0.0,
+    "max_landmark_error_m": 0.0,
+    "faces_exact": true
+  },
+  "pose_normalization": {
+    "input_rotation_orthogonality_max_abs": 2.1586235154913425e-07,
+    "input_rotation_determinant_max_abs": 1.971472869399804e-07,
+    "rotation_projection_max_abs": 1.0792998095254802e-07,
+    "rotation_quaternion_roundtrip_max_abs": 6.661338147750939e-16,
+    "input_rotation_tolerance": 1e-06
+  },
+  "bone_fk_error": {
+    "mean_m": 1.737073898031377e-08,
+    "p95_m": 3.5540606123908434e-08,
+    "max_m": 4.7740276922829126e-08,
+    "count": 16,
+    "p95_is_unweighted": true
+  },
+  "mano_rigid_tip_errors_m": [
+    0.00020747983166089065,
+    0.0007187905093827166,
+    0.0005285012274890937,
+    0.00047863257053040053,
+    0.0006171837163675382
+  ],
+  "shadow_tip_errors_m": [
+    0.015244488531324464,
+    0.0021995500853322155,
+    0.004390268619697982,
+    0.001786399049453428,
+    0.008659016231394803
+  ],
+  "object_probes": {
+    "probe_count": 512,
+    "unique_points": 512,
+    "unique_triangle_count": 512,
+    "reference": "captured_object_visual"
+  },
+  "parts": [
+    {
+      "part": "palm",
+      "native_triangle_count": 395,
+      "native_mesh_to_mano_proxy": {
+        "mean_m": 0.0030098145707842445,
+        "p95_m": 0.009167426798851139,
+        "max_m": 0.011808816749725505,
+        "count": 395,
+        "p95_is_unweighted": true
+      },
+      "native_mesh_to_shadow": {
+        "mean_m": 0.008066183080632991,
+        "p95_m": 0.018170578619135798,
+        "max_m": 0.02909211693612969,
+        "count": 395,
+        "p95_is_unweighted": true
+      },
+      "object_probe_distance_error_mano": {
+        "mean_m": 0.0032783868939211514,
+        "p95_m": 0.007048690672708123,
+        "max_m": 0.009482496774212784,
+        "count": 512,
+        "p95_is_unweighted": true
+      },
+      "object_probe_distance_error_shadow": {
+        "mean_m": 0.014160540518246783,
+        "p95_m": 0.022208789719315426,
+        "max_m": 0.025439738267964335,
+        "count": 512,
+        "p95_is_unweighted": true
+      },
+      "pointwise_band_changes": [
+        {
+          "band_m": 0.001,
+          "native_near": 0,
+          "mano_lost": 0,
+          "mano_added": 2,
+          "shadow_lost": 0,
+          "shadow_added": 0
+        },
+        {
+          "band_m": 0.002,
+          "native_near": 1,
+          "mano_lost": 0,
+          "mano_added": 1,
+          "shadow_lost": 1,
+          "shadow_added": 0
+        },
+        {
+          "band_m": 0.005,
+          "native_near": 8,
+          "mano_lost": 0,
+          "mano_added": 1,
+          "shadow_lost": 8,
+          "shadow_added": 0
+        }
+      ]
+    },
+    {
+      "part": "thumb",
+      "native_triangle_count": 214,
+      "native_mesh_to_mano_proxy": {
+        "mean_m": 0.0017096531833872028,
+        "p95_m": 0.0040954564764622,
+        "max_m": 0.007357135006185161,
+        "count": 214,
+        "p95_is_unweighted": true
+      },
+      "native_mesh_to_shadow": {
+        "mean_m": 0.005627503438742431,
+        "p95_m": 0.013922084458974738,
+        "max_m": 0.021656374098476306,
+        "count": 214,
+        "p95_is_unweighted": true
+      },
+      "object_probe_distance_error_mano": {
+        "mean_m": 0.003118803457557044,
+        "p95_m": 0.007776811920392019,
+        "max_m": 0.008895734417423303,
+        "count": 512,
+        "p95_is_unweighted": true
+      },
+      "object_probe_distance_error_shadow": {
+        "mean_m": 0.002659737502925709,
+        "p95_m": 0.006105284392921838,
+        "max_m": 0.00794231218620349,
+        "count": 512,
+        "p95_is_unweighted": true
+      },
+      "pointwise_band_changes": [
+        {
+          "band_m": 0.001,
+          "native_near": 2,
+          "mano_lost": 0,
+          "mano_added": 3,
+          "shadow_lost": 0,
+          "shadow_added": 3
+        },
+        {
+          "band_m": 0.002,
+          "native_near": 7,
+          "mano_lost": 1,
+          "mano_added": 1,
+          "shadow_lost": 2,
+          "shadow_added": 0
+        },
+        {
+          "band_m": 0.005,
+          "native_near": 13,
+          "mano_lost": 0,
+          "mano_added": 2,
+          "shadow_lost": 3,
+          "shadow_added": 2
+        }
+      ]
+    },
+    {
+      "part": "index",
+      "native_triangle_count": 243,
+      "native_mesh_to_mano_proxy": {
+        "mean_m": 0.0010402223076088311,
+        "p95_m": 0.00423845911715076,
+        "max_m": 0.006944859555445584,
+        "count": 243,
+        "p95_is_unweighted": true
+      },
+      "native_mesh_to_shadow": {
+        "mean_m": 0.004938757446744217,
+        "p95_m": 0.01153619550314671,
+        "max_m": 0.015437933440101562,
+        "count": 243,
+        "p95_is_unweighted": true
+      },
+      "object_probe_distance_error_mano": {
+        "mean_m": 0.0024587524496057283,
+        "p95_m": 0.0071622875468423716,
+        "max_m": 0.00838228186329137,
+        "count": 512,
+        "p95_is_unweighted": true
+      },
+      "object_probe_distance_error_shadow": {
+        "mean_m": 0.004946559850638833,
+        "p95_m": 0.013600891141935642,
+        "max_m": 0.016105633829507988,
+        "count": 512,
+        "p95_is_unweighted": true
+      },
+      "pointwise_band_changes": [
+        {
+          "band_m": 0.001,
+          "native_near": 6,
+          "mano_lost": 2,
+          "mano_added": 3,
+          "shadow_lost": 6,
+          "shadow_added": 1
+        },
+        {
+          "band_m": 0.002,
+          "native_near": 10,
+          "mano_lost": 1,
+          "mano_added": 4,
+          "shadow_lost": 9,
+          "shadow_added": 4
+        },
+        {
+          "band_m": 0.005,
+          "native_near": 25,
+          "mano_lost": 2,
+          "mano_added": 6,
+          "shadow_lost": 13,
+          "shadow_added": 8
+        }
+      ]
+    },
+    {
+      "part": "middle",
+      "native_triangle_count": 234,
+      "native_mesh_to_mano_proxy": {
+        "mean_m": 0.000753410104719252,
+        "p95_m": 0.0025338832696887273,
+        "max_m": 0.0052079031817429955,
+        "count": 234,
+        "p95_is_unweighted": true
+      },
+      "native_mesh_to_shadow": {
+        "mean_m": 0.002851321008413827,
+        "p95_m": 0.006895576947076048,
+        "max_m": 0.012649113486097575,
+        "count": 234,
+        "p95_is_unweighted": true
+      },
+      "object_probe_distance_error_mano": {
+        "mean_m": 0.0026795761969124914,
+        "p95_m": 0.005939622636515906,
+        "max_m": 0.006952532509786592,
+        "count": 512,
+        "p95_is_unweighted": true
+      },
+      "object_probe_distance_error_shadow": {
+        "mean_m": 0.0036666837170521585,
+        "p95_m": 0.009529837293710836,
+        "max_m": 0.012661155824360889,
+        "count": 512,
+        "p95_is_unweighted": true
+      },
+      "pointwise_band_changes": [
+        {
+          "band_m": 0.001,
+          "native_near": 4,
+          "mano_lost": 1,
+          "mano_added": 1,
+          "shadow_lost": 1,
+          "shadow_added": 2
+        },
+        {
+          "band_m": 0.002,
+          "native_near": 9,
+          "mano_lost": 4,
+          "mano_added": 3,
+          "shadow_lost": 4,
+          "shadow_added": 1
+        },
+        {
+          "band_m": 0.005,
+          "native_near": 20,
+          "mano_lost": 3,
+          "mano_added": 1,
+          "shadow_lost": 6,
+          "shadow_added": 1
+        }
+      ]
+    },
+    {
+      "part": "ring",
+      "native_triangle_count": 242,
+      "native_mesh_to_mano_proxy": {
+        "mean_m": 0.0012657646430936657,
+        "p95_m": 0.004231017613699644,
+        "max_m": 0.006565652144025825,
+        "count": 242,
+        "p95_is_unweighted": true
+      },
+      "native_mesh_to_shadow": {
+        "mean_m": 0.0026446291768529437,
+        "p95_m": 0.006387175499290634,
+        "max_m": 0.011361745811389875,
+        "count": 242,
+        "p95_is_unweighted": true
+      },
+      "object_probe_distance_error_mano": {
+        "mean_m": 0.0014035905938009352,
+        "p95_m": 0.003758938377873199,
+        "max_m": 0.005545746206240348,
+        "count": 512,
+        "p95_is_unweighted": true
+      },
+      "object_probe_distance_error_shadow": {
+        "mean_m": 0.0036580683261563138,
+        "p95_m": 0.009900697477251232,
+        "max_m": 0.013061126652895508,
+        "count": 512,
+        "p95_is_unweighted": true
+      },
+      "pointwise_band_changes": [
+        {
+          "band_m": 0.001,
+          "native_near": 4,
+          "mano_lost": 1,
+          "mano_added": 1,
+          "shadow_lost": 3,
+          "shadow_added": 3
+        },
+        {
+          "band_m": 0.002,
+          "native_near": 9,
+          "mano_lost": 3,
+          "mano_added": 4,
+          "shadow_lost": 6,
+          "shadow_added": 3
+        },
+        {
+          "band_m": 0.005,
+          "native_near": 17,
+          "mano_lost": 1,
+          "mano_added": 5,
+          "shadow_lost": 4,
+          "shadow_added": 3
+        }
+      ]
+    },
+    {
+      "part": "little",
+      "native_triangle_count": 224,
+      "native_mesh_to_mano_proxy": {
+        "mean_m": 0.0010390097178886305,
+        "p95_m": 0.003509888565279874,
+        "max_m": 0.0061998896772596955,
+        "count": 224,
+        "p95_is_unweighted": true
+      },
+      "native_mesh_to_shadow": {
+        "mean_m": 0.005139089649365921,
+        "p95_m": 0.010503906798244764,
+        "max_m": 0.015787990474664323,
+        "count": 224,
+        "p95_is_unweighted": true
+      },
+      "object_probe_distance_error_mano": {
+        "mean_m": 0.0014605458583807174,
+        "p95_m": 0.0032170271160524688,
+        "max_m": 0.00632820060490831,
+        "count": 512,
+        "p95_is_unweighted": true
+      },
+      "object_probe_distance_error_shadow": {
+        "mean_m": 0.0054405483257466605,
+        "p95_m": 0.010820652693404428,
+        "max_m": 0.012612088557236334,
+        "count": 512,
+        "p95_is_unweighted": true
+      },
+      "pointwise_band_changes": [
+        {
+          "band_m": 0.001,
+          "native_near": 1,
+          "mano_lost": 1,
+          "mano_added": 4,
+          "shadow_lost": 1,
+          "shadow_added": 1
+        },
+        {
+          "band_m": 0.002,
+          "native_near": 3,
+          "mano_lost": 1,
+          "mano_added": 3,
+          "shadow_lost": 1,
+          "shadow_added": 5
+        },
+        {
+          "band_m": 0.005,
+          "native_near": 5,
+          "mano_lost": 0,
+          "mano_added": 4,
+          "shadow_lost": 3,
+          "shadow_added": 9
+        }
+      ]
+    }
+  ],
+  "physics_steps": 0,
+  "native_pose_roundtrip_scope": "15balljoints and freewrist, static only; collider errors reported independently",
+  "bone_numerical_import_pass": true,
+  "native_reconstruction_pass": true
+}

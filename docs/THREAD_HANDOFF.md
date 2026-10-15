@@ -1,6 +1,6 @@
 # New-thread handoff: grasp failure project
 
-> **Current HUG status, 15 October 2026:** [Static simulator-input acceptance](HUG_MAPPING_ACCEPTANCE_REPAIR.md) passes all 32 saved nominal commands through the current scene. Strict native MANO surface preservation still fails. Read the latest continuation at the end of this file before resuming. No new eval data.
+> **Current HUG status, 15 October 2026:** [Native MANO static comparison](HUG_NATIVE_MANO_COMPARISON.md) now passes native skeleton import and improves fidelity on all 32 saved grasps. Complete collision/dynamic validation remains open. The prior Shadow static-input acceptance and strict native-surface failures remain unchanged. Read the latest continuation below. No new eval data.
 
 > **Earlier continuation, 15 October 2026:** Read the
 > [HUG direct surface-constraint study](HUG_SURFACE_CONSTRAINT_MAPPING_STUDY.md)
@@ -602,3 +602,13 @@ Read [HUG_MAPPING_ACCEPTANCE_REPAIR.md](HUG_MAPPING_ACCEPTANCE_REPAIR.md) before
 This accepts the declared retargeted-Shadow input representation on these saved commands. It does **not** accept strict native MANO surface preservation, fresh retargeter profiles, dynamic tracking or prediction generalization. The old evaluator could not issue full positive certification; genuine native counterexamples remain on current geometry. Do not keep optimizing solely until that frozen implementation says PASS. Keep its original criteria/results.
 
 The new feasible-step and eligibility-guidance fit improves existing20/28 while preserving original tip guards, but both candidates retain definite surface counterexamples and are not promoted. The current witness replay covers365 retained records across six original and two experimental poses; it is not a full-grid or held-out study. The retargeter default stays historical. Future data must identify actual Shadow execution and preserve native/retargeter/command/geometry/executor provenance. No eval collection, native inference, new proposals, physics integration or training ran. Continue on `codex/project-work` and preserve other-provider work.
+
+
+<!-- hug-native-mano-comparison-2026-10-15-v1 -->
+## Latest continuation — 2026-10-15: native MANO static reference compared
+
+Read [HUG_NATIVE_MANO_COMPARISON.md](HUG_NATIVE_MANO_COMPARISON.md). The new `evaluation/native_mano.py` is a static free-wrist/15-ball-joint MANO-derived capsule/convex-palm model. All 32 existing HUG proposals were compared with literal saved nominal Shadow commands. Native skeleton import passes; mean skinned-tip discrepancy falls from 6.428 to 0.453 mm and all 192 anatomical part/case surface means improve. Native collision surfaces still alter proximity; no full contact/dynamic signoff. Default Shadow, original criteria and historical failures remain unchanged.
+
+The entire versioned evidence is under `research_artifacts/hug_native_mano_comparison_2026-10-15_v1/`. All scalar cases completed before a final summary serialization failure; recovery aggregated saved values without rerunning geometry, and both source versions/logs are preserved. Independent FK review and 33 manufactured controls pass. No new inference, proposals, fits, physics, eval data/labels or training. Do not run this diagnostic as an outcome-producing simulator: contact is disabled and physical parameters/controllers are unvalidated.
+
+Next proposed work is exposed-boundary/direction/uncertainty checking of the native collision approximation using existing grasps. Keep numerical coordinate correctness separate from anatomical fidelity and eventual task adequacy. Native hands for some generators would confound hand with generator unless the study accounts for embodiment. The user asked for this native comparison, not an automatic replacement of the common-Shadow dataset design. Continue on `codex/project-work`, preserve concurrent providers and the open paper, and retain existing commit/publish authorization.

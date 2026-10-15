@@ -1,0 +1,280 @@
+{
+  "schema": "hug_native_mano_static_comparison_v1",
+  "protocol_sha256": "ddd895ade2ab03c9d48110693df472cc39425157ddbb9496ce7505962a982ea7",
+  "case_count": 32,
+  "counts": {
+    "static_forwards_reconstructed_from_completed_calls": 97,
+    "physics_steps": 0,
+    "retarget_solves": 0,
+    "new_native_proposals": 0
+  },
+  "all_native_reconstructions_pass": true,
+  "all_native_bone_imports_pass": true,
+  "max_native_bone_error_m": 4.7740276922829126e-08,
+  "mano_tip_errors": {
+    "mean_m": 0.00045348939413921514,
+    "p95_m": 0.0009138594412982534,
+    "max_m": 0.0015513944517226098,
+    "count": 160,
+    "p95_is_unweighted": true
+  },
+  "shadow_tip_errors": {
+    "mean_m": 0.006427624657419894,
+    "p95_m": 0.015255732656651415,
+    "max_m": 0.017517525527417997,
+    "count": 160,
+    "p95_is_unweighted": true
+  },
+  "cases_with_lower_mean_mano_tip_error": 32,
+  "object_summary": [
+    {
+      "object_id": "object01",
+      "cases": 8,
+      "mano_tip_mean_m": 0.00037512508927278054,
+      "shadow_tip_mean_m": 0.006405483527001478,
+      "part_mean_object_probe_error_mano_m": 0.002608712608330561,
+      "part_mean_object_probe_error_shadow_m": 0.003883845619118037,
+      "part_case_pairs_mano_surface_mean_better": 48
+    },
+    {
+      "object_id": "hug_apple",
+      "cases": 8,
+      "mano_tip_mean_m": 0.00034574024107215164,
+      "shadow_tip_mean_m": 0.005865385050816368,
+      "part_mean_object_probe_error_mano_m": 0.002660759260153911,
+      "part_mean_object_probe_error_shadow_m": 0.004043317712897344,
+      "part_case_pairs_mano_surface_mean_better": 48
+    },
+    {
+      "object_id": "hug_milk_box",
+      "cases": 8,
+      "mano_tip_mean_m": 0.0006321157638438538,
+      "shadow_tip_mean_m": 0.006999546980273238,
+      "part_mean_object_probe_error_mano_m": 0.00410308645875735,
+      "part_mean_object_probe_error_shadow_m": 0.005636368963565226,
+      "part_case_pairs_mano_surface_mean_better": 48
+    },
+    {
+      "object_id": "hug_mug",
+      "cases": 8,
+      "mano_tip_mean_m": 0.00046097648236807494,
+      "shadow_tip_mean_m": 0.006440083071588493,
+      "part_mean_object_probe_error_mano_m": 0.0024258893131790878,
+      "part_mean_object_probe_error_shadow_m": 0.005871726234174598,
+      "part_case_pairs_mano_surface_mean_better": 48
+    }
+  ],
+  "runtime": {
+    "numpy": "2.2.6",
+    "mujoco": "3.3.7",
+    "torch": "2.11.0",
+    "trimesh": "4.12.2"
+  },
+  "native_collision_fidelity_accepted": false,
+  "dynamic_validation": false,
+  "new_eval_data": false,
+  "original_criteria_changed": false,
+  "source_bindings_unchanged": true,
+  "recovery": {
+    "reason": "all32casefiles complete; final summary export raised NumPy int64 serialization error",
+    "no_measurement_rerun": true,
+    "original_script_sha256": "dc56e0da20f4f1191308f9b1bf7adfda3b4ff5c20019c932ccc9bc6ac9ec4c15",
+    "postprocessor_sha256": "a41c0a07c20cfb1f8adba0555e1bf8711313fc433d189f8e7c26e6a49309e46d",
+    "counts_note": "97forward calls derived from32completecases x3 plus1modelneutralinitialization; counters were not exported before the summary error",
+    "runtime_note": "version values read from the same available runtime during recovery; original final metadata was not exported"
+  }
+}
+[
+  {
+    "part": "palm",
+    "native_triangle_centroid_boundary_error_mano_mean_m": 0.002945937458350881,
+    "native_triangle_centroid_boundary_error_shadow_mean_m": 0.007953212237372404,
+    "cases_mano_mean_better": 32,
+    "pointwise_bands": [
+      {
+        "band_m": 0.001,
+        "native_near": 2,
+        "mano_lost": 1,
+        "mano_added": 7,
+        "shadow_lost": 2,
+        "shadow_added": 0
+      },
+      {
+        "band_m": 0.002,
+        "native_near": 15,
+        "mano_lost": 3,
+        "mano_added": 5,
+        "shadow_lost": 15,
+        "shadow_added": 0
+      },
+      {
+        "band_m": 0.005,
+        "native_near": 42,
+        "mano_lost": 4,
+        "mano_added": 17,
+        "shadow_lost": 42,
+        "shadow_added": 0
+      }
+    ]
+  },
+  {
+    "part": "thumb",
+    "native_triangle_centroid_boundary_error_mano_mean_m": 0.0016961138431335412,
+    "native_triangle_centroid_boundary_error_shadow_mean_m": 0.005526033542877196,
+    "cases_mano_mean_better": 32,
+    "pointwise_bands": [
+      {
+        "band_m": 0.001,
+        "native_near": 16,
+        "mano_lost": 10,
+        "mano_added": 36,
+        "shadow_lost": 9,
+        "shadow_added": 11
+      },
+      {
+        "band_m": 0.002,
+        "native_near": 45,
+        "mano_lost": 17,
+        "mano_added": 57,
+        "shadow_lost": 19,
+        "shadow_added": 8
+      },
+      {
+        "band_m": 0.005,
+        "native_near": 140,
+        "mano_lost": 13,
+        "mano_added": 87,
+        "shadow_lost": 68,
+        "shadow_added": 6
+      }
+    ]
+  },
+  {
+    "part": "index",
+    "native_triangle_centroid_boundary_error_mano_mean_m": 0.0009184931287933701,
+    "native_triangle_centroid_boundary_error_shadow_mean_m": 0.004312144501709855,
+    "cases_mano_mean_better": 32,
+    "pointwise_bands": [
+      {
+        "band_m": 0.001,
+        "native_near": 103,
+        "mano_lost": 67,
+        "mano_added": 110,
+        "shadow_lost": 93,
+        "shadow_added": 76
+      },
+      {
+        "band_m": 0.002,
+        "native_near": 192,
+        "mano_lost": 68,
+        "mano_added": 142,
+        "shadow_lost": 130,
+        "shadow_added": 137
+      },
+      {
+        "band_m": 0.005,
+        "native_near": 505,
+        "mano_lost": 81,
+        "mano_added": 157,
+        "shadow_lost": 183,
+        "shadow_added": 134
+      }
+    ]
+  },
+  {
+    "part": "middle",
+    "native_triangle_centroid_boundary_error_mano_mean_m": 0.0008171092980703558,
+    "native_triangle_centroid_boundary_error_shadow_mean_m": 0.002619648774721255,
+    "cases_mano_mean_better": 32,
+    "pointwise_bands": [
+      {
+        "band_m": 0.001,
+        "native_near": 169,
+        "mano_lost": 73,
+        "mano_added": 109,
+        "shadow_lost": 84,
+        "shadow_added": 117
+      },
+      {
+        "band_m": 0.002,
+        "native_near": 316,
+        "mano_lost": 68,
+        "mano_added": 134,
+        "shadow_lost": 79,
+        "shadow_added": 112
+      },
+      {
+        "band_m": 0.005,
+        "native_near": 715,
+        "mano_lost": 50,
+        "mano_added": 148,
+        "shadow_lost": 80,
+        "shadow_added": 89
+      }
+    ]
+  },
+  {
+    "part": "ring",
+    "native_triangle_centroid_boundary_error_mano_mean_m": 0.0012314738660482271,
+    "native_triangle_centroid_boundary_error_shadow_mean_m": 0.0027595857299003547,
+    "cases_mano_mean_better": 32,
+    "pointwise_bands": [
+      {
+        "band_m": 0.001,
+        "native_near": 137,
+        "mano_lost": 69,
+        "mano_added": 145,
+        "shadow_lost": 104,
+        "shadow_added": 169
+      },
+      {
+        "band_m": 0.002,
+        "native_near": 269,
+        "mano_lost": 81,
+        "mano_added": 197,
+        "shadow_lost": 148,
+        "shadow_added": 259
+      },
+      {
+        "band_m": 0.005,
+        "native_near": 660,
+        "mano_lost": 39,
+        "mano_added": 202,
+        "shadow_lost": 137,
+        "shadow_added": 205
+      }
+    ]
+  },
+  {
+    "part": "little",
+    "native_triangle_centroid_boundary_error_mano_mean_m": 0.0011682580308985235,
+    "native_triangle_centroid_boundary_error_shadow_mean_m": 0.005193672248199516,
+    "cases_mano_mean_better": 32,
+    "pointwise_bands": [
+      {
+        "band_m": 0.001,
+        "native_near": 72,
+        "mano_lost": 56,
+        "mano_added": 81,
+        "shadow_lost": 61,
+        "shadow_added": 81
+      },
+      {
+        "band_m": 0.002,
+        "native_near": 140,
+        "mano_lost": 61,
+        "mano_added": 101,
+        "shadow_lost": 100,
+        "shadow_added": 153
+      },
+      {
+        "band_m": 0.005,
+        "native_near": 357,
+        "mano_lost": 49,
+        "mano_added": 118,
+        "shadow_lost": 170,
+        "shadow_added": 256
+      }
+    ]
+  }
+]

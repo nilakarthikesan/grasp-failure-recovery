@@ -1,0 +1,535 @@
+\subsection{HUG}
+HUG supplies MANO hand hypotheses from observations \cite{hug}. Our conversion
+places the native wrist at the Shadow palm position and retargets object-relative
+landmarks through Dex Retargeting \cite{dex}. Native and target hands have
+different surface geometry, so numerical reconstruction and correct forward
+kinematics are necessary but insufficient evidence of grasp preservation.
+
+This strict native-relative equivalence contract is a project-defined claim,
+not HUG's published benchmark gate. The 1/2/5 mm bands, 10 mm mean
+native-target error guard and original individual nonworsening caps do not
+come from a universal HUG retargeting tolerance. HUG reports grasp execution
+and fingertip-to-object quality with embodiment-specific retargeting
+\cite{hug}; our fingertip-to-native-target error measures a different quantity.
+The Shadow outcome is the intended prediction target. Strict equivalence
+failures therefore do not establish that every approximate Shadow pipeline is
+unusable. A bounded approximate native-fidelity claim needs a separately
+justified prospective distortion budget; none is assigned from the six
+inspected development grasps. Static command realization and predictive
+adequacy require their own evidence. Historical criteria and failures remain intact.
+
+All 32 saved native exports reconstruct exactly in the recorded 3D audit;
+this does not assert all-32 camera-projection equivalence. Detailed surface
+measurements on six existing apple, milk-box and mug development cases, together
+with three finer repeats, reject the declared strict preservation claim.
+Definite lost/added proximity regions and reliable sampled orientation reversals
+remain counterexamples. The nine resolutions are repeated measurements of six
+grasps, not nine independent physical failures.
+
+The first experimental local fit adds five individual fingertip nonworsening
+constraints, a separate strict 10 mm mean-error guard and native-relative facing
+targets, including away-facing targets. Final engineering assessment separately
+declares a 10 nm arithmetic allowance; original tip errors are approximation
+errors, rather than scientific acceptance margins. None of the six fits provides
+an eligible improving candidate; each returns its exact original joint/root pose.
+Independent source checks pass, while the unchanged surface audit returns zero
+PASS and nine FAIL. Pointwise orientation separately has seven FAIL and two
+UNRESOLVED results. This is not a repaired mapping or evidence of global
+infeasibility. Physical contact and failure-label preservation remain unconfirmed.
+
+
+A subsequent time-zero diagnosis reproduces all 649 recorded fingertip vectors
+exactly and finds full-rank local fingertip-cap Jacobians in all six cases.
+Nonzero inward steps satisfying the original caps exist. The unsuccessful
+surface-optimization trajectories, rather than contradictory fingertip caps,
+explain the first method's refusals; nearby direction-eligibility discontinuities
+are observed but are not established as the cause of every refusal.
+
+A separately frozen restoration stage projects each previously rejected raw
+pose using cheap forward kinematics before evaluating the unchanged surface
+objective. All six restored poses improve that objective by 1.52--38.09\% while
+satisfying all 30 individual original-relative fingertip caps in the declared
+computed arithmetic and the strict 10 mm mean guard. The projection targets
+are tightened inward by 1 nm; no acceptance allowance is added. Fresh terminal
+checks bypass the cache, and independent source-URDF versus captured-scene
+checks pass. This stage uses 18 full surface evaluations in 49.57 s on the
+existing development cases, with no new inference or physical episodes. These
+are feasible improving points. Two cheap projections converge and four reach
+their 40-iteration budget; final feasibility is checked independently of the
+optimizer's status. This is not a full-convergence or surface-preservation claim.
+
+The unchanged independent mapping audit gives zero PASS and nine FAIL; all
+nine pointwise orientation results now FAIL. Definite lost/added proximity
+regions remain despite the improved fitting cost. For example, the coarse
+2 mm milk-box B summed added-area lower bound changes from 142.31 to
+245.00 mm$^2$, while its fitting cost falls by 38.09\%. At the coarse 5 mm
+band, mug A supplies seven reliable sampled sign-reversal witnesses, compared
+with none observed previously. These are conditional anatomical-part area
+sums and pose-specific eligible sample counts, not unique contact areas or
+comparable failure rates. They show that the average fitting objective and
+tip constraints do not certify the complete native grasp. The production
+mapper therefore remains unchanged; continuous physical contact and
+failure-label preservation are still unconfirmed.
+
+A post-hoc saved-array diagnosis finds that the exact fixed-facing soft-L1
+contribution worsens in all six lower-total-cost fits. Each invalidates
+49--104 originally valid fixed direction bins. Of 43 unique saved coarse
+orientation witnesses, 20 were selected direction-fitting sites, three were
+originally eligible but unselected, and 20 were outside the original eligible
+stratum. These capped examples are not all counterexamples or independent
+grasps; fine-grid indices are treated separately. Sparse coverage alone
+therefore does not explain the observed failures.
+
+We implement a conservative optional development selector that refuses any
+per-part fixed native-relative direction-SSE increase or original-valid site
+invalidation, preserving all frozen targets and weights without renormalizing
+missing mass. Thirty-six new manufactured controls pass, together with all
+182 installed surface API checks. Separately frozen replay refuses all six
+previously selected candidates and accepts six baseline identity controls;
+all 30 saved fingertip caps still pass. Independent replay reproduces the
+reports and per-part arithmetic exactly. Identity acceptance verifies only
+the selector, not the original mapping. This replay runs no new geometry fit or physical episode; all nine strict
+mapping results remain FAIL and production is unchanged.
+
+A subsequent separately frozen guarded geometry study performs 134 full
+surface callbacks and refuses all 122 completely scored nonbaseline
+candidates. All six cases reach their FK budget and retain exact original
+complete scene poses. Fresh independent source/FK checks and all 30 computed
+tip caps pass. With bitwise-identical poses and unchanged measurement inputs, we explicitly
+reuse the nine original surface reports, rather than repeat identical grids:
+strict preservation remains zero PASS and nine FAIL, with seven FAIL and two
+UNRESOLVED pointwise orientation results. Finite search refusal alone is not
+an infeasibility proof.
+
+Separately frozen geometric diagnostics identify a stronger limitation for
+one saved mug grasp. Complete binary covers certify a lost native-near palm
+relationship throughout the current wrist correction rectangle and, separately,
+throughout the full physical wrist limits. Independent source/FK and analytic
+box calculations reproduce all 149 local and 171 full-wrist leaf distances.
+A radial-shell bound then removes the wrist-angle restriction: with the native
+wrist/Shadow palm POSITION fixed, every rotated target palm surface lies within
+97.349985 mm of that anchor. One previously recorded object cell of area
+3.963678 mm$^2$ lies at least 103.996112 mm from the anchor, while its whole-cell
+native distance is at most 4.745913 mm. After the declared numerical allowances,
+its target distance is at least 6.645927 mm, exceeding the frozen 5 mm band
+for any palm orientation. An independent 90-digit arithmetic/provenance review
+passes 687 checks. These are conditional engineering arithmetic certificates
+for literal individual collider surfaces, including buried interfaces, rather
+than formal outward-rounded or physical-contact proofs.
+
+This fixed-anchor counterexample cannot be repaired by additional finger
+fitting, wrist-limit expansion or palm rotation. It does not rule out another
+anchor translation, geometry or mapping, and supplies no native failure label
+or generalization result. Source inspection finds the current wrist-to-palm
+convention intentional, with no demonstrated missing origin transform. A new
+anatomical calibration would require a separately declared mapping, consistent
+placement/reference vectors and the unchanged independent acceptance audit;
+no such repair is claimed here. The current version remains unvalidated for
+strict native surface preservation. No new generator inference, physical
+evaluation data or predictor training is produced by these static studies.
+
+A subsequent source-only calibration constructs one proper rigid transform
+from fixed neutral MANO MCP and rigid Shadow knuckle frames, independently
+of object geometry or observed contact errors. Its translation norm is
+8.668706 mm. All six new retargets pass numerical reconstruction, physical
+joint limits and the 10 mm mean-tip gate, but 21 of 30 original individual
+tip caps fail; zero candidates are eligible. Independent reconstruction of
+the frame algebra, source/scene FK, original world targets and exact original
+caps confirms these results. The primary neutral MANO descriptor is inherited,
+not independently regenerated by this verifier. Runtime body-fusion and
+joint-order compatibility stops are retained. The construction, targets and
+criteria stay fixed, and V3 requires byte-identical calibration to V2.
+
+After the calibration is fixed, a separate radial-shell diagnostic refutes
+both saved mug anchors under arbitrary palm orientation. Three old cell rows
+for mug A and two for mug B have positive whole-cell margins, with maximum
+strict band excesses 7.135419 and 10.091852 mm after unchanged allowances.
+An independent 90-digit replay passes 1,093 checks and retains nonpositive
+rows. These overlapping-resolution witnesses are not independent failures
+or additive physical contact areas. They exclude only those fixed-anchor
+formulations, not arbitrary translations, different geometry or all proposals.
+No full-grid audit or production promotion is performed for the refused
+calibrated poses. A common-robot retarget and a native-MANO embodiment define
+different failure-label targets; future placement/collision/dynamics validation
+must declare the intended target. No new native HUG proposal, physics,
+evaluation data or predictor training is produced.
+
+We next retain the common Shadow embodiment and allow three world-frame palm
+translation coordinates alongside the same 24 joint coordinates, with fixed
+native world targets, original physical/correction bounds and floating-root
+quaternion. The original individual tip caps and mean guard remain unchanged.
+A bounded search uses 762 full objective callbacks; after its finer pattern
+radii are not reached, one separately frozen fine study with 56 seeds per grasp uses 348.
+Both methods retain all six original fallbacks under the additional per-part
+direction selector. These 1,110 callbacks are static optimization computations,
+not independent grasps or physical task attempts.
+
+A separately frozen diagnostic selection verifies objective comparability and
+chooses one lowest-cost tip-feasible nonzero-translation candidate per case
+without changing the guarded returns. All six diagnostics pass independent
+source/FK checks and all 30 literal original caps; all remain refused by the
+additional direction selector. Three selected shifts are only 1.165--3.284 nm and are
+joint-dominated changes; milk-box B and both mugs shift by 3.716--4.892 mm.
+The original approximation errors remain the caps, rather than independent
+scientific accuracy margins. A lower average fitting cost is not a preservation
+certificate.
+
+Fresh full-grid measurements of those six diagnostic poses yield nine strict
+and proximity FAIL results, with seven pointwise-orientation FAIL and two
+UNRESOLVED results. No complete-pose surface report is reused. A provenance
+review finds that the three nanometer shifts arose during constraint
+restoration of initially zero-translation thumb-joint proposals. To address
+this coverage gap, one separately frozen supplement selects only proposals
+originating in the already declared translation seeds, using the same
+objective and feasibility gates. Its actual shifts are 0.063565, 1.994976 and
+0.031372 mm; all original tip caps pass, but all five fresh coarse/fine
+comparisons FAIL both strict preservation and pointwise orientation. The
+initial nine and supplemental five remain separate development measurements
+of nine robot poses derived from six existing native grasps.
+
+At the coarse 2 mm band, the two millimeter-shifted mug palms still have
+certified lost-proximity lower bounds of 105.162 and 53.090 mm$^2$, unchanged
+from their original bounds. Positive added-type thumb mismatch bounds are also
+present; changing lower bounds alone does not prove a change in total error.
+These conditional part-surface measurements do not establish physical contact
+or failure-label equivalence. All guarded mapper outputs remain original,
+production is unchanged, and no inference, physical evaluation data or training
+is generated.
+\paragraph{Direct surface constraints.}
+
+We then directly constrain 178 retained whole-cell proximity counterexamples
+and 134 saved signed-orientation records from these same grasps. The records
+are capped examples, with repeated bands and studies retained, rather than
+complete surface coverage. Near cells must remain wholly near and far cells
+wholly far under the inherited bounds; native-away directions are preserved.
+Turning a counterexample into an ambiguous or ineligible measurement is not
+counted as repair. The same 27 pose coordinates, native targets, Shadow
+geometry, individual tip caps, mean guard (at most 10 mm) and physical/correction bounds remain
+fixed. A bounded minimax search targets the worst normalized violation instead
+of an average fitting cost; exact feature and orientation eligibility are
+checked separately.
+
+The first run performs 6,585 raw callbacks and 66 exact checkpoints without
+finding a pose satisfying every retained witness. Its new mug-A diagnostic
+moves the palm by 22.360 mm and satisfies 10 of 57 proximity examples while
+retaining all original fingertip caps. Saved terminal evidence also exposes a
+flat far-distance search residual: the inherited lower bound clips negative
+values to zero. For a positive band, removing this clipping from the optimizer
+residual preserves the feasible set and provides distance guidance. One
+separately frozen revision makes only this search change; literal final tests,
+starting poses, ranking and budgets remain unchanged. Before V2 outputs and the final full-grid audit, selection between the two versions is fixed
+by the same exact diagnostic rank, with ties favoring the first version.
+
+The revised run performs 13,941 raw callbacks and 46 exact checkpoints, with
+all twelve starts reaching the iteration limit. Every terminal violates at
+least one literal original fingertip cap (0.000176--0.0350 mm maximum excess
+per terminal) and is refused; these values are not rounded into acceptance.
+The fixed cross-version selection retains the first-run pose for every case,
+with five exact ties and a better first-run mug-A diagnostic. All thirty
+individual caps and the six mean guards hold for the selected poses, but no
+pose satisfies every retained witness. Independent source, trace and
+arithmetic replay verifies these calculations, not mapping acceptance.
+A disclosed runtime deviation affects both fits: an imported geometry module
+sets four rather than the declared two Numba threads per worker. The final
+audit sets and verifies two after imports; source data, scientific predicates
+and numerical search budgets remain unchanged.
+
+The ten repaired mug-A proximity examples comprise two index, two middle,
+three ring, two little and one palm cell; none of its eight retained thumb
+examples passes. Mug A has no retained orientation witness, which supplies no
+orientation acceptance. Apple B loses two previously passed orientation
+records: one eligible middle-finger point repeated at two bands reverses sign.
+These capped records do not measure total mismatch area or preservation
+elsewhere on the hand. The selected mean fingertip errors are 4.493--7.241 mm;
+the individual historical caps need not each be below 10 mm.
+
+The final independent audit recomputes all nine complete target fields on
+these six saved native grasps. All nine proximity and strict relationship
+comparisons FAIL; pointwise orientation gives 9 FAIL. Numerical source,
+FK, root, joint-domain and fingertip gates pass. At the coarse 2 mm band,
+mug-A palm lost-area lower bounds change from 105.162 to 86.997 mm$^2$, while
+its added-area upper bound changes from zero to 304.058 mm$^2$. Thumb lost
+and added lower bounds rise from 7.970 to 74.646 and from zero to 69.112
+mm$^2$, respectively. These separate conditional bounds do not establish
+reduced total mismatch area or physical contact. Two reliable mug-A direction
+reversals appear in the coarse 5 mm band despite its missing retained
+orientation examples. No candidate is promoted; no new native proposal,
+physics episode, evaluation label or predictor training is generated.
+
+A separate manufactured identity control exposes a limit of the fixed-cell
+certificate. For a native cell whose distance interval straddles a proximity
+band, the inherited independent-interval formulas cannot make both lost and
+added mismatch upper bounds zero, even when native and mapped distances are
+identical. This is uncertainty in the certificate, not a definite geometric
+mismatch or proof that retargeting is impossible. Removing the known
+counterexamples would therefore remain insufficient for complete sign-off:
+stronger coverage evidence, such as paired or adaptive bounds, together with
+continuous orientation coverage, would still be needed under the unchanged scientific criterion.
+
+A separately frozen feasibility-restoration test then revisits the twelve saved
+V2 endpoints. Within a small fixed trust box, cheap forward kinematics selects
+the nearest observed feasible checkpoint to each endpoint; global projection
+optimality is not claimed. All twelve satisfy the original individual caps
+and mean guard. The test uses 1,101 fingertip-FK and 161 analytic-Jacobian
+callbacks, equivalent to 2,524 actual projection forward calls, followed by
+24 retained-surface checks. None improves the frozen diagnostic rank. Ten
+invalidate previously eligible direction rows, and six lose previously
+passing records; invalid evidence is distinct from a measured sign reversal.
+One still-eligible milk-box B sample reverses its native-relative facing sign
+in each of the two restored endpoints.
+The prior infeasible endpoints lacked these exact direction checks, so the
+small projection cannot be identified as their cause. One mug-A endpoint
+satisfies 11/57 proximity examples instead of 10/57 but worsens the worst
+normalized violation from 5.000 to 5.445. All six prior selected poses are
+retained, with no new full-grid audit or production promotion. Small tip-cap
+violations are therefore repairable, yet restoring them does not reveal a
+surface-acceptable replacement. The historical nine failures remain prior
+evidence; no new inference, physical outcome data or training is generated.
+\paragraph{Exposed-boundary diagnosis and claim scope.}
+A separate audit of the same six compiled scenes found no internal
+compiled-scene versus historical-query discrepancy; source OBJ identity was
+not established by that check. Each uses 45 compatible Shadow colliders;
+mesh support-hull differences were at floating-point roundoff. We then froze a
+conservative exposed-union diagnostic at the 178 retained proximity witnesses
+and 134 retained orientation sites, evaluated at the original and previously
+selected poses. Among 624 repeated row/pose records, 575 nearest anatomical-part
+points were strictly separated exposed witnesses and 49 were buried. Coincident
+or unsupported cases cannot provide an invented upper bound; the calculation
+makes no new normal-agreement or physical-contact claim. All six cases retained
+conditional whole-cell proximity counterexamples at both poses: 156 original
+and 114 selected records. These counts are neither independent grasps nor a new
+mapper improvement score; inconclusive bounds are not repaired relationships.
+For example, in selected milk-box B, a native little-finger patch is at most
+1.691\,mm from a retained object cell while the exposed Shadow counterpart is
+at least 8.144\,mm away. Removing buried interfaces therefore cannot explain all
+observed distortion. Fifteen primary and ten independent manufactured controls
+pass; the diagnostic uses 36 static forward calls and no integration, new grids
+or optimization. The nine historical strict failures remain unchanged.
+
+The current evidence inventory separately binds exact native reconstruction and
+nominal-pose checks for 32 saved proposals, and compiled-geometry checks for six.
+All 32 pass the historical 10\,mm mean fingertip guard, but the largest individual
+discrepancy is 17.518\,mm. These are development cases across four geometries;
+none supplies an untouched object holdout. A prospective protocol distinguishes
+correct realization of a declared Shadow pipeline from strict native geometry,
+optional approximate native fidelity, and empirical prediction adequacy. It
+assigns no new tolerance or retrospective pass. The current experiment supports
+a more precise diagnosis, not a successful pose repair or complete mapping
+validation; production mapping and evaluation-data restrictions remain intact.
+
+\paragraph{Numerical repair and complete palm-pose search.}
+A code-level diagnosis identified a mismatch between the production objective
+and the surface contract: ten hand-landmark vectors are optimized without the
+object, while acceptance tests object-relative surfaces. Earlier surface fits
+also held the floating root orientation fixed while varying joints and palm
+translation. Neither an accurate landmark conversion nor a fixed-anchor
+obstruction resolves the full retargeting problem.
+
+Two reproducible numerical defects were repaired in a separately versioned,
+opt-in static profile. A reused solver retained the previous independent
+proposal's initialization; a saved A--B--A check changed A by up to
+0.192417\,rad. The installed dependency also supplied a temporal gradient term
+absent from its scalar loss. Resetting between proposals and removing that
+inconsistent term yields bitwise-identical repeat mappings and a numerical
+loss/gradient discrepancy of $1.08\times10^{-11}$ at the checked state.
+The wrapper now refuses failed or unavailable optimizer status and records its
+effective settings. Sixteen focused tests and independent source/output review
+pass. However, four of ten source-URDF fingertip discrepancies worsen on the two
+saved inputs. These are reliability repairs, not a geometry-accepted mapper;
+the historical default is retained. Existing single-case paths create fresh
+instances, so state leakage does not explain their prior surface failures.
+
+A new experimental solver adds three independent world root-rotation
+coordinates to the prior 27-dimensional state, compensating root translation
+to retain the requested palm position. Thirteen manufactured controls pass;
+zero-rotation states reproduce the original and pooled scene states bitwise,
+and the saved-case Jacobian discrepancy is at most
+$1.59\times10^{-12}$\,m per scaled coordinate. Eight solver controls pass.
+With unchanged original fingertip caps and surface predicates, a frozen
+milk-box-B/mug-B pilot uses exactly two starts per case and bounded calls.
+All four starts stop at 25 iterations; 3,284 raw callbacks and 23 exact checks
+produce no eligible improvement, retaining the two prior pooled poses.
+The experiment uses 6,780 static forward calls and zero integration steps.
+Its negative result neither proves global infeasibility nor creates a new
+full-grid measurement. A concurrently edited scene loader is explicitly
+excluded through a verified frozen-module overlay, so the result remains
+bound to the historical geometry rather than silently mixing versions.
+
+The search also relaxed every surface inequality through one epigraph slack,
+allowing improvement of a failing region at the expense of protected passing
+regions. Exact selection then refused those tradeoffs. A separately frozen
+repair gives protected proximity, orientation and necessary eligibility-guidance
+rows zero slack coefficient while retaining the prior inward search buffers.
+The exact additional eligibility and final surface checks are unchanged.
+Sixteen helper tests and eight independent solver controls pass. One pooled
+start per case, capped at 25 iterations, uses 1,632 raw callbacks and 12 exact
+checks but again retains both prior poses. At the saved terminal states,
+milk-box B still violates three fingertip caps and one hard proximity
+inequality; mug B violates all five fingertip caps. Neither is a converged
+constrained solution. Fixing the search policy therefore does not establish
+surface preservation or global infeasibility.
+
+A final, separately frozen deterministic step check tests at most 21 dyadic
+fractions of each protected-fit endpoint displacement from its pooled reference.
+Both select a one-sixteenth step after five fingertip checks and five exact
+checks each, including a fresh recheck. All original individual fingertip caps
+hold, with minimum slack 115.88 and 57.55\,$\mu$m respectively; no previously
+passing surface or eligible direction row is lost. The worst normalized
+retained violation decreases from 9.283423 to 9.104737 for milk-box B and
+8.002982 to 7.573550 for mug B. No failed row becomes a pass: 12/13 and 22/1
+proximity/orientation failures remain. These mixed normalized values are
+severity diagnostics, not universal metric errors. Forty-four static forward
+calls and zero integration steps establish a small protected improvement, not
+complete native mapping acceptance. This motivated the feasible step
+acceptance procedure reported next; untouched-object validation remains
+future work. Neither new poses nor numerical reliability fixes are
+promoted to the production default, and no new evaluation data or training is
+generated. The historical nine strict failures retain their original scope.
+
+\paragraph{A terminating acceptance procedure and protected fitting.}
+A subsequent audit finds that the frozen strict evaluator is a falsifier and
+uncertainty reporter, rather than a complete positive certifier. Its continuous
+orientation status is explicitly unresolved. For a native-ambiguous proximity
+cell, the independent interval construction cannot give zero lost and added
+upper bounds simultaneously, even for identical geometry; every saved grid
+contains such cells. This invalidates ``fit until this implementation returns
+PASS'' as a stopping rule, while retaining all definite counterexamples.
+A separately versioned structural-identity certificate passes 25 manufactured
+controls. Its distance proof requires exact labelled geometric identity; its
+continuous orientation proof supports only a deliberately bounded tetrahedral
+setting. It does not apply that identity claim to MANO and Shadow.
+
+A feasible-step optimizer now accepts each transition only after original
+fingertip, protected-surface and exact eligibility checks. Additional search
+guidance uses the same global closest-point exterior and competing-facet
+conditions as the exact selector. Sixteen solver and fourteen guidance controls
+pass; independent saved-output reviews verify the accepted transitions.
+For milk-box B and mug B, respectively, worst normalized retained violations
+fall from 9.104737 and 7.573550 to 8.784636 and 6.140244. One orientation row
+and one proximity row become passing across the two stages; 12/12 and 21/1
+proximity/orientation failures remain. Final mean fingertip errors are
+7.139044 and 5.322369\,mm. Every accepted step retains the literal individual
+caps; the mug's smallest remaining slack is only about 8.6\,nm, so this is not
+a robust physical margin. These historical-geometry per-case candidates are
+not a promoted general mapper, and bounded optimization does not establish
+global infeasibility or a new full-grid result.
+
+\paragraph{Current-source simulator-input acceptance.}
+A separate bridge checks all 32 immutable saved legacy commands against the
+source-accurate hand importer. Authoritative XML limits pass without clamping;
+independent source FK agrees with compiled task points to
+$3.991\times10^{-16}$\,m. Current mesh vertex-set error is below
+$1.020\times10^{-8}$\,m, within a prospective $1\,\mu$m numerical import
+allowance. This allowance is not an anatomical accuracy threshold.
+The historical basename alias is confirmed, but the apparent 6.9446\,mm
+vertex-set discrepancy is not convex collision-boundary displacement.
+Checking every extreme vertex against the opposite convex solid yields a
+numerical Hausdorff distance of $24.512339\,\mu$m. This static geometry defect
+therefore does not explain millimetre-scale native discrepancies or establish
+contact-force equivalence.
+
+The first complete-scene bridge passes 24 of 32 cases; all hand, frame,
+geometry and control checks pass, while eight milk cases exceed the frozen
+$10^{-12}$\,kg\,m$^2$ source-tensor check. A source-only reproduction traces
+this to the installed compiler's eigendecomposition. Preparing an equivalent
+explicit principal frame with a more accurate symmetric eigensolver preserves
+original asset bytes and intended inertia, without changing the gate.
+Twenty targeted controls pass; the applied repository's static subset reports
+23 passes, one optional asset skip and two physics tests deliberately excluded.
+A fresh, separately frozen complete-scene bridge then passes all 32 cases.
+It checks actual native-frame composition, independent XML root inversion,
+source limits, hand/object colliders, object pose/mass and static controls.
+Maximum palm-position discrepancy is $1.093\times10^{-16}$\,m and object-inertia
+tensor discrepancy is $6.506\times10^{-19}$\,kg\,m$^2$.
+All compared non-inertia measurement fields are unchanged between the two runs; each uses
+128 static forwards and zero integration.
+
+A current-source diagnostic separately checks 365 retained records across
+six original poses and the two saved experimental candidates. The originals
+retain 178 definite proximity changes (98 lost, 80 added); their direction
+records contain 123 reliable reversals, two preserved directions and nine
+ineligible records. The two experimental candidates retain 22 definite
+proximity changes, 11 unresolved records and three preserved records; 13
+directions reverse and four are preserved. Both candidates still meet the
+literal old fingertip caps and 10\,mm mean guard. Four original poses fail
+literal old-cap comparisons by at most 10.172\,nm, including two discrepancies
+of only about $10^{-16}$\,m. These are reported without rebasing and remain
+distinct from substantive surface counterexamples. Thirty-two static forwards
+and no new native queries establish this fixed-subset result, not full-grid
+coverage or unseen-case validation. Subsequent source-XML readback confirms
+all 192 literal joint bounds across these eight poses without tolerance.
+
+We therefore accept \emph{static simulator-input realization of the 32 saved
+HUG-derived nominal Shadow commands through this hash-bound current pipeline}.
+This is the implemented common-robot configuration, not native MANO contact
+identity. The strict native claim remains rejected; original criteria and
+historical outcomes are preserved. The experimental surface fits and optional
+stateless profile are not promoted as generally validated mappers. Fresh solves,
+dynamic command tracking and unseen-object prediction are outside this
+signoff. Later labels must describe actual retargeted Shadow execution and
+retain generator, native proposal, retargeter, command, geometry and executor
+provenance; the comparison concerns proposal-to-execution pipelines.
+The archived protocols, manufactured controls, candidate histories, independent
+reviews and source/runtime hashes are retained in
+\path{research_artifacts/hug_mapping_acceptance_repair_2026-10-15_v1}.
+No new native inference, physics integration, outcome labels, evaluation data
+or training were performed.
+
+
+\paragraph{Native MANO reference path on the existing cohort.}
+A separate static path removes the human-to-robot anatomical substitution.
+We reconstruct the saved MANO shape at neutral pose, preserve its free wrist
+and 15 articulated bone rotations, assign vertices by maximum skinning
+weight, and construct phalanx capsules and a convex palm. This follows the
+high-level simulated-hand design described by HUG~\cite{hug}, but our RMS
+capsule-radius rule and implementation are not a reproduction of its
+unreleased simulation code. Contact and gravity are disabled; inertias are
+placeholders, with no controller or evaluation-runner registration.
+The original 32 proposals and literal nominal Shadow commands are reused;
+no optimization or new native sampling occurs.
+
+All 32 native reconstructions and numerical skeleton imports pass a
+prospectively fixed $1\,\mu$m implementation check. The maximum bone-position
+difference from upstream float32 MANO is $4.774\times10^{-8}$\,m. An independent
+scalar FK calculation agrees with compiled native joints, rigid tips and
+capsule endpoints within $3.39\times10^{-16}$\,m. Native rigid terminal sites
+still differ from skinned fingertip vertices because the latter also depend
+on skinning and pose corrections. Over the same 160 fingertips, mean error
+falls from 6.428\,mm for saved Shadow commands to 0.453\,mm for native MANO;
+the respective 95th percentiles are 15.256 and 0.914\,mm, and maxima 17.518
+and 1.551\,mm. Every case has a lower native mean.
+
+For each of six anatomical parts, native triangle centroids are compared
+with the corresponding compiled component boundaries, weighting by triangle
+area within each part/case. All 192 part/case means decrease; their equally
+weighted average is 1.463\,mm for native MANO versus 4.727\,mm for Shadow.
+This is a finite one-directional component-surface metric, not a continuous
+or exposed-union certificate. Skin-part assignment uses grouped skinning
+weights. The maximum sampled discrepancies remain 11.892 and 30.165\,mm.
+A further 512 distinct deterministic object probes per case use identical
+area-quantile/Halton locations for both representations. The native proxy
+still changes proximity: at 1/2/5\,mm its lost counts are 276/298/236 and
+added counts 488/636/729, versus Shadow's 353/491/680 and 454/669/690.
+Thus improved means do not imply every near-object relationship improves.
+These correlated pointwise counts are not a rerun of the historical
+continuous-cell criteria; buried interfaces, surface directions and unsampled
+regions remain outside this comparison.
+
+The 33 manufactured model/distance controls pass. All 32 scalar case files
+were saved before a NumPy-integer summary-serialization error; an archived
+postprocessor recovered the aggregate without repeating geometry. Both source
+versions and the failure log remain preserved. The reported 97 static forwards
+are reconstructed from completed control flow; no physics integration,
+retargeting solve, new evaluation data or training occurred.
+Evidence is retained in
+\path{research_artifacts/hug_native_mano_comparison_2026-10-15_v1}.
+
+This establishes improved static native fidelity on the existing development
+cohort, not complete collision or dynamic acceptance. The historical strict
+criteria and default Shadow pipeline are unchanged. The next proposed check
+is native exposed-boundary, direction and uncertainty validation before any
+physical controller or data collection. Adopting different hands for different
+generators would change the outcome definition and confound generator with
+embodiment unless controlled explicitly; this diagnostic reference does not
+by itself alter the common-Shadow experiment.
+

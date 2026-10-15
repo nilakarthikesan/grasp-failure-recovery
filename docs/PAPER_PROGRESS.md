@@ -471,3 +471,11 @@ The existing DGA manuscript section now distinguishes historical failed native p
 Status is `STATIC_PILOT_ADMITTED_TESTED_SCOPE` for these previously inspected cube outputs, with execution disabled. No new native inference, physics, evaluation episodes/labels or training. Historical protocols/results and other manuscript sections remain preserved. [Protocol and evidence](DGA_PRACTICAL_RETARGETING_PROTOCOL.md). The canonical paper is compiled after this edit; the source snapshot and compiler receipt bind the exact working file.
 
 DGA practical-study compilation confirmed with the desktop compiler at whole-source SHA-256 `8d55b452eb31e1f978a27933d7deb2dc8075eb4127e777d287bcbe2d32da3c54`. The exact working-source snapshot and tool receipt are archived; unrelated sections and the open paper path were preserved.
+
+
+<!-- hug-native-mano-comparison-2026-10-15-v1 -->
+## 15 October 2026 — Native MANO static reference added to the HUG subsection
+
+The existing canonical paper now distinguishes native skeleton import from collision approximation and cross-embodiment retargeting. On all 32 saved proposals, mean tip discrepancy is 0.453 mm native versus 6.428 mm Shadow; all 192 anatomical part/case surface means improve (balanced aggregate 1.463 versus 4.727 mm). Remaining proximity changes, including additional native 5 mm flags, prevent a complete contact-preservation claim. The paper records fixed-source numerical checks, 33 manufactured controls, scalar-only summary recovery, finite-sampling limits and the generator/hand confound. No new eval data, physics, inference, fits or training. Historical criteria/results and other provider sections remain preserved. [Report and evidence](HUG_NATIVE_MANO_COMPARISON.md). Desktop compilation is checked after the edit.
+
+Desktop compilation succeeded for the canonical working source SHA-256 `e856dbb09e6b9e0f0b5157d3bd70aa44a9505d461f22535492223877f7e198a8`; the guarded HUG subsection and compiler receipt are archived with this comparison.
