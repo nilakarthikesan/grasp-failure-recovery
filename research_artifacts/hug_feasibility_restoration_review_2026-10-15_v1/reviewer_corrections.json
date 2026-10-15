@@ -1,0 +1,28 @@
+{
+  "changes": [
+    {
+      "attempt": 1,
+      "log": "final_output_review_attempt1.log",
+      "issue": "Independent reviewer used root-zero staging for endpoint reconstruction while the frozen mapper stages at the original root. Algebraically equivalent compensation differed by 2.7755575615628914e-17 m due to floating-point operation order, tripping a reviewer byte-equality assertion.",
+      "fix": "Reconstruct endpoint root with the frozen original-root staging arithmetic, implemented independently without importing primary staging code. Preserve strict zero-tolerance error-vector equality and exact cap predicates. Independent URDF-to-scene comparison still uses a separately reconstructed source model.",
+      "scientific_data_changed": false,
+      "acceptance_thresholds_changed": false
+    },
+    {
+      "attempt": "merge1",
+      "log": "merge_review_attempt1.log",
+      "issue": "Reviewer helper expected cohort_bindings as a mapping; actual frozen schema is a list of path/sha256 records.",
+      "fix": "Read explicit frozen path/sha256 list.",
+      "scientific_data_changed": false,
+      "acceptance_thresholds_changed": false
+    },
+    {
+      "attempt": "merge2",
+      "log": "merge_review_attempt2.log",
+      "issue": "Reviewer empty Mug A orientation lists inferred floating dtype, unsuitable for Boolean mask union.",
+      "fix": "Explicit Boolean dtype for protected-mask arrays, including zero-length arrays.",
+      "scientific_data_changed": false,
+      "acceptance_thresholds_changed": false
+    }
+  ]
+}

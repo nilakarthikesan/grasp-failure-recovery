@@ -27,7 +27,10 @@ representation, coordinate conversion, articulation and object-relative surface
 geometry, separating mapping fidelity from eventual task success.
 Completed HUG development checks support numerical reconstruction and kinematic
 composition, but reject strict surface preservation across six detailed cases
-and three finer repeats. Constrained finger fitting, per-grasp palm
+and three finer repeats under a project-defined equivalence criterion, distinct
+from HUG's generator benchmark. Practical adequacy for the executed Shadow
+task requires separately justified distortion limits and independent evidence.
+Constrained finger fitting, per-grasp palm
 placement and direct surface-constraint fitting have not established a
 validated replacement. Historical HUG prediction diagnostics also
 show that useful failure ranking can coexist with warnings on successful
@@ -145,6 +148,18 @@ places the native wrist at the Shadow palm position and retargets object-relativ
 landmarks through Dex Retargeting \cite{dex}. Native and target hands have
 different surface geometry, so numerical reconstruction and correct forward
 kinematics are necessary but insufficient evidence of grasp preservation.
+
+This strict native-relative equivalence contract is a project-defined claim,
+not HUG's published benchmark gate. The 1/2/5 mm bands, 10 mm mean
+native-target error guard and original individual nonworsening caps do not
+come from a universal HUG retargeting tolerance. HUG reports grasp execution
+and fingertip-to-object quality with embodiment-specific retargeting
+\cite{hug}; our fingertip-to-native-target error measures a different quantity.
+The Shadow outcome is the intended prediction target. Strict equivalence
+failures therefore do not establish that every approximate Shadow pipeline is
+unusable. Practical adequacy needs a separately justified prospective error
+budget and independent validation; no such budget is assigned from the six
+inspected development grasps. Historical criteria and failures remain intact.
 
 All 32 saved native exports reconstruct exactly in the recorded 3D audit;
 this does not assert all-32 camera-projection equivalence. Detailed surface
@@ -393,6 +408,26 @@ mismatch or proof that retargeting is impossible. Removing the known
 counterexamples would therefore remain insufficient for complete sign-off:
 stronger coverage evidence, such as paired or adaptive bounds, together with
 continuous orientation coverage, would still be needed under the unchanged scientific criterion.
+
+A separately frozen feasibility-restoration test then revisits the twelve saved
+V2 endpoints. Within a small fixed trust box, cheap forward kinematics selects
+the nearest observed feasible checkpoint to each endpoint; global projection
+optimality is not claimed. All twelve satisfy the original individual caps
+and mean guard. The test uses 1,101 fingertip-FK and 161 analytic-Jacobian
+callbacks, equivalent to 2,524 actual projection forward calls, followed by
+24 retained-surface checks. None improves the frozen diagnostic rank. Ten
+invalidate previously eligible direction rows, and six lose previously
+passing records; invalid evidence is distinct from a measured sign reversal.
+One still-eligible milk-box B sample reverses its native-relative facing sign
+in each of the two restored endpoints.
+The prior infeasible endpoints lacked these exact direction checks, so the
+small projection cannot be identified as their cause. One mug-A endpoint
+satisfies 11/57 proximity examples instead of 10/57 but worsens the worst
+normalized violation from 5.000 to 5.445. All six prior selected poses are
+retained, with no new full-grid audit or production promotion. Small tip-cap
+violations are therefore repairable, yet restoring them does not reveal a
+surface-acceptable replacement. The historical nine failures remain prior
+evidence; no new inference, physical outcome data or training is generated.
 % END GFP SECTION hug
 
 % BEGIN GFP SECTION contactgen

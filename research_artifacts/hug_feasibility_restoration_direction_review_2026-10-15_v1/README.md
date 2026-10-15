@@ -1,0 +1,1 @@
+Supplement to the immutable endpoint restoration review: exact still-eligible Milk-box B facing-sign evidence requested for manuscript wording. Both restored endpoints reverse native facing sign at retained orientation row 2. No new measurements or selection. See source-bound JSON for source identity, exact dots and eligibility reason masks.

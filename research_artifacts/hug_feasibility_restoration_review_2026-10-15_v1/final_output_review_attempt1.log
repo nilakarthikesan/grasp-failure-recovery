@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/private/tmp/hug_feasibility_restoration_review_2026-10-15_v1/verify_restoration_outputs.py", line 161, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/private/tmp/hug_feasibility_restoration_review_2026-10-15_v1/verify_restoration_outputs.py", line 154, in main
+    tr=trace_review(row,saved,op);arithmetic_checks+=tr['arithmetic_checks']
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/hug_feasibility_restoration_review_2026-10-15_v1/verify_restoration_outputs.py", line 76, in trace_review
+    fk=INDEPENDENT_STATE_FK(x);near(fk['errors'][:5],result['fresh_FK']['error_vectors_m'],0,'independent projected native-world error vectors');near(fk['errors'],full['task_error_vectors_m'],0,'all ten independent projected task vectors')
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/hug_free_palm_review_2026-10-15_v1/verify_outputs.py", line 27, in near
+    error=float(np.max(np.abs(a-b)));check(error<=eps,(label,error,eps));return error
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/hug_free_palm_review_2026-10-15_v1/verify_outputs.py", line 22, in check
+    if not bool(v):raise AssertionError(label)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('independent projected native-world error vectors', 2.7755575615628914e-17, 0)

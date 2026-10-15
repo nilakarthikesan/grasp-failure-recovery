@@ -1,0 +1,15 @@
+# HUG saved-endpoint feasibility restoration — 15 October 2026
+
+This separately frozen static development study restores the twelve saved V2 optimizer terminal states from the same six existing HUG proposals. It creates no model output, physics episodes, evaluation labels or training data and changes no production mapper.
+
+The method keeps Shadow, original native-world targets, physical and correction bounds, floating-root orientation, exact historical individual fingertip caps, the inclusive 10 mm mean gate and historical surface criteria. These strict surface and cap nonworsening gates are project-designed; they are not published HUG evaluation thresholds.
+
+A single FK-only nearest-endpoint projection uses a per-coordinate normalized trust box of half-width 0.25 (joint 0.00625 rad, world-palm coordinate 1.25 mm). It has at most 40 SLSQP iterations, 400 tip-FK executions and 60 separately counted analytic-Jacobian executions per endpoint. Each callback stages two forward calls. The chosen checkpoint is only the nearest among observed exact-feasible endpoint/major/terminal checkpoints, with stable ties; this does not certify global projection optimality. Raw optimizer probes cannot be chosen.
+
+All twelve endpoints yielded a fresh exact-tip-feasible checkpoint inside the frozen trust box. None improved the exact historical rank while preserving every original-or-pooled retained orientation pass and eligible row. Ten endpoints invalidate protected orientation rows. The two mug-A endpoints have no retained orientation evidence and worsen the maximum residual relative to the pooled reference. Consequently all six prior pooled poses are retained, and no candidate is eligible for a new coarse-grid audit. No full-grid audit was performed by this study.
+
+Total restoration work: 1,101 tip-FK callback executions plus 161 analytic-Jacobian callback executions, producing 2,524 explicitly counted projection `mj_forward` calls. There are 24 exact retained-surface checks. Additional scene/source-check forward calls are separately recorded per case. Numba is explicitly reset and asserted to two threads after the inherited imports, correcting the prior studies' disclosed resource-setting issue.
+
+`protocol.json` binds source states, full trace provenance, method, budgets, source hashes and pre-execution review. `candidate_targets.json` contains the returned six unchanged pooled poses and every endpoint result; `restoration_summary.json` contains per-endpoint restoration and refusal details. The gzip traces preserve every FK/Jacobian/cache/checkpoint/refusal event. `endpoint_outcome_diagnostics.json` describes saved geometry results and explicitly does not attribute pre-existing invalidity to the tiny restoration adjustment. Independent final numerical review is supplied separately by the reviewer.
+
+The inherited strict surface criterion is neither weakened nor satisfied by tip restoration. These negative results do not prove that no feasible Shadow mapping exists.

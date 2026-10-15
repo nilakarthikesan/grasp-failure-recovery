@@ -1,0 +1,146 @@
+{
+  "schema": "hug_criteria_classification_v1",
+  "scope": "Local documentary provenance only. External papers were not independently reread in this subtask.",
+  "items": [
+    {
+      "id": "implementation_invariants",
+      "class": "hard correctness within a declared conversion",
+      "checks": [
+        "source identity and faithful native decoding",
+        "finite metric data, handedness and frame consistency",
+        "joint correspondence and actual source physical limits",
+        "actual mapped pose and independent FK consistency"
+      ],
+      "justification": "These determine whether the declared conversion is implemented correctly. The chosen wrist-to-palm anchor remains a mapping convention, not an anatomical equivalence theorem. Numerical tolerances still need explicit provenance.",
+      "does_not_establish": [
+        "surface or contact equivalence",
+        "native outcome equivalence",
+        "prediction adequacy"
+      ],
+      "evidence": [
+        "acceptance_contract",
+        "engineering_guard"
+      ]
+    },
+    {
+      "id": "mean_tip_10mm",
+      "class": "project engineering admission guard",
+      "value_m": 0.01,
+      "origin_commit": "4f972f0e25b518b235c8a25331826e260561a12f",
+      "justification": "Introduced as an inference admission check before simulation. No paper-derived numerical rationale is present in the inspected introduction. Current documentation explicitly disclaims an established scientific fidelity margin.",
+      "metric": "mean mapped Shadow fingertip position error relative to native MANO fingertip targets; distinct from fingertip-to-object distance",
+      "does_not_establish": [
+        "every individual fingertip error <=10mm",
+        "acceptable surface distortion",
+        "HUG benchmark reproduction"
+      ],
+      "evidence": [
+        "mean_guard_config",
+        "engineering_guard"
+      ]
+    },
+    {
+      "id": "bands_1_2_5mm",
+      "class": "project diagnostic measurement scales later retained in a strict claim",
+      "values_mm": [
+        1,
+        2,
+        5
+      ],
+      "earliest_located_full_triple_commit": "2d8e000045b1def206eba1e613e4812e80cb5232",
+      "justification": "Earliest located full triple protocol explicitly says bands_are_acceptance_thresholds=false. Later strict rule uses the same scales to state the preservation claim. No universal physical-contact or HUG fidelity tolerance follows.",
+      "evidence": [
+        "earliest_located_bands",
+        "frozen_rule"
+      ]
+    },
+    {
+      "id": "zero_changed_relationships",
+      "class": "researcher-defined strong scientific claim; not validated necessity for practical prediction",
+      "justification": "Zero lost/added same-part band relationships defines strict preservation. Once this claim is chosen, a reliable positive-area counterexample refutes it. Selecting this universal equality claim as the prerequisite for downstream usefulness is a separate research choice.",
+      "acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4",
+      "pass_requires": "complete required equal-state/domain and orientation coverage, zero mismatch upper bounds, no unresolved required comparisons",
+      "zero_lower_mismatch_does_not_pass": true,
+      "evidence": [
+        "acceptance_claim",
+        "acceptance_contract",
+        "frozen_rule",
+        "strict_rule_historical_decision"
+      ]
+    },
+    {
+      "id": "original_individual_tip_caps",
+      "class": "project baseline no-regression guard",
+      "justification": "Added because optimizing mean or aggregate surface loss worsened individual fingertips. Current exact caps preserve each original mapped tip error; they do not require exact native fingertip positions or establish that the inherited error is small enough.",
+      "history": "Earliest constrained solver declared a 10nm numerical allowance. Later feasible solver and current audit use literal baseline caps with no added allowance. Keep versions separate.",
+      "origin_commit": "b8e3a163a3225edf87b3bd03ee0ad15ce1ac065e",
+      "literal_cap_commit": "8c9d7252ad375dd9a3507d078d500a83060c83b3",
+      "evidence": [
+        "relative_caps_intent",
+        "caps_historical_motivation",
+        "caps_historical_adoption",
+        "caps_earlier_allowance",
+        "caps_later_literal",
+        "caps_not_absolute_accuracy"
+      ]
+    },
+    {
+      "id": "normal_sign",
+      "class": "geometric measurement definition plus project numerical eligibility safeguards",
+      "definition": "sign of -dot(hand outward normal,object outward normal)",
+      "justification": "Facing/away is a geometric hemisphere distinction, not an imported angle threshold. Reversal refutes the chosen sign-preservation claim at that eligible site. A matching sign need not imply useful contact, small angle change, force or outcome preservation.",
+      "limitations": [
+        "query-only agreement does not certify an entire surface cell",
+        "invalid, tied, buried or missing required features remain unresolved",
+        "distance Lipschitz bounds do not bound normals"
+      ],
+      "evidence": [
+        "orientation_definition",
+        "normal_eligibility_and_sign",
+        "papers_do_not_certify_choices"
+      ]
+    },
+    {
+      "id": "surface_reference",
+      "class": "project measurement domain and correspondence design",
+      "native": "open anatomical triangle patches labeled by skinning-based proxies",
+      "target": "union of individual per-part collider surfaces, including buried interfaces for unsigned distance",
+      "justification": "These sets differ from a true exposed union boundary and from active simulator contacts. Orientation separately excludes buried/unreliable features. Existing literal-domain counterexamples remain valid under the frozen contract; they cannot silently become physical contact-area claims.",
+      "evidence": [
+        "acceptance_contract",
+        "frozen_rule",
+        "literal_boundary_implementation",
+        "normal_eligibility_and_sign",
+        "earliest_located_bands"
+      ]
+    },
+    {
+      "id": "joint_trust_region",
+      "class": "bounded optimization design; not fidelity margin",
+      "max_joint_delta_rad": 0.35,
+      "origin_commit": "d5778184c445a0ed9aef0c4d82549f0ff0e89c61",
+      "justification": "Historical report explicitly calls 0.35rad and the residual scale implementation choices. Bounds intersect actual source physical limits; source physical limits and the chosen trust region have different roles. A finite failure inside this domain is not global Shadow infeasibility.",
+      "evidence": [
+        "trust_not_accuracy",
+        "trust_config"
+      ]
+    },
+    {
+      "id": "cell_certificate",
+      "class": "mathematical distance bound conditional on numeric error allowance; conservative evidence procedure",
+      "justification": "Distance to a fixed set is 1-Lipschitz and maximum centroid-to-vertex radius encloses the triangle. The arithmetic epsilon is an engineering assumption, not a formal floating-point certificate. Separate native/target intervals can yield positive mismatch upper bounds for identical ambiguous fields.",
+      "identity_control_sha256": "5fe36404cfc676889778c4a871b985e97ef1a368031a59a0239ba602565d7ee7",
+      "limits": "The existing identity control shows inability to certify PASS in that ambiguous case, not actual mismatch, universal infeasibility or invalidity of definite counterexamples.",
+      "evidence": [
+        "source_interval_code",
+        "acceptance_contract",
+        "identity_control_limit"
+      ]
+    }
+  ],
+  "new_acceptance_thresholds": null,
+  "historical_failures_reclassified": false,
+  "new_geometry_queries": 0,
+  "physics_steps": 0,
+  "new_eval_data": false
+}

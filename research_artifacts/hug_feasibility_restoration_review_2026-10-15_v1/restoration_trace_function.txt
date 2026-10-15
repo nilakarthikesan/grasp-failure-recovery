@@ -1,0 +1,76 @@
+def trace_review(row,saved,op):
+ index=row['source_inventory_index'];caps=np.asarray(row['authoritative_original_tip_caps_sqrt_einsum_m']);bounds=np.asarray(row['bounds_scaled'])
+ r=Replay(saved['whole_cell_rows'],saved['orientation_rows'],index,op,caps)
+ reference=row['reference_constraint_diagnostics'];r.verify(reference,exact=True)
+ original=row['baseline_constraint_diagnostics'];ref_rank=tuple(reference['rank'])
+ protected_valid=np.asarray(original['exact_orientation_fields']['valid'],bool)|np.asarray(reference['exact_orientation_fields']['valid'],bool)
+ protected_pass=np.asarray(original['exact_orientation']['passed'],bool)|np.asarray(reference['exact_orientation']['passed'],bool)
+ endpoint_reports=[];coarse_eligible=[]
+ def gate(full):
+  rv=r.verify(full,exact=True);valid=np.asarray(full['exact_orientation_fields']['valid'],bool);passed=np.asarray(full['exact_orientation']['passed'],bool)
+  lostvalid=np.flatnonzero(protected_valid&~valid).tolist();lostpass=np.flatnonzero(protected_pass&~passed).tolist();reasons=[]
+  if not full['in_domain']:reasons.append('original_domain_failed')
+  if not rv['tip_pass']:reasons.append('exact_original_tip_or_mean_failed')
+  if lostvalid:reasons.append('previously_valid_orientation_row_invalidated')
+  if lostpass:reasons.append('previously_passed_orientation_row_failed')
+  if not tuple(rv['rank'])<ref_rank:reasons.append('no_strict_original_rank_improvement')
+  return dict(accepted_for_limited_coarse_audit=not reasons,refusal_reasons=reasons,lost_orientation_valid_rows=lostvalid,lost_orientation_pass_rows=lostpass,exact_rank=rv['rank'],reference_rank=list(ref_rank),scientific_mapping_acceptance=False)
+ def tips(value):
+  errors=np.asarray(value['error_vectors_m']);check(errors.shape==(5,3) and np.isfinite(errors).all(),'finite original five-tip vectors')
+  norms=norm(errors);mean=float(norms.mean());tip=value['tip_status']
+  same(norms,tip['norms_m'],'all recorded exact tip norms');same(norms<=caps,tip['individual_pass'],'all recorded old cap truth');same(mean,tip['mean_m'],'all recorded mean arithmetic');same(mean<=.01,tip['mean_pass'],'all recorded inclusive mean gate')
+  passed=bool(np.all(norms<=caps) and mean<=.01);check(passed==tip['passed'],'all recorded full tip truth');return passed
+ for result in row['restoration_endpoint_results']:
+  spec=result['source_endpoint'];start=spec['start_index'];proposal=np.asarray(spec['state_scaled']);path=Path(result['trace_path']);check(sha(path)==result['trace_sha256'],'projection lossless trace binding')
+  frozen=FROZEN_PROTOCOL['cases'][str(index)]['endpoints'][start];check(spec==frozen,'full source endpoint binding')
+  trust=np.column_stack((np.maximum(bounds[:,0],proposal-.25),np.minimum(bounds[:,1],proposal+.25)));same(trust,result['trust_bounds_scaled'],'exact frozen trust intersection')
+  byevent={};bystate={};eligible=[];fresh_event=None;counts={};last=0;terminal=None
+  for line in gzip.open(path,'rt'):
+   ev=json.loads(line);seq=ev['event'];kind=ev['kind'];check(seq==last+1,'sequential projection trace');last=seq;counts[kind]=counts.get(kind,0)+1
+   if kind=='FK_callback':
+    full=ev['value'];x=np.asarray(full['state_scaled']);key=x.astype(np.float64).tobytes();check(x.shape==(27,) and np.isfinite(x).all(),'complete finite27 FK state');check(hashlib.sha256(key).hexdigest()==ev['state_sha256'],'complete27 FK checksum')
+    check(np.all(x>=trust[:,0]) and np.all(x<=trust[:,1]),'every actual FK state inside trust');tips(full);byevent[seq]=full;bystate[key]=full
+   elif kind=='FK_cache_hit':
+    source=byevent[ev['source_event']];same(source['state_scaled'],ev['state_scaled'],'cache identity complete27')
+   elif kind=='projection_checkpoint':
+    x=np.asarray(ev['state_scaled']);full=bystate[x.astype(np.float64).tobytes()];check(ev['tip_status']==full['tip_status'] and ev['in_domain']==full['in_domain'],'checkpoint exact FK binding')
+    reason=ev['reason'];check(reason in ('frozen_endpoint','optimizer_terminal') or reason.startswith('major_'),'only authorized checkpoint sources')
+    if full['tip_status']['passed'] and full['in_domain']:
+     eligible.append(dict(source_event=seq,reason=reason,state_scaled=x.tolist(),distance_squared_scaled=float(np.dot(x-proposal,x-proposal))))
+   elif kind=='analytic_jacobian':
+    matrix=np.asarray(ev['matrix']);check(matrix.shape==(6,27) and np.isfinite(matrix).all(),'finite six-row original-tip Jacobian');near(matrix[-1],matrix[:5].mean(0),2e-13,'mean Jacobian from same five norm rows')
+   elif kind=='optimizer_terminal':terminal={k:v for k,v in ev.items() if k not in ('event','kind')}
+   elif kind=='selected_fresh_FK':
+    fresh_event=ev;check(ev['value']==byevent[max(byevent)],'fresh selection binds latest actual callback');check(tips(ev['value']),'fresh selected caps')
+  same(eligible,result['eligible_checkpoints'],'all and only eligible projection checkpoints')
+  expected=min(eligible,key=lambda z:z['distance_squared_scaled']) if eligible else None
+  check(result['selected']==expected,'stable nearest-observed feasible checkpoint')
+  check(fresh_event is not None and result['fresh_FK']==fresh_event['value'],'final fresh projection source')
+  check(result['selected']==fresh_event['source_checkpoint'],'fresh provenance matches chosen checkpoint')
+  same(result['selected']['state_scaled'],result['fresh_FK']['state_scaled'],'chosen and fresh state')
+  check(terminal==result['optimizer'],'complete optimizer result provenance')
+  ct=result['counts'];check(counts.get('FK_callback',0)==ct['FK_executions']<=400,'tip FK executions bounded');check(counts.get('analytic_jacobian',0)==ct['analytic_jacobian_executions']<=60,'analytic staging budget')
+  check(counts.get('FK_cache_hit',0)==ct['FK_cache_hits'],'cache count');check(counts.get('projection_checkpoint',0)==ct['selection_checkpoint_count'],'checkpoint count')
+  check(result['actual_projection_mj_forward_calls']==2*(ct['FK_executions']+ct['analytic_jacobian_executions'])<=920,'all projection forwards bounded and disclosed')
+  check(result['optimizer']['nit']<=40 and sum(ev['reason'].startswith('major_') for ev in eligible)<=40,'bounded iteration count')
+  check(result['surface_geometry_calls_during_projection']==0 and result['scientific_mapping_acceptance'] is False,'FK-only projection scope')
+  check(last==result['final_event_count'],'complete projection event count')
+  x=np.asarray(result['selected']['state_scaled']);full=result['exact_surface_check'];same(x,full['state_scaled'],'only selected projection receives exact retained check')
+  g=gate(full);check(g==result['improvement_gate'],'independent exact improvement and protected-orientation gate')
+  fk=INDEPENDENT_STATE_FK(x);near(fk['errors'][:5],result['fresh_FK']['error_vectors_m'],0,'independent projected native-world error vectors');near(fk['errors'],full['task_error_vectors_m'],0,'all ten independent projected task vectors')
+  actualnorm=norm(fk['errors'][:5]);check(np.all(actualnorm<=caps) and actualnorm.mean()<=.01,'independent actual projected historical caps and mean');check(fk['source_scene_error_m']<1.1e-7,'independent projected source URDF / captured scene FK')
+  if g['accepted_for_limited_coarse_audit']:coarse_eligible.append((tuple(g['exact_rank']),start,x))
+  endpoint_reports.append(dict(start_index=start,trace_path=str(path),trace_sha256=sha(path),counts=ct,projection_mj_forward_calls=result['actual_projection_mj_forward_calls'],selected_checkpoint=result['selected']['source_event'],max_original_cap_excess_m=float(np.max(actualnorm-caps)),mean_tip_error_m=float(actualnorm.mean()),trust_max_abs_step_scaled=float(np.max(np.abs(x-proposal))),source_scene_error_m=fk['source_scene_error_m'],gate=g))
+ check([r['start_index'] for r in endpoint_reports]==[0,1],'exactly two prior fixed endpoints')
+ chosen=min(coarse_eligible,key=lambda z:(z[0],z[1])) if coarse_eligible else None
+ check(row['restoration_selected_endpoint']==(None if chosen is None else chosen[1]),'fixed across-endpoint selection')
+ check(row['eligible_for_limited_coarse_audit']==bool(chosen),'coarse audit eligibility')
+ final=r.verify(row['selected_constraint_diagnostics'],exact=True)
+ if chosen is None:
+  same(row['selected_state_scaled'],row['reference_state_scaled'],'explicit pooled fallback');check(row['fresh_improvement_gate'] is None and row['fresh_improvement_refusal'] is None,'no eligible attempt hidden');check(tuple(row['selected_constraint_diagnostics']['rank'])==ref_rank,'retained reference rank')
+ else:
+  same(row['selected_state_scaled'],chosen[2],'selected qualifying endpoint');check(row['fresh_improvement_gate']==gate(row['selected_constraint_diagnostics']),'final fresh improvement gate')
+ check(row['exact_surface_checks']==2+sum(r['selected'] is not None for r in row['restoration_endpoint_results'])<=5,'reference plus endpoint plus final exact-check count')
+ check(row['numba_threads_after_imports']==2 and row['diagnostic_pose_not_promoted'],'execution thread mask and no promotion')
+ return dict(arithmetic_checks=r.checks,endpoint_reviews=endpoint_reports,coarse_eligible_count=len(coarse_eligible),rank=row['selected_constraint_diagnostics']['rank'],all_witness_rows_pass=final['all_witness_rows_pass'])
+

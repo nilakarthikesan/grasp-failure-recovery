@@ -1,0 +1,727 @@
+{
+  "schema": "hug_restored_candidate_limited_audit_skip_v1",
+  "created_utc": "2026-10-15T07:31:30.307404+00:00",
+  "status": "NOT_RUN_NO_ELIGIBLE_CANDIDATE",
+  "source_bindings": {
+    "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/candidate_targets.json": "b0a6993006daf7aba9c1ee4d8898892a99dac19a8906f76e7fb1b85295832757",
+    "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/protocol.json": "bfe10eb14a41e1e800c7b0477c6b250d36737667ae39fb4cd596731d5b167d6a",
+    "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/restoration_summary.json": "0613e44bf8c48a3ac912a3118d18fda5660735c2571b9f2f540e0693c9e6b0a3",
+    "/private/tmp/hug_surface_constraints_audit_2026-10-15_v1/pooled_selection/candidate_targets.json": "acb4870253fc81b42a4972eb22d28e8970ff751d60ec12ad41b63a822ee67ee3",
+    "/private/tmp/hug_surface_constraints_audit_2026-10-15_v1/summary.json": "e3f98647c72103e6b3bbcb90b1d6593bced7ae64a626b5ab5e8e293fea0a7301",
+    "/private/tmp/hug_surface_constraints_audit_2026-10-15_v1/protocol.json": "3b9e46fb8ff69fb54f62ac46778498bd53c984580eb3e499dfc2f8755d8e95de",
+    "/private/tmp/hug_feasibility_restoration_audit_2026-10-15_v1/wrapper_parity.json": "f68f49262708863788f3d6f409e9f2f20242df339fa2a9b7fcee4a80759f6899",
+    "/private/tmp/hug_feasibility_restoration_audit_2026-10-15_v1/protocol.DRAFT.json": "f2d58f0829d64cf40ca50ca6dc88e0afe3d6f66335beaba493428eea9e0d39ca",
+    "/private/tmp/hug_feasibility_restoration_audit_2026-10-15_v1/prepare_wrapper.py": "aec69f15835121ddfde67094b6bacd3ce58bb397c19ef000d83d7a61f1b1ab41",
+    "/private/tmp/hug_feasibility_restoration_audit_2026-10-15_v1/record_skip.py": "39747287d1ef7f074a0af1271660382b9624df4f7d3aeaf704340a2faeaaff66"
+  },
+  "independent_scope": "Saved-output eligibility, exact Python rank comparison, protected row Boolean masks and selected pose equality only. No FK or geometric recomputation. Separate numerical reviewer owns source/FK/cap/trust certification.",
+  "saved_output_checks_passed": 226,
+  "reported_tip_restored_endpoints": 12,
+  "eligible_candidates": 0,
+  "retained_pooled_reference_cases": 6,
+  "reason_endpoint_counts_overlapping": {
+    "previously_valid_orientation_row_invalidated": 10,
+    "no_strict_original_rank_improvement": 12,
+    "previously_passed_orientation_row_failed": 6
+  },
+  "cases": [
+    {
+      "source_inventory_index": 8,
+      "native_sha256": "0b99bf1919f6d2c06b76361a2c710474c333d83a3ee750a25fb90490cd3b765c",
+      "pose_fields_equal_pooled_reference": [
+        "joint_names",
+        "qpos_rad",
+        "original_qpos_rad",
+        "root_target_position_m",
+        "root_target_quaternion_wxyz",
+        "palm_displacement_world_m",
+        "target_palm_world_position_m",
+        "target_palm_world_rotation",
+        "selected_state_scaled",
+        "bounds_scaled"
+      ],
+      "role": "pooled_reference_retained",
+      "fresh_grid_status": "NOT_RUN_NO_ELIGIBLE_CANDIDATE",
+      "fresh_orientation_status": "NOT_RUN",
+      "endpoints": [
+        {
+          "endpoint_start_index": 0,
+          "reported_exact_tip_restoration_pass": true,
+          "exact_rank": [
+            1,
+            39,
+            3.4803813967721164,
+            62,
+            717.7514232072613
+          ],
+          "reference_exact_rank": [
+            1,
+            0,
+            5.836208642817562,
+            87,
+            0.00038762102990749645
+          ],
+          "strict_rank_improvement": false,
+          "lost_protected_valid_orientation_row_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            6,
+            9,
+            10,
+            11,
+            12,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            24,
+            27,
+            28,
+            29,
+            30,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            42,
+            45,
+            46,
+            47,
+            48,
+            51,
+            52,
+            53
+          ],
+          "lost_protected_pass_orientation_row_indices": [],
+          "refusal_reasons": [
+            "previously_valid_orientation_row_invalidated",
+            "no_strict_original_rank_improvement"
+          ],
+          "eligible": false
+        },
+        {
+          "endpoint_start_index": 1,
+          "reported_exact_tip_restoration_pass": true,
+          "exact_rank": [
+            1,
+            54,
+            3.2674877782664074,
+            77,
+            803.3238900187259
+          ],
+          "reference_exact_rank": [
+            1,
+            0,
+            5.836208642817562,
+            87,
+            0.00038762102990749645
+          ],
+          "strict_rank_improvement": false,
+          "lost_protected_valid_orientation_row_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53
+          ],
+          "lost_protected_pass_orientation_row_indices": [],
+          "refusal_reasons": [
+            "previously_valid_orientation_row_invalidated",
+            "no_strict_original_rank_improvement"
+          ],
+          "eligible": false
+        }
+      ]
+    },
+    {
+      "source_inventory_index": 12,
+      "native_sha256": "2a1f9fd42435e90b5f3b9684c4fa1a7af92e2bcf60723cdc04ed7413a7d368d2",
+      "pose_fields_equal_pooled_reference": [
+        "joint_names",
+        "qpos_rad",
+        "original_qpos_rad",
+        "root_target_position_m",
+        "root_target_quaternion_wxyz",
+        "palm_displacement_world_m",
+        "target_palm_world_position_m",
+        "target_palm_world_rotation",
+        "selected_state_scaled",
+        "bounds_scaled"
+      ],
+      "role": "pooled_reference_retained",
+      "fresh_grid_status": "NOT_RUN_NO_ELIGIBLE_CANDIDATE",
+      "fresh_orientation_status": "NOT_RUN",
+      "endpoints": [
+        {
+          "endpoint_start_index": 0,
+          "reported_exact_tip_restoration_pass": true,
+          "exact_rank": [
+            1,
+            11,
+            2.4600760132905353,
+            22,
+            757.8131697404863
+          ],
+          "reference_exact_rank": [
+            1,
+            0,
+            6.519243497532562,
+            26,
+            0.38365415842169354
+          ],
+          "strict_rank_improvement": false,
+          "lost_protected_valid_orientation_row_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "lost_protected_pass_orientation_row_indices": [
+            6,
+            7
+          ],
+          "refusal_reasons": [
+            "previously_valid_orientation_row_invalidated",
+            "previously_passed_orientation_row_failed",
+            "no_strict_original_rank_improvement"
+          ],
+          "eligible": false
+        },
+        {
+          "endpoint_start_index": 1,
+          "reported_exact_tip_restoration_pass": true,
+          "exact_rank": [
+            1,
+            11,
+            2.4600152771730572,
+            24,
+            802.4105257802762
+          ],
+          "reference_exact_rank": [
+            1,
+            0,
+            6.519243497532562,
+            26,
+            0.38365415842169354
+          ],
+          "strict_rank_improvement": false,
+          "lost_protected_valid_orientation_row_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "lost_protected_pass_orientation_row_indices": [
+            6,
+            7
+          ],
+          "refusal_reasons": [
+            "previously_valid_orientation_row_invalidated",
+            "previously_passed_orientation_row_failed",
+            "no_strict_original_rank_improvement"
+          ],
+          "eligible": false
+        }
+      ]
+    },
+    {
+      "source_inventory_index": 16,
+      "native_sha256": "9b543c10c9c647f6c0986954381dff9e24aa4aaec338433b0b71b5f7458ce731",
+      "pose_fields_equal_pooled_reference": [
+        "joint_names",
+        "qpos_rad",
+        "original_qpos_rad",
+        "root_target_position_m",
+        "root_target_quaternion_wxyz",
+        "palm_displacement_world_m",
+        "target_palm_world_position_m",
+        "target_palm_world_rotation",
+        "selected_state_scaled",
+        "bounds_scaled"
+      ],
+      "role": "pooled_reference_retained",
+      "fresh_grid_status": "NOT_RUN_NO_ELIGIBLE_CANDIDATE",
+      "fresh_orientation_status": "NOT_RUN",
+      "endpoints": [
+        {
+          "endpoint_start_index": 0,
+          "reported_exact_tip_restoration_pass": true,
+          "exact_rank": [
+            1,
+            50,
+            2.5434995936847153,
+            79,
+            135.4438609974513
+          ],
+          "reference_exact_rank": [
+            1,
+            0,
+            6.735963944211342,
+            89,
+            0.0
+          ],
+          "strict_rank_improvement": false,
+          "lost_protected_valid_orientation_row_indices": [
+            0,
+            1,
+            2,
+            3,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51
+          ],
+          "lost_protected_pass_orientation_row_indices": [],
+          "refusal_reasons": [
+            "previously_valid_orientation_row_invalidated",
+            "no_strict_original_rank_improvement"
+          ],
+          "eligible": false
+        },
+        {
+          "endpoint_start_index": 1,
+          "reported_exact_tip_restoration_pass": true,
+          "exact_rank": [
+            1,
+            34,
+            2.431010984823096,
+            81,
+            252.62963383944808
+          ],
+          "reference_exact_rank": [
+            1,
+            0,
+            6.735963944211342,
+            89,
+            0.0
+          ],
+          "strict_rank_improvement": false,
+          "lost_protected_valid_orientation_row_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            8,
+            9,
+            10,
+            11,
+            12,
+            14,
+            15,
+            16,
+            19,
+            20,
+            24,
+            25,
+            26,
+            28,
+            29,
+            30,
+            33,
+            34,
+            35,
+            36,
+            37,
+            41,
+            42,
+            43,
+            44,
+            45,
+            47,
+            48,
+            49
+          ],
+          "lost_protected_pass_orientation_row_indices": [],
+          "refusal_reasons": [
+            "previously_valid_orientation_row_invalidated",
+            "no_strict_original_rank_improvement"
+          ],
+          "eligible": false
+        }
+      ]
+    },
+    {
+      "source_inventory_index": 20,
+      "native_sha256": "52ec7441c108f7a9704535c63611ff9d9da3d5f2871b57396b33fdb1e73a7d8b",
+      "pose_fields_equal_pooled_reference": [
+        "joint_names",
+        "qpos_rad",
+        "original_qpos_rad",
+        "root_target_position_m",
+        "root_target_quaternion_wxyz",
+        "palm_displacement_world_m",
+        "target_palm_world_position_m",
+        "target_palm_world_rotation",
+        "selected_state_scaled",
+        "bounds_scaled"
+      ],
+      "role": "pooled_reference_retained",
+      "fresh_grid_status": "NOT_RUN_NO_ELIGIBLE_CANDIDATE",
+      "fresh_orientation_status": "NOT_RUN",
+      "endpoints": [
+        {
+          "endpoint_start_index": 0,
+          "reported_exact_tip_restoration_pass": true,
+          "exact_rank": [
+            1,
+            6,
+            3.47537749137278,
+            29,
+            138.5349323942981
+          ],
+          "reference_exact_rank": [
+            1,
+            1,
+            9.28342253783589,
+            25,
+            1.2568174682023068
+          ],
+          "strict_rank_improvement": false,
+          "lost_protected_valid_orientation_row_indices": [
+            0,
+            6,
+            7,
+            8,
+            9,
+            11
+          ],
+          "lost_protected_pass_orientation_row_indices": [
+            2,
+            6
+          ],
+          "refusal_reasons": [
+            "previously_valid_orientation_row_invalidated",
+            "previously_passed_orientation_row_failed",
+            "no_strict_original_rank_improvement"
+          ],
+          "eligible": false
+        },
+        {
+          "endpoint_start_index": 1,
+          "reported_exact_tip_restoration_pass": true,
+          "exact_rank": [
+            1,
+            6,
+            3.470894960027496,
+            29,
+            158.04422635210824
+          ],
+          "reference_exact_rank": [
+            1,
+            1,
+            9.28342253783589,
+            25,
+            1.2568174682023068
+          ],
+          "strict_rank_improvement": false,
+          "lost_protected_valid_orientation_row_indices": [
+            0,
+            6,
+            7,
+            8,
+            9,
+            11
+          ],
+          "lost_protected_pass_orientation_row_indices": [
+            2,
+            6
+          ],
+          "refusal_reasons": [
+            "previously_valid_orientation_row_invalidated",
+            "previously_passed_orientation_row_failed",
+            "no_strict_original_rank_improvement"
+          ],
+          "eligible": false
+        }
+      ]
+    },
+    {
+      "source_inventory_index": 24,
+      "native_sha256": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+      "pose_fields_equal_pooled_reference": [
+        "joint_names",
+        "qpos_rad",
+        "original_qpos_rad",
+        "root_target_position_m",
+        "root_target_quaternion_wxyz",
+        "palm_displacement_world_m",
+        "target_palm_world_position_m",
+        "target_palm_world_rotation",
+        "selected_state_scaled",
+        "bounds_scaled"
+      ],
+      "role": "pooled_reference_retained",
+      "fresh_grid_status": "NOT_RUN_NO_ELIGIBLE_CANDIDATE",
+      "fresh_orientation_status": "NOT_RUN",
+      "endpoints": [
+        {
+          "endpoint_start_index": 0,
+          "reported_exact_tip_restoration_pass": true,
+          "exact_rank": [
+            1,
+            0,
+            5.445342574151935,
+            46,
+            194.56998821557266
+          ],
+          "reference_exact_rank": [
+            1,
+            0,
+            5.0,
+            47,
+            74.3217051142339
+          ],
+          "strict_rank_improvement": false,
+          "lost_protected_valid_orientation_row_indices": [],
+          "lost_protected_pass_orientation_row_indices": [],
+          "refusal_reasons": [
+            "no_strict_original_rank_improvement"
+          ],
+          "eligible": false
+        },
+        {
+          "endpoint_start_index": 1,
+          "reported_exact_tip_restoration_pass": true,
+          "exact_rank": [
+            1,
+            0,
+            5.289485170020088,
+            49,
+            238.6985375910358
+          ],
+          "reference_exact_rank": [
+            1,
+            0,
+            5.0,
+            47,
+            74.3217051142339
+          ],
+          "strict_rank_improvement": false,
+          "lost_protected_valid_orientation_row_indices": [],
+          "lost_protected_pass_orientation_row_indices": [],
+          "refusal_reasons": [
+            "no_strict_original_rank_improvement"
+          ],
+          "eligible": false
+        }
+      ]
+    },
+    {
+      "source_inventory_index": 28,
+      "native_sha256": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+      "pose_fields_equal_pooled_reference": [
+        "joint_names",
+        "qpos_rad",
+        "original_qpos_rad",
+        "root_target_position_m",
+        "root_target_quaternion_wxyz",
+        "palm_displacement_world_m",
+        "target_palm_world_position_m",
+        "target_palm_world_rotation",
+        "selected_state_scaled",
+        "bounds_scaled"
+      ],
+      "role": "pooled_reference_retained",
+      "fresh_grid_status": "NOT_RUN_NO_ELIGIBLE_CANDIDATE",
+      "fresh_orientation_status": "NOT_RUN",
+      "endpoints": [
+        {
+          "endpoint_start_index": 0,
+          "reported_exact_tip_restoration_pass": true,
+          "exact_rank": [
+            1,
+            1,
+            4.321221349768522,
+            24,
+            667.8820388204485
+          ],
+          "reference_exact_rank": [
+            1,
+            0,
+            8.002982238519587,
+            23,
+            1.4510971089640474
+          ],
+          "strict_rank_improvement": false,
+          "lost_protected_valid_orientation_row_indices": [
+            0
+          ],
+          "lost_protected_pass_orientation_row_indices": [
+            0
+          ],
+          "refusal_reasons": [
+            "previously_valid_orientation_row_invalidated",
+            "previously_passed_orientation_row_failed",
+            "no_strict_original_rank_improvement"
+          ],
+          "eligible": false
+        },
+        {
+          "endpoint_start_index": 1,
+          "reported_exact_tip_restoration_pass": true,
+          "exact_rank": [
+            1,
+            1,
+            4.460168616734284,
+            21,
+            582.182392481279
+          ],
+          "reference_exact_rank": [
+            1,
+            0,
+            8.002982238519587,
+            23,
+            1.4510971089640474
+          ],
+          "strict_rank_improvement": false,
+          "lost_protected_valid_orientation_row_indices": [
+            0
+          ],
+          "lost_protected_pass_orientation_row_indices": [
+            0
+          ],
+          "refusal_reasons": [
+            "previously_valid_orientation_row_invalidated",
+            "previously_passed_orientation_row_failed",
+            "no_strict_original_rank_improvement"
+          ],
+          "eligible": false
+        }
+      ]
+    }
+  ],
+  "historical_evidence": {
+    "status": "PRIOR_RESULTS_UNCHANGED_NOT_FRESHLY_REMEASURED",
+    "source_summary_path": "/private/tmp/hug_surface_constraints_audit_2026-10-15_v1/summary.json",
+    "source_summary_sha256": "e3f98647c72103e6b3bbcb90b1d6593bced7ae64a626b5ab5e8e293fea0a7301",
+    "strict_failure_comparisons": 9,
+    "meaning": "All selected pose/root/domain fields equal the already audited pooled references. Prior nine FAIL results remain historical evidence; this restoration audit performed zero fresh grids. Restored refused endpoints did not receive full-grid status."
+  },
+  "prepared_wrapper_status": "PREPARED_AND_TEXT_PARITY_CHECKED_ONLY_NOT_EXECUTED_OR_FROZEN",
+  "fresh_coarse_grids": 0,
+  "fresh_fine_grids": 0,
+  "new_distance_queries": 0,
+  "new_orientation_queries": 0,
+  "new_FK_calls": 0,
+  "new_inference": false,
+  "physics_steps": 0,
+  "new_eval_data": false,
+  "new_mapping_acceptance": false
+}

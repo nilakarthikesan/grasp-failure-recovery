@@ -1,0 +1,924 @@
+{
+  "schema": "hug_saved_endpoint_restoration_independent_output_review_v1",
+  "passed": true,
+  "source_and_trace_checks": 15133,
+  "constraint_arithmetic_checks": 964,
+  "source_bindings": {
+    "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/candidate_targets.json": "b0a6993006daf7aba9c1ee4d8898892a99dac19a8906f76e7fb1b85295832757",
+    "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/protocol.json": "bfe10eb14a41e1e800c7b0477c6b250d36737667ae39fb4cd596731d5b167d6a",
+    "/private/tmp/hug_surface_constraints_audit_2026-10-15_v1/saved_witnesses.json": "0fb0898694f4f4a6f0ff3155ec18109fd95ec71f5eff4b35ada1c46abf49dec6",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/orientation/protocol.json": "22ef5c539c4298589937312218272ea1d41bd1eae9a87e66b45f068dcbce0134",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/existing_hug_inventory.json": "5fc28832494c54c7822543a00ea735ab47e1d44d944ff50fc26712eb27536fcb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_canonical_mcp_calibration_2026-10-14_v1/runtime_v3/candidate_targets.json": "84496804c00267024af56f3364457943696db8481b9c1853bca2c93c6c824b9d",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf": "29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+    "/private/tmp/hug_free_palm_review_2026-10-15_v1/verify_outputs.py": "a2045b0ac673f4c19924c81fe383e686bf4ac7435355a7b9ac452094ff814c4c",
+    "/private/tmp/hug_feasibility_restoration_review_2026-10-15_v1/verify_restoration_outputs.py": "57ca43ce0cbbb2619b91c76f15843c474cd9a3e92889ceb0f1782d70bf3010de",
+    "/private/tmp/hug_feasibility_restoration_review_2026-10-15_v1/constraint_arithmetic.py": "30d2480f41e01e85dc6dada17a187410fdf387ba1dd2e8cb0bc76b841b37aeae"
+  },
+  "cases": [
+    {
+      "source_inventory_index": 8,
+      "palm_shift_world_m": [
+        2.518237826729921e-05,
+        -4.36469233117656e-05,
+        -3.8746894533227024e-05
+      ],
+      "palm_shift_norm_m": 6.356514709925172e-05,
+      "max_exact_original_cap_excess_m": -1.0000000150861554e-09,
+      "mean_tip_error_m": 0.005838904279830026,
+      "source_scene_FK_maxerror_m": 7.22236630834133e-08,
+      "exact_original_fallback": false,
+      "trace_review": {
+        "arithmetic_checks": 164,
+        "endpoint_reviews": [
+          {
+            "start_index": 0,
+            "trace_path": "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/traces/case_8_endpoint_0.jsonl.gz",
+            "trace_sha256": "ef33385e144375d4646916bd49fee8ea79e91e6549f77920e242b821504b4ddc",
+            "counts": {
+              "FK_executions": 9,
+              "analytic_jacobian_executions": 6,
+              "FK_cache_hits": 15,
+              "selection_checkpoint_count": 8
+            },
+            "projection_mj_forward_calls": 30,
+            "selected_checkpoint": 22,
+            "max_original_cap_excess_m": -9.208607828093546e-10,
+            "mean_tip_error_m": 0.0058136424885023175,
+            "trust_max_abs_step_scaled": 0.00670594555825782,
+            "source_scene_error_m": 7.223345434056831e-08,
+            "gate": {
+              "accepted_for_limited_coarse_audit": false,
+              "refusal_reasons": [
+                "previously_valid_orientation_row_invalidated",
+                "no_strict_original_rank_improvement"
+              ],
+              "lost_orientation_valid_rows": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                6,
+                9,
+                10,
+                11,
+                12,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                24,
+                27,
+                28,
+                29,
+                30,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                42,
+                45,
+                46,
+                47,
+                48,
+                51,
+                52,
+                53
+              ],
+              "lost_orientation_pass_rows": [],
+              "exact_rank": [
+                1,
+                39,
+                3.4803813967721164,
+                62,
+                717.7514232072613
+              ],
+              "reference_rank": [
+                1,
+                0,
+                5.836208642817562,
+                87,
+                0.00038762102990749645
+              ],
+              "scientific_mapping_acceptance": false
+            }
+          },
+          {
+            "start_index": 1,
+            "trace_path": "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/traces/case_8_endpoint_1.jsonl.gz",
+            "trace_sha256": "e536d92db1b4bc4a24642f310ac631e883082e83904e410a28fdae29fcd13364",
+            "counts": {
+              "FK_executions": 4,
+              "analytic_jacobian_executions": 3,
+              "FK_cache_hits": 9,
+              "selection_checkpoint_count": 5
+            },
+            "projection_mj_forward_calls": 14,
+            "selected_checkpoint": 10,
+            "max_original_cap_excess_m": -2.1342886225711455e-12,
+            "mean_tip_error_m": 0.005477664752995208,
+            "trust_max_abs_step_scaled": 0.0005459122469257949,
+            "source_scene_error_m": 7.151224314247214e-08,
+            "gate": {
+              "accepted_for_limited_coarse_audit": false,
+              "refusal_reasons": [
+                "previously_valid_orientation_row_invalidated",
+                "no_strict_original_rank_improvement"
+              ],
+              "lost_orientation_valid_rows": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53
+              ],
+              "lost_orientation_pass_rows": [],
+              "exact_rank": [
+                1,
+                54,
+                3.2674877782664074,
+                77,
+                803.3238900187259
+              ],
+              "reference_rank": [
+                1,
+                0,
+                5.836208642817562,
+                87,
+                0.00038762102990749645
+              ],
+              "scientific_mapping_acceptance": false
+            }
+          }
+        ],
+        "coarse_eligible_count": 0,
+        "rank": [
+          1,
+          0,
+          5.836208642817562,
+          87,
+          0.00038762102990749645
+        ],
+        "all_witness_rows_pass": false
+      }
+    },
+    {
+      "source_inventory_index": 12,
+      "palm_shift_world_m": [
+        0.0008554246834155145,
+        -0.0012889935260797585,
+        -0.0012596319548034082
+      ],
+      "palm_shift_norm_m": 0.001994975779510598,
+      "max_exact_original_cap_excess_m": -9.999986576650355e-10,
+      "mean_tip_error_m": 0.005708878169151825,
+      "source_scene_FK_maxerror_m": 6.542661225202437e-08,
+      "exact_original_fallback": false,
+      "trace_review": {
+        "arithmetic_checks": 164,
+        "endpoint_reviews": [
+          {
+            "start_index": 0,
+            "trace_path": "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/traces/case_12_endpoint_0.jsonl.gz",
+            "trace_sha256": "8f30e4d556753421a646b16515f29654bb2fffac7faa07c0a665256374e5d299",
+            "counts": {
+              "FK_executions": 4,
+              "analytic_jacobian_executions": 3,
+              "FK_cache_hits": 9,
+              "selection_checkpoint_count": 5
+            },
+            "projection_mj_forward_calls": 14,
+            "selected_checkpoint": 10,
+            "max_original_cap_excess_m": -9.766800146415733e-10,
+            "mean_tip_error_m": 0.0044337641400709026,
+            "trust_max_abs_step_scaled": 0.0003583431125626646,
+            "source_scene_error_m": 6.522037921770557e-08,
+            "gate": {
+              "accepted_for_limited_coarse_audit": false,
+              "refusal_reasons": [
+                "previously_valid_orientation_row_invalidated",
+                "previously_passed_orientation_row_failed",
+                "no_strict_original_rank_improvement"
+              ],
+              "lost_orientation_valid_rows": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "lost_orientation_pass_rows": [
+                6,
+                7
+              ],
+              "exact_rank": [
+                1,
+                11,
+                2.4600760132905353,
+                22,
+                757.8131697404863
+              ],
+              "reference_rank": [
+                1,
+                0,
+                6.519243497532562,
+                26,
+                0.38365415842169354
+              ],
+              "scientific_mapping_acceptance": false
+            }
+          },
+          {
+            "start_index": 1,
+            "trace_path": "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/traces/case_12_endpoint_1.jsonl.gz",
+            "trace_sha256": "651f0d05061312b98d76d3c931ec0a646974448289aae42f6d0d2d940ad84e39",
+            "counts": {
+              "FK_executions": 358,
+              "analytic_jacobian_executions": 41,
+              "FK_cache_hits": 84,
+              "selection_checkpoint_count": 42
+            },
+            "projection_mj_forward_calls": 798,
+            "selected_checkpoint": 16,
+            "max_original_cap_excess_m": -9.982570267370178e-10,
+            "mean_tip_error_m": 0.0037395575059789255,
+            "trust_max_abs_step_scaled": 0.0011504154258554777,
+            "source_scene_error_m": 6.581572661185715e-08,
+            "gate": {
+              "accepted_for_limited_coarse_audit": false,
+              "refusal_reasons": [
+                "previously_valid_orientation_row_invalidated",
+                "previously_passed_orientation_row_failed",
+                "no_strict_original_rank_improvement"
+              ],
+              "lost_orientation_valid_rows": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "lost_orientation_pass_rows": [
+                6,
+                7
+              ],
+              "exact_rank": [
+                1,
+                11,
+                2.4600152771730572,
+                24,
+                802.4105257802762
+              ],
+              "reference_rank": [
+                1,
+                0,
+                6.519243497532562,
+                26,
+                0.38365415842169354
+              ],
+              "scientific_mapping_acceptance": false
+            }
+          }
+        ],
+        "coarse_eligible_count": 0,
+        "rank": [
+          1,
+          0,
+          6.519243497532562,
+          26,
+          0.38365415842169354
+        ],
+        "all_witness_rows_pass": false
+      }
+    },
+    {
+      "source_inventory_index": 16,
+      "palm_shift_world_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "palm_shift_norm_m": 0.0,
+      "max_exact_original_cap_excess_m": 0.0,
+      "mean_tip_error_m": 0.006646874932330682,
+      "source_scene_FK_maxerror_m": 6.101763700031574e-08,
+      "exact_original_fallback": true,
+      "trace_review": {
+        "arithmetic_checks": 164,
+        "endpoint_reviews": [
+          {
+            "start_index": 0,
+            "trace_path": "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/traces/case_16_endpoint_0.jsonl.gz",
+            "trace_sha256": "d74c92b5fb85869e39b97ea3a4b1e8490df3ab33315aa1e141f068bceb161ef2",
+            "counts": {
+              "FK_executions": 277,
+              "analytic_jacobian_executions": 41,
+              "FK_cache_hits": 164,
+              "selection_checkpoint_count": 42
+            },
+            "projection_mj_forward_calls": 636,
+            "selected_checkpoint": 10,
+            "max_original_cap_excess_m": -9.999732283536011e-10,
+            "mean_tip_error_m": 0.005921569631396851,
+            "trust_max_abs_step_scaled": 2.2970258702681434e-05,
+            "source_scene_error_m": 6.159198227281031e-08,
+            "gate": {
+              "accepted_for_limited_coarse_audit": false,
+              "refusal_reasons": [
+                "previously_valid_orientation_row_invalidated",
+                "no_strict_original_rank_improvement"
+              ],
+              "lost_orientation_valid_rows": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51
+              ],
+              "lost_orientation_pass_rows": [],
+              "exact_rank": [
+                1,
+                50,
+                2.5434995936847153,
+                79,
+                135.4438609974513
+              ],
+              "reference_rank": [
+                1,
+                0,
+                6.735963944211342,
+                89,
+                0.0
+              ],
+              "scientific_mapping_acceptance": false
+            }
+          },
+          {
+            "start_index": 1,
+            "trace_path": "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/traces/case_16_endpoint_1.jsonl.gz",
+            "trace_sha256": "5be126bea8d83f561e033faefb3703589f5b03af9de381366bc4c17047a48dcc",
+            "counts": {
+              "FK_executions": 5,
+              "analytic_jacobian_executions": 3,
+              "FK_cache_hits": 9,
+              "selection_checkpoint_count": 5
+            },
+            "projection_mj_forward_calls": 16,
+            "selected_checkpoint": 16,
+            "max_original_cap_excess_m": -9.99061888990252e-10,
+            "mean_tip_error_m": 0.006283273561171726,
+            "trust_max_abs_step_scaled": 0.0022556470725323408,
+            "source_scene_error_m": 6.161835715888403e-08,
+            "gate": {
+              "accepted_for_limited_coarse_audit": false,
+              "refusal_reasons": [
+                "previously_valid_orientation_row_invalidated",
+                "no_strict_original_rank_improvement"
+              ],
+              "lost_orientation_valid_rows": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                8,
+                9,
+                10,
+                11,
+                12,
+                14,
+                15,
+                16,
+                19,
+                20,
+                24,
+                25,
+                26,
+                28,
+                29,
+                30,
+                33,
+                34,
+                35,
+                36,
+                37,
+                41,
+                42,
+                43,
+                44,
+                45,
+                47,
+                48,
+                49
+              ],
+              "lost_orientation_pass_rows": [],
+              "exact_rank": [
+                1,
+                34,
+                2.431010984823096,
+                81,
+                252.62963383944808
+              ],
+              "reference_rank": [
+                1,
+                0,
+                6.735963944211342,
+                89,
+                0.0
+              ],
+              "scientific_mapping_acceptance": false
+            }
+          }
+        ],
+        "coarse_eligible_count": 0,
+        "rank": [
+          1,
+          0,
+          6.735963944211342,
+          89,
+          0.0
+        ],
+        "all_witness_rows_pass": false
+      }
+    },
+    {
+      "source_inventory_index": 20,
+      "palm_shift_world_m": [
+        -0.0009128008361896395,
+        -0.00028999106632293946,
+        -0.0047970141510665434
+      ],
+      "palm_shift_norm_m": 0.004891691420217377,
+      "max_exact_original_cap_excess_m": -9.999994322190675e-10,
+      "mean_tip_error_m": 0.007240657344647065,
+      "source_scene_FK_maxerror_m": 6.13474445036014e-08,
+      "exact_original_fallback": false,
+      "trace_review": {
+        "arithmetic_checks": 164,
+        "endpoint_reviews": [
+          {
+            "start_index": 0,
+            "trace_path": "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/traces/case_20_endpoint_0.jsonl.gz",
+            "trace_sha256": "ab7ec07a04c4adb3577d2f3db26e8e7c2610a524f04eb9fa5d7f4cd0b23d5e6f",
+            "counts": {
+              "FK_executions": 4,
+              "analytic_jacobian_executions": 2,
+              "FK_cache_hits": 7,
+              "selection_checkpoint_count": 4
+            },
+            "projection_mj_forward_calls": 12,
+            "selected_checkpoint": 10,
+            "max_original_cap_excess_m": -9.999907369176442e-10,
+            "mean_tip_error_m": 0.006811069332269268,
+            "trust_max_abs_step_scaled": 1.546986343992085e-05,
+            "source_scene_error_m": 6.124081259995585e-08,
+            "gate": {
+              "accepted_for_limited_coarse_audit": false,
+              "refusal_reasons": [
+                "previously_valid_orientation_row_invalidated",
+                "previously_passed_orientation_row_failed",
+                "no_strict_original_rank_improvement"
+              ],
+              "lost_orientation_valid_rows": [
+                0,
+                6,
+                7,
+                8,
+                9,
+                11
+              ],
+              "lost_orientation_pass_rows": [
+                2,
+                6
+              ],
+              "exact_rank": [
+                1,
+                6,
+                3.47537749137278,
+                29,
+                138.5349323942981
+              ],
+              "reference_rank": [
+                1,
+                1,
+                9.28342253783589,
+                25,
+                1.2568174682023068
+              ],
+              "scientific_mapping_acceptance": false
+            }
+          },
+          {
+            "start_index": 1,
+            "trace_path": "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/traces/case_20_endpoint_1.jsonl.gz",
+            "trace_sha256": "27b46d73d0e6464cb8c009eedf688f377d0d68d00054633113e54dfae16dbb7c",
+            "counts": {
+              "FK_executions": 89,
+              "analytic_jacobian_executions": 12,
+              "FK_cache_hits": 38,
+              "selection_checkpoint_count": 14
+            },
+            "projection_mj_forward_calls": 202,
+            "selected_checkpoint": 10,
+            "max_original_cap_excess_m": -9.998703531799435e-10,
+            "mean_tip_error_m": 0.0065009715640303115,
+            "trust_max_abs_step_scaled": 5.59680481094782e-05,
+            "source_scene_error_m": 6.124562770844066e-08,
+            "gate": {
+              "accepted_for_limited_coarse_audit": false,
+              "refusal_reasons": [
+                "previously_valid_orientation_row_invalidated",
+                "previously_passed_orientation_row_failed",
+                "no_strict_original_rank_improvement"
+              ],
+              "lost_orientation_valid_rows": [
+                0,
+                6,
+                7,
+                8,
+                9,
+                11
+              ],
+              "lost_orientation_pass_rows": [
+                2,
+                6
+              ],
+              "exact_rank": [
+                1,
+                6,
+                3.470894960027496,
+                29,
+                158.04422635210824
+              ],
+              "reference_rank": [
+                1,
+                1,
+                9.28342253783589,
+                25,
+                1.2568174682023068
+              ],
+              "scientific_mapping_acceptance": false
+            }
+          }
+        ],
+        "coarse_eligible_count": 0,
+        "rank": [
+          1,
+          1,
+          9.28342253783589,
+          25,
+          1.2568174682023068
+        ],
+        "all_witness_rows_pass": false
+      }
+    },
+    {
+      "source_inventory_index": 24,
+      "palm_shift_world_m": [
+        -0.008013833368474157,
+        -0.0184027234345939,
+        0.009852239303015995
+      ],
+      "palm_shift_norm_m": 0.02235952536060894,
+      "max_exact_original_cap_excess_m": -4.772420614078399e-10,
+      "mean_tip_error_m": 0.004492666335344353,
+      "source_scene_FK_maxerror_m": 6.04618567933556e-08,
+      "exact_original_fallback": false,
+      "trace_review": {
+        "arithmetic_checks": 144,
+        "endpoint_reviews": [
+          {
+            "start_index": 0,
+            "trace_path": "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/traces/case_24_endpoint_0.jsonl.gz",
+            "trace_sha256": "c7dd0034233c1a03302578f64dc8259cf5962823cc919b4b7f28821d54a95f47",
+            "counts": {
+              "FK_executions": 337,
+              "analytic_jacobian_executions": 41,
+              "FK_cache_hits": 84,
+              "selection_checkpoint_count": 42
+            },
+            "projection_mj_forward_calls": 756,
+            "selected_checkpoint": 22,
+            "max_original_cap_excess_m": -9.093954432808776e-10,
+            "mean_tip_error_m": 0.0047170054492479945,
+            "trust_max_abs_step_scaled": 0.0163770070241811,
+            "source_scene_error_m": 6.031632044150072e-08,
+            "gate": {
+              "accepted_for_limited_coarse_audit": false,
+              "refusal_reasons": [
+                "no_strict_original_rank_improvement"
+              ],
+              "lost_orientation_valid_rows": [],
+              "lost_orientation_pass_rows": [],
+              "exact_rank": [
+                1,
+                0,
+                5.445342574151935,
+                46,
+                194.56998821557266
+              ],
+              "reference_rank": [
+                1,
+                0,
+                5.0,
+                47,
+                74.3217051142339
+              ],
+              "scientific_mapping_acceptance": false
+            }
+          },
+          {
+            "start_index": 1,
+            "trace_path": "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/traces/case_24_endpoint_1.jsonl.gz",
+            "trace_sha256": "78bac599188ef8599e6558856c8ee2c5dbaae17563e493991ff1c39a333a9990",
+            "counts": {
+              "FK_executions": 5,
+              "analytic_jacobian_executions": 3,
+              "FK_cache_hits": 9,
+              "selection_checkpoint_count": 5
+            },
+            "projection_mj_forward_calls": 16,
+            "selected_checkpoint": 16,
+            "max_original_cap_excess_m": -9.99993511607844e-10,
+            "mean_tip_error_m": 0.004352124969751525,
+            "trust_max_abs_step_scaled": 0.0026594664522845424,
+            "source_scene_error_m": 6.040538762878644e-08,
+            "gate": {
+              "accepted_for_limited_coarse_audit": false,
+              "refusal_reasons": [
+                "no_strict_original_rank_improvement"
+              ],
+              "lost_orientation_valid_rows": [],
+              "lost_orientation_pass_rows": [],
+              "exact_rank": [
+                1,
+                0,
+                5.289485170020088,
+                49,
+                238.6985375910358
+              ],
+              "reference_rank": [
+                1,
+                0,
+                5.0,
+                47,
+                74.3217051142339
+              ],
+              "scientific_mapping_acceptance": false
+            }
+          }
+        ],
+        "coarse_eligible_count": 0,
+        "rank": [
+          1,
+          0,
+          5.0,
+          47,
+          74.3217051142339
+        ],
+        "all_witness_rows_pass": false
+      }
+    },
+    {
+      "source_inventory_index": 28,
+      "palm_shift_world_m": [
+        -0.0008977657665867224,
+        -0.0036609599684136007,
+        -9.52134840965913e-05
+      ],
+      "palm_shift_norm_m": 0.0037706334838506603,
+      "max_exact_original_cap_excess_m": -9.99999851154787e-10,
+      "mean_tip_error_m": 0.006181258389046434,
+      "source_scene_FK_maxerror_m": 5.588821197752231e-08,
+      "exact_original_fallback": false,
+      "trace_review": {
+        "arithmetic_checks": 164,
+        "endpoint_reviews": [
+          {
+            "start_index": 0,
+            "trace_path": "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/traces/case_28_endpoint_0.jsonl.gz",
+            "trace_sha256": "9c991f948e0aea72bfd9c8014eadca73d4378497b8dff91e36fefacc96672851",
+            "counts": {
+              "FK_executions": 5,
+              "analytic_jacobian_executions": 3,
+              "FK_cache_hits": 9,
+              "selection_checkpoint_count": 5
+            },
+            "projection_mj_forward_calls": 16,
+            "selected_checkpoint": 16,
+            "max_original_cap_excess_m": -9.999389649628654e-10,
+            "mean_tip_error_m": 0.006129809793793252,
+            "trust_max_abs_step_scaled": 0.003093792742685064,
+            "source_scene_error_m": 5.3882983051130626e-08,
+            "gate": {
+              "accepted_for_limited_coarse_audit": false,
+              "refusal_reasons": [
+                "previously_valid_orientation_row_invalidated",
+                "previously_passed_orientation_row_failed",
+                "no_strict_original_rank_improvement"
+              ],
+              "lost_orientation_valid_rows": [
+                0
+              ],
+              "lost_orientation_pass_rows": [
+                0
+              ],
+              "exact_rank": [
+                1,
+                1,
+                4.321221349768522,
+                24,
+                667.8820388204485
+              ],
+              "reference_rank": [
+                1,
+                0,
+                8.002982238519587,
+                23,
+                1.4510971089640474
+              ],
+              "scientific_mapping_acceptance": false
+            }
+          },
+          {
+            "start_index": 1,
+            "trace_path": "/private/tmp/hug_feasibility_restoration_2026-10-15_v1/traces/case_28_endpoint_1.jsonl.gz",
+            "trace_sha256": "cc8207af695102a97041f4dd79952e5804fa28c97440ff1ecad49f284235bd21",
+            "counts": {
+              "FK_executions": 4,
+              "analytic_jacobian_executions": 3,
+              "FK_cache_hits": 9,
+              "selection_checkpoint_count": 5
+            },
+            "projection_mj_forward_calls": 14,
+            "selected_checkpoint": 10,
+            "max_original_cap_excess_m": -6.661497404039651e-10,
+            "mean_tip_error_m": 0.005585056905190025,
+            "trust_max_abs_step_scaled": 0.00024151139657657694,
+            "source_scene_error_m": 5.508239069866983e-08,
+            "gate": {
+              "accepted_for_limited_coarse_audit": false,
+              "refusal_reasons": [
+                "previously_valid_orientation_row_invalidated",
+                "previously_passed_orientation_row_failed",
+                "no_strict_original_rank_improvement"
+              ],
+              "lost_orientation_valid_rows": [
+                0
+              ],
+              "lost_orientation_pass_rows": [
+                0
+              ],
+              "exact_rank": [
+                1,
+                1,
+                4.460168616734284,
+                21,
+                582.182392481279
+              ],
+              "reference_rank": [
+                1,
+                0,
+                8.002982238519587,
+                23,
+                1.4510971089640474
+              ],
+              "scientific_mapping_acceptance": false
+            }
+          }
+        ],
+        "coarse_eligible_count": 0,
+        "rank": [
+          1,
+          0,
+          8.002982238519587,
+          23,
+          1.4510971089640474
+        ],
+        "all_witness_rows_pass": false
+      }
+    }
+  ],
+  "runtime_seconds": 0.5766770418267697,
+  "physics_steps": 0,
+  "new_eval_data": false,
+  "new_inference": false,
+  "new_surface_queries": 0,
+  "mapping_acceptance": false,
+  "scope": "Independently reconstructed source/native targets, original caps, physical/domain bounds, translated root and source/scene FK; replayed all projection traces, exact retained-row arithmetic and endpoint selection. Independently reconstructed FK/caps for every restored endpoint and selected fallback. No scientific full-grid measurements."
+}
