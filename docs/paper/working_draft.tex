@@ -27,8 +27,8 @@ representation, coordinate conversion, articulation and object-relative surface
 geometry, separating mapping fidelity from eventual task success.
 Completed HUG development checks support numerical reconstruction and kinematic
 composition, but reject strict surface preservation across six detailed cases
-and three finer repeats; a constrained correction accepts no fitted candidate
-and retains all six original poses. Historical HUG prediction diagnostics also
+and three finer repeats. Neither constrained finger fitting nor per-grasp palm
+placement has established a validated replacement. Historical HUG prediction diagnostics also
 show that useful failure ranking can coexist with warnings on successful
 unfamiliar attempts. The multiple-generator training comparison and independent
 generalization evaluation remain unexecuted, so improved prediction is a
@@ -280,6 +280,51 @@ calibrated poses. A common-robot retarget and a native-MANO embodiment define
 different failure-label targets; future placement/collision/dynamics validation
 must declare the intended target. No new native HUG proposal, physics,
 evaluation data or predictor training is produced.
+
+We next retain the common Shadow embodiment and allow three world-frame palm
+translation coordinates alongside the same 24 joint coordinates, with fixed
+native world targets, original physical/correction bounds and floating-root
+quaternion. The original individual tip caps and mean guard remain unchanged.
+A bounded search uses 762 full objective callbacks; after its finer pattern
+radii are not reached, one separately frozen fine study with 56 seeds per grasp uses 348.
+Both methods retain all six original fallbacks under the additional per-part
+direction selector. These 1,110 callbacks are static optimization computations,
+not independent grasps or physical task attempts.
+
+A separately frozen diagnostic selection verifies objective comparability and
+chooses one lowest-cost tip-feasible nonzero-translation candidate per case
+without changing the guarded returns. All six diagnostics pass independent
+source/FK checks and all 30 literal original caps; all remain refused by the
+additional direction selector. Three selected shifts are only 1.165--3.284 nm and are
+joint-dominated changes; milk-box B and both mugs shift by 3.716--4.892 mm.
+The original approximation errors remain the caps, rather than independent
+scientific accuracy margins. A lower average fitting cost is not a preservation
+certificate.
+
+Fresh full-grid measurements of those six diagnostic poses yield nine strict
+and proximity FAIL results, with seven pointwise-orientation FAIL and two
+UNRESOLVED results. No complete-pose surface report is reused. A provenance
+review finds that the three nanometer shifts arose during constraint
+restoration of initially zero-translation thumb-joint proposals. To address
+this coverage gap, one separately frozen supplement selects only proposals
+originating in the already declared translation seeds, using the same
+objective and feasibility gates. Its actual shifts are 0.063565, 1.994976 and
+0.031372 mm; all original tip caps pass, but all five fresh coarse/fine
+comparisons FAIL both strict preservation and pointwise orientation. The
+initial nine and supplemental five remain separate development measurements
+of nine robot poses derived from six existing native grasps.
+
+At the coarse 2 mm band, the two millimeter-shifted mug palms still have
+certified lost-proximity lower bounds of 105.162 and 53.090 mm$^2$, unchanged
+from their original bounds. Positive added-type thumb mismatch bounds are also
+present; changing lower bounds alone does not prove a change in total error.
+These conditional part-surface measurements do not establish physical contact
+or failure-label equivalence. All guarded mapper outputs remain original,
+production is unchanged, and no inference, physical evaluation data or training
+is generated. A future method could constrain the actual counterexample cells
+rather than trade them against average fitting cost, but this is unimplemented
+and feasibility is unknown. Removing sampled failures would still require
+continuous coverage evidence before complete sign-off.
 % END GFP SECTION hug
 
 % BEGIN GFP SECTION contactgen

@@ -399,3 +399,14 @@ Production and frozen scientific criteria remain unchanged; no new eval data or 
 The HUG subsection now records the separately frozen canonical MCP-frame experiment: one source-only 8.668706 mm anchor calibration; all 6 numerical/mean-tip passes but 21/30 individual old caps refused, so 0/6 eligible. Independent source/C/FK/world-target reconstruction confirms the result. The same old positive-area cells refute both new Mug fixed anchors under arbitrary palm orientation; independent 90-digit replay passes 1,093 checks. No full-grid audit is falsely claimed for refused poses, no native failure label is inferred, and arbitrary other placements remain outside the proof.
 
 Both runtime aborts, unchanged calibration bytes and all original results are preserved. Current strict native preservation is not accepted. The working title/main multi-generator prediction question remain unchanged; the target embodiment/failure-label meaning has been requested before another dependent mapping policy. No new native HUG inference, physics, eval data or training. [Completed calibration evidence](HUG_CANONICAL_PALM_CALIBRATION.md).
+
+
+<!-- hug-free-palm-2026-10-15-v1 -->
+
+## 15 October 2026 — HUG palm-placement study completed, mapping still unvalidated
+
+User chose common Shadow and authorized per-grasp translation with unchanged criteria. Both fitting stages (762 + 348 full callbacks) retain all six original guarded outputs. Independent tip-feasible diagnostic poses receive nine fresh strict surface FAIL results. A separate seed-origin coverage correction for three nanometer-shift selections adds five fresh FAIL results, preserving the first protocol. All six intentional-movement alternatives preserve original fingertip caps; actual palm shifts span 0.031372–4.891691 mm. Fourteen measurements concern nine robot poses from six existing native grasps, not fourteen grasps or physical failures.
+
+The HUG section and abstract distinguish numerical admission, guard refusal and strict surface failure. The frozen criteria and production mapper are unchanged. Counterexample-constrained fitting is proposed only; continuous orientation coverage still requires evidence even after sampled failures are removed. No new native inference, physics, evaluation data or predictor training. See [study](HUG_FREE_PALM_MAPPING_STUDY.md) and its separately versioned evidence bundles.
+
+The desktop LaTeX compiler reports success for both the canonical working paper (SHA-256 `906455622b1fe0bcb396a685341fafbfe1e39d70f464d0b67dc1f42881b52401`) and the exact selectively staged paper (`5bcf7db84de2a9d5ff0c86beed21e7324e99eeb4c13d7cf04c239167f310e092`). Other providers' uncommitted paper sections are preserved.

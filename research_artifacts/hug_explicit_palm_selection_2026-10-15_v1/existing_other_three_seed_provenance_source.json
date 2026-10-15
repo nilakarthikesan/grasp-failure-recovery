@@ -1,0 +1,139 @@
+{
+  "schema": "hug_existing_three_intentional_palm_provenance_check_v1",
+  "scope": "Read-only verification of three previously chosen diagnostics. No fitting, ranking, new geometry queries, physics or eval data.",
+  "passed": true,
+  "checks": 58,
+  "source_bindings": {
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v1/candidate_cohort_8_16_24.json": "03c05d2f1f19d320d319e00842c1a1ad73bc4822354ed3f781bef5d8e38ddde8",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v1/candidate_cohort_12_20_28.json": "724b20b007668f32e8253e3468ae01c344641b1a5a4a029d6a94090f450b03a8",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v1/protocol.json": "0468b2b63a86832a65b9664ffdbf66daea043fcd5041445fd97fdd812fca291a",
+    "/private/tmp/hug_free_palm_review_2026-10-15_v1/diagnostic_selection/compact_review_table.json": "5400e9f14f57ad2afee40c4581777482d69f6de21289d6ca1aba0408a66dec2b"
+  },
+  "script_sha256": "42c63472ac9ca68c1fa070dd08cdb9632d024a4d0069c10a4d6e6487126d6ac4",
+  "cases": [
+    {
+      "source_inventory_index": 20,
+      "callback_sequence": 19,
+      "proposal_sequence": 18,
+      "seed_index_zero_based": 17,
+      "seed_label": "translation_0.01m_axis2_sign-1",
+      "proposed_palm_displacement_world_m": [
+        0.0,
+        0.0,
+        -0.01
+      ],
+      "requested_displacement_norm_m": 0.01,
+      "final_palm_displacement_world_m": [
+        -0.0009128008361896395,
+        -0.00028999106632293946,
+        -0.0047970141510665434
+      ],
+      "final_displacement_norm_m": 0.004891691420217377,
+      "same_state_via_guard_metadata_and_callback_and_candidate_bytes": true,
+      "restoration": "cheap_FK_SLSQP_projection",
+      "original_caps_and_mean_pass_computed_arithmetic": true,
+      "candidate_objective": 11.37403912142914,
+      "extra_direction_guard_pass": false,
+      "extra_direction_guard_refusals": [
+        "middle:original_valid_sites_invalidated",
+        "middle:direction_sse_increased",
+        "ring:original_valid_sites_invalidated",
+        "ring:direction_sse_increased",
+        "little:direction_sse_increased",
+        "thumb:original_valid_sites_invalidated",
+        "thumb:direction_sse_increased"
+      ],
+      "trace_binding": {
+        "trace_path": "/private/tmp/hug_free_palm_fit_2026-10-15_v1/full_callback_traces/20/callback_0019.json.gz",
+        "trace_compressed_sha256": "22013d9d4b3860586b6750782f92b53be6629a146dc8958564062f9ccb6265d8",
+        "trace_uncompressed_sha256": "47c20f66c8e0d75c02dfb953de34017052f26a79e9c81547e39a576bda556712"
+      },
+      "intentional_nonzero_translation_before_restoration": true,
+      "no_new_selection_or_ranking": true
+    },
+    {
+      "source_inventory_index": 24,
+      "callback_sequence": 17,
+      "proposal_sequence": 16,
+      "seed_index_zero_based": 15,
+      "seed_label": "translation_0.01m_axis1_sign-1",
+      "proposed_palm_displacement_world_m": [
+        0.0,
+        -0.01,
+        0.0
+      ],
+      "requested_displacement_norm_m": 0.01,
+      "final_palm_displacement_world_m": [
+        -0.0010608388610483523,
+        -0.0035610767498766532,
+        -7.46973280904597e-05
+      ],
+      "final_displacement_norm_m": 0.003716480377783029,
+      "same_state_via_guard_metadata_and_callback_and_candidate_bytes": true,
+      "restoration": "cheap_FK_SLSQP_projection",
+      "original_caps_and_mean_pass_computed_arithmetic": true,
+      "candidate_objective": 7.675445155392963,
+      "extra_direction_guard_pass": false,
+      "extra_direction_guard_refusals": [
+        "index:original_valid_sites_invalidated",
+        "index:direction_sse_increased",
+        "middle:original_valid_sites_invalidated",
+        "middle:direction_sse_increased",
+        "ring:direction_sse_increased",
+        "little:original_valid_sites_invalidated",
+        "little:direction_sse_increased",
+        "thumb:original_valid_sites_invalidated",
+        "thumb:direction_sse_increased"
+      ],
+      "trace_binding": {
+        "trace_path": "/private/tmp/hug_free_palm_fit_2026-10-15_v1/full_callback_traces/24/callback_0017.json.gz",
+        "trace_compressed_sha256": "36cc2c23a1b0349f4e0d9503ab94595d19e15b0b5cd58637baf4c24f9f16aa34",
+        "trace_uncompressed_sha256": "7b66a1d891b8afdbfff086d3c8e7795ee20c28f39da2e8b1cd3a4c2154d2f373"
+      },
+      "intentional_nonzero_translation_before_restoration": true,
+      "no_new_selection_or_ranking": true
+    },
+    {
+      "source_inventory_index": 28,
+      "callback_sequence": 17,
+      "proposal_sequence": 16,
+      "seed_index_zero_based": 15,
+      "seed_label": "translation_0.01m_axis1_sign-1",
+      "proposed_palm_displacement_world_m": [
+        0.0,
+        -0.01,
+        0.0
+      ],
+      "requested_displacement_norm_m": 0.01,
+      "final_palm_displacement_world_m": [
+        -0.0008977657665867224,
+        -0.0036609599684136007,
+        -9.52134840965913e-05
+      ],
+      "final_displacement_norm_m": 0.0037706334838506603,
+      "same_state_via_guard_metadata_and_callback_and_candidate_bytes": true,
+      "restoration": "cheap_FK_SLSQP_projection",
+      "original_caps_and_mean_pass_computed_arithmetic": true,
+      "candidate_objective": 7.759483933608964,
+      "extra_direction_guard_pass": false,
+      "extra_direction_guard_refusals": [
+        "middle:original_valid_sites_invalidated",
+        "middle:direction_sse_increased",
+        "ring:original_valid_sites_invalidated",
+        "ring:direction_sse_increased",
+        "little:original_valid_sites_invalidated",
+        "little:direction_sse_increased",
+        "thumb:original_valid_sites_invalidated",
+        "thumb:direction_sse_increased"
+      ],
+      "trace_binding": {
+        "trace_path": "/private/tmp/hug_free_palm_fit_2026-10-15_v1/full_callback_traces/28/callback_0017.json.gz",
+        "trace_compressed_sha256": "f8c72d149e7a0d4332418e289520decb7cbe0c88dbd446765f62b9d9bf846066",
+        "trace_uncompressed_sha256": "f7124732ba879dbb52a3d726fd77c80c93542bc25bbab297afb9ea5cb9a03216"
+      },
+      "intentional_nonzero_translation_before_restoration": true,
+      "no_new_selection_or_ranking": true
+    }
+  ],
+  "limitations": "Verifies saved computed arithmetic and exact provenance; not an independent source/FK or surface rerun. Original guard refusals and fallback remain unchanged."
+}

@@ -1,0 +1,50 @@
+{
+  "schema": "hug_free_palm_diagnostic_selection_policy_v1",
+  "freeze_utc": "2026-10-15T04:58:48.462549+00:00",
+  "user_facing_date": "15 October 2026, America/New_York",
+  "source_authorization": "Root explicitly authorized this static mapping diagnostic under user request to adjust per-grasp Shadow palm position on existing HUG grasps, unchanged criteria and no new eval data.",
+  "script_sha256": "c1522f46207ed5a1a92cd81a2f0bfcbf59f21efe7c06bb551b221cc68182707e",
+  "independent_verifier_script_sha256": "a2045b0ac673f4c19924c81fe383e686bf4ac7435355a7b9ac452094ff814c4c",
+  "synthetic_policy_controls_sha256": "1d4421c6d83635346a905711d90fe66c5971f59ab6e99f2afc02d3e37046af4f",
+  "method_order": [
+    "free_palm_v1",
+    "fine_translation_v2"
+  ],
+  "method_directories": [
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v1",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v2"
+  ],
+  "case_indices": [
+    8,
+    12,
+    16,
+    20,
+    24,
+    28
+  ],
+  "trigger_and_scope": "Per case, audit a returned nonfallback guarded pose when available. Otherwise audit a fully scored, original-tip-feasible translated diagnostic. Never replace or reinterpret the primary selected fallback/guard refusal. This is an exploratory development diagnostic motivated by observed V1 failures, not a held-out study.",
+  "eligibility": "Complete immutable callback values, finite complete27state inside original domain, all five original native WORLD fingertip norms <= original historical caps with zero allowance and mean<=0.010m; exact shared native/site/weight/component basis. Positive recorded world translation in at least one component for fallback diagnostics; no positive minimum magnitude.",
+  "comparability": "Require exact equal per-case native source, jointnames/q0/root0, original caps, original surface sites/weights/distances/closest points, direction native targets/weights/validity baseline, complete baseline diagnostics and domain; protocol surface/direction configs, guard policy, state units and robust f_scale identical.",
+  "deduplication": "Exact full27 float64 bytes; retain earliest method/callback, check equal objective/guard and propagate whether same pose was returned as guarded candidate by either method.",
+  "selection": "Prefer the comparable lowest-objective nonfallback returned guarded candidate if any. Otherwise choose lowest-objective fully scored state with nonzero recorded world palm displacement. If none exists use exact original. No requirement to improve baseline objective is silently added.",
+  "objective": "Recompute literal f_scale * sum(hypot(f_scale, full_frozen_residuals) - f_scale). No contact-success/lift or grasp-quality score.",
+  "tie_order": [
+    "objective ascending",
+    "method_order ascending",
+    "callback_sequence ascending"
+  ],
+  "pose_and_guard_requirements": "Reconstruct original source actions/native WORLD targets and chosen source/scene FK independently before output. Compute root via declared primary arithmetic after independent zero-root carrier check to preserve exact pose rounding. Require all original caps again literally, original rootquaternion, unchanged object and zero time. Independently recompute extra guard and retain every refusal.",
+  "audit_role_values": [
+    "guarded_selected",
+    "tip_feasible_translated_diagnostic_not_selected",
+    "original_fallback_no_feasible_nonzero"
+  ],
+  "scientific_acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4",
+  "full_surface_metrics": "Not run by selector. Separate unchanged6coarse+3fine audit required. No production promotion regardless diagnostic outcome.",
+  "new_eval_data": false,
+  "new_inference": false,
+  "physics_steps": 0,
+  "training": false,
+  "selection_or_rank_calculation_already_performed": false,
+  "fine_final_candidate_exists_at_policy_freeze": false
+}

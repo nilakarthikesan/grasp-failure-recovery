@@ -1,0 +1,32 @@
+{
+  "schema": "independent_free_palm_manufactured_preflight_v1",
+  "module_sha256": {
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v1/free_palm_solver.py": "a90ce0f71f239af06025b4e091b20e38e732386c33b97f121210346110966a8e",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v1/keyed_direction_evidence.py": "6e5d764806c90bff69b53be7dc4a8c5a454b5eb695f5da097d08c47c0760e114",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v1/surface_component_guard.py": "77cebfcbfcfff22da591f9cda2dbbe2f072bd32953d7b9145c1e5d4004d5efc9"
+  },
+  "script_sha256": "cee088cb26c100d567d1b81bcfcc212d6b503acc8454531ef5f6d6c77a2a870c",
+  "checks": [
+    "original lookup unaffected by later translated callback",
+    "same joints different palm shift has separate refused evidence",
+    "translation included in exact27 hash",
+    "unrecorded translation coordinate 24 refused",
+    "unrecorded translation coordinate 25 refused",
+    "unrecorded translation coordinate 26 refused",
+    "negative native direction preserved",
+    "solver can select a pure translated palm with unchanged joint coordinates",
+    "all original synthetic caps retained for translated solution",
+    "translated terminal state freshly checked",
+    "zero original cap never relaxed to accept positive tip error",
+    "zero cap exact terminal errors retained",
+    "zero norm analytic-row convention exercised",
+    "bound module unchanged free_palm_solver.py",
+    "bound module unchanged keyed_direction_evidence.py",
+    "bound module unchanged surface_component_guard.py"
+  ],
+  "passed": true,
+  "check_count": 16,
+  "actual_grasp_geometry_evaluated": false,
+  "new_eval_data": false,
+  "physics_steps": 0
+}

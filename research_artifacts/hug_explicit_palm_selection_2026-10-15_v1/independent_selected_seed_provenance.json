@@ -1,0 +1,136 @@
+{
+  "schema": "hug_supplement_three_intentional_palm_provenance_check_v1",
+  "scope": "Read-only verification of3 reviewer-selected supplemental diagnostics. No fitting, ranking, new geometry queries, physics or eval data.",
+  "passed": true,
+  "checks": 165,
+  "source_bindings": {
+    "/private/tmp/hug_explicit_palm_selection_2026-10-15_v1/candidate_targets.json": "4b428a5247dfc0d9ce342e333a404af31826e0af48771e9bcde5057afc166ba9",
+    "/private/tmp/hug_explicit_palm_selection_2026-10-15_v1/protocol.json": "035f0d55f46543a5c0f7d62ff0f1099faec5d57bac69f2438828b4cb2b38d740",
+    "/private/tmp/hug_explicit_palm_selection_2026-10-15_v1/policy.json": "c981be4cb93f544d1cf56847c2f1ab39684a8d2b32bc19a6241f094415f4664b",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v1/candidate_cohort_8_16_24.json": "03c05d2f1f19d320d319e00842c1a1ad73bc4822354ed3f781bef5d8e38ddde8",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v1/candidate_cohort_12_20_28.json": "724b20b007668f32e8253e3468ae01c344641b1a5a4a029d6a94090f450b03a8",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v1/protocol.json": "0468b2b63a86832a65b9664ffdbf66daea043fcd5041445fd97fdd812fca291a",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v2/candidate_cohort_8_16_24.json": "e1b9824a80c033b0d9e0d67611ba6b14288fd0b453997f8c2c21b25ceed2a0e7",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v2/candidate_cohort_12_20_28.json": "587d6a6091c322d016efb2cc59438cae45c03190ee784d00bb5b703e16461c22",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v2/protocol.json": "ebba4d832144a667d9320a8c8bfb2c37fae4ee8794eeebad749221e3f6ca5001"
+  },
+  "script_sha256": "34bcbb9681c1a470e8ea279000bf64df5ff1d89ec2acadd59d4fd514663edca0",
+  "cases": [
+    {
+      "source_inventory_index": 8,
+      "method": "fine_translation_v2",
+      "callback_sequence": 53,
+      "proposal_sequence": 52,
+      "seed_index_zero_based": 51,
+      "seed_label": "fine_translation_0.00015625m_diagonal_+1_-1_-1",
+      "proposed_palm_displacement_world_m": [
+        9.021097956087904e-05,
+        -9.021097956087904e-05,
+        -9.021097956087904e-05
+      ],
+      "requested_displacement_norm_m": 0.00015625000000000003,
+      "final_palm_displacement_world_m": [
+        2.518237826729921e-05,
+        -4.36469233117656e-05,
+        -3.8746894533227024e-05
+      ],
+      "final_displacement_norm_m": 6.356514709925172e-05,
+      "same_state_via_guard_metadata_callback_candidate_and_selection_bytes": true,
+      "restoration": "cheap_FK_SLSQP_projection",
+      "original_caps_and_mean_pass_computed_arithmetic": true,
+      "candidate_objective": 7.577273447006447,
+      "extra_direction_guard_pass": false,
+      "extra_direction_guard_refusals": [
+        "index:original_valid_sites_invalidated",
+        "index:direction_sse_increased"
+      ],
+      "trace_binding": {
+        "trace_path": "/private/tmp/hug_free_palm_fit_2026-10-15_v2/full_callback_traces/8/callback_0053.json.gz",
+        "trace_compressed_sha256": "165dba4b679f2bde7d7b2f7be6cf9b02dea7c67ecaf4df2636064de0bebbabae",
+        "trace_uncompressed_sha256": "611fea3e8e85bba3983cf917f3b3488152003de6e610c282b41cdbfb1cea944b"
+      },
+      "intentional_nonzero_translation_before_restoration": true,
+      "no_new_selection_or_ranking": true
+    },
+    {
+      "source_inventory_index": 12,
+      "method": "free_palm_v1",
+      "callback_sequence": 23,
+      "proposal_sequence": 22,
+      "seed_index_zero_based": 21,
+      "seed_label": "translation_0.005m_diagonal_+1_-1_-1",
+      "proposed_palm_displacement_world_m": [
+        0.0028867513459481294,
+        -0.0028867513459481294,
+        -0.0028867513459481294
+      ],
+      "requested_displacement_norm_m": 0.005000000000000001,
+      "final_palm_displacement_world_m": [
+        0.0008554246834155145,
+        -0.0012889935260797585,
+        -0.0012596319548034082
+      ],
+      "final_displacement_norm_m": 0.001994975779510598,
+      "same_state_via_guard_metadata_callback_candidate_and_selection_bytes": true,
+      "restoration": "cheap_FK_SLSQP_projection",
+      "original_caps_and_mean_pass_computed_arithmetic": true,
+      "candidate_objective": 7.966316304005584,
+      "extra_direction_guard_pass": false,
+      "extra_direction_guard_refusals": [
+        "index:original_valid_sites_invalidated",
+        "index:direction_sse_increased",
+        "middle:original_valid_sites_invalidated",
+        "middle:direction_sse_increased",
+        "little:direction_sse_increased"
+      ],
+      "trace_binding": {
+        "trace_path": "/private/tmp/hug_free_palm_fit_2026-10-15_v1/full_callback_traces/12/callback_0023.json.gz",
+        "trace_compressed_sha256": "ed799d44c6f346093c3952de31b40930b8e629d5065bb22629680f841e43285c",
+        "trace_uncompressed_sha256": "fa31d7e275257bc5d010fc7068b481d6cd800818b30ff2bf25c0d9b0ee369598"
+      },
+      "intentional_nonzero_translation_before_restoration": true,
+      "no_new_selection_or_ranking": true
+    },
+    {
+      "source_inventory_index": 16,
+      "method": "fine_translation_v2",
+      "callback_sequence": 50,
+      "proposal_sequence": 49,
+      "seed_index_zero_based": 48,
+      "seed_label": "fine_translation_0.00015625m_diagonal_+1_+1_+1",
+      "proposed_palm_displacement_world_m": [
+        9.021097956087904e-05,
+        9.021097956087904e-05,
+        9.021097956087904e-05
+      ],
+      "requested_displacement_norm_m": 0.00015625000000000003,
+      "final_palm_displacement_world_m": [
+        2.460652305221324e-06,
+        3.1252230654627917e-05,
+        1.2079847927603082e-06
+      ],
+      "final_displacement_norm_m": 3.137221633733893e-05,
+      "same_state_via_guard_metadata_callback_candidate_and_selection_bytes": true,
+      "restoration": "cheap_FK_SLSQP_projection",
+      "original_caps_and_mean_pass_computed_arithmetic": true,
+      "candidate_objective": 10.201555455256177,
+      "extra_direction_guard_pass": false,
+      "extra_direction_guard_refusals": [
+        "middle:original_valid_sites_invalidated",
+        "middle:direction_sse_increased",
+        "ring:direction_sse_increased",
+        "little:direction_sse_increased",
+        "thumb:direction_sse_increased"
+      ],
+      "trace_binding": {
+        "trace_path": "/private/tmp/hug_free_palm_fit_2026-10-15_v2/full_callback_traces/16/callback_0050.json.gz",
+        "trace_compressed_sha256": "b9d50d6f8d1a490d5a361f467f95d315932cb31bad5dc3b083e6a8abdb51b4aa",
+        "trace_uncompressed_sha256": "a9124600de99b1a474dd9a5f43534a245b5c365df14d06a2429d56f3aa89070b"
+      },
+      "intentional_nonzero_translation_before_restoration": true,
+      "no_new_selection_or_ranking": true
+    }
+  ],
+  "checker_schema_adjustment": "Initial checker expected the compact independent guard summary to equal the full source dictionary. These deliberately have different schemas; compare all shared summary fields and full copied proposal instead. No scientific data or selected candidate changed.",
+  "limitations": "Verifies saved computed arithmetic and exact provenance; not an independent source/FK or surface rerun. Original guard refusals and fallbacks remain unchanged."
+}

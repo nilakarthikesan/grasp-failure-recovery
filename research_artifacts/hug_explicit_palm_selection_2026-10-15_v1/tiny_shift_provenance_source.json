@@ -1,0 +1,281 @@
+{
+  "schema": "hug_tiny_diagnostic_shift_provenance_review_v1",
+  "scope": "Read-only descriptive provenance review; no new fitting, geometry queries, reranking or changed acceptance.",
+  "source_bindings": [
+    {
+      "path": "/private/tmp/hug_free_palm_fit_2026-10-15_v1/candidate_cohort_8_16_24.json",
+      "sha256": "03c05d2f1f19d320d319e00842c1a1ad73bc4822354ed3f781bef5d8e38ddde8"
+    },
+    {
+      "path": "/private/tmp/hug_free_palm_fit_2026-10-15_v1/candidate_cohort_12_20_28.json",
+      "sha256": "724b20b007668f32e8253e3468ae01c344641b1a5a4a029d6a94090f450b03a8"
+    },
+    {
+      "path": "/private/tmp/hug_free_palm_review_2026-10-15_v1/diagnostic_selection/compact_review_table.json",
+      "sha256": "5400e9f14f57ad2afee40c4581777482d69f6de21289d6ca1aba0408a66dec2b"
+    },
+    {
+      "path": "/private/tmp/hug_free_palm_review_2026-10-15_v1/diagnostic_selection/policy.json",
+      "sha256": "103bf94793a6b41b6095ef3247098e2bb3b65749535e3ebacc6bfac9dc11c1c3"
+    }
+  ],
+  "cases": [
+    {
+      "source_inventory_index": 8,
+      "callback_sequence": 65,
+      "proposal_sequence": 72,
+      "sweep": 1,
+      "radius_scaled": 1.0,
+      "direction": "joint_19_positive",
+      "requested_joint_name": "THJ5",
+      "requested_joint_change_rad": 0.025,
+      "requested_palm_displacement_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "proposal_computed_original_cap_excess_m": [
+        -7.442753054905105e-05,
+        4.7488055154865094e-17,
+        5.117434254131581e-17,
+        3.491130995403324e-17,
+        -6.505213034913027e-17
+      ],
+      "restoration": "cheap_FK_SLSQP_projection",
+      "restoration_optimizer": {
+        "success": true,
+        "status": 0,
+        "message": "Optimization terminated successfully",
+        "iterations": 1,
+        "state_scaled": [
+          3.367399198543552e-08,
+          -1.0299504323507091e-07,
+          0.0,
+          -8.704644954715467e-09,
+          -8.04718549823084e-09,
+          -5.359505026127154e-09,
+          4.008486067351398e-08,
+          1.463128693878409e-07,
+          -2.1405449897689064e-08,
+          -4.9561188560228766e-08,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0587911840684542e-22,
+          8.972740910418886e-09,
+          -3.232996960490656e-07,
+          -9.283270536195945e-08,
+          1.4812548203793505e-08,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -5.425432818797072e-07,
+          2.9136580627829175e-07,
+          -1.2649295825035853e-07
+        ],
+        "tightened_tip_caps_m": [
+          0.01376848743535243,
+          0.0017642400272658762,
+          0.004636492765643986,
+          0.001321601524823694,
+          0.0077329893959403396
+        ],
+        "tightened_mean_target_m": 0.009999999
+      },
+      "resulting_palm_displacement_m": [
+        -2.7127164093985363e-09,
+        1.4568290313914589e-09,
+        -6.324647912517927e-10
+      ],
+      "resulting_palm_displacement_norm_nm": 3.143436472508747,
+      "direction_guard_refusals": [
+        "middle:direction_sse_increased",
+        "ring:direction_sse_increased"
+      ],
+      "direction_sse_increases_by_part": {
+        "middle": 6.376658662904378e-11,
+        "ring": 2.037620951828023e-08
+      },
+      "invalidated_original_direction_sites_by_part": {},
+      "interpretation": "Joint-dominated alternative: originally zero requested translation; nanometre translation introduced by one frozen inward-cap restoration iteration. Does not meaningfully test millimetre palm relocation in the full-grid audit."
+    },
+    {
+      "source_inventory_index": 12,
+      "callback_sequence": 65,
+      "proposal_sequence": 72,
+      "sweep": 1,
+      "radius_scaled": 1.0,
+      "direction": "joint_19_positive",
+      "requested_joint_name": "THJ5",
+      "requested_joint_change_rad": 0.025,
+      "requested_palm_displacement_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "proposal_computed_original_cap_excess_m": [
+        -7.269215865625053e-05,
+        -1.4094628242311558e-17,
+        -5.4643789493269423e-17,
+        -4.228388472693467e-17,
+        5.2909066017292616e-17
+      ],
+      "restoration": "cheap_FK_SLSQP_projection",
+      "restoration_optimizer": {
+        "success": true,
+        "status": 0,
+        "message": "Optimization terminated successfully",
+        "iterations": 1,
+        "state_scaled": [
+          4.402029498121742e-08,
+          -8.87862267031756e-08,
+          1.224227306579257e-22,
+          -2.152245904453412e-09,
+          -2.5272746147310485e-09,
+          -1.8166133381029946e-09,
+          3.0169556112674495e-08,
+          1.8261475551617522e-07,
+          -2.2762724985314197e-08,
+          -5.6937265956247216e-08,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.8774952795416002e-08,
+          -3.766558621907602e-07,
+          -1.1017782150839638e-07,
+          1.8530251547255465e-08,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -5.929963103013712e-07,
+          2.449367663767357e-07,
+          -1.4062110994478224e-07
+        ],
+        "tightened_tip_caps_m": [
+          0.013793883868087966,
+          0.0019130387876650117,
+          0.004667138080611418,
+          0.0014778480017671515,
+          0.007480080333371682
+        ],
+        "tightened_mean_target_m": 0.009999999
+      },
+      "resulting_palm_displacement_m": [
+        -2.964981551506856e-09,
+        1.2246838318836785e-09,
+        -7.031055497239112e-10
+      ],
+      "resulting_palm_displacement_norm_nm": 3.2841016279807564,
+      "direction_guard_refusals": [
+        "index:direction_sse_increased",
+        "ring:direction_sse_increased"
+      ],
+      "direction_sse_increases_by_part": {
+        "index": 1.1391705287411291e-11,
+        "ring": 1.7226863569322348e-08
+      },
+      "invalidated_original_direction_sites_by_part": {},
+      "interpretation": "Joint-dominated alternative: originally zero requested translation; nanometre translation introduced by one frozen inward-cap restoration iteration. Does not meaningfully test millimetre palm relocation in the full-grid audit."
+    },
+    {
+      "source_inventory_index": 16,
+      "callback_sequence": 64,
+      "proposal_sequence": 72,
+      "sweep": 1,
+      "radius_scaled": 1.0,
+      "direction": "joint_19_positive",
+      "requested_joint_name": "THJ5",
+      "requested_joint_change_rad": 0.025,
+      "requested_palm_displacement_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "proposal_computed_original_cap_excess_m": [
+        -4.526391418487388e-06,
+        1.9949319973733282e-17,
+        1.6479873021779667e-17,
+        2.6020852139652106e-17,
+        1.214306433183765e-17
+      ],
+      "restoration": "cheap_FK_SLSQP_projection",
+      "restoration_optimizer": {
+        "success": true,
+        "status": 0,
+        "message": "Optimization terminated successfully",
+        "iterations": 1,
+        "state_scaled": [
+          1.4701110590509994e-07,
+          2.4449708399449968e-08,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.8117073295782197e-08,
+          2.4821216567481e-08,
+          -2.3631643841541004e-10,
+          -4.734449947549071e-09,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.078146366913938e-08,
+          0.0,
+          -3.9947075923453895e-08,
+          -1.1124991811624408e-08,
+          3.4107258167906135e-09,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.1210815926685652e-07,
+          -2.0403170449411256e-07,
+          9.792549906087317e-09
+        ],
+        "tightened_tip_caps_m": [
+          0.015162633417692462,
+          0.0009077736973615047,
+          0.004131133330051065,
+          0.005055618702892992,
+          0.007977210513655384
+        ],
+        "tightened_mean_target_m": 0.009999999
+      },
+      "resulting_palm_displacement_m": [
+        -5.605407963342826e-10,
+        -1.0201585224705628e-09,
+        4.896274953043659e-11
+      ],
+      "resulting_palm_displacement_norm_nm": 1.1650436670640176,
+      "direction_guard_refusals": [
+        "ring:direction_sse_increased",
+        "little:direction_sse_increased",
+        "thumb:original_valid_sites_invalidated",
+        "thumb:direction_sse_increased"
+      ],
+      "direction_sse_increases_by_part": {
+        "ring": 1.1512479034317402e-09,
+        "little": 2.7511802766500004e-09,
+        "thumb": 0.1751543586222712
+      },
+      "invalidated_original_direction_sites_by_part": {
+        "thumb": 17
+      },
+      "interpretation": "Joint-dominated alternative: originally zero requested translation; nanometre translation introduced by one frozen inward-cap restoration iteration. Does not meaningfully test millimetre palm relocation in the full-grid audit."
+    }
+  ],
+  "method_review_corrections": [
+    "V1 stopped at its search-budget boundary with127 full callbacks per case under declared cap128; one possible final fallback callback reservation remained unused.",
+    "Tiny selected shifts range1.165\u20133.284nm; use about1\u20133nm or1.2\u20133.3nm.",
+    "The diagnostic nonzero-shift policy has no minimum physical magnitude. The3 tiny-shift full-grid audits cannot establish the value of substantial palm relocation for their cases. Millimetre alternatives were scored and refused separately during fitting.",
+    "Do not call all3 diagnostic guard refusals numerical noise: milk-boxA additionally invalidates17 thumb sites and increases thumb direction SSE by0.1751543586222712."
+  ]
+}

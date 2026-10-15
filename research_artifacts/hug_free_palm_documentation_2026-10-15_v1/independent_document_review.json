@@ -1,0 +1,77 @@
+{
+  "schema": "hug_free_palm_final_documents_review_v1",
+  "review_utc": "2026-10-15T05:34:28.754817+00:00",
+  "verdict": "PASS with two minor wording suggestions; no blocking scientific/count/provenance issue.",
+  "reviewed_file_sha256": {
+    "report_final.md": "a70e8e4b72bef9e959ac442402fcc06be41e568cb60723412e5287bdb3aa9bf7",
+    "hug_after.tex": "6729742fb4eff106348c14746540d55e33e4092da16cdc58c2764e052f1d3f10",
+    "abstract_after.tex": "7aa4722d9e68edc445c3a57ec9e09da1db94c8f2c69d079bd590263e5d329f2d",
+    "decisions_append.md": "295041d2720468fcd62ec457ba2ecd244a83bf951eb48ac3506fdecd9d1a4aa2",
+    "handoff_append.md": "d0e93f8aca71c14a776775068f4302f9ff36ec3aea1d664885a5cb03fb6e8f6d",
+    "progress_append.md": "1c83da8438b3b2eb455ffd5628629e86d28da2c2b8fde671410c8c35e8c40542"
+  },
+  "evidence_summary_sha256": {
+    "initial9": "8e12ac7cedfd18889f6501d1152e1d53a29bfd2978b158b796ee4b4872e711cb",
+    "supplemental5": "22bdddc04b30f1828fac6367987569e5684d58cdafbb10b17e0ba93be27747ef"
+  },
+  "verified": {
+    "initial_strict_proximity_counts": {
+      "FAIL": 9
+    },
+    "initial_orientation_counts": {
+      "FAIL": 7,
+      "UNRESOLVED": 2
+    },
+    "supplement_strict_proximity_orientation_counts": {
+      "FAIL": 5
+    },
+    "intentional_seed_cross_reference_strict": {
+      "FAIL": 9
+    },
+    "intentional_seed_cross_reference_orientation": {
+      "FAIL": 7,
+      "UNRESOLVED": 2
+    },
+    "fresh_comparisons": 14,
+    "diagnostic_robot_poses": 9,
+    "existing_native_grasps": 6,
+    "initial_witness_rows_and_distinct": [
+      44,
+      39
+    ],
+    "supplement_witness_rows_and_distinct": [
+      42,
+      36
+    ],
+    "summary_arithmetic_checks": [
+      1586,
+      1478
+    ],
+    "four_per_part_area_intervals": "All printed4decimal endpoints match source; zero lowerbound/positive upperbound interpreted as unresolved absence, positive lowerbounds not used to infer total-error increase."
+  },
+  "scope_review": [
+    "Original and supplemental selection/audit protocols kept separate,with no pooling as independent grasps.",
+    "No global translation/optimizer infeasibility implied.",
+    "Original tip caps correctly described as approximation-error nonregression,not physical accuracy margins.",
+    "Additional direction selector distinguished from independent scientific acceptance.",
+    "Actual wrist/palm orientation distinction now explicit.",
+    "No inference,physics,new evaluationdata,training,GPUprovisioning or production promotion claimed.",
+    "Future counterexample-constrained fitting clearly proposed,not implemented; continuous coverage remains required.",
+    "Historical unchanged paper paragraphs not newly reaudited in this document review."
+  ],
+  "minor_suggestions": [
+    {
+      "file": "hug_after.tex",
+      "old": "one separately frozen56-seed fine study",
+      "new": "one separately frozen fine study with56seeds per grasp"
+    },
+    {
+      "file": "hug_after.tex",
+      "old": "Positive added-type thumb mismatch bounds also remain",
+      "new": "Positive added-type thumb mismatch bounds are also present",
+      "reason": "Avoid implying original coarse2mm thumb lowerbounds were already positive; original zeros do not establish absence."
+    }
+  ],
+  "new_experiments": false,
+  "archived_scientific_artifacts_edited": false
+}

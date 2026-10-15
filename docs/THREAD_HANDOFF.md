@@ -1,12 +1,12 @@
 # New-thread handoff: grasp failure project
 
-> **Latest continuation, 14 October 2026:** Read the
-> [parallel-provider coordination guide](PARALLEL_GENERATOR_VALIDATION_HANDOFF.md)
-> and [completed HUG feasibility repair](HUG_FEASIBLE_REFINEMENT.md) before the
-> historical snapshot below. Six improved HUG fits now pass all fingertip caps,
-> but all nine strict surface comparisons still FAIL. The current title is
-> *Evaluating Simulation Diversity for Grasp Failure Prediction*. No new eval
-> data or training is authorized in this mapping-validation phase.
+> **Latest continuation, 15 October 2026:** Read the
+> [HUG per-grasp palm-position study](HUG_FREE_PALM_MAPPING_STUDY.md) and
+> [parallel-provider coordination guide](PARALLEL_GENERATOR_VALIDATION_HANDOFF.md).
+> The user chose to retain Shadow. Intentional palm-shift alternatives preserve
+> original fingertip caps, but all nine referenced strict surface comparisons
+> still FAIL. The initial nine and separate five-comparison coverage supplement
+> remain distinct evidence. No new eval data or training is authorized here.
 
 Prepared 13 October 2026. Verified project state through `0bc3bf4`; this handoff
 adds documentation only. Start by reading `AGENTS.md` and checking current Git
@@ -550,3 +550,14 @@ A separate same 7-cell/8-box radial study, independently replayed at 90 digits w
 Keep all V1/V2/V3 history: fused-forearm body lookup stop after in-memory C; named-joint-order stop after C export; then reviewed source-chain/named-permutation corrections and exact C bytes. Production, source proposals, hand/object assets and frozen acceptance are unchanged. Six new experimental robot retargets are saved; zero fresh native HUG proposals, physics/eval data/labels or training.
 
 The asynchronous user question asks which failure label is intended: executed common-Shadow retarget (recommended for one robot across generators, requiring a declared per-grasp placement policy and distortion reporting), or native MANO hand failure (separate native-hand simulator path). Await the answer before dependent implementation; do not infer approval from elapsed time. Preserve the current paper and other-provider dirty files on codex/project-work; no new branch/PR.
+
+
+<!-- hug-free-palm-2026-10-15-v1 -->
+
+## 15 October 2026 — Completed per-grasp HUG palm-position study
+
+The user chose to retain the common Shadow Hand and test translations of the existing HUG grasps. This resolves the target-choice question in the canonical-calibration report. Read [HUG_FREE_PALM_MAPPING_STUDY.md](HUG_FREE_PALM_MAPPING_STUDY.md) for current results and exact evidence paths.
+
+Both guarded fits return all six original poses. Alternatives preserve original fingertip caps, but the initial nine full-grid comparisons and separate five-comparison explicit-seed supplement all FAIL strict surface preservation. Intentional-seed alternatives for all six have actual palm movements 0.031372–4.891691 mm. The 14 measurements come from nine robot poses derived from six saved native grasps. Preserve each protocol, all refusals, original source assets, the frozen criteria and other providers' ongoing work. Production is unchanged. No new eval data, inference, physics or training was generated.
+
+Next technical proposal (not executed): constrain existing whole-cell/sign-reversal counterexamples directly, retain original fingertip/domain gates, then perform full-field checks and address continuous orientation coverage. Do not describe this as a solved mapping or repeat optimization until a convenient PASS. Do not ask the user again whether to retain Shadow; that choice is explicit.

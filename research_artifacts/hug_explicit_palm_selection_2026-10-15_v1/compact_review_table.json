@@ -1,0 +1,106 @@
+{
+  "schema": "hug_explicit_palm_seed_diagnostic_table_v1",
+  "candidate_sha256": "4b428a5247dfc0d9ce342e333a404af31826e0af48771e9bcde5057afc166ba9",
+  "selection_report_sha256": "5df636443b2294be3d917a9e4eeeadd3fe3e151ed03c6812846c8465eda7609f",
+  "rows": [
+    {
+      "source_inventory_index": 8,
+      "method": "fine_translation_v2",
+      "seed_index_zero_based": 51,
+      "seed_label": "fine_translation_0.00015625m_diagonal_+1_-1_-1",
+      "proposal_sequence": 52,
+      "callback_sequence": 53,
+      "requested_translation_world_m": [
+        9.021097956087904e-05,
+        -9.021097956087904e-05,
+        -9.021097956087904e-05
+      ],
+      "requested_translation_norm_m": 0.00015625000000000003,
+      "actual_palm_translation_world_m": [
+        2.518237826729921e-05,
+        -4.36469233117656e-05,
+        -3.8746894533227024e-05
+      ],
+      "actual_palm_translation_norm_m": 6.356514709925172e-05,
+      "baseline_objective": 7.567033421375607,
+      "candidate_objective": 7.577273447006447,
+      "original_mean_tip_error_m": 0.005844763229805265,
+      "candidate_mean_tip_error_m": 0.005838904279830026,
+      "max_exact_original_cap_excess_m": -1.0000000150861554e-09,
+      "direction_guard_pass": false,
+      "direction_guard_refusal_reasons": [
+        "index:original_valid_sites_invalidated",
+        "index:direction_sse_increased"
+      ],
+      "diagnostic_not_promoted": true
+    },
+    {
+      "source_inventory_index": 12,
+      "method": "free_palm_v1",
+      "seed_index_zero_based": 21,
+      "seed_label": "translation_0.005m_diagonal_+1_-1_-1",
+      "proposal_sequence": 22,
+      "callback_sequence": 23,
+      "requested_translation_world_m": [
+        0.0028867513459481294,
+        -0.0028867513459481294,
+        -0.0028867513459481294
+      ],
+      "requested_translation_norm_m": 0.005000000000000001,
+      "actual_palm_translation_world_m": [
+        0.0008554246834155145,
+        -0.0012889935260797585,
+        -0.0012596319548034082
+      ],
+      "actual_palm_translation_norm_m": 0.001994975779510598,
+      "baseline_objective": 8.037699129880897,
+      "candidate_objective": 7.966316304005584,
+      "original_mean_tip_error_m": 0.005866398814300645,
+      "candidate_mean_tip_error_m": 0.005708878169151825,
+      "max_exact_original_cap_excess_m": -9.999986576650355e-10,
+      "direction_guard_pass": false,
+      "direction_guard_refusal_reasons": [
+        "index:original_valid_sites_invalidated",
+        "index:direction_sse_increased",
+        "middle:original_valid_sites_invalidated",
+        "middle:direction_sse_increased",
+        "little:direction_sse_increased"
+      ],
+      "diagnostic_not_promoted": true
+    },
+    {
+      "source_inventory_index": 16,
+      "method": "fine_translation_v2",
+      "seed_index_zero_based": 48,
+      "seed_label": "fine_translation_0.00015625m_diagonal_+1_+1_+1",
+      "proposal_sequence": 49,
+      "callback_sequence": 50,
+      "requested_translation_world_m": [
+        9.021097956087904e-05,
+        9.021097956087904e-05,
+        9.021097956087904e-05
+      ],
+      "requested_translation_norm_m": 0.00015625000000000003,
+      "actual_palm_translation_world_m": [
+        2.460652305221324e-06,
+        3.1252230654627917e-05,
+        1.2079847927603082e-06
+      ],
+      "actual_palm_translation_norm_m": 3.137221633733893e-05,
+      "baseline_objective": 10.194886947384989,
+      "candidate_objective": 10.201555455256177,
+      "original_mean_tip_error_m": 0.006646874932330682,
+      "candidate_mean_tip_error_m": 0.006645772806535918,
+      "max_exact_original_cap_excess_m": -9.999999855958563e-10,
+      "direction_guard_pass": false,
+      "direction_guard_refusal_reasons": [
+        "middle:original_valid_sites_invalidated",
+        "middle:direction_sse_increased",
+        "ring:direction_sse_increased",
+        "little:direction_sse_increased",
+        "thumb:direction_sse_increased"
+      ],
+      "diagnostic_not_promoted": true
+    }
+  ]
+}

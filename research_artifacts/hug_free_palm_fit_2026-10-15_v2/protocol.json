@@ -1,0 +1,416 @@
+{
+  "cases": [
+    {
+      "source_inventory_index": 8,
+      "native_sha256": "0b99bf1919f6d2c06b76361a2c710474c333d83a3ee750a25fb90490cd3b765c",
+      "densities_mm": [
+        2
+      ]
+    },
+    {
+      "source_inventory_index": 12,
+      "native_sha256": "2a1f9fd42435e90b5f3b9684c4fa1a7af92e2bcf60723cdc04ed7413a7d368d2",
+      "densities_mm": [
+        2
+      ]
+    },
+    {
+      "source_inventory_index": 16,
+      "native_sha256": "9b543c10c9c647f6c0986954381dff9e24aa4aaec338433b0b71b5f7458ce731",
+      "densities_mm": [
+        2
+      ]
+    },
+    {
+      "source_inventory_index": 20,
+      "native_sha256": "52ec7441c108f7a9704535c63611ff9d9da3d5f2871b57396b33fdb1e73a7d8b",
+      "densities_mm": [
+        2
+      ]
+    },
+    {
+      "source_inventory_index": 24,
+      "native_sha256": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+      "densities_mm": [
+        2
+      ]
+    },
+    {
+      "source_inventory_index": 28,
+      "native_sha256": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+      "densities_mm": [
+        2
+      ]
+    }
+  ],
+  "surface_configuration": {
+    "near_band_m": 0.01,
+    "near_sites": 192,
+    "broad_sites": 64,
+    "near_mass": 0.9,
+    "distance_scale_m": 0.002,
+    "closest_vector_weight": 1.0,
+    "normal_weight": 0.0,
+    "anchor_scale_m": 0.01,
+    "anchor_weight": 0.25,
+    "joint_delta_limit_rad": 0.35,
+    "joint_weight": 0.05,
+    "max_nfev": 60,
+    "diff_step": 0.0001,
+    "ftol": 1e-05,
+    "xtol": 1e-05,
+    "gtol": 1e-05,
+    "loss": "soft_l1",
+    "f_scale": 0.2
+  },
+  "direction_configuration": {
+    "bins_per_part": 64,
+    "score_weight": 1.0,
+    "invalid_penalty": 2.0,
+    "fixed_mass_per_part": 0.16666666666666666,
+    "score_endpoint_arithmetic_allowance": 1e-12,
+    "native_and_baseline_eligibility": "Fixed original 5 mm common-same-label exterior, unique normal/point/label, unburied, both closest points outside actual visible object under literal old normal protocol. No eligible sites means unavailable part, with no mass redistribution.",
+    "candidate_eligibility": "Reevaluate actual nearest full-hand part/normal/ties/inside/buried/miss/closest-visual membership at fixed reference bins. Invalid site retains nonzero residual 2.0 instead of being dropped."
+  },
+  "query_cache_root": "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces",
+  "query_cache_sha256": {
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_apple_scene_002_seed_0_density2mm_queries.npz": "fd3500b5902969e941aa81eabe9e1ec345a489098a31fe438ba65f02ce714980",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_apple_scene_003_seed_0_density2mm_queries.npz": "8d032590372a532da4eb62e7abb161553e459223d29764b229e168c4e1e6f5e0",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_milk_box_scene_000_seed_0_density2mm_queries.npz": "291618ec92db0c4e5b1dd857d4ffba8e556efc7a2a8feb3068b89eae9276ce17",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_milk_box_scene_001_seed_0_density2mm_queries.npz": "999a927e524ab6030e104443ac48659cc89a199080d98b1afbeb4bd6781af7e2",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_mug_scene_002_seed_0_density2mm_queries.npz": "2b405e6db66bc8ac4cd89227768bf8727bea8c64d1d2cafd24a2795f241ca754",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_mug_scene_003_seed_0_density2mm_queries.npz": "3375410e0b77554bba816e13e3a0f32620df9850d370634e8366187e8b48bfbb"
+  },
+  "original_full_distance_root": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral",
+  "full_cache_sha256": {
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_milk_box_scene_001_seed_0_density2mm_full_current.npz": "3c856dcf431ac34b171017db46ab9305759d4a084164cce9f04ff2b66cad803a",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_002_seed_0_density2mm_full_current.npz": "3516644c43d78e2df25eea75a8688b4738800f43e90be03d41696649caf17a89",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_apple_scene_003_seed_0_density2mm_full_current.npz": "92613f6b786541ec3258b018a60f0fa80866b6a737c3c01bcd8f6c36338c162d",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_milk_box_scene_000_seed_0_density2mm_full_current.npz": "7e24fb9877f01f657023a016c5c9a6ccef584c0ccfdf3f3d935ee3d8f8add629",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_003_seed_0_density2mm_full_current.npz": "53f7f95300612c331145b396d789cd1cc56d60cc14db0cbbd0b14e886a25407e",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_apple_scene_002_seed_0_density2mm_full_current.npz": "666e99575cbf58963723f8e872cf6df7c49d3dcfcee363c6cceb944d4f8c6ffb"
+  },
+  "strict_acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4",
+  "numba_threads_per_process": 2,
+  "progress_full_evaluation_interval": 8,
+  "guarded_APIs": [
+    "mj_step",
+    "mj_step1",
+    "mj_step2"
+  ],
+  "numba_pool_capacity": 4,
+  "runtime_environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "4",
+    "OMP_DYNAMIC": "FALSE",
+    "MKL_DYNAMIC": "FALSE"
+  },
+  "schema": "hug_free_palm_development_protocol_v1",
+  "method_version": 2,
+  "method_stage": "free_palm_fine_translation_seed_v2",
+  "execution_authorized_by_root_review": true,
+  "draft_only_not_executed": false,
+  "solver_configuration": {
+    "maximum_mean_fingertip_error_m": 0.01,
+    "constraint_scale_m": 0.01,
+    "f_scale": 0.2,
+    "minimum_objective_improvement": 1e-12,
+    "restoration_inward_target_m": 1e-09,
+    "restoration_maxiter": 40,
+    "restoration_ftol": 1e-12,
+    "restoration_backtracks": 16,
+    "maximum_pattern_sweeps": 0,
+    "maximum_full_geometry_evaluations": 64,
+    "maximum_FK_evaluations": 6000,
+    "maximum_restorations": 256,
+    "evaluation_cache_size": 128,
+    "full_FK_agreement_allowance_m": 1e-12,
+    "initial_pattern_radius_scaled": 1.0,
+    "minimum_pattern_radius_scaled": 0.125
+  },
+  "allowed_cohorts": [
+    [
+      8,
+      16,
+      24
+    ],
+    [
+      12,
+      20,
+      28
+    ]
+  ],
+  "cohort_policy": "Exactly two disjoint fixed cohorts [8,16,24] and [12,20,28], maximum two processes, two Numba threads each; strict frozen merge requires all six once and consistent hashes/provenance. No reruns or overwrites in this version.",
+  "maximum_concurrent_processes": 2,
+  "direction_helper_path": "/private/tmp/hug_free_palm_fit_2026-10-15_v2/exact_direction.py",
+  "source_sha256": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/existing_hug_inventory.json": "5fc28832494c54c7822543a00ea735ab47e1d44d944ff50fc26712eb27536fcb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/static_saved_hug_fk.json": "04ebe393388193cf4ac256ea0fa0f61d8f2869805618d339c2572673f7445ae8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_palm_object_validation_2026-10-14/surfaces/audit_other_surfaces.py": "b235f8b88b5ecb0fc2bc842c3fdb4a17d4c2eb526f321a449169dcbc3cc27bdd",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/orientation/check_orientation.py": "344b491bf1538d6f451a4a14f0f757d9f8dc37808c7aace64449e8102c47a4f8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/orientation/protocol.json": "22ef5c539c4298589937312218272ea1d41bd1eae9a87e66b45f068dcbce0134",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/acceptance/acceptance_rule.json": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf": "29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/hug/assets/mano_models/models/MANO_RIGHT.pkl": "45d60aa3b27ef9107a7afd4e00808f307fd91111e1cfa35afd5c4a62de264767",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/__init__.py": "87b8cc4c5652151ca92f02eef5b3fb98d12a87657acc3c1f8cbcd0d580073df0",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/__init__.py": "8f1a89a1cf1bd5848362d879f44a406d1d871d4fd9f106e9a279755a27e0c110",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/schema.py": "48f56b918adf207368a9e05a040ca19d4b94928e50e786282f6927f45bd19d9d",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/retargeting.py": "a6631a0f0d20f6ef94c389529b7d6d677a8a8cd9f8e923efff19ccfee26aa4ff",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/pose_validation.py": "1136cdfe80c405031e7060c5f31dd3a0270400314e6ff5aa7a4630c487cdea75",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/surface_refinement.py": "0a6672bd5dd49822098dc50e3f5bd36a0a8b63ffca66f0cbf0a1b732eee672f3",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/constrained_surface_refinement.py": "0b29f867337cd11bb9128f5aa6ca92800338543055b286b40873d10f4d74f409",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/integrations/__init__.py": "0bc838fad37219f5d58677eac17c20dea29a18735ddd65ce38deccd30760f4fb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/integrations/hug.py": "48e9e62cace4add358b546f3d15cff19535463714613ad22eb955d6fb278dd5a",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/integrations/hug_frames.py": "cd7ad9b8df1d5d6adad70e949a9c7f21ad448a25710a54f47e1ffa95fa28562a",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/task_outcome_baseline_v1/proprioception_and_commands.npz": "16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/forearm_E3M5.obj": "67f719d4131da5edd1c43e8a560481087074833e3fe4580f4ffe0ea3d07691fb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/collision/forearm_E3M5.obj": "ae348fdf00c61695dbd484455070101e901d89f3977a7585ae575742cec4a3be",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/wrist_E3M5.obj": "29724f4640064dde710b3725cbd37b0ee1ba8e000b0b5ad402d66bbba284bd29",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/palm_E3M5.obj": "529d6bcf4f356aeaece8a9c884d98bc399d039fdb2f3174449aeaaf262aa812d",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_knuckle_E3M5.obj": "1452690f5f93875665e5b23f022e89fa04f2a6aab6e49ae0112db7821f759792",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/collision/f_knuckle_E3M5.obj": "7b76866ef85a388f79dba377293c7d12a17154d369c225e760afa9ccd5fa6b22",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_proximal_E3M5.obj": "adb5475347a153997da789b0ab46b3b1b945906c9bf6a4e28787150ed3afa8cd",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_middle_E3M5.obj": "c1c0b460c69894cbef8bc1ab8bfed6112832a20aa77531f3823a4fb8090daeac",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_distal_pst.obj": "04d7ddc2166089b0c670806c1d1eb4b47b8f8c48428c00581b0fe64d59d4e5f8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/collision/f_distal_pst.obj": "60fc4387b60b9362cdbc5b40d8f3869247cc5049de75fc6e7e7ae32cf8e87e33",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/lf_metacarpal_E3M5.obj": "def539fcdefb4399ae69cb4fc5b2c5296b43ec7015c5581c2b90e7643a030a62",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_proximal_E3M5.obj": "c021a0c066743274d4133d0e85146a3fa3433102616a5e56e2aa18ff602bf996",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/collision/th_proximal_E3M5.obj": "1763d80c8e34ed86bc20f0de67cd683aaf10eb7ff3b8395a9ab2b35554183c4c",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_middle_E3M5.obj": "49416cd8b0ca8a976749cc7c954ce56a59fc9e4664c68fc931d14a1a53ffd2ba",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/collision/th_middle_E3M5.obj": "de7278a75a3cc202f7186f0e0701c22c2cd6cdaf6ea68f991cbefb819d7bce38",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/th_distal_pst.obj": "da8ca3aa9aeceeb6aac940a6db0605cac4014dcd496133080bc5787e217346ce",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_0/proposal.pkl": "0b99bf1919f6d2c06b76361a2c710474c333d83a3ee750a25fb90490cd3b765c",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_000520/scene.mjb": "5b785d4b81ba1bfdc2c78e1c0bdeda15e1e928114ed65c8c4046ef5e3560cde8",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_000520/actions.npz": "88186f0c969d02ea96fecf57b81c8c308a0173c56fbb51b5c98e3b4d1da3efe4",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_0/T_world_camera.npy": "81b800da2014fcb6a104fbfc2d1b483f8d10b619912e2c3a7598f7a264abde00",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_0/scene_contract.json": "f491777efbd29022cc6037aabc18b2de8544dbb4d7cd23ad75f8f5139d8a3bb4",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_0/scene_state.npz": "a92612b1d20fc708e3d6019ef7036b22d50f289bd6726594613725abfa84b480",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_0/inference_report.json": "4bfaa4da3ce27d4f121985ed298b8f171f437f96792d654d1cc86af102b5ea34",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_000520/collection_metadata.json": "72bcd0665647fe6bb03ccb195dda9e8eccd0aabf870a7c6ad7ffeb9805756840",
+    "/private/tmp/hug_constrained_refinement_runtime_v2_1_2026-10-14/candidate_cohort_8.json": "ce4153660c096900244d16af0364ab96c8c7cbab6f298860b68bf99a627e7290",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_0/proposal.pkl": "2a1f9fd42435e90b5f3b9684c4fa1a7af92e2bcf60723cdc04ed7413a7d368d2",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_000780/scene.mjb": "5b785d4b81ba1bfdc2c78e1c0bdeda15e1e928114ed65c8c4046ef5e3560cde8",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_000780/actions.npz": "b30ed25a5767b1d03e505acd79619d9edf5fbce96f2b3b7c404e76fea5406f61",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_0/T_world_camera.npy": "c3f688f68a4a3cea9b0683db541bd7fe3c0d5f5fb90707767317617b46e2fc72",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_0/scene_contract.json": "d5082f855a952bf4bd59093b2465e5f761ff221b04b1409acbb7cdbbd7b3e617",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_0/scene_state.npz": "0f47a3402c0fdf805027deaab0332c6de444909f38b1e89ddd088a59906f970f",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_0/inference_report.json": "51b0953d1e1419e21b601f583264fe9ac9c62942d412532bfa952921a678adb4",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_000780/collection_metadata.json": "efb40dc28b6e29453dc2c3aa4086f8901f991375fcc8349fa03d04c7219d713f",
+    "/private/tmp/hug_constrained_refinement_runtime_v2_1_2026-10-14/candidate_cohort_12.json": "8525c804d5db1412c8240e1ceb3b45ce6a49eed57c00942ca8d7d6ac65e3fe38",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_0/proposal.pkl": "9b543c10c9c647f6c0986954381dff9e24aa4aaec338433b0b71b5f7458ce731",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001040/scene.mjb": "d9dbe859f2a7bc6934011b5fa4c4f55b31f21bd6b5bd1d2f8af3aacbc4443bb6",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001040/actions.npz": "8b1fbe791a34e13fdfe066c7e0f59e21738fca9aa495acbf288a066213357c39",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_0/T_world_camera.npy": "e8cb0b74edc3dff67ff1a150a6cb3643fec3b3e61c6cce386f9cfa7b78e8a6b7",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_0/scene_contract.json": "508643ef771c66b46362bde2178ba0e9c8aa68e42925bd9cf7723739ab43bdcc",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_0/scene_state.npz": "cfd0c05e3160cd82e8bf89a11fc83c00c7c11c69d8dacfde50e58fe1196b6615",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_0/inference_report.json": "b3072f1442ea140c81bf3e2b4a7dc07d8d09a77095dba8b33c8387a7701571fa",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001040/collection_metadata.json": "c9d8880937f45498255870c0fc6dc88fb96d373d8088f5105b73c7380ae429e6",
+    "/private/tmp/hug_constrained_refinement_runtime_v2_1_2026-10-14/candidate_cohort_16.json": "08618971d0da476847d1c8dc483d09f8e1514c5ef05b79852bcdecc855e87a5a",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_0/proposal.pkl": "52ec7441c108f7a9704535c63611ff9d9da3d5f2871b57396b33fdb1e73a7d8b",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001300/scene.mjb": "d9dbe859f2a7bc6934011b5fa4c4f55b31f21bd6b5bd1d2f8af3aacbc4443bb6",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001300/actions.npz": "6b88bb484facc16949456f7c6bfbca0dc2006657842b14f48690e375bec2408b",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_0/T_world_camera.npy": "e7c26cd8a6a34c855dc51f4694a3da696851ee74a0d28846a4942f61d5232bfe",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_0/scene_contract.json": "5e7cc17fc7579474bdca8ccf4297ea26afe8494a587a7958445821f255c183bc",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_0/scene_state.npz": "f31d60fa5bae41896b9c45a732d16dcd69b7dd1a8ec374a72297c61aa5517059",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_0/inference_report.json": "12fbeeb69c89fcc03a2c89d567dd5a6e8ec3b7371d03d2ba05cdb3ce60a3294b",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001300/collection_metadata.json": "57b274582713edd7178e6505388a5cac31da8d1b9b291116e676b497154ca0da",
+    "/private/tmp/hug_constrained_refinement_runtime_v2_1_2026-10-14/candidate_cohort_20.json": "a8b584519714de20103b62822c1105a0501553309e84d608ee99af0e6b420e2a",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_0/proposal.pkl": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001560/scene.mjb": "3b36e1826b962cc229d3f822cdf13b9f0d37de66749faf68b955aa1ef652dc2d",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001560/actions.npz": "f88e6f150b68027dd8425abecd78c2e1b562c94b8553f200e9c606c479b41cbb",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_0/T_world_camera.npy": "7cf921d5850c26bfb5ee491763efb56a5fb097f1b1197a269ba4b0b080d8bbcf",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_0/scene_contract.json": "31e90523b29c632662f600b3b01deffe624ea5ce0595f99f1a9570fe75013fdd",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_0/scene_state.npz": "4429fcfd1c52f456b48382a3528613f62ec0f97096894b777b3fce72d0dd9a5d",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_0/inference_report.json": "6a4241df32ae34cc2727d68548791b3db68fe407eb1ad3b3ccee603eb4810fa2",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001560/collection_metadata.json": "7bb9b03e9b3ce2b308b9bbc4afcd1e18bdca9108b6684d8cc3795021208366d0",
+    "/private/tmp/hug_constrained_refinement_runtime_v2_1_2026-10-14/candidate_cohort_24.json": "01363af9754dee1b17efba6930e4ca04f0f85a12be378daf295678c254dfbfe3",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/proposal.pkl": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001820/scene.mjb": "3b36e1826b962cc229d3f822cdf13b9f0d37de66749faf68b955aa1ef652dc2d",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001820/actions.npz": "519d55146c956a7ed29d60c5eda446f3affeca11a6936ed7582d578d917afc93",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/T_world_camera.npy": "dfd0bf5db56e1b9806918f2de09164b966fa15376959c2cd6d6455ceb4389a09",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/scene_contract.json": "a81892de93d866e8cf75c5ff2ae437075ee101f114980efcd36624c8d2b157c3",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/scene_state.npz": "9e968ec220f29f0ddda59e35280c779e50803dcba3279473d0985aaf136dbbae",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/inference_report.json": "63a26fa002622df0d8fa57776cad862d519dc07f6da5b1214ab841b871050017",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/collection_2080/episode_001820/collection_metadata.json": "e1d6298a52999609c71250d6ba40651559401b4af2956953c2130fb82a310a7a",
+    "/private/tmp/hug_constrained_refinement_runtime_v2_1_2026-10-14/candidate_cohort_28.json": "1c5855877e9be877447e72e8c7bcdd877f9c643b747f803db3a5ab779990e6eb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_guarded_geometry_validation_2026-10-14_v1/hug_apple_scene_002_seed_0_validation.json.gz": "4835575d2dc9346a100bd5761a888452d8265bcb9efc281dc82897cfbbc4e439",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_guarded_geometry_validation_2026-10-14_v1/hug_apple_scene_003_seed_0_validation.json.gz": "902ae5421fafb877b976bf5a4432011fde15cb87905cebb55bf43c3bec6f474f",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_guarded_geometry_validation_2026-10-14_v1/hug_milk_box_scene_000_seed_0_validation.json.gz": "c10fab3c77ee28398534bb1c711dc5146b759c0ba1e5f5bfb5e22f61caddb48a",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_guarded_geometry_validation_2026-10-14_v1/hug_milk_box_scene_001_seed_0_validation.json.gz": "20a6f2c8d0cb182dfeb32da55988c59ee9b298e47307a53014c9f036cd143d4d",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_guarded_geometry_validation_2026-10-14_v1/hug_mug_scene_002_seed_0_validation.json.gz": "5203eae4147604066d65b5e0dc491bfef80c2e04b4697516de90dc13f9155fc5",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_guarded_geometry_validation_2026-10-14_v1/hug_mug_scene_003_seed_0_validation.json.gz": "7f6255ae3cc3b1c4d0f7d71585f4c509432cc565031da58df09d9cb6bbb377c2",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v1/protocol.json": "0468b2b63a86832a65b9664ffdbf66daea043fcd5041445fd97fdd812fca291a",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v1/fit_summary.json": "880a34fbed7f1c6e1b33f1e593ba470ab280ea6c078828b2fa049dc46f446c28",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v1/candidate_targets.json": "7c09699dbaf749a75efdd5f563aa6d18745daddfd18d6ce6ed007c64f7893772"
+  },
+  "implementation_sha256": {
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v2/run_free_palm.py": "4557605dcbf6c0e100b5f62bf3fd3a34f0655f6cebf7e11d7eba8cd879cf362c",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v2/free_palm_solver.py": "a90ce0f71f239af06025b4e091b20e38e732386c33b97f121210346110966a8e",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v2/free_palm_kinematics.py": "2ab6e61be08fa2400d3e0b604c0583da478106ef4fe7a1973e1f9cbbc089e09e",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v2/keyed_direction_evidence.py": "6e5d764806c90bff69b53be7dc4a8c5a454b5eb695f5da097d08c47c0760e114",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v2/surface_component_guard.py": "77cebfcbfcfff22da591f9cda2dbbe2f072bd32953d7b9145c1e5d4004d5efc9",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v2/geometry_helpers.py": "2e5c3be519fb3d464377f8348329dc7b7f7ac4d8852281cfb26adf48d84d01ac",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v2/exact_direction.py": "c20380677f727206830e3e87beebd91948009ffb83dc341c53dad2fc5df9baae",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v2/merge_free_palm.py": "622d04bcd6dca3c0b0bc860b65a90808cfeaacbd3907abe4ba48772b29b9b189",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v2/test_free_palm.py": "eb75c3cdf1c1e6698e305efe03ba318cf54ca3cb064f0a6a2e8bf0908b98cba7",
+    "/private/tmp/hug_free_palm_fit_2026-10-15_v2/test_keyed_direction_evidence.py": "2b687c41788acf1544b10307570924c388578d55fb261e9b0b83e35750bad8be"
+  },
+  "protected_snapshot_sha256": "731eea20d74d575d54e812509586b0de73c0cdb0ff6fb8195203eccb761b3654",
+  "protected_source_count": 89,
+  "dependency_closure_scope": "Relevant imported HUG numerical modules, frozen geometry/protocol/rule, source URDF and referenced meshes, old raw reports, saved native/source/frame/scene/command assets and immutable predictor. Concurrent paper/docs/unrelated provider code explicitly excluded because not called.",
+  "constraint_policy": "All five ORIGINAL native-relative tip norms nonworsening by exact computed comparison and strict10mm mean. NO acceptance allowance; 1nm inward restoration target is stricter only. Original source-URDF bounds intersect q0 +/- .35rad. Source poor proposals retained.",
+  "surface_objective_policy": "Literal frozen old quadrature/distance/closest-point/native-facing/anchor/joint objective unchanged. Original normal missingmass, away targets and invalid penalties unchanged. No surfacecalls at infeasible points.",
+  "cache_policy": "Exact full27 normalized-state float64 bytes key; complete detached callback values/native-normal diagnostics recorded losslessly; duplicate full state must reproduce values exactly.",
+  "scope": "Single frozen fine-scale static follow-up on the same six existing development grasps. No inference, physics, eval outcomes or training.",
+  "limitations": [
+    "Six previously inspected development grasps only. Finite local search cannot prove global infeasibility or convergence.",
+    "Source URDF reach domain is a conservative necessary outer box, not a guarantee every anchor is fingertip feasible.",
+    "Same literal part-labelled collider surfaces, skin-weight correspondence, fixed quadrature and native-away targets as prior frozen study.",
+    "All old original-native caps and10mm mean unchanged. Passing these engineering checks alone is not scientific mapping acceptance.",
+    "Independent full proximity/orientation audits required. No inferred outcomes, lift success, inference, physics integration, eval episode or predictor training."
+  ],
+  "exact_guard_norm_definition": "sqrt(einsum(ij,ij->i, vectors, vectors)); diagnostic linalg norm retained separately.",
+  "runtime_python": "/Users/nilakarthikesan/grasp-failure-prediction/.venv/bin/python",
+  "component_guard_implementation_sha256": "77cebfcbfcfff22da591f9cda2dbbe2f072bd32953d7b9145c1e5d4004d5efc9",
+  "direction_guard_policy": {
+    "per_part_fixed_direction_SSE_increase_allowance": 0.0,
+    "original_valid_site_invalidation_allowed": false,
+    "fixed_mass_per_available_part": 0.16666666666666666,
+    "unavailable_mass_redistributed": false,
+    "invalid_site_residual": 2.0,
+    "negative_native_targets_preserved": true
+  },
+  "runtime_execution_policy": "Exactly two disjoint fixed cohorts [8,16,24] and [12,20,28], maximum two processes, two Numba threads each; strict frozen merge requires all six once and consistent hashes/provenance. No reruns or overwrites in this version.",
+  "runtime_dependency_path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src:/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/hug-deps:/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps:/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/deps/cmeel.prefix/lib/python3.12/site-packages",
+  "python_version": "3.12.13",
+  "runtime_packages": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "mujoco": "3.3.7",
+    "numba": "0.67.0"
+  },
+  "inherited_protocol_history": {
+    "path": "/private/tmp/hug_guarded_geometry_2026-10-14_v1/protocol.json",
+    "sha256": "d7d489505bd707278a3b0eb0aaedd447182af101ab60b10f40ea0daa221c9ed0",
+    "historical_source_commit": "e3e08bc",
+    "only_inherited_scientific_contents": "Surface objective/labels/sites/direction guard definitions and protected input closure; original method/domain/seed/budget statements superseded by this new version."
+  },
+  "source_branch_commit": "114ce9b",
+  "palm_anchor": "Original native wrist + per-grasp world translation. Actual floating-root quaternion fixed; forearm position compensates joint-dependent wrist-to-palm FK and requested palm displacement.",
+  "maximum_full_surface_evaluations_per_case": 64,
+  "selection_policy": "Exactly56 fine translation seeds restored under original fingertip caps and same direction guard, zero pattern sweeps, at most64fullcallbacks, fresh terminal checks. Stop this declared extension regardless of result.",
+  "state_coordinates": {
+    "dimension": 27,
+    "indices_0_23": "(actual q_rad - original q_rad)/0.025rad; original named order",
+    "indices_24_26": "world XYZ palm displacement/0.005m",
+    "q0_state": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "joint_scale_rad": 0.025,
+    "translation_scale_m": 0.005,
+    "search_scale_not_acceptance_tolerance": true
+  },
+  "placement": "Preserve actual saved floating-forearm root quaternion exactly. Set joints and baseline forearm position, mj_forward, then compensate forearm position to native wrist + variable world displacement; mj_forward only. Native targets unmodified.",
+  "domain": {
+    "joints": "literal source URDF bounds intersect original q +/-0.35rad, normalized endpoints rounded inward only until decoded joints remain within literal bounds",
+    "translation": "AABB enclosing intersection of five balls centered at ORIGINAL native world fingertip targets, radii source palm-to-tip chain translation-length sums + ORIGINAL exact caps +1um outer computational padding",
+    "translation_padding_is_only_outer_search_domain_not_acceptance": true,
+    "new_root_orientation": false
+  },
+  "predeclared_seeds": {
+    "count": 56,
+    "order": "For each distance1.25,.625,.3125,.15625mm: six XYZaxis +,- then eight normalized cube diagonals signs+,- lexicographic. All original joints and original anchor, clamp to original conservative domain.",
+    "units": "optimization hyperparameters only, not accuracy tolerances or measured witness gaps",
+    "seeds_frozen_before_first_case_surface_callback": true
+  },
+  "analytic_jacobian": "mj_jac at each actual URDF virtual fingertip world point on its parent distal body MINUS mj_jac at actual palm origin, named joint dof columns*.025rad; append .005m identity world displacement. Norm Jacobian uses error dot vectorJ/norm; zero norm rows zero. All declared gates must pass before search.",
+  "analytic_jacobian_verification": {
+    "step": 0.0001,
+    "tolerance_m_per_state": 1e-08
+  },
+  "prior_original_cap_bindings": {
+    "8": {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_guarded_geometry_validation_2026-10-14_v1/hug_apple_scene_002_seed_0_validation.json.gz",
+      "sha256": "4835575d2dc9346a100bd5761a888452d8265bcb9efc281dc82897cfbbc4e439"
+    },
+    "12": {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_guarded_geometry_validation_2026-10-14_v1/hug_apple_scene_003_seed_0_validation.json.gz",
+      "sha256": "902ae5421fafb877b976bf5a4432011fde15cb87905cebb55bf43c3bec6f474f"
+    },
+    "16": {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_guarded_geometry_validation_2026-10-14_v1/hug_milk_box_scene_000_seed_0_validation.json.gz",
+      "sha256": "c10fab3c77ee28398534bb1c711dc5146b759c0ba1e5f5bfb5e22f61caddb48a"
+    },
+    "20": {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_guarded_geometry_validation_2026-10-14_v1/hug_milk_box_scene_001_seed_0_validation.json.gz",
+      "sha256": "20a6f2c8d0cb182dfeb32da55988c59ee9b298e47307a53014c9f036cd143d4d"
+    },
+    "24": {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_guarded_geometry_validation_2026-10-14_v1/hug_mug_scene_002_seed_0_validation.json.gz",
+      "sha256": "5203eae4147604066d65b5e0dc491bfef80c2e04b4697516de90dc13f9155fc5"
+    },
+    "28": {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_guarded_geometry_validation_2026-10-14_v1/hug_mug_scene_003_seed_0_validation.json.gz",
+      "sha256": "7f6255ae3cc3b1c4d0f7d71585f4c509432cc565031da58df09d9cb6bbb377c2"
+    }
+  },
+  "actual_geometry_measured_before_freeze": false,
+  "trace_policy": "Every full callback complete residual/native-normal diagnostics saved losslessly to immutable deterministic gzip; exact27-state metadata cache retains values. Cohort JSON records every proposal/refusal/event; merger writes compact selected poses and lossless cohort gzip.",
+  "literal_scientific_acceptance_unchanged": true,
+  "direction_guard_role": "Additional conservative development selector requiring each available fixed native direction component not worsen and original valid bins remain valid; not the scientific acceptance rule.",
+  "optimization_order": "Four fixed fine-scale groups,6axes+8diagonals each. Original q0/native caps never rebased. No broadseed repetition and no additional pattern directions.",
+  "callback_budgets": "Per case max64fullcallbacks incl terminal reserves,6000cheapFK and6000analyticJac callbacks separately,256restorations. Pre-solver Jacobian gate/final independent FK counted separately.",
+  "preceding_study": {
+    "protocol_path": "/private/tmp/hug_free_palm_fit_2026-10-15_v1/protocol.json",
+    "protocol_sha256": "0468b2b63a86832a65b9664ffdbf66daea043fcd5041445fd97fdd812fca291a",
+    "summary_path": "/private/tmp/hug_free_palm_fit_2026-10-15_v1/fit_summary.json",
+    "summary_sha256": "880a34fbed7f1c6e1b33f1e593ba470ab280ea6c078828b2fa049dc46f446c28",
+    "candidate_path": "/private/tmp/hug_free_palm_fit_2026-10-15_v1/candidate_targets.json",
+    "candidate_sha256": "7c09699dbaf749a75efdd5f563aa6d18745daddfd18d6ce6ed007c64f7893772",
+    "trigger": "All six V1 selections were exact original fallbacks. Root authorized one finite previously unvisited fine-scale/direction extension. This is an explicitly exploratory follow-up, not independent held-out validation."
+  },
+  "manufactured_controls": {
+    "count": 26,
+    "result": "PASS",
+    "log_path": "/private/tmp/hug_free_palm_fit_2026-10-15_v2/manufactured_tests.log",
+    "log_sha256": "e376ed5adb972501b91e75523e52aa91d75bfdffcdca5f81873d92d332c5272c",
+    "only_manufactured_inputs": true
+  },
+  "frozen_utc": "2026-10-15T04:58:01.081196+00:00",
+  "final_review_binding": {
+    "path": "/private/tmp/hug_free_palm_review_2026-10-15_v1/fine_preexecution_review.json",
+    "sha256": "58a9d461610fd53a95c9ccf74ade6a7a9587f846f6c51b39f59b01b4ecd7287e",
+    "reviewed_draft_sha256": "ae695e6d9ee92b1f91a80a5605b631782d5e17d31648bda50e62508eabbcced1"
+  },
+  "root_review": "Root authorized launch after independent final review PASS, with original acceptance unchanged and no inference/physics/eval data."
+}
