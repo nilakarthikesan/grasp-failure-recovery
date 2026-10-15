@@ -1,0 +1,27 @@
+{
+  "schema_version": "independent_compiled_pose_oracle_review_v1",
+  "reviewed_script": "/private/tmp/compiled_hand_audit_20261015_v1/control/pose_audit.py",
+  "reviewed_script_sha256": "ff8b77746265edb8a3cdb327736cd23f925f2b7642198ef0fbf87df172c2c260",
+  "reviewed_saved_report": "/private/tmp/compiled_hand_audit_20261015_v1/control/pose_audit_before_v2.json",
+  "reviewed_saved_report_sha256": "5d63d32c27eb84f8d3d54ff60d4a54848da3309a7c90d426f7fdae90018521dd",
+  "status": "PASS_READ_ONLY_CODE_REVIEW_WITH_EXPLICIT_SCOPE_LIMITS",
+  "checks": [
+    "Independent URDF XML hierarchy and RzRyRx joint origins combined with normalized-axis revolute exponentials; no production FK imports.",
+    "Compiled-state root compensation is algebraically appropriate for object_from_target_palm and arbitrary nonzero WRJ1/WRJ2; checks qpos preservation and time=0 after mj_kinematics.",
+    "Fixed tip links fused by MuJoCo are reconstructed through fixed XML ancestors rather than silently missing frames.",
+    "Mesh import comparison properly removes compiled mesh recenter/principal-axis transform from geom local pose, and restores compiled centered vertices with mesh_pos/mesh_quat before comparison to declared scaled OBJ points.",
+    "Cloud nearest-neighbor pairing uses both directions and independently reports declared/compiled vertex counts. It is clearly limited to vertex-cloud agreement, not topology or convex exterior.",
+    "Strict limit checks retain all rejects and compare declared versus compiled limits without clipping or tolerance changes.",
+    "All three models use the same cohort and three nonzero-wrist/rotated-root manufactured controls.",
+    "Physics, forward/inverse solver, integration and model calls are blocked; only static mj_kinematics executes."
+  ],
+  "limitations": [
+    "Code review and saved-report inspection, not a redundant full geometry rerun.",
+    "A static reconstruction PASS establishes conversion consistency only; no native contact equivalence, physical validity, evaluation authorization or scientific acceptance follows.",
+    "Slightly nonorthogonal requested matrices are explicitly tracked separately from quaternion-projected reference; generator outputs with existing numeric defects remain labeled by original_status."
+  ],
+  "blocking_findings": [],
+  "new_physics_steps": 0,
+  "new_geometry_queries": 0,
+  "new_evaluation_data": false
+}

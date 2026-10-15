@@ -1,0 +1,19 @@
+{
+  "schema": "compiled_hand_conversion_protocol_v1",
+  "date": "2026-10-15",
+  "scope": "Saved native-to-target conversions and declared target XML to compiled scene fidelity, not grasp or generator acceptance",
+  "unchanged_target_urdf_sha256": "29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+  "scientific_acceptance_criteria": "All existing provider and native-fidelity criteria remain unchanged; this diagnostic cannot promote a rejected grasp or provider",
+  "before_tests": "Four numerical fidelity regressions fail and three static construction/placement tests pass on the old builder; preserve this result",
+  "checks": {
+    "native_identity": "Retain every saved input hash and original acceptance/rejection status; no clipping or pose optimization",
+    "compiled_parameters": "Exact equality of shared declared-target compiled body/joint/geometry/mesh fields and actuator control ranges",
+    "kinematics": "Independent XML FK vs compiled kinematics at actual saved poses; residuals reported, numerical engineering tolerance 1e-12 m and 1e-12 rotation-matrix components",
+    "float32_native_rotations": "Report raw nonorthogonality and representable quaternion projection separately; do not silently discard it or call it source fidelity",
+    "object_import": "Static off-center compound mesh and rotated inertial fixture, at most 2e-15 numeric difference",
+    "root_controls": "Nonzero wrists and rotated/translated target palm; wrong-root negative controls",
+    "actuation": "24 unchanged named force-limited servos, unchanged gains/damping/weld and simulation options; no rollout"
+  },
+  "prohibited": ["mj_step", "mj_step1", "mj_step2", "runner.execute", "runner._advance", "native inference", "retarget fitting", "new evaluation episodes or labels", "training"],
+  "historical_results": "Retain original result bundles; report corrected compiler as a new implementation version requiring separate future validation"
+}

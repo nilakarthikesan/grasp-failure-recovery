@@ -51,7 +51,7 @@ def main():
     summary={'baseline_validation_passed':valid,'exact_repeat_qpos':exact_repeat,'trials':reports,
              'scope':'One engineered cube grasp, ideal arm carrier, simulated 24-servo hand; not unchanged HUG or hardware validation'}
     (args.output/'report.json').write_text(json.dumps(summary,indent=2)+'\n')
-    mujoco.mj_saveLastXML(str(args.output/'scene.xml'),probe.model)
+    mujoco.mj_saveModel(probe.model,str(args.output/'scene.mjb'))
     if not valid:
         raise SystemExit('Baseline validation did not pass; inspect reports')
 

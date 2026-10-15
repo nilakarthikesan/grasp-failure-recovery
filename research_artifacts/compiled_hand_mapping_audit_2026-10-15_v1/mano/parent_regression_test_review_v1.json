@@ -1,0 +1,40 @@
+{
+  "schema_version": "compiled_target_regression_test_review_v1",
+  "reviewed_file": "/private/tmp/compiled_hand_audit_20261015_v1/control/test_compiled_shadow_conversion.py",
+  "reviewed_sha256": "d7bc71e27439d0e29330972f679e4625c04ae5bbab2cd9204356d13ff1f0d597",
+  "execution": "READ_ONLY_TEST_REVIEW_NO_TESTS_RUN",
+  "test_count_expected": 7,
+  "finding": "Meaningful regression tests compare independent original floating URDF compilation against constructed fixed/actuated scenes and exercise nonzero-wrist placement at zero time. Tests forbid stepping/execution paths. No blocker in existing coverage, recommended extensions needed for conversion failure modes below.",
+  "recommendations": [
+    {
+      "id": "global_serializer_state",
+      "priority": "required",
+      "detail": "Explicitly forbid mj_saveLastXML and interleave compilation of an unrelated model between live specification preparation and actuation. Verify hand+object remain identical,24servos exist,unrelatedbody absent. Hook new live API directly; patching unused old loader would be vacuous."
+    },
+    {
+      "id": "physical_joint_endpoints",
+      "priority": "required",
+      "detail": "Use all exact lower and upper bounds from pinned source model. Assign legal endpoint vectors to runner qpos and use existing force_close_targets with delta0; require unchanged outputs under runner limits. Assert exact servo ctrlrange identity with source bounds."
+    },
+    {
+      "id": "mesh_geometry_contract",
+      "priority": "recommended",
+      "detail": "Add mesh vertex count,face count,face indices and object-local mesh vertices. Current object test compares body/geom frames but not mesh vertices/scale. Include nonidentity mesh scale/refpos/refquat and high-precision body/inertial geometry fixture where feasible."
+    },
+    {
+      "id": "object_collision_roles",
+      "priority": "recommended",
+      "detail": "Compare object geom_contype/conaffinity/group and collision-versus-visual identity; preservation of those roles matters alongside shape dimensions."
+    },
+    {
+      "id": "controller_scope",
+      "priority": "scope_note",
+      "detail": "Static gains,force limits,weld andsolver options establish compiled settings preservation only. No dynamics,outcome or controlperformance claim follows."
+    }
+  ],
+  "other_notes": [
+    "Root-palm test currently writes wrist indices0/1; name-based WRJ assignments would make purpose explicit.",
+    "Exact array equality for unchanged hand fields is appropriate because recompilation of same untouched source should be deterministic under pinned runtime.",
+    "All current tests are static. Do not execute unrelated legacy tests whose bodies advance simulation."
+  ]
+}

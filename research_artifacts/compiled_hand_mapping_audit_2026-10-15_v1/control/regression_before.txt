@@ -1,0 +1,52 @@
+FFF.F..                                                                  [100%]
+=================================== FAILURES ===================================
+_ test_declared_hand_survives_scene_and_actuation_without_rounding[AdroitShadowRunner] _
+/private/tmp/compiled_hand_audit_20261015_v1/control/test_compiled_shadow_conversion.py:54: in test_declared_hand_survives_scene_and_actuation_without_rounding
+    np.testing.assert_array_equal(getattr(model, field)[dest], getattr(source, field)[bid])
+E   AssertionError: 
+E   Arrays are not equal
+E   
+E   Mismatched elements: 2 / 4 (50%)
+E   Max absolute difference among violations: 2.36861116e-07
+E   Max relative difference among violations: 3.34973262e-07
+E    ACTUAL: array([0.707109, 0.      , 0.      , 0.707105])
+E    DESIRED: array([0.707109, 0.      , 0.      , 0.707105])
+_ test_declared_hand_survives_scene_and_actuation_without_rounding[ActuatedShadowRunner] _
+/private/tmp/compiled_hand_audit_20261015_v1/control/test_compiled_shadow_conversion.py:54: in test_declared_hand_survives_scene_and_actuation_without_rounding
+    np.testing.assert_array_equal(getattr(model, field)[dest], getattr(source, field)[bid])
+E   AssertionError: 
+E   Arrays are not equal
+E   
+E   Mismatched elements: 2 / 4 (50%)
+E   Max absolute difference among violations: 2.36861116e-07
+E   Max relative difference among violations: 3.34973262e-07
+E    ACTUAL: array([0.707109, 0.      , 0.      , 0.707105])
+E    DESIRED: array([0.707109, 0.      , 0.      , 0.707105])
+_____ test_servo_ranges_match_validator_and_controller_parameters_survive ______
+/private/tmp/compiled_hand_audit_20261015_v1/control/test_compiled_shadow_conversion.py:86: in test_servo_ranges_match_validator_and_controller_parameters_survive
+    np.testing.assert_array_equal(model.actuator_ctrlrange[aid], source.jnt_range[sid])
+E   AssertionError: 
+E   Arrays are not equal
+E   
+E   Mismatched elements: 2 / 2 (100%)
+E   Max absolute difference among violations: 2.24402e-07
+E   Max relative difference among violations: 4.2857816e-07
+E    ACTUAL: array([-0.523599,  0.174533])
+E    DESIRED: array([-0.523599,  0.174533])
+_ test_native_object_mesh_and_inertia_precision_survives_scene[ActuatedShadowRunner] _
+/private/tmp/compiled_hand_audit_20261015_v1/control/test_compiled_shadow_conversion.py:104: in test_native_object_mesh_and_inertia_precision_survives_scene
+    np.testing.assert_allclose(getattr(model, field)[bid], getattr(native, field)[1], rtol=0, atol=2e-15)
+E   AssertionError: 
+E   Not equal to tolerance rtol=0, atol=2e-15
+E   
+E   Mismatched elements: 2 / 4 (50%)
+E   Max absolute difference among violations: 8.54855592e-08
+E   Max relative difference among violations: 3.30290838e-07
+E    ACTUAL: array([0.965926, 0.      , 0.      , 0.258819])
+E    DESIRED: array([0.965926, 0.      , 0.      , 0.258819])
+=========================== short test summary info ============================
+FAILED ../../../../../../private/tmp/compiled_hand_audit_20261015_v1/control/test_compiled_shadow_conversion.py::test_declared_hand_survives_scene_and_actuation_without_rounding[AdroitShadowRunner]
+FAILED ../../../../../../private/tmp/compiled_hand_audit_20261015_v1/control/test_compiled_shadow_conversion.py::test_declared_hand_survives_scene_and_actuation_without_rounding[ActuatedShadowRunner]
+FAILED ../../../../../../private/tmp/compiled_hand_audit_20261015_v1/control/test_compiled_shadow_conversion.py::test_servo_ranges_match_validator_and_controller_parameters_survive
+FAILED ../../../../../../private/tmp/compiled_hand_audit_20261015_v1/control/test_compiled_shadow_conversion.py::test_native_object_mesh_and_inertia_precision_survives_scene[ActuatedShadowRunner]
+4 failed, 3 passed in 0.43s

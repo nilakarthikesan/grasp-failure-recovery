@@ -144,6 +144,28 @@ The current phase uses static reconstruction of saved inputs and manufactured
 checks. It generates no new evaluation episodes, physical outcome labels or
 training data. Actual-native validation remains pending where authentic source
 outputs or assets have not been established.
+
+\subsection{Compiled target conversion audit}
+A subsequent static audit compared 373 saved pose representations across the
+five generators (including existing frame derivatives and corrections), plus
+three manufactured controls, against independent target-URDF kinematics in
+base, tabletop and actuated models. It identified two shared conversion errors.
+MuJoCo's URDF importer aliased distinct mesh files sharing a basename: three
+distal links used a 2,691-vertex visual mesh instead of their declared
+526-vertex collision mesh. Compiled-XML round trips also changed joint bounds
+by up to $3.674\times10^{-6}$ rad and produced five false limit classifications.
+
+Unique virtual mesh filenames and live model specifications now preserve the
+original target assets, fused-tip masses, joint limits and control settings.
+Across the same saved representations, independent link-position discrepancies
+are at most $4.05\times10^{-16}$ m, with exact joint-range and analytic-size
+agreement; twenty focused static regressions pass. New scene snapshots use
+compiled binary models to preserve parameters during replay. These checks
+establish bounded conversion correctness, not native-surface equivalence or
+physical success. Historical surface results retain their original imported
+geometry; affected claims require separate validation on the corrected import.
+The target and scientific criteria are unchanged, all original results are
+preserved, and no physics, new inference, fitting, outcome data or training ran.
 % END GFP SECTION mapping_common
 
 % BEGIN GFP SECTION hug

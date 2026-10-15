@@ -127,8 +127,7 @@ class NoisyShadowRunner(ActuatedShadowRunner):
             **{key: np.stack([row[key] for row in self.action_history])
                for key in self.action_history[0]},
         )
-        # XML aids inspection; binary includes meshes for self-contained state replay.
-        mujoco.mj_saveLastXML(str(output / "scene.xml"), self.model)
+        # Preserve exact compiled parameters and meshes for state replay.
         mujoco.mj_saveModel(self.model, str(output / "scene.mjb"))
 
 

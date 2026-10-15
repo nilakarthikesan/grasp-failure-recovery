@@ -236,7 +236,6 @@ def capture_scene(case_path, output_dir, *, project_root=None, urdf_root=None,
     np.save(output / 'depth_m.npy', depth)
     np.save(output / 'intrinsics.npy', intrinsic)
     np.save(output / 'T_world_camera.npy', transform)
-    mujoco.mj_saveLastXML(str(output / 'scene.xml'), runner.model)
     mujoco.mj_saveModel(runner.model, str(output / 'scene.mjb'))
     np.savez_compressed(output / 'scene_state.npz', qpos=runner.data.qpos, qvel=runner.data.qvel)
     source = {'kind':'mujoco_render', 'object':case.object.id, 'seed':case.seed,

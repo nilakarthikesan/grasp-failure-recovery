@@ -1,0 +1,167 @@
+{
+  "schema_version": "mano_native_representation_receipt_readback_v1",
+  "readback_only": true,
+  "new_mano_forward_calls": 0,
+  "native_generator_calls": 0,
+  "retarget_optimizer_calls": 0,
+  "physics_steps": 0,
+  "source_bindings": {
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/hug/src/models/mano.py": "ebc9113402846d3fd0773e7740e9ff6a70c2e59d317241b576d042b5dd683ed3",
+    "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/hug-deps/manotorch/manolayer.py": "9183fd6cef93c8904963eba25ffbbd3f0e4c068e29a511a28c4653133e63646b",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/contactgen_mapping_validation_2026-10-14_235056/source_reference/manopth/manolayer.py": "87502b7f08e44bb2481eba4cbe07c1bdf2928203544a73ec32feb25ff0efd11a",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/proposals/contactgen.py": "fb158772df48271a4c3e85ae18e8d42b42aa418c756db0b983d7da438b8c3b9b",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/retargeting.py": "a614d5a6654b103afbb8b4729bdb4fada8a82f19b265cd14b60125b182500fb6",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/integrations/hug_frames.py": "cd7ad9b8df1d5d6adad70e949a9c7f21ad448a25710a54f47e1ffa95fa28562a"
+  },
+  "hug": {
+    "cases": 32,
+    "report": {
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/native_contract/native_contract.json",
+      "sha256": "2dbc05ca3757c80da3d8f821d9dbde4f603a61a05acb51e8d222928053feba1e"
+    },
+    "all32_native_3d_exports_exact_reconstruction": true,
+    "configuration": "right MANO, full 15x3 axis-angle derived from6D, no PCA, flat mean, wrist center0, shape10, meters, 778 vertices/1552 closed faces",
+    "source_translation_semantics": "wrist-to-camera translation; native landmarks[0] and wrist transform origin agree",
+    "adapter_uses_saved_native_3d_geometry": true
+  },
+  "contactgen": {
+    "cases": 13,
+    "configuration": "right MANO PCA26, nonflat mean, shape10, meters,778 vertices/1538 faces/open wrist",
+    "source_translation_semantics": "parameter translation added to shaped root; frame0 origin includes shaped J0(beta). Adapter correctly uses frame0 rather than translation parameter.",
+    "centering_semantics": "restore arithmetic processed-mesh vertex mean before applying mesh-to-object placement",
+    "landmark_semantics": "16 source bone-frame origins plus right-hand vertex tips745/317/444/556/673, reorder wrist/thumb/index/middle/ring/little",
+    "receipts": [
+      {
+        "case_id": "smoke_cube_seed42",
+        "reconstruction_report": {
+          "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/contactgen_native_run_2026-10-14_v1/download_cn4nexx8e9fxjl/contactgen_diagnostics/native_reconstruction.json",
+          "sha256": "c7f9726108a42573b11e07443811501b9d3daef436ac97183102e50fbec7f725"
+        },
+        "native_bundle_sha256": "4415590b9dc8d041eba1006f56809c68460cd73d079545e49170daa01e4b7142",
+        "all778_vertices_and16frames_exact_float32": true,
+        "shaped_root_plus_translation_exact_float32": true
+      },
+      {
+        "case_id": "cg_unseen_capsule_20261015_v1_seed10007",
+        "reconstruction_report": {
+          "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/contactgen_unseen_mapping_2026-10-15_v1/download/results/cg_unseen_capsule_20261015_v1_seed10007/native_reconstruction.json",
+          "sha256": "597a1427045c814d99f6e1849f8d609be2fc8577aef670df5fd5c89379bc01a5"
+        },
+        "native_bundle_sha256": "02d97c93436546a80afab51862b63968118930ea41c53fb9be14c54f755a38f8",
+        "all778_vertices_and16frames_exact_float32": true,
+        "shaped_root_plus_translation_exact_float32": true
+      },
+      {
+        "case_id": "cg_unseen_capsule_20261015_v1_seed1009",
+        "reconstruction_report": {
+          "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/contactgen_unseen_mapping_2026-10-15_v1/download/results/cg_unseen_capsule_20261015_v1_seed1009/native_reconstruction.json",
+          "sha256": "2a17b02ab4e8395e5fc3012ccabd47b85f02e48438345dc92bdd06dba5c2ee58"
+        },
+        "native_bundle_sha256": "919dca72414288ad158c661d69d449193150e000b7ac2600f8bbcdeb307473d2",
+        "all778_vertices_and16frames_exact_float32": true,
+        "shaped_root_plus_translation_exact_float32": true
+      },
+      {
+        "case_id": "cg_unseen_capsule_20261015_v1_seed101",
+        "reconstruction_report": {
+          "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/contactgen_unseen_mapping_2026-10-15_v1/download/results/cg_unseen_capsule_20261015_v1_seed101/native_reconstruction.json",
+          "sha256": "5394f11e4f596716300fa91633fba7cefde2a39848cd723b9448f0d66a016e61"
+        },
+        "native_bundle_sha256": "b2d4f4d7a6113e9771ab3de7372e1f81b01e4b61e457b587c49e8b147a144208",
+        "all778_vertices_and16frames_exact_float32": true,
+        "shaped_root_plus_translation_exact_float32": true
+      },
+      {
+        "case_id": "cg_unseen_ellipsoid_20261015_v1_seed10007",
+        "reconstruction_report": {
+          "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/contactgen_unseen_mapping_2026-10-15_v1/download/results/cg_unseen_ellipsoid_20261015_v1_seed10007/native_reconstruction.json",
+          "sha256": "585b0e21e0d58943452ee58658297a4bd2a0aaae95e4c9f869bd6ea9a4c55556"
+        },
+        "native_bundle_sha256": "4c7dc2da7603e94dc665a547c21fefc6d9b06926874f453ba8d5aa68c6565184",
+        "all778_vertices_and16frames_exact_float32": true,
+        "shaped_root_plus_translation_exact_float32": true
+      },
+      {
+        "case_id": "cg_unseen_ellipsoid_20261015_v1_seed1009",
+        "reconstruction_report": {
+          "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/contactgen_unseen_mapping_2026-10-15_v1/download/results/cg_unseen_ellipsoid_20261015_v1_seed1009/native_reconstruction.json",
+          "sha256": "04ab872be8db4a1fd3a083c011a7724a638bd82a8b82bf095c6c3a278bc4df1b"
+        },
+        "native_bundle_sha256": "6f63df6504da6692f3d5d4185c4d7b2ed7647ef004fbfc85fc1e4ab56ba328f2",
+        "all778_vertices_and16frames_exact_float32": true,
+        "shaped_root_plus_translation_exact_float32": true
+      },
+      {
+        "case_id": "cg_unseen_ellipsoid_20261015_v1_seed101",
+        "reconstruction_report": {
+          "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/contactgen_unseen_mapping_2026-10-15_v1/download/results/cg_unseen_ellipsoid_20261015_v1_seed101/native_reconstruction.json",
+          "sha256": "1f1a805269b2af86840b1c3f8deec78480685fd4cf0db98e5e997ffb4639b7f4"
+        },
+        "native_bundle_sha256": "e77bff7b3df1099193fa7b88978d6d5c0b62e4481c84a4c656e8c48be3f9b189",
+        "all778_vertices_and16frames_exact_float32": true,
+        "shaped_root_plus_translation_exact_float32": true
+      },
+      {
+        "case_id": "cg_unseen_frustum_20261015_v1_seed10007",
+        "reconstruction_report": {
+          "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/contactgen_unseen_mapping_2026-10-15_v1/download/results/cg_unseen_frustum_20261015_v1_seed10007/native_reconstruction.json",
+          "sha256": "dd27365e51fe90ff323b4354349fc2ead7ef060c498578623cba3c59fa0fe9de"
+        },
+        "native_bundle_sha256": "79049997bbfbc16ca94b5b0e3adebe5dfa5d39dbac65e8ee56edce09716015e0",
+        "all778_vertices_and16frames_exact_float32": true,
+        "shaped_root_plus_translation_exact_float32": true
+      },
+      {
+        "case_id": "cg_unseen_frustum_20261015_v1_seed1009",
+        "reconstruction_report": {
+          "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/contactgen_unseen_mapping_2026-10-15_v1/download/results/cg_unseen_frustum_20261015_v1_seed1009/native_reconstruction.json",
+          "sha256": "d07d2d5712e9c7ecf35c67314d00c4e45f8b5d7c5f7c274481ca52ca8da9e20d"
+        },
+        "native_bundle_sha256": "10d9c4cac945d180094bc514ea1277636dd5f4ad6f839f695c275ea5644665e4",
+        "all778_vertices_and16frames_exact_float32": true,
+        "shaped_root_plus_translation_exact_float32": true
+      },
+      {
+        "case_id": "cg_unseen_frustum_20261015_v1_seed101",
+        "reconstruction_report": {
+          "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/contactgen_unseen_mapping_2026-10-15_v1/download/results/cg_unseen_frustum_20261015_v1_seed101/native_reconstruction.json",
+          "sha256": "d4000a4afe3314ce8ba0c97ad5413c5737ced894190c9012a1a8d991a166f3c2"
+        },
+        "native_bundle_sha256": "30056c3498ffd76bba7cd978e006967ce813c40c85047fef72d0d095e6959c71",
+        "all778_vertices_and16frames_exact_float32": true,
+        "shaped_root_plus_translation_exact_float32": true
+      },
+      {
+        "case_id": "cg_unseen_torus_20261015_v1_seed10007",
+        "reconstruction_report": {
+          "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/contactgen_unseen_mapping_2026-10-15_v1/download/results/cg_unseen_torus_20261015_v1_seed10007/native_reconstruction.json",
+          "sha256": "88028229c385d7066a6aeee3aca0e26ef169cc85321a87002af14c7e0d7baf89"
+        },
+        "native_bundle_sha256": "c805b1fecc8c3957a7d9b3b285eff075c1aa2447696cb35fd4b7fdc4dfaf4d4a",
+        "all778_vertices_and16frames_exact_float32": true,
+        "shaped_root_plus_translation_exact_float32": true
+      },
+      {
+        "case_id": "cg_unseen_torus_20261015_v1_seed1009",
+        "reconstruction_report": {
+          "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/contactgen_unseen_mapping_2026-10-15_v1/download/results/cg_unseen_torus_20261015_v1_seed1009/native_reconstruction.json",
+          "sha256": "013bb1d4a03b9744a6dce7765573b05af823d2c1c294d0bad7dae5edbd5a9b96"
+        },
+        "native_bundle_sha256": "b94d9853473b1cf5a4b4f6f855c4eb50ed4d8c2d5c9d2c9d1a4a60f3d0770039",
+        "all778_vertices_and16frames_exact_float32": true,
+        "shaped_root_plus_translation_exact_float32": true
+      },
+      {
+        "case_id": "cg_unseen_torus_20261015_v1_seed101",
+        "reconstruction_report": {
+          "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/contactgen_unseen_mapping_2026-10-15_v1/download/results/cg_unseen_torus_20261015_v1_seed101/native_reconstruction.json",
+          "sha256": "3e61ef130c4e388cb0a3f3289f7d9ed695bbcac86ffcdbff6daefa3fd067c5ed"
+        },
+        "native_bundle_sha256": "c76de12e7fe4f53ae8a1688bffed06b8b65d820dcf058328136bb608a263420c",
+        "all778_vertices_and16frames_exact_float32": true,
+        "shaped_root_plus_translation_exact_float32": true
+      }
+    ]
+  },
+  "interpretation": "Native representation reconstruction and adapter coordinate conventions are supported by saved byte-bound source receipts and current independent frame/FK checks. MANO-to-Shadow anatomical or contact equivalence does not follow. No new source-hand reconstruction or source model execution was needed."
+}

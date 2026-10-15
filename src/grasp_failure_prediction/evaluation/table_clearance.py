@@ -190,8 +190,8 @@ def plan_table_clearance(
     limits = model.jnt_range[joint_ids]
     if (
         not np.all(np.isfinite(target))
-        # MuJoCo's URDF conversion rounds serialized ranges to six decimals;
-        # saved Dex targets retain full precision. Keep the original fingers
+        # Historical XML scene builders rounded serialized joint ranges;
+        # current live-spec builders preserve them. Keep the original fingers
         # intact within that rounding tolerance. Commands still use the exact
         # same physical-limit clipping as the original runner.
         or np.any(target < limits[:, 0] - 1e-6)

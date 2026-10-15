@@ -123,7 +123,7 @@ def main():
         result["object_aware_contact_fit"] = False
         report["executions"].append(result)
         print(json.dumps(result), flush=True)
-    mujoco.mj_saveLastXML(str(args.output / "scene.xml"), trial_runner.model)
+    mujoco.mj_saveModel(trial_runner.model, str(args.output / "scene.mjb"))
     report["proposal_file_unchanged"] = before_hash == hashlib.sha256(proposal.read_bytes()).hexdigest()
     if not report["proposal_file_unchanged"]:
         raise ValueError("Immutable proposal changed during the audit")

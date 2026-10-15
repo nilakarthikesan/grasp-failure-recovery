@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import hashlib
 from pathlib import Path
 import tempfile
 from typing import Sequence
@@ -76,18 +77,42 @@ def _mujoco_compatible_urdf(source: Path, floating_root: bool = False) -> Path:
     return output
 
 
-def load_shadow_model(
+def load_shadow_spec(
     urdf_root: str | Path, *, floating_root: bool = False
-) -> mujoco.MjModel:
-    """Compile the same official Shadow URDF used by Dex into MuJoCo."""
+) -> mujoco.MjSpec:
+    """Parse the official Shadow URDF without a lossy compiled-XML round trip."""
 
     temporary = _mujoco_compatible_urdf(
         _shadow_urdf_path(urdf_root), floating_root=floating_root
     )
     try:
-        return mujoco.MjModel.from_xml_path(str(temporary))
+        tree = ET.parse(temporary)
+        assets: dict[str, bytes] = {}
+        for mesh in tree.getroot().findall(".//mesh"):
+            filename = mesh.get("filename")
+            if not filename:
+                continue
+            source = Path(filename).resolve()
+            # MuJoCo's URDF parser keys mesh assets by basename and scale even
+            # with strippath=false. Distinct visual/collision files can share a
+            # basename, so give every resolved file its own virtual filename.
+            digest = hashlib.sha256(str(source).encode("utf-8")).hexdigest()
+            alias = f"gfp_{digest}_{source.name}"
+            assets[alias] = source.read_bytes()
+            mesh.set("filename", alias)
+        return mujoco.MjSpec.from_string(
+            ET.tostring(tree.getroot(), encoding="unicode"), assets=assets,
+        )
     finally:
         temporary.unlink(missing_ok=True)
+
+
+def load_shadow_model(
+    urdf_root: str | Path, *, floating_root: bool = False
+) -> mujoco.MjModel:
+    """Compile the same official Shadow URDF used by Dex into MuJoCo."""
+
+    return load_shadow_spec(urdf_root, floating_root=floating_root).compile()
 
 
 def _parse_xyz(value: str | None) -> np.ndarray:

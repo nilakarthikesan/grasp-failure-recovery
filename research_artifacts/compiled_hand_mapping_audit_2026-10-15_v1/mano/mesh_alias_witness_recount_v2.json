@@ -1,0 +1,155 @@
+{
+  "schema_version": "mesh_alias_independent_witness_recount_v1",
+  "input_report": {
+    "path": "/private/tmp/compiled_hand_audit_20261015_v1/mano/collision_mesh_alias_independent_v2.json",
+    "sha256": "7bca42804b2a36aa5a251769c8b1c67e3dc6f53b7eed4af1501af4a73efd22bb"
+  },
+  "script_sha256": "30acbae9346f1d49cd9cd9b8c371591e44f6a19daf3facd6f27eeb24e9331c7d",
+  "method": "explicit sum vertex rotations; per-triangle plane projection with barycentric inclusion plus every clamped edge segment; closest over all triangles. No trimesh imports or parent audit helper. Convex hull faces independently reconstructed.",
+  "checks": [
+    {
+      "link": "mfdistal",
+      "direction": "declared_vertices_to_imported_triangles",
+      "witness_on_source_vertex_max_residual_m": 0.0,
+      "independent_all_triangle_distance_m": 4.126695433066905e-05,
+      "saved_distance_delta_m": 7.995991022080595e-19
+    },
+    {
+      "link": "mfdistal",
+      "direction": "imported_vertices_to_declared_triangles",
+      "witness_on_source_vertex_max_residual_m": 0.0,
+      "independent_all_triangle_distance_m": 0.003829528389255001,
+      "saved_distance_delta_m": 0.0
+    },
+    {
+      "link": "mfdistal",
+      "direction": "convex_hull_declared_vertices_to_imported_hull",
+      "witness_on_source_vertex_max_residual_m": 0.0,
+      "independent_all_triangle_distance_m": 1.919411139810134e-05,
+      "saved_distance_delta_m": 5.014435047745458e-19
+    },
+    {
+      "link": "mfdistal",
+      "direction": "convex_hull_imported_vertices_to_declared_hull",
+      "witness_on_source_vertex_max_residual_m": 0.0,
+      "independent_all_triangle_distance_m": 2.451230369719051e-05,
+      "saved_distance_delta_m": 6.098637220230962e-20
+    },
+    {
+      "link": "rfdistal",
+      "direction": "declared_vertices_to_imported_triangles",
+      "witness_on_source_vertex_max_residual_m": 0.0,
+      "independent_all_triangle_distance_m": 4.126695433066905e-05,
+      "saved_distance_delta_m": 7.995991022080595e-19
+    },
+    {
+      "link": "rfdistal",
+      "direction": "imported_vertices_to_declared_triangles",
+      "witness_on_source_vertex_max_residual_m": 0.0,
+      "independent_all_triangle_distance_m": 0.003829528389255001,
+      "saved_distance_delta_m": 0.0
+    },
+    {
+      "link": "rfdistal",
+      "direction": "convex_hull_declared_vertices_to_imported_hull",
+      "witness_on_source_vertex_max_residual_m": 0.0,
+      "independent_all_triangle_distance_m": 1.919411139810134e-05,
+      "saved_distance_delta_m": 5.014435047745458e-19
+    },
+    {
+      "link": "rfdistal",
+      "direction": "convex_hull_imported_vertices_to_declared_hull",
+      "witness_on_source_vertex_max_residual_m": 0.0,
+      "independent_all_triangle_distance_m": 2.451230369719051e-05,
+      "saved_distance_delta_m": 6.098637220230962e-20
+    },
+    {
+      "link": "lfdistal",
+      "direction": "declared_vertices_to_imported_triangles",
+      "witness_on_source_vertex_max_residual_m": 0.0,
+      "independent_all_triangle_distance_m": 4.126695433066905e-05,
+      "saved_distance_delta_m": 7.995991022080595e-19
+    },
+    {
+      "link": "lfdistal",
+      "direction": "imported_vertices_to_declared_triangles",
+      "witness_on_source_vertex_max_residual_m": 0.0,
+      "independent_all_triangle_distance_m": 0.003829528389255001,
+      "saved_distance_delta_m": 0.0
+    },
+    {
+      "link": "lfdistal",
+      "direction": "convex_hull_declared_vertices_to_imported_hull",
+      "witness_on_source_vertex_max_residual_m": 0.0,
+      "independent_all_triangle_distance_m": 1.919411139810134e-05,
+      "saved_distance_delta_m": 5.014435047745458e-19
+    },
+    {
+      "link": "lfdistal",
+      "direction": "convex_hull_imported_vertices_to_declared_hull",
+      "witness_on_source_vertex_max_residual_m": 0.0,
+      "independent_all_triangle_distance_m": 2.451230369719051e-05,
+      "saved_distance_delta_m": 6.098637220230962e-20
+    }
+  ],
+  "transform_checks": [
+    {
+      "mesh": "f_distal_pst",
+      "vertices": 2691,
+      "all_inputs_and_results_finite": true,
+      "explicit_scalar_sum_vs_matmul_max_abs_m": 0.0,
+      "captured_runtime_warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ]
+    },
+    {
+      "mesh": "single",
+      "vertices": 526,
+      "all_inputs_and_results_finite": true,
+      "explicit_scalar_sum_vs_matmul_max_abs_m": 6.938893903907228e-18,
+      "captured_runtime_warnings": []
+    },
+    {
+      "mesh": "f_distal_pst",
+      "vertices": 2691,
+      "all_inputs_and_results_finite": true,
+      "explicit_scalar_sum_vs_matmul_max_abs_m": 0.0,
+      "captured_runtime_warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ]
+    },
+    {
+      "mesh": "single",
+      "vertices": 526,
+      "all_inputs_and_results_finite": true,
+      "explicit_scalar_sum_vs_matmul_max_abs_m": 6.938893903907228e-18,
+      "captured_runtime_warnings": []
+    },
+    {
+      "mesh": "f_distal_pst",
+      "vertices": 2691,
+      "all_inputs_and_results_finite": true,
+      "explicit_scalar_sum_vs_matmul_max_abs_m": 0.0,
+      "captured_runtime_warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ]
+    },
+    {
+      "mesh": "single",
+      "vertices": 526,
+      "all_inputs_and_results_finite": true,
+      "explicit_scalar_sum_vs_matmul_max_abs_m": 6.938893903907228e-18,
+      "captured_runtime_warnings": []
+    }
+  ],
+  "status": "PASS_12_POINT_TO_SURFACE_WITNESSES",
+  "physics_steps": 0,
+  "fitting_calls": 0,
+  "floating_point_scope": "Numerical independent check only; sampled surface witnesses, not an outward-rounded continuous certificate."
+}

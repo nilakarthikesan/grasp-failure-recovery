@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from xml.etree import ElementTree as ET
-
 import mujoco
 import numpy as np
 import pytest
@@ -26,21 +24,17 @@ def reset(runner, mass, *, position=None, quaternion=None):
     )
 
 
-def fresh_mass_model(runner, path, mass):
-    """Compile the same scene with mass/inertia specified before compilation."""
-    mujoco.mj_saveLastXML(str(path), runner.model)
-    tree = ET.parse(path)
-    geom = tree.getroot().find(".//body[@name='object']/geom[@name='object_geom']")
-    assert geom is not None
+def fresh_mass_model(runner, mass):
+    """Compile the same live scene with mass specified before compilation."""
+    spec = runner._scene_spec.copy()
     # The cube's inertia is inferred independently from its geometry and mass.
-    geom.set("mass", str(mass))
-    tree.write(path, encoding="utf-8")
-    return mujoco.MjModel.from_xml_path(str(path))
+    spec.geom("object_geom").mass = mass
+    return spec.compile()
 
 
 def test_mass_reset_matches_fresh_compilation_and_preserves_requested_state(runner, tmp_path):
     mass = 0.36
-    expected = fresh_mass_model(runner, tmp_path / "mass_matched.xml", mass)
+    expected = fresh_mass_model(runner, mass)
     position = np.array([0.07, -0.04, 0.12])
     quaternion = np.array([np.cos(np.pi / 8), 0.0, 0.0, np.sin(np.pi / 8)])
     reset(runner, mass, position=position, quaternion=quaternion)

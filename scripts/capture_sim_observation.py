@@ -83,7 +83,7 @@ def capture(urdf_root: Path, output: Path) -> dict:
     np.save(output / "T_world_camera.npy", T_world_camera)
     np.savez(output / "scene_state.npz", qpos=runner.data.qpos, qvel=runner.data.qvel)
     runner.model.cam_pos[camera_id] = position
-    mujoco.mj_saveLastXML(str(output / "scene.xml"), runner.model)
+    mujoco.mj_saveModel(runner.model, str(output / "scene.mjb"))
     # Verify backprojected visible points lie on the known cube's surface.
     pixels = np.column_stack([xx, yy, np.ones(len(xx))])
     camera_points = (pixels @ np.linalg.inv(K).T) * depth[yy, xx, None]

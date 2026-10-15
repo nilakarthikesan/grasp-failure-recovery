@@ -32,9 +32,9 @@ class EvaluationVideoRecorder:
     def close(self) -> None:
         if not self._qpos:
             raise RuntimeError("evaluation video contains no states")
-        scene_path = self.path.parent / ".video_scene.xml"
+        scene_path = self.path.parent / ".video_scene.mjb"
         states_path = self.path.parent / ".video_states.npz"
-        mujoco.mj_saveLastXML(str(scene_path), self.runner.model)
+        mujoco.mj_saveModel(self.runner.model, str(scene_path))
         np.savez_compressed(
             states_path,
             qpos=np.stack(self._qpos),

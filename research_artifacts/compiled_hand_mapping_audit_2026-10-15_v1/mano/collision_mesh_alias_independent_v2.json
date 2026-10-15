@@ -1,0 +1,281 @@
+{
+  "schema_version": "independent_original_urdf_mesh_alias_audit_v2",
+  "measurement_correction": "Original meter-coordinate Trimesh closest-point results disagreed with independent plane/edge oracle. V2 uses millimeter coordinates internally, retains metric outputs and must independently recount all witnesses. V1 identity/count result and files preserved. No mapping or acceptance change.",
+  "distance_algorithm_units": "Trimesh in mm then divide by1000; independent meter-coordinate analytical recount required",
+  "source_urdf_sha256": "29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+  "script_sha256": "02f23807ffb7eede7ab37ce07c3fe52c3ac90ce9ff583caed6a33d2df2c8bf50",
+  "original_import_urdf_sha256": "bc6d2478a3d8d7bec8338c5970c3dc60c55e72c82ea86574a726fd279c888937",
+  "mujoco_version": "3.3.7",
+  "numpy_version": "2.2.6",
+  "trimesh_version": "4.12.2",
+  "input_mesh_hashes": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_distal_pst.obj": "04d7ddc2166089b0c670806c1d1eb4b47b8f8c48428c00581b0fe64d59d4e5f8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/collision/f_distal_pst.obj": "60fc4387b60b9362cdbc5b40d8f3869247cc5049de75fc6e7e7ae32cf8e87e33"
+  },
+  "cases": [
+    {
+      "link": "ffdistal",
+      "declared_collision_path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/visual/f_distal_pst.obj",
+      "declared_collision_sha256": "04d7ddc2166089b0c670806c1d1eb4b47b8f8c48428c00581b0fe64d59d4e5f8",
+      "mesh_scale": "0.001 0.001 0.001",
+      "imported_mesh_name": "f_distal_pst",
+      "imported_vertex_count": 2691,
+      "imported_face_count": 5374,
+      "standalone_declared_vertex_count": 2691,
+      "standalone_declared_face_count": 5374,
+      "triangle_mesh_identity": true,
+      "point_to_triangle_status": "IDENTICAL_ARRAYS_NO_DISTANCE_QUERY_NEEDED"
+    },
+    {
+      "link": "mfdistal",
+      "declared_collision_path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/collision/f_distal_pst.obj",
+      "declared_collision_sha256": "60fc4387b60b9362cdbc5b40d8f3869247cc5049de75fc6e7e7ae32cf8e87e33",
+      "mesh_scale": "0.001 0.001 0.001",
+      "imported_mesh_name": "f_distal_pst",
+      "imported_vertex_count": 2691,
+      "imported_face_count": 5374,
+      "standalone_declared_vertex_count": 526,
+      "standalone_declared_face_count": 1048,
+      "triangle_mesh_identity": false,
+      "declared_vertices_to_imported_triangles": {
+        "source_query_count": 526,
+        "maximum_sampled_vertex_to_surface_distance_m": 4.126695433066985e-05,
+        "mean_sampled_vertex_to_surface_distance_m": 5.619237919037641e-06,
+        "witness_query_local_m": [
+          0.007508631134866997,
+          0.0042015219406303,
+          0.015202289551691403
+        ],
+        "witness_target_closest_local_m": [
+          0.007508631134866998,
+          0.004160254986299631,
+          0.015202289551691395
+        ],
+        "witness_target_triangle_index": 4906,
+        "scope": "Each query is a referenced source mesh vertex on its surface; maximum is a sampled Hausdorff lower estimate, not a continuous maximum or a directed-rounding certificate."
+      },
+      "imported_vertices_to_declared_triangles": {
+        "source_query_count": 2691,
+        "maximum_sampled_vertex_to_surface_distance_m": 0.003829528389255001,
+        "mean_sampled_vertex_to_surface_distance_m": 0.00041879181529085686,
+        "witness_query_local_m": [
+          0.0018410350325280972,
+          0.0004365519889229537,
+          0.009673192204037033
+        ],
+        "witness_target_closest_local_m": [
+          0.0018415935811203466,
+          -0.00019021025537496606,
+          0.0058953017263688266
+        ],
+        "witness_target_triangle_index": 829,
+        "scope": "Each query is a referenced source mesh vertex on its surface; maximum is a sampled Hausdorff lower estimate, not a continuous maximum or a directed-rounding certificate."
+      },
+      "convex_hull_declared_vertices_to_imported_hull": {
+        "source_query_count": 526,
+        "maximum_sampled_vertex_to_surface_distance_m": 1.9194111398101843e-05,
+        "mean_sampled_vertex_to_surface_distance_m": 5.38947495757953e-06,
+        "witness_query_local_m": [
+          0.004933142373799606,
+          0.0059763223600263005,
+          0.024190059655092695
+        ],
+        "witness_target_closest_local_m": [
+          0.0049221851506739385,
+          0.005960619920121818,
+          0.024188723034434777
+        ],
+        "witness_target_triangle_index": 1592,
+        "scope": "Each query is a referenced source mesh vertex on its surface; maximum is a sampled Hausdorff lower estimate, not a continuous maximum or a directed-rounding certificate."
+      },
+      "convex_hull_imported_vertices_to_declared_hull": {
+        "source_query_count": 1065,
+        "maximum_sampled_vertex_to_surface_distance_m": 2.451230369719057e-05,
+        "mean_sampled_vertex_to_surface_distance_m": 5.753137998398908e-06,
+        "witness_query_local_m": [
+          0.0030222748768279507,
+          -0.007337758292169815,
+          0.007078128905096374
+        ],
+        "witness_target_closest_local_m": [
+          0.00302217650824505,
+          -0.007313246663203928,
+          0.00707828188092419
+        ],
+        "witness_target_triangle_index": 1,
+        "scope": "Each query is a referenced source mesh vertex on its surface; maximum is a sampled Hausdorff lower estimate, not a continuous maximum or a directed-rounding certificate."
+      },
+      "imported_hull_vertices": 1065,
+      "declared_hull_vertices": 526
+    },
+    {
+      "link": "rfdistal",
+      "declared_collision_path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/collision/f_distal_pst.obj",
+      "declared_collision_sha256": "60fc4387b60b9362cdbc5b40d8f3869247cc5049de75fc6e7e7ae32cf8e87e33",
+      "mesh_scale": "0.001 0.001 0.001",
+      "imported_mesh_name": "f_distal_pst",
+      "imported_vertex_count": 2691,
+      "imported_face_count": 5374,
+      "standalone_declared_vertex_count": 526,
+      "standalone_declared_face_count": 1048,
+      "triangle_mesh_identity": false,
+      "declared_vertices_to_imported_triangles": {
+        "source_query_count": 526,
+        "maximum_sampled_vertex_to_surface_distance_m": 4.126695433066985e-05,
+        "mean_sampled_vertex_to_surface_distance_m": 5.619237919037641e-06,
+        "witness_query_local_m": [
+          0.007508631134866997,
+          0.0042015219406303,
+          0.015202289551691403
+        ],
+        "witness_target_closest_local_m": [
+          0.007508631134866998,
+          0.004160254986299631,
+          0.015202289551691395
+        ],
+        "witness_target_triangle_index": 4906,
+        "scope": "Each query is a referenced source mesh vertex on its surface; maximum is a sampled Hausdorff lower estimate, not a continuous maximum or a directed-rounding certificate."
+      },
+      "imported_vertices_to_declared_triangles": {
+        "source_query_count": 2691,
+        "maximum_sampled_vertex_to_surface_distance_m": 0.003829528389255001,
+        "mean_sampled_vertex_to_surface_distance_m": 0.00041879181529085686,
+        "witness_query_local_m": [
+          0.0018410350325280972,
+          0.0004365519889229537,
+          0.009673192204037033
+        ],
+        "witness_target_closest_local_m": [
+          0.0018415935811203466,
+          -0.00019021025537496606,
+          0.0058953017263688266
+        ],
+        "witness_target_triangle_index": 829,
+        "scope": "Each query is a referenced source mesh vertex on its surface; maximum is a sampled Hausdorff lower estimate, not a continuous maximum or a directed-rounding certificate."
+      },
+      "convex_hull_declared_vertices_to_imported_hull": {
+        "source_query_count": 526,
+        "maximum_sampled_vertex_to_surface_distance_m": 1.9194111398101843e-05,
+        "mean_sampled_vertex_to_surface_distance_m": 5.38947495757953e-06,
+        "witness_query_local_m": [
+          0.004933142373799606,
+          0.0059763223600263005,
+          0.024190059655092695
+        ],
+        "witness_target_closest_local_m": [
+          0.0049221851506739385,
+          0.005960619920121818,
+          0.024188723034434777
+        ],
+        "witness_target_triangle_index": 1592,
+        "scope": "Each query is a referenced source mesh vertex on its surface; maximum is a sampled Hausdorff lower estimate, not a continuous maximum or a directed-rounding certificate."
+      },
+      "convex_hull_imported_vertices_to_declared_hull": {
+        "source_query_count": 1065,
+        "maximum_sampled_vertex_to_surface_distance_m": 2.451230369719057e-05,
+        "mean_sampled_vertex_to_surface_distance_m": 5.753137998398908e-06,
+        "witness_query_local_m": [
+          0.0030222748768279507,
+          -0.007337758292169815,
+          0.007078128905096374
+        ],
+        "witness_target_closest_local_m": [
+          0.00302217650824505,
+          -0.007313246663203928,
+          0.00707828188092419
+        ],
+        "witness_target_triangle_index": 1,
+        "scope": "Each query is a referenced source mesh vertex on its surface; maximum is a sampled Hausdorff lower estimate, not a continuous maximum or a directed-rounding certificate."
+      },
+      "imported_hull_vertices": 1065,
+      "declared_hull_vertices": 526
+    },
+    {
+      "link": "lfdistal",
+      "declared_collision_path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/meshes/collision/f_distal_pst.obj",
+      "declared_collision_sha256": "60fc4387b60b9362cdbc5b40d8f3869247cc5049de75fc6e7e7ae32cf8e87e33",
+      "mesh_scale": "0.001 0.001 0.001",
+      "imported_mesh_name": "f_distal_pst",
+      "imported_vertex_count": 2691,
+      "imported_face_count": 5374,
+      "standalone_declared_vertex_count": 526,
+      "standalone_declared_face_count": 1048,
+      "triangle_mesh_identity": false,
+      "declared_vertices_to_imported_triangles": {
+        "source_query_count": 526,
+        "maximum_sampled_vertex_to_surface_distance_m": 4.126695433066985e-05,
+        "mean_sampled_vertex_to_surface_distance_m": 5.619237919037641e-06,
+        "witness_query_local_m": [
+          0.007508631134866997,
+          0.0042015219406303,
+          0.015202289551691403
+        ],
+        "witness_target_closest_local_m": [
+          0.007508631134866998,
+          0.004160254986299631,
+          0.015202289551691395
+        ],
+        "witness_target_triangle_index": 4906,
+        "scope": "Each query is a referenced source mesh vertex on its surface; maximum is a sampled Hausdorff lower estimate, not a continuous maximum or a directed-rounding certificate."
+      },
+      "imported_vertices_to_declared_triangles": {
+        "source_query_count": 2691,
+        "maximum_sampled_vertex_to_surface_distance_m": 0.003829528389255001,
+        "mean_sampled_vertex_to_surface_distance_m": 0.00041879181529085686,
+        "witness_query_local_m": [
+          0.0018410350325280972,
+          0.0004365519889229537,
+          0.009673192204037033
+        ],
+        "witness_target_closest_local_m": [
+          0.0018415935811203466,
+          -0.00019021025537496606,
+          0.0058953017263688266
+        ],
+        "witness_target_triangle_index": 829,
+        "scope": "Each query is a referenced source mesh vertex on its surface; maximum is a sampled Hausdorff lower estimate, not a continuous maximum or a directed-rounding certificate."
+      },
+      "convex_hull_declared_vertices_to_imported_hull": {
+        "source_query_count": 526,
+        "maximum_sampled_vertex_to_surface_distance_m": 1.9194111398101843e-05,
+        "mean_sampled_vertex_to_surface_distance_m": 5.38947495757953e-06,
+        "witness_query_local_m": [
+          0.004933142373799606,
+          0.0059763223600263005,
+          0.024190059655092695
+        ],
+        "witness_target_closest_local_m": [
+          0.0049221851506739385,
+          0.005960619920121818,
+          0.024188723034434777
+        ],
+        "witness_target_triangle_index": 1592,
+        "scope": "Each query is a referenced source mesh vertex on its surface; maximum is a sampled Hausdorff lower estimate, not a continuous maximum or a directed-rounding certificate."
+      },
+      "convex_hull_imported_vertices_to_declared_hull": {
+        "source_query_count": 1065,
+        "maximum_sampled_vertex_to_surface_distance_m": 2.451230369719057e-05,
+        "mean_sampled_vertex_to_surface_distance_m": 5.753137998398908e-06,
+        "witness_query_local_m": [
+          0.0030222748768279507,
+          -0.007337758292169815,
+          0.007078128905096374
+        ],
+        "witness_target_closest_local_m": [
+          0.00302217650824505,
+          -0.007313246663203928,
+          0.00707828188092419
+        ],
+        "witness_target_triangle_index": 1,
+        "scope": "Each query is a referenced source mesh vertex on its surface; maximum is a sampled Hausdorff lower estimate, not a continuous maximum or a directed-rounding certificate."
+      },
+      "imported_hull_vertices": 1065,
+      "declared_hull_vertices": 526
+    }
+  ],
+  "conclusion": "Original MuJoCo URDF import merges different paths with the same f_distal_pst basename. First index collision correctly uses its declared visual mesh; middle/ring/little instead reuse it rather than their declared distinct collision mesh. FK identity cannot detect this geometry conversion defect.",
+  "physics_steps": 0,
+  "new_grasp_outputs": 0,
+  "fits": 0,
+  "scientific_mapping_acceptance": "NOT_ASSERTED"
+}

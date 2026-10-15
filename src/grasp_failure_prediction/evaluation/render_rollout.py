@@ -10,6 +10,14 @@ import mujoco
 import numpy as np
 
 
+def _load_scene_model(scene_path: Path) -> mujoco.MjModel:
+    """Load exact compiled snapshots, with support for historical XML scenes."""
+
+    if scene_path.suffix.lower() == ".mjb":
+        return mujoco.MjModel.from_binary_path(str(scene_path))
+    return mujoco.MjModel.from_xml_path(str(scene_path))
+
+
 def render_rollout(
     scene_path: Path,
     states_path: Path,
@@ -19,7 +27,7 @@ def render_rollout(
     width: int = 640,
     height: int = 480,
 ) -> None:
-    model = mujoco.MjModel.from_xml_path(str(scene_path))
+    model = _load_scene_model(scene_path)
     data = mujoco.MjData(model)
     states = np.load(states_path)
     qpos = states["qpos"]

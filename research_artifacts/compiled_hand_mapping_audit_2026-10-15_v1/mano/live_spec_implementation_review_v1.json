@@ -1,0 +1,81 @@
+{
+  "schema_version": "independent_live_spec_implementation_review_v1",
+  "bindings": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/pose_validation.py": "4e24589df54cee771f6cab4cbd7a4f48a6dd6e90c2d6ebe0dd93b26ae4ebddf4",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/runner.py": "35ec1ba83262027154e62a86aba66379152d550cb70add6f03909c9e7630fdb6",
+    "/private/tmp/compiled_hand_audit_20261015_v1/mano/review_live_spec_implementation.py": "cf5de49a399adaa1aa6f1cfaa9397657527972aeab271e395e5ebfd9615496cd"
+  },
+  "runtime_mujoco": "3.3.7",
+  "status": "PASS_NO_BLOCKING_ISSUE_IN_REVIEWED_SCOPE",
+  "repeat_interleave_cases": [
+    {
+      "iteration": 0,
+      "all_compiled_scene_field_prefixes_exact": true,
+      "caller_spec_after_actuation_unchanged": true,
+      "unrelated_model_absent": true,
+      "actuator_count": 24
+    },
+    {
+      "iteration": 1,
+      "all_compiled_scene_field_prefixes_exact": true,
+      "caller_spec_after_actuation_unchanged": true,
+      "unrelated_model_absent": true,
+      "actuator_count": 24
+    },
+    {
+      "iteration": 2,
+      "all_compiled_scene_field_prefixes_exact": true,
+      "caller_spec_after_actuation_unchanged": true,
+      "unrelated_model_absent": true,
+      "actuator_count": 24
+    }
+  ],
+  "fixed_tip_mass_preservation": [
+    {
+      "name": "ffdistal",
+      "source_fused_mass_kg": 0.121,
+      "scene_fused_mass_kg": 0.121,
+      "inertia_exact": true
+    },
+    {
+      "name": "mfdistal",
+      "source_fused_mass_kg": 0.121,
+      "scene_fused_mass_kg": 0.121,
+      "inertia_exact": true
+    },
+    {
+      "name": "rfdistal",
+      "source_fused_mass_kg": 0.121,
+      "scene_fused_mass_kg": 0.121,
+      "inertia_exact": true
+    },
+    {
+      "name": "lfdistal",
+      "source_fused_mass_kg": 0.121,
+      "scene_fused_mass_kg": 0.121,
+      "inertia_exact": true
+    },
+    {
+      "name": "thdistal",
+      "source_fused_mass_kg": 0.161,
+      "scene_fused_mass_kg": 0.161,
+      "inertia_exact": true
+    }
+  ],
+  "blocked_apis": [
+    "mj_step",
+    "mj_step1",
+    "mj_step2",
+    "mj_saveLastXML"
+  ],
+  "physics_steps": 0,
+  "source_asset_bytes_changed": false,
+  "acceptance_thresholds_changed": false,
+  "controller_parameter_scope": "Static existing gain/weld/options declarations unchanged; no control performance or dynamics conclusion",
+  "review_notes": [
+    "Aliases are unique per resolved path and preserve filebytes and existing scale; identical path stays shared.",
+    "Compiled fused mass/inertial fields are explicitly persisted before repeated spec compilation. Repeated compile/interleaved unrelated parser calls do not lose masses or mutate caller spec.",
+    "actuation takes live spec and copies it; all current source callers updated. Public old MjModel argument now fails clearly rather than silently roundtripping.",
+    "Object attachment parses only source object XML and aliases itsassets; hand spec never serialized. Parent object fixture and compiled-cohort checks independently cover object transforms."
+  ]
+}

@@ -127,7 +127,7 @@ def test_action_artifacts_align_commands_states_and_exact_replay(tmp_path, pose)
         np.testing.assert_array_equal(data.qvel, runner.data.qvel)
         np.testing.assert_array_equal(data.ctrl, runner.data.ctrl)
         assert data.time == runner.data.time
-    assert (tmp_path / 'scene.xml').is_file()
+    assert (tmp_path / 'scene.mjb').is_file()
 
 
 def test_saved_proposal_missing_camera_is_an_unlabeled_validation_error(tmp_path):
@@ -265,7 +265,7 @@ def test_trusted_case_collects_labeled_bundles_and_location_independent_groups(t
     for episode in plan['episodes']:
         path = output / episode['episode_id']
         for name in ('result.json', 'trajectory.npz', 'resolved_case.json',
-                     'actions.npz', 'scene.xml', 'scene.mjb', 'collection_metadata.json', 'events.json'):
+                     'actions.npz', 'scene.mjb', 'collection_metadata.json', 'events.json'):
             assert (path / name).is_file()
         result = json.loads((path / 'result.json').read_text())
         metadata = json.loads((path / 'collection_metadata.json').read_text())

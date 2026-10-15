@@ -9,7 +9,7 @@ import pytest
 
 pytest.importorskip('grasp_failure_prediction.evaluation')
 from grasp_failure_prediction.evaluation.registry import load_protocol_registry
-from grasp_failure_prediction.evaluation.runner import build_tabletop_model
+from grasp_failure_prediction.evaluation.runner import _build_tabletop_spec
 
 
 def test_fixed_closure_preserves_target_and_nonflexion_commands():
@@ -32,13 +32,14 @@ def test_fixed_closure_preserves_target_and_nonflexion_commands():
 
 def test_actuation_preserves_collision_geometry_and_has_finite_force_limits():
     root=Path(__file__).resolve().parents[1]
-    assets=root/'runs/hug_integration_check/dex-urdf/robots/hands'
+    assets=root/'third_party/dex-urdf/robots/hands'
     if not assets.is_dir():pytest.skip('Optional downloaded Shadow asset checkout is absent')
     sys.path.insert(0,str(root/'scripts'))
     try:
         from actuated_shadow_pilot import add_actuation
-        base=build_tabletop_model(assets)
-        actuated=add_actuation(base)
+        scene_spec=_build_tabletop_spec(assets)
+        base=scene_spec.compile()
+        actuated=add_actuation(scene_spec)
     finally:
         sys.path.pop(0)
     assert actuated.nu==24

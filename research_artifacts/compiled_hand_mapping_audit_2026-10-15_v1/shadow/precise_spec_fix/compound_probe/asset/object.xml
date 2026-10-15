@@ -1,0 +1,17 @@
+<mujoco model="two_piece_object">
+      <compiler meshdir="." angle="radian"/>
+      <asset>
+        <mesh name="visible" file="visual.obj"/>
+        <mesh name="left" file="left.obj"/>
+        <mesh name="right" file="right.obj"/>
+      </asset>
+      <worldbody><body name="source_object" pos="0.2 0.1 0.05" quat="0.965925826 0 0 0.258819045">
+        <inertial pos="0.003 -0.001 0.002" mass="0.2"
+          fullinertia="0.00025 0.00035 0.00030 0.00001 -0.00002 0.000005"/>
+        <freejoint/>
+        <geom type="mesh" mesh="visible" contype="0" conaffinity="0" group="2"/>
+        <geom type="mesh" mesh="left" pos="0.002 0.001 0.001" quat="0.965925826 0 0 0.258819045"
+          friction="1 0.005 0.0001" group="3"/>
+        <geom type="mesh" mesh="right" friction="1 0.005 0.0001" group="3"/>
+      </body></worldbody>
+    </mujoco>

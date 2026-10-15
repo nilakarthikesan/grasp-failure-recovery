@@ -163,7 +163,7 @@ def main():
     report["first_seed_parameters_repeat_exactly"] = torch.equal(first_prediction, repeated)
     if not report["first_seed_parameters_repeat_exactly"]:
         raise ValueError("Repeated first generation seed produced different parameters")
-    mujoco.mj_saveLastXML(str(args.output / "scene.xml"), runner.model)
+    mujoco.mj_saveModel(runner.model, str(args.output / "scene.mjb"))
     report["successes"] = sum(trial["score"]["success"] for trial in report["trials"])
     report["no_force_close_successes"] = sum(
         trial["no_force_close_comparison"]["score"]["success"] for trial in report["trials"])

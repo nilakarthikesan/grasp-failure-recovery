@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="MuJoCo Model">
+    <compiler angle="radian" meshdir="./data/mjcf/meshes/" texturedir="./data/mjcf/textures/" />
+    <option iterations="20" />
+    <size njmax="500" nconmax="100" nuser_jnt="1" nuser_site="1" nuser_tendon="1" nuser_actuator="16" nuser_sensor="1" />
+    <visual>
+        <map force="0.1" fogend="5" />
+    </visual>
+    <default class="main">
+        <default class="robot0:asset_class">
+            <joint limited="true" margin="0.01" armature="0.001" damping="0.1" frictionloss="0.001" />
+            <site rgba="0.4 0.9 0.4 1" />
+            <general ctrllimited="true" forcelimited="true" />
+        </default>
+        <default class="robot0:D_Touch">
+            <site size="0.009 0.004 0.013" group="4" type="box" rgba="0.8 0.8 0.8 0.15" />
+        </default>
+        <default class="robot0:DC_Hand">
+            </default>
+        <default class="robot0:free">
+            <joint type="free" />
+        </default>
+    </default>
+    <worldbody>
+        <light name="light0" pos="0 1 4" dir="0 0 -1" directional="true" castshadow="false" ambient="0.2 0.2 0.2" diffuse="0.8 0.8 0.8" />
+                    <body name="robot0:palm" pos="0 0 0">
+                        <inertial pos="0.006 0 0.036" quat="0.715833 0.0439898 0.0749825 0.692839" mass="0.3" diaginertia="0.001 0.001 0.001" />
+                        <body name="robot0:ffknuckle" pos="0.033 0 0.095">
+                            <inertial pos="0 0 0" quat="0.520062 0.854102 0.00600072 -0.00300036" mass="0.008" diaginertia="1e-05 1e-05 1e-05" />
+                            <joint name="robot0:FFJ3" pos="0 0 0" axis="0 1 0" range="-0.349 0.349" user="1103" />
+                            <body name="robot0:ffproximal" pos="0 0 0">
+                                <inertial pos="0 0 0.023" quat="0.707095 -0.00400054 0.00400054 0.707095" mass="0.014" diaginertia="1e-05 1e-05 1e-05" />
+                                <joint name="robot0:FFJ2" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1102" />
+                                <body name="robot0:ffmiddle" pos="0 0 0.045">
+                                    <inertial pos="0 0 0.011" quat="0.707107 0 0 0.707107" mass="0.012" diaginertia="1e-05 1e-05 1e-05" />
+                                    <joint name="robot0:FFJ1" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1101" />
+                                    <body name="robot0:ffdistal" pos="0 0 0.025">
+                                        <inertial pos="0 0 0.015" quat="0.7071 -0.00300043 0.00300043 0.7071" mass="0.01" diaginertia="1e-05 1e-05 1e-05" />
+                                        <joint name="robot0:FFJ0" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1100" />
+                                        <site name="robot0:S_fftip" pos="0 0 0.026" group="3" />
+                                        <site name="robot0:Tch_fftip" class="robot0:D_Touch" pos="0 -0.004 0.018" />
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                        <body name="robot0:mfknuckle" pos="0.011 0 0.099">
+                            <inertial pos="0 0 0" quat="0.520062 0.854102 0.00600072 -0.00300036" mass="0.008" diaginertia="1e-05 1e-05 1e-05" />
+                            <joint name="robot0:MFJ3" pos="0 0 0" axis="0 1 0" range="-0.349 0.349" user="1107" />
+                            <body name="robot0:mfproximal" pos="0 0 0">
+                                <inertial pos="0 0 0.023" quat="0.707095 -0.00400054 0.00400054 0.707095" mass="0.014" diaginertia="1e-05 1e-05 1e-05" />
+                                <joint name="robot0:MFJ2" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1106" />
+                                <body name="robot0:mfmiddle" pos="0 0 0.045">
+                                    <inertial pos="0 0 0.012" quat="0.707107 0 0 0.707107" mass="0.012" diaginertia="1e-05 1e-05 1e-05" />
+                                    <joint name="robot0:MFJ1" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1105" />
+                                    <body name="robot0:mfdistal" pos="0 0 0.025">
+                                        <inertial pos="0 0 0.015" quat="0.7071 -0.00300043 0.00300043 0.7071" mass="0.01" diaginertia="1e-05 1e-05 1e-05" />
+                                        <joint name="robot0:MFJ0" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1104" />
+                                        <site name="robot0:S_mftip" pos="0 0 0.026" group="3" />
+                                        <site name="robot0:Tch_mftip" class="robot0:D_Touch" pos="0 -0.004 0.018" />
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                        <body name="robot0:rfknuckle" pos="-0.011 0 0.095">
+                            <inertial pos="0 0 0" quat="0.520062 0.854102 0.00600072 -0.00300036" mass="0.008" diaginertia="1e-05 1e-05 1e-05" />
+                            <joint name="robot0:RFJ3" pos="0 0 0" axis="0 1 0" range="-0.349 0.349" user="1111" />
+                            <body name="robot0:rfproximal" pos="0 0 0">
+                                <inertial pos="0 0 0.023" quat="0.707095 -0.00400054 0.00400054 0.707095" mass="0.014" diaginertia="1e-05 1e-05 1e-05" />
+                                <joint name="robot0:RFJ2" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1110" />
+                                <body name="robot0:rfmiddle" pos="0 0 0.045">
+                                    <inertial pos="0 0 0.012" quat="0.707107 0 0 0.707107" mass="0.012" diaginertia="1e-05 1e-05 1e-05" />
+                                    <joint name="robot0:RFJ1" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1109" />
+                                    <body name="robot0:rfdistal" pos="0 0 0.025">
+                                        <inertial pos="0 0 0.015" quat="0.7071 -0.00300043 0.00300043 0.7071" mass="0.01" diaginertia="1e-05 1e-05 1e-05" />
+                                        <joint name="robot0:RFJ0" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1108" />
+                                        <site name="robot0:S_rftip" pos="0 0 0.026" group="3" />
+                                        <site name="robot0:Tch_rftip" class="robot0:D_Touch" pos="0 -0.004 0.018" />
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                        <body name="robot0:lfmetacarpal" pos="-0.017 0 0.044">
+                            <inertial pos="-0.014 0.001 0.014" quat="0.709167 -0.0920216 -0.0630148 0.696164" mass="0.075" diaginertia="1e-05 1e-05 1e-05" />
+                            <joint name="robot0:LFJ4" pos="0 0 0" axis="0.570977 0 0.820966" range="0 0.785" user="1116" />
+                            <body name="robot0:lfknuckle" pos="-0.017 0 0.044">
+                                <inertial pos="0 0 0" quat="0.520062 0.854102 0.00600072 -0.00300036" mass="0.008" diaginertia="1e-05 1e-05 1e-05" />
+                                <joint name="robot0:LFJ3" pos="0 0 0" axis="0 1 0" range="-0.349 0.349" user="1115" />
+                                <body name="robot0:lfproximal" pos="0 0 0">
+                                    <inertial pos="0 0 0.023" quat="0.707095 -0.00400054 0.00400054 0.707095" mass="0.014" diaginertia="1e-05 1e-05 1e-05" />
+                                    <joint name="robot0:LFJ2" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1114" />
+                                    <body name="robot0:lfmiddle" pos="0 0 0.045">
+                                        <inertial pos="0 0 0.012" quat="0.707107 0 0 0.707107" mass="0.012" diaginertia="1e-05 1e-05 1e-05" />
+                                        <joint name="robot0:LFJ1" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1113" />
+                                        <body name="robot0:lfdistal" pos="0 0 0.025">
+                                            <inertial pos="0 0 0.015" quat="0.7071 -0.00300043 0.00300043 0.7071" mass="0.01" diaginertia="1e-05 1e-05 1e-05" />
+                                            <joint name="robot0:LFJ0" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1112" />
+                                            <site name="robot0:S_lftip" pos="0 0 0.026" group="3" />
+                                            <site name="robot0:Tch_lftip" class="robot0:D_Touch" pos="0 -0.004 0.018" />
+                                        </body>
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                        <body name="robot0:thbase" pos="0.034 -0.009 0.029" quat="0.923956 0 0.382499 0">
+                            <inertial pos="0 0 0" mass="0.01" diaginertia="1e-05 1e-05 1e-05" />
+                            <joint name="robot0:THJ4" pos="0 0 0" axis="0 0 -1" range="-1.047 1.047" user="1121" />
+                            <body name="robot0:thproximal" pos="0 0 0">
+                                <inertial pos="0 0 0.017" quat="0.981604 0 0.000999597 0.190923" mass="0.016" diaginertia="1e-05 1e-05 1e-05" />
+                                <joint name="robot0:THJ3" pos="0 0 0" axis="1 0 0" range="0 1.222" user="1120" />
+                                <body name="robot0:thhub" pos="0 0 0.038">
+                                    <inertial pos="0 0 0" mass="0.002" diaginertia="1e-05 1e-05 1e-05" />
+                                    <joint name="robot0:THJ2" pos="0 0 0" axis="1 0 0" range="-0.209 0.209" user="1119" />
+                                    <body name="robot0:thmiddle" pos="0 0 0">
+                                        <inertial pos="0 0 0.016" quat="0.999971 -0.000999971 -0.00699979 0.00299991" mass="0.016" diaginertia="1e-05 1e-05 1e-05" />
+                                        <joint name="robot0:THJ1" pos="0 0 0" axis="0 1 0" range="-0.524 0.524" user="1118" />
+                                        <body name="robot0:thdistal" pos="0 0 0.032">
+                                            <inertial pos="0 0 0.016" quat="0.99887 -0.00499935 -0.0469939 0.00499935" mass="0.016" diaginertia="1e-05 1e-05 1e-05" />
+                                            <joint name="robot0:THJ0" pos="0 0 0" axis="0 1 0" range="-1.571 0" user="1117" />
+                                            <site name="robot0:S_thtip" pos="0 0 0.0275" group="3" />
+                                            <site name="robot0:Tch_thtip" class="robot0:D_Touch" pos="-0.005 0 0.02" size="0.005 0.011 0.016" />
+                                        </body>
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+    </worldbody>
+    </mujoco>

@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/private/tmp/compiled_hand_audit_20261015_v1/control/pose_audit.py", line 191, in <module>
+    warnings.simplefilter('always');main()
+                                    ^^^^^^
+  File "/private/tmp/compiled_hand_audit_20261015_v1/control/pose_audit.py", line 180, in main
+    rows=[case_compare(c,info,tree) for c in allcases];results[k]={'static':info['static'],'cases':rows};inputs.append(info['static']['model'])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/compiled_hand_audit_20261015_v1/control/pose_audit.py", line 159, in case_compare
+    if frozen_refs:saved_ref_error=max(float(np.max(np.abs(expected[n]-np.asarray(v)))) for n,v in frozen_refs.items())
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/compiled_hand_audit_20261015_v1/control/pose_audit.py", line 159, in <genexpr>
+    if frozen_refs:saved_ref_error=max(float(np.max(np.abs(expected[n]-np.asarray(v)))) for n,v in frozen_refs.items())
+                                                           ~~~~~~~~^^^
+KeyError: 'path'

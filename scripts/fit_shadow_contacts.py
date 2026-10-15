@@ -7,8 +7,6 @@ import argparse
 from dataclasses import replace
 import json
 from pathlib import Path
-import tempfile
-from xml.etree import ElementTree as ET
 
 import mujoco
 import numpy as np
@@ -44,16 +42,14 @@ def main():
                {"thdistal": center + [0, -.022, 0],
                 "mfdistal": center + [.008, .022, 0],
                 "ffdistal": center + [-.008, .022, 0]})
-    with tempfile.TemporaryDirectory() as tmp:
-        path = Path(tmp)/"query.xml"
-        mujoco.mj_saveLastXML(str(path), runner.model)
-        tree = ET.parse(path)
-        world = tree.getroot().find("worldbody")
-        for name, target in targets.items():
-            ET.SubElement(world,"geom",{"name":f"query_{name}","type":"sphere","size":".0001",
-                "pos":" ".join(map(str,target)),"contype":"0","conaffinity":"0","rgba":"0 0 0 0"})
-        tree.write(path)
-        model = mujoco.MjModel.from_xml_path(str(path))
+    query_spec = runner._scene_spec.copy()
+    for name, target in targets.items():
+        query_spec.worldbody.add_geom(
+            name=f"query_{name}", type=mujoco.mjtGeom.mjGEOM_SPHERE,
+            size=[.0001, 0., 0.], pos=target, contype=0, conaffinity=0,
+            rgba=[0., 0., 0., 0.],
+        )
+    model = query_spec.compile()
     data = mujoco.MjData(model)
     active = [i for i,n in enumerate(pose.joint_names) if n.startswith(("TH", "MF", "FF"))]
     joints = pose.qpos.copy()
@@ -106,7 +102,7 @@ def main():
     report['opposing_face_axis']=args.axis
     np.savez(args.output/"trace.npz",qpos=np.stack(runner.saved_qpos),time_s=[s.time_s for s in trace.steps])
     np.savez(args.output/"engineered_target.npz",joints=joints,palm_position_m=position+solved.x[-3:],quaternion_wxyz=quaternion)
-    mujoco.mj_saveLastXML(str(args.output/"scene.xml"),runner.model)
+    mujoco.mj_saveModel(runner.model, str(args.output/"scene.mjb"))
     (args.output/"report.json").write_text(json.dumps(report,indent=2)+"\n")
     print(json.dumps(report,indent=2))
 

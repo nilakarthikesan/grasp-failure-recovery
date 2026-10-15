@@ -8,15 +8,15 @@ from dataclasses import asdict, replace
 import argparse
 import json
 from pathlib import Path
-import tempfile
-from xml.etree import ElementTree as ET
 
 import mujoco
 import numpy as np
 
 from check_contact_execution import setup
 from grasp_failure_prediction.evaluation.registry import load_protocol_registry
-from grasp_failure_prediction.evaluation.runner import AdroitShadowRunner, ExecutionState
+from grasp_failure_prediction.evaluation.runner import (
+    AdroitShadowRunner, ExecutionState, _add_shadow_actuation_spec,
+)
 from grasp_failure_prediction.evaluation.retargeting import reorder_for_mujoco
 from grasp_failure_prediction.evaluation.scoring import score_trace
 
@@ -40,41 +40,22 @@ def force_close_targets(joint_names, target, limits, delta_rad):
     return np.clip(command, limits[:, 0], limits[:, 1])
 
 
-def add_actuation(model):
-    with tempfile.TemporaryDirectory() as tmp:
-        xml = Path(tmp) / "scene.xml"
-        mujoco.mj_saveLastXML(str(xml), model)
-        tree = ET.parse(xml)
-        root = tree.getroot()
-        option = root.find("option")
-        if option is None:
-            option = ET.SubElement(root, "option")
-        option.set("cone", "elliptic")
-        option.set("noslip_iterations", "10")
-        option.set("timestep", ".002")
-        option.set("integrator", "implicitfast")
-        world = root.find("worldbody")
-        ET.SubElement(world, "body", {"name": "arm_target", "mocap": "true",
-            "pos": " ".join(map(str, model.qpos0[:3])),
-            "quat": " ".join(map(str, model.qpos0[3:7]))})
-        equality = ET.SubElement(root, "equality")
-        ET.SubElement(equality, "weld", {"name": "ideal_arm", "body1": "arm_target", "body2": "forearm",
-            "relpose": "0 0 0 1 0 0 0", "solref": ".01 1"})
-        actuator = ET.SubElement(root, "actuator")
-        for joint in root.findall(".//joint"):
-            name = joint.get("name")
-            if not name or joint.get("type") == "free":
-                continue
-            limits = joint.get("range")
-            effort = abs(float(joint.get("actuatorfrcrange", "-1 1").split()[1]))
-            if not name.startswith("WR"):
-                effort = min(effort, 1.)
-            ET.SubElement(actuator, "position", {"name": f"servo_{name}", "joint": name,
-                "kp": "50" if name.startswith("WR") else "10", "kv": ".3",
-                "ctrllimited": "true", "ctrlrange": limits,
-                "forcelimited": "true", "forcerange": f"{-effort} {effort}"})
-        tree.write(xml)
-        return mujoco.MjModel.from_xml_path(str(xml))
+def _actuation_spec(scene_spec: mujoco.MjSpec) -> mujoco.MjSpec:
+    """Add the historical pilot servos to a live, precision-preserving spec.
+
+    Compiled MjModel inputs are rejected because reconstructing them through
+    mj_saveLastXML loses precision and can use another model's global XML state.
+    """
+    if not isinstance(scene_spec, mujoco.MjSpec):
+        raise TypeError("add_actuation requires the live tabletop MjSpec")
+    spec = scene_spec.copy()
+    spec.option.timestep = 0.002
+    return _add_shadow_actuation_spec(spec)
+
+
+def add_actuation(scene_spec: mujoco.MjSpec) -> mujoco.MjModel:
+    """Compile the historical pilot servos from a live scene specification."""
+    return _actuation_spec(scene_spec).compile()
 
 
 class ActuatedShadowRunner(AdroitShadowRunner):
@@ -83,7 +64,8 @@ class ActuatedShadowRunner(AdroitShadowRunner):
         if not np.isfinite(force_close_delta_rad) or not 0 <= force_close_delta_rad <= .3:
             raise ValueError("Experimental force-close offset must be in [0, 0.3] radians")
         self.force_close_delta_rad = force_close_delta_rad
-        self.model = add_actuation(self.model)
+        self._scene_spec = _actuation_spec(self._scene_spec)
+        self.model = self._scene_spec.compile()
         self.data = mujoco.MjData(self.model)
         self._initialized = False
         self._last_root = self.model.qpos0[:7].copy()
@@ -223,7 +205,7 @@ def main():
     report.update({"proposal": "unchanged HUG with corrected retargeting", "hardware_calibrated": False,
                    "collision_shapes_changed": False, "ideal_arm_constraint": True})
     np.savez(args.output / "trace.npz", qpos=np.stack(runner.saved_qpos), time_s=[s.time_s for s in trace.steps])
-    mujoco.mj_saveLastXML(str(args.output / "scene.xml"), runner.model)
+    mujoco.mj_saveModel(runner.model, str(args.output / "scene.mjb"))
     (args.output / "report.json").write_text(json.dumps(report, indent=2)+"\n")
     print(json.dumps(report, indent=2))
 
