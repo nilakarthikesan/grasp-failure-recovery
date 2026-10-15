@@ -487,3 +487,9 @@ Desktop compilation succeeded for the canonical working source SHA-256 `e856dbb0
 The common mapping subsection now reports the equivalent bounds-contraction repair, 8/10 to 10/10 existing-object preparation and <=1.39e-17 m scalar-arithmetic disagreement. This remains an implementation reliability result, separate from anatomical/contact/physics validity. Forty-seven static tests pass; one optional asset test is skipped and two free-fall tests excluded. No new eval data. [Evidence](../research_artifacts/shared_object_bounds_repair_2026-10-15_v1/README.md).
 
 The canonical working paper compiled successfully at source SHA-256 `67979b5ecf37d0f2b870af003f4fcd8e72d490834cea404c4eba4874d51fb9bf`; the compiler and guarded section receipts are archived.
+
+
+<!-- hug-only-research-focus-2026-10-15-v1 -->
+## 15 October 2026 — HUG-only continuation handoff prepared
+
+The user selected HUG as the sole active generator for the next phase. The new handoff records accepted 32-command static realization, unresolved fresh-solve/native-fidelity scope, mapper/provenance and recorder/export gaps, historical prediction results, and conditional gates for later evaluation and model work. Other generators and their results remain preserved and deferred. A front-of-manuscript scope note marks the earlier multiple-generator plan as deferred; no historical findings or provider sections are rewritten. No new inference, physics, evaluation data or training ran. [Handoff](HUG_ONLY_MAPPING_AND_PREDICTION_HANDOFF.md). Desktop compilation is recorded separately in the handoff receipt.
