@@ -1,0 +1,79 @@
+{
+  "articulated_MANO_dynamics_validated": false,
+  "artifacts": [
+    {
+      "bytes": 730,
+      "label": "exact_analytic_fixture_XML",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_contact_dynamics_2026-10-15_v2/run_v1/raw/freefall_8000hz/fixture.xml",
+      "sha256": "762057564007a4dd24cc526e6e6d1a3c26fff31b4da3621925501499e84fa4dd"
+    },
+    {
+      "bytes": 3366,
+      "label": "compiled_analytic_mass_layout_solver_initial_state",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_contact_dynamics_2026-10-15_v2/run_v1/raw/freefall_8000hz/compiled_fixture.npz",
+      "sha256": "02d4a1f99635b0f390ada3bc573468bde7310ff6bae38e17068585586fd84706"
+    },
+    {
+      "bytes": 179949,
+      "label": "prestep_contact_and_endpoint_state_separate_clocks",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_contact_dynamics_2026-10-15_v2/run_v1/raw/freefall_8000hz/trajectory.npz",
+      "sha256": "468890defc4ddc3dcdbd91da7607f90ba7a726fb34a26303a58cbc9a8bb15828"
+    }
+  ],
+  "case": {
+    "dt_s": 0.000125,
+    "geometry": "none",
+    "gravity": -9.81,
+    "id": "freefall_8000hz",
+    "kind": "freefall",
+    "steps": 2000
+  },
+  "collection_or_training_allowed": false,
+  "measurement": {
+    "assessment": {
+      "articulated_MANO_dynamics_validated": false,
+      "collection_or_training_allowed": false,
+      "failures": [],
+      "metrics": {
+        "cone_complementarity_N_m_s2": 0.0,
+        "cone_dual_m_s2": 0.0,
+        "cone_primal_N": 0.0,
+        "discrete_impulse_work_error_J": 1.824712256293104e-16,
+        "discrete_v_reference_m_s": -2.4525,
+        "discrete_z_reference_m": 0.19328421874999996,
+        "force_balance_N": 3.299582829185965e-13,
+        "position_error_m": 1.0824674490095276e-15,
+        "velocity_error_m_s": 5.5067062021407764e-14
+      },
+      "native_contact_law_qualified": false,
+      "physical_outcome": null,
+      "real_hand_physical_calibration": false,
+      "status": "PASS"
+    },
+    "energy_max_J": 0.9809998496310938,
+    "energy_min_J": 0.9806992621875291,
+    "final_position_world_m": [
+      [
+        0.0,
+        -0.3333333333333333,
+        0.19328421875000104
+      ]
+    ],
+    "final_velocity_world_m_s": [
+      [
+        0.0,
+        0.0,
+        -2.452500000000055
+      ]
+    ],
+    "force_clock": "completed step start t; contacts/forces/qacc are NOT endpoint measurements",
+    "kind": "freefall",
+    "maximum_penetration_m": 0.0,
+    "state_clock": "step endpoint t+dt; solver_niter and warnings belong to preceding solve",
+    "valid_endpoint_samples": 2000
+  },
+  "native_contact_law_qualified": false,
+  "physical_outcome": null,
+  "real_hand_physical_calibration": false,
+  "status": "MEASURED"
+}

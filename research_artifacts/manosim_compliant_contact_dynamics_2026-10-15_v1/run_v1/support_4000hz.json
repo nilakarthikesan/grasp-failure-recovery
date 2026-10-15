@@ -1,0 +1,73 @@
+{
+  "articulated_MANO_dynamics_validated": false,
+  "artifacts": [
+    {
+      "bytes": 743,
+      "label": "exact_collision_disabled_fixture_XML",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/support_4000hz/fixture.xml",
+      "sha256": "c99fe811a94c1cde95e23395488bda762b3436e9669d21d9beb8686ab65832dc"
+    },
+    {
+      "bytes": 3155,
+      "label": "compiled_named_translation_and_explicit51J",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/support_4000hz/compiled_fixture.npz",
+      "sha256": "e22bd9495d536a949cd1db642cc555fe33d7cbd6dcebf1d557926a8ed373f7ce"
+    },
+    {
+      "bytes": 215092,
+      "label": "start_law_load_and_endpoint_state_separate_clocks",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/support_4000hz/trajectory.npz",
+      "sha256": "2e93b80c2d6b2102fa250d687d6712175081636db3e7cb79f2f58671644d22ca"
+    }
+  ],
+  "case": {
+    "dt_s": 0.00025,
+    "gravity": -9.81,
+    "id": "support_4000hz",
+    "kind": "support",
+    "steps": 4000
+  },
+  "collection_or_training_allowed": false,
+  "measurement": {
+    "assessment": {
+      "articulated_MANO_dynamics_validated": false,
+      "collection_or_training_allowed": false,
+      "failures": [],
+      "metrics": {
+        "discrete_impulse_work_error_J": 7.535205098774256e-18,
+        "force_balance_N": 2.842170943040401e-14,
+        "integration_energy_identity_error_J": 1.4462452299656738e-17,
+        "law_power_identity_residual_w": 8.881784197001252e-16,
+        "maximum_absolute_integration_defect_J": 0.0011519824299779172,
+        "mean_penetration_m": 9.810000000002282e-05,
+        "mean_support_N": 1.962,
+        "rest_penetration_reference_m": 9.810000000000001e-05,
+        "settled_speed_m_s": 3.608217777251214e-15,
+        "sum_continuous_dissipation_J": -0.042715793236644255,
+        "sum_integration_defect_J": 0.003379557136644262
+      },
+      "native_contact_law_qualified": false,
+      "physical_outcome": null,
+      "real_hand_physical_calibration": false,
+      "status": "PASS"
+    },
+    "final_position_world_m": [
+      0.0,
+      0.0,
+      0.009901899999999977
+    ],
+    "final_velocity_world_m_s": [
+      0.0,
+      0.0,
+      3.608217777251214e-15
+    ],
+    "force_clock": "law and applied force at preceding step start t; endpoint state at t+dt",
+    "kind": "support",
+    "maximum_penetration_m": 0.0006575699320703569,
+    "valid_endpoint_samples": 4000
+  },
+  "native_contact_law_qualified": false,
+  "physical_outcome": null,
+  "real_hand_physical_calibration": false,
+  "status": "MEASURED"
+}

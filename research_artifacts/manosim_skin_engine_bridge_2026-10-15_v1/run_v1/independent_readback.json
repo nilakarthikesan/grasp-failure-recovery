@@ -1,0 +1,84 @@
+{
+  "HEAD_remained_fixed": true,
+  "accepted_mapping": false,
+  "active_protocol_sha256": "123408f6bbc7cfc07c07fefdae01bdc0884b295dcae963b2001802d193755054",
+  "all_bindings_verified_after": true,
+  "all_bindings_verified_before": true,
+  "artifact_inventory": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_skin_engine_bridge_2026-10-15_v1/protocol.json": {
+      "bytes": 1212592,
+      "sha256": "123408f6bbc7cfc07c07fefdae01bdc0884b295dcae963b2001802d193755054"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_skin_engine_bridge_2026-10-15_v1/run_v1/20/result.json": {
+      "bytes": 2054,
+      "sha256": "4715506c21f1072c1790a913ae483ae43dbc573cb93f7d2deccfcbc5dfcf4885"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_skin_engine_bridge_2026-10-15_v1/run_v1/STARTED.json": {
+      "bytes": 208,
+      "sha256": "16f219db899a58fea6cc3678ad18da79f084e5ceaa6d9bd17a2dcbd4d00af3bb"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_skin_engine_bridge_2026-10-15_v1/run_v1/case_20.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_skin_engine_bridge_2026-10-15_v1/run_v1/report.json": {
+      "bytes": 1221,
+      "sha256": "9cccf32c6c0fc7f17e09a4d1d99fcf4d7d50efdabadd377002fbbfb218c21070"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_skin_engine_bridge_2026-10-15_v1/run_v1/raw/20/result.json": {
+      "bytes": 2054,
+      "sha256": "4715506c21f1072c1790a913ae483ae43dbc573cb93f7d2deccfcbc5dfcf4885"
+    }
+  },
+  "cases": [
+    {
+      "allowed_engine_calls": {
+        "data_constructions": 0,
+        "direct_mujoco_flex_calls": 0,
+        "model_compilations": 0,
+        "mujoco_forward_calls": 0
+      },
+      "complete_numeric_artifacts": 0,
+      "index": 20,
+      "operation_events": 0,
+      "result_sha256": "4715506c21f1072c1790a913ae483ae43dbc573cb93f7d2deccfcbc5dfcf4885",
+      "skin_evaluation_count_source_bound_before_first_evaluation": 0,
+      "status": "VERIFIED_HARD_STOP"
+    },
+    {
+      "index": 28,
+      "status": "NOT_RUN"
+    }
+  ],
+  "completed_utc": "2026-10-15T18:58:46.934678+00:00",
+  "diagnosis": {
+    "actual_world_body_geoms": 16,
+    "all_descendant_geom_elements": 17,
+    "anatomical_bodies": 16,
+    "asset_meshes": 16,
+    "correction_scope": "Separate version must count/disable only actual worldbody hand geoms while preserving defaulttemplate.",
+    "default_geom_templates": 1,
+    "failed_source_selector": "root.findall('.//geom')",
+    "source_inputs_or_shape_changed": false
+  },
+  "executed_operations": {
+    "FK": 0,
+    "forwards": 0,
+    "geometry_queries": 0,
+    "model_imports": 0,
+    "model_or_data_constructions": 0,
+    "physics_steps": 0,
+    "skin_evaluations": 0
+  },
+  "expected_bindings": 5262,
+  "freeze_commit": "5410cf8380f944a07fa7e62669fc4b6f5578ed55",
+  "native_contact_qualified": false,
+  "new_collection_or_training_allowed": false,
+  "physical_outcome": null,
+  "report_sha256": "9cccf32c6c0fc7f17e09a4d1d99fcf4d7d50efdabadd377002fbbfb218c21070",
+  "saved_only_verifier_source": "\"\"\"Failure receipt from savedJSON/XML/hash algebra only; no numerical model.\"\"\"\nfrom datetime import datetime,timezone\nimport hashlib,json,subprocess\nfrom pathlib import Path\nfrom xml.etree import ElementTree as ET\n\nROOT=Path('/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction')\nHERE=ROOT/'research_artifacts/manosim_skin_engine_bridge_2026-10-15_v1'\nFREEZE='5410cf8380f944a07fa7e62669fc4b6f5578ed55'\nPSHA='123408f6bbc7cfc07c07fefdae01bdc0884b295dcae963b2001802d193755054'\n\ndef sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()\ndef read(p):return json.loads(Path(p).read_text())\ndef require(ok,msg):\n    if not ok:raise ValueError(msg)\ndef row(p):return dict(sha256=sha(p),bytes=Path(p).stat().st_size)\ndef bindings(p):\n    require(len(p['bindings'])==5262,'Expected5262 source/input bytes')\n    for name,digest in p['bindings'].items():require(sha(name)==digest,'Frozen binding changed '+name)\ndef git(p):\n    require(subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip()==FREEZE,'HEAD changed')\n    for relative,digest in p['tracked_sources'].items():\n        require(hashlib.sha256(subprocess.check_output(['git','-C',str(ROOT),'show',FREEZE+':'+relative])).hexdigest()==digest and sha(ROOT/relative)==digest,'Selected Git source changed '+relative)\n    require(subprocess.check_output(['git','-C',str(ROOT),'show',FREEZE+':'+str((HERE/'protocol.json').relative_to(ROOT))])==(HERE/'protocol.json').read_bytes(),'Actual protocol not committed')\n\ndef main():\n    protocol=HERE/'protocol.json';report_path=HERE/'run_v1/report.json';p=read(protocol);report=read(report_path)\n    require(sha(protocol)==PSHA and report['protocol_sha256']==PSHA and report['freeze_commit']==FREEZE and report['status']=='HARD_STOP','Frozen actual failure report')\n    bindings(p);git(p)\n    require(report['cases'][0]['index']==20 and report['cases'][0]['status']=='HARD_STOP' and report['cases'][0]['returncode']==1,'Case20failure')\n    require(report['cases'][1]==dict(index=28,status='NOT_RUN'),'Case28unexecuted')\n    item=report['cases'][0];raw=Path(item['raw_result']);tracked=Path(item['result'])\n    require(sha(raw)==item['raw_result_sha256']==item['result_sha256'] and raw.read_bytes()==tracked.read_bytes(),'Exact tracked/raw failure copy')\n    r=read(raw)\n    require(r['schema_version']=='manosim_read_q_complete_skin_engine_bridge_v1_case' and r['index']==20 and r['freeze_commit']==FREEZE and r['protocol_sha256']==PSHA,'Failure identity')\n    require(r['failure']['type']=='ValueError' and r['failure']['message']=='Exact original16 mesh/body inventory required','Original failure not replaced')\n    require(r['allowed_engine_calls']==dict(model_compilations=0,data_constructions=0,mujoco_forward_calls=0,direct_mujoco_flex_calls=0),'Zero externallycounted engineoperations')\n    require(r['integration_guards']==dict(physics_integration_attempts=0,forbidden_direct_query_or_pipeline_attempts=0),'Zero forbiddenattempts')\n    require(r['partial_artifacts']==[] and {x.name for x in raw.parent.iterdir()}=={'result.json'},'No array/XML/progress artifacts or operation events beforefailure')\n    for v in (p,report,r):\n        require(v['accepted_mapping'] is False and v['native_contact_qualified'] is False and v['new_collection_or_training_allowed'] is False and v['physical_outcome'] is None,'No outcome/admission')\n    base=Path(p['cases']['20']['base_xml']);root=ET.parse(base).getroot()\n    allgeoms=root.findall('.//geom');actual=root.findall('./worldbody//geom');templates=root.findall('./default//geom')\n    names={b.get('name') for b in root.findall('./worldbody//body')}\n    require(len(allgeoms)==17 and len(actual)==16 and len(templates)==1 and len(root.findall('./asset/mesh'))==16 and names=={f'mano_body_{j}' for j in range(16)},'Literal original template/world inventory mismatch diagnosis')\n    require(all(len(b.findall('./geom'))==1 for b in root.findall('./worldbody//body')),'Exactly one physical geom per anatomicalbody')\n    inputsource=HERE/'skin_engine_bridge.py';source=inputsource.read_text()\n    require(\"geoms=root.findall('.//geom')\" in source,'Failed selector source identity')\n    started=read(HERE/'run_v1/STARTED.json');require(started['freeze_commit']==FREEZE and started['protocol_sha256']==PSHA,'Started marker identity')\n    paths=[protocol,report_path,HERE/'run_v1/STARTED.json',raw,tracked,*sorted((HERE/'run_v1').glob('*.log'))]\n    inventory={str(path.resolve()):row(path) for path in paths}\n    bindings(p);git(p)\n    for path,expected in inventory.items():require(row(path)==expected,'Failure artifact changed')\n    verifier=Path(__file__).read_text()\n    receipt=dict(schema_version='manosim_skin_engine_bridge_failed_saved_readback_v1',\n        status='VERIFIED_HARD_STOP_DEFAULT_GEOM_TEMPLATE_INVENTORY_BEFORE_ALL_ENGINE_OPERATIONS',\n        completed_utc=datetime.now(timezone.utc).isoformat(),freeze_commit=FREEZE,active_protocol_sha256=PSHA,\n        expected_bindings=5262,selected_git_blobs_checked=len(p['tracked_sources'])+1,\n        all_bindings_verified_before=True,all_bindings_verified_after=True,HEAD_remained_fixed=True,\n        report_sha256=sha(report_path),artifact_inventory=inventory,\n        cases=[dict(index=20,status='VERIFIED_HARD_STOP',result_sha256=sha(raw),allowed_engine_calls=r['allowed_engine_calls'],\n            operation_events=0,complete_numeric_artifacts=0,skin_evaluation_count_source_bound_before_first_evaluation=0),dict(index=28,status='NOT_RUN')],\n        diagnosis=dict(actual_world_body_geoms=16,default_geom_templates=1,all_descendant_geom_elements=17,\n            asset_meshes=16,anatomical_bodies=16,failed_source_selector=\"root.findall('.//geom')\",\n            correction_scope='Separate version must count/disable only actual worldbody hand geoms while preserving defaulttemplate.',\n            source_inputs_or_shape_changed=False),\n        saved_only_verifier_source=verifier,saved_only_verifier_source_sha256=hashlib.sha256(verifier.encode()).hexdigest(),\n        executed_operations=dict(model_imports=0,model_or_data_constructions=0,skin_evaluations=0,FK=0,forwards=0,geometry_queries=0,physics_steps=0),\n        accepted_mapping=False,native_contact_qualified=False,new_collection_or_training_allowed=False,physical_outcome=None)\n    target=HERE/'run_v1/independent_readback.json'\n    with target.open('x') as f:json.dump(receipt,f,indent=2,sort_keys=True,allow_nan=False);f.write('\\n')\n    print(json.dumps(dict(path=str(target),sha256=sha(target),status=receipt['status'],selected_git_blobs=receipt['selected_git_blobs_checked'])))\n\nif __name__=='__main__':main()\n",
+  "saved_only_verifier_source_sha256": "8726474fe317a1597b8976bc8b8bec2cdb61625ef25884143e6c2c0b72de011d",
+  "schema_version": "manosim_skin_engine_bridge_failed_saved_readback_v1",
+  "selected_git_blobs_checked": 147,
+  "status": "VERIFIED_HARD_STOP_DEFAULT_GEOM_TEMPLATE_INVENTORY_BEFORE_ALL_ENGINE_OPERATIONS"
+}

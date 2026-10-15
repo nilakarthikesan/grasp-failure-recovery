@@ -1,0 +1,29 @@
+{
+  "accepted_mapping": false,
+  "allowed_engine_calls": {
+    "data_constructions": 0,
+    "direct_mujoco_flex_calls": 0,
+    "model_compilations": 0,
+    "mujoco_forward_calls": 0
+  },
+  "failure": {
+    "message": "Exact original16 mesh/body inventory required",
+    "traceback": "Traceback (most recent call last):\n  File \"/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_skin_engine_bridge_2026-10-15_v1/run_bridge.py\", line 195, in child\n    measured = load_case().run_case(p['cases'][str(index)], output, p, checkpoint)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_skin_engine_bridge_2026-10-15_v1/bridge_case.py\", line 91, in run_case\n    xml,assembly=bridge.scene_xml(spec['base_xml'],spec['old_include']['path'])\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_skin_engine_bridge_2026-10-15_v1/skin_engine_bridge.py\", line 81, in scene_xml\n    raise ValueError('Exact original16 mesh/body inventory required')\nValueError: Exact original16 mesh/body inventory required\n",
+    "type": "ValueError"
+  },
+  "finished_utc": "2026-10-15T18:55:48.570859+00:00",
+  "freeze_commit": "5410cf8380f944a07fa7e62669fc4b6f5578ed55",
+  "index": 20,
+  "integration_guards": {
+    "forbidden_direct_query_or_pipeline_attempts": 0,
+    "physics_integration_attempts": 0
+  },
+  "native_contact_qualified": false,
+  "new_collection_or_training_allowed": false,
+  "partial_artifacts": [],
+  "physical_outcome": null,
+  "protocol_sha256": "123408f6bbc7cfc07c07fefdae01bdc0884b295dcae963b2001802d193755054",
+  "schema_version": "manosim_read_q_complete_skin_engine_bridge_v1_case",
+  "started_utc": "2026-10-15T18:55:47.827580+00:00",
+  "status": "HARD_STOP"
+}

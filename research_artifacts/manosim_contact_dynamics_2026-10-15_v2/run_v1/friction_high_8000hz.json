@@ -1,0 +1,80 @@
+{
+  "articulated_MANO_dynamics_validated": false,
+  "artifacts": [
+    {
+      "bytes": 1182,
+      "label": "exact_analytic_fixture_XML",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_contact_dynamics_2026-10-15_v2/run_v1/raw/friction_high_8000hz/fixture.xml",
+      "sha256": "6f3847e869eeec6ccdb18af0198910348ffb5f18d6bb96451ccdf55459335d12"
+    },
+    {
+      "bytes": 3354,
+      "label": "compiled_analytic_mass_layout_solver_initial_state",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_contact_dynamics_2026-10-15_v2/run_v1/raw/friction_high_8000hz/compiled_fixture.npz",
+      "sha256": "65aec19f7f80c711d8f341befd0fda149bfeff4b75aab78112ec98a6357fa8cf"
+    },
+    {
+      "bytes": 864789,
+      "label": "prestep_contact_and_endpoint_state_separate_clocks",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_contact_dynamics_2026-10-15_v2/run_v1/raw/friction_high_8000hz/trajectory.npz",
+      "sha256": "97c35e98149905fe46a06df568e766aeba9df0fcd2d45accac9bd7d73e6600f4"
+    }
+  ],
+  "case": {
+    "dt_s": 0.000125,
+    "geometry": "flex",
+    "gravity": -9.81,
+    "id": "friction_high_8000hz",
+    "kind": "friction_high",
+    "steps": 4000
+  },
+  "collection_or_training_allowed": false,
+  "measurement": {
+    "assessment": {
+      "articulated_MANO_dynamics_validated": false,
+      "collection_or_training_allowed": false,
+      "failures": [],
+      "metrics": {
+        "applied_lateral_N": 1.4715000000000003,
+        "cone_complementarity_N_m_s2": 4.547473508864641e-13,
+        "cone_dual_m_s2": 2.842170943040401e-14,
+        "cone_primal_N": 8.881784197001252e-16,
+        "discrete_impulse_work_error_J": 4.96564594998361e-17,
+        "force_balance_N": 1.829647544582258e-13,
+        "mean_lateral_velocity_m_s": 1.1035523376511565,
+        "mean_sliding_acceleration_m_s2": 2.489725365381985,
+        "regularized_creep_reference_m_s": 0.00367875,
+        "sliding_acceleration_reference_m_s2": 2.4525
+      },
+      "native_contact_law_qualified": false,
+      "physical_outcome": null,
+      "real_hand_physical_calibration": false,
+      "status": "PASS"
+    },
+    "energy_max_J": 0.1706646573053486,
+    "energy_min_J": 0.01942755653925721,
+    "final_position_world_m": [
+      [
+        0.3065815835512853,
+        -0.3333333333333333,
+        0.0100170141474426
+      ]
+    ],
+    "final_velocity_world_m_s": [
+      [
+        1.2278598274818493,
+        0.0,
+        -0.0032196549636839796
+      ]
+    ],
+    "force_clock": "completed step start t; contacts/forces/qacc are NOT endpoint measurements",
+    "kind": "friction_high",
+    "maximum_penetration_m": 9.810000000000027e-05,
+    "state_clock": "step endpoint t+dt; solver_niter and warnings belong to preceding solve",
+    "valid_endpoint_samples": 4000
+  },
+  "native_contact_law_qualified": false,
+  "physical_outcome": null,
+  "real_hand_physical_calibration": false,
+  "status": "MEASURED"
+}

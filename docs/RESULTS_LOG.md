@@ -1379,3 +1379,53 @@ sliding acceleration. Continuous dissipation and finite-step energy defects
 are recorded separately; matching their algebra is not zero integration error.
 Neither numerical contact model certifies actual MANO contact or real material
 properties. All actual results remain pending; no collection/training admitted.
+
+### 2026-10-15 — Compliant fixtures pass; stock convergence remains failed
+
+At freeze5410cf8, stock refinement6b22b6b5 completes14conditions/42600steps in
+19.17s. All individual analytic checks pass, including sliding meanacceleration
+2.37188830/2.48972537m/s2 at250/125us. Overall NOT_QUALIFIED persists: endpoint
+velocity difference is0.0133270m/s laterally and0.0266540m/s vertically, each
+above the unchanged0.0122625m/s comparison gate. Both traces remain
+intermittent bounce/traction. Independent receipt0700ba53 verifies1154bindings,
+76selected Git sources,42artifacts/all42600intervals, every original assessment
+and failed convergence. No further stock refinement or physics rerun occurs.
+
+Compliant protocol13b2d8e4 completes8conditions/27000steps+lawcalls in14.92s.
+All8analytic checks and4timestep comparisons pass. Support is1.962N/98.1um;
+low-force smooth creep0.000258198890m/s; high-force acceleration2.45250203m/s2
+at both steps. Max final velocity difference is0.0003435405m/s. Engine contact
+counts/constraints remain zero; only explicit kernel loads act. Force/power,
+common-point reaction, finite-step impulse/work and energy-defect identities
+pass. Discrete integration defects are deliberately nonzero: support summed
+defect+0.0033796/+0.0016148J at250/125us, with identity errors<3.7e-16J. This is
+numeric qualification of the declared synthetic model, not material calibration
+or full MANO dynamics.
+
+Independent saved-only receipt e370d13f verifies1163bindings/86Gitblobs, all
+27000intervals, original law operands/reactions/dissipation/energy and every
+decision without invoking the engine or law. An earlier readback receipt
+b5d7270b is preserved with verifier-only NumPy matmul warning observations;
+the additive receipt uses explicit nonoptimized einsum, warnings-as-errors,
+and records zero warnings. Producer sources/outputs and outcomes are unchanged.
+
+Engine bridge123408f6 hard-stops case20 before every engine/skin operation:
+the XML inventory incorrectly counts one default geom template among16
+instantiated world geoms. No model, Data, forward, skin call, flex update or
+artifact is produced; case28NOT_RUN. Independent receipt6f49b4ec verifies all
+5262bindings/147Gitblobs and the exact16meshes/16bodies/16worldgeoms+1template
+operand. Separate v2 will select only instantiated world geoms, require and
+preserve the default template, and retain every numeric gate/budget/skin
+operand. V1 source and its failure remain immutable. Global native contact,
+mapping and collection/training admission stay closed.
+
+### 2026-10-15 — Freeze exact XML inventory correction for engine bridge v2
+
+65manufactured controls pass, including one default geom template plus16
+world geoms and strict missing/extra template/geom refusals. Read/hash-only
+prepare checks the actual bound XML inventory before freezing. New protocol
+5164742d binds5277files and the independently verified zero-operation v1
+failure. Only instantiated world geom masks are disabled; the original
+default template is required and preserved. Skin, frames, faces, exactshape,
+source32/continuous64/originalnormal gates and all109state quotas remain
+unchanged. Actual v2 model/forward/skin results are pending at this freeze.

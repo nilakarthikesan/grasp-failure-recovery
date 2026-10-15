@@ -1,0 +1,4949 @@
+{
+  "active_protocol_sha256": "13b2d8e4ad214d325f7605f1ee3bafa477bebe77f8769a1fd6624fb19cc1a03b",
+  "additive_replay_arithmetic": "Same saved operands; explicit optimize=False einsum replaces verifier-only batched matmul; RuntimeWarnings and floating overflow/division/invalid exceptions are fatal",
+  "all_bindings_verified_after": true,
+  "all_bindings_verified_before": true,
+  "array_inventory": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/freefall_4000hz/compiled_fixture.npz": {
+      "body_inertia_kg_m2": {
+        "dtype": "float64",
+        "sha256": "c880a42940bada1dc3fdfa73f0c1aad52ce27a702ed471a25569d062400be733",
+        "shape": [
+          2,
+          3
+        ]
+      },
+      "body_mass_kg": {
+        "dtype": "float64",
+        "sha256": "e65603a1c9797cb905b3efcc1e30d86f5b810525ab702ecc5288d5df288638ab",
+        "shape": [
+          2
+        ]
+      },
+      "body_pos_m": {
+        "dtype": "float64",
+        "sha256": "14e8cd7f085d95642f55f93d86f7f1b4c5e5ca50ff1609c8c5b11958d76bef2c",
+        "shape": [
+          2,
+          3
+        ]
+      },
+      "body_quaternion_wxyz": {
+        "dtype": "float64",
+        "sha256": "4542fc31d028913284f517bc12cba0d399649a3be83759da18a98975d6d0b19b",
+        "shape": [
+          2,
+          4
+        ]
+      },
+      "gravity_m_s2": {
+        "dtype": "float64",
+        "sha256": "ae1e8d988bda31f91f37b3360818f46f5216924d49e011e065e323fe23f3bf2e",
+        "shape": [
+          3
+        ]
+      },
+      "hand_point_J": {
+        "dtype": "float64",
+        "sha256": "871fc54e69eee2d47a7d2a7c14b46aa8fc1f1494a2dd4c1231ed1a656c5db190",
+        "shape": [
+          3,
+          51
+        ]
+      },
+      "initial_qpos": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3
+        ]
+      },
+      "initial_qvel": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3
+        ]
+      },
+      "joint_axis": {
+        "dtype": "float64",
+        "sha256": "1332df685c45a61a0ac008a6a653295b8c5655361c1d34b6304b22ec40235fb8",
+        "shape": [
+          3,
+          3
+        ]
+      },
+      "joint_bodyid": {
+        "dtype": "int32",
+        "sha256": "11047585fe102fbb5cadb42446612a578d88c6ef5ed076bb7ac360c4f9e4373d",
+        "shape": [
+          3
+        ]
+      },
+      "joint_dof_address": {
+        "dtype": "int32",
+        "sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+        "shape": [
+          3
+        ]
+      },
+      "joint_qpos_address": {
+        "dtype": "int32",
+        "sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+        "shape": [
+          3
+        ]
+      },
+      "joint_type": {
+        "dtype": "int32",
+        "sha256": "636952d3023d8cf5d8245ac30efb93a443bd4bc23b5e331d51ecb82425fdc30a",
+        "shape": [
+          3
+        ]
+      },
+      "static_object_point_J": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3,
+          1
+        ]
+      },
+      "timestep_s": {
+        "dtype": "float64",
+        "sha256": "ba9bb123baaf5513cf0925c4ad112290ad8db775426e64654e346deea6a2cd26",
+        "shape": []
+      }
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/freefall_4000hz/trajectory.npz": {
+      "angular_reaction_error_N_m": {
+        "dtype": "float64",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          1000
+        ]
+      },
+      "continuous_dissipation_step_J": {
+        "dtype": "float64",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          1000
+        ]
+      },
+      "discrete_impulse_work_error_J": {
+        "dtype": "float64",
+        "sha256": "7483bcb895f67a289be5a6929f581cb495b23047c3c22edf2653dac98f3dba5c",
+        "shape": [
+          1000
+        ]
+      },
+      "elastic_discrete_remainder_J": {
+        "dtype": "float64",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          1000
+        ]
+      },
+      "elastic_energy_endpoint_J": {
+        "dtype": "float64",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          1000
+        ]
+      },
+      "endpoint_time_s": {
+        "dtype": "float64",
+        "sha256": "051b5f32e3ac77118d34bf3d9b8be38d1c98ec28e0cd28236680e0c6fe36df41",
+        "shape": [
+          1000
+        ]
+      },
+      "engine_ncon": {
+        "dtype": "int64",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          1000
+        ]
+      },
+      "engine_nefc": {
+        "dtype": "int64",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          1000
+        ]
+      },
+      "engine_qfrc_constraint": {
+        "dtype": "float64",
+        "sha256": "151ff79f29e96d211576b9a2e3e78f518b26109916616945d50cdee82dd2ba8b",
+        "shape": [
+          1000,
+          3
+        ]
+      },
+      "euler_position_error_m": {
+        "dtype": "float64",
+        "sha256": "65b7b213b1fa7f8bc51f7cae35a065dbee30c1190f59c954dea756d588cc7c16",
+        "shape": [
+          1000
+        ]
+      },
+      "external_force_N": {
+        "dtype": "float64",
+        "sha256": "151ff79f29e96d211576b9a2e3e78f518b26109916616945d50cdee82dd2ba8b",
+        "shape": [
+          1000,
+          3
+        ]
+      },
+      "external_work_J": {
+        "dtype": "float64",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          1000
+        ]
+      },
+      "force_balance_N": {
+        "dtype": "float64",
+        "sha256": "356b42e04ce1ed55f72ca5509f7a85bc1005ad3f1fd84e22e2f4aea481564bb3",
+        "shape": [
+          1000
+        ]
+      },
+      "gap_derivative_start_m_s": {
+        "dtype": "float64",
+        "sha256": "c84367d65a1a9e4f734e5138a14ca39c14bdf35ff6cb3860249b0d854946c579",
+        "shape": [
+          1000
+        ]
+      },
+      "gap_endpoint_m": {
+        "dtype": "float64",
+        "sha256": "342797919db2b0022057dab3b370af7b70f9daede735018673d20045004df798",
+        "shape": [
+          1000
+        ]
+      },
+      "gap_start_m": {
+        "dtype": "float64",
+        "sha256": "7cd582a605b594aa010ae0f291cda506fa7e50176505793b9898fab61111bf0d",
+        "shape": [
+          1000
+        ]
+      },
+      "integration_energy_identity_error_J": {
+        "dtype": "float64",
+        "sha256": "6afaf011c22b438c8daf5d87a9bc55159d8efb4bfebfb179c9ec6e81158aa9d1",
+        "shape": [
+          1000
+        ]
+      },
+      "law_collection_allowed": {
+        "dtype": "bool",
+        "sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+        "shape": [
+          1000
+        ]
+      },
+      "law_common_point_world_m": {
+        "dtype": "float64",
+        "sha256": "c7a23d37e172d2f4ba3661e577526cfa8993d753abd9ece1ec30641bd25e2433",
+        "shape": [
+          1000,
+          3
+        ]
+      },
+      "law_elastic_energy_j": {
+        "dtype": "float64",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          1000
+        ]
+      },
+      "law_elastic_energy_rate_w": {
+        "dtype": "float64",
+        "sha256": "8818cd2c067ef8b3fa132d36d297e1e5bf3742fb456bbdecbd398176ae77ef99",
+        "shape": [
+          1000
+        ]
+      },
+      "law_friction_power_w": {
+        "dtype": "float64",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          1000
+        ]
+      },
+      "law_hand_force_world_n": {
+        "dtype": "float64",
+        "sha256": "151ff79f29e96d211576b9a2e3e78f518b26109916616945d50cdee82dd2ba8b",
+        "shape": [
+          1000,
+          3
+        ]
+      },
+      "law_hand_generalized_load": {
+        "dtype": "float64",
+        "sha256": "16a2e5637769e2a0973f1e2bb4ac259e855e72eaafe1422072d534b5950c4489",
+        "shape": [
+          1000,
+          51
+        ]
+      },
+      "law_mechanical_power_w": {
+        "dtype": "float64",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          1000
+        ]
+      },
+      "law_native_hand_qualified": {
+        "dtype": "bool",
+        "sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+        "shape": [
+          1000
+        ]
+      },
+      "law_normal_dissipation_power_w": {
+        "dtype": "float64",
+        "sha256": "275ff9ea48b26df3aec8d35f6f177c3a98b5a93465769a23c1a51ba477dcbc96",
+        "shape": [
+          1000
+        ]
+      },
+      "law_normal_force_n": {
+        "dtype": "float64",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          1000
+        ]
+      },
+      "law_object_force_world_n": {
+        "dtype": "float64",
+        "sha256": "fd0f68a8a99e9150e5e47c3918ac984c08865cc771400a54c417495eb32dc243",
+        "shape": [
+          1000,
+          3
+        ]
+      },
+      "law_object_generalized_load": {
+        "dtype": "float64",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          1000,
+          1
+        ]
+      },
+      "law_object_wrench_force_then_torque": {
+        "dtype": "float64",
+        "sha256": "92e03c59217a358ac0ac0783b5dbc005aa8cc98f0ed58b639fa7d02323929b56",
+        "shape": [
+          1000,
+          6
+        ]
+      },
+      "law_penetration_m": {
+        "dtype": "float64",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          1000
+        ]
+      },
+      "law_power_identity_residual_w": {
+        "dtype": "float64",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          1000
+        ]
+      },
+      "law_relative_velocity_world_m_per_s": {
+        "dtype": "float64",
+        "sha256": "36187294d16b681ee4601183bbabdef25068c98cd080bbfd2a504308b857d93b",
+        "shape": [
+          1000,
+          3
+        ]
+      },
+      "law_signed_gap_m": {
+        "dtype": "float64",
+        "sha256": "7cd582a605b594aa010ae0f291cda506fa7e50176505793b9898fab61111bf0d",
+        "shape": [
+          1000
+        ]
+      },
+      "law_training_allowed": {
+        "dtype": "bool",
+        "sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+        "shape": [
+          1000
+        ]
+      },
+      "linear_reaction_error_N": {
+        "dtype": "float64",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          1000
+        ]
+      },
+      "measured_integration_defect_J": {
+        "dtype": "float64",
+        "sha256": "f8e21205d2b83e87559f56d6a19b128fc9b94c3410bdc97143da6aaec938c506",
+        "shape": [
+          1000
+        ]
+      },
+      "mechanical_energy_endpoint_J": {
+        "dtype": "float64",
+        "sha256": "c7caeffa7fc9e2450b554389710da61d29fd79d1a7b2ea95b28672f5b7492717",
+        "shape": [
+          1000
+        ]
+      },
+      "mechanical_energy_start_J": {
+        "dtype": "float64",
+        "sha256": "7f8d81ecd8feb09b8ab54a36fb7fcf850ed13e38d86834b6141259bfd13cbea6",
+        "shape": [
+          1000
+        ]
+      },
+      "point_power_error_W": {
+        "dtype": "float64",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          1000
+        ]
+      },
+      "position_endpoint_m": {
+        "dtype": "float64",
+        "sha256": "52f146a8679d6aff06bab1dccad151db859115f691cf2efb9eff86046abcd588",
+        "shape": [
+          1000,
+          3
+        ]
+      },
+      "position_start_m": {
+        "dtype": "float64",
+        "sha256": "d57aeef963b6d7533bb1c47f555c568aabf51e5149df0938e0c09b9a90208d48",
+        "shape": [
+          1000,
+          3
+        ]
+      },
+      "predicted_integration_defect_J": {
+        "dtype": "float64",
+        "sha256": "117a8f8e8d4c27fdc9e56f51bb9dcc9846d11c0283fd31f3f62f503667947bfd",
+        "shape": [
+          1000
+        ]
+      },
+      "qpos_endpoint": {
+        "dtype": "float64",
+        "sha256": "7c9c8e2416251fa7fd44239b1ea99357c110bad7453bb6b6eb5ba38b6efa90a7",
+        "shape": [
+          1000,
+          3
+        ]
+      },
+      "qvel_endpoint": {
+        "dtype": "float64",
+        "sha256": "d044948b371b720526edd5837de8d9b2ebdff16d8d6088b110a72ec6a5962a4e",
+        "shape": [
+          1000,
+          3
+        ]
+      },
+      "solver_niter": {
+        "dtype": "int32",
+        "sha256": "f8c784aa6b57396e7c5e094c34d079d8252473e46e2f60593a921dbebf941fcc",
+        "shape": [
+          1000,
+          20
+        ]
+      },
+      "start_engine_energy_J": {
+        "dtype": "float64",
+        "sha256": "3a368dfa9863b6101c991729878312cd97db17d473eecfa0fce3e68758cb326c",
+        "shape": [
+          1000,
+          2
+        ]
+      },
+      "start_qacc": {
+        "dtype": "float64",
+        "sha256": "433a139513b834fc96c1d861e0c176121fb5733a166774633c74d3790eafb071",
+        "shape": [
+          1000,
+          3
+        ]
+      },
+      "start_qfrc_applied": {
+        "dtype": "float64",
+        "sha256": "151ff79f29e96d211576b9a2e3e78f518b26109916616945d50cdee82dd2ba8b",
+        "shape": [
+          1000,
+          3
+        ]
+      },
+      "start_time_s": {
+        "dtype": "float64",
+        "sha256": "f945c8916b47241945a19c026ce688cadfc224f5b330bde9263ed69b3ff33a12",
+        "shape": [
+          1000
+        ]
+      },
+      "velocity_endpoint_m_s": {
+        "dtype": "float64",
+        "sha256": "d044948b371b720526edd5837de8d9b2ebdff16d8d6088b110a72ec6a5962a4e",
+        "shape": [
+          1000,
+          3
+        ]
+      },
+      "velocity_start_m_s": {
+        "dtype": "float64",
+        "sha256": "36187294d16b681ee4601183bbabdef25068c98cd080bbfd2a504308b857d93b",
+        "shape": [
+          1000,
+          3
+        ]
+      },
+      "warning_counts": {
+        "dtype": "int32",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          1000,
+          8
+        ]
+      }
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/freefall_8000hz/compiled_fixture.npz": {
+      "body_inertia_kg_m2": {
+        "dtype": "float64",
+        "sha256": "c880a42940bada1dc3fdfa73f0c1aad52ce27a702ed471a25569d062400be733",
+        "shape": [
+          2,
+          3
+        ]
+      },
+      "body_mass_kg": {
+        "dtype": "float64",
+        "sha256": "e65603a1c9797cb905b3efcc1e30d86f5b810525ab702ecc5288d5df288638ab",
+        "shape": [
+          2
+        ]
+      },
+      "body_pos_m": {
+        "dtype": "float64",
+        "sha256": "14e8cd7f085d95642f55f93d86f7f1b4c5e5ca50ff1609c8c5b11958d76bef2c",
+        "shape": [
+          2,
+          3
+        ]
+      },
+      "body_quaternion_wxyz": {
+        "dtype": "float64",
+        "sha256": "4542fc31d028913284f517bc12cba0d399649a3be83759da18a98975d6d0b19b",
+        "shape": [
+          2,
+          4
+        ]
+      },
+      "gravity_m_s2": {
+        "dtype": "float64",
+        "sha256": "ae1e8d988bda31f91f37b3360818f46f5216924d49e011e065e323fe23f3bf2e",
+        "shape": [
+          3
+        ]
+      },
+      "hand_point_J": {
+        "dtype": "float64",
+        "sha256": "871fc54e69eee2d47a7d2a7c14b46aa8fc1f1494a2dd4c1231ed1a656c5db190",
+        "shape": [
+          3,
+          51
+        ]
+      },
+      "initial_qpos": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3
+        ]
+      },
+      "initial_qvel": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3
+        ]
+      },
+      "joint_axis": {
+        "dtype": "float64",
+        "sha256": "1332df685c45a61a0ac008a6a653295b8c5655361c1d34b6304b22ec40235fb8",
+        "shape": [
+          3,
+          3
+        ]
+      },
+      "joint_bodyid": {
+        "dtype": "int32",
+        "sha256": "11047585fe102fbb5cadb42446612a578d88c6ef5ed076bb7ac360c4f9e4373d",
+        "shape": [
+          3
+        ]
+      },
+      "joint_dof_address": {
+        "dtype": "int32",
+        "sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+        "shape": [
+          3
+        ]
+      },
+      "joint_qpos_address": {
+        "dtype": "int32",
+        "sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+        "shape": [
+          3
+        ]
+      },
+      "joint_type": {
+        "dtype": "int32",
+        "sha256": "636952d3023d8cf5d8245ac30efb93a443bd4bc23b5e331d51ecb82425fdc30a",
+        "shape": [
+          3
+        ]
+      },
+      "static_object_point_J": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3,
+          1
+        ]
+      },
+      "timestep_s": {
+        "dtype": "float64",
+        "sha256": "e26b85b7da147b92535b3f53f6d064591a2f2a72d9d38e97ffc727823eb77d40",
+        "shape": []
+      }
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/freefall_8000hz/trajectory.npz": {
+      "angular_reaction_error_N_m": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "continuous_dissipation_step_J": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "discrete_impulse_work_error_J": {
+        "dtype": "float64",
+        "sha256": "cb4cbba44e15b4042e229d71d74af6ba218f912dfcaac88c24074326fd8d5f5d",
+        "shape": [
+          2000
+        ]
+      },
+      "elastic_discrete_remainder_J": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "elastic_energy_endpoint_J": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "endpoint_time_s": {
+        "dtype": "float64",
+        "sha256": "c3e5c134f6db338cc2afef8385a95ab02b65913a86492d2f64736de251729b89",
+        "shape": [
+          2000
+        ]
+      },
+      "engine_ncon": {
+        "dtype": "int64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "engine_nefc": {
+        "dtype": "int64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "engine_qfrc_constraint": {
+        "dtype": "float64",
+        "sha256": "bb918147fe10391b43adeba4bd21b9ef32e5bd6c5076c3517733a05ed6dd0569",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "euler_position_error_m": {
+        "dtype": "float64",
+        "sha256": "ed38bcaa90c92a060162f87b20f1b0eb085f212d9e0f55c86a0953a5beb0b1e2",
+        "shape": [
+          2000
+        ]
+      },
+      "external_force_N": {
+        "dtype": "float64",
+        "sha256": "bb918147fe10391b43adeba4bd21b9ef32e5bd6c5076c3517733a05ed6dd0569",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "external_work_J": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "force_balance_N": {
+        "dtype": "float64",
+        "sha256": "97911b48e3355df4b3154ce25ff9831b956760c7217b241b8643b018f4c80c2a",
+        "shape": [
+          2000
+        ]
+      },
+      "gap_derivative_start_m_s": {
+        "dtype": "float64",
+        "sha256": "54ca7fcbe7e2a455ab7a8af419f7894018e7611ad8a07b09df517a5823bcae4a",
+        "shape": [
+          2000
+        ]
+      },
+      "gap_endpoint_m": {
+        "dtype": "float64",
+        "sha256": "5618778f9c74212abecc8c7d9f167e2e718665eb104592bd5b716d0c4c8ceb7e",
+        "shape": [
+          2000
+        ]
+      },
+      "gap_start_m": {
+        "dtype": "float64",
+        "sha256": "decff98d5bca111bc002d4f7ca2d8c70e3333f1a928c097b5e8ada768b819e75",
+        "shape": [
+          2000
+        ]
+      },
+      "integration_energy_identity_error_J": {
+        "dtype": "float64",
+        "sha256": "2ba8a957839353db3e453487e14b45e43d73ec279a8f29264e2cdcb225422f0a",
+        "shape": [
+          2000
+        ]
+      },
+      "law_collection_allowed": {
+        "dtype": "bool",
+        "sha256": "2da42fb1d7bd8524e83d5a1e332bad697c8769ba430770a19bec630eb8ffcaa8",
+        "shape": [
+          2000
+        ]
+      },
+      "law_common_point_world_m": {
+        "dtype": "float64",
+        "sha256": "18662214f33a385bd77a9a070d7ec382f9c881cf1ad53da529a78dcfc6979ebb",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "law_elastic_energy_j": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "law_elastic_energy_rate_w": {
+        "dtype": "float64",
+        "sha256": "d4e1589a4dde68f0b8075c64483b5916a7e6cd7ec028c13dccb2d9fdd5169d93",
+        "shape": [
+          2000
+        ]
+      },
+      "law_friction_power_w": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "law_hand_force_world_n": {
+        "dtype": "float64",
+        "sha256": "bb918147fe10391b43adeba4bd21b9ef32e5bd6c5076c3517733a05ed6dd0569",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "law_hand_generalized_load": {
+        "dtype": "float64",
+        "sha256": "bde920e1c37ac0bc5db568e557a0379305db7c636bc79b8ea5cc2fbc281c4cea",
+        "shape": [
+          2000,
+          51
+        ]
+      },
+      "law_mechanical_power_w": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "law_native_hand_qualified": {
+        "dtype": "bool",
+        "sha256": "2da42fb1d7bd8524e83d5a1e332bad697c8769ba430770a19bec630eb8ffcaa8",
+        "shape": [
+          2000
+        ]
+      },
+      "law_normal_dissipation_power_w": {
+        "dtype": "float64",
+        "sha256": "faea55f95edc0bb10f9f81ef887704239d8aae17a5195d238a300dd6758c652d",
+        "shape": [
+          2000
+        ]
+      },
+      "law_normal_force_n": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "law_object_force_world_n": {
+        "dtype": "float64",
+        "sha256": "dcc09e02182818711f92e16d0618f902d59c7d9a6454316232b9532406699d83",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "law_object_generalized_load": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000,
+          1
+        ]
+      },
+      "law_object_wrench_force_then_torque": {
+        "dtype": "float64",
+        "sha256": "e95f197bc4c1ec9bc2222fb19c808cb48cace3b3655d3f620879e902cd687577",
+        "shape": [
+          2000,
+          6
+        ]
+      },
+      "law_penetration_m": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "law_power_identity_residual_w": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "law_relative_velocity_world_m_per_s": {
+        "dtype": "float64",
+        "sha256": "279df5d4412a0e7f990ef875b3e43238391acaeb99d2893f60e631a2fff27e12",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "law_signed_gap_m": {
+        "dtype": "float64",
+        "sha256": "decff98d5bca111bc002d4f7ca2d8c70e3333f1a928c097b5e8ada768b819e75",
+        "shape": [
+          2000
+        ]
+      },
+      "law_training_allowed": {
+        "dtype": "bool",
+        "sha256": "2da42fb1d7bd8524e83d5a1e332bad697c8769ba430770a19bec630eb8ffcaa8",
+        "shape": [
+          2000
+        ]
+      },
+      "linear_reaction_error_N": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "measured_integration_defect_J": {
+        "dtype": "float64",
+        "sha256": "1d404985e9c0965a1a3c7adb37d33b69872d54da943a4c3e77e02eb22d415cc4",
+        "shape": [
+          2000
+        ]
+      },
+      "mechanical_energy_endpoint_J": {
+        "dtype": "float64",
+        "sha256": "7fce0d2526b0eb6ce440a0e3a33be777ebdb84fca4342e5016120d5f95d6d963",
+        "shape": [
+          2000
+        ]
+      },
+      "mechanical_energy_start_J": {
+        "dtype": "float64",
+        "sha256": "1c95958009c4df58bf23e2b5db1a33b6f5c107186ba443d7da40c13142cefd06",
+        "shape": [
+          2000
+        ]
+      },
+      "point_power_error_W": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "position_endpoint_m": {
+        "dtype": "float64",
+        "sha256": "eb9368d2d8c4e511bef10ea953c90dd8f263360388321d3b4ddb10764c38cd38",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "position_start_m": {
+        "dtype": "float64",
+        "sha256": "3e7a4d52a398821eb03fdf96c967834a1d3e9c959f5b8719ab9391921817a2f6",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "predicted_integration_defect_J": {
+        "dtype": "float64",
+        "sha256": "030486485c91bd1264cf27aca0c794a35db95ae46f40ab86f3706e88c77f5bc3",
+        "shape": [
+          2000
+        ]
+      },
+      "qpos_endpoint": {
+        "dtype": "float64",
+        "sha256": "bf2355adac6100fa5ad360764fb76e5d12c2962191c085013ff556e57ee1c716",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "qvel_endpoint": {
+        "dtype": "float64",
+        "sha256": "940be02d3cd608d72990858e042a924eb17a516eee275e644f96edd291815404",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "solver_niter": {
+        "dtype": "int32",
+        "sha256": "b9ce164d30e4101b009fe4be765a070593cfbdd48f897853de159a8c177fabe8",
+        "shape": [
+          2000,
+          20
+        ]
+      },
+      "start_engine_energy_J": {
+        "dtype": "float64",
+        "sha256": "dbfb768050c32dc666bcf46f90e072d36859f8547e22619f5c751f62fc98e717",
+        "shape": [
+          2000,
+          2
+        ]
+      },
+      "start_qacc": {
+        "dtype": "float64",
+        "sha256": "899a571439bfbb4de3761e9c55d48c13e92d4e816051c7aac60d8608c3aba9b9",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "start_qfrc_applied": {
+        "dtype": "float64",
+        "sha256": "bb918147fe10391b43adeba4bd21b9ef32e5bd6c5076c3517733a05ed6dd0569",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "start_time_s": {
+        "dtype": "float64",
+        "sha256": "9c0adf7ff2a1a638f0fb17672663edcaedc5bbb9dc2f4d0e29f3762e230aa523",
+        "shape": [
+          2000
+        ]
+      },
+      "velocity_endpoint_m_s": {
+        "dtype": "float64",
+        "sha256": "940be02d3cd608d72990858e042a924eb17a516eee275e644f96edd291815404",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "velocity_start_m_s": {
+        "dtype": "float64",
+        "sha256": "279df5d4412a0e7f990ef875b3e43238391acaeb99d2893f60e631a2fff27e12",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "warning_counts": {
+        "dtype": "int32",
+        "sha256": "4f7988030a00d082fe445e00a2ac5dab502300ff1b80e8592dd569867b60ef74",
+        "shape": [
+          2000,
+          8
+        ]
+      }
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_high_4000hz/compiled_fixture.npz": {
+      "body_inertia_kg_m2": {
+        "dtype": "float64",
+        "sha256": "c880a42940bada1dc3fdfa73f0c1aad52ce27a702ed471a25569d062400be733",
+        "shape": [
+          2,
+          3
+        ]
+      },
+      "body_mass_kg": {
+        "dtype": "float64",
+        "sha256": "e65603a1c9797cb905b3efcc1e30d86f5b810525ab702ecc5288d5df288638ab",
+        "shape": [
+          2
+        ]
+      },
+      "body_pos_m": {
+        "dtype": "float64",
+        "sha256": "c50fc6d4ae436ecad1608d4815afe97744b8f8867cac090b9699ed3e8316b20d",
+        "shape": [
+          2,
+          3
+        ]
+      },
+      "body_quaternion_wxyz": {
+        "dtype": "float64",
+        "sha256": "4542fc31d028913284f517bc12cba0d399649a3be83759da18a98975d6d0b19b",
+        "shape": [
+          2,
+          4
+        ]
+      },
+      "gravity_m_s2": {
+        "dtype": "float64",
+        "sha256": "ae1e8d988bda31f91f37b3360818f46f5216924d49e011e065e323fe23f3bf2e",
+        "shape": [
+          3
+        ]
+      },
+      "hand_point_J": {
+        "dtype": "float64",
+        "sha256": "871fc54e69eee2d47a7d2a7c14b46aa8fc1f1494a2dd4c1231ed1a656c5db190",
+        "shape": [
+          3,
+          51
+        ]
+      },
+      "initial_qpos": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3
+        ]
+      },
+      "initial_qvel": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3
+        ]
+      },
+      "joint_axis": {
+        "dtype": "float64",
+        "sha256": "1332df685c45a61a0ac008a6a653295b8c5655361c1d34b6304b22ec40235fb8",
+        "shape": [
+          3,
+          3
+        ]
+      },
+      "joint_bodyid": {
+        "dtype": "int32",
+        "sha256": "11047585fe102fbb5cadb42446612a578d88c6ef5ed076bb7ac360c4f9e4373d",
+        "shape": [
+          3
+        ]
+      },
+      "joint_dof_address": {
+        "dtype": "int32",
+        "sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+        "shape": [
+          3
+        ]
+      },
+      "joint_qpos_address": {
+        "dtype": "int32",
+        "sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+        "shape": [
+          3
+        ]
+      },
+      "joint_type": {
+        "dtype": "int32",
+        "sha256": "636952d3023d8cf5d8245ac30efb93a443bd4bc23b5e331d51ecb82425fdc30a",
+        "shape": [
+          3
+        ]
+      },
+      "static_object_point_J": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3,
+          1
+        ]
+      },
+      "timestep_s": {
+        "dtype": "float64",
+        "sha256": "ba9bb123baaf5513cf0925c4ad112290ad8db775426e64654e346deea6a2cd26",
+        "shape": []
+      }
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_high_4000hz/trajectory.npz": {
+      "angular_reaction_error_N_m": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "continuous_dissipation_step_J": {
+        "dtype": "float64",
+        "sha256": "df35b41d586408dc9ae0e6ffe9b42dcc98e21e510f1019786089e37ec28e8bc2",
+        "shape": [
+          2000
+        ]
+      },
+      "discrete_impulse_work_error_J": {
+        "dtype": "float64",
+        "sha256": "46e37544f646433578bab00182f6f3501d5c991b385339b4d85b92b9c796fee6",
+        "shape": [
+          2000
+        ]
+      },
+      "elastic_discrete_remainder_J": {
+        "dtype": "float64",
+        "sha256": "ffcccbbf65954924595b99a2e476b447ae6c7b0f6d7dd8deba46aaa4522f0c1a",
+        "shape": [
+          2000
+        ]
+      },
+      "elastic_energy_endpoint_J": {
+        "dtype": "float64",
+        "sha256": "028557e41e8b98e3994d24f8d2645236f6c1df3ef3b32ea403208fc21c481a9c",
+        "shape": [
+          2000
+        ]
+      },
+      "endpoint_time_s": {
+        "dtype": "float64",
+        "sha256": "7deb296eabb2fb2d5cfbedba4a277ea3735d3aae1e086f20a230456d83601f6f",
+        "shape": [
+          2000
+        ]
+      },
+      "engine_ncon": {
+        "dtype": "int64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "engine_nefc": {
+        "dtype": "int64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "engine_qfrc_constraint": {
+        "dtype": "float64",
+        "sha256": "bb918147fe10391b43adeba4bd21b9ef32e5bd6c5076c3517733a05ed6dd0569",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "euler_position_error_m": {
+        "dtype": "float64",
+        "sha256": "b3da7e2b84ea921c95e1cc9b0f6ca05645f5e94349d28f52d7de2bc24d3b940b",
+        "shape": [
+          2000
+        ]
+      },
+      "external_force_N": {
+        "dtype": "float64",
+        "sha256": "dee3c646fd624d670b2dfbe904d1a67e56d61f94952c4570aaa1a916dc8384bb",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "external_work_J": {
+        "dtype": "float64",
+        "sha256": "4ad9dabd7f6cdbe94871a954ae82b2205a8e71a24cb0c898832ab595b5b5f6e6",
+        "shape": [
+          2000
+        ]
+      },
+      "force_balance_N": {
+        "dtype": "float64",
+        "sha256": "333304a3db58e57bd40917430e6c7caeafb4ddfa186fd1352464a0a00fe8d8f4",
+        "shape": [
+          2000
+        ]
+      },
+      "gap_derivative_start_m_s": {
+        "dtype": "float64",
+        "sha256": "09be394f3f27c08d936179dab64f5665d2c78710ce98a153c0430e4fb960b17a",
+        "shape": [
+          2000
+        ]
+      },
+      "gap_endpoint_m": {
+        "dtype": "float64",
+        "sha256": "8e32478409033afb7da9d5c76bf536f97b26cef4e3469d37f278d44709b9b066",
+        "shape": [
+          2000
+        ]
+      },
+      "gap_start_m": {
+        "dtype": "float64",
+        "sha256": "8aae20a816050b9fef167eb5ec246d462d0b164928860535e4fc55faa92701b7",
+        "shape": [
+          2000
+        ]
+      },
+      "integration_energy_identity_error_J": {
+        "dtype": "float64",
+        "sha256": "2665718cce3076f1bcaec929c18b21f97c82fbd6dd72623a571462b1e315076a",
+        "shape": [
+          2000
+        ]
+      },
+      "law_collection_allowed": {
+        "dtype": "bool",
+        "sha256": "2da42fb1d7bd8524e83d5a1e332bad697c8769ba430770a19bec630eb8ffcaa8",
+        "shape": [
+          2000
+        ]
+      },
+      "law_common_point_world_m": {
+        "dtype": "float64",
+        "sha256": "1696911be42e6c322264502f197a02ee1ef92824c505c6aae2b4790edfca2565",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "law_elastic_energy_j": {
+        "dtype": "float64",
+        "sha256": "8bbe24c0743b3562b70d6ca3f8e2f16a4ee4469b7a702eb389369b280884cf30",
+        "shape": [
+          2000
+        ]
+      },
+      "law_elastic_energy_rate_w": {
+        "dtype": "float64",
+        "sha256": "4c0f9507952b0ea7fabc4b0fa6551177e8d19bc1a3385a72e2431b1bf8f2e51e",
+        "shape": [
+          2000
+        ]
+      },
+      "law_friction_power_w": {
+        "dtype": "float64",
+        "sha256": "c2d2c87318cc6cfbb87141ee45c477a70bfa4deb75adaa0aa25e754b3f4d46df",
+        "shape": [
+          2000
+        ]
+      },
+      "law_hand_force_world_n": {
+        "dtype": "float64",
+        "sha256": "3beb9a14aa536866286a6dbf73c1a34d762bc0227c289650f2c8640f4dc0dc0c",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "law_hand_generalized_load": {
+        "dtype": "float64",
+        "sha256": "88e47a33db79937539e55decccdbd8d6b4aeb658dd8a10ec27b1fc20d225d650",
+        "shape": [
+          2000,
+          51
+        ]
+      },
+      "law_mechanical_power_w": {
+        "dtype": "float64",
+        "sha256": "895fa8791a0ce62499b7ae39ffe07d2e6085841af870c18b002edefbf1041c8a",
+        "shape": [
+          2000
+        ]
+      },
+      "law_native_hand_qualified": {
+        "dtype": "bool",
+        "sha256": "2da42fb1d7bd8524e83d5a1e332bad697c8769ba430770a19bec630eb8ffcaa8",
+        "shape": [
+          2000
+        ]
+      },
+      "law_normal_dissipation_power_w": {
+        "dtype": "float64",
+        "sha256": "504cdc774de8397aada6054aa7dcff541f5c94523a5d2b232bc1b96c4b7dff55",
+        "shape": [
+          2000
+        ]
+      },
+      "law_normal_force_n": {
+        "dtype": "float64",
+        "sha256": "a47b572ccfb2fe502cb412bc613423561a78cb709c3c9d0f66c5f19ca787565d",
+        "shape": [
+          2000
+        ]
+      },
+      "law_object_force_world_n": {
+        "dtype": "float64",
+        "sha256": "7803698695aa0cc82fe0423046c8fab6c76d267598e99a3d5680feb9df0005cc",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "law_object_generalized_load": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000,
+          1
+        ]
+      },
+      "law_object_wrench_force_then_torque": {
+        "dtype": "float64",
+        "sha256": "8a6c5c16f6cd008818e4749dfd32ec8a5eab6a262a1a41fa8ec8251c99e6c345",
+        "shape": [
+          2000,
+          6
+        ]
+      },
+      "law_penetration_m": {
+        "dtype": "float64",
+        "sha256": "eecf7dd7108f159cf045ccf9282492bbb7bae8ff37df95057cd85cfef6b3d559",
+        "shape": [
+          2000
+        ]
+      },
+      "law_power_identity_residual_w": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "law_relative_velocity_world_m_per_s": {
+        "dtype": "float64",
+        "sha256": "703229844cdcdd8a7c18427ac80c878c84078114d3803462edafec96dc7e0452",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "law_signed_gap_m": {
+        "dtype": "float64",
+        "sha256": "8aae20a816050b9fef167eb5ec246d462d0b164928860535e4fc55faa92701b7",
+        "shape": [
+          2000
+        ]
+      },
+      "law_training_allowed": {
+        "dtype": "bool",
+        "sha256": "2da42fb1d7bd8524e83d5a1e332bad697c8769ba430770a19bec630eb8ffcaa8",
+        "shape": [
+          2000
+        ]
+      },
+      "linear_reaction_error_N": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "measured_integration_defect_J": {
+        "dtype": "float64",
+        "sha256": "fea530ae3c6e8bb8d9a147636c16d771907b89f1a7dcad450fa990e728a8aa86",
+        "shape": [
+          2000
+        ]
+      },
+      "mechanical_energy_endpoint_J": {
+        "dtype": "float64",
+        "sha256": "ef23d709a651c3700476232d19622e7d2707d2eb50d70f689567c6a4dfe52811",
+        "shape": [
+          2000
+        ]
+      },
+      "mechanical_energy_start_J": {
+        "dtype": "float64",
+        "sha256": "8e4dae76b4116123d43dadba76bc89517cc88f9cf29eee88f7a2cedf6445b40b",
+        "shape": [
+          2000
+        ]
+      },
+      "point_power_error_W": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "position_endpoint_m": {
+        "dtype": "float64",
+        "sha256": "689cedd57b3c64fde2b41c9f826fdba53230cabf7b6c9c8a51cc04e01deea391",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "position_start_m": {
+        "dtype": "float64",
+        "sha256": "c64a493ed0379016d1ffe8f9987593f25d56081b50fe6da1176a76b7a448f9fe",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "predicted_integration_defect_J": {
+        "dtype": "float64",
+        "sha256": "4b082975a23705a4138b10c8f4764f918ccbe4f977e1850ddf1f8dbb7ac1e732",
+        "shape": [
+          2000
+        ]
+      },
+      "qpos_endpoint": {
+        "dtype": "float64",
+        "sha256": "93682a261d4d43b9d224f1c7030bf58ebc4aa21f62d86c50f8235831e6e26f46",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "qvel_endpoint": {
+        "dtype": "float64",
+        "sha256": "0a0dfc891eaf001a52a259709460938c624cebe04cb4e72a09a0bef504f23ac3",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "solver_niter": {
+        "dtype": "int32",
+        "sha256": "b9ce164d30e4101b009fe4be765a070593cfbdd48f897853de159a8c177fabe8",
+        "shape": [
+          2000,
+          20
+        ]
+      },
+      "start_engine_energy_J": {
+        "dtype": "float64",
+        "sha256": "c787a60448ff47fc913ac35ec3504a6b7c13915da4b0068615e2f3354a00e53a",
+        "shape": [
+          2000,
+          2
+        ]
+      },
+      "start_qacc": {
+        "dtype": "float64",
+        "sha256": "dd0add3b7d0dfa081b290a96fae75ed30b441b6be3d23c7aad309977e2843474",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "start_qfrc_applied": {
+        "dtype": "float64",
+        "sha256": "3542ce624100c2e0462530e0fff97ce12a1e356a180a6432d46ee0f3f03ff8a2",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "start_time_s": {
+        "dtype": "float64",
+        "sha256": "f581555aa8cf8140c840dcd29b8916c6d36c0436162ad91ae46e2256aefa6c8f",
+        "shape": [
+          2000
+        ]
+      },
+      "velocity_endpoint_m_s": {
+        "dtype": "float64",
+        "sha256": "0a0dfc891eaf001a52a259709460938c624cebe04cb4e72a09a0bef504f23ac3",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "velocity_start_m_s": {
+        "dtype": "float64",
+        "sha256": "703229844cdcdd8a7c18427ac80c878c84078114d3803462edafec96dc7e0452",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "warning_counts": {
+        "dtype": "int32",
+        "sha256": "4f7988030a00d082fe445e00a2ac5dab502300ff1b80e8592dd569867b60ef74",
+        "shape": [
+          2000,
+          8
+        ]
+      }
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_high_8000hz/compiled_fixture.npz": {
+      "body_inertia_kg_m2": {
+        "dtype": "float64",
+        "sha256": "c880a42940bada1dc3fdfa73f0c1aad52ce27a702ed471a25569d062400be733",
+        "shape": [
+          2,
+          3
+        ]
+      },
+      "body_mass_kg": {
+        "dtype": "float64",
+        "sha256": "e65603a1c9797cb905b3efcc1e30d86f5b810525ab702ecc5288d5df288638ab",
+        "shape": [
+          2
+        ]
+      },
+      "body_pos_m": {
+        "dtype": "float64",
+        "sha256": "c50fc6d4ae436ecad1608d4815afe97744b8f8867cac090b9699ed3e8316b20d",
+        "shape": [
+          2,
+          3
+        ]
+      },
+      "body_quaternion_wxyz": {
+        "dtype": "float64",
+        "sha256": "4542fc31d028913284f517bc12cba0d399649a3be83759da18a98975d6d0b19b",
+        "shape": [
+          2,
+          4
+        ]
+      },
+      "gravity_m_s2": {
+        "dtype": "float64",
+        "sha256": "ae1e8d988bda31f91f37b3360818f46f5216924d49e011e065e323fe23f3bf2e",
+        "shape": [
+          3
+        ]
+      },
+      "hand_point_J": {
+        "dtype": "float64",
+        "sha256": "871fc54e69eee2d47a7d2a7c14b46aa8fc1f1494a2dd4c1231ed1a656c5db190",
+        "shape": [
+          3,
+          51
+        ]
+      },
+      "initial_qpos": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3
+        ]
+      },
+      "initial_qvel": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3
+        ]
+      },
+      "joint_axis": {
+        "dtype": "float64",
+        "sha256": "1332df685c45a61a0ac008a6a653295b8c5655361c1d34b6304b22ec40235fb8",
+        "shape": [
+          3,
+          3
+        ]
+      },
+      "joint_bodyid": {
+        "dtype": "int32",
+        "sha256": "11047585fe102fbb5cadb42446612a578d88c6ef5ed076bb7ac360c4f9e4373d",
+        "shape": [
+          3
+        ]
+      },
+      "joint_dof_address": {
+        "dtype": "int32",
+        "sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+        "shape": [
+          3
+        ]
+      },
+      "joint_qpos_address": {
+        "dtype": "int32",
+        "sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+        "shape": [
+          3
+        ]
+      },
+      "joint_type": {
+        "dtype": "int32",
+        "sha256": "636952d3023d8cf5d8245ac30efb93a443bd4bc23b5e331d51ecb82425fdc30a",
+        "shape": [
+          3
+        ]
+      },
+      "static_object_point_J": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3,
+          1
+        ]
+      },
+      "timestep_s": {
+        "dtype": "float64",
+        "sha256": "e26b85b7da147b92535b3f53f6d064591a2f2a72d9d38e97ffc727823eb77d40",
+        "shape": []
+      }
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_high_8000hz/trajectory.npz": {
+      "angular_reaction_error_N_m": {
+        "dtype": "float64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "continuous_dissipation_step_J": {
+        "dtype": "float64",
+        "sha256": "b78ae229198511bf08ec9fa0bf7a123ed8772bf0b15221c986375413e1fbdeed",
+        "shape": [
+          4000
+        ]
+      },
+      "discrete_impulse_work_error_J": {
+        "dtype": "float64",
+        "sha256": "0ebde59c71d3b97876a6cb53efba0d746db8eb351028c679fc00a35f6c204e10",
+        "shape": [
+          4000
+        ]
+      },
+      "elastic_discrete_remainder_J": {
+        "dtype": "float64",
+        "sha256": "36ce91dc8eb8f49a59d84dabe5690cdd4f8a22a04e7a5855474513f7290d2533",
+        "shape": [
+          4000
+        ]
+      },
+      "elastic_energy_endpoint_J": {
+        "dtype": "float64",
+        "sha256": "4d6c8336d52d154fee2b0d20e8a3abe86d549519ff055eb2ab984eeaf4a59fde",
+        "shape": [
+          4000
+        ]
+      },
+      "endpoint_time_s": {
+        "dtype": "float64",
+        "sha256": "bfdd5d788a7dda68d7ba08a0a532df2821f1fde20e8b00b722307ca9ba746f3a",
+        "shape": [
+          4000
+        ]
+      },
+      "engine_ncon": {
+        "dtype": "int64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "engine_nefc": {
+        "dtype": "int64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "engine_qfrc_constraint": {
+        "dtype": "float64",
+        "sha256": "55873fecc61a79e87ca550c7072e38ccdd7ecb600ace286fe4717952a97c42b0",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "euler_position_error_m": {
+        "dtype": "float64",
+        "sha256": "ead1a630cc0f2ab654085609f4f2ab456b1070947f1c359af808ab15076b67ad",
+        "shape": [
+          4000
+        ]
+      },
+      "external_force_N": {
+        "dtype": "float64",
+        "sha256": "94850a3d440db3f7060b1b54e5cb6a97d4d89c30a7be6b07601e3670e4c21ed0",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "external_work_J": {
+        "dtype": "float64",
+        "sha256": "8d5b465a695d5cea21ee7b021af85af030a6618647750a5cb0d9de8c1765e73c",
+        "shape": [
+          4000
+        ]
+      },
+      "force_balance_N": {
+        "dtype": "float64",
+        "sha256": "b582048e3ebc316c2c25592d094fa2e3b058c74106aa5f92ed78745694147ecb",
+        "shape": [
+          4000
+        ]
+      },
+      "gap_derivative_start_m_s": {
+        "dtype": "float64",
+        "sha256": "ed3a4bf06249dcc1bb0fd4caab998a919cac38fad5ff7c91f02cc3be761966c5",
+        "shape": [
+          4000
+        ]
+      },
+      "gap_endpoint_m": {
+        "dtype": "float64",
+        "sha256": "c64be3920c9108497d6d74c773876c53e85d92486d0bfb13fdc483dc2544911f",
+        "shape": [
+          4000
+        ]
+      },
+      "gap_start_m": {
+        "dtype": "float64",
+        "sha256": "baccfca863696dc1ceb3f53a62d62a8db6aed29a517c31f03abf67055bff663c",
+        "shape": [
+          4000
+        ]
+      },
+      "integration_energy_identity_error_J": {
+        "dtype": "float64",
+        "sha256": "913084bf8bce25792ffd5b8176b964a24d14f2188f82b082483b649e2e72d4f9",
+        "shape": [
+          4000
+        ]
+      },
+      "law_collection_allowed": {
+        "dtype": "bool",
+        "sha256": "fc19b1997119425765295aeab72d76faa6927d4f83985d328c26f20468d6cc76",
+        "shape": [
+          4000
+        ]
+      },
+      "law_common_point_world_m": {
+        "dtype": "float64",
+        "sha256": "1f4806b084bbb4c1793288ca9ec8c47f8d2bcd905f0b8c12f17178223c82d32a",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "law_elastic_energy_j": {
+        "dtype": "float64",
+        "sha256": "686e5da93d2501b0b4da1d3d4c22e9113610a5a0eef5112658cb49ef2d512db2",
+        "shape": [
+          4000
+        ]
+      },
+      "law_elastic_energy_rate_w": {
+        "dtype": "float64",
+        "sha256": "6ea14eab6e68621e26f2b04187fe630862c8c8c3cf0af41cabcb7e71a82bd6d9",
+        "shape": [
+          4000
+        ]
+      },
+      "law_friction_power_w": {
+        "dtype": "float64",
+        "sha256": "82682411cd5ef1549d3cf78f9b2319882c115cc4f8fb73cf30c1dfb40d3cbdde",
+        "shape": [
+          4000
+        ]
+      },
+      "law_hand_force_world_n": {
+        "dtype": "float64",
+        "sha256": "7ab8a65e4afb5eb2036a3d3212f4a961e3594c872b27b5ef0e882681a9913d67",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "law_hand_generalized_load": {
+        "dtype": "float64",
+        "sha256": "8317c914c23554144e5f512448d5fd840c20fefa83477ccd4de4fa333bd44b18",
+        "shape": [
+          4000,
+          51
+        ]
+      },
+      "law_mechanical_power_w": {
+        "dtype": "float64",
+        "sha256": "2abbae18e9a2b0fc8524972823de44035b59cac2d12b6d849461ca69fc984000",
+        "shape": [
+          4000
+        ]
+      },
+      "law_native_hand_qualified": {
+        "dtype": "bool",
+        "sha256": "fc19b1997119425765295aeab72d76faa6927d4f83985d328c26f20468d6cc76",
+        "shape": [
+          4000
+        ]
+      },
+      "law_normal_dissipation_power_w": {
+        "dtype": "float64",
+        "sha256": "adf23949caa4578a3278c1cf3d88309eedbe0b03edec89377abf279d14ea2f7c",
+        "shape": [
+          4000
+        ]
+      },
+      "law_normal_force_n": {
+        "dtype": "float64",
+        "sha256": "be9988737bb6e460a3076a067aef9d9ed19720b8640dd07272cced734fe3765b",
+        "shape": [
+          4000
+        ]
+      },
+      "law_object_force_world_n": {
+        "dtype": "float64",
+        "sha256": "e224fad31840c7d7bd5ccbfcc7aff39bafa6d900cc7cda214eb290b6af1f6098",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "law_object_generalized_load": {
+        "dtype": "float64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000,
+          1
+        ]
+      },
+      "law_object_wrench_force_then_torque": {
+        "dtype": "float64",
+        "sha256": "2411ffac4527d787cd16c2f2baf7da3395e4cfa7011e1e62ff22f29ff9f9d0d2",
+        "shape": [
+          4000,
+          6
+        ]
+      },
+      "law_penetration_m": {
+        "dtype": "float64",
+        "sha256": "05208a3f128eef3dae819451a6a6671a45d2536051a2528d6a915d436ab59811",
+        "shape": [
+          4000
+        ]
+      },
+      "law_power_identity_residual_w": {
+        "dtype": "float64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "law_relative_velocity_world_m_per_s": {
+        "dtype": "float64",
+        "sha256": "b60cdc4d5cb54123a9cf3ac274335749b6db68fd41960eee47dd967a07c50ef9",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "law_signed_gap_m": {
+        "dtype": "float64",
+        "sha256": "baccfca863696dc1ceb3f53a62d62a8db6aed29a517c31f03abf67055bff663c",
+        "shape": [
+          4000
+        ]
+      },
+      "law_training_allowed": {
+        "dtype": "bool",
+        "sha256": "fc19b1997119425765295aeab72d76faa6927d4f83985d328c26f20468d6cc76",
+        "shape": [
+          4000
+        ]
+      },
+      "linear_reaction_error_N": {
+        "dtype": "float64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "measured_integration_defect_J": {
+        "dtype": "float64",
+        "sha256": "3d0fce85c3c154554939b044d98cc2f2309c89236d20373c299d38adc6960ca2",
+        "shape": [
+          4000
+        ]
+      },
+      "mechanical_energy_endpoint_J": {
+        "dtype": "float64",
+        "sha256": "a0e067aef09319c3217f14af6d5428f67dfbdec4f87f0c0e0b832c68f2a8cf77",
+        "shape": [
+          4000
+        ]
+      },
+      "mechanical_energy_start_J": {
+        "dtype": "float64",
+        "sha256": "cceda8e2ae3f7d5ca34f95075146793c7c49ce2d144cc6d4446298941d393c90",
+        "shape": [
+          4000
+        ]
+      },
+      "point_power_error_W": {
+        "dtype": "float64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "position_endpoint_m": {
+        "dtype": "float64",
+        "sha256": "5ab5561fa1510d3ec895644fde777b59226f7bcc12be9041fd6a6197169cfec1",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "position_start_m": {
+        "dtype": "float64",
+        "sha256": "950c1c24a06e5c05235d34d157389a20faf8a6024730ab8a38ae2f6e49629953",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "predicted_integration_defect_J": {
+        "dtype": "float64",
+        "sha256": "7cbe31db02f26a960a1f5684d075cc3a8feaaef99df466ec9fa8d98a78df48d7",
+        "shape": [
+          4000
+        ]
+      },
+      "qpos_endpoint": {
+        "dtype": "float64",
+        "sha256": "ec987abfaf5d19ebdfbcc2fef634ef0847280ad27bf53912d979117855b2ff6c",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "qvel_endpoint": {
+        "dtype": "float64",
+        "sha256": "be5089c3725dfc81cc8818e70d7bde4f01dfcc9ab1eb2ad570a844277e96a98b",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "solver_niter": {
+        "dtype": "int32",
+        "sha256": "ac2878215ad33205d1732578c89f25ededaad1b676911c540825bcf4baa42d9b",
+        "shape": [
+          4000,
+          20
+        ]
+      },
+      "start_engine_energy_J": {
+        "dtype": "float64",
+        "sha256": "44787f592043b760c093a84aed6bdc05d1d9c7acfb5d26138dc286ae3b95ab6a",
+        "shape": [
+          4000,
+          2
+        ]
+      },
+      "start_qacc": {
+        "dtype": "float64",
+        "sha256": "18b69c87ad58cfbdea2cd6eecec1162b925861f3ac5d51485a3ff6588f58b86a",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "start_qfrc_applied": {
+        "dtype": "float64",
+        "sha256": "6e566d99f1f308ea969dc24a717826aaf6cd3ea542e778bf9a41df7aed93ec1f",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "start_time_s": {
+        "dtype": "float64",
+        "sha256": "0b5df11f7820a4c932a713934fac9b3018bc3146c94524fff21afb337708b0fe",
+        "shape": [
+          4000
+        ]
+      },
+      "velocity_endpoint_m_s": {
+        "dtype": "float64",
+        "sha256": "be5089c3725dfc81cc8818e70d7bde4f01dfcc9ab1eb2ad570a844277e96a98b",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "velocity_start_m_s": {
+        "dtype": "float64",
+        "sha256": "b60cdc4d5cb54123a9cf3ac274335749b6db68fd41960eee47dd967a07c50ef9",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "warning_counts": {
+        "dtype": "int32",
+        "sha256": "eec19bc6af0b3b6dfb97a08782c65f4bb3c3203e789a015d2008b0d689ad08be",
+        "shape": [
+          4000,
+          8
+        ]
+      }
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_low_4000hz/compiled_fixture.npz": {
+      "body_inertia_kg_m2": {
+        "dtype": "float64",
+        "sha256": "c880a42940bada1dc3fdfa73f0c1aad52ce27a702ed471a25569d062400be733",
+        "shape": [
+          2,
+          3
+        ]
+      },
+      "body_mass_kg": {
+        "dtype": "float64",
+        "sha256": "e65603a1c9797cb905b3efcc1e30d86f5b810525ab702ecc5288d5df288638ab",
+        "shape": [
+          2
+        ]
+      },
+      "body_pos_m": {
+        "dtype": "float64",
+        "sha256": "c50fc6d4ae436ecad1608d4815afe97744b8f8867cac090b9699ed3e8316b20d",
+        "shape": [
+          2,
+          3
+        ]
+      },
+      "body_quaternion_wxyz": {
+        "dtype": "float64",
+        "sha256": "4542fc31d028913284f517bc12cba0d399649a3be83759da18a98975d6d0b19b",
+        "shape": [
+          2,
+          4
+        ]
+      },
+      "gravity_m_s2": {
+        "dtype": "float64",
+        "sha256": "ae1e8d988bda31f91f37b3360818f46f5216924d49e011e065e323fe23f3bf2e",
+        "shape": [
+          3
+        ]
+      },
+      "hand_point_J": {
+        "dtype": "float64",
+        "sha256": "871fc54e69eee2d47a7d2a7c14b46aa8fc1f1494a2dd4c1231ed1a656c5db190",
+        "shape": [
+          3,
+          51
+        ]
+      },
+      "initial_qpos": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3
+        ]
+      },
+      "initial_qvel": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3
+        ]
+      },
+      "joint_axis": {
+        "dtype": "float64",
+        "sha256": "1332df685c45a61a0ac008a6a653295b8c5655361c1d34b6304b22ec40235fb8",
+        "shape": [
+          3,
+          3
+        ]
+      },
+      "joint_bodyid": {
+        "dtype": "int32",
+        "sha256": "11047585fe102fbb5cadb42446612a578d88c6ef5ed076bb7ac360c4f9e4373d",
+        "shape": [
+          3
+        ]
+      },
+      "joint_dof_address": {
+        "dtype": "int32",
+        "sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+        "shape": [
+          3
+        ]
+      },
+      "joint_qpos_address": {
+        "dtype": "int32",
+        "sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+        "shape": [
+          3
+        ]
+      },
+      "joint_type": {
+        "dtype": "int32",
+        "sha256": "636952d3023d8cf5d8245ac30efb93a443bd4bc23b5e331d51ecb82425fdc30a",
+        "shape": [
+          3
+        ]
+      },
+      "static_object_point_J": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3,
+          1
+        ]
+      },
+      "timestep_s": {
+        "dtype": "float64",
+        "sha256": "ba9bb123baaf5513cf0925c4ad112290ad8db775426e64654e346deea6a2cd26",
+        "shape": []
+      }
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_low_4000hz/trajectory.npz": {
+      "angular_reaction_error_N_m": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "continuous_dissipation_step_J": {
+        "dtype": "float64",
+        "sha256": "36f9cd35f41d2154be2ef55cabc64cca296c868289ba70dd2e217029ca72e34f",
+        "shape": [
+          2000
+        ]
+      },
+      "discrete_impulse_work_error_J": {
+        "dtype": "float64",
+        "sha256": "5fde526ce049e85abdc7abc751a461efe3fa7112b705c68cca7ebe8cc0c818e3",
+        "shape": [
+          2000
+        ]
+      },
+      "elastic_discrete_remainder_J": {
+        "dtype": "float64",
+        "sha256": "ffcccbbf65954924595b99a2e476b447ae6c7b0f6d7dd8deba46aaa4522f0c1a",
+        "shape": [
+          2000
+        ]
+      },
+      "elastic_energy_endpoint_J": {
+        "dtype": "float64",
+        "sha256": "028557e41e8b98e3994d24f8d2645236f6c1df3ef3b32ea403208fc21c481a9c",
+        "shape": [
+          2000
+        ]
+      },
+      "endpoint_time_s": {
+        "dtype": "float64",
+        "sha256": "7deb296eabb2fb2d5cfbedba4a277ea3735d3aae1e086f20a230456d83601f6f",
+        "shape": [
+          2000
+        ]
+      },
+      "engine_ncon": {
+        "dtype": "int64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "engine_nefc": {
+        "dtype": "int64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "engine_qfrc_constraint": {
+        "dtype": "float64",
+        "sha256": "bb918147fe10391b43adeba4bd21b9ef32e5bd6c5076c3517733a05ed6dd0569",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "euler_position_error_m": {
+        "dtype": "float64",
+        "sha256": "47d8d9ae5d81d920d9bdb1caa2186a34ececab45b9eaee168b122226789f60c8",
+        "shape": [
+          2000
+        ]
+      },
+      "external_force_N": {
+        "dtype": "float64",
+        "sha256": "597b8d771331edbe71ff65439da36e3deb75b3f6f60983e893b8ad3836d9522d",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "external_work_J": {
+        "dtype": "float64",
+        "sha256": "58be2ff1a82fd050e55cdd19eea60d8b4d7a0a8a52aeb56c213812d0ff730596",
+        "shape": [
+          2000
+        ]
+      },
+      "force_balance_N": {
+        "dtype": "float64",
+        "sha256": "27bec3a2f4a88551dce357da0d0458220b7a1e361dcfd2aeca82d96262c064cc",
+        "shape": [
+          2000
+        ]
+      },
+      "gap_derivative_start_m_s": {
+        "dtype": "float64",
+        "sha256": "09be394f3f27c08d936179dab64f5665d2c78710ce98a153c0430e4fb960b17a",
+        "shape": [
+          2000
+        ]
+      },
+      "gap_endpoint_m": {
+        "dtype": "float64",
+        "sha256": "8e32478409033afb7da9d5c76bf536f97b26cef4e3469d37f278d44709b9b066",
+        "shape": [
+          2000
+        ]
+      },
+      "gap_start_m": {
+        "dtype": "float64",
+        "sha256": "8aae20a816050b9fef167eb5ec246d462d0b164928860535e4fc55faa92701b7",
+        "shape": [
+          2000
+        ]
+      },
+      "integration_energy_identity_error_J": {
+        "dtype": "float64",
+        "sha256": "43f5e90660a7e0d4e9c806709a24882188e5bcd948e619acd7f9342e2770cc6f",
+        "shape": [
+          2000
+        ]
+      },
+      "law_collection_allowed": {
+        "dtype": "bool",
+        "sha256": "2da42fb1d7bd8524e83d5a1e332bad697c8769ba430770a19bec630eb8ffcaa8",
+        "shape": [
+          2000
+        ]
+      },
+      "law_common_point_world_m": {
+        "dtype": "float64",
+        "sha256": "104d30dae01db927c0fe3499bcd18f97b7a0cf03c7bf8e2f81d9d20609ce1395",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "law_elastic_energy_j": {
+        "dtype": "float64",
+        "sha256": "8bbe24c0743b3562b70d6ca3f8e2f16a4ee4469b7a702eb389369b280884cf30",
+        "shape": [
+          2000
+        ]
+      },
+      "law_elastic_energy_rate_w": {
+        "dtype": "float64",
+        "sha256": "4c0f9507952b0ea7fabc4b0fa6551177e8d19bc1a3385a72e2431b1bf8f2e51e",
+        "shape": [
+          2000
+        ]
+      },
+      "law_friction_power_w": {
+        "dtype": "float64",
+        "sha256": "e782996ec0d3f40ba1b3dbf80d2e326ca61596ab736556b5eec1fc1373a095ba",
+        "shape": [
+          2000
+        ]
+      },
+      "law_hand_force_world_n": {
+        "dtype": "float64",
+        "sha256": "108f76fbd53807f096514dbb4e0415f52790b75e7228756bd7b5c0b74a9c2ce0",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "law_hand_generalized_load": {
+        "dtype": "float64",
+        "sha256": "7e022952dd462ea005099c5bd3902b50734a64a194db9a1afe6c54d240c64379",
+        "shape": [
+          2000,
+          51
+        ]
+      },
+      "law_mechanical_power_w": {
+        "dtype": "float64",
+        "sha256": "96f3ff64dec29197cb0524e8012ce06f4671981e6369986c67ed0f95c7672162",
+        "shape": [
+          2000
+        ]
+      },
+      "law_native_hand_qualified": {
+        "dtype": "bool",
+        "sha256": "2da42fb1d7bd8524e83d5a1e332bad697c8769ba430770a19bec630eb8ffcaa8",
+        "shape": [
+          2000
+        ]
+      },
+      "law_normal_dissipation_power_w": {
+        "dtype": "float64",
+        "sha256": "504cdc774de8397aada6054aa7dcff541f5c94523a5d2b232bc1b96c4b7dff55",
+        "shape": [
+          2000
+        ]
+      },
+      "law_normal_force_n": {
+        "dtype": "float64",
+        "sha256": "a47b572ccfb2fe502cb412bc613423561a78cb709c3c9d0f66c5f19ca787565d",
+        "shape": [
+          2000
+        ]
+      },
+      "law_object_force_world_n": {
+        "dtype": "float64",
+        "sha256": "9e7041664d55809bde2d37e3875284fc6219f28a926a87f8d5aff871431aa4ca",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "law_object_generalized_load": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000,
+          1
+        ]
+      },
+      "law_object_wrench_force_then_torque": {
+        "dtype": "float64",
+        "sha256": "3535d16a635fa924956a6da84b7a1badc2a26e819b125d6d7b6274bad87a32fc",
+        "shape": [
+          2000,
+          6
+        ]
+      },
+      "law_penetration_m": {
+        "dtype": "float64",
+        "sha256": "eecf7dd7108f159cf045ccf9282492bbb7bae8ff37df95057cd85cfef6b3d559",
+        "shape": [
+          2000
+        ]
+      },
+      "law_power_identity_residual_w": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "law_relative_velocity_world_m_per_s": {
+        "dtype": "float64",
+        "sha256": "63b1796b3b021fcff2886709a5d64bc37d33cdc871d3525615858c2c38b3c140",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "law_signed_gap_m": {
+        "dtype": "float64",
+        "sha256": "8aae20a816050b9fef167eb5ec246d462d0b164928860535e4fc55faa92701b7",
+        "shape": [
+          2000
+        ]
+      },
+      "law_training_allowed": {
+        "dtype": "bool",
+        "sha256": "2da42fb1d7bd8524e83d5a1e332bad697c8769ba430770a19bec630eb8ffcaa8",
+        "shape": [
+          2000
+        ]
+      },
+      "linear_reaction_error_N": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "measured_integration_defect_J": {
+        "dtype": "float64",
+        "sha256": "27b39cdaf59641b6b7b761c36ea7d4074194138697a6d06bfcb5b53cbd07bd40",
+        "shape": [
+          2000
+        ]
+      },
+      "mechanical_energy_endpoint_J": {
+        "dtype": "float64",
+        "sha256": "6ab36c40b34d46c3809a9f0441ac4bf500bb4115ddcad67e7d549dc7865321a0",
+        "shape": [
+          2000
+        ]
+      },
+      "mechanical_energy_start_J": {
+        "dtype": "float64",
+        "sha256": "4f2e6f204db8f796426afa2232f812269f4376112ba27fcac360c468ce95b53a",
+        "shape": [
+          2000
+        ]
+      },
+      "point_power_error_W": {
+        "dtype": "float64",
+        "sha256": "f85f2c34eb2843d2aa5951ee6e8e76985655b2e3ae2cbdd76bdfd654ecf19997",
+        "shape": [
+          2000
+        ]
+      },
+      "position_endpoint_m": {
+        "dtype": "float64",
+        "sha256": "6a3a653bb021d3c8f70074ce368262adc590520addcf0f036ee1bda7c9bf2d87",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "position_start_m": {
+        "dtype": "float64",
+        "sha256": "1528ef545ee1161001ed87fe7441820c1c620663719daac772e49d9c808f00c0",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "predicted_integration_defect_J": {
+        "dtype": "float64",
+        "sha256": "5586402588c11fe7e0b2a944b3f3f3187fe0d98012fb51272d0ea7260ff667ab",
+        "shape": [
+          2000
+        ]
+      },
+      "qpos_endpoint": {
+        "dtype": "float64",
+        "sha256": "0a44dc1af563b11f315777ba175d895db50c93da05b57531c26733f723b44240",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "qvel_endpoint": {
+        "dtype": "float64",
+        "sha256": "63680caacfe9eb2823db1c98beab654706260ed13244fe3405d0a8b7aeedd290",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "solver_niter": {
+        "dtype": "int32",
+        "sha256": "b9ce164d30e4101b009fe4be765a070593cfbdd48f897853de159a8c177fabe8",
+        "shape": [
+          2000,
+          20
+        ]
+      },
+      "start_engine_energy_J": {
+        "dtype": "float64",
+        "sha256": "01227b9017a9af8cac715ff10da36f9ca9e5d02f6f225a9c5aabf6b797a5aecb",
+        "shape": [
+          2000,
+          2
+        ]
+      },
+      "start_qacc": {
+        "dtype": "float64",
+        "sha256": "17bcfa3426266157281080e1206722dd17c860df7e1f03bec9f056016998b4b0",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "start_qfrc_applied": {
+        "dtype": "float64",
+        "sha256": "98440f19aa324ff3d0eee528c67a3ea9c3da55054623f772a76f1c266b76b47e",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "start_time_s": {
+        "dtype": "float64",
+        "sha256": "f581555aa8cf8140c840dcd29b8916c6d36c0436162ad91ae46e2256aefa6c8f",
+        "shape": [
+          2000
+        ]
+      },
+      "velocity_endpoint_m_s": {
+        "dtype": "float64",
+        "sha256": "63680caacfe9eb2823db1c98beab654706260ed13244fe3405d0a8b7aeedd290",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "velocity_start_m_s": {
+        "dtype": "float64",
+        "sha256": "63b1796b3b021fcff2886709a5d64bc37d33cdc871d3525615858c2c38b3c140",
+        "shape": [
+          2000,
+          3
+        ]
+      },
+      "warning_counts": {
+        "dtype": "int32",
+        "sha256": "4f7988030a00d082fe445e00a2ac5dab502300ff1b80e8592dd569867b60ef74",
+        "shape": [
+          2000,
+          8
+        ]
+      }
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_low_8000hz/compiled_fixture.npz": {
+      "body_inertia_kg_m2": {
+        "dtype": "float64",
+        "sha256": "c880a42940bada1dc3fdfa73f0c1aad52ce27a702ed471a25569d062400be733",
+        "shape": [
+          2,
+          3
+        ]
+      },
+      "body_mass_kg": {
+        "dtype": "float64",
+        "sha256": "e65603a1c9797cb905b3efcc1e30d86f5b810525ab702ecc5288d5df288638ab",
+        "shape": [
+          2
+        ]
+      },
+      "body_pos_m": {
+        "dtype": "float64",
+        "sha256": "c50fc6d4ae436ecad1608d4815afe97744b8f8867cac090b9699ed3e8316b20d",
+        "shape": [
+          2,
+          3
+        ]
+      },
+      "body_quaternion_wxyz": {
+        "dtype": "float64",
+        "sha256": "4542fc31d028913284f517bc12cba0d399649a3be83759da18a98975d6d0b19b",
+        "shape": [
+          2,
+          4
+        ]
+      },
+      "gravity_m_s2": {
+        "dtype": "float64",
+        "sha256": "ae1e8d988bda31f91f37b3360818f46f5216924d49e011e065e323fe23f3bf2e",
+        "shape": [
+          3
+        ]
+      },
+      "hand_point_J": {
+        "dtype": "float64",
+        "sha256": "871fc54e69eee2d47a7d2a7c14b46aa8fc1f1494a2dd4c1231ed1a656c5db190",
+        "shape": [
+          3,
+          51
+        ]
+      },
+      "initial_qpos": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3
+        ]
+      },
+      "initial_qvel": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3
+        ]
+      },
+      "joint_axis": {
+        "dtype": "float64",
+        "sha256": "1332df685c45a61a0ac008a6a653295b8c5655361c1d34b6304b22ec40235fb8",
+        "shape": [
+          3,
+          3
+        ]
+      },
+      "joint_bodyid": {
+        "dtype": "int32",
+        "sha256": "11047585fe102fbb5cadb42446612a578d88c6ef5ed076bb7ac360c4f9e4373d",
+        "shape": [
+          3
+        ]
+      },
+      "joint_dof_address": {
+        "dtype": "int32",
+        "sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+        "shape": [
+          3
+        ]
+      },
+      "joint_qpos_address": {
+        "dtype": "int32",
+        "sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+        "shape": [
+          3
+        ]
+      },
+      "joint_type": {
+        "dtype": "int32",
+        "sha256": "636952d3023d8cf5d8245ac30efb93a443bd4bc23b5e331d51ecb82425fdc30a",
+        "shape": [
+          3
+        ]
+      },
+      "static_object_point_J": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3,
+          1
+        ]
+      },
+      "timestep_s": {
+        "dtype": "float64",
+        "sha256": "e26b85b7da147b92535b3f53f6d064591a2f2a72d9d38e97ffc727823eb77d40",
+        "shape": []
+      }
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_low_8000hz/trajectory.npz": {
+      "angular_reaction_error_N_m": {
+        "dtype": "float64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "continuous_dissipation_step_J": {
+        "dtype": "float64",
+        "sha256": "14cd18180c354fe42734140dc503585136f054cac91a99396ef0064eb53a572f",
+        "shape": [
+          4000
+        ]
+      },
+      "discrete_impulse_work_error_J": {
+        "dtype": "float64",
+        "sha256": "a322b06784539059fa8fd8b902c9dd44f9c61fb870f6aa01a9aa8f79f86c66d1",
+        "shape": [
+          4000
+        ]
+      },
+      "elastic_discrete_remainder_J": {
+        "dtype": "float64",
+        "sha256": "36ce91dc8eb8f49a59d84dabe5690cdd4f8a22a04e7a5855474513f7290d2533",
+        "shape": [
+          4000
+        ]
+      },
+      "elastic_energy_endpoint_J": {
+        "dtype": "float64",
+        "sha256": "4d6c8336d52d154fee2b0d20e8a3abe86d549519ff055eb2ab984eeaf4a59fde",
+        "shape": [
+          4000
+        ]
+      },
+      "endpoint_time_s": {
+        "dtype": "float64",
+        "sha256": "bfdd5d788a7dda68d7ba08a0a532df2821f1fde20e8b00b722307ca9ba746f3a",
+        "shape": [
+          4000
+        ]
+      },
+      "engine_ncon": {
+        "dtype": "int64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "engine_nefc": {
+        "dtype": "int64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "engine_qfrc_constraint": {
+        "dtype": "float64",
+        "sha256": "55873fecc61a79e87ca550c7072e38ccdd7ecb600ace286fe4717952a97c42b0",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "euler_position_error_m": {
+        "dtype": "float64",
+        "sha256": "fc01b0111570315744bf15a7c7500bc16d9350b7f6a7ac32a4916a2c72151675",
+        "shape": [
+          4000
+        ]
+      },
+      "external_force_N": {
+        "dtype": "float64",
+        "sha256": "81980224424f65130827781107da463f286f23cd279fd4494d39815dd2593961",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "external_work_J": {
+        "dtype": "float64",
+        "sha256": "6869bbc59745420b3305ad83a96e05ef6c25ffa8e71bf58f21448e3f66e81883",
+        "shape": [
+          4000
+        ]
+      },
+      "force_balance_N": {
+        "dtype": "float64",
+        "sha256": "e827f4193a99a34d97de020845e23b56cea96d2e9405cbf1554f9a2ee8f47c23",
+        "shape": [
+          4000
+        ]
+      },
+      "gap_derivative_start_m_s": {
+        "dtype": "float64",
+        "sha256": "ed3a4bf06249dcc1bb0fd4caab998a919cac38fad5ff7c91f02cc3be761966c5",
+        "shape": [
+          4000
+        ]
+      },
+      "gap_endpoint_m": {
+        "dtype": "float64",
+        "sha256": "c64be3920c9108497d6d74c773876c53e85d92486d0bfb13fdc483dc2544911f",
+        "shape": [
+          4000
+        ]
+      },
+      "gap_start_m": {
+        "dtype": "float64",
+        "sha256": "baccfca863696dc1ceb3f53a62d62a8db6aed29a517c31f03abf67055bff663c",
+        "shape": [
+          4000
+        ]
+      },
+      "integration_energy_identity_error_J": {
+        "dtype": "float64",
+        "sha256": "3940643c74bd02a8dbf7d1ce21caf62ee2d837c07bd0b1f85986d775107d74ee",
+        "shape": [
+          4000
+        ]
+      },
+      "law_collection_allowed": {
+        "dtype": "bool",
+        "sha256": "fc19b1997119425765295aeab72d76faa6927d4f83985d328c26f20468d6cc76",
+        "shape": [
+          4000
+        ]
+      },
+      "law_common_point_world_m": {
+        "dtype": "float64",
+        "sha256": "219ff94cb9b0e3d2cef97245589d1c5261875471d59ff8b071f64bfcd2e9a4a6",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "law_elastic_energy_j": {
+        "dtype": "float64",
+        "sha256": "686e5da93d2501b0b4da1d3d4c22e9113610a5a0eef5112658cb49ef2d512db2",
+        "shape": [
+          4000
+        ]
+      },
+      "law_elastic_energy_rate_w": {
+        "dtype": "float64",
+        "sha256": "6ea14eab6e68621e26f2b04187fe630862c8c8c3cf0af41cabcb7e71a82bd6d9",
+        "shape": [
+          4000
+        ]
+      },
+      "law_friction_power_w": {
+        "dtype": "float64",
+        "sha256": "1acd176685e2ad1e141c451fe230358df2bdcf2f1a75e9cac9dcca6110e7f360",
+        "shape": [
+          4000
+        ]
+      },
+      "law_hand_force_world_n": {
+        "dtype": "float64",
+        "sha256": "5517a6113769c4be4755c73a3a40515e2fee65f972a83ac501d6b865a513430d",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "law_hand_generalized_load": {
+        "dtype": "float64",
+        "sha256": "eb97700b1b8806022b07e60e9262457ee91cae9ce26e43b0b768741a4aad9df0",
+        "shape": [
+          4000,
+          51
+        ]
+      },
+      "law_mechanical_power_w": {
+        "dtype": "float64",
+        "sha256": "b26b44fe54e3ef0715521e340c7a0a1445a1de9f40e97f1eb1108c15044639e8",
+        "shape": [
+          4000
+        ]
+      },
+      "law_native_hand_qualified": {
+        "dtype": "bool",
+        "sha256": "fc19b1997119425765295aeab72d76faa6927d4f83985d328c26f20468d6cc76",
+        "shape": [
+          4000
+        ]
+      },
+      "law_normal_dissipation_power_w": {
+        "dtype": "float64",
+        "sha256": "adf23949caa4578a3278c1cf3d88309eedbe0b03edec89377abf279d14ea2f7c",
+        "shape": [
+          4000
+        ]
+      },
+      "law_normal_force_n": {
+        "dtype": "float64",
+        "sha256": "be9988737bb6e460a3076a067aef9d9ed19720b8640dd07272cced734fe3765b",
+        "shape": [
+          4000
+        ]
+      },
+      "law_object_force_world_n": {
+        "dtype": "float64",
+        "sha256": "8694c7a86d6ff95acf16eef0c56ee7c90c164277a64ee12e9d12eb3752f5db5c",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "law_object_generalized_load": {
+        "dtype": "float64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000,
+          1
+        ]
+      },
+      "law_object_wrench_force_then_torque": {
+        "dtype": "float64",
+        "sha256": "c0a66322a2ddc14ba8eae86923e278ac2da44f6321efbd01b211b6e9a4a790dd",
+        "shape": [
+          4000,
+          6
+        ]
+      },
+      "law_penetration_m": {
+        "dtype": "float64",
+        "sha256": "05208a3f128eef3dae819451a6a6671a45d2536051a2528d6a915d436ab59811",
+        "shape": [
+          4000
+        ]
+      },
+      "law_power_identity_residual_w": {
+        "dtype": "float64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "law_relative_velocity_world_m_per_s": {
+        "dtype": "float64",
+        "sha256": "8064b09efdbb84f2c4e94a4f8705bdfdb3dcfa1011084d5df5e3d95af70e0c03",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "law_signed_gap_m": {
+        "dtype": "float64",
+        "sha256": "baccfca863696dc1ceb3f53a62d62a8db6aed29a517c31f03abf67055bff663c",
+        "shape": [
+          4000
+        ]
+      },
+      "law_training_allowed": {
+        "dtype": "bool",
+        "sha256": "fc19b1997119425765295aeab72d76faa6927d4f83985d328c26f20468d6cc76",
+        "shape": [
+          4000
+        ]
+      },
+      "linear_reaction_error_N": {
+        "dtype": "float64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "measured_integration_defect_J": {
+        "dtype": "float64",
+        "sha256": "ce6df863d3b00d35b5df5de0d94cb3ba7c6eaac0eafa8254496ebedbc4889043",
+        "shape": [
+          4000
+        ]
+      },
+      "mechanical_energy_endpoint_J": {
+        "dtype": "float64",
+        "sha256": "3e6132c0dd819c2fcaae68d3f006c0662c29778a8ce99c555fbb21ba38ed15ca",
+        "shape": [
+          4000
+        ]
+      },
+      "mechanical_energy_start_J": {
+        "dtype": "float64",
+        "sha256": "5e23a3063b1466044bcc822b8669030fbb68f97d49d4b0645e7a041c019e2839",
+        "shape": [
+          4000
+        ]
+      },
+      "point_power_error_W": {
+        "dtype": "float64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "position_endpoint_m": {
+        "dtype": "float64",
+        "sha256": "fa12ecdf90f5d11d5f8f5d75193550d226a1db055a964023581a40b29a28f3dc",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "position_start_m": {
+        "dtype": "float64",
+        "sha256": "d133205812fd1507a597c9d2cf3d359062ddb7c4cbb74cc611a2937d349eb982",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "predicted_integration_defect_J": {
+        "dtype": "float64",
+        "sha256": "5d7374075c352ddc31c8928e6d6d29ceba5d02996c5c7215088e412f4f097ac6",
+        "shape": [
+          4000
+        ]
+      },
+      "qpos_endpoint": {
+        "dtype": "float64",
+        "sha256": "c9de04ad60965373e3eca6886f903dc3d2fcb7b67d5460ef4cebf8499d2e4316",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "qvel_endpoint": {
+        "dtype": "float64",
+        "sha256": "4cabb595adf8b995cee2c441814283a6bd54db00a70225097b68a13b6c26a555",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "solver_niter": {
+        "dtype": "int32",
+        "sha256": "ac2878215ad33205d1732578c89f25ededaad1b676911c540825bcf4baa42d9b",
+        "shape": [
+          4000,
+          20
+        ]
+      },
+      "start_engine_energy_J": {
+        "dtype": "float64",
+        "sha256": "2d40de927d1e041fff6b340f99b2c57210d6e940e3c6278a3b6e55f511e4df17",
+        "shape": [
+          4000,
+          2
+        ]
+      },
+      "start_qacc": {
+        "dtype": "float64",
+        "sha256": "20cf0cdd6252442afb7ed4a4e88eab62c1b1aef20dfed5be9173f2176c090c06",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "start_qfrc_applied": {
+        "dtype": "float64",
+        "sha256": "26e647fab5cc5f2b0b64195c7a3a8ddc7677a0376d5e55ddb80a11ee88bebcdf",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "start_time_s": {
+        "dtype": "float64",
+        "sha256": "0b5df11f7820a4c932a713934fac9b3018bc3146c94524fff21afb337708b0fe",
+        "shape": [
+          4000
+        ]
+      },
+      "velocity_endpoint_m_s": {
+        "dtype": "float64",
+        "sha256": "4cabb595adf8b995cee2c441814283a6bd54db00a70225097b68a13b6c26a555",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "velocity_start_m_s": {
+        "dtype": "float64",
+        "sha256": "8064b09efdbb84f2c4e94a4f8705bdfdb3dcfa1011084d5df5e3d95af70e0c03",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "warning_counts": {
+        "dtype": "int32",
+        "sha256": "eec19bc6af0b3b6dfb97a08782c65f4bb3c3203e789a015d2008b0d689ad08be",
+        "shape": [
+          4000,
+          8
+        ]
+      }
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/support_4000hz/compiled_fixture.npz": {
+      "body_inertia_kg_m2": {
+        "dtype": "float64",
+        "sha256": "c880a42940bada1dc3fdfa73f0c1aad52ce27a702ed471a25569d062400be733",
+        "shape": [
+          2,
+          3
+        ]
+      },
+      "body_mass_kg": {
+        "dtype": "float64",
+        "sha256": "e65603a1c9797cb905b3efcc1e30d86f5b810525ab702ecc5288d5df288638ab",
+        "shape": [
+          2
+        ]
+      },
+      "body_pos_m": {
+        "dtype": "float64",
+        "sha256": "c03e58a04f6c2f3d94090675f43466dec1dbfb4e65beecb0e802fca37617ce4b",
+        "shape": [
+          2,
+          3
+        ]
+      },
+      "body_quaternion_wxyz": {
+        "dtype": "float64",
+        "sha256": "4542fc31d028913284f517bc12cba0d399649a3be83759da18a98975d6d0b19b",
+        "shape": [
+          2,
+          4
+        ]
+      },
+      "gravity_m_s2": {
+        "dtype": "float64",
+        "sha256": "ae1e8d988bda31f91f37b3360818f46f5216924d49e011e065e323fe23f3bf2e",
+        "shape": [
+          3
+        ]
+      },
+      "hand_point_J": {
+        "dtype": "float64",
+        "sha256": "871fc54e69eee2d47a7d2a7c14b46aa8fc1f1494a2dd4c1231ed1a656c5db190",
+        "shape": [
+          3,
+          51
+        ]
+      },
+      "initial_qpos": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3
+        ]
+      },
+      "initial_qvel": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3
+        ]
+      },
+      "joint_axis": {
+        "dtype": "float64",
+        "sha256": "1332df685c45a61a0ac008a6a653295b8c5655361c1d34b6304b22ec40235fb8",
+        "shape": [
+          3,
+          3
+        ]
+      },
+      "joint_bodyid": {
+        "dtype": "int32",
+        "sha256": "11047585fe102fbb5cadb42446612a578d88c6ef5ed076bb7ac360c4f9e4373d",
+        "shape": [
+          3
+        ]
+      },
+      "joint_dof_address": {
+        "dtype": "int32",
+        "sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+        "shape": [
+          3
+        ]
+      },
+      "joint_qpos_address": {
+        "dtype": "int32",
+        "sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+        "shape": [
+          3
+        ]
+      },
+      "joint_type": {
+        "dtype": "int32",
+        "sha256": "636952d3023d8cf5d8245ac30efb93a443bd4bc23b5e331d51ecb82425fdc30a",
+        "shape": [
+          3
+        ]
+      },
+      "static_object_point_J": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3,
+          1
+        ]
+      },
+      "timestep_s": {
+        "dtype": "float64",
+        "sha256": "ba9bb123baaf5513cf0925c4ad112290ad8db775426e64654e346deea6a2cd26",
+        "shape": []
+      }
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/support_4000hz/trajectory.npz": {
+      "angular_reaction_error_N_m": {
+        "dtype": "float64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "continuous_dissipation_step_J": {
+        "dtype": "float64",
+        "sha256": "89db93bfe1a99a4a2f13cc913b22bda3b061e19358f28b047bdbbe8eb8c280cf",
+        "shape": [
+          4000
+        ]
+      },
+      "discrete_impulse_work_error_J": {
+        "dtype": "float64",
+        "sha256": "e7bd5c1dc742a6a853b1ad1b55685fd247edb9397f141ebfeb7171c02bd17ceb",
+        "shape": [
+          4000
+        ]
+      },
+      "elastic_discrete_remainder_J": {
+        "dtype": "float64",
+        "sha256": "551b7054311f37d31a8511183396ffdcc5ca4e9ffe4c277a2916270ded5d91d9",
+        "shape": [
+          4000
+        ]
+      },
+      "elastic_energy_endpoint_J": {
+        "dtype": "float64",
+        "sha256": "aa1044dceb1260fc4675554a3f8c17da7709beb68168d8b195b03d06ef71b795",
+        "shape": [
+          4000
+        ]
+      },
+      "endpoint_time_s": {
+        "dtype": "float64",
+        "sha256": "a94daa368ac2a1ccd68307ca19e96b0a2ed87d8d0bbe5c961f7a1f78096241f7",
+        "shape": [
+          4000
+        ]
+      },
+      "engine_ncon": {
+        "dtype": "int64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "engine_nefc": {
+        "dtype": "int64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "engine_qfrc_constraint": {
+        "dtype": "float64",
+        "sha256": "55873fecc61a79e87ca550c7072e38ccdd7ecb600ace286fe4717952a97c42b0",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "euler_position_error_m": {
+        "dtype": "float64",
+        "sha256": "fa1f3b4d30cce6398a14a88d6e8c6b26924fab0ffa789376eeb9d0f67fe485ec",
+        "shape": [
+          4000
+        ]
+      },
+      "external_force_N": {
+        "dtype": "float64",
+        "sha256": "55873fecc61a79e87ca550c7072e38ccdd7ecb600ace286fe4717952a97c42b0",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "external_work_J": {
+        "dtype": "float64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "force_balance_N": {
+        "dtype": "float64",
+        "sha256": "e62ad15dec8700b2efd52623c47a640c2d42ff761d4bb242b9f04844f7661c1f",
+        "shape": [
+          4000
+        ]
+      },
+      "gap_derivative_start_m_s": {
+        "dtype": "float64",
+        "sha256": "ffdd367a185cf082029a48f6e4d26e84ad064074c4566a14e93f4739dcfa4f33",
+        "shape": [
+          4000
+        ]
+      },
+      "gap_endpoint_m": {
+        "dtype": "float64",
+        "sha256": "8fc48beb59e091a0a2591e6bfa8f1ae26c7f522dcbe76515d0c8d7cd75b6f361",
+        "shape": [
+          4000
+        ]
+      },
+      "gap_start_m": {
+        "dtype": "float64",
+        "sha256": "a830bea46e5f6bde31ef6b64695a1b547239457e4136f298499230aef6a9fa73",
+        "shape": [
+          4000
+        ]
+      },
+      "integration_energy_identity_error_J": {
+        "dtype": "float64",
+        "sha256": "4c4647de1d50f68bc78716397de88788d1774dc6c4a0407e0aaeacd62e39576a",
+        "shape": [
+          4000
+        ]
+      },
+      "law_collection_allowed": {
+        "dtype": "bool",
+        "sha256": "fc19b1997119425765295aeab72d76faa6927d4f83985d328c26f20468d6cc76",
+        "shape": [
+          4000
+        ]
+      },
+      "law_common_point_world_m": {
+        "dtype": "float64",
+        "sha256": "191f3482d4378dabb24afd4661d7ed6c7203920829533c4a19407ab1e2b6b48d",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "law_elastic_energy_j": {
+        "dtype": "float64",
+        "sha256": "bcc8b1d26979ddcfd39c18e9c0823e020952c5b496e08da732f5d6e9be5fb242",
+        "shape": [
+          4000
+        ]
+      },
+      "law_elastic_energy_rate_w": {
+        "dtype": "float64",
+        "sha256": "b54528e73391ca279a674f003610e976870bc8a9231e31a29d0acb2528686bc9",
+        "shape": [
+          4000
+        ]
+      },
+      "law_friction_power_w": {
+        "dtype": "float64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "law_hand_force_world_n": {
+        "dtype": "float64",
+        "sha256": "13159f060da94ee885d8062209dcfd1b672f76ac51a73b82afcc5b0951345e31",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "law_hand_generalized_load": {
+        "dtype": "float64",
+        "sha256": "7c91dc643e4c0a5e36a8f0bc9d3d201a008cbaab8d5b4f25003da5319b6264e9",
+        "shape": [
+          4000,
+          51
+        ]
+      },
+      "law_mechanical_power_w": {
+        "dtype": "float64",
+        "sha256": "dc5e3fcf0e44edaaa3e5cc86ef12aa48ba1e9968e4eae5b05b1b7a66b0e080b1",
+        "shape": [
+          4000
+        ]
+      },
+      "law_native_hand_qualified": {
+        "dtype": "bool",
+        "sha256": "fc19b1997119425765295aeab72d76faa6927d4f83985d328c26f20468d6cc76",
+        "shape": [
+          4000
+        ]
+      },
+      "law_normal_dissipation_power_w": {
+        "dtype": "float64",
+        "sha256": "bf322c521a58b771adec50d3c5bac7cb467ba5dd18e7b8ae1fd16274f7042026",
+        "shape": [
+          4000
+        ]
+      },
+      "law_normal_force_n": {
+        "dtype": "float64",
+        "sha256": "183d1dc216f63e8cd3af4135df536f7c1cf06540c88b4aa38ccd208ab70384ad",
+        "shape": [
+          4000
+        ]
+      },
+      "law_object_force_world_n": {
+        "dtype": "float64",
+        "sha256": "44811e0d748b2bf293fa6fd23670a4aab736b4def74d4b057e4aa3a3f0bdeae2",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "law_object_generalized_load": {
+        "dtype": "float64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000,
+          1
+        ]
+      },
+      "law_object_wrench_force_then_torque": {
+        "dtype": "float64",
+        "sha256": "86f8e91b01c44626dc7c406517d1aa4fe1e6142faf9181ac28b5f3cb55f00ad8",
+        "shape": [
+          4000,
+          6
+        ]
+      },
+      "law_penetration_m": {
+        "dtype": "float64",
+        "sha256": "1065b411b3daf9d66ff956d08af9e9ac39ab89f21b5af9bdf97031a0c3402040",
+        "shape": [
+          4000
+        ]
+      },
+      "law_power_identity_residual_w": {
+        "dtype": "float64",
+        "sha256": "88f47cf207d994ff6ca34bb41eef8b052de13dc893a7427ad42e0ebac1353199",
+        "shape": [
+          4000
+        ]
+      },
+      "law_relative_velocity_world_m_per_s": {
+        "dtype": "float64",
+        "sha256": "98a87bed0bc0160065d61e2aef03f9df50cdd0489e907a1834d6f5b046386c8c",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "law_signed_gap_m": {
+        "dtype": "float64",
+        "sha256": "a830bea46e5f6bde31ef6b64695a1b547239457e4136f298499230aef6a9fa73",
+        "shape": [
+          4000
+        ]
+      },
+      "law_training_allowed": {
+        "dtype": "bool",
+        "sha256": "fc19b1997119425765295aeab72d76faa6927d4f83985d328c26f20468d6cc76",
+        "shape": [
+          4000
+        ]
+      },
+      "linear_reaction_error_N": {
+        "dtype": "float64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "measured_integration_defect_J": {
+        "dtype": "float64",
+        "sha256": "2f1f046ef51a28f31d39fa66e5ae0215bf238e8c3ead74fe1f7de17d51327baa",
+        "shape": [
+          4000
+        ]
+      },
+      "mechanical_energy_endpoint_J": {
+        "dtype": "float64",
+        "sha256": "8d2a5e534ea797fd631de2ac977ea770f1bc2cfd57089883db8d295afe11877f",
+        "shape": [
+          4000
+        ]
+      },
+      "mechanical_energy_start_J": {
+        "dtype": "float64",
+        "sha256": "bd50ccbc5a8f7c7116405f2a8673dd5de9cc07bd591852b58d06ac54d183e0b8",
+        "shape": [
+          4000
+        ]
+      },
+      "point_power_error_W": {
+        "dtype": "float64",
+        "sha256": "0c92bddb4e96f3ea9ec9f0f64a668255a6c15527ac09f6f119cafde60c7c4a39",
+        "shape": [
+          4000
+        ]
+      },
+      "position_endpoint_m": {
+        "dtype": "float64",
+        "sha256": "84e85631cd93f0a2180b59e9ffb0d3a5705834eea17be53ddd3fd0364afc5d86",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "position_start_m": {
+        "dtype": "float64",
+        "sha256": "b4d1107979511feefb5cc2f13454e18f798933b20a20d0c54fc27a6b4d095726",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "predicted_integration_defect_J": {
+        "dtype": "float64",
+        "sha256": "2c6c3a954c017e9a9c4875a2f6bca258a70d27e42047a9bfbd367b2c61634ef4",
+        "shape": [
+          4000
+        ]
+      },
+      "qpos_endpoint": {
+        "dtype": "float64",
+        "sha256": "687c5c0d94bef4a2e85d8d90285b57bb0c4458da2b26c82a1981342ae307ab6f",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "qvel_endpoint": {
+        "dtype": "float64",
+        "sha256": "68627bc2e30868881f84e4e7587a85880520d09e0537a32b88a44ef657e1b348",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "solver_niter": {
+        "dtype": "int32",
+        "sha256": "ac2878215ad33205d1732578c89f25ededaad1b676911c540825bcf4baa42d9b",
+        "shape": [
+          4000,
+          20
+        ]
+      },
+      "start_engine_energy_J": {
+        "dtype": "float64",
+        "sha256": "b4f9f26c474aad68325b7acf59c47e01084694fdb1b4bd68d8472f9a531d2b50",
+        "shape": [
+          4000,
+          2
+        ]
+      },
+      "start_qacc": {
+        "dtype": "float64",
+        "sha256": "9cc320fc27d82e55282be0b9e46078872acd2c5899c39df82d9cd8790d18bbba",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "start_qfrc_applied": {
+        "dtype": "float64",
+        "sha256": "13159f060da94ee885d8062209dcfd1b672f76ac51a73b82afcc5b0951345e31",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "start_time_s": {
+        "dtype": "float64",
+        "sha256": "d792c4394469e01da688df9a73bef62c57c9361bc2d47974467c2ef7fc4edf6b",
+        "shape": [
+          4000
+        ]
+      },
+      "velocity_endpoint_m_s": {
+        "dtype": "float64",
+        "sha256": "68627bc2e30868881f84e4e7587a85880520d09e0537a32b88a44ef657e1b348",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "velocity_start_m_s": {
+        "dtype": "float64",
+        "sha256": "98a87bed0bc0160065d61e2aef03f9df50cdd0489e907a1834d6f5b046386c8c",
+        "shape": [
+          4000,
+          3
+        ]
+      },
+      "warning_counts": {
+        "dtype": "int32",
+        "sha256": "eec19bc6af0b3b6dfb97a08782c65f4bb3c3203e789a015d2008b0d689ad08be",
+        "shape": [
+          4000,
+          8
+        ]
+      }
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/support_8000hz/compiled_fixture.npz": {
+      "body_inertia_kg_m2": {
+        "dtype": "float64",
+        "sha256": "c880a42940bada1dc3fdfa73f0c1aad52ce27a702ed471a25569d062400be733",
+        "shape": [
+          2,
+          3
+        ]
+      },
+      "body_mass_kg": {
+        "dtype": "float64",
+        "sha256": "e65603a1c9797cb905b3efcc1e30d86f5b810525ab702ecc5288d5df288638ab",
+        "shape": [
+          2
+        ]
+      },
+      "body_pos_m": {
+        "dtype": "float64",
+        "sha256": "c03e58a04f6c2f3d94090675f43466dec1dbfb4e65beecb0e802fca37617ce4b",
+        "shape": [
+          2,
+          3
+        ]
+      },
+      "body_quaternion_wxyz": {
+        "dtype": "float64",
+        "sha256": "4542fc31d028913284f517bc12cba0d399649a3be83759da18a98975d6d0b19b",
+        "shape": [
+          2,
+          4
+        ]
+      },
+      "gravity_m_s2": {
+        "dtype": "float64",
+        "sha256": "ae1e8d988bda31f91f37b3360818f46f5216924d49e011e065e323fe23f3bf2e",
+        "shape": [
+          3
+        ]
+      },
+      "hand_point_J": {
+        "dtype": "float64",
+        "sha256": "871fc54e69eee2d47a7d2a7c14b46aa8fc1f1494a2dd4c1231ed1a656c5db190",
+        "shape": [
+          3,
+          51
+        ]
+      },
+      "initial_qpos": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3
+        ]
+      },
+      "initial_qvel": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3
+        ]
+      },
+      "joint_axis": {
+        "dtype": "float64",
+        "sha256": "1332df685c45a61a0ac008a6a653295b8c5655361c1d34b6304b22ec40235fb8",
+        "shape": [
+          3,
+          3
+        ]
+      },
+      "joint_bodyid": {
+        "dtype": "int32",
+        "sha256": "11047585fe102fbb5cadb42446612a578d88c6ef5ed076bb7ac360c4f9e4373d",
+        "shape": [
+          3
+        ]
+      },
+      "joint_dof_address": {
+        "dtype": "int32",
+        "sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+        "shape": [
+          3
+        ]
+      },
+      "joint_qpos_address": {
+        "dtype": "int32",
+        "sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+        "shape": [
+          3
+        ]
+      },
+      "joint_type": {
+        "dtype": "int32",
+        "sha256": "636952d3023d8cf5d8245ac30efb93a443bd4bc23b5e331d51ecb82425fdc30a",
+        "shape": [
+          3
+        ]
+      },
+      "static_object_point_J": {
+        "dtype": "float64",
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "shape": [
+          3,
+          1
+        ]
+      },
+      "timestep_s": {
+        "dtype": "float64",
+        "sha256": "e26b85b7da147b92535b3f53f6d064591a2f2a72d9d38e97ffc727823eb77d40",
+        "shape": []
+      }
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/support_8000hz/trajectory.npz": {
+      "angular_reaction_error_N_m": {
+        "dtype": "float64",
+        "sha256": "4f7988030a00d082fe445e00a2ac5dab502300ff1b80e8592dd569867b60ef74",
+        "shape": [
+          8000
+        ]
+      },
+      "continuous_dissipation_step_J": {
+        "dtype": "float64",
+        "sha256": "c217ee206a810d7f51dce7fc0fd8ebf1dd7b3b11b86280d774f556b7acaec051",
+        "shape": [
+          8000
+        ]
+      },
+      "discrete_impulse_work_error_J": {
+        "dtype": "float64",
+        "sha256": "8c81efdddbffa89871e4f5aad5829e2f834357480b6eb3b315945a27cdf34c23",
+        "shape": [
+          8000
+        ]
+      },
+      "elastic_discrete_remainder_J": {
+        "dtype": "float64",
+        "sha256": "34ed966abc07c38b03f67a9851522977e11b9d5e8f3a1a9bad649531e60d6f2d",
+        "shape": [
+          8000
+        ]
+      },
+      "elastic_energy_endpoint_J": {
+        "dtype": "float64",
+        "sha256": "42f98cf7c19b386185d43223a958e45753d03c0be4bdb699b7f4a28756a5b9a9",
+        "shape": [
+          8000
+        ]
+      },
+      "endpoint_time_s": {
+        "dtype": "float64",
+        "sha256": "f1d355d10df2f16e9abe52fb5fe6047647eda3a3c3cd14775fdd1e0119f2c229",
+        "shape": [
+          8000
+        ]
+      },
+      "engine_ncon": {
+        "dtype": "int64",
+        "sha256": "4f7988030a00d082fe445e00a2ac5dab502300ff1b80e8592dd569867b60ef74",
+        "shape": [
+          8000
+        ]
+      },
+      "engine_nefc": {
+        "dtype": "int64",
+        "sha256": "4f7988030a00d082fe445e00a2ac5dab502300ff1b80e8592dd569867b60ef74",
+        "shape": [
+          8000
+        ]
+      },
+      "engine_qfrc_constraint": {
+        "dtype": "float64",
+        "sha256": "ea0787f65f73b0013d03b359490e3125211b28ad5c1502ffb1544c0ded4192f5",
+        "shape": [
+          8000,
+          3
+        ]
+      },
+      "euler_position_error_m": {
+        "dtype": "float64",
+        "sha256": "803cb13e36c9f5f01dc37880bf4e9986da394440c8800e4e93b9828dec279649",
+        "shape": [
+          8000
+        ]
+      },
+      "external_force_N": {
+        "dtype": "float64",
+        "sha256": "ea0787f65f73b0013d03b359490e3125211b28ad5c1502ffb1544c0ded4192f5",
+        "shape": [
+          8000,
+          3
+        ]
+      },
+      "external_work_J": {
+        "dtype": "float64",
+        "sha256": "4f7988030a00d082fe445e00a2ac5dab502300ff1b80e8592dd569867b60ef74",
+        "shape": [
+          8000
+        ]
+      },
+      "force_balance_N": {
+        "dtype": "float64",
+        "sha256": "f0b0f2b13f264c62af18b52fbb88863030bbd3fc8d7a8f9eab458cd2aa193c8e",
+        "shape": [
+          8000
+        ]
+      },
+      "gap_derivative_start_m_s": {
+        "dtype": "float64",
+        "sha256": "459746be3214a1cf38b1de5bd3a2ec33f43e2d5bd2929b65dbaffb441d72b03d",
+        "shape": [
+          8000
+        ]
+      },
+      "gap_endpoint_m": {
+        "dtype": "float64",
+        "sha256": "273203b0a80cb7b81c390aa43de658b7f97c4ff11e3cf7e5fed6b68787a17c42",
+        "shape": [
+          8000
+        ]
+      },
+      "gap_start_m": {
+        "dtype": "float64",
+        "sha256": "1f2fc5fc1621dd886b056cb08b329224c4cc71eb023d8cacc306331726970753",
+        "shape": [
+          8000
+        ]
+      },
+      "integration_energy_identity_error_J": {
+        "dtype": "float64",
+        "sha256": "014ca7f6f505a348d7583d8c9dc5729400d337fa189e0471540aa6550f317919",
+        "shape": [
+          8000
+        ]
+      },
+      "law_collection_allowed": {
+        "dtype": "bool",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          8000
+        ]
+      },
+      "law_common_point_world_m": {
+        "dtype": "float64",
+        "sha256": "f3688ab44773ebccd1e20a9d720667326aa8e334fb1ee75e553b28442831e010",
+        "shape": [
+          8000,
+          3
+        ]
+      },
+      "law_elastic_energy_j": {
+        "dtype": "float64",
+        "sha256": "5477d898c0ccec571e7e5463b6003fbb3853384bb1b208dec8c04f478bce1494",
+        "shape": [
+          8000
+        ]
+      },
+      "law_elastic_energy_rate_w": {
+        "dtype": "float64",
+        "sha256": "b46e4458fcc59bd985d4fb1dab86ffd355b108abccce19d88282a8b9acaf64fe",
+        "shape": [
+          8000
+        ]
+      },
+      "law_friction_power_w": {
+        "dtype": "float64",
+        "sha256": "4f7988030a00d082fe445e00a2ac5dab502300ff1b80e8592dd569867b60ef74",
+        "shape": [
+          8000
+        ]
+      },
+      "law_hand_force_world_n": {
+        "dtype": "float64",
+        "sha256": "7ff09249cc63009356018998781dd885b1f52b5e2305458c9f34853d16b8f7c1",
+        "shape": [
+          8000,
+          3
+        ]
+      },
+      "law_hand_generalized_load": {
+        "dtype": "float64",
+        "sha256": "1621252a5d4566c4ac84c6ad8ca859db89a7b9c1b3334e89616deb9cac5a707c",
+        "shape": [
+          8000,
+          51
+        ]
+      },
+      "law_mechanical_power_w": {
+        "dtype": "float64",
+        "sha256": "da9126fbcef95a086b8909941f67095b62e8355d186eb860306def2e9fb59282",
+        "shape": [
+          8000
+        ]
+      },
+      "law_native_hand_qualified": {
+        "dtype": "bool",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          8000
+        ]
+      },
+      "law_normal_dissipation_power_w": {
+        "dtype": "float64",
+        "sha256": "5bc3c7ac0f86847a3c5d02a8a423c6e2325d6995072ece6840a9dbe352aa2383",
+        "shape": [
+          8000
+        ]
+      },
+      "law_normal_force_n": {
+        "dtype": "float64",
+        "sha256": "f93a75b5ddfafe1c5e04f801de352694138d83f94b10839d58ca7497bacaef8c",
+        "shape": [
+          8000
+        ]
+      },
+      "law_object_force_world_n": {
+        "dtype": "float64",
+        "sha256": "35a77ab4629b3a58df76f5bc60edf9d3d261bab1c95439b3bb72ad260023b588",
+        "shape": [
+          8000,
+          3
+        ]
+      },
+      "law_object_generalized_load": {
+        "dtype": "float64",
+        "sha256": "4f7988030a00d082fe445e00a2ac5dab502300ff1b80e8592dd569867b60ef74",
+        "shape": [
+          8000,
+          1
+        ]
+      },
+      "law_object_wrench_force_then_torque": {
+        "dtype": "float64",
+        "sha256": "8f774eac752feb5581251934913c85ea1e668d8d1023c0f32c11a5f1501e3033",
+        "shape": [
+          8000,
+          6
+        ]
+      },
+      "law_penetration_m": {
+        "dtype": "float64",
+        "sha256": "72b43eb4317c34646c97134561c8d8b2e93f827a9a0b6a4b1947e04e644824d2",
+        "shape": [
+          8000
+        ]
+      },
+      "law_power_identity_residual_w": {
+        "dtype": "float64",
+        "sha256": "20b9f7bf017e12c5d8eb5481ba7bbab215ac3c42800830738f597af5f3b43f71",
+        "shape": [
+          8000
+        ]
+      },
+      "law_relative_velocity_world_m_per_s": {
+        "dtype": "float64",
+        "sha256": "1cab35651e9de81a3356c51c67749b57c63d66b9f40f6d1e5322a37b20d857e2",
+        "shape": [
+          8000,
+          3
+        ]
+      },
+      "law_signed_gap_m": {
+        "dtype": "float64",
+        "sha256": "1f2fc5fc1621dd886b056cb08b329224c4cc71eb023d8cacc306331726970753",
+        "shape": [
+          8000
+        ]
+      },
+      "law_training_allowed": {
+        "dtype": "bool",
+        "sha256": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+        "shape": [
+          8000
+        ]
+      },
+      "linear_reaction_error_N": {
+        "dtype": "float64",
+        "sha256": "4f7988030a00d082fe445e00a2ac5dab502300ff1b80e8592dd569867b60ef74",
+        "shape": [
+          8000
+        ]
+      },
+      "measured_integration_defect_J": {
+        "dtype": "float64",
+        "sha256": "16a26999c47279bb3446c00847d280c6db9ca7d22d0e58f064a2e59406a96687",
+        "shape": [
+          8000
+        ]
+      },
+      "mechanical_energy_endpoint_J": {
+        "dtype": "float64",
+        "sha256": "f6dad4fdcaff29fe9bf7d83e824423a7a9bce1003b722571e78c6304b0921dfa",
+        "shape": [
+          8000
+        ]
+      },
+      "mechanical_energy_start_J": {
+        "dtype": "float64",
+        "sha256": "eaed90d082bd5abc336518ba8b3837a3f4cc8a1eb35dabe845378c0935c6b979",
+        "shape": [
+          8000
+        ]
+      },
+      "point_power_error_W": {
+        "dtype": "float64",
+        "sha256": "4f7988030a00d082fe445e00a2ac5dab502300ff1b80e8592dd569867b60ef74",
+        "shape": [
+          8000
+        ]
+      },
+      "position_endpoint_m": {
+        "dtype": "float64",
+        "sha256": "e707797f0ad02603de31aba472fd5291f75f083675e30dae67241a72e1778717",
+        "shape": [
+          8000,
+          3
+        ]
+      },
+      "position_start_m": {
+        "dtype": "float64",
+        "sha256": "32f8d758a5b37df2f0f8c0db89bbb661cc9447c4ae5e6c068da1b8b32183b3b1",
+        "shape": [
+          8000,
+          3
+        ]
+      },
+      "predicted_integration_defect_J": {
+        "dtype": "float64",
+        "sha256": "f2c81ee4f3e84bb94e458977e8433449437b330d32dfdb8b716a2767848e9d07",
+        "shape": [
+          8000
+        ]
+      },
+      "qpos_endpoint": {
+        "dtype": "float64",
+        "sha256": "16e51f2aba12ac5ba1728969e093920bf0005799f856712516d3cc0c3d092c29",
+        "shape": [
+          8000,
+          3
+        ]
+      },
+      "qvel_endpoint": {
+        "dtype": "float64",
+        "sha256": "acd2e0cffa43903f432c913651b8d730d7ba0b920153c056c2d4b2e2bb901fe0",
+        "shape": [
+          8000,
+          3
+        ]
+      },
+      "solver_niter": {
+        "dtype": "int32",
+        "sha256": "3d00ed86b663cd1b8ac82b105257cd109412f92dca442048532439f920a7f645",
+        "shape": [
+          8000,
+          20
+        ]
+      },
+      "start_engine_energy_J": {
+        "dtype": "float64",
+        "sha256": "b3efcca69a536eea32b17fa4fa3c57321ff3b47ed4b49962eef9c8071558da47",
+        "shape": [
+          8000,
+          2
+        ]
+      },
+      "start_qacc": {
+        "dtype": "float64",
+        "sha256": "f7f5bcf89362badaf9d2193f8b0d2c8309dc7fa4f67c9e08b6dfd8af33c1384d",
+        "shape": [
+          8000,
+          3
+        ]
+      },
+      "start_qfrc_applied": {
+        "dtype": "float64",
+        "sha256": "7ff09249cc63009356018998781dd885b1f52b5e2305458c9f34853d16b8f7c1",
+        "shape": [
+          8000,
+          3
+        ]
+      },
+      "start_time_s": {
+        "dtype": "float64",
+        "sha256": "008601190c698442eec2864db5c8fdb05c83bc9e5dad395bf031d98eb0dfa45a",
+        "shape": [
+          8000
+        ]
+      },
+      "velocity_endpoint_m_s": {
+        "dtype": "float64",
+        "sha256": "acd2e0cffa43903f432c913651b8d730d7ba0b920153c056c2d4b2e2bb901fe0",
+        "shape": [
+          8000,
+          3
+        ]
+      },
+      "velocity_start_m_s": {
+        "dtype": "float64",
+        "sha256": "1cab35651e9de81a3356c51c67749b57c63d66b9f40f6d1e5322a37b20d857e2",
+        "shape": [
+          8000,
+          3
+        ]
+      },
+      "warning_counts": {
+        "dtype": "int32",
+        "sha256": "24a046dc04fefdb652e4077b41162490b344a4dd45f918505477f84c592f3070",
+        "shape": [
+          8000,
+          8
+        ]
+      }
+    }
+  },
+  "articulated_MANO_dynamics_validated": false,
+  "artifact_inventory": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_compliant_contact_dynamics_2026-10-15_v1/protocol.json": {
+      "bytes": 299379,
+      "sha256": "13b2d8e4ad214d325f7605f1ee3bafa477bebe77f8769a1fd6624fb19cc1a03b"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/STARTED.json": {
+      "bytes": 183,
+      "sha256": "a148f3b06093f76a5657b49b9246ca6a973993ee6b5d0eb3d020790f9b268ebf"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/freefall_4000hz.json": {
+      "bytes": 2848,
+      "sha256": "31ba42b29287bcac0dd2053e97403356648d33a195829016159c41175270658f"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/freefall_8000hz.json": {
+      "bytes": 2856,
+      "sha256": "4aec7017bb61d7fbd849269c1de52944a3e48daeaf632945a46efa7d97210675"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/friction_high_4000hz.json": {
+      "bytes": 2913,
+      "sha256": "fdd277b0dbf9106fc39ece65fcee0cb77a1c24a907f62e31ab482aa877976920"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/friction_high_8000hz.json": {
+      "bytes": 2924,
+      "sha256": "d2d91ff73e1634b9025dacdef5f483d7f18d15ba2106a1c212761cefc86f13b7"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/friction_low_4000hz.json": {
+      "bytes": 2871,
+      "sha256": "e977031a47956732f451c54b9f9bb10819ce114b2ab8dccfc1c89a4cb4270aa3"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/friction_low_8000hz.json": {
+      "bytes": 2878,
+      "sha256": "35a5302c2645321ab2292ccdb9b60b7d22f21eb57638760098e94840245b791b"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/independent_readback.json": {
+      "bytes": 174457,
+      "sha256": "b5d7270b7edb71b14fdf2698c76716c13cbdf4b581563ce43c918f44a5f29ea2"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/progress.json": {
+      "bytes": 152,
+      "sha256": "044279538beb2ead60760dcbce10df7b40ece2c4b5c7c34f24048fe1893de96f"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/report.json": {
+      "bytes": 41694,
+      "sha256": "944e5a2dcf231ccc54451f37000a76c956aa728eeb91bb4faa12bdcb06cdba8c"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/support_4000hz.json": {
+      "bytes": 2900,
+      "sha256": "cc4f342cb4fa5835400e967ebac0e692c7393c43b84aff9c4485aea099463cd0"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/support_8000hz.json": {
+      "bytes": 2901,
+      "sha256": "dd74bbaf004858dac891e0d4b5ccf1f09f3c3e9c3bf792e474a2a0ae022b2916"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/worker.log": {
+      "bytes": 123,
+      "sha256": "3dbeac197d849c21814f028901eaf2a4f8122a6c397f326803821bc0ea8cdd39"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/freefall_4000hz/compiled_fixture.npz": {
+      "bytes": 3148,
+      "sha256": "5b41b60affce2b36278d8d0ad5ca2f42ef454f3871c4d59b7276451647528d2c"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/freefall_4000hz/fixture.xml": {
+      "bytes": 727,
+      "sha256": "21a1fd7512c0fb0b3ac3d09d614997e72c73f9c11435093cf65084fdc84450c7"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/freefall_4000hz/result.json": {
+      "bytes": 2848,
+      "sha256": "31ba42b29287bcac0dd2053e97403356648d33a195829016159c41175270658f"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/freefall_4000hz/trajectory.npz": {
+      "bytes": 134321,
+      "sha256": "82cb980b6f87055f5117539997218a357ed7ae354d339b51b328e65b90a63037"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/freefall_8000hz/compiled_fixture.npz": {
+      "bytes": 3148,
+      "sha256": "1b8379a203e8ded641c81483c52d81ef66780ec667d1a9e39aef20c17e88523a"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/freefall_8000hz/fixture.xml": {
+      "bytes": 713,
+      "sha256": "ad56703ab44cd94fb4f242e4836ec983fe884f3989e39d76bb90b029b4a7de45"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/freefall_8000hz/result.json": {
+      "bytes": 2856,
+      "sha256": "4aec7017bb61d7fbd849269c1de52944a3e48daeaf632945a46efa7d97210675"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/freefall_8000hz/trajectory.npz": {
+      "bytes": 253270,
+      "sha256": "4c63bcc7b4487e2904632d849e9fea40cdd6e895df1cb503269c65178e627fa3"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_high_4000hz/compiled_fixture.npz": {
+      "bytes": 3154,
+      "sha256": "74a00cabf540dad83ebeadf3615a72be23bb37e23c95af6758a2900ae8a39b2a"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_high_4000hz/fixture.xml": {
+      "bytes": 750,
+      "sha256": "8f1c20e387eab5f8c8fefe8f3adf5e8e56dfc8daa817084ab14dec4a543850bb"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_high_4000hz/result.json": {
+      "bytes": 2913,
+      "sha256": "fdd277b0dbf9106fc39ece65fcee0cb77a1c24a907f62e31ab482aa877976920"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_high_4000hz/trajectory.npz": {
+      "bytes": 420313,
+      "sha256": "dfca3f3c29c559f7f5f4f9f35c2975523848db37ba2062c2ed39c4f0b189f86a"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_high_8000hz/compiled_fixture.npz": {
+      "bytes": 3154,
+      "sha256": "4b5450aa47e7df6faf79932f55c4dee72e21bfe1f5316321717be8e99c24c271"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_high_8000hz/fixture.xml": {
+      "bytes": 736,
+      "sha256": "1ced3ed1250eff4be96b33c18a915195cc1984331df2c8f865d05726e027c122"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_high_8000hz/result.json": {
+      "bytes": 2924,
+      "sha256": "d2d91ff73e1634b9025dacdef5f483d7f18d15ba2106a1c212761cefc86f13b7"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_high_8000hz/trajectory.npz": {
+      "bytes": 883353,
+      "sha256": "bb7666c9a493e694e281a76fe731df1e0598473c4350fd8056d08ab079dd41f1"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_low_4000hz/compiled_fixture.npz": {
+      "bytes": 3154,
+      "sha256": "74a00cabf540dad83ebeadf3615a72be23bb37e23c95af6758a2900ae8a39b2a"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_low_4000hz/fixture.xml": {
+      "bytes": 749,
+      "sha256": "18ab102c70c012a44cbd40b52adaa9b3d5015394d54e496d882732d36455ad84"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_low_4000hz/result.json": {
+      "bytes": 2871,
+      "sha256": "e977031a47956732f451c54b9f9bb10819ce114b2ab8dccfc1c89a4cb4270aa3"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_low_4000hz/trajectory.npz": {
+      "bytes": 154668,
+      "sha256": "4ebecb5ee05d91d5526e0a33588c158f563a2e19524e34e002dfe051bb8d8788"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_low_8000hz/compiled_fixture.npz": {
+      "bytes": 3154,
+      "sha256": "4b5450aa47e7df6faf79932f55c4dee72e21bfe1f5316321717be8e99c24c271"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_low_8000hz/fixture.xml": {
+      "bytes": 735,
+      "sha256": "94a76665d18ccc97e0f5da67e317202d57096d13c11873459293f57f1323be98"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_low_8000hz/result.json": {
+      "bytes": 2878,
+      "sha256": "35a5302c2645321ab2292ccdb9b60b7d22f21eb57638760098e94840245b791b"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/friction_low_8000hz/trajectory.npz": {
+      "bytes": 386676,
+      "sha256": "04ac4dd8a5d8884077d6b5816dfd01cc210de3479b52a176c3228cbd39853a9a"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/support_4000hz/compiled_fixture.npz": {
+      "bytes": 3155,
+      "sha256": "e22bd9495d536a949cd1db642cc555fe33d7cbd6dcebf1d557926a8ed373f7ce"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/support_4000hz/fixture.xml": {
+      "bytes": 743,
+      "sha256": "c99fe811a94c1cde95e23395488bda762b3436e9669d21d9beb8686ab65832dc"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/support_4000hz/result.json": {
+      "bytes": 2900,
+      "sha256": "cc4f342cb4fa5835400e967ebac0e692c7393c43b84aff9c4485aea099463cd0"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/support_4000hz/trajectory.npz": {
+      "bytes": 215092,
+      "sha256": "2e93b80c2d6b2102fa250d687d6712175081636db3e7cb79f2f58671644d22ca"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/support_8000hz/compiled_fixture.npz": {
+      "bytes": 3155,
+      "sha256": "b18cf7f7dc987d0c0bdf247f1b6ead6f98dfb0bfbdd9b07c740e146bcf66f6d3"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/support_8000hz/fixture.xml": {
+      "bytes": 729,
+      "sha256": "d7f137a288036c169b976fb082af2b890873929edf481a7d15ba25e6af6f6cc0"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/support_8000hz/result.json": {
+      "bytes": 2901,
+      "sha256": "dd74bbaf004858dac891e0d4b5ccf1f09f3c3e9c3bf792e474a2a0ae022b2916"
+    },
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw/support_8000hz/trajectory.npz": {
+      "bytes": 401232,
+      "sha256": "f99d85f0f81b41030d153ea658e8854eb28f08544cd5c365e65f25785b12feee"
+    }
+  },
+  "cases": [
+    {
+      "assessment": {
+        "articulated_MANO_dynamics_validated": false,
+        "collection_or_training_allowed": false,
+        "failures": [],
+        "metrics": {
+          "discrete_impulse_work_error_J": 9.86623976961809e-17,
+          "discrete_v_reference_m_s": -2.4525,
+          "discrete_z_reference_m": 0.1931309375,
+          "force_balance_N": 1.5210055437364645e-13,
+          "integration_energy_identity_error_J": 3.0589599626376033e-16,
+          "law_power_identity_residual_w": 0.0,
+          "maximum_absolute_integration_defect_J": 6.014756253058806e-07,
+          "position_error_m": 1.942890293094024e-15,
+          "sum_continuous_dissipation_J": 0.0,
+          "sum_integration_defect_J": -0.0006014756250072306,
+          "velocity_error_m_s": 2.2648549702353193e-14
+        },
+        "native_contact_law_qualified": false,
+        "physical_outcome": null,
+        "real_hand_physical_calibration": false,
+        "status": "PASS"
+      },
+      "case": {
+        "dt_s": 0.00025,
+        "gravity": -9.81,
+        "id": "freefall_4000hz",
+        "kind": "freefall",
+        "steps": 1000
+      },
+      "integration_maximum_replay_errors": {
+        "angular_reaction_error_N_m": 0.0,
+        "continuous_dissipation_step_J": 0.0,
+        "discrete_impulse_work_error_J": 2.168404344971009e-19,
+        "elastic_discrete_remainder_J": 0.0,
+        "elastic_energy_endpoint_J": 0.0,
+        "euler_position_error_m": 0.0,
+        "external_force_N": 0.0,
+        "external_work_J": 0.0,
+        "force_balance_N": 0.0,
+        "gap_derivative_start_m_s": 0.0,
+        "gap_endpoint_m": 0.0,
+        "gap_start_m": 0.0,
+        "integration_energy_identity_error_J": 0.0,
+        "linear_reaction_error_N": 0.0,
+        "measured_integration_defect_J": 0.0,
+        "mechanical_energy_endpoint_J": 0.0,
+        "mechanical_energy_start_J": 0.0,
+        "point_power_error_W": 0.0,
+        "predicted_integration_defect_J": 0.0
+      },
+      "intervals_verified": 1000,
+      "law_maximum_replay_errors": {
+        "common_point_world_m": 0.0,
+        "elastic_energy_j": 0.0,
+        "elastic_energy_rate_w": 0.0,
+        "friction_power_w": 0.0,
+        "hand_force_world_n": 0.0,
+        "hand_generalized_load": 0.0,
+        "mechanical_power_w": 0.0,
+        "normal_dissipation_power_w": 0.0,
+        "normal_force_n": 0.0,
+        "object_force_world_n": 0.0,
+        "object_generalized_load": 0.0,
+        "object_wrench_force_then_torque": 0.0,
+        "penetration_m": 0.0,
+        "power_identity_residual_w": 0.0,
+        "relative_velocity_world_m_per_s": 0.0,
+        "signed_gap_m": 0.0
+      },
+      "maximum_abs_discrete_energy_defect_J": 6.014756253058806e-07,
+      "physical_outcome": null,
+      "sum_continuous_dissipation_J": 0.0,
+      "sum_discrete_defect_J": -0.0006014756250072306
+    },
+    {
+      "assessment": {
+        "articulated_MANO_dynamics_validated": false,
+        "collection_or_training_allowed": false,
+        "failures": [],
+        "metrics": {
+          "discrete_impulse_work_error_J": 1.824712256293104e-16,
+          "discrete_v_reference_m_s": -2.4525,
+          "discrete_z_reference_m": 0.19328421874999996,
+          "force_balance_N": 3.299582829185965e-13,
+          "integration_energy_identity_error_J": 3.6766968559054283e-16,
+          "law_power_identity_residual_w": 0.0,
+          "maximum_absolute_integration_defect_J": 1.5036890643749246e-07,
+          "position_error_m": 8.881784197001252e-16,
+          "sum_continuous_dissipation_J": 0.0,
+          "sum_integration_defect_J": -0.0003007378124713078,
+          "velocity_error_m_s": 5.5067062021407764e-14
+        },
+        "native_contact_law_qualified": false,
+        "physical_outcome": null,
+        "real_hand_physical_calibration": false,
+        "status": "PASS"
+      },
+      "case": {
+        "dt_s": 0.000125,
+        "gravity": -9.81,
+        "id": "freefall_8000hz",
+        "kind": "freefall",
+        "steps": 2000
+      },
+      "integration_maximum_replay_errors": {
+        "angular_reaction_error_N_m": 0.0,
+        "continuous_dissipation_step_J": 0.0,
+        "discrete_impulse_work_error_J": 1.0842021724855044e-19,
+        "elastic_discrete_remainder_J": 0.0,
+        "elastic_energy_endpoint_J": 0.0,
+        "euler_position_error_m": 0.0,
+        "external_force_N": 0.0,
+        "external_work_J": 0.0,
+        "force_balance_N": 0.0,
+        "gap_derivative_start_m_s": 0.0,
+        "gap_endpoint_m": 0.0,
+        "gap_start_m": 0.0,
+        "integration_energy_identity_error_J": 0.0,
+        "linear_reaction_error_N": 0.0,
+        "measured_integration_defect_J": 0.0,
+        "mechanical_energy_endpoint_J": 0.0,
+        "mechanical_energy_start_J": 0.0,
+        "point_power_error_W": 0.0,
+        "predicted_integration_defect_J": 0.0
+      },
+      "intervals_verified": 2000,
+      "law_maximum_replay_errors": {
+        "common_point_world_m": 0.0,
+        "elastic_energy_j": 0.0,
+        "elastic_energy_rate_w": 0.0,
+        "friction_power_w": 0.0,
+        "hand_force_world_n": 0.0,
+        "hand_generalized_load": 0.0,
+        "mechanical_power_w": 0.0,
+        "normal_dissipation_power_w": 0.0,
+        "normal_force_n": 0.0,
+        "object_force_world_n": 0.0,
+        "object_generalized_load": 0.0,
+        "object_wrench_force_then_torque": 0.0,
+        "penetration_m": 0.0,
+        "power_identity_residual_w": 0.0,
+        "relative_velocity_world_m_per_s": 0.0,
+        "signed_gap_m": 0.0
+      },
+      "maximum_abs_discrete_energy_defect_J": 1.5036890643749246e-07,
+      "physical_outcome": null,
+      "sum_continuous_dissipation_J": 0.0,
+      "sum_discrete_defect_J": -0.0003007378124713078
+    },
+    {
+      "assessment": {
+        "articulated_MANO_dynamics_validated": false,
+        "collection_or_training_allowed": false,
+        "failures": [],
+        "metrics": {
+          "discrete_impulse_work_error_J": 7.535205098774256e-18,
+          "force_balance_N": 2.842170943040401e-14,
+          "integration_energy_identity_error_J": 1.4462452299656738e-17,
+          "law_power_identity_residual_w": 8.881784197001252e-16,
+          "maximum_absolute_integration_defect_J": 0.0011519824299779172,
+          "mean_penetration_m": 9.810000000002282e-05,
+          "mean_support_N": 1.962,
+          "rest_penetration_reference_m": 9.810000000000001e-05,
+          "settled_speed_m_s": 3.608217777251214e-15,
+          "sum_continuous_dissipation_J": -0.042715793236644255,
+          "sum_integration_defect_J": 0.003379557136644262
+        },
+        "native_contact_law_qualified": false,
+        "physical_outcome": null,
+        "real_hand_physical_calibration": false,
+        "status": "PASS"
+      },
+      "case": {
+        "dt_s": 0.00025,
+        "gravity": -9.81,
+        "id": "support_4000hz",
+        "kind": "support",
+        "steps": 4000
+      },
+      "integration_maximum_replay_errors": {
+        "angular_reaction_error_N_m": 0.0,
+        "continuous_dissipation_step_J": 0.0,
+        "discrete_impulse_work_error_J": 1.734723475976807e-18,
+        "elastic_discrete_remainder_J": 2.117582368135751e-22,
+        "elastic_energy_endpoint_J": 2.117582368135751e-22,
+        "euler_position_error_m": 0.0,
+        "external_force_N": 0.0,
+        "external_work_J": 0.0,
+        "force_balance_N": 0.0,
+        "gap_derivative_start_m_s": 0.0,
+        "gap_endpoint_m": 0.0,
+        "gap_start_m": 0.0,
+        "integration_energy_identity_error_J": 2.117582368135751e-22,
+        "linear_reaction_error_N": 0.0,
+        "measured_integration_defect_J": 0.0,
+        "mechanical_energy_endpoint_J": 0.0,
+        "mechanical_energy_start_J": 0.0,
+        "point_power_error_W": 0.0,
+        "predicted_integration_defect_J": 2.117582368135751e-22
+      },
+      "intervals_verified": 4000,
+      "law_maximum_replay_errors": {
+        "common_point_world_m": 0.0,
+        "elastic_energy_j": 2.117582368135751e-22,
+        "elastic_energy_rate_w": 0.0,
+        "friction_power_w": 0.0,
+        "hand_force_world_n": 0.0,
+        "hand_generalized_load": 0.0,
+        "mechanical_power_w": 0.0,
+        "normal_dissipation_power_w": 0.0,
+        "normal_force_n": 0.0,
+        "object_force_world_n": 0.0,
+        "object_generalized_load": 0.0,
+        "object_wrench_force_then_torque": 0.0,
+        "penetration_m": 0.0,
+        "power_identity_residual_w": 0.0,
+        "relative_velocity_world_m_per_s": 0.0,
+        "signed_gap_m": 0.0
+      },
+      "maximum_abs_discrete_energy_defect_J": 0.0011519824299779172,
+      "physical_outcome": null,
+      "sum_continuous_dissipation_J": -0.042715793236644255,
+      "sum_discrete_defect_J": 0.003379557136644262
+    },
+    {
+      "assessment": {
+        "articulated_MANO_dynamics_validated": false,
+        "collection_or_training_allowed": false,
+        "failures": [],
+        "metrics": {
+          "discrete_impulse_work_error_J": 7.806255641895632e-18,
+          "force_balance_N": 5.684341886080802e-14,
+          "integration_energy_identity_error_J": 1.4023953930775027e-17,
+          "law_power_identity_residual_w": 3.552713678800501e-15,
+          "maximum_absolute_integration_defect_J": 0.00029750783642766565,
+          "mean_penetration_m": 9.810000000004017e-05,
+          "mean_support_N": 1.962,
+          "rest_penetration_reference_m": 9.810000000000001e-05,
+          "settled_speed_m_s": 6.350093273658978e-15,
+          "sum_continuous_dissipation_J": -0.04095102781406171,
+          "sum_integration_defect_J": 0.0016147917140617158
+        },
+        "native_contact_law_qualified": false,
+        "physical_outcome": null,
+        "real_hand_physical_calibration": false,
+        "status": "PASS"
+      },
+      "case": {
+        "dt_s": 0.000125,
+        "gravity": -9.81,
+        "id": "support_8000hz",
+        "kind": "support",
+        "steps": 8000
+      },
+      "integration_maximum_replay_errors": {
+        "angular_reaction_error_N_m": 0.0,
+        "continuous_dissipation_step_J": 0.0,
+        "discrete_impulse_work_error_J": 8.673617379884035e-19,
+        "elastic_discrete_remainder_J": 2.710505431213761e-20,
+        "elastic_energy_endpoint_J": 2.710505431213761e-20,
+        "euler_position_error_m": 0.0,
+        "external_force_N": 0.0,
+        "external_work_J": 0.0,
+        "force_balance_N": 0.0,
+        "gap_derivative_start_m_s": 0.0,
+        "gap_endpoint_m": 0.0,
+        "gap_start_m": 0.0,
+        "integration_energy_identity_error_J": 2.710505431213761e-20,
+        "linear_reaction_error_N": 0.0,
+        "measured_integration_defect_J": 0.0,
+        "mechanical_energy_endpoint_J": 0.0,
+        "mechanical_energy_start_J": 0.0,
+        "point_power_error_W": 0.0,
+        "predicted_integration_defect_J": 2.710505431213761e-20
+      },
+      "intervals_verified": 8000,
+      "law_maximum_replay_errors": {
+        "common_point_world_m": 0.0,
+        "elastic_energy_j": 2.710505431213761e-20,
+        "elastic_energy_rate_w": 0.0,
+        "friction_power_w": 0.0,
+        "hand_force_world_n": 0.0,
+        "hand_generalized_load": 0.0,
+        "mechanical_power_w": 0.0,
+        "normal_dissipation_power_w": 0.0,
+        "normal_force_n": 0.0,
+        "object_force_world_n": 0.0,
+        "object_generalized_load": 0.0,
+        "object_wrench_force_then_torque": 0.0,
+        "penetration_m": 0.0,
+        "power_identity_residual_w": 0.0,
+        "relative_velocity_world_m_per_s": 0.0,
+        "signed_gap_m": 0.0
+      },
+      "maximum_abs_discrete_energy_defect_J": 0.00029750783642766565,
+      "physical_outcome": null,
+      "sum_continuous_dissipation_J": -0.04095102781406171,
+      "sum_discrete_defect_J": 0.0016147917140617158
+    },
+    {
+      "assessment": {
+        "articulated_MANO_dynamics_validated": false,
+        "collection_or_training_allowed": false,
+        "failures": [],
+        "metrics": {
+          "discrete_impulse_work_error_J": 2.178852238179402e-24,
+          "force_balance_N": 2.0816681711721685e-17,
+          "integration_energy_identity_error_J": 3.4109658564516446e-18,
+          "law_power_identity_residual_w": 0.0,
+          "maximum_absolute_integration_defect_J": 9.398056639315065e-09,
+          "mean_lateral_velocity_m_s": 0.00025819888974716116,
+          "regularized_creep_reference_m_s": 0.0002581988897471611,
+          "sum_continuous_dissipation_J": -3.1651539895752405e-05,
+          "sum_integration_defect_J": -6.150914609092987e-09
+        },
+        "native_contact_law_qualified": false,
+        "physical_outcome": null,
+        "real_hand_physical_calibration": false,
+        "status": "PASS"
+      },
+      "case": {
+        "dt_s": 0.00025,
+        "gravity": -9.81,
+        "id": "friction_low_4000hz",
+        "kind": "friction_low",
+        "steps": 2000
+      },
+      "integration_maximum_replay_errors": {
+        "angular_reaction_error_N_m": 0.0,
+        "continuous_dissipation_step_J": 0.0,
+        "discrete_impulse_work_error_J": 4.0389678347315804e-28,
+        "elastic_discrete_remainder_J": 0.0,
+        "elastic_energy_endpoint_J": 0.0,
+        "euler_position_error_m": 0.0,
+        "external_force_N": 0.0,
+        "external_work_J": 0.0,
+        "force_balance_N": 0.0,
+        "gap_derivative_start_m_s": 0.0,
+        "gap_endpoint_m": 0.0,
+        "gap_start_m": 0.0,
+        "integration_energy_identity_error_J": 0.0,
+        "linear_reaction_error_N": 0.0,
+        "measured_integration_defect_J": 0.0,
+        "mechanical_energy_endpoint_J": 0.0,
+        "mechanical_energy_start_J": 0.0,
+        "point_power_error_W": 0.0,
+        "predicted_integration_defect_J": 0.0
+      },
+      "intervals_verified": 2000,
+      "law_maximum_replay_errors": {
+        "common_point_world_m": 0.0,
+        "elastic_energy_j": 0.0,
+        "elastic_energy_rate_w": 0.0,
+        "friction_power_w": 0.0,
+        "hand_force_world_n": 0.0,
+        "hand_generalized_load": 0.0,
+        "mechanical_power_w": 0.0,
+        "normal_dissipation_power_w": 0.0,
+        "normal_force_n": 0.0,
+        "object_force_world_n": 0.0,
+        "object_generalized_load": 0.0,
+        "object_wrench_force_then_torque": 0.0,
+        "penetration_m": 0.0,
+        "power_identity_residual_w": 0.0,
+        "relative_velocity_world_m_per_s": 0.0,
+        "signed_gap_m": 0.0
+      },
+      "maximum_abs_discrete_energy_defect_J": 9.398056639315065e-09,
+      "physical_outcome": null,
+      "sum_continuous_dissipation_J": -3.1651539895752405e-05,
+      "sum_discrete_defect_J": -6.150914609092987e-09
+    },
+    {
+      "assessment": {
+        "articulated_MANO_dynamics_validated": false,
+        "collection_or_training_allowed": false,
+        "failures": [],
+        "metrics": {
+          "discrete_impulse_work_error_J": 2.2657777307358505e-24,
+          "force_balance_N": 4.163336342505896e-17,
+          "integration_energy_identity_error_J": 3.417697913816384e-18,
+          "law_power_identity_residual_w": 0.0,
+          "maximum_absolute_integration_defect_J": 2.349514160696128e-09,
+          "mean_lateral_velocity_m_s": 0.0002581988897471611,
+          "regularized_creep_reference_m_s": 0.0002581988897471611,
+          "sum_continuous_dissipation_J": -3.164420580226076e-05,
+          "sum_integration_defect_J": -5.123328404172213e-09
+        },
+        "native_contact_law_qualified": false,
+        "physical_outcome": null,
+        "real_hand_physical_calibration": false,
+        "status": "PASS"
+      },
+      "case": {
+        "dt_s": 0.000125,
+        "gravity": -9.81,
+        "id": "friction_low_8000hz",
+        "kind": "friction_low",
+        "steps": 4000
+      },
+      "integration_maximum_replay_errors": {
+        "angular_reaction_error_N_m": 0.0,
+        "continuous_dissipation_step_J": 0.0,
+        "discrete_impulse_work_error_J": 3.2311742677852644e-27,
+        "elastic_discrete_remainder_J": 0.0,
+        "elastic_energy_endpoint_J": 0.0,
+        "euler_position_error_m": 0.0,
+        "external_force_N": 0.0,
+        "external_work_J": 0.0,
+        "force_balance_N": 0.0,
+        "gap_derivative_start_m_s": 0.0,
+        "gap_endpoint_m": 0.0,
+        "gap_start_m": 0.0,
+        "integration_energy_identity_error_J": 0.0,
+        "linear_reaction_error_N": 0.0,
+        "measured_integration_defect_J": 0.0,
+        "mechanical_energy_endpoint_J": 0.0,
+        "mechanical_energy_start_J": 0.0,
+        "point_power_error_W": 0.0,
+        "predicted_integration_defect_J": 0.0
+      },
+      "intervals_verified": 4000,
+      "law_maximum_replay_errors": {
+        "common_point_world_m": 0.0,
+        "elastic_energy_j": 0.0,
+        "elastic_energy_rate_w": 0.0,
+        "friction_power_w": 0.0,
+        "hand_force_world_n": 0.0,
+        "hand_generalized_load": 0.0,
+        "mechanical_power_w": 0.0,
+        "normal_dissipation_power_w": 0.0,
+        "normal_force_n": 0.0,
+        "object_force_world_n": 0.0,
+        "object_generalized_load": 0.0,
+        "object_wrench_force_then_torque": 0.0,
+        "penetration_m": 0.0,
+        "power_identity_residual_w": 0.0,
+        "relative_velocity_world_m_per_s": 0.0,
+        "signed_gap_m": 0.0
+      },
+      "maximum_abs_discrete_energy_defect_J": 2.349514160696128e-09,
+      "physical_outcome": null,
+      "sum_continuous_dissipation_J": -3.164420580226076e-05,
+      "sum_discrete_defect_J": -5.123328404172213e-09
+    },
+    {
+      "assessment": {
+        "articulated_MANO_dynamics_validated": false,
+        "collection_or_training_allowed": false,
+        "failures": [],
+        "metrics": {
+          "discrete_impulse_work_error_J": 4.119968255444917e-17,
+          "force_balance_N": 8.887335312124378e-14,
+          "integration_energy_identity_error_J": 8.390867194178709e-17,
+          "law_power_identity_residual_w": 0.0,
+          "maximum_absolute_integration_defect_J": 3.383300390639148e-07,
+          "mean_lateral_velocity_m_s": 1.1053963723378724,
+          "mean_sliding_acceleration_m_s2": 2.4525020345357804,
+          "sliding_acceleration_reference_m_s2": 2.4525,
+          "sum_continuous_dissipation_J": -0.30145238342595243,
+          "sum_integration_defect_J": -0.00037620281035494326
+        },
+        "native_contact_law_qualified": false,
+        "physical_outcome": null,
+        "real_hand_physical_calibration": false,
+        "status": "PASS"
+      },
+      "case": {
+        "dt_s": 0.00025,
+        "gravity": -9.81,
+        "id": "friction_high_4000hz",
+        "kind": "friction_high",
+        "steps": 2000
+      },
+      "integration_maximum_replay_errors": {
+        "angular_reaction_error_N_m": 0.0,
+        "continuous_dissipation_step_J": 0.0,
+        "discrete_impulse_work_error_J": 2.710505431213761e-20,
+        "elastic_discrete_remainder_J": 0.0,
+        "elastic_energy_endpoint_J": 0.0,
+        "euler_position_error_m": 0.0,
+        "external_force_N": 0.0,
+        "external_work_J": 0.0,
+        "force_balance_N": 0.0,
+        "gap_derivative_start_m_s": 0.0,
+        "gap_endpoint_m": 0.0,
+        "gap_start_m": 0.0,
+        "integration_energy_identity_error_J": 0.0,
+        "linear_reaction_error_N": 0.0,
+        "measured_integration_defect_J": 0.0,
+        "mechanical_energy_endpoint_J": 0.0,
+        "mechanical_energy_start_J": 0.0,
+        "point_power_error_W": 0.0,
+        "predicted_integration_defect_J": 0.0
+      },
+      "intervals_verified": 2000,
+      "law_maximum_replay_errors": {
+        "common_point_world_m": 0.0,
+        "elastic_energy_j": 0.0,
+        "elastic_energy_rate_w": 0.0,
+        "friction_power_w": 0.0,
+        "hand_force_world_n": 0.0,
+        "hand_generalized_load": 0.0,
+        "mechanical_power_w": 0.0,
+        "normal_dissipation_power_w": 0.0,
+        "normal_force_n": 0.0,
+        "object_force_world_n": 0.0,
+        "object_generalized_load": 0.0,
+        "object_wrench_force_then_torque": 0.0,
+        "penetration_m": 0.0,
+        "power_identity_residual_w": 0.0,
+        "relative_velocity_world_m_per_s": 0.0,
+        "signed_gap_m": 0.0
+      },
+      "maximum_abs_discrete_energy_defect_J": 3.383300390639148e-07,
+      "physical_outcome": null,
+      "sum_continuous_dissipation_J": -0.30145238342595243,
+      "sum_discrete_defect_J": -0.00037620281035494326
+    },
+    {
+      "assessment": {
+        "articulated_MANO_dynamics_validated": false,
+        "collection_or_training_allowed": false,
+        "failures": [],
+        "metrics": {
+          "discrete_impulse_work_error_J": 4.0901526957015655e-17,
+          "force_balance_N": 1.776911950912563e-13,
+          "integration_energy_identity_error_J": 7.585275333868826e-17,
+          "law_power_identity_residual_w": 0.0,
+          "maximum_absolute_integration_defect_J": 8.458250976424398e-08,
+          "mean_lateral_velocity_m_s": 1.1050528318182424,
+          "mean_sliding_acceleration_m_s2": 2.4525020346102364,
+          "sliding_acceleration_reference_m_s2": 2.4525,
+          "sum_continuous_dissipation_J": -0.3013591533619667,
+          "sum_integration_defect_J": -0.00018809206242776554
+        },
+        "native_contact_law_qualified": false,
+        "physical_outcome": null,
+        "real_hand_physical_calibration": false,
+        "status": "PASS"
+      },
+      "case": {
+        "dt_s": 0.000125,
+        "gravity": -9.81,
+        "id": "friction_high_8000hz",
+        "kind": "friction_high",
+        "steps": 4000
+      },
+      "integration_maximum_replay_errors": {
+        "angular_reaction_error_N_m": 0.0,
+        "continuous_dissipation_step_J": 0.0,
+        "discrete_impulse_work_error_J": 1.3552527156068805e-20,
+        "elastic_discrete_remainder_J": 0.0,
+        "elastic_energy_endpoint_J": 0.0,
+        "euler_position_error_m": 0.0,
+        "external_force_N": 0.0,
+        "external_work_J": 0.0,
+        "force_balance_N": 0.0,
+        "gap_derivative_start_m_s": 0.0,
+        "gap_endpoint_m": 0.0,
+        "gap_start_m": 0.0,
+        "integration_energy_identity_error_J": 0.0,
+        "linear_reaction_error_N": 0.0,
+        "measured_integration_defect_J": 0.0,
+        "mechanical_energy_endpoint_J": 0.0,
+        "mechanical_energy_start_J": 0.0,
+        "point_power_error_W": 0.0,
+        "predicted_integration_defect_J": 0.0
+      },
+      "intervals_verified": 4000,
+      "law_maximum_replay_errors": {
+        "common_point_world_m": 0.0,
+        "elastic_energy_j": 0.0,
+        "elastic_energy_rate_w": 0.0,
+        "friction_power_w": 0.0,
+        "hand_force_world_n": 0.0,
+        "hand_generalized_load": 0.0,
+        "mechanical_power_w": 0.0,
+        "normal_dissipation_power_w": 0.0,
+        "normal_force_n": 0.0,
+        "object_force_world_n": 0.0,
+        "object_generalized_load": 0.0,
+        "object_wrench_force_then_torque": 0.0,
+        "penetration_m": 0.0,
+        "power_identity_residual_w": 0.0,
+        "relative_velocity_world_m_per_s": 0.0,
+        "signed_gap_m": 0.0
+      },
+      "maximum_abs_discrete_energy_defect_J": 8.458250976424398e-08,
+      "physical_outcome": null,
+      "sum_continuous_dissipation_J": -0.3013591533619667,
+      "sum_discrete_defect_J": -0.00018809206242776554
+    }
+  ],
+  "collection_or_training_allowed": false,
+  "errors": [],
+  "expected_bindings": 1163,
+  "freeze_commit": "5410cf8380f944a07fa7e62669fc4b6f5578ed55",
+  "intervals_independently_verified": 27000,
+  "native_contact_law_qualified": false,
+  "numerical_compliant_contact_qualification": "PASS",
+  "operation_counts": {
+    "data": 8,
+    "initial_forwards": 8,
+    "law_evaluations": 27000,
+    "models": 8,
+    "steps": 27000
+  },
+  "physical_outcome": null,
+  "prior_readback_sha256": "b5d7270b7edb71b14fdf2698c76716c13cbdf4b581563ce43c918f44a5f29ea2",
+  "prior_verifier_warning_observation": "First independent replay emitted NumPy RuntimeWarnings at batched matrix products, while all returned arrays were finite and matched; cause not inferred. It is preserved unchanged.",
+  "real_hand_physical_calibration": false,
+  "report_sha256": "944e5a2dcf231ccc54451f37000a76c956aa728eeb91bb4faa12bdcb06cdba8c",
+  "runtime_warnings_observed": 0,
+  "schema_version": "manosim_compliant_contact_independent_saved_readback_v2",
+  "scope": "Explicit frozen Kelvin-Voigt/regularized Coulomb3translation analytic fixtures only; virtualwork and continuous dissipation do not force discrete energy defect tozero; not native hand/contact geometry or physical calibration",
+  "selected_Git_blob_count": 86,
+  "status": "VERIFIED_COMPLETED_COMPLIANT_CONTACT_BENCHMARK",
+  "timestep_comparisons": [
+    {
+      "kind": "freefall",
+      "limits": {
+        "position_difference_reference_m": 0.00015328125000000002,
+        "position_reference_atol_m": 1e-10,
+        "velocity_m_s": 1e-10
+      },
+      "maximum_position_difference_m": 0.00015328124999891557,
+      "maximum_velocity_difference_m_s": 7.771561172376096e-14,
+      "status": "PASS"
+    },
+    {
+      "kind": "support",
+      "limits": {
+        "position_m": 5e-06,
+        "velocity_m_s": 0.001
+      },
+      "maximum_position_difference_m": 1.734723475976807e-17,
+      "maximum_velocity_difference_m_s": 2.7418754964077644e-15,
+      "status": "PASS"
+    },
+    {
+      "kind": "friction_low",
+      "limits": {
+        "position_m": 0.0001,
+        "velocity_m_s": 0.001
+      },
+      "maximum_position_difference_m": 3.4094514562944475e-08,
+      "maximum_velocity_difference_m_s": 2.0261570199409347e-17,
+      "status": "PASS"
+    },
+    {
+      "kind": "friction_high",
+      "limits": {
+        "position_m": 0.003065625,
+        "velocity_m_s": 0.0122625
+      },
+      "maximum_position_difference_m": 0.0002485246558059928,
+      "maximum_velocity_difference_m_s": 0.000343540497523831,
+      "status": "PASS"
+    }
+  ],
+  "verification_model_FK_contact_law_or_physics_calls": 0,
+  "verifier_source": "\"\"\"Independent vectorized saved-operand mechanics; no engine or producer imports.\"\"\"\nfrom __future__ import annotations\nimport hashlib,json,math,subprocess,warnings\nfrom pathlib import Path\nimport numpy as np\nROOT=Path('/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction')\nBASE=ROOT/'research_artifacts/manosim_compliant_contact_dynamics_2026-10-15_v1'\nFREEZE='5410cf8380f944a07fa7e62669fc4b6f5578ed55'\nPSHA='13b2d8e4ad214d325f7605f1ee3bafa477bebe77f8769a1fd6624fb19cc1a03b'\nFLAGS=('native_contact_law_qualified','articulated_MANO_dynamics_validated','real_hand_physical_calibration','collection_or_training_allowed')\nM=.2;R=.01;G=9.81\n\ndef sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()\ndef read(p):return json.loads(Path(p).read_text())\ndef arrays(p):\n with np.load(p,allow_pickle=False) as z:return {k:z[k] for k in z.files}\ndef need(ok,msg):\n if not bool(ok):raise ValueError(msg)\ndef git(*a):return subprocess.check_output(['git','-C',str(ROOT),*a])\ndef verify(bindings):\n for path,value in bindings.items():need(sha(path)==value,'Bound input/source changed '+path)\ndef same(a,b,msg):need(np.array_equal(a,b),msg)\ndef close(a,b,msg,atol=1e-11,rtol=1e-12):\n a,b=np.asarray(a),np.asarray(b);need(a.shape==b.shape and np.isfinite(a).all() and np.isfinite(b).all(),msg+' finite/shape')\n error=float(np.max(np.abs(a-b),initial=0));need(np.all(np.abs(a-b)<=atol+rtol*np.abs(b)),msg);return error\n\ndef law_from_operands(a,parameters,compiled):\n p,v=a['position_start_m'],a['velocity_start_m_s'];gap=p[:,2]-R;delta=np.maximum(0.,-gap)\n k,c,mu,s=(parameters[n] for n in ('stiffness_n_per_m','damping_ns_per_m','friction','friction_speed_m_per_s'))\n normal=np.where(gap<0,np.maximum(0.,k*delta-c*v[:,2]),0.)\n vt=v.copy();vt[:,2]=0.;ft=-mu*normal[:,None]*vt/np.sqrt(np.sum(vt*vt,axis=1)+s*s)[:,None]\n force=ft.copy();force[:,2]+=normal\n point=p.copy();point[:,2]-=R;opposite=-force\n J=compiled['hand_point_J'];OJ=compiled['static_object_point_J']\n same(J,np.column_stack([np.eye(3),np.zeros((3,48))]),'Literal3translation subset of51J')\n same(OJ,np.zeros((3,1)),'Explicit static object Jacobian')\n hand_load=np.einsum('nc,cd->nd',force,J,optimize=False);object_load=np.einsum('nc,cd->nd',opposite,OJ,optimize=False)\n energy=.5*k*delta**2;edot=-k*delta*v[:,2]\n nd=(normal-k*delta)*v[:,2];friction=np.sum(ft*vt,axis=1);power=np.sum(force*v,axis=1)\n expected=dict(signed_gap_m=gap,penetration_m=delta,normal_force_n=normal,hand_force_world_n=force,object_force_world_n=opposite,\n  common_point_world_m=point,object_wrench_force_then_torque=np.column_stack([opposite,np.cross(point,opposite)]),\n  hand_generalized_load=hand_load,object_generalized_load=object_load,relative_velocity_world_m_per_s=v,\n  elastic_energy_j=energy,elastic_energy_rate_w=edot,mechanical_power_w=power,normal_dissipation_power_w=nd,friction_power_w=friction,\n  power_identity_residual_w=edot+power-nd-friction)\n errors={key:close(a['law_'+key],value,'Independent compliant-law operand '+key) for key,value in expected.items()}\n for flag in ('native_hand_qualified','collection_allowed','training_allowed'):same(a['law_'+flag],np.zeros(len(p),bool),'Law cannot issue admission')\n need(np.all(normal>=0) and np.all(np.linalg.norm(ft,axis=1)<=mu*normal+1e-12),'Unilateral friction cone')\n need(np.max(nd,initial=0)<=1e-10 and np.max(friction,initial=0)<=1e-10,'Continuous law dissipation')\n return expected,errors\n\ndef integration_from_operands(case,a,law,parameters):\n h=case['dt_s'];p0,p1,v0,v1=(a[n] for n in ('position_start_m','position_endpoint_m','velocity_start_m_s','velocity_endpoint_m_s'));dv=v1-v0\n scale=.25 if case['kind']=='friction_low' else 1.5 if case['kind']=='friction_high' else 0.\n external=np.array([scale*.5*M*G,0.,0.]);total=law['hand_force_world_n']+external+np.array([0.,0.,M*case['gravity']])\n E0=law['elastic_energy_j'];gap1=p1[:,2]-R;E1=.5*parameters['stiffness_n_per_m']*np.maximum(0.,-gap1)**2\n mechanical0=.5*M*np.sum(v0*v0,axis=1)-M*case['gravity']*p0[:,2]+E0\n mechanical1=.5*M*np.sum(v1*v1,axis=1)-M*case['gravity']*p1[:,2]+E1\n externalwork=np.einsum('nc,c->n',p1-p0,external,optimize=False);diss=h*(law['normal_dissipation_power_w']+law['friction_power_w']);rem=E1-E0-h*law['elastic_energy_rate_w']\n predicted=h*np.sum(law['hand_force_world_n']*dv,axis=1)-.5*M*np.sum(dv*dv,axis=1)+rem\n measured=mechanical1-mechanical0-externalwork-diss\n force_error=np.max(np.abs(M*dv/h-total),axis=1)\n work_error=np.abs(.5*M*(np.sum(v1*v1,axis=1)-np.sum(v0*v0,axis=1))-h*np.sum(total*.5*(v0+v1),axis=1))\n expected=dict(gap_start_m=law['signed_gap_m'],gap_endpoint_m=gap1,elastic_energy_endpoint_J=E1,\n  external_force_N=np.broadcast_to(external,p0.shape),force_balance_N=force_error,discrete_impulse_work_error_J=work_error,\n  euler_position_error_m=np.max(np.abs(p1-p0-h*v1),axis=1),mechanical_energy_start_J=mechanical0,mechanical_energy_endpoint_J=mechanical1,\n  external_work_J=externalwork,continuous_dissipation_step_J=diss,elastic_discrete_remainder_J=rem,\n  measured_integration_defect_J=measured,predicted_integration_defect_J=predicted,integration_energy_identity_error_J=np.abs(measured-predicted),\n  linear_reaction_error_N=np.linalg.norm(law['hand_force_world_n']+law['object_force_world_n'],axis=1),\n  angular_reaction_error_N_m=np.linalg.norm(np.cross(law['common_point_world_m'],law['hand_force_world_n'])+law['object_wrench_force_then_torque'][:,3:],axis=1),\n  point_power_error_W=np.abs(np.sum(law['hand_force_world_n']*v0,axis=1)-law['mechanical_power_w']),gap_derivative_start_m_s=v0[:,2])\n errors={key:close(a[key],value,'Saved discrete accounting '+key) for key,value in expected.items()}\n close(a['start_qfrc_applied'],law['hand_generalized_load'][:,:3]+external,'Actually applied51subset load')\n close(a['start_qacc'],total/M,'Independent constantmass acceleration')\n close(v1,v0+h*a['start_qacc'],'Explicit force impulse to endpoint velocity',atol=1e-12)\n close(p1,p0+h*v1,'Semiimplicit Euler endpoint position',atol=1e-12)\n need(np.min(law['signed_gap_m'])>=-.005 and np.min(gap1)>=-.005,'Bounded penetration')\n return expected,errors\n\ndef assessment(case,a,L,parameters):\n failures=[];tail=a['endpoint_time_s']>=a['endpoint_time_s'][-1]-.1\n for key,limit in [('force_balance_N',L['force_balance_N']),('discrete_impulse_work_error_J',L['discrete_work_J']),('euler_position_error_m',L['discrete_freefall_m']),('integration_energy_identity_error_J',L['discrete_work_J']),('linear_reaction_error_N',L['action_reaction_N']),('angular_reaction_error_N_m',L['angular_action_reaction_N_m']),('point_power_error_W',L['virtual_work_W']),('law_power_identity_residual_w',L['virtual_work_W'])]:\n  if np.max(np.abs(a[key]))>limit:failures.append(key)\n if np.any(a['engine_ncon']) or np.any(a['engine_nefc']) or np.any(a['engine_qfrc_constraint']):failures.append('stock_engine_contact')\n if np.any(a['law_normal_dissipation_power_w']>L['virtual_work_W']) or np.any(a['law_friction_power_w']>L['virtual_work_W']):failures.append('continuous_contact_dissipation')\n if np.any(a['law_normal_force_n']<0) or np.any(np.linalg.norm(a['law_hand_force_world_n'][:,:2],axis=1)>.5*a['law_normal_force_n']+L['action_reaction_N']):failures.append('unilateral_friction_bound')\n metrics={k:float(np.max(np.abs(a[k]))) for k in ('force_balance_N','discrete_impulse_work_error_J','integration_energy_identity_error_J','law_power_identity_residual_w')}\n metrics.update(maximum_absolute_integration_defect_J=float(np.max(np.abs(a['measured_integration_defect_J']))),sum_integration_defect_J=float(np.sum(a['measured_integration_defect_J'])),sum_continuous_dissipation_J=float(np.sum(a['continuous_dissipation_step_J'])))\n if case['kind']=='freefall':\n  h,n=case['dt_s'],case['steps'];z=.5-.5*G*h*h*n*(n+1);v=-G*h*n;dz=abs(float(a['position_endpoint_m'][-1,2])-z);dv=abs(float(a['velocity_endpoint_m_s'][-1,2])-v)\n  metrics.update(discrete_z_reference_m=z,discrete_v_reference_m_s=v,position_error_m=dz,velocity_error_m_s=dv)\n  if dz>L['discrete_freefall_m'] or dv>L['discrete_freefall_m_s']:failures.append('freefall_discrete_reference')\n if case['kind']=='support':\n  penetration=float(-np.mean(a['gap_start_m'][tail]));support=float(np.mean(a['law_normal_force_n'][tail]));speed=float(np.max(np.abs(a['velocity_endpoint_m_s'][tail])));reference=M*G/parameters['stiffness_n_per_m']\n  metrics.update(rest_penetration_reference_m=reference,mean_penetration_m=penetration,mean_support_N=support,settled_speed_m_s=speed)\n  if abs(penetration-reference)>L['support_penetration_m']:failures.append('analytic_penetration')\n  if abs(support-M*G)>L['support_force_relative']*M*G:failures.append('gravity_support')\n  if speed>L['settled_velocity_m_s']:failures.append('settling')\n  if np.max(a['mechanical_energy_endpoint_J'])>M*G*.03*(1+L['impact_energy_gain_fraction']):failures.append('drop_impact_passivity')\n if case['kind'].startswith('friction'):\n  vx=float(np.mean(a['velocity_endpoint_m_s'][tail,0]));metrics['mean_lateral_velocity_m_s']=vx\n  if case['kind']=='friction_low':\n   reference=parameters['friction_speed_m_per_s']*.25/math.sqrt(1-.25**2);metrics['regularized_creep_reference_m_s']=reference\n   if abs(vx-reference)>max(L['regularized_creep_floor_m_s'],L['regularized_creep_relative']*reference):failures.append('regularized_creep_reference')\n  else:\n   accel=float(np.mean(a['start_qacc'][tail,0]));reference=.5*.5*G;metrics.update(mean_sliding_acceleration_m_s2=accel,sliding_acceleration_reference_m_s2=reference)\n   if accel<=0 or abs(accel-reference)>L['sliding_acceleration_relative']*reference:failures.append('sliding_reference')\n return dict(status='PASS' if not failures else 'FAIL',failures=failures,metrics=metrics,physical_outcome=None,**{k:False for k in FLAGS})\n\ndef convergence(rows):\n out=[]\n for kind in ('freefall','support','friction_low','friction_high'):\n  pair=[r for r in rows if r['case']['kind']==kind];x,y=[r['measurement'] for r in pair]\n  pos=float(np.max(np.abs(np.asarray(x['final_position_world_m'])-np.asarray(y['final_position_world_m']))));vel=float(np.max(np.abs(np.asarray(x['final_velocity_world_m_s'])-np.asarray(y['final_velocity_world_m_s']))))\n  if kind=='freefall':\n   duration=pair[0]['case']['steps']*pair[0]['case']['dt_s'];reference=.5*G*duration*abs(pair[0]['case']['dt_s']-pair[1]['case']['dt_s']);passed=abs(pos-reference)<=1e-10 and vel<=1e-10;limits=dict(position_difference_reference_m=reference,position_reference_atol_m=1e-10,velocity_m_s=1e-10)\n  else:\n   pmax=5e-6 if kind=='support' else max(1e-4,.01*.5*(.5*.5*G)*.5**2) if kind=='friction_high' else 1e-4\n   vmax=max(1e-3,.01*.5*.5*G*.5) if kind=='friction_high' else 1e-3\n   passed=pos<=pmax and vel<=vmax;limits=dict(position_m=pmax,velocity_m_s=vmax)\n  out.append(dict(kind=kind,status='PASS' if passed else 'FAIL',maximum_position_difference_m=pos,maximum_velocity_difference_m_s=vel,limits=limits))\n return out\n\ndef main():\n pp=BASE/'protocol.json';rp=BASE/'run_v1/report.json';need(rp.exists(),'Wait for completed actual report')\n need(sha(pp)==PSHA,'Protocol identity');p,r=read(pp),read(rp);need(len(p['bindings'])==1163 and len(p['tracked_sources'])==85,'Frozen closure cardinalities')\n need(git('rev-parse','HEAD').decode().strip()==FREEZE,'HEAD hold before');verify(p['bindings'])\n for name in [*p['tracked_sources'],str(pp)]:need(hashlib.sha256(git('show',FREEZE+':'+str(Path(name).relative_to(ROOT)))).hexdigest()==sha(name),'Exact frozen source/Git blob')\n need(r['status']=='COMPLETED_COMPLIANT_CONTACT_BENCHMARK' and r['failure'] is None and r['final_binding_error'] is None,'Complete benchmark or preserve failure separately')\n need(r['freeze_commit']==FREEZE and r['protocol_sha256']==PSHA,'Actual report lineage')\n need(r['operation_counts']==dict(models=8,data=8,initial_forwards=8,steps=27000,law_evaluations=27000) and not r['forbidden_attempts'],'Exact bounded counts')\n need(len(r['cases'])==8 and [x['case'] for x in r['cases']]==p['plan'],'Allconditions exact order')\n need(r['elapsed_s']<=120 and not r['unindexed_array_paths'],'Budget/array inventory')\n need(r['matched_solid_reference']==[],'No invented stock-contact equivalence')\n for key in FLAGS:need(r[key] is False,'No native/physical/collection admission')\n need(r['physical_outcome'] is None,'No task outcome')\n inventory={};array_inventory={};cases=[];trace_by_id={};raw=Path(p['raw_root']).resolve()\n def item(path):\n  path=Path(path).resolve();inventory[str(path)]=dict(sha256=sha(path),bytes=path.stat().st_size)\n for path in (pp,rp,BASE/'run_v1/STARTED.json',BASE/'run_v1/progress.json',BASE/'run_v1/worker.log',BASE/'run_v1/independent_readback.json'):item(path)\n need(sha(BASE/'run_v1/independent_readback.json')=='b5d7270b7edb71b14fdf2698c76716c13cbdf4b581563ce43c918f44a5f29ea2','Preserved first independent replay')\n started=read(BASE/'run_v1/STARTED.json');need(started==dict(protocol_sha256=PSHA,freeze_commit=FREEZE,status='STARTED_ONCE'),'Once-run marker')\n progress=read(BASE/'run_v1/progress.json');need(progress['counts']==r['operation_counts'] and progress['forbidden']==[],'Live counts agree')\n artifacts=r['artifacts'];seen=set();byfolder={}\n for info in artifacts:\n  path=Path(info['path']);need(not path.is_symlink() and path.resolve().is_relative_to(raw) and path.resolve() not in seen,'Output containment/duplicates')\n  need(sha(path)==info['sha256'] and path.stat().st_size==info['bytes'],'Creation-time output bytes');seen.add(path.resolve());item(path)\n  byfolder.setdefault(path.parent.name,{})[path.name]=path\n  if path.suffix=='.npz':array_inventory[str(path)]={k:dict(dtype=str(v.dtype),shape=list(v.shape),sha256=hashlib.sha256(np.ascontiguousarray(v).tobytes()).hexdigest()) for k,v in arrays(path).items()}\n need({x.resolve() for x in raw.rglob('*.npz')}=={x for x in seen if x.suffix=='.npz'},'All NPZ exactly indexed')\n for row in r['cases']:\n  case=row['case'];need(row['status']=='MEASURED','Every fixture completed')\n  for key in FLAGS:need(row[key] is False,'Child cannot grant admission')\n  need(row['physical_outcome'] is None,'Child task outcome null')\n  tracked,rawresult=Path(row['result_path']),Path(row['raw_result_path']);need(sha(tracked)==row['result_sha256'] and sha(rawresult)==row['raw_result_sha256'] and tracked.read_bytes()==rawresult.read_bytes(),'Original scalar copy identity');item(tracked);item(rawresult)\n  scalar=read(tracked);need(scalar=={k:v for k,v in row.items() if k not in ('result_path','result_sha256','raw_result_path','raw_result_sha256')},'Scalar content exact')\n  folder=byfolder[case['id']];need(set(folder)=={'fixture.xml','compiled_fixture.npz','trajectory.npz'},'Exactly threecreationartifacts per fixture')\n  need(sha(folder['fixture.xml'])==p['xml_sha256'][case['id']],'Prospective fixture XML hash')\n  compiled,a=arrays(folder['compiled_fixture.npz']),arrays(folder['trajectory.npz']);n=case['steps'];h=case['dt_s'];trace_by_id[case['id']]=a\n  need(all(v.shape[0]==n and np.isfinite(v).all() for v in a.values()),'Every interval/channel finite and complete')\n  same(compiled['joint_type'],np.full(3,2),'Three slide joint types');same(compiled['joint_axis'],np.eye(3),'Named world axes');same(compiled['joint_qpos_address'],np.arange(3),'Qpos order');same(compiled['joint_dof_address'],np.arange(3),'DOF order')\n  same(compiled['body_mass_kg'],np.array([0.,M]),'Literal mass inventory');same(compiled['gravity_m_s2'],np.array([0.,0.,case['gravity']]),'Gravity');need(float(compiled['timestep_s'])==h,'Timestep')\n  close(a['endpoint_time_s']-a['start_time_s'],np.full(n,h),'Every interval clock',atol=1e-12)\n  close(a['endpoint_time_s'],np.arange(1,n+1)*h,'Full horizon clock',atol=1e-12)\n  close(a['start_time_s'][1:],a['endpoint_time_s'][:-1],'Contiguous clocks',atol=1e-12)\n  same(a['position_start_m'][1:],a['position_endpoint_m'][:-1],'Contiguous position states');same(a['velocity_start_m_s'][1:],a['velocity_endpoint_m_s'][:-1],'Contiguous velocity states')\n  same(a['velocity_start_m_s'][0],compiled['initial_qvel'],'Initial velocity');same(a['position_start_m'][0],compiled['body_pos_m'][1]+compiled['initial_qpos'],'Initial world position')\n  close(a['qpos_endpoint']+compiled['body_pos_m'][1],a['position_endpoint_m'],'Endpoint qpos/world binding');same(a['qvel_endpoint'],a['velocity_endpoint_m_s'],'Endpoint qvel/world binding')\n  for key in ('engine_ncon','engine_nefc','engine_qfrc_constraint','warning_counts'):need(not np.any(a[key]),'No engine contacts/forces/warnings '+key)\n  law,lerrors=law_from_operands(a,p['parameters'],compiled);mechanics,ierrors=integration_from_operands(case,a,law,p['parameters'])\n  assessment_expected=assessment(case,a,p['limits'],p['parameters']);actual=row['measurement']['assessment']\n  need(assessment_expected['status']==actual['status'] and assessment_expected['failures']==actual['failures'],'Independent qualification decisions')\n  need(set(assessment_expected['metrics'])==set(actual['metrics']),'Metric inventory')\n  for key,value in assessment_expected['metrics'].items():close(np.asarray(actual['metrics'][key]),np.asarray(value),'Analytic metric '+key)\n  need(row['measurement']['valid_endpoint_samples']==n,'Endpoint denominator')\n  same(np.asarray(row['measurement']['final_position_world_m']),a['position_endpoint_m'][-1],'Final position scalar');same(np.asarray(row['measurement']['final_velocity_world_m_s']),a['velocity_endpoint_m_s'][-1],'Final velocity scalar')\n  cases.append(dict(case=case,assessment=assessment_expected,intervals_verified=n,law_maximum_replay_errors=lerrors,integration_maximum_replay_errors=ierrors,\n   maximum_abs_discrete_energy_defect_J=float(np.max(np.abs(mechanics['measured_integration_defect_J']))),sum_discrete_defect_J=float(mechanics['measured_integration_defect_J'].sum()),\n   sum_continuous_dissipation_J=float(mechanics['continuous_dissipation_step_J'].sum()),physical_outcome=None))\n comparisons=convergence(r['cases']);need(comparisons==r['timestep_comparisons'],'Independent timestep comparisons/unchanged gates')\n qualified=all(x['assessment']['status']=='PASS' for x in cases) and all(x['status']=='PASS' for x in comparisons)\n need(r['numerical_compliant_contact_qualification']==('PASS' if qualified else 'NOT_QUALIFIED'),'No fabricated qualification')\n verify(p['bindings']);need(git('rev-parse','HEAD').decode().strip()==FREEZE,'HEAD hold after')\n for name,info in inventory.items():need(sha(name)==info['sha256'] and Path(name).stat().st_size==info['bytes'],'Output unchanged after readback')\n receipt=dict(schema_version='manosim_compliant_contact_independent_saved_readback_v2',status='VERIFIED_COMPLETED_COMPLIANT_CONTACT_BENCHMARK',freeze_commit=FREEZE,\n  active_protocol_sha256=PSHA,report_sha256=sha(rp),expected_bindings=1163,selected_Git_blob_count=86,all_bindings_verified_before=True,all_bindings_verified_after=True,\n  numerical_compliant_contact_qualification=r['numerical_compliant_contact_qualification'],operation_counts=r['operation_counts'],intervals_independently_verified=sum(x['intervals_verified'] for x in cases),\n  artifact_inventory=inventory,array_inventory=array_inventory,cases=cases,timestep_comparisons=comparisons,verification_model_FK_contact_law_or_physics_calls=0,\n  physical_outcome=None,**{key:False for key in FLAGS},errors=[],\n  prior_readback_sha256='b5d7270b7edb71b14fdf2698c76716c13cbdf4b581563ce43c918f44a5f29ea2',\n  prior_verifier_warning_observation='First independent replay emitted NumPy RuntimeWarnings at batched matrix products, while all returned arrays were finite and matched; cause not inferred. It is preserved unchanged.',\n  additive_replay_arithmetic='Same saved operands; explicit optimize=False einsum replaces verifier-only batched matmul; RuntimeWarnings and floating overflow/division/invalid exceptions are fatal',\n  runtime_warnings_observed=0,\n  scope='Explicit frozen Kelvin-Voigt/regularized Coulomb3translation analytic fixtures only; virtualwork and continuous dissipation do not force discrete energy defect tozero; not native hand/contact geometry or physical calibration',\n  verifier_source=Path(__file__).read_text(),verifier_source_sha256=sha(__file__))\n out=BASE/'run_v1/independent_readback_v2.json'\n with out.open('x') as stream:json.dump(receipt,stream,sort_keys=True,indent=2,allow_nan=False);stream.write('\\n')\n print(json.dumps(dict(status=receipt['status'],qualification=receipt['numerical_compliant_contact_qualification'],intervals=27000,cases=[x['assessment']['status'] for x in cases],comparisons=[x['status'] for x in comparisons],sha256=sha(out))))\nif __name__=='__main__':\n warnings.simplefilter('error',RuntimeWarning)\n np.seterr(over='raise',invalid='raise',divide='raise')\n main()\n",
+  "verifier_source_sha256": "a254c0982c1f8f19243124c703d2605c6a469746c29deb9ba6b950c228a3ffec"
+}

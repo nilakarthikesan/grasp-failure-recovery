@@ -2972,3 +2972,28 @@ calibration. Before any frozen run, its resting friction slope predicts local
 explicit-Euler stability h<0.408ms, so declare0.25/0.125ms for those fixtures.
 This prospective numerical choice uses analytic evidence, not selected
 outcomes. Keep the old stock contact failure and all global admission gates.
+
+### 2026-10-15 — Qualify the new contact model without promoting native claims
+
+New evidence at5410cf8: the stock finer-step repeat passes all14individual
+checks but still fails vector endpoint convergence (max0.026654m/s versus
+0.0122625). Preserve NOT_QUALIFIED, independently verified0700ba53. The new
+compliant model passes all8analytic fixtures/4comparisons under its unchanged
+250/125us declaration; independent readbacke370d13f verifies27000saved
+intervals. Integration energy defects remain nonzero and decrease with step;
+their exact discrete accounting is distinct from continuous dissipativity.
+
+Decision: this qualifies a force-law kernel and explicit integration on known
+synthetic geometry. It supports further native coupling work; it does not
+qualify MANO collision search, native force application, dynamic tracking or
+real material properties. Keep native admission false and continue separating
+mapping ambiguity from physical outcomes. Do not replace preserved stock
+results with the new model's passes.
+
+The first engine bridge stops before any engine/skin operation because its
+XPath includes a default geom template in the instantiated-geom count.
+Independent6f49b4ec confirms16real world geoms plus1template. Correct only
+that source inventory in a distinct v2; require the exact original default
+template unchanged, preserve original physics/skin/normal gates and retain
+the failed v1. Next check is actual geometry readback across all109states,
+with native/source precision profiles and any normal failure explicit.
