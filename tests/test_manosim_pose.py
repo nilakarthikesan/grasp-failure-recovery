@@ -219,3 +219,139 @@ def test_left_or_aliased_source_directory_is_not_labeled_right(source):
         path.write_text(ET.tostring(manufactured_xml(),encoding='unicode'))
         with pytest.raises(ValueError,match='right-hand mano_rhand'):
             mp.source_asset_closure(path,source.shape,source_root=source.root)
+
+
+@pytest.fixture
+def generated(source):
+    """Synthetic producer receipt and nineteen synthetic output assets only."""
+    root=source.root/'generated';hand=root/'assets/literal_native/mano_rhand';(hand/'meshes').mkdir(parents=True)
+    shape=root/'assets/mano_rhand_shape.npy';np.save(shape,np.arange(10,dtype=np.float32)+.125)
+    mesh_text='v 0 0 0\nv .01 0 0\nv 0 .01 0\nv 0 0 .01\nf 1 2 3\nf 1 4 2\nf 1 3 4\nf 2 4 3\n'
+    for i in range(16):(hand/f'meshes/mano_bone_{i}.obj').write_text(mesh_text)
+    xml=manufactured_xml();assets=ET.SubElement(xml,'asset')
+    for i in range(16):ET.SubElement(assets,'mesh',name=f'mano_bone_{i}',file=f'meshes/mano_bone_{i}.obj')
+    for name in ('mesh_hand.xml','capsule_hand.xml'):(hand/name).write_text(ET.tostring(xml,encoding='unicode'))
+    report=dict(schema_version='manosim_literal_native_shape_build_report_v1',status='COMPLETE',failure=None,
+        upstream_revision=mp.UPSTREAM_REVISION,
+        shape_asset_sha256=mp._sha(shape),generated_root=str(root),
+        generated_files={name:mp._sha(root/name) for name in sorted(mp._GENERATED_FILES)},
+        producer_details='Additional producer source/protocol bindings are owned by the frozen build report.')
+    report['artifacts']=[dict(path=str(root/name),sha256=report['generated_files'][name],
+        bytes=(root/name).stat().st_size,label='manufactured:'+name) for name in sorted(mp._GENERATED_FILES)]
+    report_path=source.root/'build_report.json'
+    def write_report():
+        report_path.write_text(json.dumps(report,sort_keys=True,allow_nan=False))
+        return dict(path=str(report_path),sha256=mp._sha(report_path))
+    binding=write_report()
+    def closure(**overrides):
+        kwargs=dict(source_root=root,expected_shape_sha256=report['shape_asset_sha256'],builder_provenance=binding)
+        kwargs.update(overrides)
+        return mp.source_asset_closure(hand/'mesh_hand.xml',shape,**kwargs)
+    return SimpleNamespace(root=root,hand=hand,shape=shape,report=report,report_path=report_path,
+        binding=binding,write_report=write_report,closure=closure,digest=mp._sha(shape))
+
+
+def test_canonical_default_closure_payload_and_identity_are_unchanged(source):
+    explicit=mp.source_asset_closure(source.path,source.shape,source_root=source.root,
+        expected_shape_sha256=mp.EXPECTED_SHAPE_SHA256)
+    assert explicit==source.assets
+    assert mp.asset_shape_identity(source.shape,expected_shape_sha256=mp.EXPECTED_SHAPE_SHA256)==source.identity
+    assert explicit['schema_version']=='manosim_static_source_asset_closure_v1'
+    assert 'builder_provenance' not in explicit and 'expected_shape_sha256' not in explicit
+    a=mp.ManoSimStaticPoseAdapter(source.model,source.data,source_assets=explicit,asset_shape_identity=source.identity,
+        expected_shape_sha256=mp.EXPECTED_SHAPE_SHA256)
+    assert a.expected_shape_sha256==mp.EXPECTED_SHAPE_SHA256
+
+
+def test_generated_shape_requires_explicit_frozen_expectation_and_provenance(generated):
+    with pytest.raises(ValueError,match='shape asset identity'):mp.asset_shape_identity(generated.shape)
+    identity=mp.asset_shape_identity(generated.shape,expected_shape_sha256=generated.digest)
+    assert identity['shape_asset_sha256']==generated.digest
+    with pytest.raises(ValueError,match='explicit expected shape'):generated.closure(expected_shape_sha256=None)
+    with pytest.raises(ValueError,match='requires frozen builder'):generated.closure(builder_provenance=None)
+    assets=generated.closure()
+    assert assets['schema_version']=='manosim_static_source_asset_closure_v2'
+    assert assets['expected_shape_sha256']==generated.digest
+    assert assets['builder_provenance']==generated.binding
+    assert set(assets['files'])==mp._GENERATED_FILES
+    assert assets['identity_is_not_mesh_generation_or_fidelity_proof']
+
+
+def test_generated_adapter_named_roundtrip_is_shape_specific(generated):
+    assets=generated.closure();identity=assets['asset_shape_identity']
+    model=mujoco.MjModel.from_xml_path(str(generated.hand/'mesh_hand.xml'));data=mujoco.MjData(model)
+    with pytest.raises(ValueError,match='explicit expected shape'):
+        mp.ManoSimStaticPoseAdapter(model,data,source_assets=assets,asset_shape_identity=identity)
+    a=mp.ManoSimStaticPoseAdapter(model,data,source_assets=assets,asset_shape_identity=identity,
+        expected_shape_sha256=generated.digest)
+    t,local=target();state=a.stage(t,local,asset_shape_identity=identity)
+    replay=a.stage_serialized(json.loads(json.dumps(state.serialize_pose())))
+    np.testing.assert_array_equal(state.joint_anchor_world_m,replay.joint_anchor_world_m)
+    assert replay.asset_shape_identity==identity
+    assert a.forward_calls==2
+    with pytest.raises(ValueError,match='Wrong shape'):
+        a.stage(t,local,asset_shape_identity={**identity,'shape_asset_sha256':mp.EXPECTED_SHAPE_SHA256})
+    payload=state.serialize_pose();payload['asset_shape_identity']['shape_asset_sha256']=mp.EXPECTED_SHAPE_SHA256
+    with pytest.raises(ValueError,match='Wrong shape'):a.stage_serialized(payload)
+    assert a.forward_calls==2
+
+
+@pytest.mark.parametrize('value',['','f'*63,'F'*64,'x'*64,123,False])
+def test_invalid_explicit_expected_shape_is_not_an_auto_discovery(source,value):
+    with pytest.raises(ValueError,match='lowercase SHA-256'):
+        mp.asset_shape_identity(source.shape,expected_shape_sha256=value)
+
+
+@pytest.mark.parametrize('change',['missing','extra','shape','status','schema','root','xml_hash','other_xml_hash','mesh_hash','shape_hash','receipt_hash','binding_extra','escaping_xml','upstream','failure','artifact_missing','artifact_disagree','artifact_size'])
+def test_generated_builder_inventory_is_strict_and_complete(generated,change):
+    report=generated.report
+    if change=='missing':report['generated_files'].pop(next(k for k in report['generated_files'] if k.endswith('mano_bone_15.obj')))
+    elif change=='extra':report['generated_files']['extra.txt']='0'*64
+    elif change=='shape':report['shape_asset_sha256']='0'*64
+    elif change=='status':report['status']='PARTIAL'
+    elif change=='schema':report['schema_version']='unverified_builder'
+    elif change=='root':report['generated_root']=str(generated.root.parent)
+    elif change in ('xml_hash','other_xml_hash','mesh_hash','shape_hash'):
+        name={'xml_hash':'assets/literal_native/mano_rhand/mesh_hand.xml',
+            'other_xml_hash':'assets/literal_native/mano_rhand/capsule_hand.xml',
+            'mesh_hash':'assets/literal_native/mano_rhand/meshes/mano_bone_7.obj',
+            'shape_hash':'assets/mano_rhand_shape.npy'}[change]
+        (generated.root/name).write_bytes((generated.root/name).read_bytes()+b'\n')
+    elif change=='receipt_hash':generated.report_path.write_text(generated.report_path.read_text()+'\n')
+    elif change=='binding_extra':generated.binding['source']='unbound'
+    elif change=='upstream':report['upstream_revision']='0'*40
+    elif change=='failure':report['failure']={'type':'ManufacturedError'}
+    elif change=='artifact_missing':report['artifacts'].pop()
+    elif change=='artifact_disagree':report['artifacts'][0]['sha256']='0'*64
+    elif change=='artifact_size':report['artifacts'][0]['bytes']+=1
+    else:
+        path=generated.hand/'mesh_hand.xml';xml=ET.parse(path).getroot()
+        xml.find(".//mesh[@name='mano_bone_0']").set('file','../../../unlisted.obj')
+        unlisted=generated.root/'unlisted.obj';unlisted.write_text('unlisted')
+        path.write_text(ET.tostring(xml,encoding='unicode'))
+        report['generated_files']['assets/literal_native/mano_rhand/mesh_hand.xml']=mp._sha(path)
+    if change not in ('receipt_hash','binding_extra'):
+        generated.binding.update(generated.write_report())
+    with pytest.raises(ValueError):generated.closure()
+
+
+def test_generated_binding_and_all_nineteen_assets_rechecked_before_forward(generated):
+    assets=generated.closure();identity=assets['asset_shape_identity']
+    model=mujoco.MjModel.from_xml_path(str(generated.hand/'mesh_hand.xml'));data=mujoco.MjData(model)
+    a=mp.ManoSimStaticPoseAdapter(model,data,source_assets=assets,asset_shape_identity=identity,
+        expected_shape_sha256=generated.digest)
+    # The unselected variant remains in the closure and cannot change unnoticed.
+    other=generated.hand/'capsule_hand.xml';other.write_text(other.read_text()+'\n')
+    t,local=target()
+    with pytest.raises(ValueError,match='source asset changed'):a.stage(t,local,asset_shape_identity=identity)
+    assert a.forward_calls==0
+    other.write_text(other.read_text()[:-1])
+    generated.report_path.write_text(generated.report_path.read_text()+'\n')
+    with pytest.raises(ValueError,match='receipt bytes changed'):a.stage(t,local,asset_shape_identity=identity)
+    assert a.forward_calls==0
+
+
+@pytest.mark.parametrize('text',['{"schema_version":1,"schema_version":2}', '{"unbound":NaN}', '{"unbound":1e999}'])
+def test_generated_builder_report_rejects_ambiguous_json(generated,text):
+    generated.report_path.write_text(text);generated.binding['sha256']=mp._sha(generated.report_path)
+    with pytest.raises(ValueError):generated.closure()

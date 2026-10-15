@@ -94,20 +94,106 @@ def _matrix_quat(r):
         applied_norm=float(np.sqrt(np.einsum('i,i->',q,q))),rotation_max_error=float(np.max(np.abs(_quat_matrix(q)-r))),
         dtype='float64',decimal_rounding_applied=False)
 
-def asset_shape_identity(shape_asset):
+def _expected_shape_digest(value):
+    # The expectation must come from a separately frozen protocol; never infer it
+    # from the candidate shape file and thereby admit every shape automatically.
+    return _sha256_digest(EXPECTED_SHAPE_SHA256 if value is None else value)
+
+
+def _sha256_digest(value):
+    if not isinstance(value,str) or len(value)!=64 or any(c not in '0123456789abcdef' for c in value):
+        raise ValueError('Explicit expected shape must be a lowercase SHA-256 digest')
+    return value
+
+
+def asset_shape_identity(shape_asset,*,expected_shape_sha256=None):
     path=Path(shape_asset).resolve();digest=_sha(path)
-    if digest!=EXPECTED_SHAPE_SHA256:raise ValueError('Upstream/HUG right-hand shape asset identity mismatch')
+    if digest!=_expected_shape_digest(expected_shape_sha256):raise ValueError('Upstream/HUG right-hand shape asset identity mismatch')
     return dict(schema_version='manosim_right_shape_asset_identity_v1',shape_asset_sha256=digest,
         handedness='right',linear_units='m',upstream_revision=UPSTREAM_REVISION)
 
-def source_asset_closure(xml_path,shape_asset,*,source_root,extra_source_paths=()):
+_GENERATED_HAND_PREFIX='assets/literal_native/mano_rhand/'
+_GENERATED_SHAPE_PATH='assets/mano_rhand_shape.npy'
+_GENERATED_FILES=frozenset({_GENERATED_SHAPE_PATH,
+    _GENERATED_HAND_PREFIX+'mesh_hand.xml',_GENERATED_HAND_PREFIX+'capsule_hand.xml',
+    *(_GENERATED_HAND_PREFIX+f'meshes/mano_bone_{i}.obj' for i in range(16))})
+
+
+def _strict_json(path):
+    def pairs(items):
+        result={}
+        for key,value in items:
+            if key in result:raise ValueError('Duplicate builder report JSON key: '+key)
+            result[key]=value
+        return result
+    def constant(value):raise ValueError('Nonfinite builder report JSON constant: '+value)
+    def number(value):
+        result=float(value)
+        if not np.isfinite(result):raise ValueError('Nonfinite builder report JSON number')
+        return result
+    return json.loads(Path(path).read_text(),object_pairs_hook=pairs,parse_constant=constant,parse_float=number)
+
+
+def _builder_receipt(binding,root,xml,shape,expected,consumed,add):
+    if not isinstance(binding,Mapping) or set(binding)!={'path','sha256'}:
+        raise ValueError('Exact builder provenance path/sha256 binding required')
+    path=Path(binding['path'])
+    if not path.is_absolute() or not path.is_file() or _sha(path)!=_sha256_digest(binding['sha256']):
+        raise ValueError('Builder provenance receipt bytes changed or path invalid')
+    report=_strict_json(path)
+    if (not isinstance(report,Mapping) or report.get('schema_version')!='manosim_literal_native_shape_build_report_v1'
+            or report.get('status')!='COMPLETE' or report.get('failure') is not None
+            or report.get('upstream_revision')!=UPSTREAM_REVISION or report.get('shape_asset_sha256')!=expected
+            or not isinstance(report.get('generated_root'),str) or not Path(report['generated_root']).is_absolute()
+            or Path(report['generated_root']).resolve()!=root):
+        raise ValueError('Builder provenance report shape/root/schema/status mismatch')
+    generated=report.get('generated_files')
+    if not isinstance(generated,Mapping) or set(generated)!=_GENERATED_FILES:
+        raise ValueError('Builder provenance requires exact nineteen generated assets')
+    xml_relative=str(xml.relative_to(root));shape_relative=str(shape.relative_to(root))
+    expected_consumed={_GENERATED_HAND_PREFIX+xml.name,
+        *(_GENERATED_HAND_PREFIX+f'meshes/mano_bone_{i}.obj' for i in range(16))}
+    if (xml_relative!=_GENERATED_HAND_PREFIX+xml.name or shape_relative!=_GENERATED_SHAPE_PATH
+            or consumed!=expected_consumed or generated[_GENERATED_SHAPE_PATH]!=expected):
+        raise ValueError('Generated XML/mesh/shape closure differs from literal build inventory')
+    artifacts=report.get('artifacts')
+    if not isinstance(artifacts,list):raise ValueError('Builder write-time artifact inventory required')
+    indexed={}
+    for row in artifacts:
+        if (not isinstance(row,Mapping) or set(row)!={'path','sha256','bytes','label'}
+                or not isinstance(row['path'],str) or not Path(row['path']).is_absolute()
+                or type(row['bytes']) is not int or row['bytes']<0 or not isinstance(row['label'],str) or not row['label']):
+            raise ValueError('Exact builder write-time artifact binding required')
+        artifact=Path(row['path']).resolve()
+        if artifact in indexed or not artifact.is_relative_to(root):raise ValueError('Duplicated/outside builder artifact path')
+        _sha256_digest(row['sha256']);indexed[artifact]=row
+    for relative,digest in generated.items():
+        candidate=add(root/relative)
+        if _sha(candidate)!=_sha256_digest(digest):raise ValueError('Generated MANOSim asset changed: '+relative)
+        row=indexed.get(candidate)
+        if row is None or row['sha256']!=digest or row['bytes']!=candidate.stat().st_size:
+            raise ValueError('Generated write-time asset binding mismatch: '+relative)
+    # Re-read the receipt after all files, preventing a moving manifest admission.
+    if _sha(path)!=binding['sha256']:raise ValueError('Builder provenance receipt changed during validation')
+    return dict(path=str(path.resolve()),sha256=binding['sha256'])
+
+
+def source_asset_closure(xml_path,shape_asset,*,source_root,extra_source_paths=(),expected_shape_sha256=None,builder_provenance=None):
     """Hash complete XML/include/file-asset closure, plus the explicit shape file.
 
     This reads files only. It does not compile a model or infer the shape used by
     a previous mesh build. Paths outside source_root and unhandled file-bearing
-    elements fail closed rather than being silently omitted.
+    elements fail closed rather than being silently omitted. Canonical assets
+    retain the v1 payload. An explicit shape expectation plus a complete frozen
+    builder receipt is required for the generated-asset v2 domain; hashes assert
+    identity and provenance, not geometry generation correctness or fidelity.
     """
     root=Path(source_root).resolve();xml=Path(xml_path).resolve();shape=Path(shape_asset).resolve()
+    expected=_expected_shape_digest(expected_shape_sha256)
+    if builder_provenance is not None and expected_shape_sha256 is None:
+        raise ValueError('Generated assets require a protocol-provided explicit expected shape SHA-256')
+    if builder_provenance is None and expected!=EXPECTED_SHAPE_SHA256:
+        raise ValueError('Noncanonical shape requires frozen builder provenance')
     if xml.name not in ('mesh_hand.xml','capsule_hand.xml') or xml.parent.name!='mano_rhand':
         raise ValueError('Literal upstream right-hand mano_rhand mesh_hand/capsule_hand source path required')
     files={};seen=set();compiler=None
@@ -134,12 +220,19 @@ def source_asset_closure(xml_path,shape_asset,*,source_root,extra_source_paths=(
             else:raise ValueError('Unhandled file-bearing source element: '+node.tag)
     visit(xml)
     if compiler is None or compiler.get('angle')!='radian':raise ValueError('Explicit radian XML compiler domain required')
+    consumed={str(Path(path).relative_to(root)) for path in files}
+    provenance=None
+    if builder_provenance is not None:
+        provenance=_builder_receipt(builder_provenance,root,xml,shape,expected,consumed,add)
     add(shape)
     for path in extra_source_paths:add(path)
-    identity=asset_shape_identity(shape)
+    identity=asset_shape_identity(shape,expected_shape_sha256=expected)
     portable={str(Path(path).relative_to(root)):digest for path,digest in sorted(files.items())}
     payload=dict(schema_version='manosim_static_source_asset_closure_v1',upstream_revision=UPSTREAM_REVISION,
         source_variant=xml.name,xml_relative_path=str(xml.relative_to(root)),files=portable,asset_shape_identity=identity)
+    if provenance is not None:
+        payload.update(schema_version='manosim_static_source_asset_closure_v2',
+            expected_shape_sha256=expected,builder_provenance=provenance)
     return dict(**payload,source_root=str(root),xml_path=str(xml),shape_asset_path=str(shape),
         absolute_files=dict(sorted(files.items())),closure_sha256=_json_hash(payload),
         identity_is_not_mesh_generation_or_fidelity_proof=True)
@@ -195,9 +288,12 @@ class ManoSimPoseState:
 
 
 class ManoSimStaticPoseAdapter:
-    def __init__(self,model,baseline_data,*,source_assets,asset_shape_identity,domain=POSE_DOMAIN):
+    def __init__(self,model,baseline_data,*,source_assets,asset_shape_identity,domain=POSE_DOMAIN,expected_shape_sha256=None):
         if domain!=POSE_DOMAIN:raise ValueError('Unknown MANOSim pose domain')
         self.model=model;self.sources=json.loads(json.dumps(source_assets));self.shape=json.loads(json.dumps(asset_shape_identity))
+        self.expected_shape_sha256=_expected_shape_digest(expected_shape_sha256)
+        if self.sources.get('schema_version')=='manosim_static_source_asset_closure_v2' and expected_shape_sha256 is None:
+            raise ValueError('Generated adapter requires protocol-provided explicit expected shape SHA-256')
         self._check_identity(self.shape);self._verify_sources()
         self.model_sha256=_model_hash(model)
         if baseline_data.time!=0:raise ValueError('Frozen static baseline must have time zero')
@@ -232,20 +328,28 @@ class ManoSimStaticPoseAdapter:
             for name,j in zip(JOINT_NAMES,np.r_[self.slides,self.balls],strict=True))
 
     def _check_identity(self,identity):
-        expected=dict(schema_version='manosim_right_shape_asset_identity_v1',shape_asset_sha256=EXPECTED_SHAPE_SHA256,
+        expected=dict(schema_version='manosim_right_shape_asset_identity_v1',shape_asset_sha256=self.expected_shape_sha256,
             handedness='right',linear_units='m',upstream_revision=UPSTREAM_REVISION)
         if identity!=expected or self.sources.get('asset_shape_identity')!=expected:raise ValueError('Wrong shape/side/units/upstream identity')
 
     def _verify_sources(self):
         source=self.sources
-        if source.get('schema_version')!='manosim_static_source_asset_closure_v1':raise ValueError('Versioned source asset closure required')
+        version=source.get('schema_version')
+        if version not in ('manosim_static_source_asset_closure_v1','manosim_static_source_asset_closure_v2'):
+            raise ValueError('Versioned source asset closure required')
+        if version=='manosim_static_source_asset_closure_v2' and source.get('expected_shape_sha256')!=self.expected_shape_sha256:
+            raise ValueError('Generated closure expected shape differs from adapter protocol')
         for path,digest in source['absolute_files'].items():
             if _sha(path)!=digest:raise ValueError('Bound MANOSim source asset changed: '+path)
         portable={str(Path(path).relative_to(source['source_root'])):digest for path,digest in sorted(source['absolute_files'].items())}
         payload={key:source[key] for key in ('schema_version','upstream_revision','source_variant','xml_relative_path','asset_shape_identity')}
         payload['files']=portable
+        if version=='manosim_static_source_asset_closure_v2':
+            payload.update(expected_shape_sha256=source['expected_shape_sha256'],builder_provenance=source['builder_provenance'])
         if portable!=source['files'] or _json_hash(payload)!=source['closure_sha256']:raise ValueError('MANOSim source closure identity changed')
-        reconstructed=source_asset_closure(source['xml_path'],source['shape_asset_path'],source_root=source['source_root'],extra_source_paths=source['absolute_files'])
+        reconstructed=source_asset_closure(source['xml_path'],source['shape_asset_path'],source_root=source['source_root'],
+            extra_source_paths=source['absolute_files'],expected_shape_sha256=self.expected_shape_sha256,
+            builder_provenance=source.get('builder_provenance') if version=='manosim_static_source_asset_closure_v2' else None)
         if reconstructed['absolute_files']!=source['absolute_files'] or reconstructed['closure_sha256']!=source['closure_sha256']:
             raise ValueError('Source XML/asset dependency closure is incomplete')
         if hasattr(self,'_state') and hashlib.sha256(self._state.tobytes()).hexdigest()!=self.baseline_state_sha256:

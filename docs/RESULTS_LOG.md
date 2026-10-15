@@ -871,3 +871,16 @@ verify those generated assets before a separate native pose/surface audit.
 Upstream configuration values stay fixed; per-bone masses/inertias naturally
 recompute from the generated shape. No native build or follow-up audit has run
 at this entry. Collection/training remain paused; manuscript files are untouched.
+
+### 2026-10-15 — Literal exported-shape MANOSim build preparation
+
+Implemented a right-only upstream build transaction with one neutral MANO
+forward and no MuJoCo model/forward/step, generation, retargeting or training.
+107 combined manufactured checks pass (integration calls:0). Known cube/tetra
+mass properties qualify the installed Trimesh5.1.1 API. The read-only declaration
+`manosim_native_transfer_2026-10-15_v2/build_protocol.json` binds1832 source/input
+files (SHA14285bf11df570b69d76a479f327a6a25d233382e4c735bad64bac6cf8b44787).
+The first preparation exposed a nominalfloat64 versus nativefloat32 metadata
+assumption; it wrote no protocol and performed no build. The corrected code
+records the nominal conversion explicitly and keeps exported beta literal.
+Actual shape build and independent readback remain pending at this freeze.
