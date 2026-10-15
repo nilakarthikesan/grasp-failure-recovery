@@ -167,6 +167,16 @@ physical success. Historical surface results retain their original imported
 geometry; affected claims require separate validation on the corrected import.
 The target and scientific criteria are unchanged, all original results are
 preserved, and no physics, new inference, fitting, outcome data or training ran.
+
+A subsequent shared-loader check isolates RuntimeWarnings in mixed-precision
+matrix multiplication used to derive object collision bounds. An equivalent
+explicit float64 contraction passes all ten existing object preparations,
+versus eight before the change, with maximum scalar-arithmetic disagreement
+$1.39\times10^{-17}$\,m and unchanged geometry-content identities. Forty-seven
+static regressions pass, with one optional asset skip and two physics tests
+excluded. This numerical-path repair changes no geometry, controller or
+acceptance criterion and supplies no physical or generator-validity result.
+
 % END GFP SECTION mapping_common
 
 % BEGIN GFP SECTION hug

@@ -75,6 +75,28 @@ def test_geometry_identity_covers_mjcf_and_meshes_and_is_location_independent(as
         load_object_geometry(asset, expected_content_hash=first.content_hash)
 
 
+def test_collision_bounds_match_scalar_local_frame_arithmetic(asset):
+    # Mixed float32 mesh / float64 quaternion arithmetic must remain warning-free.
+    with np.errstate(all="raise"):
+        geometry = load_object_geometry(asset)
+    native = mujoco.MjModel.from_xml_path(str(asset))
+    points = []
+    for geom_id in geometry.collision_geom_indices:
+        mesh_id = int(native.geom_dataid[geom_id])
+        start = int(native.mesh_vertadr[mesh_id])
+        count = int(native.mesh_vertnum[mesh_id])
+        rotation = np.empty(9)
+        mujoco.mju_quat2Mat(rotation, native.geom_quat[geom_id])
+        rotation = rotation.reshape(3, 3)
+        for vertex in native.mesh_vert[start : start + count]:
+            points.append([
+                sum(float(rotation[i, j]) * float(vertex[j]) for j in range(3))
+                + float(native.geom_pos[geom_id, i]) for i in range(3)
+            ])
+    expected = [np.min(points, axis=0), np.max(points, axis=0)]
+    np.testing.assert_allclose(geometry.local_collision_bounds_m, expected, atol=1e-15, rtol=0)
+
+
 @pytest.mark.parametrize("kind", [AdroitShadowRunner, ActuatedShadowRunner], ids=["kinematic", "actuated"])
 def test_native_compound_geometry_and_inertial_frames_survive_import(asset, kind):
     geometry = load_object_geometry(asset)

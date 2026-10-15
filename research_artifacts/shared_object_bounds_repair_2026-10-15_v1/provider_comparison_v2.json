@@ -1,0 +1,366 @@
+{
+  "status": "STATIC_OBJECT_LOADER_COMPARISON_ONLY",
+  "source": {
+    "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/object_assets.py",
+    "sha256": "sha256:66a39d05d65278c1da886b8816a2fd928b271462dc81454aa87f7a87bfc9594b"
+  },
+  "candidate": {
+    "path": "/private/tmp/unidex_mapping_robustness_20261015_v1/shared_loader_fix/object_assets_candidate.py",
+    "sha256": "sha256:1013f25080b4affe676376cdb34f251aa1b4e59bdcfa5d6e08f1f1beea70a3b3"
+  },
+  "rows": [
+    {
+      "case_id": "apple_yaw17",
+      "geometry_path": "/private/tmp/unidex_mapping_robustness_20261015_v1/conditioning_inputs_v1/apple_yaw17/geometry/object.xml",
+      "current": {
+        "status": "FAIL",
+        "type": "RuntimeWarning",
+        "message": "divide by zero encountered in matmul",
+        "traceback": "Traceback (most recent call last):\n  File \"/private/tmp/unidex_mapping_robustness_20261015_v1/shared_loader_fix/diagnose_prepare_v2.py\", line 28, in <module>\n    value=module.load_object_geometry(path);row[key]={'status':'PASS','geometry_content_hash':value.content_hash,'bounds':value.local_collision_bounds_m}\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/object_assets.py\", line 178, in load_object_geometry\n    vertices.append(native.mesh_vert[start : start + count] @ rotation.reshape(3, 3).T\n                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~\nRuntimeWarning: divide by zero encountered in matmul\n"
+      },
+      "candidate": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:744ec02132a20129defe59048d1c3c6474e528ec276f717a5009ece8004d8c81",
+        "bounds": [
+          [
+            -0.039764270183352116,
+            -0.04372991999471229,
+            -0.04946770006673602
+          ],
+          [
+            0.04133056162490363,
+            0.04088018965776052,
+            0.042853940251986834
+          ]
+        ],
+        "max_scalar_bounds_error_m": 0.0
+      }
+    },
+    {
+      "case_id": "milk_box_yaw31",
+      "geometry_path": "/private/tmp/unidex_mapping_robustness_20261015_v1/conditioning_inputs_v1/milk_box_yaw31/geometry/object.xml",
+      "current": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:6548772aee0e79293f2b3450e97210d4aafb22d1cfd2a94efc3ebbf5f62a8eef",
+        "bounds": [
+          [
+            -0.030509651418481512,
+            -0.03462674895200687,
+            -0.07177472027184745
+          ],
+          [
+            0.030404488717346585,
+            0.034354880697246196,
+            0.07971393334391118
+          ]
+        ]
+      },
+      "candidate": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:6548772aee0e79293f2b3450e97210d4aafb22d1cfd2a94efc3ebbf5f62a8eef",
+        "bounds": [
+          [
+            -0.030509651418481512,
+            -0.03462674895200687,
+            -0.07177472027184745
+          ],
+          [
+            0.030404488717346585,
+            0.034354880697246196,
+            0.07971393334391116
+          ]
+        ],
+        "max_scalar_bounds_error_m": 1.3877787807814457e-17
+      }
+    },
+    {
+      "case_id": "mug_yaw_minus23",
+      "geometry_path": "/private/tmp/unidex_mapping_robustness_20261015_v1/conditioning_inputs_v1/mug_yaw_minus23/geometry/object.xml",
+      "current": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+        "bounds": [
+          [
+            -0.05275427951159283,
+            -0.07721527678140129,
+            -0.0582650116887372
+          ],
+          [
+            0.05228006092120505,
+            0.05629868068662499,
+            0.06729160324112261
+          ]
+        ]
+      },
+      "candidate": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:d304e4a2da69ce87e3a2a18293e1875df5f78dc84a985d02d7378a29c7aab657",
+        "bounds": [
+          [
+            -0.05275427951159283,
+            -0.07721527678140129,
+            -0.0582650116887372
+          ],
+          [
+            0.05228006092120505,
+            0.05629868068662499,
+            0.06729160324112261
+          ]
+        ],
+        "max_scalar_bounds_error_m": 0.0
+      }
+    },
+    {
+      "case_id": "salt_shaker_yaw47",
+      "geometry_path": "/private/tmp/unidex_mapping_robustness_20261015_v1/conditioning_inputs_v1/salt_shaker_yaw47/geometry/object.xml",
+      "current": {
+        "status": "FAIL",
+        "type": "RuntimeWarning",
+        "message": "divide by zero encountered in matmul",
+        "traceback": "Traceback (most recent call last):\n  File \"/private/tmp/unidex_mapping_robustness_20261015_v1/shared_loader_fix/diagnose_prepare_v2.py\", line 28, in <module>\n    value=module.load_object_geometry(path);row[key]={'status':'PASS','geometry_content_hash':value.content_hash,'bounds':value.local_collision_bounds_m}\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/object_assets.py\", line 178, in load_object_geometry\n    vertices.append(native.mesh_vert[start : start + count] @ rotation.reshape(3, 3).T\n                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~\nRuntimeWarning: divide by zero encountered in matmul\n"
+      },
+      "candidate": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:56e6166ca14e170a9989e448815c6cec6ebe0a6fd9b988c7cb9a3886ec201c41",
+        "bounds": [
+          [
+            -0.02592197066898746,
+            -0.026103829937972556,
+            -0.044440498743185314
+          ],
+          [
+            0.02590998074576379,
+            0.026093479987704518,
+            0.05113942968839845
+          ]
+        ],
+        "max_scalar_bounds_error_m": 6.938893903907228e-18
+      }
+    },
+    {
+      "case_id": "frustum_yaw13",
+      "geometry_path": "/private/tmp/unidex_mapping_robustness_20261015_v1/conditioning_inputs_v1/frustum_yaw13/geometry/object.xml",
+      "current": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:3ab86b359dde09785e25e73ba17d639e3b75a129faef2b93f8269f796a22d9b1",
+        "bounds": [
+          [
+            -0.024000000208616288,
+            -0.018999999389052415,
+            -0.03299999981397041
+          ],
+          [
+            0.024000000208616288,
+            0.018999999389052415,
+            0.032999999828401815
+          ]
+        ]
+      },
+      "candidate": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:3ab86b359dde09785e25e73ba17d639e3b75a129faef2b93f8269f796a22d9b1",
+        "bounds": [
+          [
+            -0.024000000208616288,
+            -0.018999999389052415,
+            -0.03299999981397041
+          ],
+          [
+            0.024000000208616288,
+            0.018999999389052415,
+            0.032999999828401815
+          ]
+        ],
+        "max_scalar_bounds_error_m": 0.0
+      }
+    },
+    {
+      "case_id": "ellipsoid_side_yaw29",
+      "geometry_path": "/private/tmp/unidex_mapping_robustness_20261015_v1/conditioning_inputs_v1/ellipsoid_side_yaw29/geometry/object.xml",
+      "current": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:2749ea8ac9a70d190098af9568b9e49b6a164f566ea6bdfb373720dc84741eb0",
+        "bounds": [
+          [
+            -0.034000001847744134,
+            -0.026000000536441914,
+            -0.021999999880790797
+          ],
+          [
+            0.03400000184774412,
+            0.0260000005364419,
+            0.021999999880790797
+          ]
+        ]
+      },
+      "candidate": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:2749ea8ac9a70d190098af9568b9e49b6a164f566ea6bdfb373720dc84741eb0",
+        "bounds": [
+          [
+            -0.034000001847744134,
+            -0.026000000536441914,
+            -0.021999999880790797
+          ],
+          [
+            0.03400000184774412,
+            0.0260000005364419,
+            0.021999999880790797
+          ]
+        ],
+        "max_scalar_bounds_error_m": 0.0
+      }
+    },
+    {
+      "case_id": "capsule_side_yaw41",
+      "geometry_path": "/private/tmp/unidex_mapping_robustness_20261015_v1/conditioning_inputs_v1/capsule_side_yaw41/geometry/object.xml",
+      "current": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:201497da58dd6dd4f7af04497940ee51640b4b7c612689c4a997e45d2529ec6f",
+        "bounds": [
+          [
+            -0.01600000075995922,
+            -0.01600000075995922,
+            -0.04800000041723251
+          ],
+          [
+            0.01600000075995922,
+            0.01600000075995922,
+            0.04800000041723251
+          ]
+        ]
+      },
+      "candidate": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:201497da58dd6dd4f7af04497940ee51640b4b7c612689c4a997e45d2529ec6f",
+        "bounds": [
+          [
+            -0.01600000075995922,
+            -0.01600000075995922,
+            -0.04800000041723251
+          ],
+          [
+            0.01600000075995922,
+            0.01600000075995922,
+            0.04800000041723251
+          ]
+        ],
+        "max_scalar_bounds_error_m": 0.0
+      }
+    },
+    {
+      "case_id": "cube35_size_control",
+      "geometry_path": "/private/tmp/unidex_mapping_robustness_20261015_v1/conditioning_inputs_v1/cube35_size_control/geometry/object.xml",
+      "current": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:55933f289ddb8d8ae0bb3cbb371e7e5d87fdcc2458b0564a16f79d26836691d4",
+        "bounds": [
+          [
+            -0.017500000074505806,
+            -0.017500000074505806,
+            -0.017500000074505806
+          ],
+          [
+            0.017500000074505806,
+            0.017500000074505806,
+            0.017500000074505806
+          ]
+        ]
+      },
+      "candidate": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:55933f289ddb8d8ae0bb3cbb371e7e5d87fdcc2458b0564a16f79d26836691d4",
+        "bounds": [
+          [
+            -0.017500000074505806,
+            -0.017500000074505806,
+            -0.017500000074505806
+          ],
+          [
+            0.017500000074505806,
+            0.017500000074505806,
+            0.017500000074505806
+          ]
+        ],
+        "max_scalar_bounds_error_m": 0.0
+      }
+    },
+    {
+      "case_id": "cube65_size_control",
+      "geometry_path": "/private/tmp/unidex_mapping_robustness_20261015_v1/conditioning_inputs_v1/cube65_size_control/geometry/object.xml",
+      "current": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:80f3dc75ea585082027039f5221083fb8391fba442722bdce51bf44336dfefbd",
+        "bounds": [
+          [
+            -0.032499998807907104,
+            -0.032499998807907104,
+            -0.032499998807907104
+          ],
+          [
+            0.032499998807907104,
+            0.032499998807907104,
+            0.032499998807907104
+          ]
+        ]
+      },
+      "candidate": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:80f3dc75ea585082027039f5221083fb8391fba442722bdce51bf44336dfefbd",
+        "bounds": [
+          [
+            -0.032499998807907104,
+            -0.032499998807907104,
+            -0.032499998807907104
+          ],
+          [
+            0.032499998807907104,
+            0.032499998807907104,
+            0.032499998807907104
+          ]
+        ],
+        "max_scalar_bounds_error_m": 0.0
+      }
+    },
+    {
+      "case_id": "cube50_yaw45_pose_control",
+      "geometry_path": "/private/tmp/unidex_mapping_robustness_20261015_v1/conditioning_inputs_v1/cube50_yaw45_pose_control/geometry/object.xml",
+      "current": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:90d40e7523713de0c634f79dbb0c7093d64472252a45e4ac88d6e30c5fe2aa39",
+        "bounds": [
+          [
+            -0.02500000037252903,
+            -0.02500000037252903,
+            -0.02500000037252903
+          ],
+          [
+            0.02500000037252903,
+            0.02500000037252903,
+            0.02500000037252903
+          ]
+        ]
+      },
+      "candidate": {
+        "status": "PASS",
+        "geometry_content_hash": "sha256:90d40e7523713de0c634f79dbb0c7093d64472252a45e4ac88d6e30c5fe2aa39",
+        "bounds": [
+          [
+            -0.02500000037252903,
+            -0.02500000037252903,
+            -0.02500000037252903
+          ],
+          [
+            0.02500000037252903,
+            0.02500000037252903,
+            0.02500000037252903
+          ]
+        ],
+        "max_scalar_bounds_error_m": 0.0
+      }
+    }
+  ],
+  "physics_steps": 0,
+  "model_calls": 0,
+  "shared_source_changed": false
+}

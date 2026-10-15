@@ -1,0 +1,19 @@
+{
+  "exit_code": 0,
+  "runtime": {
+    "numpy": "2.2.6",
+    "mujoco": "3.3.7"
+  },
+  "physics_apis_guarded": [
+    "mj_step",
+    "mj_step1",
+    "mj_step2",
+    "mj_integratePos"
+  ],
+  "tests": "object_assets and object_geometry_schema, excluding free_fall",
+  "sources": {
+    "src/grasp_failure_prediction/evaluation/object_assets.py": "1013f25080b4affe676376cdb34f251aa1b4e59bdcfa5d6e08f1f1beea70a3b3",
+    "tests/test_object_assets.py": "d4f6d11e75c468f5a32d980e9cd5934cb0c5a849757915d80948400abf8c09c1",
+    "tests/test_object_geometry_schema.py": "ceb631365160f6ca1e19cdeb021e6eb5d3fb0143fd192d9d6955ce1f249240ed"
+  }
+}

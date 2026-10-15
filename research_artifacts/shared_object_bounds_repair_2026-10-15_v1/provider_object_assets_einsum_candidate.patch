@@ -1,0 +1,15 @@
+--- a/src/grasp_failure_prediction/evaluation/object_assets.py
++++ b/src/grasp_failure_prediction/evaluation/object_assets.py
+@@ -175,8 +175,10 @@
+         start, count = int(native.mesh_vertadr[mesh_id]), int(native.mesh_vertnum[mesh_id])
+         rotation = np.empty(9)
+         mujoco.mju_quat2Mat(rotation, native.geom_quat[geom_id])
+-        vertices.append(native.mesh_vert[start : start + count] @ rotation.reshape(3, 3).T
+-                        + native.geom_pos[geom_id])
++        vertices.append(np.einsum(
++            "ij,nj->ni", rotation.reshape(3, 3),
++            native.mesh_vert[start : start + count].astype(np.float64), optimize=False,
++        ) + native.geom_pos[geom_id])
+     collision_vertices = np.concatenate(vertices)
+     if not np.all(np.isfinite(collision_vertices)):
+         raise ValueError("object collision geometry must be finite")

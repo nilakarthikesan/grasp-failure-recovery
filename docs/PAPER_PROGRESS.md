@@ -479,3 +479,11 @@ DGA practical-study compilation confirmed with the desktop compiler at whole-sou
 The existing canonical paper now distinguishes native skeleton import from collision approximation and cross-embodiment retargeting. On all 32 saved proposals, mean tip discrepancy is 0.453 mm native versus 6.428 mm Shadow; all 192 anatomical part/case surface means improve (balanced aggregate 1.463 versus 4.727 mm). Remaining proximity changes, including additional native 5 mm flags, prevent a complete contact-preservation claim. The paper records fixed-source numerical checks, 33 manufactured controls, scalar-only summary recovery, finite-sampling limits and the generator/hand confound. No new eval data, physics, inference, fits or training. Historical criteria/results and other provider sections remain preserved. [Report and evidence](HUG_NATIVE_MANO_COMPARISON.md). Desktop compilation is checked after the edit.
 
 Desktop compilation succeeded for the canonical working source SHA-256 `e856dbb09e6b9e0f0b5157d3bd70aa44a9505d461f22535492223877f7e198a8`; the guarded HUG subsection and compiler receipt are archived with this comparison.
+
+
+<!-- shared-object-bounds-repair-2026-10-15-v1 -->
+## 15 October 2026 — Shared numerical loader repair recorded
+
+The common mapping subsection now reports the equivalent bounds-contraction repair, 8/10 to 10/10 existing-object preparation and <=1.39e-17 m scalar-arithmetic disagreement. This remains an implementation reliability result, separate from anatomical/contact/physics validity. Forty-seven static tests pass; one optional asset test is skipped and two free-fall tests excluded. No new eval data. [Evidence](../research_artifacts/shared_object_bounds_repair_2026-10-15_v1/README.md).
+
+The canonical working paper compiled successfully at source SHA-256 `67979b5ecf37d0f2b870af003f4fcd8e72d490834cea404c4eba4874d51fb9bf`; the compiler and guarded section receipts are archived.
