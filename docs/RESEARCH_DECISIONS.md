@@ -2529,3 +2529,31 @@ unchanged with that limitation. Adapter code/tests are in development; candidate
 optimization and complete orientation certification remain unimplemented at this
 decision. More task data, simulator gap experiments and model training remain
 paused while mapping fidelity is unqualified.
+
+
+## 2026-10-15 — Freeze a current-scene full-field repair pilot
+
+Implemented prerequisites: the 17-control current-scene pose adapter and scoped
+actual-operand arithmetic replay are complete. The latter finds no halfspace
+predicate disagreement across four saved poses; preserve the old warning-bearing
+run and change only three diagnosed products in a new kernel. This is arithmetic
+consistency evidence, not native fidelity or a blanket distance certificate.
+
+Choice: run one predeclared two-case, two-round full-field constraint-exchange
+pilot, with at most five complete field checkpoints, 1500 static forwards and
+600 seconds per case. Bind current source, original native poses/caps/domain,
+all full-grid queries, saved exact orientation witnesses and a source-verified
+original-baseline replay. Keep repaired relationships protected in subsequent
+steps. Only an increase in preserved relationships counts as relationship repair;
+failure-to-ambiguity or margin-only changes are separately labeled search progress.
+The 1 nm inward restoration/local-QP target is a new search parameter that tightens
+the target; no tolerance is added to the literal tip caps or surface acceptance.
+Full continuous orientation is unproved, so no candidate can become a production
+fidelity PASS through this pilot. The old binary contributes only the immutable
+object visual reference for orientation; target hand geometry is always current.
+
+Protocol93ef6696 binds 348 inputs/sources. The new combined 55 controls pass in
+4.07 s with zero integration calls; manufactured optimizer returns are distinct
+from real native mapping optimization. Actual optimization has not run at this
+freeze. Further task collection, predictor training and manuscript edits remain
+outside this stage.

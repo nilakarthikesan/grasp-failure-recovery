@@ -27,8 +27,10 @@ previously passing relationships. Both fail; overlapping tuple counts are not
 independent contacts. The static current-scene 30D pose adapter passes 17 controls
 including independent source FK, all-column Jacobians, saved-root replay and
 object/state invariance. It supplies a qualified numerical interface for a new
-bounded repair, not a fidelity result. The full-field run's matmul warnings
-remain explicit pending actual-operand arithmetic replay. Task collection and
+bounded repair, not a fidelity result. Actual-operand replay traced the warnings
+to checked halfspace operations: independent arithmetic agreed within 5.55e-17 m
+with no predicate disagreements. The new kernel changes only those three products;
+this does not certify all distance calculations. Task collection and
 model training remain paused.
 
 ## Beginning of the system: decision and evidence boundary

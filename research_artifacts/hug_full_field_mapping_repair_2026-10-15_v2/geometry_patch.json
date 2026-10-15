@@ -1,0 +1,27 @@
+{
+  "schema_version": "hug_three_halfspace_einsum_patch_v1",
+  "source_path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_full_field_mapping_repair_2026-10-15_v1/source_snapshots/audit_other_surfaces.py",
+  "source_sha256": "b235f8b88b5ecb0fc2bc842c3fdb4a17d4c2eb526f321a449169dcbc3cc27bdd",
+  "substitutions": [
+    {
+      "before": "vertices@h.equations[:,:3].T+h.equations[:,3]",
+      "after": "np.einsum('ij,kj->ik',vertices,h.equations[:,:3],optimize=False)+h.equations[:,3]",
+      "count": 1
+    },
+    {
+      "before": "vertices@eq[:,:3].T+eq[:,3]",
+      "after": "np.einsum('ij,kj->ik',vertices,eq[:,:3],optimize=False)+eq[:,3]",
+      "count": 1
+    },
+    {
+      "before": "inn=np.max(p@g['equations'][:,:3].T+g['equations'][:,3],axis=1)<=1e-10",
+      "after": "inn=np.max(np.einsum('ij,kj->ik',p,g['equations'][:,:3],optimize=False)+g['equations'][:,3],axis=1)<=1e-10",
+      "count": 1
+    }
+  ],
+  "append": "\n\n# v2 injection changes only the three independently replayed halfspace products.\ndef install(base):\n    if hashlib.sha256(Path(base.__file__).read_bytes()).hexdigest() != 'b235f8b88b5ecb0fc2bc842c3fdb4a17d4c2eb526f321a449169dcbc3cc27bdd':\n        raise ValueError('Unsigned-distance base source differs from diagnosed snapshot')\n    for name in ('hull','geom_rep','geom_query'):\n        setattr(base,name,globals()[name])\n    return base\n",
+  "output_sha256": "9d160f07e7e15acdd3199835f10fc2c9ccbd452cd6632330ecd7ca895bcba259",
+  "diagnostic_report": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_matmul_diagnosis_2026-10-15_v1/run_v1/report.json",
+  "diagnostic_report_sha256": "7cd1edd7b07a9820a6ce29fef761d0f393edc5c033130aad43857ae1954df9f8",
+  "scope": "Only hull assertion, hull residual metadata and mesh inside-mask halfspace products. All geometric definitions and thresholds retained. Other kernels not certified by this arithmetic diagnosis."
+}

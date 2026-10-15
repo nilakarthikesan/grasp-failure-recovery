@@ -1,0 +1,133 @@
+{
+  "all_actual_arithmetic_bounds_below_float64_max": true,
+  "all_actual_operands_finite": true,
+  "all_actual_outputs_finite": true,
+  "artifacts": {
+    "research_artifacts/hug_mapping_matmul_diagnosis_2026-10-15_v1/run_v1/actual_matrices.json.gz": {
+      "bytes": 1747091,
+      "sha256": "78761a78b373043684e606c03e060616df0c30ab47447c016883670e3faacdb0"
+    },
+    "research_artifacts/hug_mapping_matmul_diagnosis_2026-10-15_v1/run_v1/manufactured_controls.json": {
+      "bytes": 41802,
+      "sha256": "f218e2a7a25736a424a9343e835f2735eaf27c4a708f80110c84f99907cc39a9"
+    },
+    "research_artifacts/hug_mapping_matmul_diagnosis_2026-10-15_v1/run_v1/report.json": {
+      "bytes": 4331,
+      "sha256": "7cd1edd7b07a9820a6ce29fef761d0f393edc5c033130aad43857ae1954df9f8"
+    }
+  },
+  "bindings_verified": 217,
+  "freeze_commit": "8b1dddef10fbc39b45b9e2d132b5dcacd229d4af",
+  "inference": "For these actual finite bounded operands, all halfspace outputs and predicates agree to ordinary floating-point rounding despite BLAS warning flags. This supports a warning-status/runtime explanation at the checked sites, not an unbounded claim about NumPy or other kernels.",
+  "new_distance_queries": 0,
+  "new_inference_or_retarget_or_training": 0,
+  "new_scene_forwards": 0,
+  "next_kernel": "New v2 source may use explicit optimize=False einsum for these three-term halfspaces, retaining finite/unit-normal checks and literal predicates. Preserve the old source/run. No distance-field or mapping-fidelity PASS follows from this receipt.",
+  "schema_version": "hug_halfspace_postrun_readback_v1",
+  "sites": {
+    "old_kernel_line104_mesh_metadata": {
+      "arithmetic_absolute_bound_m": 0.48003864381649014,
+      "einsum_warnings": [],
+      "exact_output_disagreements": 23966832,
+      "hull_predicate_disagreements": 0,
+      "inside_mask_disagreements": 0,
+      "matmul_warnings": [
+        {
+          "category": "RuntimeWarning",
+          "count": 48,
+          "message": "divide by zero encountered in matmul"
+        },
+        {
+          "category": "RuntimeWarning",
+          "count": 48,
+          "message": "invalid value encountered in matmul"
+        },
+        {
+          "category": "RuntimeWarning",
+          "count": 48,
+          "message": "overflow encountered in matmul"
+        }
+      ],
+      "matrices": 48,
+      "max_einsum_scalar_difference_m": 1.3877787807814457e-17,
+      "max_matmul_einsum_difference_m": 2.7755575615628914e-17,
+      "max_matmul_scalar_difference_m": 1.3877787807814457e-17,
+      "normal_length_max_error": 3.3306690738754696e-16,
+      "normals_max_abs": 1.0,
+      "offsets_max_abs_m": 0.12000914757870007,
+      "outputs": 129116776,
+      "points_max_abs_m": 0.12000983208417892,
+      "scalar_sample_count": 768
+    },
+    "old_kernel_line128_query": {
+      "arithmetic_absolute_bound_m": 0.6400540079033397,
+      "einsum_warnings": [],
+      "exact_output_disagreements": 600156034,
+      "hull_predicate_disagreements": 0,
+      "inside_mask_disagreements": 0,
+      "matmul_warnings": [
+        {
+          "category": "RuntimeWarning",
+          "count": 5566,
+          "message": "divide by zero encountered in matmul"
+        },
+        {
+          "category": "RuntimeWarning",
+          "count": 5566,
+          "message": "invalid value encountered in matmul"
+        },
+        {
+          "category": "RuntimeWarning",
+          "count": 5566,
+          "message": "overflow encountered in matmul"
+        }
+      ],
+      "matrices": 5566,
+      "max_einsum_scalar_difference_m": 5.551115123125783e-17,
+      "max_matmul_einsum_difference_m": 5.551115123125783e-17,
+      "max_matmul_scalar_difference_m": 5.551115123125783e-17,
+      "normal_length_max_error": 3.3306690738754696e-16,
+      "normals_max_abs": 1.0,
+      "offsets_max_abs_m": 0.025224727879446386,
+      "outputs": 2111730280,
+      "points_max_abs_m": 0.20494630556004384,
+      "scalar_sample_count": 89056
+    },
+    "old_kernel_line40_hull": {
+      "arithmetic_absolute_bound_m": 0.48003864381649014,
+      "einsum_warnings": [],
+      "exact_output_disagreements": 23966832,
+      "hull_predicate_disagreements": 0,
+      "inside_mask_disagreements": 0,
+      "matmul_warnings": [
+        {
+          "category": "RuntimeWarning",
+          "count": 48,
+          "message": "divide by zero encountered in matmul"
+        },
+        {
+          "category": "RuntimeWarning",
+          "count": 48,
+          "message": "invalid value encountered in matmul"
+        },
+        {
+          "category": "RuntimeWarning",
+          "count": 48,
+          "message": "overflow encountered in matmul"
+        }
+      ],
+      "matrices": 96,
+      "max_einsum_scalar_difference_m": 1.3877787807814457e-17,
+      "max_matmul_einsum_difference_m": 2.7755575615628914e-17,
+      "max_matmul_scalar_difference_m": 1.3877787807814457e-17,
+      "normal_length_max_error": 3.3306690738754696e-16,
+      "normals_max_abs": 1.0,
+      "offsets_max_abs_m": 0.12000914757870007,
+      "outputs": 129121384,
+      "points_max_abs_m": 0.12000983208417892,
+      "scalar_sample_count": 1536
+    }
+  },
+  "transform_max_difference": 1.1102230246251565e-16,
+  "transform_warning_count": 0
+}

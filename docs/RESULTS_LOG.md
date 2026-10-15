@@ -722,3 +722,38 @@ threshold, cap, dataset, controller or paper is rewritten. The previous capped-r
 improvements cannot be promoted as a full-field faithful mapping. Current-scene
 pose-adapter qualification and a separately bounded full-field exchange repair
 are subsequent work; no production collection or predictor training resumes.
+
+
+## 15 October 2026 — Actual halfspace arithmetic replay and pose-adapter controls
+
+Frozen 8b1ddde executes the declared operand replay once in 19.24 s: four saved
+poses, six static forwards, zero physics/inference/retarget/distance-query or
+training calls. All 2,369,968,440 halfspace outputs across 5,710 matrices are
+finite. Matmul and nonoptimized einsum differ by at most 5.55e-17 m; 91,360 fixed
+scalar-reference samples agree within the same bound. No inside-mask or hull
+predicate disagrees. Matmul emits each of its divide/overflow/invalid warnings
+5,662 times; einsum emits none. The 217 bound files pass post-run readback.
+Evidence: research_artifacts/hug_mapping_matmul_diagnosis_2026-10-15_v1/.
+
+This supports replacing only the three diagnosed halfspace products in a new
+version's mathematical kernel. It does not certify all distance fields, unknown
+normal regions or mapping fidelity. The old source/run remain unchanged. The
+new kernel's exact three substitutions and base/output hashes are declared in
+the separate v2 geometry_patch.json; physical geometry and thresholds do not
+change. Other operations retain their original arithmetic.
+
+The current-scene SurfacePoseAdapter independently passes 17 controls in 1.04 s,
+zero integration calls: current imported hand versus source XML FK, all 30
+Jacobian columns at nonzero wrist/finger/root rotation, literal joint/domain
+bounds, exact saved named-root replay, A–B–A and full non-hand state invariance.
+Original native targets and historical caps are copied literally. A world-body
+selection mistake in a strengthened test was corrected before the final peer
+and root checks; the numerical tolerances were unchanged. Receipt:
+research_artifacts/hug_mapping_admission_2026-10-15_v1/surface_pose_controls.json.
+
+These controls qualify a numerical pose interface and scoped arithmetic repair,
+not a faithful HUG-to-Shadow grasp. A separately frozen two-round full-field
+constraint-exchange pilot is being prepared. It preserves all original and
+newly passing measured relationships, literal caps and retained orientation
+eligibility. Turning a definite failure into ambiguity is not labeled a repaired
+relationship. No task rollout, new HUG generation or predictor training resumes.

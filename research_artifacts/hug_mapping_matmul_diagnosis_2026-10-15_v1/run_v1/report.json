@@ -1,0 +1,107 @@
+{
+  "actual": {
+    "arithmetic_absolute_bound_m": 0.6400540079033397,
+    "einsum_warnings": [],
+    "exact_output_disagreements": 648089698,
+    "hull_predicate_disagreements": 0,
+    "inside_mask_disagreements": 0,
+    "matmul_warnings": [
+      {
+        "category": "RuntimeWarning",
+        "count": 5662,
+        "message": "divide by zero encountered in matmul"
+      },
+      {
+        "category": "RuntimeWarning",
+        "count": 5662,
+        "message": "invalid value encountered in matmul"
+      },
+      {
+        "category": "RuntimeWarning",
+        "count": 5662,
+        "message": "overflow encountered in matmul"
+      }
+    ],
+    "matrices": 5710,
+    "max_einsum_scalar_difference_m": 5.551115123125783e-17,
+    "max_matmul_einsum_difference_m": 5.551115123125783e-17,
+    "max_matmul_scalar_difference_m": 5.551115123125783e-17,
+    "normal_length_max_error": 3.3306690738754696e-16,
+    "normals_max_abs": 1.0,
+    "offsets_max_abs_m": 0.12000914757870007,
+    "outputs": 2369968440,
+    "points_max_abs_m": 0.20494630556004384,
+    "scalar_sample_count": 91360
+  },
+  "controls": {
+    "arithmetic_absolute_bound_m": 0.6989826004627451,
+    "einsum_warnings": [],
+    "exact_output_disagreements": 61617,
+    "hull_predicate_disagreements": 0,
+    "inside_mask_disagreements": 0,
+    "matmul_warnings": [
+      {
+        "category": "RuntimeWarning",
+        "count": 12,
+        "message": "divide by zero encountered in matmul"
+      },
+      {
+        "category": "RuntimeWarning",
+        "count": 12,
+        "message": "invalid value encountered in matmul"
+      },
+      {
+        "category": "RuntimeWarning",
+        "count": 12,
+        "message": "overflow encountered in matmul"
+      }
+    ],
+    "matrices": 15,
+    "max_einsum_scalar_difference_m": 5.551115123125783e-17,
+    "max_matmul_einsum_difference_m": 1.1102230246251565e-16,
+    "max_matmul_scalar_difference_m": 5.551115123125783e-17,
+    "normal_length_max_error": 2.220446049250313e-16,
+    "normals_max_abs": 1.0,
+    "offsets_max_abs_m": 0.09982422086412744,
+    "outputs": 442528,
+    "points_max_abs_m": 0.19999077788495115,
+    "scalar_sample_count": 128
+  },
+  "counts": {
+    "distance_queries": 0,
+    "forwards": 6,
+    "inference_calls": 0,
+    "physics_steps": 0,
+    "retarget_solves": 0,
+    "training_calls": 0
+  },
+  "distance_replay": false,
+  "elapsed_s": 19.2404571659863,
+  "failure": null,
+  "freeze_commit": "8b1dddef10fbc39b45b9e2d132b5dcacd229d4af",
+  "interpretation": "This checks these halfspace operands only; returned distance fields and other kernels are not certified.",
+  "mapping_acceptance": false,
+  "numpy_configuration": "Build Dependencies:\n  blas:\n    detection method: system\n    found: true\n    include directory: unknown\n    lib directory: unknown\n    name: accelerate\n    openblas configuration: unknown\n    pc file directory: unknown\n    version: unknown\n  lapack:\n    detection method: system\n    found: true\n    include directory: unknown\n    lib directory: unknown\n    name: accelerate\n    openblas configuration: unknown\n    pc file directory: unknown\n    version: unknown\nCompilers:\n  c:\n    commands: cc\n    linker: ld64\n    name: clang\n    version: 15.0.0\n  c++:\n    commands: c++\n    linker: ld64\n    name: clang\n    version: 15.0.0\n  cython:\n    commands: cython\n    linker: cython\n    name: cython\n    version: 3.1.0\nMachine Information:\n  build:\n    cpu: aarch64\n    endian: little\n    family: aarch64\n    system: darwin\n  host:\n    cpu: aarch64\n    endian: little\n    family: aarch64\n    system: darwin\nPython Information:\n  path: /private/var/folders/w5/_8wgjw3j5cg6mgrth3s2kg9m0000gn/T/build-env-xniqzs4k/bin/python\n  version: '3.12'\nSIMD Extensions:\n  baseline:\n  - NEON\n  - NEON_FP16\n  - NEON_VFPV4\n  - ASIMD\n  found:\n  - ASIMDHP\n  not found:\n  - ASIMDFHM\n\n",
+  "poses_completed": [
+    [
+      20,
+      "original_20"
+    ],
+    [
+      20,
+      "experimental_20"
+    ],
+    [
+      28,
+      "original_28"
+    ],
+    [
+      28,
+      "experimental_28"
+    ]
+  ],
+  "poses_not_run_or_partial": [],
+  "protocol_sha256": "2e3d56734a6d708579992e6eb7ae3c5d1e89bc86b009fe91d8182413c2ab54ce",
+  "schema_version": "hug_actual_halfspace_matmul_diagnosis_v1",
+  "status": "COMPLETED_BOUNDED_OPERAND_DIAGNOSTIC"
+}
