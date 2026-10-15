@@ -1,0 +1,2258 @@
+{
+  "schema": "hug_saved_camera_projection_v1",
+  "protocol_sha256": "2ee4a847d274e890a1ae50aa19ec6db250500033d2fadd5c8331125f78eb3c3f",
+  "case_count": 32,
+  "counts": {
+    "physics_steps": 0,
+    "static_forwards": 32,
+    "new_inference": 0,
+    "new_retargeting": 0
+  },
+  "cases": [
+    {
+      "index": 0,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_000_seed_0/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_000_seed_0",
+      "object_id": "object01",
+      "seed": 0,
+      "observation_group_id": "sha256:fe111bc8591b8ba7bc0b23a4c14f9357a86482e216956587bf0c28bceddd22b9",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 4.6049053459285005e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.5959455978986625e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.2823715514496143e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 4,
+            "in_front_of_scene_by_over_allowance": 17,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 7,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.734723475976807e-16,
+          "projection_world_roundtrip_max_abs_px": 9.947598300641403e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.86386176387532e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 160,
+            "in_front_of_scene_by_over_allowance": 615,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 276,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 1,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_000_seed_1/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_000_seed_1",
+      "object_id": "object01",
+      "seed": 1,
+      "observation_group_id": "sha256:fe111bc8591b8ba7bc0b23a4c14f9357a86482e216956587bf0c28bceddd22b9",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 3.192298658749593e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.6306400674181987e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.3101660221745988e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 3,
+            "in_front_of_scene_by_over_allowance": 18,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 6,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.734723475976807e-16,
+          "projection_world_roundtrip_max_abs_px": 1.1368683772161603e-13,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.900237032894438e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 137,
+            "in_front_of_scene_by_over_allowance": 633,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 256,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 2,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_000_seed_2/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_000_seed_2",
+      "object_id": "object01",
+      "seed": 2,
+      "observation_group_id": "sha256:fe111bc8591b8ba7bc0b23a4c14f9357a86482e216956587bf0c28bceddd22b9",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 3.627410849471602e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.6132928326584306e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.329547553221346e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 4,
+            "in_front_of_scene_by_over_allowance": 17,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 8,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.734723475976807e-16,
+          "projection_world_roundtrip_max_abs_px": 1.1368683772161603e-13,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.917018233323688e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 161,
+            "in_front_of_scene_by_over_allowance": 606,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 290,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 3,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_000_seed_3/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_000_seed_3",
+      "object_id": "object01",
+      "seed": 3,
+      "observation_group_id": "sha256:fe111bc8591b8ba7bc0b23a4c14f9357a86482e216956587bf0c28bceddd22b9",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 2.4082122962454378e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.5959455978986625e-16,
+          "projection_world_roundtrip_max_abs_px": 7.105427357601002e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.4055063338200853e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 4,
+            "in_front_of_scene_by_over_allowance": 16,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 8,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.8041124150158794e-16,
+          "projection_world_roundtrip_max_abs_px": 9.947598300641403e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.973256923472945e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 169,
+            "in_front_of_scene_by_over_allowance": 600,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 300,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 4,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_001_seed_0/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_001_seed_0",
+      "object_id": "object01",
+      "seed": 0,
+      "observation_group_id": "sha256:7b4f11757e0b380940b3e457db8fb0c3d0fd1a2ac257010d6cf193b9912ef516",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 6.426823084826339e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.5959455978986625e-16,
+          "projection_world_roundtrip_max_abs_px": 7.105427357601002e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.3145623490327125e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 4,
+            "in_front_of_scene_by_over_allowance": 17,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 8,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.734723475976807e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.972010006236815e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 160,
+            "in_front_of_scene_by_over_allowance": 616,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 290,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 5,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_001_seed_1/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_001_seed_1",
+      "object_id": "object01",
+      "seed": 1,
+      "observation_group_id": "sha256:7b4f11757e0b380940b3e457db8fb0c3d0fd1a2ac257010d6cf193b9912ef516",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 1.0554390217354381e-07
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.6653345369377348e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.264404682568056e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 3,
+            "in_front_of_scene_by_over_allowance": 18,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 7,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.5265566588595902e-16,
+          "projection_world_roundtrip_max_abs_px": 9.947598300641403e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.940720603168302e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 139,
+            "in_front_of_scene_by_over_allowance": 634,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 267,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 6,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_001_seed_2/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_001_seed_2",
+      "object_id": "object01",
+      "seed": 2,
+      "observation_group_id": "sha256:7b4f11757e0b380940b3e457db8fb0c3d0fd1a2ac257010d6cf193b9912ef516",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 1.8511669142018405e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.1796119636642288e-16,
+          "projection_world_roundtrip_max_abs_px": 7.105427357601002e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.4061893643411167e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 4,
+            "in_front_of_scene_by_over_allowance": 17,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 9,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.3183898417423734e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 4.080568317021971e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 155,
+            "in_front_of_scene_by_over_allowance": 609,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 321,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 7,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_001_seed_3/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_001_seed_3",
+      "object_id": "object01",
+      "seed": 3,
+      "observation_group_id": "sha256:7b4f11757e0b380940b3e457db8fb0c3d0fd1a2ac257010d6cf193b9912ef516",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 5.7426681410177594e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 9.71445146547012e-17,
+          "projection_world_roundtrip_max_abs_px": 5.684341886080802e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.4647200379822607e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 3,
+            "in_front_of_scene_by_over_allowance": 18,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 8,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.8041124150158794e-16,
+          "projection_world_roundtrip_max_abs_px": 9.947598300641403e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 4.100204478163505e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 160,
+            "in_front_of_scene_by_over_allowance": 610,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 298,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 8,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_0/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_0",
+      "object_id": "hug_apple",
+      "seed": 0,
+      "observation_group_id": "sha256:26705a9bdce55bc69c741c7f8491175085fb3fb93eceb84e24c69e4120dc28b6",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 3.3306690738754696e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 8.243694904486176e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.5612511283791264e-16,
+          "projection_world_roundtrip_max_abs_px": 7.105427357601002e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 2.8086428756068926e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 4,
+            "in_front_of_scene_by_over_allowance": 17,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 7,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.448494102440634e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.316905491601574e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 155,
+            "in_front_of_scene_by_over_allowance": 623,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 256,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 9,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_1/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_1",
+      "object_id": "hug_apple",
+      "seed": 1,
+      "observation_group_id": "sha256:26705a9bdce55bc69c741c7f8491175085fb3fb93eceb84e24c69e4120dc28b6",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 3.3306690738754696e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 3.8009492941970535e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.1102230246251565e-16,
+          "projection_world_roundtrip_max_abs_px": 4.263256414560601e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 2.75682791084364e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 4,
+            "in_front_of_scene_by_over_allowance": 17,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 7,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.4224732503009818e-16,
+          "projection_world_roundtrip_max_abs_px": 7.105427357601002e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.266343128416338e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 144,
+            "in_front_of_scene_by_over_allowance": 634,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 241,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 10,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_2/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_2",
+      "object_id": "hug_apple",
+      "seed": 2,
+      "observation_group_id": "sha256:26705a9bdce55bc69c741c7f8491175085fb3fb93eceb84e24c69e4120dc28b6",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 3.3306690738754696e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 3.332186293558692e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.6306400674181987e-16,
+          "projection_world_roundtrip_max_abs_px": 7.105427357601002e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 2.8248217063264747e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 4,
+            "in_front_of_scene_by_over_allowance": 17,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 8,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.4137996329210978e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.3383691402377735e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 155,
+            "in_front_of_scene_by_over_allowance": 622,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 271,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 11,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_3/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_002_seed_3",
+      "object_id": "hug_apple",
+      "seed": 3,
+      "observation_group_id": "sha256:26705a9bdce55bc69c741c7f8491175085fb3fb93eceb84e24c69e4120dc28b6",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 3.3306690738754696e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 4.34114957315046e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.249000902703301e-16,
+          "projection_world_roundtrip_max_abs_px": 5.684341886080802e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 2.8960127167465544e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 5,
+            "in_front_of_scene_by_over_allowance": 16,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 9,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.3877787807814457e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.386916233694137e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 167,
+            "in_front_of_scene_by_over_allowance": 611,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 281,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 12,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_0/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_0",
+      "object_id": "hug_apple",
+      "seed": 0,
+      "observation_group_id": "sha256:c6fbd5c38ae501c3452ad2b596e1d5d0c61fb46304df0ab43590cf7720fc613c",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 4.5886048960497305e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.942890293094024e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.090175994202582e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 4,
+            "in_front_of_scene_by_over_allowance": 17,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 8,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 2.2898349882893854e-16,
+          "projection_world_roundtrip_max_abs_px": 1.2789769243681803e-13,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.7183924632699927e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 162,
+            "in_front_of_scene_by_over_allowance": 616,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 283,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 13,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_1/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_1",
+      "object_id": "hug_apple",
+      "seed": 1,
+      "observation_group_id": "sha256:c6fbd5c38ae501c3452ad2b596e1d5d0c61fb46304df0ab43590cf7720fc613c",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 9.478445073263231e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.3183898417423734e-16,
+          "projection_world_roundtrip_max_abs_px": 7.105427357601002e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.073377968121349e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 4,
+            "in_front_of_scene_by_over_allowance": 17,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 8,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 2.2898349882893854e-16,
+          "projection_world_roundtrip_max_abs_px": 1.2789769243681803e-13,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.7150607852254325e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 172,
+            "in_front_of_scene_by_over_allowance": 601,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 301,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 14,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_2/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_2",
+      "object_id": "hug_apple",
+      "seed": 2,
+      "observation_group_id": "sha256:c6fbd5c38ae501c3452ad2b596e1d5d0c61fb46304df0ab43590cf7720fc613c",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 6.145100228671652e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.6653345369377348e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.144614225902842e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 5,
+            "in_front_of_scene_by_over_allowance": 16,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 9,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 2.1510571102112408e-16,
+          "projection_world_roundtrip_max_abs_px": 1.1368683772161603e-13,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.7936902685942187e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 165,
+            "in_front_of_scene_by_over_allowance": 612,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 313,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 15,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_3/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs/proposals/scene_003_seed_3",
+      "object_id": "hug_apple",
+      "seed": 3,
+      "observation_group_id": "sha256:c6fbd5c38ae501c3452ad2b596e1d5d0c61fb46304df0ab43590cf7720fc613c",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 5.3738710814599244e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.3183898417423734e-16,
+          "projection_world_roundtrip_max_abs_px": 7.105427357601002e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.2310258859524765e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 5,
+            "in_front_of_scene_by_over_allowance": 16,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 9,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 2.0816681711721685e-16,
+          "projection_world_roundtrip_max_abs_px": 1.2789769243681803e-13,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.844212528747448e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 168,
+            "in_front_of_scene_by_over_allowance": 609,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 309,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 16,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_0/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_0",
+      "object_id": "hug_milk_box",
+      "seed": 0,
+      "observation_group_id": "sha256:d289acefecbfa26ba895e1446bdbe74898442d3d8ea1840dc65f46e6c32208bb",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 3.3232548046768784e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.1102230246251565e-16,
+          "projection_world_roundtrip_max_abs_px": 5.684341886080802e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.357696670036603e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 5,
+            "in_front_of_scene_by_over_allowance": 16,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 9,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.5265566588595902e-16,
+          "projection_world_roundtrip_max_abs_px": 9.947598300641403e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 4.040242146174933e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 203,
+            "in_front_of_scene_by_over_allowance": 572,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 299,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 17,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_1/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_1",
+      "object_id": "hug_milk_box",
+      "seed": 1,
+      "observation_group_id": "sha256:d289acefecbfa26ba895e1446bdbe74898442d3d8ea1840dc65f46e6c32208bb",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 7.061509976757918e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.8214596497756474e-16,
+          "projection_world_roundtrip_max_abs_px": 7.105427357601002e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.319495647247095e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 5,
+            "in_front_of_scene_by_over_allowance": 16,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 9,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.457167719820518e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 4.023847424150517e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 185,
+            "in_front_of_scene_by_over_allowance": 592,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 274,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 18,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_2/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_2",
+      "object_id": "hug_milk_box",
+      "seed": 2,
+      "observation_group_id": "sha256:d289acefecbfa26ba895e1446bdbe74898442d3d8ea1840dc65f46e6c32208bb",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 8.098855142080197e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.4224732503009818e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.4294952513391763e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 6,
+            "in_front_of_scene_by_over_allowance": 15,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 10,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.474514954580286e-16,
+          "projection_world_roundtrip_max_abs_px": 9.947598300641403e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 4.1067250720061566e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 193,
+            "in_front_of_scene_by_over_allowance": 583,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 312,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 19,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_3/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_000_seed_3",
+      "object_id": "hug_milk_box",
+      "seed": 3,
+      "observation_group_id": "sha256:d289acefecbfa26ba895e1446bdbe74898442d3d8ea1840dc65f46e6c32208bb",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 4.5039961205084467e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.6306400674181987e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.454624703636e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 6,
+            "in_front_of_scene_by_over_allowance": 15,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 10,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.4224732503009818e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 4.11872338190733e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 215,
+            "in_front_of_scene_by_over_allowance": 562,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 346,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 20,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_0/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_0",
+      "object_id": "hug_milk_box",
+      "seed": 0,
+      "observation_group_id": "sha256:1301c8e97e16409a8209c8053047a9d03d337fb696552b5bc541e2ac51e1b6c0",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 6.797970364402772e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.8041124150158794e-16,
+          "projection_world_roundtrip_max_abs_px": 9.947598300641403e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.3702187067774503e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 7,
+            "in_front_of_scene_by_over_allowance": 14,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 10,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.6653345369377348e-16,
+          "projection_world_roundtrip_max_abs_px": 1.1368683772161603e-13,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 4.116324845426789e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 215,
+            "in_front_of_scene_by_over_allowance": 553,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 324,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 21,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_1/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_1",
+      "object_id": "hug_milk_box",
+      "seed": 1,
+      "observation_group_id": "sha256:1301c8e97e16409a8209c8053047a9d03d337fb696552b5bc541e2ac51e1b6c0",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 3.646334789664252e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.249000902703301e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.3307103848301267e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 6,
+            "in_front_of_scene_by_over_allowance": 15,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 10,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.734723475976807e-16,
+          "projection_world_roundtrip_max_abs_px": 1.1368683772161603e-13,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 4.141060259144069e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 214,
+            "in_front_of_scene_by_over_allowance": 557,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 330,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 22,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_2/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_2",
+      "object_id": "hug_milk_box",
+      "seed": 2,
+      "observation_group_id": "sha256:1301c8e97e16409a8209c8053047a9d03d337fb696552b5bc541e2ac51e1b6c0",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 1.1330594906766578e-07
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.5265566588595902e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.426877128731576e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 6,
+            "in_front_of_scene_by_over_allowance": 15,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 10,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.8041124150158794e-16,
+          "projection_world_roundtrip_max_abs_px": 1.1368683772161603e-13,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 4.193781080630288e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 219,
+            "in_front_of_scene_by_over_allowance": 553,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 367,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 23,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_3/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_001_seed_3",
+      "object_id": "hug_milk_box",
+      "seed": 3,
+      "observation_group_id": "sha256:1301c8e97e16409a8209c8053047a9d03d337fb696552b5bc541e2ac51e1b6c0",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 5.969658700699654e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.231653667943533e-16,
+          "projection_world_roundtrip_max_abs_px": 7.105427357601002e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.5073716162514756e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 6,
+            "in_front_of_scene_by_over_allowance": 15,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 10,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.8735013540549517e-16,
+          "projection_world_roundtrip_max_abs_px": 1.0658141036401503e-13,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 4.243272201165382e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 216,
+            "in_front_of_scene_by_over_allowance": 554,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 371,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 24,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_0/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_0",
+      "object_id": "hug_mug",
+      "seed": 0,
+      "observation_group_id": "sha256:25ac5ecfb667d98aeabc060b069640a74805148a800669404d666c70c094bd98",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 5.363010058268003e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.3183898417423734e-16,
+          "projection_world_roundtrip_max_abs_px": 5.684341886080802e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.4341081516231498e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 10,
+            "in_front_of_scene_by_over_allowance": 10,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 14,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.6653345369377348e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.8824865384867735e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 304,
+            "in_front_of_scene_by_over_allowance": 436,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 475,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 25,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_1/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_1",
+      "object_id": "hug_mug",
+      "seed": 1,
+      "observation_group_id": "sha256:25ac5ecfb667d98aeabc060b069640a74805148a800669404d666c70c094bd98",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 7.290225856326771e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.196959198423997e-16,
+          "projection_world_roundtrip_max_abs_px": 7.105427357601002e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.4783028866058885e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 9,
+            "in_front_of_scene_by_over_allowance": 12,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 13,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.5959455978986625e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.962210996633075e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 275,
+            "in_front_of_scene_by_over_allowance": 469,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 473,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 26,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_2/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_2",
+      "object_id": "hug_mug",
+      "seed": 2,
+      "observation_group_id": "sha256:25ac5ecfb667d98aeabc060b069640a74805148a800669404d666c70c094bd98",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 8.53692867508471e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.5959455978986625e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.4443287688645796e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 7,
+            "in_front_of_scene_by_over_allowance": 13,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 13,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.5265566588595902e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.90706995290202e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 242,
+            "in_front_of_scene_by_over_allowance": 516,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 474,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 27,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_3/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_002_seed_3",
+      "object_id": "hug_mug",
+      "seed": 3,
+      "observation_group_id": "sha256:25ac5ecfb667d98aeabc060b069640a74805148a800669404d666c70c094bd98",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 3.514026325479591e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.8041124150158794e-16,
+          "projection_world_roundtrip_max_abs_px": 1.1368683772161603e-13,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.461748349309346e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 7,
+            "in_front_of_scene_by_over_allowance": 14,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 11,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.5959455978986625e-16,
+          "projection_world_roundtrip_max_abs_px": 8.526512829121202e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.9228877142249985e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 264,
+            "in_front_of_scene_by_over_allowance": 482,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 449,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 28,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_0",
+      "object_id": "hug_mug",
+      "seed": 0,
+      "observation_group_id": "sha256:95ec9fd1d841d0aaa699c5fc9d5ee219f6a26a02dddaabc4e4ac3a43f0ef60a7",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 6.890499593126265e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.5265566588595902e-16,
+          "projection_world_roundtrip_max_abs_px": 7.105427357601002e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.507542601255409e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 9,
+            "in_front_of_scene_by_over_allowance": 11,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 13,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 1.6263032587282567e-16,
+          "projection_world_roundtrip_max_abs_px": 1.1368683772161603e-13,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.9727980549741915e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 309,
+            "in_front_of_scene_by_over_allowance": 429,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 454,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 29,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_1/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_1",
+      "object_id": "hug_mug",
+      "seed": 1,
+      "observation_group_id": "sha256:95ec9fd1d841d0aaa699c5fc9d5ee219f6a26a02dddaabc4e4ac3a43f0ef60a7",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 7.57801544848391e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.7520707107365752e-16,
+          "projection_world_roundtrip_max_abs_px": 9.947598300641403e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.5523406722859363e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 9,
+            "in_front_of_scene_by_over_allowance": 12,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 13,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 2.0122792321330962e-16,
+          "projection_world_roundtrip_max_abs_px": 1.1368683772161603e-13,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 4.044721180207489e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 274,
+            "in_front_of_scene_by_over_allowance": 464,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 455,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 30,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_2/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_2",
+      "object_id": "hug_mug",
+      "seed": 2,
+      "observation_group_id": "sha256:95ec9fd1d841d0aaa699c5fc9d5ee219f6a26a02dddaabc4e4ac3a43f0ef60a7",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 4.793265528935109e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.1796119636642288e-16,
+          "projection_world_roundtrip_max_abs_px": 5.684341886080802e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.5087178673620656e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 7,
+            "in_front_of_scene_by_over_allowance": 13,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 13,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 2.1163626406917047e-16,
+          "projection_world_roundtrip_max_abs_px": 1.1368683772161603e-13,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 4.004371248811367e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 217,
+            "in_front_of_scene_by_over_allowance": 541,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 452,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    },
+    {
+      "index": 31,
+      "native": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_3/proposal.pkl",
+      "observation": "/Users/nilakarthikesan/grasp-failure-prediction/runs/fresh_object_scene_eval_2026-10-11/inputs_new_objects/proposals/scene_003_seed_3",
+      "object_id": "hug_mug",
+      "seed": 3,
+      "observation_group_id": "sha256:95ec9fd1d841d0aaa699c5fc9d5ee219f6a26a02dddaabc4e4ac3a43f0ef60a7",
+      "image_width": 224,
+      "image_height": 224,
+      "errors": {
+        "compiled_camera_max_abs": 1.1102230246251565e-16,
+        "compiled_intrinsics_max_abs_px": 0.0,
+        "native_wrist_translation_max_abs_m": 0.0,
+        "native_wrist_rotation_max_abs": 6.225829030093166e-08
+      },
+      "parts": {
+        "landmarks_3d": {
+          "world_roundtrip_max_abs_m": 1.3877787807814457e-16,
+          "projection_world_roundtrip_max_abs_px": 7.105427357601002e-14,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 3.544268736277445e-06,
+          "image_support": {
+            "point_count": 21,
+            "positive_depth": 21,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 21,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 21,
+            "behind_scene_by_over_allowance": 7,
+            "in_front_of_scene_by_over_allowance": 14,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 11,
+            "mask_is_not_acceptance_gate": true
+          },
+          "stored_2d_available": true,
+          "stored_2d_max_abs_px": 0.0
+        },
+        "mesh_vertices": {
+          "world_roundtrip_max_abs_m": 2.0122792321330962e-16,
+          "projection_world_roundtrip_max_abs_px": 1.1368683772161603e-13,
+          "hug_epsilon_vs_plain_pinhole_max_abs_px": 4.027137975981532e-06,
+          "image_support": {
+            "point_count": 778,
+            "positive_depth": 778,
+            "nonpositive_depth": 0,
+            "within_pixel_center_window": 778,
+            "outside_pixel_center_window": 0,
+            "window_definition": "0 <= u <= width-1 and 0 <= v <= height-1; no clipping",
+            "scene_depth_comparison": "nearest pixel; scene without generated hand; not an occlusion certificate",
+            "valid_scene_depth_at_supported_points": 778,
+            "behind_scene_by_over_allowance": 247,
+            "in_front_of_scene_by_over_allowance": 490,
+            "depth_comparison_allowance_m": 0.002,
+            "supported_points_inside_object_mask": 413,
+            "mask_is_not_acceptance_gate": true
+          }
+        }
+      },
+      "checks": {
+        "compiled_camera_max_abs": true,
+        "compiled_intrinsics_max_abs_px": true,
+        "native_wrist_translation_max_abs_m": true,
+        "native_wrist_rotation_max_abs": true,
+        "world_roundtrip": true,
+        "projection_world_roundtrip": true,
+        "stored_2d_export_consistency": true
+      },
+      "numerical_consistency_pass": true
+    }
+  ],
+  "all_numerical_consistency_pass": true,
+  "independent_observed_2d_ground_truth_validated": false,
+  "geometric_or_dynamic_contact_fidelity_validated": false,
+  "new_eval_data": false,
+  "source_bindings_unchanged": true
+}
