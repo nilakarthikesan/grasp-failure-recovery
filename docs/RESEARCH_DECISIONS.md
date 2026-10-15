@@ -2464,3 +2464,18 @@ separate: vertical0/8success with4collisions; newcontroller1/8planned success,
 3executions/5refusals, so no universal reachability claim. These are measured
 simulator results; broad category/physical transfer remain hypotheses. System
 work only continues; manuscript files remain untouched.
+
+
+## 2026-10-15 — Explain the foundation without collapsing distinct proofs
+
+User requested reasoning beginning with HUGmapping and simulatorconstruction.
+Retain Shadow as the declared existing execution model; do not silently claim
+nativeMANO outcomes. Numerical conversion/compiled-source realization is checked
+on32saved+40fresh inputs. Strict surface preservation remains failed under its
+separate frozen rule; nativephysical label equivalence is untested. The source
+URDF/object tensor preservation and stable213task execution support engineering
+consistency, while idealarm/contactgains/timestep/hardware fidelity remain open.
+The32prospective reserve plannerrefusals have null outcomes and yield60explicit
+model skips. Recording these limits does not lower anygate or redefine success.
+SYSTEM_BUILD_STATUS now carries the implementation reason, evidence and limit;
+no manuscript or originalscientific artifact was edited.

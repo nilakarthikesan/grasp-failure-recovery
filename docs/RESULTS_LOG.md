@@ -545,3 +545,26 @@ The fixed evaluator will be invoked once after this ledger commit to preserve
 an explicit undefined result for every frozen model, rather than changing poses,
 clearance thresholds, models or reserve objects after seeing this censoring.
 This is an important prospective coverage failure and limits Phase4 acceptance.
+
+
+## 15 October 2026 — Reserve evaluation and beginning-of-system evidence review
+
+The one permitted prospective evaluator invocation yieldsNO_ELIGIBLE_PREFIXES:
+all60frozen bundles explicitlySKIPPED, zero model-prediction calls, no fabricated
+metrics. Eight fresh reservegrasps pass numerical mapping;32approachrefusals
+prevent allphysicaldata. Phase4prospective generalization remainsINCOMPLETE.
+
+The user asks whether mapping and simulator quality are proved. Independent
+source/evidence review confirms32saved+40fresh scoped numerical passes, but
+strictnative/Shadow surface acceptance remains failed in6detailedcases+3finer
+repeats. Current-geometry replay retains178proximity-change witnesses and123
+reliable directionreversals under that separate rule. New numerical passes do
+not erase those failures or establish native physical label equivalence.
+
+The source/compiled-hand bridge verifies geometry/FK/inertias, and213study tasks
+pass finite/warning/time guards. An idealarm carrier, engineeringservo/contact
+parameters, absent timestepconvergence/hardware calibration, and the measured
+translation-sensitive query limit physicalfidelity claims. These distinctions
+and each construction decision's reason/evidence/limit are now explained in
+SYSTEM_BUILD_STATUS.md. No studyhand, labelrule, threshold, oldresult or paper
+file changed in this review.

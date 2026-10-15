@@ -4,6 +4,61 @@ The user assigns the manuscript outside this repository. Build work must not
 edit `docs/paper` or maintain manuscript progress. Continue on the existing
 `codex/project-work` checkout; preserve unrelated dirty work and old experiments.
 
+## Beginning of the system: decision and evidence boundary
+
+The executable chain is rendered RGB-D/calibration → pretrained HUG MANO output
+→ wrist-local landmarks → named Shadow targets/object-relative palm → MuJoCo
+controller. HUG inference runs locally from pinned source and weights; it does
+not download a pre-labelled successful grasp for each scene.
+
+The mapping uses the same official Shadow URDF in Dex Retargeting and MuJoCo.
+This gives a checkable common robot geometry. Camera/wrist transforms remove the
+global human-hand pose before fitting local vectors. Explicit axis rotation,
+joint-name lookup, metric scale, literal joint bounds and independent XML versus
+compiled forward kinematics prevent silent frame, ordering and asset errors.
+Static proposals disable streaming smoothing and the packaged 1.2 vector scale;
+the retained legacy solver is instantiated afresh per proposal. Twenty solver
+calls and all raw/status/clipping records remain auditable. Positive solver
+termination codes do not prove a global optimum or contact preservation.
+
+The MANO wrist is anchored to the Shadow palm by an explicit convention. That is
+an anatomical approximation, not a calibrated identity. The saved 32-case
+numerical gate passes with mean fingertip discrepancy 6.428 mm and worst tip
+17.518 mm; a 10 mm *mean* gate does not bound every finger by 10 mm. Another
+40 fresh proposals (32 development, eight reserve) pass the numerical gate.
+These checks establish consistent conversion within scope.
+
+The separate frozen [surface acceptance](HUG_MAPPING_ACCEPTANCE.md) rule fails
+same-part proximity/orientation preservation in six detailed development cases.
+It is not superseded by a green numerical gate. Native physical-contact and
+failure-label equivalence remain unproven. Current training labels describe
+the mapped Shadow hand under its named controller, not the original MANO hand.
+
+The simulator is a project task environment built on MuJoCo 3.3.7, not a newly
+written physics engine. It compiles the official hand directly from a live
+MjSpec, retaining fixed-link inertias and distinct collision assets without a
+lossy XML round trip. Object imports preserve native mesh frames, scale, centre
+of mass and inertia tensor; mass interventions scale inertia consistently.
+Stationary captures, rendered-camera checks and source/input hashes bind
+perception to the nominal object geometry/pose. Declared mass, friction and
+table/pose interventions are recorded separately before each execution. These
+are simulator camera-consistency checks, not real-camera calibration evidence.
+
+The controller uses force-limited position servos and an ideal mocap/weld arm
+carrier. It has a 2 ms integration step and 40 ms recording/control interval.
+This isolates grasp execution and provides exact timing, but does not represent
+a calibrated physical arm. Servo gains, friction/contact parameters and timestep
+accuracy still need dedicated physical/sensitivity validation. The 213 completed
+study tasks pass every-substep finite-state/warning/time guards; this demonstrates
+bounded numerical stability in that population, not real-world fidelity.
+
+The milk translation diagnostic exposes a static distance-query sensitivity:
+identical relative geometry changes one sampled distance after a 2 cm global
+translation. Four conservative planner refusals are retained. Consequently we
+cannot certify translation invariance, continuous swept clearance or universal
+reachability. Timestep convergence, calibrated friction/compliance, real-hand
+tracking and native-versus-mapped physical outcomes remain separate open gates.
+
 ## Phase 1
 
 Saved-input automation **PASS_WITH_CAVEATS** at `d6601d1`: all32 current static
@@ -51,17 +106,22 @@ rate is 1/8; conditional physical success is 1/3. Wrist posture and direction
 change together. This is limited engineering evidence, not universal acquisition.
 
 Bell pepper and coffee cup each pass two stationary, calibrated capture gates.
-Bear figure fails both unchanged stationary gates and stays excluded. Reserve
-HUG inference and task outcomes must still wait for frozen trained models.
+Bear figure fails both unchanged stationary gates and stays excluded. After the
+60 models were frozen, eight fresh bell/coffee grasps passed numerical mapping;
+all 32 reserve task slots were refused by the static approach policy. Their
+outcomes remain null and all 60 predictor evaluations are explicitly skipped
+with `NO_ELIGIBLE_PREFIXES`. Prospective coverage/generalization is unestablished.
 Pinned geometry manifests retain attribution, source URLs and byte hashes.
 
 ## Phase 3 and Phase 4
 
 Failure-phase analysis and the strict recorded-dataset model adapter are
 implemented and tested. Their fixed analysis/model rules were committed before
-fresh task labels. Phase 3 is auditing the completed study and its frozen category
-folds. No real new-data training or model comparison has run yet.
-The comparison must verify a structured frozen declaration binding its exact
+fresh task labels. The actual Phase 3 audit passes all four frozen category
+folds. All 60 model/fold/seed slots complete under the fixed comparison; summary
+logistic has mean held-object failure AUROC 0.594, with individual folds
+0.255–0.811. This does not establish reliable transfer. The comparison verifies
+a structured frozen declaration binding its exact
 specification, sources, dataset, scenario schedule, fold membership and attempt
 bindings. Class-degenerate folds and failed collection gates remain explicit.
 
