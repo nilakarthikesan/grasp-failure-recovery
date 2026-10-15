@@ -600,3 +600,52 @@ fixed threshold 0.5 and 1,000 whole-family bootstrap draws per existing category
 model/seed. It does not change the original five-model comparison or prospective
 models. Missing modes and single-class roles will skip. No real fitting or
 bootstrap at this declaration; execution follows its source/protocol commit.
+
+
+## 15 October 2026 — Final bounded audit results and explicit gate verdicts
+
+Failure-family audit source/protocol freeze 29aa529 completed in 5.469 s with
+four declared summary-logistic candidate fits and zero integration attempts.
+Only the no-contact fold is eligible: 8 held-family variants, 5 successes and
+3 failures. Failure AUROC/AP are 1.0, but the fixed 0.5 threshold warns on none:
+failure recall 0/3 and successful-task false warnings 0/5. This tiny retrospective
+risk set does not establish prospective unseen-mode detection. Acquisition skips
+for single-class training; approach collision, slip, drop and timeout skip for
+absence. No synthetic failures, balance repair or replacement fit is introduced.
+
+All 60 original category/model/seed prediction cells receive the predeclared
+1,000-draw whole-proposal-family bootstrap, without refitting or predicting again.
+Intervals are conditional on the observed families within each held object.
+They do not cover category/capture/controller/hardware uncertainty; repeated
+training seeds are not independent datasets. Valid/undefined draw counts are
+retained. A legacy field named independent_groups means family-cluster count,
+not proof that families sharing captures are statistically independent.
+
+Current build gate verdicts (distinct claims, no protocol merging):
+
+- Phase 1 numerical conversion: PASS_WITH_CAVEATS, 32 saved and 40 fresh inputs.
+  Saved mean/worst fingertip errors are 6.428/17.518 mm. The separate strict
+  native/Shadow surface claim fails six detailed cases plus three finer repeats;
+  native physical contact/outcome equivalence remains unverified.
+- Phase 2 implementation/recording: PASS in the bounded cohort. Core study has
+  256 planned / 213 physical / 43 null refusals; filters 11 accepted / 16 rejected /
+  5 unreachable. The 2,000-attempt/six-physical-object collection target is NOT MET.
+- Phase 3 auditing: four category folds and original historical score readbacks
+  verified. Failure-mode coverage is PARTIAL: one eligible / five skipped modes;
+  fixed family bootstrap is measured, with limited independent situation count.
+- Phase 4 model comparison: all 60 slots complete without errors; summary-model
+  mean held-object AUROC 0.594 and earlier-cutoff means 0.500. Prospective reserve
+  generalization is INCOMPLETE: 32 planner refusals / 0 physical prefixes /
+  60 explicit model skips. No real-robot, slip-onset or recovery claim is supported.
+
+The user's latest focus is the beginning of the system. Decision/reason/evidence/
+limitation is documented in SYSTEM_BUILD_STATUS.md, including the approximate
+wrist-to-palm correspondence, ideal arm, uncalibrated physical parameters and
+translation-sensitive query. No further scaling or model claim resolves those
+foundation gaps. Manuscript files remain untouched.
+
+Reproduction uses the committed protocol helpers and documented fresh-directory
+commands in HUG_FAILURE_MODE_AUDIT_V1.md and HUG_CUTOFF_SENSITIVITY_V1.md.
+Every input/source/fold/model binding must match before execution. The optional
+historical-refit v2 declaration is preparation only; no new historical optimizer
+run was needed or performed. Original historical artifacts remain unchanged.

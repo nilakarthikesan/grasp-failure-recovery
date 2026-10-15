@@ -99,6 +99,11 @@ four geometries. These diversity counts must accompany the attempt count.
 The nominal six-axis screen accepts 11 proposals, rejects 16 and cannot run on
 five unreachable approaches; its status never supplies a task label or feature.
 
+The suggested 2,000-attempt/six-object physical collection target is not met.
+The core declared study has 256 slots over four objects; two additional reserve
+objects yield no executable tasks. This is an engineering cohort with explicit
+coverage limits, rather than a completed large training dataset.
+
 The separate eight-pair mug comparison measures four collisions and no successes
 in eight old-controller executions. The new controller executes three grasps
 without approach collision, succeeds once, and refuses five. Its planned success
@@ -124,6 +129,20 @@ logistic has mean held-object failure AUROC 0.594, with individual folds
 a structured frozen declaration binding its exact
 specification, sources, dataset, scenario schedule, fold membership and attempt
 bindings. Class-degenerate folds and failed collection gates remain explicit.
+
+A later read-only audit reproduces the four original saved-weight AUROCs and
+archived 3,120-attempt historical category metrics without pooling controllers or
+refitting. A fixed four-cutoff replay preserves original held-test identities:
+the summary model's mean AUROC is 0.594 at 2.96 s and 0.500 at
+2.76/2.56/2.36 s. These shifted-time diagnostics demonstrate no useful earlier
+ranking in this comparison; they do not measure slip onset.
+
+The separate failure-family audit completes its four declared summary-logistic
+candidate fits for the eligible no-contact fold. Missing causes and the
+single-class acquisition training role remain explicit skips. Whole-family
+bootstrap intervals use 1,000 draws separately per existing category/model/seed;
+they are conditional on the observed families, not confidence intervals over
+unseen objects, captures, hardware or simulator configurations.
 
 `docs/RESULTS_LOG.md` is the append-only measured result ledger. Every run needs
 a finite quota, stop conditions, source/config/input hashes and a new output
