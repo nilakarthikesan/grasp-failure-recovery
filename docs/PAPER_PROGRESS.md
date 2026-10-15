@@ -527,3 +527,24 @@ fits, old frozen results and corrected-controller checks remain distinct in
 both the paper and [append-only result log](RESULTS_LOG.md). New collection and
 new architecture claims await the mapping/recording gates. The user's current
 priority is a runnable, validated project, with the paper following evidence.
+
+
+<!-- hug-live-recorder-pilot-2026-10-15-v1 -->
+## 15 October 2026 — Live project pilot completes
+
+The qualified saved-command Shadow path now executes a real bounded recording
+pilot: 20/20 complete, eight successes/seven failed acquisitions/five approach
+collisions, zero errors. All four repeated endpoint recordings/outcomes match
+exactly. Fifteen causal prefixes pass the existing frozen-model contracts;
+pre-cutoff collisions remain physical outcomes and explicit forecast exclusions.
+Independent reconstruction checks all outcomes, inputs and saved probabilities.
+[Measured pilot evidence](../research_artifacts/hug_saved_recording_pilot_2026-10-15_v1/README.md)
+and [current gate scope](HUG_MAPPING_VALIDATION.md) separate this result from
+static-only native MANO and future independent HUG input qualification.
+
+The current manuscript replaces one collection-audit paragraph with this
+measured recording result and compiles successfully in the existing editor.
+Its prior exported PDF remains a pre-pilot snapshot; no separate PDF was
+exported after the source update. New collection, physics filtering/scenario
+sampling and improved prediction-model claims remain pending. The original
+frozen datasets/models and all older protocol results remain unchanged.

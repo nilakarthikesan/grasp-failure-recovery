@@ -516,8 +516,8 @@ Success requires qualifying hand--object contact, peak object-center lift of at 
 The collection contains 444 successes and 596 failures. Success/failure counts by requested bound are 8/8 at zero, 294/218 at 0.15 rad and 142/370 at 0.6 rad. No collection errors occurred.
 
 
-\paragraph{Collection audit.}
-Failures comprise 590 failed acquisitions, two missing-contact cases and four drops. At least one target clips in 508/512 attempts at 0.15\,rad and every attempt at 0.6\,rad. All eight apple zero-bias runs fail, although disturbed runs sometimes succeed. Twenty-one attempts peak within 0.5\,mm of the lift cutoff, showing label sensitivity. These are task labels, not independently verified slip mechanisms.
+\paragraph{Collection and recorder audit.}
+Original failures comprise 590 failed acquisitions, two missing-contact cases and four drops; 21 attempts peak within 0.5\,mm of the lift cutoff. A separate saved-command recorder pilot completes 20 attempts (8 successes/12 failures), with four bit-exact repeats. Five pre-cutoff mug collisions remain in outcome totals; fifteen eligible prefixes reach the frozen models. This validates recording, not new-input generalization.
 
 \paragraph{Prediction model and splits.}
 The predictor uses the last twenty closing samples, ending at $t=2.96$\,s before lift begins at 3.00\,s. This is a 40\,ms pre-lift margin, not a measured failure-warning horizon. Each sample contains 24 positions, 24 velocities and 24 command targets. Last value, mean, standard deviation and endpoint change summarize each channel, giving 288 features; commands alone give 96. No object ground truth, outcomes, event labels, future samples, injected noise, seed or identity enters the feature matrix. Predictions are computed offline, with no intervention during collection.

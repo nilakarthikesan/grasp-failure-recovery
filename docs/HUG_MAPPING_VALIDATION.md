@@ -53,16 +53,20 @@ collision fidelity and a physical native-hand path remain unaccepted.
   Keep a new legacy instance per proposal; stateless v2 remains unpromoted.
   Complete raw/status provenance remains in the audit rather than the canonical
   provider. Do not extend these four development inputs to arbitrary new poses.
-- **Recorder: static implementation/tests PASS; live pilot NOT RUN.** The new
-  version excludes refusals from labels and isolates diagnostics. No 20-attempt
-  physical round-trip, dynamic tracking or replay determinism result exists.
+- **Saved-command recorder pilot: scoped PASS.** All 20 declared attempts
+  complete: eight successes, seven failed acquisitions and five approach
+  collisions. All four repeat pairs match exactly at recorded endpoints. Fifteen
+  causal prefixes round-trip through immutable saved models; five pre-cutoff mug
+  collisions remain physical outcomes but are excluded from forecasting inputs.
+  Tracking is measured, not accepted against a physical-fidelity threshold.
 - **Large collection/new-model study: NOT RUN.** A sampled surface diagnosis is
   not permission to skip independent mapping and bounded recording/label gates.
 
 The useful next qualification is one explicitly frozen Shadow profile whose
 labels refer to actual Shadow outcomes. Preserve the native distortion report;
 do not impose or claim exact cross-anatomy identity. Preserve fresh-instance/source
-provenance and declare a small saved-command tracking/determinism/recorder pilot.
+provenance; the saved-command tracking/determinism/recorder pilot is now complete.
+Next qualify new HUG inputs and a separately versioned approach/coverage study.
 Changing native collision decomposition would be a new diagnostic candidate,
 requiring a new protocol and comparison rather than replacement of this archive.
 
@@ -76,3 +80,23 @@ evaluation episodes, labels or training data. This activity is separate from
 the zero-step 32-pose audit. A stale principal-frame test was corrected to compare
 the realized inertia tensor with literal source values at unchanged 2e-15
 tolerance. Arbitrary eigenframe quaternions are not physical tensor identities.
+
+
+## Live pilot evidence
+
+Protocol/source freeze `11cd155`, inspected authorization `6ccbd11` and measured
+portable evidence `00b6816` keep this physical stage separate from static audits.
+The run uses exactly 65,200 integration steps, with no warning/reset, numerical,
+recording or determinism failure. Sixteen unique commands plus four repeats
+represent four objects/eight captures; the unique commands alone produce six
+successes/ten failures. Full source/input bindings remain unchanged.
+
+Pooled joint tracking RMSE is 0.009449 rad during approach, 0.039463 during
+closing, 0.059766 during lift and 0.057929 during hold. This is achieved joint
+position versus the final applied interval target, not proof of physical hand
+or native contact fidelity. Recorded repeat errors are zero; unrecorded physics
+substeps are not asserted bit-identical. Original corresponding labels and
+failure types agree on all 16 unique inputs, without rewriting historical data
+or inferring general outcome equivalence. The final focused static regression
+passes 246 tests, skips two optional controls and deselects two free-fall tests;
+it advances no physics. [Pilot evidence](../research_artifacts/hug_saved_recording_pilot_2026-10-15_v1/README.md).

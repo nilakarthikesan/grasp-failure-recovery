@@ -2364,3 +2364,38 @@ recording/tracking/determinism pilot, with null refusals/errors and causal expor
 New inference, broad collection and training remain outside that pilot. The
 native MANO physical candidate remains unaccepted. No dynamics, outcomes or
 new data occurred in these two static checks.
+
+
+<!-- hug-live-recorder-pilot-2026-10-15-v1 -->
+## 15 October 2026 — A live saved-command recording pipeline passes its pilot
+
+**Previous plan.** Static input/camera checks and refusal-safe recording code
+had passed, but actual dynamic tracking, recording/export and replay determinism
+were untested. The user emphasized building the project that supports the paper.
+
+**Predeclared execution and evidence.** Freeze `11cd155` fixes 16 even-indexed
+saved commands and four repeats, zero noise, current Shadow/v2 controller,
+20 attempts/65,200 steps, immediate numerical/recording hard stops and fixed
+1e-10 repeat allowance. Root authorization `6ccbd11` inspects accepted saved
+scene/camera gates and current 16-input preflight before execution. Two code
+reviews caught and resolved MuJoCo warning/reset detection before freezing.
+No outcome-driven repair, replacement, new inference or retarget solve occurs.
+
+**Implemented result.** All 20 complete: eight successes, seven failed
+acquisitions and five approach collisions. All four recorded repeat pairs have
+exact outcomes and zero endpoint trace differences. Fifteen causal prefixes
+round-trip through the unchanged saved logistic models; the five pre-cutoff
+mug collisions remain physical failures but are excluded from forecasting data.
+Independent scalar reconstruction validates outcomes, features and probabilities.
+All 454 bindings and 80 raw hashes pass; corresponding historical labels/types
+agree on all 16 unique inputs without rewriting or pooling old datasets. Final
+focused static regression passes 246, with two skips/two free-fall exclusions.
+Portable evidence is committed at `00b6816`; raw scenes/states remain ignored.
+
+**Decision and next check.** Accept this bounded saved-command execution/
+recording/export engineering milestone. Preserve native geometric limitations
+and the difference from independent fresh-input qualification. The paper now
+reports the pilot as recording validation, not generalization. Next qualify
+fresh HUG outputs with complete mapping provenance, then a separate approach/
+filter/diversity protocol before broader collection and new-model comparison.
+This is a working project foundation, not evidence that the full study is done.

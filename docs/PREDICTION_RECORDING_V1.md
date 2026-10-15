@@ -2,7 +2,8 @@
 
 Implemented 15 October 2026 as an opt-in foundation. Historical
 `noisy_rollout_pilot_v3`, its exported dataset, controller and model CLI remain
-unchanged. Static validation is not a completed dynamic collection pilot.
+unchanged. The initial static foundation is now followed by the separately frozen live
+pilot described below.
 
 `evaluation/prediction_recording.py` defines `hug_prediction_recording_v1`.
 Every attempt has a mapping decision, an execution status and an optional
@@ -60,5 +61,23 @@ Forty-four new manufactured/stubbed controls pass; with 28 unchanged historical
 dataset tests, 72 pass with integration APIs blocked. Tests cover clipping,
 alignment, missing fields, timing, causal cutoff, feature leakage, null/refusal
 labels, zero-sample runtime errors, mixed protocols, group bindings, hashes and
-denominators. No live execution, 20-attempt round-trip, dynamics tracking or
-collection acceptance is claimed.
+denominators. Those static controls alone do not establish live acceptance.
+
+
+## Completed bounded live round-trip
+
+The [saved-command pilot](../research_artifacts/hug_saved_recording_pilot_2026-10-15_v1/README.md)
+executes exactly 20 attempts under frozen protocol `11cd155`, authorized before
+run at `6ccbd11`. There are eight successes, seven failed acquisitions and five
+approach collisions, with no refusal/runtime/recording error. All four recorded
+repeat pairs and scored outcomes match exactly. Applied-versus-measured tracking
+is reported by phase; no new physical tolerance was selected from these results.
+
+The exporter retains 15 × 1,440 causal features (eight successes/seven failures)
+and excludes all five pre-cutoff mug collisions while keeping them in physical
+outcome totals. Immutable existing logistic models accept both summary contracts.
+An independent scalar checker reproduces all task outcomes, features and saved
+probabilities. This establishes a real saved-command recording/export/model
+compatibility path; it does not establish fresh-proposal generalization or a
+newly trained predictor. The 16 unique commands include four repeats in the
+20-attempt total; future data splits must preserve their common groups.

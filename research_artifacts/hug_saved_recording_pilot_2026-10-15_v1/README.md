@@ -17,7 +17,7 @@ replaced. Existing Shadow `fixed_grasp_lift_v2` executes every even index in the
 original32 inventory, followed by repeats of0/8/16/24. Command/sensor noise is
 zero. Original data remain unchanged and unpooled.
 
-**Scoped PASS:** all20 attempts complete once, with65,200 physics steps, zero
+**Scoped PASS:** all 20 attempts complete once, with 65,200 physics steps, zero
 refusals/errors/NOT_RUN. Each has163 control endpoints. Before/after every
 substep, the driver checks copied MuJoCo warning counts, full-state/control
 finiteness and time progress. Fixed step/attempt budgets are enforced. Tracking
@@ -25,15 +25,15 @@ is reported, not accepted against an invented physical-error threshold.
 
 ## Counts and tracking
 
--20 attempts =8 successes,7 failed acquisitions,5 approach collisions.
--Cube4/5 successes; apple0/5; milk4/5; mug0/5 (all approach collisions).
--The16 unique commands alone have6 successes,6 failed acquisitions and4 approach
+- 20 attempts =8 successes,7 failed acquisitions,5 approach collisions.
+- Cube4/5 successes; apple0/5; milk4/5; mug0/5 (all approach collisions).
+- The 16 unique commands alone have6 successes,6 failed acquisitions and4 approach
  collisions. Four extra repeats are not independent situations.
--All4 repeats exactly match scored outcomes and recorded numeric/categorical
+- All 4 repeats exactly match scored outcomes and recorded numeric/categorical
  observables/diagnostics. Maximum recorded state/target/time difference is0.
  This covers control endpoints and full-qpos/qvel diagnostics, not unrecorded
  physics-substep trajectories.
--Pooled joint tracking RMSE: approach0.009449, closing0.039463,
+- Pooled joint tracking RMSE: approach0.009449, closing0.039463,
  lift0.059766 and hold0.057929 rad. These compare achieved positions with final
  effective clipped interval targets and are descriptive.
 
@@ -53,12 +53,12 @@ inputs**, never a new benchmark or improved baseline. No model is trained,
 selected or calibrated here. In particular, the tiny reused-prefix AUROC in
 `model_input_smoke.json` must not be presented as a generalization improvement.
 
-An independent scalar checker recomputes all20 task outcomes from raw recorded
+An independent scalar checker recomputes all 20 task outcomes from raw recorded
 full states/phase/contact diagnostics, reconstructs X exactly from allowlisted
-closing channels, checks all4 repeats, and reproduces saved-weight probabilities
+closing channels, checks all 4 repeats, and reproduces saved-weight probabilities
 within1.12e-16 without any forward/integration calls. Its receipt is
 `independent_scalar_receipt.json`; source is `independent_scalar_check.py`.
-All454 frozen bindings and80 raw file hashes were checked. Historical comparison
+All 454 frozen bindings and 80 raw file hashes were checked. Historical comparison
 finds0/16 success-label changes and0/16 failure-type changes on corresponding
 original zero-noise attempts; this finite agreement is not general trajectory
 or outcome equivalence under importer changes.
@@ -70,7 +70,7 @@ separate, explicitly authorized operation.
 
 ## Files and reproduction
 
-Raw20 model/observable/diagnostic/metadata bundles total about145 MB under the
+Raw 20 model/observable/diagnostic/metadata bundles total about 145 MB under the
 new ignored `runs/hug_saved_recording_pilot_2026-10-15_v1/` directory. They are
 hash-referenced, not redistributed. This archive contains scalar reports,
 protocols, source snapshots, one portable predictor NPZ and derived manifests;

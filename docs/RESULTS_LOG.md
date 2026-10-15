@@ -138,3 +138,48 @@ execution route. These results permit the separately frozen saved-command
 recording pilot under the current Shadow controller; they do not promote native
 physics or reused legacy state. Twenty-one additional static controls pass
 with integration APIs blocked. No outcomes or new evaluation data were produced.
+
+
+## 15 October 2026 — Phase 2 live saved-command recording pilot PASS
+
+**Protocol:** source/plan freeze `11cd155`, inspected authorization `6ccbd11`,
+measured evidence `00b6816`. Run command:
+`python scripts/run_hug_saved_recording_pilot.py run --output
+research_artifacts/hug_saved_recording_pilot_2026-10-15_v1 --authorization
+research_artifacts/hug_saved_recording_pilot_2026-10-15_v1/authorization.json`.
+Do not rerun into the populated archive; its README gives fresh-output preparation.
+
+**Counts:** exactly 20 planned/20 completed, 20 mapped/20 physically labeled,
+zero errors/refusals/NOT_RUN; 65,200 physics steps under the declared hard cap.
+Eight successes, seven failed acquisitions and five approach collisions. Four
+objects/eight captures/16 unique saved commands plus four repeats. Unique
+commands alone yield six successes/ten failures. Cube and milk each succeed
+4/5, apple and mug 0/5; every mug fails during approach. No failed proposal was
+replaced or repaired. Immediate warning/finiteness/time guards do not trigger.
+
+**Recorder and model round-trip:** all four pairs have exact scored outcomes
+and zero maximum difference across recorded full/hand positions, velocities,
+requested/applied targets, timing and diagnostics. Pooled joint RMSE is
+approach 0.009449, close 0.039463, lift 0.059766 and hold 0.057929 rad, report-only.
+The new exporter produces 15 × 1,440 float32 inputs, eight successes/seven
+failures. Five sampled mug collisions occur at 0.438–0.998 s and stay in physical
+counts while excluded from the 2.96 s forecasting risk set. Both immutable
+saved models accept their 288/96-feature summaries; no fitting/calibration runs.
+Smoke metrics on these reused inputs are not a new model-performance claim.
+
+**Independent evidence:** `independent_scalar_receipt.json` recomputes all
+20 outcomes, X exactly, all repeated endpoint records and saved probabilities
+within 1.12e-16. `post_run_verification.json` checks 454 frozen bindings and
+80 raw artifact hashes. `historical_outcome_comparison.json` finds zero of
+16 original success labels/failure types changed. These finite checks do not
+prove outcome/trajectory equivalence in general. Final static regressions:
+246 passed/two optional skips/two free-fall exclusions, zero real integration.
+
+**Verdict/limits:** scoped engineering PASS for saved-command execution,
+recording, labeling, deterministic endpoint replay and causal model-input
+compatibility. No new HUG proposal, native-hand physical qualification,
+prospective dataset, physics filter, general approach fix or trained improved
+model is claimed. All raw scenes/full states remain ignored/local; portable
+prefixes/scalars/manifests are committed separately from historical datasets.
+The existing manuscript gains one measured-pilot paragraph and desktop
+compilation succeeds; no new separate PDF is exported after that editor update.
