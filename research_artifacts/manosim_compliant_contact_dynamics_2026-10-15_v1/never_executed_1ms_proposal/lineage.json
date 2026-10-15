@@ -1,0 +1,19 @@
+{
+  "schema_version": "never_executed_compliant_contact_source_proposal_v1",
+  "status": "NEVER_EXECUTED_NOT_PREPARED",
+  "source_hashes": {
+    "run_contact_dynamics.py": "ae2002440bfd841fc595a01aa35adba26f6011acae8c11d02e9c342e74efc470",
+    "analytic_checks.py": "92245f0b88081dede5fb3285b9adb45122f0d72e0072ceedf28fd35f7103eada",
+    "test_contact_dynamics.py": "0af62cf1d0ec5da491abececf990f855872f858ba8fccb9dd6acffb96f84df37",
+    "README.md": "25d8f34147a0672596c1e2733ff1655f789e389d12348cdfe81316215f623891",
+    "primary_sources.json": "54b872c59472424ce84d8d2e62b341cdd637d21d0f5ac6ee287703ac707acb95"
+  },
+  "controls_sha256": "a10ad4370ea262cf5c3b04a5e384751696afd555e46ac164bece53cc38d379e6",
+  "manufactured_tests_passed": 30,
+  "integration_calls": 0,
+  "models": 0,
+  "physics_steps": 0,
+  "protocol_created": false,
+  "reason": "Prospective local friction linearization at nominal resting Fn=mg gives rate mu*mg/(mass*vreg)=4905/s and explicit-Euler bound h<2/4905 seconds. Initial1ms/.5ms pair violates bound; selected250us/125us before any prepare/freeze/actual result.",
+  "bound_scope": "Nominal resting translation-only friction fixture only; no universal variable-normal-force or native-hand stability claim"
+}

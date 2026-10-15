@@ -1319,3 +1319,63 @@ requires that literal layout and compares the first six columns exactly;
 31manufactured controls pass. No geometry, grid, target, mask, tolerance or work
 quota changes. V1 remains immutable. All original source freezes are released
 after independent readback; no collection or training has occurred.
+
+### 2026-10-15 — Full-grid orientation executes; reliable signs agree
+
+Corrected orientation v2 completes both saved cases at77d736c under protocol
+317f2169. All19174milk/45484mug grid queries, original bands, parts and
+uncertainty predicates remain. Reliable unique point counts are301/1759;
+1/2/5mm band counts55/113/301 and405/757/1759 respectively. There are zero
+reliable sign reversals among469/2921part-band observations. These overlapping
+band observations are not independent grasps or contacts.
+
+The conservative cell check certifies1matching milk cell of4914possible and
+0mug cells of21512possible;4913/21512remain unresolved. Both full orientation
+verdicts stay INCOMPLETE. Point agreement does not prove unique outward
+normals, complete continuous orientation, articulated contact or task physics.
+No unresolved cell is relabeled as success. Independent receipt13c759a4
+verifies3958bindings/148Gitblobs,1018creation-time NPZs/chunks, all array hashes,
+eligibility/tie intervals and every count/area summary, without geometry,
+model, FK, field or physics replay. Source freeze is released; admission stays
+closed. This corrects the loader, rather than changing scientific targets.
+
+Next frozen checks are the actual state-to-skin-to-engine geometry bridge and
+the same stock contact fixtures at0.25/0.125ms. Geometry-only contact/actuation
+disable flags are explicit; stock flex must never apply the new skin's forces.
+The separately versioned compliant law also needs its own integration fixtures.
+Its proposed1/0.5ms steps were rejected before freezing or physics: the resting
+smooth-friction linear damping implies an explicit-Euler local stability limit
+of about0.408ms. Prospective0.25/0.125ms steps preserve the same material-model
+assumptions and gates. This analytic bound is specific to that synthetic
+resting-contact fixture and does not establish a native-hand timestep policy.
+
+### 2026-10-15 — Freeze engine surface bridge and distinct physics repeats
+
+Source/peer controls: engine geometry bridge62pass; stock finer-timestep
+repeat52pass; separately versioned compliant point-contact integration32pass.
+All have zero actual integration at this source declaration. Bridge test-tool
+usage first refused an unsupported reporter option before any tests; corrected
+usage and the earlier50control subset are preserved in its lineage. The stock
+repeat's first manufactured pass had one path-mock fixture failure (51pass/1
+fail), corrected without changing any scientific gate. Compliant proposal
+30controls at1/0.5ms is archived NEVER_EXECUTED_NOT_PREPARED; analytic stability
+then determines the prospective0.25/0.125ms pair, with32finalcontrols.
+
+Bridge protocol123408f6 binds5262files and preserves the exact109state grids
+on both native cases. Per case one model/data,109static forwards,109complete
+skin evaluations and109direct flex updates; contact and actuation are disabled
+as an explicit separate condition. Updater reads state and changes only local
+flex vertices; all other model arrays/options and state/force buffers are
+protected. Continuous64 engine readback and original source32/baseline normal
+comparisons retain separate verdicts and unchanged gates. Zero physics steps.
+
+Stock protocol6b22b6b5 binds1154files, retaining the original NOT_QUALIFIED
+lineage and identical model/solver/material/gates. The14conditions have a
+fixed0.25/0.125ms pair and42600steps. Compliant protocol13b2d8e4 binds1163files
+and exact frozen force-law/control bytes. Its8conditions have27000steps/law
+evaluations; engine collisions/constraints are prohibited. Analytic references
+are mg/k penetration, the declared smooth-friction creep equilibrium and
+sliding acceleration. Continuous dissipation and finite-step energy defects
+are recorded separately; matching their algebra is not zero integration error.
+Neither numerical contact model certifies actual MANO contact or real material
+properties. All actual results remain pending; no collection/training admitted.

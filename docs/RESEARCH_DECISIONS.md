@@ -2947,3 +2947,28 @@ Next checks: run that corrected orientation declaration, test finer contact
 timesteps, and qualify the actual read-state→skin→engine-surface bridge under
 an explicit geometry-only condition. Collection/training stay closed until
 native oriented contact, force application and dynamics requirements pass.
+
+### 2026-10-15 — Reliable orientation signs agree; preserve unresolved domain
+
+Measured orientation v2: both complete original grids execute after the exact
+cache-layout fix. Reliable point signs agree at301milk/1759mug query sites,
+with zero reversals. The current conservative certifier resolves only1of26426
+possible part-band cells;26425remain unresolved. Independent readback13c759a4
+verifies all saved arrays and summaries. Full orientation stays INCOMPLETE;
+zero reliable reversals is not a full mapping PASS.
+
+Reasoning: requiring one stable interior facet and proven closest-point
+exterior coverage is conservative near small facets, edges and ambiguous
+contacts. A future separate sign-only certifier could use all-candidate normal
+intervals and a rigorously bounded closest-point image. Existing min/max dots
+alone lack the candidate projection-spread/exterior proof. Do not reinterpret
+these historical results or choose a favorable nearest facet.
+
+Next implementation: qualify read-only simulator-state→continuous skin→actual
+engine vertices under explicit contact/actuation-disabled geometry conditions.
+The chosen force model is separately qualified: k20000N/m, damping2sqrt(km),
+mu0.5 and velocity regularization0.001m/s are synthetic assumptions, not hand
+calibration. Before any frozen run, its resting friction slope predicts local
+explicit-Euler stability h<0.408ms, so declare0.25/0.125ms for those fixtures.
+This prospective numerical choice uses analytic evidence, not selected
+outcomes. Keep the old stock contact failure and all global admission gates.

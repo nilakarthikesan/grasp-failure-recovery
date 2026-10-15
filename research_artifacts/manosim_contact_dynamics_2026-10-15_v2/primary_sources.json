@@ -1,0 +1,12 @@
+{
+  "version": "MuJoCo3.4.0",
+  "revision": "e55fff5dea6f1d5dd7963ca52eecc41d05ad0922",
+  "sources": [
+    {"url": "https://mujoco.readthedocs.io/en/3.4.0/modeling.html#solver-parameters", "scope": "constant impedance, direct solref scaling and equilibrium penetration; friction uses first-order damping"},
+    {"url": "https://mujoco.readthedocs.io/en/3.4.0/computation/index.html#constraint-model", "scope": "soft contact convex optimization, regularizer and reference acceleration"},
+    {"url": "https://mujoco.readthedocs.io/en/3.4.0/APIreference/APIfunctions.html#mj-contactforce", "scope": "contact-frame force/torque extraction"},
+    {"url": "https://github.com/google-deepmind/mujoco/blob/e55fff5dea6f1d5dd7963ca52eecc41d05ad0922/src/engine/engine_forward.c", "scope": "forward/constraint solve precedes Euler integration; force/state clocks differ"},
+    {"url": "https://github.com/google-deepmind/mujoco/blob/e55fff5dea6f1d5dd7963ca52eecc41d05ad0922/src/engine/engine_core_constraint.c", "scope": "elliptic constraint contact Jacobian and force coordinates"}
+  ],
+  "calibration_scope": "No external real-hand/material calibration data are used. No native force law or collection admission is certified."
+}

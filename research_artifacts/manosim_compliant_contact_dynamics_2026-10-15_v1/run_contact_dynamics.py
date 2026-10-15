@@ -1,0 +1,480 @@
+"""Prospectively frozen analytic contact benchmark; no engine work at import/prepare."""
+from __future__ import annotations
+import argparse
+from contextlib import contextmanager
+from datetime import datetime, timezone
+import hashlib
+import importlib.abc
+import importlib.util
+import json
+import math
+from pathlib import Path
+import subprocess
+import sys
+import time
+import traceback
+import warnings
+
+RUNTIME_ROOT = Path(__file__).resolve().parents[2]/'runs/manosim_mujoco_3_4_0_runtime_v1'
+sys.path.insert(0, str(RUNTIME_ROOT))
+loaded = sys.modules.get('mujoco')
+if loaded is not None and (getattr(loaded, '__version__', None) != '3.4.0'
+        or not Path(loaded.__file__).resolve().is_relative_to(RUNTIME_ROOT.resolve())):
+    raise RuntimeError('Already-loaded engine is not the isolated MuJoCo3.4.0 runtime')
+import numpy as np
+if np.__version__ != '2.2.6': raise RuntimeError('Unchanged base NumPy2.2.6 required')
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[1]
+PRIMITIVE = ROOT/'research_artifacts/manosim_flex_rigid_qualification_mj340_2026-10-15_v1'
+SCHEMA = 'manosim_compliant_point_contact_dynamics_mj340_v1'
+DT_PAIR = (.00025, .000125)
+PREVIOUS = ROOT/'research_artifacts/manosim_contact_dynamics_2026-10-15_v1'
+PREVIOUS_PROTOCOL_SHA = 'fd69fde5876f22f3694443d792d7e7f3f2776fab3e7d1cc69598dc5fae55efe8'
+PREVIOUS_REPORT_SHA = '4bfd99ca7cfee30534f522cb2f88afb92e75c3304a07852f828d225322731142'
+PREVIOUS_INDEPENDENT_SHA = 'ca52e5b658af069351307c9acfb6f52321b738e3b44bbe693ae4401619090814'
+PREVIOUS_FREEZE = 'eac84d987201739944b615ee14a7cb5779c7d876'
+REVISION = 'e55fff5dea6f1d5dd7963ca52eecc41d05ad0922'
+BUDGET = dict(models=8, data=8, initial_forwards=8, steps=27000, law_evaluations=27000,
+              maximum_seconds=120, outer_seconds=130)
+SOLVER = dict(type='Newton',integrator='Euler',cone='elliptic',iterations=100,tolerance=1e-12,impratio=1.,noslip_iterations=0)
+PARAMETERS = dict(stiffness_n_per_m=20000., damping_ns_per_m=2*math.sqrt(20000.*.2), friction=.5, friction_speed_m_per_s=.001)
+LAW_ROOT=ROOT/'research_artifacts/manosim_articulated_skin_2026-10-15_v1'
+LAW_SHA='4e466dfa5f0006267c6e89c0b4d64e416a88c24108673e8044e925f419392d15'
+LAW_FREEZE='eac84d987201739944b615ee14a7cb5779c7d876'
+FLAGS = dict(native_contact_law_qualified=False, articulated_MANO_dynamics_validated=False,
+    real_hand_physical_calibration=False, collection_or_training_allowed=False)
+FORBIDDEN_IMPORTS = ('torch', 'manotorch', 'manopth', 'smplx', 'hug', 'transformers', 'grasp_failure_prediction')
+
+
+def load(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec); sys.modules[name] = module
+    spec.loader.exec_module(module); return module
+
+
+checks = load('analytic_contact_checks', HERE/'analytic_checks.py')
+if hashlib.sha256((LAW_ROOT/'contact_law.py').read_bytes()).hexdigest()!=LAW_SHA:raise RuntimeError('Exact frozen compliant law required before import')
+law=load('frozen_compliant_point_contact_law',LAW_ROOT/'contact_law.py')
+MODEL_ID=law.LAW_SCHEMA
+LOCAL_STABILITY=dict(damping_ns_per_m=.5*checks.MASS*checks.GRAVITY_M_S2/PARAMETERS['friction_speed_m_per_s'],rate_per_s=.5*checks.GRAVITY_M_S2/PARAMETERS['friction_speed_m_per_s'],strict_step_upper_bound_s=2*PARAMETERS['friction_speed_m_per_s']/(.5*checks.GRAVITY_M_S2),scope='nominal Fn=mg translation-only resting friction linearization; not global/native')
+def sha(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def read(path):
+    def reject(value): raise ValueError('Nonfinite JSON constant '+value)
+    def number(value):
+        result=float(value)
+        if not math.isfinite(result):reject(value)
+        return result
+    return json.loads(Path(path).read_text(), parse_constant=reject,parse_float=number)
+def write(path, value):
+    with Path(path).open('x') as stream:
+        json.dump(value, stream, indent=2, sort_keys=True, allow_nan=False); stream.write('\n')
+
+
+def plan():
+    result=[]
+    for kind,duration in (('freefall',.25),('support',1.),('friction_low',.5),('friction_high',.5)):
+        for dt in DT_PAIR:result.append(dict(id=f'{kind}_{int(round(1/dt))}hz',kind=kind,dt_s=dt,steps=int(round(duration/dt)),gravity=-checks.GRAVITY_M_S2))
+    return result
+
+
+def xml(case,model_id=MODEL_ID):
+    if case not in plan() or model_id!=MODEL_ID:raise ValueError('Only exact compliant-law fixtures permitted')
+    z=.5 if case['kind']=='freefall' else .03 if case['kind']=='support' else checks.RADIUS_M-checks.MASS*checks.GRAVITY_M_S2/PARAMETERS['stiffness_n_per_m']
+    inertia=.4*checks.MASS*checks.RADIUS_M**2
+    return (f'<mujoco model="{case["id"]}"><compiler angle="radian" inertiafromgeom="false"/>'
+        f'<option timestep="{case["dt_s"]:.17g}" gravity="0 0 {case["gravity"]:.17g}" solver="Newton" integrator="Euler" jacobian="dense" cone="elliptic" iterations="100" tolerance="1e-12" impratio="1" noslip_iterations="0"><flag energy="enable" contact="disable"/></option>'
+        f'<worldbody><body name="sphere" pos="0 0 {z:.17g}"><joint name="sx" type="slide" axis="1 0 0"/><joint name="sy" type="slide" axis="0 1 0"/><joint name="sz" type="slide" axis="0 0 1"/>'
+        f'<inertial pos="0 0 0" mass=".2" diaginertia="{inertia:.17g} {inertia:.17g} {inertia:.17g}"/><geom type="sphere" size=".01" contype="0" conaffinity="0"/></body></worldbody></mujoco>')
+
+
+def frozen_law_evidence():
+    files={str((LAW_ROOT/name).resolve()):sha(LAW_ROOT/name) for name in ('contact_law.py','test_contact_law.py','controls.json')}
+    controls=read(LAW_ROOT/'controls.json')
+    if files[str((LAW_ROOT/'contact_law.py').resolve())]!=LAW_SHA or controls.get('exit_code')!=0 or controls.get('integration_calls')!=0 or controls.get('source_hashes',{}).get(str(LAW_ROOT/'contact_law.py'))!=LAW_SHA:raise ValueError('Frozen compliant-law source/controls changed')
+    for name in files:
+        blob=subprocess.check_output(['git','-C',str(ROOT),'show',LAW_FREEZE+':'+str(Path(name).relative_to(ROOT))])
+        if hashlib.sha256(blob).hexdigest()!=sha(name):raise ValueError('Frozen law Git identity changed')
+    return files
+
+
+def completed_prior_benchmark():
+    protocol,report_path,independent_path=PREVIOUS/'protocol.json',PREVIOUS/'run_v1/report.json',PREVIOUS/'run_v1/independent_readback.json'
+    if (sha(protocol),sha(report_path),sha(independent_path))!=(PREVIOUS_PROTOCOL_SHA,PREVIOUS_REPORT_SHA,PREVIOUS_INDEPENDENT_SHA):raise ValueError('Exact preserved failed benchmark evidence required')
+    p,r,i=read(protocol),read(report_path),read(independent_path)
+    if (r.get('status')!='COMPLETED_ANALYTIC_BENCHMARK' or r.get('numerical_standard_contact_qualification')!='NOT_QUALIFIED'
+        or r.get('freeze_commit')!=PREVIOUS_FREEZE or r.get('protocol_sha256')!=sha(protocol)
+        or i.get('schema_version')!='manosim_contact_dynamics_independent_saved_readback_v1'
+        or i.get('status')!='VERIFIED_COMPLETED_ANALYTIC_BENCHMARK' or i.get('numerical_standard_contact_qualification')!='NOT_QUALIFIED'
+        or i.get('active_protocol_sha256')!=sha(protocol) or i.get('report_sha256')!=sha(report_path) or i.get('freeze_commit')!=PREVIOUS_FREEZE
+        or i.get('all_bindings_verified_before') is not True or i.get('all_bindings_verified_after') is not True
+        or i.get('expected_bindings')!=1071 or len(p['bindings'])!=1071 or i.get('errors') or i.get('verification_model_FK_contact_physics_calls')!=0
+        or r.get('operation_counts')!={k:v for k,v in dict(models=14,data=14,initial_forwards=14,steps=10650,contact_force_reads=7589).items()}
+        or len(r.get('cases',[]))!=14 or any(row.get('status')!='MEASURED' for row in r['cases'])):
+        raise ValueError('Prior benchmark completion/failure/readback contract changed')
+    for name,digest in p['bindings'].items():
+        if sha(name)!=digest:raise ValueError('Preserved v1 binding changed: '+name)
+    for name in [*p['tracked_sources'],str(protocol)]:
+        blob=subprocess.check_output(['git','-C',str(ROOT),'show',PREVIOUS_FREEZE+':'+str(Path(name).relative_to(ROOT))])
+        if hashlib.sha256(blob).hexdigest()!=sha(name):raise ValueError('Preserved v1 Git source changed')
+    files={str(protocol):sha(protocol),str(report_path):sha(report_path),str(independent_path):sha(independent_path)}
+    for name,row in i['artifact_inventory'].items():
+        if sha(name)!=row['sha256'] or Path(name).stat().st_size!=row['bytes']:raise ValueError('Preserved v1 output changed: '+name)
+        files[name]=row['sha256']
+    return p,files
+
+
+def prior():
+    module=load('contact_prior_rigid_qualification',PRIMITIVE/'run_qualification.py')
+    path=PRIMITIVE/'run_v1/report.json'; report=read(path); protocol=Path(report['protocol'])
+    p,_=module.validate(protocol,report['freeze_commit'],require_head=False)
+    policy=module.qualified_rigid_radius_policy(path,sha(path),'zero')
+    independent_path=PRIMITIVE/'run_v1/independent_readback.json'; independent=read(independent_path)
+    if (independent.get('schema_version')!='manosim_flex_rigid_mj340_independent_saved_readback_v1'
+            or independent.get('status')!='VERIFIED_COMPLETED_MJ340_PRIMITIVES_RIGID_ONLY_PASS_FULL_NOT_QUALIFIED'
+            or independent.get('active_protocol_sha256')!=sha(protocol)
+            or independent.get('all_bindings_verified_before') is not True or independent.get('all_bindings_verified_after') is not True):
+        raise ValueError('Exact independent rigid primitive verification required')
+    files={str(protocol):sha(protocol),str(path):sha(path),str(independent_path):sha(independent_path)}
+    for name,row in independent['artifact_inventory'].items():
+        if sha(name)!=row['sha256'] or Path(name).stat().st_size!=row['bytes']: raise ValueError('Prior artifact changed')
+        files[name]=row['sha256']
+    previous,previous_files=completed_prior_benchmark();files.update(previous_files);files.update(frozen_law_evidence())
+    inherited=dict(p);inherited['bindings']={**p['bindings'],**previous['bindings']};inherited['tracked_sources']=sorted(set(p['tracked_sources'])|set(previous['tracked_sources']))
+    return module,inherited,dict(files=files,radius_policy=policy,prior_protocol_sha256=sha(protocol),previous_dynamics_protocol_sha256=PREVIOUS_PROTOCOL_SHA,previous_dynamics_report_sha256=PREVIOUS_REPORT_SHA,previous_dynamics_independent_sha256=PREVIOUS_INDEPENDENT_SHA)
+
+
+def sources():
+    base=[HERE/name for name in ('run_contact_dynamics.py','analytic_checks.py','test_contact_dynamics.py','README.md','primary_sources.json','controls.json')]
+    return base+sorted(p for p in (HERE/'never_executed_1ms_proposal').rglob('*') if p.is_file())
+
+def prepare(path):
+    path=Path(path).resolve()
+    if path!=HERE/'protocol.json' or path.exists() or (HERE/'run_v1').exists(): raise ValueError('Fresh exact protocol path required before execution')
+    module,old,evidence=prior(); controls=read(HERE/'controls.json')
+    if controls.get('exit_code')!=0 or controls.get('integration_calls')!=0: raise ValueError('Successful manufactured controls required')
+    bindings=dict(old['bindings']); bindings.update(evidence['files'])
+    bindings.update({str(p.resolve()):sha(p) for p in sources()+module.runtime_files()})
+    selected=set(old['tracked_sources'])|{str(p.resolve()) for p in sources()}|{name for name in evidence['files'] if Path(name).is_relative_to(ROOT) and not Path(name).is_relative_to(ROOT/'runs') and Path(name).suffix in ('.py','.json','.md')}
+    p=dict(schema_version=SCHEMA,prepared_utc=datetime.now(timezone.utc).isoformat(),runtime=module.runtime(),
+        upstream_revision=REVISION,plan=plan(),budget=BUDGET,limits=checks.LIMITS,contact_model_id=MODEL_ID,parameters=PARAMETERS,local_resting_friction_stability=LOCAL_STABILITY,
+        solver=SOLVER,
+        xml_sha256={c['id']:hashlib.sha256(xml(c).encode()).hexdigest() for c in plan()},prior=evidence,timestep_pair_s=list(DT_PAIR),
+        bindings=bindings,tracked_sources=sorted(selected),output_root=str(HERE/'run_v1'),raw_root=str(ROOT/'runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw'),**FLAGS)
+    write(path,p); return p
+
+
+def validate(protocol,commit):
+    p=read(protocol); module,old,evidence=prior()
+    if (Path(protocol).resolve()!=HERE/'protocol.json' or p['schema_version']!=SCHEMA or p['plan']!=plan()
+            or p['budget']!=BUDGET or p['limits']!=checks.LIMITS or p['solver']!=SOLVER or p['prior']!=evidence
+            or p['runtime']!=module.runtime() or p['upstream_revision']!=REVISION
+            or p['contact_model_id']!=MODEL_ID or p.get('parameters')!=PARAMETERS or p.get('local_resting_friction_stability')!=LOCAL_STABILITY or p.get('timestep_pair_s')!=list(DT_PAIR)
+            or p['output_root']!=str(HERE/'run_v1') or p['raw_root']!=str(ROOT/'runs/manosim_compliant_contact_dynamics_2026-10-15_v1/run_v1/raw')
+            or any(p.get(key) is not False for key in FLAGS)):
+        raise ValueError('Frozen analytic method/runtime/roots changed')
+    expected=dict(old['bindings']);expected.update(evidence['files']);expected.update({str(f.resolve()):sha(f) for f in sources()+module.runtime_files()})
+    if p['bindings']!=expected: raise ValueError('Exact source/runtime/prior closure changed')
+    for name,digest in p['bindings'].items():
+        if sha(name)!=digest: raise ValueError('Bound file changed: '+name)
+    if p['xml_sha256']!={c['id']:hashlib.sha256(xml(c).encode()).hexdigest() for c in plan()}: raise ValueError('Fixture XML changed')
+    frozen=subprocess.check_output(['git','-C',str(ROOT),'rev-parse',commit+'^{commit}'],text=True).strip()
+    if subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip()!=frozen: raise ValueError('Exact HEAD hold required')
+    selected=set(old['tracked_sources'])|{str(f.resolve()) for f in sources()}|{name for name in evidence['files'] if Path(name).is_relative_to(ROOT) and not Path(name).is_relative_to(ROOT/'runs') and Path(name).suffix in ('.py','.json','.md')}
+    if p['tracked_sources']!=sorted(selected): raise ValueError('Selected Git closure changed')
+    for name in sorted(selected|{str(Path(protocol).resolve())}):
+        blob=subprocess.check_output(['git','-C',str(ROOT),'show',frozen+':'+str(Path(name).relative_to(ROOT))])
+        if hashlib.sha256(blob).hexdigest()!=sha(name): raise ValueError('Committed scientific source changed')
+    return p,frozen
+
+
+class Budget:
+    def __init__(self,output):
+        self.start=time.monotonic();self.output=Path(output);self.counts={key:0 for key in ('models','data','initial_forwards','steps','law_evaluations')};self.forbidden=[]
+    def charge(self,key):
+        if time.monotonic()-self.start>BUDGET['maximum_seconds']: raise RuntimeError('120second scientific budget exceeded')
+        if key not in self.counts or self.counts[key]>=BUDGET[key]: self.reject('exhausted_'+key)
+        self.counts[key]+=1;self.save()
+    def save(self):
+        path=self.output/'progress.tmp';path.write_text(json.dumps(dict(counts=self.counts,forbidden=self.forbidden,elapsed_s=time.monotonic()-self.start))+'\n');path.replace(self.output/'progress.json')
+    def reject(self,key): self.forbidden.append(key);self.save();raise RuntimeError('Forbidden operation '+key)
+
+
+class Imports(importlib.abc.MetaPathFinder):
+    def find_spec(self,fullname,path=None,target=None):
+        if fullname.split('.')[0] in FORBIDDEN_IMPORTS: raise RuntimeError('Native/model/training import forbidden: '+fullname)
+
+
+def state(data):
+    values=(data.qpos,data.qvel,data.qacc,data.ctrl)
+    if not all(np.isfinite(v).all() for v in values) or not math.isfinite(float(data.time)): raise RuntimeError('Nonfinite engine state')
+    if np.max(np.abs(data.qpos),initial=0)>10 or np.max(np.abs(data.qvel),initial=0)>100 or np.max(np.abs(data.qacc),initial=0)>1e6: raise RuntimeError('Bounded fixture state escaped')
+
+
+class Engine:
+    def __init__(self,module,budget):
+        self.mj,self.b=module,budget
+        self.original={name:getattr(module,name) for name in ('MjModel','MjData','mj_forward','mj_step')}
+        self.allowed=[xml(c) for c in plan()];self.models=set();self.pairs=set();self.initialized=set();self.saved={};self.live_models=[];self.live_data=[]
+    def compile(self,text):
+        if not self.allowed or text!=self.allowed[0]: self.b.reject('unplanned_XML')
+        self.allowed.pop(0);self.b.charge('models')
+        with warnings.catch_warnings(record=True) as emitted:
+            warnings.simplefilter('always');model=self.original['MjModel'].from_xml_string(text)
+        if emitted:raise RuntimeError('Compiler emitted warning')
+        self.models.add(id(model))
+        self.live_models.append(model) # prevent Python-id reuse between finite fixtures
+        return model
+    def data(self,model):
+        if id(model) not in self.models or any(pair[0]==id(model) for pair in self.pairs):self.b.reject('unregistered_or_duplicate_data')
+        self.b.charge('data');data=self.original['MjData'](model);self.pairs.add((id(model),id(data)));self.live_data.append(data);return data
+    def call(self,kind,model,data):
+        if (id(model),id(data)) not in self.pairs:self.b.reject('unregistered_model_data')
+        if kind not in ('initial_forwards','steps'):self.b.reject('unknown_pipeline_operation')
+        pair=(id(model),id(data))
+        if (kind=='initial_forwards' and pair in self.initialized) or (kind=='steps' and pair not in self.initialized):self.b.reject('unordered_pipeline_operation')
+        state(data);before=float(data.time);warn=data.warning.number.copy();ctrl=data.ctrl.copy();applied=data.qfrc_applied.copy()
+        if data.ncon or data.nefc:raise RuntimeError('Engine contacts/constraints forbidden')
+        if kind=='steps' and not np.array_equal(applied,self.expected_load):raise RuntimeError('Unregistered applied load')
+        if np.any(warn):raise RuntimeError('Nonzero warning baseline before engine operation')
+        self.b.charge(kind)
+        with warnings.catch_warnings(record=True) as emitted:
+            warnings.simplefilter('always');self.original['mj_step' if kind=='steps' else 'mj_forward'](model,data)
+        state(data)
+        if data.ncon or data.nefc or np.any(data.qfrc_constraint):raise RuntimeError('Stock engine contact/constraint force forbidden')
+        if emitted or np.any(warn) or not np.array_equal(warn,data.warning.number):raise RuntimeError('Engine numerical/runtime warning')
+        if not np.array_equal(ctrl,data.ctrl) or not np.array_equal(applied,data.qfrc_applied):raise RuntimeError('Unexpected controller/applied-force mutation')
+        expected=model.opt.timestep if kind=='steps' else 0.
+        if abs((data.time-before)-expected)>1e-12: raise RuntimeError('Engine clock increment changed')
+        if kind=='initial_forwards':self.initialized.add(pair)
+    def apply_force(self,model,data,force):
+        if (id(model),id(data)) not in self.pairs or not isinstance(force,np.ndarray) or force.dtype!=np.float64 or force.shape!=(3,) or not np.isfinite(force).all():self.b.reject('unregistered_applied_load')
+        self.expected_load=force.copy();data.qfrc_applied[:]=force
+    def __enter__(self):
+        for name in ('MjModel','MjData','mj_forward','mj_step','mj_step1','mj_step2','mj_forwardSkip','mj_kinematics','mj_fwdPosition','mj_fwdVelocity','mj_fwdAcceleration','mj_collision','mj_contactForce','set_mjcb_control','set_mjcb_passive'):
+            if hasattr(self.mj,name):
+                self.saved[name]=getattr(self.mj,name)
+                setattr(self.mj,name,lambda *a,_name=name,**k:self.b.reject(_name))
+        return self
+    def __exit__(self,*args):
+        for name,value in self.saved.items():setattr(self.mj,name,value)
+
+
+def evaluate_law(case,position,velocity,budget):
+    budget.charge('law_evaluations');jh=np.zeros((3,51),dtype=np.float64);jh[:,:3]=np.eye(3);vh=np.zeros(51);vh[:3]=velocity
+    return law.evaluate_contact(signed_gap_m=float(position[2]-checks.RADIUS_M),object_outward_normal_world=np.array([0.,0.,1.]),
+        common_point_world_m=position-np.array([0.,0.,checks.RADIUS_M]),object_wrench_origin_world_m=np.zeros(3),hand_point_jacobian=jh,
+        object_point_jacobian=np.zeros((3,1)),hand_generalized_velocity=vh,object_generalized_velocity=np.zeros(1),parameters=law.ContactParameters(**PARAMETERS))
+
+
+def external_force(case):
+    scale=.25 if case['kind']=='friction_low' else 1.5 if case['kind']=='friction_high' else 0.
+    return np.array([scale*.5*checks.MASS*checks.GRAVITY_M_S2,0.,0.])
+
+
+def sample(case,position0,velocity0,data,body_pos,contact):
+    h=case['dt_s'];m=checks.MASS;position1=body_pos+data.qpos;velocity1=data.qvel.copy();dv=velocity1-velocity0
+    gap0=position0[2]-checks.RADIUS_M;gap1=position1[2]-checks.RADIUS_M;E0=contact['elastic_energy_j'];E1=.5*PARAMETERS['stiffness_n_per_m']*max(0.,-gap1)**2
+    total=contact['hand_force_world_n']+external_force(case)+np.array([0.,0.,m*case['gravity']]);force_error,work_error=checks.discrete_force_work(m,velocity0,velocity1,total,h)
+    mechanical0=.5*m*(velocity0@velocity0)-m*case['gravity']*position0[2]+E0
+    mechanical1=.5*m*(velocity1@velocity1)-m*case['gravity']*position1[2]+E1
+    external_work=float(external_force(case)@(position1-position0));dissipation=h*(contact['normal_dissipation_power_w']+contact['friction_power_w'])
+    remainder=E1-E0-h*contact['elastic_energy_rate_w']
+    predicted_defect=h*(contact['hand_force_world_n']@dv)-.5*m*(dv@dv)+remainder
+    measured_defect=mechanical1-mechanical0-external_work-dissipation
+    point=contact['common_point_world_m'];hand=contact['hand_force_world_n'];objectforce=contact['object_force_world_n'];wrench=contact['object_wrench_force_then_torque']
+    result=dict(start_time_s=float(data.time-h),endpoint_time_s=float(data.time),position_start_m=position0,position_endpoint_m=position1,velocity_start_m_s=velocity0,velocity_endpoint_m_s=velocity1,
+        qpos_endpoint=data.qpos.copy(),qvel_endpoint=data.qvel.copy(),start_qacc=data.qacc.copy(),start_qfrc_applied=data.qfrc_applied.copy(),engine_qfrc_constraint=data.qfrc_constraint.copy(),
+        engine_ncon=int(data.ncon),engine_nefc=int(data.nefc),gap_start_m=gap0,gap_endpoint_m=gap1,elastic_energy_endpoint_J=E1,
+        external_force_N=external_force(case),force_balance_N=force_error,discrete_impulse_work_error_J=work_error,
+        euler_position_error_m=float(np.max(np.abs(position1-position0-h*velocity1))),mechanical_energy_start_J=mechanical0,mechanical_energy_endpoint_J=mechanical1,
+        external_work_J=external_work,continuous_dissipation_step_J=dissipation,elastic_discrete_remainder_J=remainder,
+        measured_integration_defect_J=measured_defect,predicted_integration_defect_J=predicted_defect,integration_energy_identity_error_J=abs(measured_defect-predicted_defect),
+        linear_reaction_error_N=float(np.linalg.norm(hand+objectforce)),angular_reaction_error_N_m=float(np.linalg.norm(np.cross(point,hand)+wrench[3:])),
+        point_power_error_W=abs(float(hand@velocity0)-contact['mechanical_power_w']),gap_derivative_start_m_s=float(velocity0[2]),
+        warning_counts=data.warning.number.copy(),solver_niter=np.asarray(data.solver_niter).copy(),start_engine_energy_J=data.energy.copy())
+    result.update({'law_'+key:value for key,value in contact.items() if isinstance(value,(np.ndarray,float,int))})
+    if min(gap0,gap1)<-.005:raise RuntimeError('Compliant fixture penetration exceeded5mm')
+    return result
+
+
+def assess(case,a):
+    L=checks.LIMITS;failures=[];tail=a['endpoint_time_s']>=a['endpoint_time_s'][-1]-.1
+    for key,limit in [('force_balance_N',L['force_balance_N']),('discrete_impulse_work_error_J',L['discrete_work_J']),('euler_position_error_m',L['discrete_freefall_m']),
+        ('integration_energy_identity_error_J',L['discrete_work_J']),('linear_reaction_error_N',L['action_reaction_N']),('angular_reaction_error_N_m',L['angular_action_reaction_N_m']),
+        ('point_power_error_W',L['virtual_work_W']),('law_power_identity_residual_w',L['virtual_work_W'])]:
+        if float(np.max(np.abs(a[key])))>limit:failures.append(key)
+    if np.any(a['engine_ncon']) or np.any(a['engine_nefc']) or np.any(a['engine_qfrc_constraint']):failures.append('stock_engine_contact')
+    if np.any(a['law_normal_dissipation_power_w']>L['virtual_work_W']) or np.any(a['law_friction_power_w']>L['virtual_work_W']):failures.append('continuous_contact_dissipation')
+    normal=a['law_normal_force_n'];tangent=np.linalg.norm(a['law_hand_force_world_n'][:,:2],axis=1)
+    if np.any(normal<0) or np.any(tangent>.5*normal+L['action_reaction_N']):failures.append('unilateral_friction_bound')
+    metrics={k:float(np.max(np.abs(a[k]))) for k in ('force_balance_N','discrete_impulse_work_error_J','integration_energy_identity_error_J','law_power_identity_residual_w')}
+    metrics.update(maximum_absolute_integration_defect_J=float(np.max(np.abs(a['measured_integration_defect_J']))),sum_integration_defect_J=float(np.sum(a['measured_integration_defect_J'])),sum_continuous_dissipation_J=float(np.sum(a['continuous_dissipation_step_J'])))
+    if case['kind']=='freefall':
+        z,v=checks.euler_freefall(.5,0.,case['dt_s'],case['steps']);dz=abs(float(a['position_endpoint_m'][-1,2])-z);dv=abs(float(a['velocity_endpoint_m_s'][-1,2])-v)
+        metrics.update(discrete_z_reference_m=z,discrete_v_reference_m_s=v,position_error_m=dz,velocity_error_m_s=dv)
+        if dz>L['discrete_freefall_m'] or dv>L['discrete_freefall_m_s']:failures.append('freefall_discrete_reference')
+    if case['kind']=='support':
+        penetration=float(-a['gap_start_m'][tail].mean());support=float(a['law_normal_force_n'][tail].mean());speed=float(np.max(np.abs(a['velocity_endpoint_m_s'][tail])))
+        reference=checks.MASS*checks.GRAVITY_M_S2/PARAMETERS['stiffness_n_per_m']
+        metrics.update(rest_penetration_reference_m=reference,mean_penetration_m=penetration,mean_support_N=support,settled_speed_m_s=speed)
+        if abs(penetration-reference)>L['support_penetration_m']:failures.append('analytic_penetration')
+        if abs(support-checks.MASS*checks.GRAVITY_M_S2)>L['support_force_relative']*checks.MASS*checks.GRAVITY_M_S2:failures.append('gravity_support')
+        if speed>L['settled_velocity_m_s']:failures.append('settling')
+        if np.max(a['mechanical_energy_endpoint_J'])>checks.MASS*checks.GRAVITY_M_S2*.03*(1+L['impact_energy_gain_fraction']):failures.append('drop_impact_passivity')
+    if case['kind'].startswith('friction'):
+        vx=float(a['velocity_endpoint_m_s'][tail,0].mean());metrics['mean_lateral_velocity_m_s']=vx
+        if case['kind']=='friction_low':
+            reference=PARAMETERS['friction_speed_m_per_s']*.25/math.sqrt(1-.25**2);metrics['regularized_creep_reference_m_s']=reference
+            if abs(vx-reference)>max(L['regularized_creep_floor_m_s'],L['regularized_creep_relative']*reference):failures.append('regularized_creep_reference')
+        else:
+            acceleration=float(a['start_qacc'][tail,0].mean());reference=.5*.5*checks.GRAVITY_M_S2;metrics.update(mean_sliding_acceleration_m_s2=acceleration,sliding_acceleration_reference_m_s2=reference)
+            if acceleration<=0 or abs(acceleration-reference)>L['sliding_acceleration_relative']*reference:failures.append('sliding_reference')
+    return dict(status='PASS' if not failures else 'FAIL',failures=failures,metrics=metrics,physical_outcome=None,**FLAGS)
+
+
+class Measurement:
+    def __init__(self,case,raw):self.case=case;self.raw=Path(raw);self.rows=[];self.artifacts=[];self.data=None
+    def artifact(self,path,label):
+        row=dict(path=str(Path(path).resolve()),sha256=sha(path),bytes=Path(path).stat().st_size,label=label);self.artifacts.append(row);return row
+    def save(self,name,values,label):
+        path=self.raw/name
+        with path.open('xb') as stream:np.savez_compressed(stream,**values)
+        return self.artifact(path,label)
+    def arrays(self):return {key:np.asarray([row[key] for row in self.rows]) for key in self.rows[0]}
+    def run(self,engine,mj):
+        case=self.case;path=self.raw/'fixture.xml';path.write_text(xml(case));self.artifact(path,'exact_collision_disabled_fixture_XML')
+        model=engine.compile(xml(case));data=engine.data(model);self.data=data
+        if (model.nq!=3 or model.nv!=3 or model.nu or np.any(model.dof_damping) or np.any(model.dof_armature) or np.any(model.geom_contype) or np.any(model.geom_conaffinity)):
+            raise ValueError('Only3translationDOF/noactuation/damping/collision model permitted')
+        bid=mj.mj_name2id(model,mj.mjtObj.mjOBJ_BODY,'sphere')
+        if bid<=0 or model.body_mass[bid]!=checks.MASS:raise ValueError('Exact analytic sphere required')
+        for i,name in enumerate(('sx','sy','sz')):
+            jid=mj.mj_name2id(model,mj.mjtObj.mjOBJ_JOINT,name)
+            if jid<0 or int(model.jnt_type[jid])!=int(mj.mjtJoint.mjJNT_SLIDE) or int(model.jnt_qposadr[jid])!=i or int(model.jnt_dofadr[jid])!=i or not np.array_equal(model.jnt_axis[jid],np.eye(3)[i]):raise ValueError('Exact named translation layout required')
+        if (model.opt.timestep!=case['dt_s'] or not np.array_equal(model.opt.gravity,[0.,0.,case['gravity']]) or int(model.opt.integrator)!=int(mj.mjtIntegrator.mjINT_EULER)
+            or int(model.opt.solver)!=int(mj.mjtSolver.mjSOL_NEWTON) or model.opt.iterations!=100 or model.opt.tolerance!=1e-12):raise ValueError('Declared clock/gravity/solver changed')
+        engine.call('initial_forwards',model,data)
+        jh=np.zeros((3,51));jh[:,:3]=np.eye(3)
+        self.save('compiled_fixture.npz',dict(body_mass_kg=model.body_mass.copy(),body_inertia_kg_m2=model.body_inertia.copy(),body_pos_m=model.body_pos.copy(),body_quaternion_wxyz=model.body_quat.copy(),joint_type=model.jnt_type.copy(),joint_bodyid=model.jnt_bodyid.copy(),joint_qpos_address=model.jnt_qposadr.copy(),joint_dof_address=model.jnt_dofadr.copy(),joint_axis=model.jnt_axis.copy(),initial_qpos=data.qpos.copy(),initial_qvel=data.qvel.copy(),hand_point_J=jh,static_object_point_J=np.zeros((3,1)),timestep_s=np.asarray(model.opt.timestep),gravity_m_s2=model.opt.gravity.copy()),'compiled_named_translation_and_explicit51J')
+        for _ in range(case['steps']):
+            p0=model.body_pos[bid]+data.qpos;v0=data.qvel.copy();contact=evaluate_law(case,p0,v0,engine.b)
+            engine.apply_force(model,data,(contact['hand_generalized_load'][:3]+external_force(case)).copy());engine.call('steps',model,data)
+            self.rows.append(sample(case,p0,v0,data,model.body_pos[bid],contact))
+        values=self.arrays()
+        if not all(np.isfinite(v).all() for v in values.values()):raise RuntimeError('Nonfinite compliant trace')
+        self.save('trajectory.npz',values,'start_law_load_and_endpoint_state_separate_clocks');summary=assess(case,values)
+        return dict(kind=case['kind'],assessment=summary,valid_endpoint_samples=len(self.rows),final_position_world_m=values['position_endpoint_m'][-1].tolist(),final_velocity_world_m_s=values['velocity_endpoint_m_s'][-1].tolist(),maximum_penetration_m=float(max(0.,-values['gap_start_m'].min(),-values['gap_endpoint_m'].min())),force_clock='law and applied force at preceding step start t; endpoint state at t+dt')
+    def preserve_partial(self):
+        if self.rows:self.save('partial_trajectory.npz',self.arrays(),'valid_prefix_before_unexpected_failure_unqualified')
+        if self.data is not None:self.save('failed_state_diagnostics.npz',{key:np.asarray(getattr(self.data,key)).copy() for key in ('qpos','qvel','qacc','ctrl','qfrc_applied','qfrc_constraint')},'quarantined_diagnostic_may_contain_nonfinite_values')
+
+
+def convergence(results):
+    rows=[]
+    for kind in ('freefall','support','friction_low','friction_high'):
+        pair=[r for r in results if r['case']['kind']==kind]
+        if len(pair)!=2 or any(r['status']!='MEASURED' for r in pair):rows.append(dict(kind=kind,status='NOT_RUN'));continue
+        x,y=[r['measurement'] for r in pair];position=float(np.max(np.abs(np.asarray(x['final_position_world_m'])-np.asarray(y['final_position_world_m']))));velocity=float(np.max(np.abs(np.asarray(x['final_velocity_world_m_s'])-np.asarray(y['final_velocity_world_m_s']))))
+        if kind=='freefall':
+            duration=pair[0]['case']['steps']*pair[0]['case']['dt_s'];reference=.5*checks.GRAVITY_M_S2*duration*abs(pair[0]['case']['dt_s']-pair[1]['case']['dt_s']);passed=abs(position-reference)<=1e-10 and velocity<=1e-10;limits=dict(position_difference_reference_m=reference,position_reference_atol_m=1e-10,velocity_m_s=1e-10)
+        else:
+            pmax=5e-6 if kind=='support' else max(1e-4,.01*.5*(.5*.5*checks.GRAVITY_M_S2)*.5**2) if kind=='friction_high' else 1e-4
+            vmax=max(1e-3,.01*.5*.5*checks.GRAVITY_M_S2*.5) if kind=='friction_high' else 1e-3
+            passed=position<=pmax and velocity<=vmax;limits=dict(position_m=pmax,velocity_m_s=vmax)
+        rows.append(dict(kind=kind,status='PASS' if passed else 'FAIL',maximum_position_difference_m=position,maximum_velocity_difference_m_s=velocity,limits=limits))
+    return rows
+
+
+def verify_artifacts(rows,raw):
+    seen=set();raw=Path(raw).resolve()
+    for row in rows:
+        path=Path(row['path'])
+        if path.is_symlink() or not path.resolve().is_relative_to(raw) or path.resolve() in seen or sha(path)!=row['sha256'] or path.stat().st_size!=row['bytes']:
+            raise ValueError('Output artifact changed/escaped/duplicated')
+        seen.add(path.resolve())
+    if set(raw.rglob('*.npz'))!={p for p in seen if p.suffix=='.npz'}:raise ValueError('Unindexed numeric artifacts')
+
+
+def worker(protocol,commit):
+    p,frozen=validate(protocol,commit);output=Path(p['output_root']);raw=Path(p['raw_root'])
+    budget=Budget(output);budget.save();results=[];failure=None;active=None;measurement=None;artifacts=[];finder=Imports()
+    import mujoco
+    if mujoco.__version__!='3.4.0' or not Path(mujoco.__file__).resolve().is_relative_to(RUNTIME_ROOT):raise RuntimeError('Wrong imported engine')
+    for name in ('get_mjcb_control','get_mjcb_passive'):
+        if hasattr(mujoco,name) and getattr(mujoco,name)() is not None:raise RuntimeError('Custom force callbacks forbidden in compliant fixture protocol')
+    sys.meta_path.insert(0,finder)
+    try:
+        with Engine(mujoco,budget) as engine:
+            for case in plan():
+                active=case;folder=raw/case['id'];folder.mkdir();measurement=Measurement(case,folder)
+                measured=measurement.run(engine,mujoco)
+                result=dict(case=case,status='MEASURED',measurement=measured,artifacts=list(measurement.artifacts),physical_outcome=None,**FLAGS)
+                write(folder/'result.json',result);scalar=output/(case['id']+'.json')
+                with scalar.open('xb') as stream:stream.write((folder/'result.json').read_bytes())
+                results.append(dict(result,result_path=str(scalar),result_sha256=sha(scalar),raw_result_path=str(folder/'result.json'),raw_result_sha256=sha(folder/'result.json')))
+                artifacts.extend(measurement.artifacts);active=None;measurement=None
+        if budget.counts['models']!=8 or budget.counts['data']!=8 or budget.counts['initial_forwards']!=8 or budget.counts['steps']!=27000 or budget.counts['law_evaluations']!=27000:raise RuntimeError('Completed counts disagree with exact schedule')
+        verify_artifacts(artifacts,raw)
+    except BaseException as error:
+        failure=dict(type=type(error).__name__,message=str(error),traceback=traceback.format_exc())
+        if active is not None:
+            folder=raw/active['id']
+            for path in (folder/'result.json',output/(active['id']+'.json')):
+                if path.exists():path.rename(path.with_name('failed_'+path.name))
+            partial_error=None
+            try:
+                if measurement:measurement.preserve_partial();artifacts.extend(measurement.artifacts)
+            except BaseException as partial:partial_error=dict(type=type(partial).__name__,message=str(partial))
+            results.append(dict(case=active,status='HARD_STOPPED_PARTIAL',valid_endpoint_samples=len(measurement.rows) if measurement else 0,partial_persistence_error=partial_error,physical_outcome=None))
+    finally:
+        if finder in sys.meta_path:sys.meta_path.remove(finder)
+        budget.save()
+    seen={r['case']['id'] for r in results};results.extend(dict(case=c,status='NOT_RUN',physical_outcome=None) for c in plan() if c['id'] not in seen)
+    final_binding_error=None
+    try:validate(protocol,frozen)
+    except BaseException as error:final_binding_error=dict(type=type(error).__name__,message=str(error));failure=failure or final_binding_error
+    if time.monotonic()-budget.start>BUDGET['maximum_seconds']:
+        failure=failure or dict(type='RuntimeError',message='120second worker budget exceeded before publication')
+    comparisons=convergence(results)
+    references=[]
+    qualified=failure is None and all(r['measurement']['assessment']['status']=='PASS' for r in results) and all(r['status']=='PASS' for r in comparisons+references)
+    report=dict(schema_version=SCHEMA,status='HARD_STOP' if failure else 'COMPLETED_COMPLIANT_CONTACT_BENCHMARK',
+        numerical_compliant_contact_qualification='PASS' if qualified else 'NOT_QUALIFIED',
+        protocol_sha256=sha(protocol),freeze_commit=frozen,cases=results,timestep_comparisons=comparisons,matched_solid_reference=references,
+        operation_counts=budget.counts,forbidden_attempts=budget.forbidden,elapsed_s=time.monotonic()-budget.start,
+        failure=failure,final_binding_error=final_binding_error,artifacts=artifacts,
+        unindexed_array_paths=[str(path) for path in raw.rglob('*.npz') if str(path.resolve()) not in {r['path'] for r in artifacts}],
+        physical_outcome=None,**FLAGS)
+    write(output/'report.json',report);return report
+
+
+def run(protocol,commit):
+    p,frozen=validate(protocol,commit);output=Path(p['output_root']);raw=Path(p['raw_root'])
+    if output.exists() or raw.exists():raise FileExistsError('Never retry or overwrite a dynamics qualification')
+    output.mkdir(parents=True);raw.mkdir(parents=True)
+    write(output/'STARTED.json',dict(protocol_sha256=sha(protocol),freeze_commit=frozen,status='STARTED_ONCE'))
+    try:
+        with (output/'worker.log').open('x') as log:
+            child=subprocess.run([sys.executable,str(Path(__file__).resolve()),'_worker','--protocol',str(Path(protocol).resolve()),'--freeze-commit',frozen],stdout=log,stderr=subprocess.STDOUT,timeout=BUDGET['outer_seconds'])
+        if child.returncode or not (output/'report.json').exists():raise RuntimeError('Worker failed or timed out before completed report')
+        report=read(output/'report.json');validate(protocol,frozen)
+        for row in report['cases']:
+            if row['status']=='MEASURED' and (sha(row['result_path'])!=row['result_sha256'] or sha(row['raw_result_path'])!=row['raw_result_sha256'] or Path(row['result_path']).read_bytes()!=Path(row['raw_result_path']).read_bytes()):raise ValueError('Per-case scalar result changed')
+        if report['failure'] is None:verify_artifacts(report['artifacts'],raw)
+        if report['status']=='HARD_STOP':raise RuntimeError('Worker hard-stopped; evidence retained')
+        return report
+    except BaseException as error:
+        write(output/'launcher_failure.json',dict(type=type(error).__name__,message=str(error),progress=read(output/'progress.json') if (output/'progress.json').exists() else None,physical_outcome=None,**FLAGS));raise
+
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('stage',choices=('prepare','run','_worker'));parser.add_argument('--protocol',type=Path,default=HERE/'protocol.json');parser.add_argument('--freeze-commit')
+    args=parser.parse_args()
+    if args.stage=='prepare':result=prepare(args.protocol)
+    else:
+        if not args.freeze_commit:parser.error('--freeze-commit is required')
+        result=run(args.protocol,args.freeze_commit) if args.stage=='run' else worker(args.protocol,args.freeze_commit)
+    print(json.dumps(dict(schema_version=SCHEMA,status=result.get('status','PREPARED_NOT_RUN'))))
+
+
+if __name__=='__main__':main()
