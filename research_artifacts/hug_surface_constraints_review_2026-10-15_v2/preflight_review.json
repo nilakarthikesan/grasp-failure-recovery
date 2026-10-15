@@ -1,0 +1,34 @@
+{
+  "schema": "hug_surface_constraint_independent_method_preflight_v2",
+  "passed": true,
+  "protocol_draft_path": "/private/tmp/hug_surface_constraints_2026-10-15_v2/protocol.draft.json",
+  "protocol_draft_sha256": "dca3a48ba79a0ce02fd7f1b19f878d10a5ede439ed79b1205ec22544c7dbcdb5",
+  "binding_and_unchanged_design_checks": 172,
+  "prerequisites": {
+    "/private/tmp/hug_surface_constraints_review_2026-10-15_v2/far_guidance_controls.json": "66ae760a0534ab76729d39e1fae95806feefb56607cf6baf8164905f0ca689b9",
+    "/private/tmp/hug_surface_constraints_review_2026-10-15_v2/far_plateau_evidence.json": "cffd46c96cbe6aba2f248c5c013b3f1d59dec661ed6043c9ae22075397cffd47",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v2/all_six_source_preflight.json": "d1ffb6f8c96680005f4a642f4e62ce8401f63ecdaad8ece6e4a5567e9f8c5052",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v2/solver_tests.log": "f27342b5c61ce8dbfda1a1176bbfa88f91601d6bfea1f271d30aca60ff6d2aad",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v2/code_delta.json": "153477880c9d2643f8d5b52cfa2f79490b9f2920dc698ccc3b9a1d20f6cd0f66",
+    "/private/tmp/hug_surface_constraints_review_2026-10-15_v1/final_output_review.json": "150a1bafe667442da8dc73790bea00df21f107270d1e52996195c36e5b8f298d"
+  },
+  "source_implementation_bindings": {
+    "/private/tmp/hug_surface_constraints_2026-10-15_v2/constraint_core.py": "79bb9dd890a3ff485e3e9b522b0611133db2fd7bd46427dece5a8c429252ac9c",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v2/constraint_engine.py": "e7d1ddf000dfe792fc43a0dd31c76509d27a2a76398b7a83cdecdad98b4f9138",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v2/constraint_solver.py": "c4dd48037b06d851e379c4962a4b7a1f7efb5829796e5fafaaf57cd1010d7f7d",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v2/run_constraints.py": "88f323a187918da3864c09911430527b1114314ef3e89a08b4d796f6fe4f5f0d",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v2/free_palm_kinematics.py": "70e98c5a1c177d55510f16469a48db9ea739e34abc4098336a7786162656aaac",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v2/exact_direction.py": "c20380677f727206830e3e87beebd91948009ffb83dc341c53dad2fc5df9baae",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v2/geometry_helpers.py": "2e5c3be519fb3d464377f8348329dc7b7f7ac4d8852281cfb26adf48d84d01ac",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v2/surface_component_guard.py": "77cebfcbfcfff22da591f9cda2dbbe2f072bd32953d7b9145c1e5d4004d5efc9",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v2/test_constraint_solver.py": "d43dce71f3dea8f45cca312781546dbcffae8d373c6c1eb318c76e83c56b196e",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v2/source_preflight.py": "8bd52e91ed3dc7236efb0000457458c69895808851b29a42c6004412d3e48699"
+  },
+  "additional_control_count": 59,
+  "source_preflight_cases": 6,
+  "same_primary_solver_controls_rerun": 8,
+  "execution_review": "PASS to freeze/run the one isolated far-guidance correction with identical two starts, budgets, domain, source witness rows, original caps and final literal predicates. No third fitting version.",
+  "scientific_acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4",
+  "method_scope": "Positive-band equivalence and changed scalar derivative are proven/tested. Saved terminal rows establish clamped far margins; actual terminal Jacobian availability is reported separately and cannot establish the sole cause of solver termination. Final V1/V2 pooling uses separately frozen exact rank, stable V1 tie, before full-grid outcomes.",
+  "mapping_acceptance": false
+}

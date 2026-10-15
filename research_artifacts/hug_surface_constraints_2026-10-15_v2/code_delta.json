@@ -1,0 +1,73 @@
+{
+  "schema": "hug_constraint_v2_code_delta_v1",
+  "changes": "Only proximity_constraints solver_margin for native-far rows uses (d-(r+eps))-band instead of max(0,d-(r+eps))-band; positive-band precondition explicit. All final literal predicate/rank code unchanged.",
+  "files": [
+    {
+      "file": "constraint_core.py",
+      "v1_sha256": "cafbe276ae9c85f63dabad5485acd63c4c851d94bdd25e9fdce8ea46c4f5f24a",
+      "v2_sha256": "79bb9dd890a3ff485e3e9b522b0611133db2fd7bd46427dece5a8c429252ac9c",
+      "identical": false
+    },
+    {
+      "file": "constraint_engine.py",
+      "v1_sha256": "e7d1ddf000dfe792fc43a0dd31c76509d27a2a76398b7a83cdecdad98b4f9138",
+      "v2_sha256": "e7d1ddf000dfe792fc43a0dd31c76509d27a2a76398b7a83cdecdad98b4f9138",
+      "identical": true
+    },
+    {
+      "file": "constraint_solver.py",
+      "v1_sha256": "c4dd48037b06d851e379c4962a4b7a1f7efb5829796e5fafaaf57cd1010d7f7d",
+      "v2_sha256": "c4dd48037b06d851e379c4962a4b7a1f7efb5829796e5fafaaf57cd1010d7f7d",
+      "identical": true
+    },
+    {
+      "file": "run_constraints.py",
+      "v1_sha256": "88f323a187918da3864c09911430527b1114314ef3e89a08b4d796f6fe4f5f0d",
+      "v2_sha256": "88f323a187918da3864c09911430527b1114314ef3e89a08b4d796f6fe4f5f0d",
+      "identical": true
+    },
+    {
+      "file": "free_palm_kinematics.py",
+      "v1_sha256": "70e98c5a1c177d55510f16469a48db9ea739e34abc4098336a7786162656aaac",
+      "v2_sha256": "70e98c5a1c177d55510f16469a48db9ea739e34abc4098336a7786162656aaac",
+      "identical": true
+    },
+    {
+      "file": "exact_direction.py",
+      "v1_sha256": "c20380677f727206830e3e87beebd91948009ffb83dc341c53dad2fc5df9baae",
+      "v2_sha256": "c20380677f727206830e3e87beebd91948009ffb83dc341c53dad2fc5df9baae",
+      "identical": true
+    },
+    {
+      "file": "geometry_helpers.py",
+      "v1_sha256": "2e5c3be519fb3d464377f8348329dc7b7f7ac4d8852281cfb26adf48d84d01ac",
+      "v2_sha256": "2e5c3be519fb3d464377f8348329dc7b7f7ac4d8852281cfb26adf48d84d01ac",
+      "identical": true
+    },
+    {
+      "file": "surface_component_guard.py",
+      "v1_sha256": "77cebfcbfcfff22da591f9cda2dbbe2f072bd32953d7b9145c1e5d4004d5efc9",
+      "v2_sha256": "77cebfcbfcfff22da591f9cda2dbbe2f072bd32953d7b9145c1e5d4004d5efc9",
+      "identical": true
+    },
+    {
+      "file": "test_constraint_solver.py",
+      "v1_sha256": "d43dce71f3dea8f45cca312781546dbcffae8d373c6c1eb318c76e83c56b196e",
+      "v2_sha256": "d43dce71f3dea8f45cca312781546dbcffae8d373c6c1eb318c76e83c56b196e",
+      "identical": true
+    },
+    {
+      "file": "source_preflight.py",
+      "v1_sha256": "8bd52e91ed3dc7236efb0000457458c69895808851b29a42c6004412d3e48699",
+      "v2_sha256": "8bd52e91ed3dc7236efb0000457458c69895808851b29a42c6004412d3e48699",
+      "identical": true
+    },
+    {
+      "file": "merge_candidates.py",
+      "v1_sha256": "00759d39327ffa6323c75fe5e3fddb4e09f3458cafeb436d936194836e4e0908",
+      "v2_sha256": "00759d39327ffa6323c75fe5e3fddb4e09f3458cafeb436d936194836e4e0908",
+      "identical": true
+    }
+  ],
+  "no_optimizer_executed": true
+}

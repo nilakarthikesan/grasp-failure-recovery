@@ -27,8 +27,9 @@ representation, coordinate conversion, articulation and object-relative surface
 geometry, separating mapping fidelity from eventual task success.
 Completed HUG development checks support numerical reconstruction and kinematic
 composition, but reject strict surface preservation across six detailed cases
-and three finer repeats. Neither constrained finger fitting nor per-grasp palm
-placement has established a validated replacement. Historical HUG prediction diagnostics also
+and three finer repeats. Constrained finger fitting, per-grasp palm
+placement and direct surface-constraint fitting have not established a
+validated replacement. Historical HUG prediction diagnostics also
 show that useful failure ranking can coexist with warnings on successful
 unfamiliar attempts. The multiple-generator training comparison and independent
 generalization evaluation remain unexecuted, so improved prediction is a
@@ -321,10 +322,77 @@ present; changing lower bounds alone does not prove a change in total error.
 These conditional part-surface measurements do not establish physical contact
 or failure-label equivalence. All guarded mapper outputs remain original,
 production is unchanged, and no inference, physical evaluation data or training
-is generated. A future method could constrain the actual counterexample cells
-rather than trade them against average fitting cost, but this is unimplemented
-and feasibility is unknown. Removing sampled failures would still require
-continuous coverage evidence before complete sign-off.
+is generated.
+\paragraph{Direct surface constraints.}
+
+We then directly constrain 178 retained whole-cell proximity counterexamples
+and 134 saved signed-orientation records from these same grasps. The records
+are capped examples, with repeated bands and studies retained, rather than
+complete surface coverage. Near cells must remain wholly near and far cells
+wholly far under the inherited bounds; native-away directions are preserved.
+Turning a counterexample into an ambiguous or ineligible measurement is not
+counted as repair. The same 27 pose coordinates, native targets, Shadow
+geometry, individual tip caps, mean guard (at most 10 mm) and physical/correction bounds remain
+fixed. A bounded minimax search targets the worst normalized violation instead
+of an average fitting cost; exact feature and orientation eligibility are
+checked separately.
+
+The first run performs 6,585 raw callbacks and 66 exact checkpoints without
+finding a pose satisfying every retained witness. Its new mug-A diagnostic
+moves the palm by 22.360 mm and satisfies 10 of 57 proximity examples while
+retaining all original fingertip caps. Saved terminal evidence also exposes a
+flat far-distance search residual: the inherited lower bound clips negative
+values to zero. For a positive band, removing this clipping from the optimizer
+residual preserves the feasible set and provides distance guidance. One
+separately frozen revision makes only this search change; literal final tests,
+starting poses, ranking and budgets remain unchanged. Before V2 outputs and the final full-grid audit, selection between the two versions is fixed
+by the same exact diagnostic rank, with ties favoring the first version.
+
+The revised run performs 13,941 raw callbacks and 46 exact checkpoints, with
+all twelve starts reaching the iteration limit. Every terminal violates at
+least one literal original fingertip cap (0.000176--0.0350 mm maximum excess
+per terminal) and is refused; these values are not rounded into acceptance.
+The fixed cross-version selection retains the first-run pose for every case,
+with five exact ties and a better first-run mug-A diagnostic. All thirty
+individual caps and the six mean guards hold for the selected poses, but no
+pose satisfies every retained witness. Independent source, trace and
+arithmetic replay verifies these calculations, not mapping acceptance.
+A disclosed runtime deviation affects both fits: an imported geometry module
+sets four rather than the declared two Numba threads per worker. The final
+audit sets and verifies two after imports; source data, scientific predicates
+and numerical search budgets remain unchanged.
+
+The ten repaired mug-A proximity examples comprise two index, two middle,
+three ring, two little and one palm cell; none of its eight retained thumb
+examples passes. Mug A has no retained orientation witness, which supplies no
+orientation acceptance. Apple B loses two previously passed orientation
+records: one eligible middle-finger point repeated at two bands reverses sign.
+These capped records do not measure total mismatch area or preservation
+elsewhere on the hand. The selected mean fingertip errors are 4.493--7.241 mm;
+the individual historical caps need not each be below 10 mm.
+
+The final independent audit recomputes all nine complete target fields on
+these six saved native grasps. All nine proximity and strict relationship
+comparisons FAIL; pointwise orientation gives 9 FAIL. Numerical source,
+FK, root, joint-domain and fingertip gates pass. At the coarse 2 mm band,
+mug-A palm lost-area lower bounds change from 105.162 to 86.997 mm$^2$, while
+its added-area upper bound changes from zero to 304.058 mm$^2$. Thumb lost
+and added lower bounds rise from 7.970 to 74.646 and from zero to 69.112
+mm$^2$, respectively. These separate conditional bounds do not establish
+reduced total mismatch area or physical contact. Two reliable mug-A direction
+reversals appear in the coarse 5 mm band despite its missing retained
+orientation examples. No candidate is promoted; no new native proposal,
+physics episode, evaluation label or predictor training is generated.
+
+A separate manufactured identity control exposes a limit of the fixed-cell
+certificate. For a native cell whose distance interval straddles a proximity
+band, the inherited independent-interval formulas cannot make both lost and
+added mismatch upper bounds zero, even when native and mapped distances are
+identical. This is uncertainty in the certificate, not a definite geometric
+mismatch or proof that retargeting is impossible. Removing the known
+counterexamples would therefore remain insufficient for complete sign-off:
+stronger coverage evidence, such as paired or adaptive bounds, together with
+continuous orientation coverage, would still be needed under the unchanged scientific criterion.
 % END GFP SECTION hug
 
 % BEGIN GFP SECTION contactgen

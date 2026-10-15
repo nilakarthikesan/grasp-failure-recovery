@@ -410,3 +410,10 @@ User chose common Shadow and authorized per-grasp translation with unchanged cri
 The HUG section and abstract distinguish numerical admission, guard refusal and strict surface failure. The frozen criteria and production mapper are unchanged. Counterexample-constrained fitting is proposed only; continuous orientation coverage still requires evidence even after sampled failures are removed. No new native inference, physics, evaluation data or predictor training. See [study](HUG_FREE_PALM_MAPPING_STUDY.md) and its separately versioned evidence bundles.
 
 The desktop LaTeX compiler reports success for both the canonical working paper (SHA-256 `906455622b1fe0bcb396a685341fafbfe1e39d70f464d0b67dc1f42881b52401`) and the exact selectively staged paper (`5bcf7db84de2a9d5ff0c86beed21e7324e99eeb4c13d7cf04c239167f310e092`). Other providers' uncommitted paper sections are preserved.
+
+
+<!-- hug-direct-surface-constraints-2026-10-15-v1 -->
+
+## 15 October 2026 — HUG direct-constraint results incorporated
+
+Updated the existing HUG subsection and abstract with the completed two-version direct surface-constraint study. All six selected poses preserve original tip/mean gates, but all nine fresh full-grid comparisons FAIL strict preservation; pointwise orientation is 9 FAIL. The manuscript distinguishes Mug A's retained-row progress from increased thumb mismatches/new direction reversals, exact fingertip refusals from mean/domain acceptance, and certificate uncertainty from genuine mismatch. Search/callback budgets and the disclosed thread-count deviation remain explicit. No production promotion, new inference, physics, eval data or training. Other generator sections and the active paper path are preserved. See [completed study](HUG_SURFACE_CONSTRAINT_MAPPING_STUDY.md).

@@ -1,0 +1,26 @@
+{
+  "schema": "hug_surface_constraint_cross_version_selection_rule_v1",
+  "frozen_utc": "2026-10-15T06:35:57.227721+00:00",
+  "case_indices": [
+    8,
+    12,
+    16,
+    20,
+    24,
+    28
+  ],
+  "sources": [
+    "hug_surface_constraints_2026-10-15_v1",
+    "hug_surface_constraints_2026-10-15_v2"
+  ],
+  "v1_candidate_sha256": "a9fdad9debe301d34cf9df73d246c66ebe85e3bc02eae612f91d2f6af9f200d7",
+  "v2_result_not_read": true,
+  "rule": "For each existing native identity, compare exactly the independently verified selected candidate from V1 and V2 using the unchanged literal diagnostic_rank tuple (all witness rows feasible first, invalid orientation rows, max exact normalized violation, failed row count, scaled pose norm). Choose lexicographic minimum; exact tie selects V1. Do not search other raw states or use full-grid audit results.",
+  "preconditions": "Both source candidate files, frozen method protocols and independent final source/cap/constraint review must be bound before merging. Same original caps, native targets, physical/correction/translation bounds, Shadow and scientific criteria. All selected poses remain diagnostic until the separate scientific audit.",
+  "full_audit": "Exactly six coarse2mm plus existing three fine1mm repeats on resulting six poses, unchanged metric. Versions remain separate evidence; this is not independent validation/generalization.",
+  "scientific_criteria_changed": false,
+  "no_new_optimization": true,
+  "no_new_inference": true,
+  "physics_steps": 0,
+  "new_eval_data": false
+}

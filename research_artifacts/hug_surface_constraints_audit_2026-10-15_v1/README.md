@@ -1,0 +1,23 @@
+# Independent audit for direct HUG surface constraints
+
+This study uses only the same six previously saved HUG grasps and the original six 2 mm plus three 1 mm object query grids. It generates no new HUG proposal, physics rollout, task outcome, failure label, eval dataset, or training example.
+
+`validate_candidate.py` preserves the prior audit's literal `full_fields`, `status`, and complete density/query/proximity/orientation block. The wrapper independently reconstructs source-URDF and captured-scene FK, the complete floating-root pose, the translated palm anchor, and the original native-world fingertip targets. It requires exact nonworsening against both frozen original caps and fresh reconstructed caps, zero extra cap allowance, strict 10 mm mean error, original root quaternion, and original physical∩q0±0.35 joint domain. All six preflights precede the fresh full grids. Candidate roles distinguish fitting-constraint selection, refused but tip-feasible diagnostics, and exact original fallback. Fitting constraint satisfaction does not imply scientific mapping acceptance.
+
+The immutable acceptance rule SHA is `87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4`. The same 1/2/5 mm bands, 1/10/100 nm numerical allowances, native labels, literal per-collider boundary distances, and reliable orientation eligibility apply. Continuous orientation remains UNRESOLVED without a separate coverage proof, even if no sampled sign reversal is found.
+
+## Existing constraint evidence
+
+`saved_witnesses.json` contains every example retained by the selected historical reports: 178 original whole-cell counterexamples and 134 orientation records (48 original, 44 initial translated diagnostics, 42 explicit-translation supplement). Repeated rows across nested bands/audits are retained. Every row is tied to source/native identities, report JSON pointer, cache hashes, object query coordinates, cell radius/area, and source face. These are capped examples: one original largest-area definite cell per part/band/change/case/density, and at most three orientation examples per stratum. They are not exhaustive failing sites. The first extractor attempt aborted because the original orientation report did not store case_id; V2 gets that label from the same native-hash-bound original sampling protocol. Both versions and the abort record are preserved; neither performs new geometry.
+
+`cached_failure_row_counts.json` independently counts all original definite mismatch tuples from existing native and original target distance caches. At the primary 10 nm allowance there are 44,558 rows: 26,506 lost and 18,052 added. The 178 retained examples omit 44,380. Row tuples include case, density, part, band, change direction, and child-cell index. Parts, nested bands, and resolutions overlap; these counts are not distinct physical sites or physical contact area. No new queries, FK, fitting, or grid construction were needed to count them.
+
+## Definite mismatch, ambiguity, and preservation
+
+For native distance `dN`, target distance `dM`, cell radius `r`, numerical allowance `eps`, and band `b`, definite proximity is `d+r+eps <= b`; possible proximity is `max(0,d-r-eps) <= b`.
+
+A definite lost relationship is `Ndef & ~Mposs`; a definite added relationship is `Mdef & ~Nposs`. Moving a lost cell merely into `Mposs` removes that lower-bound counterexample but can leave a possible loss (`Nposs & ~Mdef`). It is therefore not a preservation certificate. The original strict proximity PASS requires zero possible lost and added areas, i.e. zero upper bounds. Independent interval bounds can remain ambiguous even for identical geometry. In particular, a cell with `r+eps > b` cannot be classified definitely near by this bound at any nonnegative distance.
+
+For an existing native-definite-near witness, a stronger repair condition is target-definite-near (`dM+r+eps <= b`). For a native-definite-far witness, require target-definite-far (`dM-r-eps > b`), not merely loss of target-definite-near. These conditions address particular saved cells; they do not establish preservation on omitted cells or reliable direction coverage. Original native-away, penetrating, and poor grasp configurations remain source targets and are not relabeled as successful grasps.
+
+The final summary reports constrained fitting evidence separately from the unchanged full-grid results. It retains per-case shifts, exact fingertip and source checks, nine proximity/orientation/strict statuses, and baseline-to-candidate 2 mm-band per-part lower/upper bounds and orientation denominators. At most two audit processes with two active Numba threads each may run, only after candidate source review and protocol freezing.

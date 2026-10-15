@@ -1,12 +1,13 @@
 # New-thread handoff: grasp failure project
 
 > **Latest continuation, 15 October 2026:** Read the
-> [HUG per-grasp palm-position study](HUG_FREE_PALM_MAPPING_STUDY.md) and
-> [parallel-provider coordination guide](PARALLEL_GENERATOR_VALIDATION_HANDOFF.md).
-> The user chose to retain Shadow. Intentional palm-shift alternatives preserve
-> original fingertip caps, but all nine referenced strict surface comparisons
-> still FAIL. The initial nine and separate five-comparison coverage supplement
-> remain distinct evidence. No new eval data or training is authorized here.
+> [HUG direct surface-constraint study](HUG_SURFACE_CONSTRAINT_MAPPING_STUDY.md)
+> and [parallel-provider coordination guide](PARALLEL_GENERATOR_VALIDATION_HANDOFF.md).
+> Direct palm/finger constraints and a separate guidance correction are complete.
+> All six selected poses retain original fingertip caps, but all nine fresh
+> strict surface comparisons FAIL. Mug A improves some retained examples while
+> adding other surface errors. HUG is not validated; the production mapper and
+> original scientific criteria remain unchanged. No new eval data or training.
 
 Prepared 13 October 2026. Verified project state through `0bc3bf4`; this handoff
 adds documentation only. Start by reading `AGENTS.md` and checking current Git

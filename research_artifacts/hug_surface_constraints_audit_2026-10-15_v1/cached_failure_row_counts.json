@@ -1,0 +1,2777 @@
+{
+  "schema": "hug_cached_whole_cell_failure_rows_v1",
+  "protocol_sha256": "07a3c33c7c376d7be7ef0d4dbef6702ad065e3754b6c257b9e29f2364da44e53",
+  "script_sha256": "895d6e6e839d52ea69cd22a7d3c236bd98e43eb2f26f47523a73d4077bd0504c",
+  "inputs_sha256": {
+    "/private/tmp/hug_surface_constraints_audit_2026-10-15_v1/count_cached_failure_rows.py": "895d6e6e839d52ea69cd22a7d3c236bd98e43eb2f26f47523a73d4077bd0504c",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/strict_preservation_witnesses.json": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/protocol.json": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/acceptance/acceptance_rule.json": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_apple_scene_002_seed_0_density2mm_full_current.npz": "666e99575cbf58963723f8e872cf6df7c49d3dcfcee363c6cceb944d4f8c6ffb",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_apple_scene_002_seed_0_density2mm_full_current.binding.json": "ef3d8c0ec234532c5ee107dc127282f863e48fb3b6a980303038192a821882dc",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_apple_scene_002_seed_0_density2mm_queries.npz": "fd3500b5902969e941aa81eabe9e1ec345a489098a31fe438ba65f02ce714980",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_apple_scene_002_seed_0_density1mm_full_current.npz": "6ae42ee208129456532b771107b601070945469b03fe7b04922ea74978a40c61",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_apple_scene_002_seed_0_density1mm_full_current.binding.json": "e4ed2e0766b2e5f7d67fb894cf22efeb823ce221104abc18f323d5343f6ca35b",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_apple_scene_002_seed_0_density1mm_queries.npz": "d380472c38be758cfdfec36995675da464483c67f3ae6c4fa48581da0c1e79a5",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_apple_scene_003_seed_0_density2mm_full_current.npz": "92613f6b786541ec3258b018a60f0fa80866b6a737c3c01bcd8f6c36338c162d",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_apple_scene_003_seed_0_density2mm_full_current.binding.json": "f43a0909f60f51c129a6c7055d29a36f4265207e8d5b31393e1886132104df4e",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_apple_scene_003_seed_0_density2mm_queries.npz": "8d032590372a532da4eb62e7abb161553e459223d29764b229e168c4e1e6f5e0",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_milk_box_scene_000_seed_0_density2mm_full_current.npz": "7e24fb9877f01f657023a016c5c9a6ccef584c0ccfdf3f3d935ee3d8f8add629",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_milk_box_scene_000_seed_0_density2mm_full_current.binding.json": "6f708ee8200cb6017d9a63a8e48a5b9c5912d5e1db34e93ac282f98d3dff29f7",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_milk_box_scene_000_seed_0_density2mm_queries.npz": "291618ec92db0c4e5b1dd857d4ffba8e556efc7a2a8feb3068b89eae9276ce17",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_milk_box_scene_000_seed_0_density1mm_full_current.npz": "4f912342152066d217c3dc8dc1e76fdc6d4fb4111f0c5574052f824534446025",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_milk_box_scene_000_seed_0_density1mm_full_current.binding.json": "c44dd2f022ae354fda34fb3ca649875c0df47cd42d9acd5306da3aa945cc8555",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_milk_box_scene_000_seed_0_density1mm_queries.npz": "7bbfb83da541fac1111431d2d83800d1df839cd722ba212af727538e66133f52",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_milk_box_scene_001_seed_0_density2mm_full_current.npz": "3c856dcf431ac34b171017db46ab9305759d4a084164cce9f04ff2b66cad803a",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_milk_box_scene_001_seed_0_density2mm_full_current.binding.json": "d44a4a872fce4e6a4b97929bb2ca27deedaad23fd99d70924f1cee251ad66192",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_milk_box_scene_001_seed_0_density2mm_queries.npz": "999a927e524ab6030e104443ac48659cc89a199080d98b1afbeb4bd6781af7e2",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_002_seed_0_density2mm_full_current.npz": "3516644c43d78e2df25eea75a8688b4738800f43e90be03d41696649caf17a89",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_002_seed_0_density2mm_full_current.binding.json": "bcd5620221c3de12259b5731f4bd067d6c6d9804385c8feb91b13f6eeabbe603",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_mug_scene_002_seed_0_density2mm_queries.npz": "2b405e6db66bc8ac4cd89227768bf8727bea8c64d1d2cafd24a2795f241ca754",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_002_seed_0_density1mm_full_current.npz": "e751ae68f123201fdcab0fb818b0516ba7bbf3c6bea856015ed018b00048d2a9",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_002_seed_0_density1mm_full_current.binding.json": "6a7755c3dc0b053bada2d4a4af755a68a916a6b1758431536928d305aa32c638",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_mug_scene_002_seed_0_density1mm_queries.npz": "80e518b96dbd1b0e74134f12310b9fbd6fcf4d26537de87903639dc88a0a3adb",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_003_seed_0_density2mm_full_current.npz": "53f7f95300612c331145b396d789cd1cc56d60cc14db0cbbd0b14e886a25407e",
+    "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_003_seed_0_density2mm_full_current.binding.json": "2d08147e9bd53326d2cb651bf796329e3f65f6d2760375184924c6939e73e483",
+    "/private/tmp/hug-other-surfaces-2026-10-14/visual_reference_surfaces/hug_mug_scene_003_seed_0_density2mm_queries.npz": "3375410e0b77554bba816e13e3a0f32620df9850d370634e8366187e8b48bfbb"
+  },
+  "total_definite_failure_rows": 44558,
+  "failure_rows_by_relationship": {
+    "lost_native": 26506,
+    "new_mapped": 18052
+  },
+  "retained_example_rows": 178,
+  "omitted_definite_failure_rows": 44380,
+  "cases": [
+    {
+      "source_inventory_index": 8,
+      "case_id": "hug_apple_scene_002_seed_0",
+      "native_sha256": "0b99bf1919f6d2c06b76361a2c710474c333d83a3ee750a25fb90490cd3b765c",
+      "densities": {
+        "2": {
+          "query_count": 14365,
+          "failure_rows": 544,
+          "retained_rows": 13,
+          "omitted_rows": 531,
+          "strata": [
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 2,
+              "retained_example_rows": 1,
+              "omitted_rows": 1
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 17,
+              "retained_example_rows": 1,
+              "omitted_rows": 16
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 1,
+              "retained_example_rows": 1,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 10,
+              "retained_example_rows": 1,
+              "omitted_rows": 9
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 1,
+              "retained_example_rows": 1,
+              "omitted_rows": 0
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 32,
+              "retained_example_rows": 1,
+              "omitted_rows": 31
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 80,
+              "retained_example_rows": 1,
+              "omitted_rows": 79
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 28,
+              "retained_example_rows": 1,
+              "omitted_rows": 27
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 84,
+              "retained_example_rows": 1,
+              "omitted_rows": 83
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 28,
+              "retained_example_rows": 1,
+              "omitted_rows": 27
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 35,
+              "retained_example_rows": 1,
+              "omitted_rows": 34
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 57,
+              "retained_example_rows": 1,
+              "omitted_rows": 56
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 169,
+              "retained_example_rows": 1,
+              "omitted_rows": 168
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            }
+          ]
+        },
+        "1": {
+          "query_count": 56812,
+          "failure_rows": 4624,
+          "retained_rows": 20,
+          "omitted_rows": 4604,
+          "strata": [
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 88,
+              "retained_example_rows": 1,
+              "omitted_rows": 87
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 25,
+              "retained_example_rows": 1,
+              "omitted_rows": 24
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 81,
+              "retained_example_rows": 1,
+              "omitted_rows": 80
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 26,
+              "retained_example_rows": 1,
+              "omitted_rows": 25
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 170,
+              "retained_example_rows": 1,
+              "omitted_rows": 169
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 58,
+              "retained_example_rows": 1,
+              "omitted_rows": 57
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 137,
+              "retained_example_rows": 1,
+              "omitted_rows": 136
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 53,
+              "retained_example_rows": 1,
+              "omitted_rows": 52
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 84,
+              "retained_example_rows": 1,
+              "omitted_rows": 83
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 196,
+              "retained_example_rows": 1,
+              "omitted_rows": 195
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 293,
+              "retained_example_rows": 1,
+              "omitted_rows": 292
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 596,
+              "retained_example_rows": 1,
+              "omitted_rows": 595
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 242,
+              "retained_example_rows": 1,
+              "omitted_rows": 241
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 603,
+              "retained_example_rows": 1,
+              "omitted_rows": 602
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 68,
+              "retained_example_rows": 1,
+              "omitted_rows": 67
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 87,
+              "retained_example_rows": 1,
+              "omitted_rows": 86
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 241,
+              "retained_example_rows": 1,
+              "omitted_rows": 240
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 357,
+              "retained_example_rows": 1,
+              "omitted_rows": 356
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 364,
+              "retained_example_rows": 1,
+              "omitted_rows": 363
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 855,
+              "retained_example_rows": 1,
+              "omitted_rows": 854
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            }
+          ]
+        }
+      },
+      "failure_rows": 5168,
+      "retained_rows": 33,
+      "omitted_rows": 5135
+    },
+    {
+      "source_inventory_index": 12,
+      "case_id": "hug_apple_scene_003_seed_0",
+      "native_sha256": "2a1f9fd42435e90b5f3b9684c4fa1a7af92e2bcf60723cdc04ed7413a7d368d2",
+      "densities": {
+        "2": {
+          "query_count": 14365,
+          "failure_rows": 555,
+          "retained_rows": 15,
+          "omitted_rows": 540,
+          "strata": [
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 7,
+              "retained_example_rows": 1,
+              "omitted_rows": 6
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 1,
+              "retained_example_rows": 1,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 5,
+              "retained_example_rows": 1,
+              "omitted_rows": 4
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 1,
+              "retained_example_rows": 1,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 4,
+              "retained_example_rows": 1,
+              "omitted_rows": 3
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 2,
+              "retained_example_rows": 1,
+              "omitted_rows": 1
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 42,
+              "retained_example_rows": 1,
+              "omitted_rows": 41
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 62,
+              "retained_example_rows": 1,
+              "omitted_rows": 61
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 27,
+              "retained_example_rows": 1,
+              "omitted_rows": 26
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 82,
+              "retained_example_rows": 1,
+              "omitted_rows": 81
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 27,
+              "retained_example_rows": 1,
+              "omitted_rows": 26
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 42,
+              "retained_example_rows": 1,
+              "omitted_rows": 41
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 57,
+              "retained_example_rows": 1,
+              "omitted_rows": 56
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 189,
+              "retained_example_rows": 1,
+              "omitted_rows": 188
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 7,
+              "retained_example_rows": 1,
+              "omitted_rows": 6
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            }
+          ]
+        }
+      },
+      "failure_rows": 555,
+      "retained_rows": 15,
+      "omitted_rows": 540
+    },
+    {
+      "source_inventory_index": 16,
+      "case_id": "hug_milk_box_scene_000_seed_0",
+      "native_sha256": "9b543c10c9c647f6c0986954381dff9e24aa4aaec338433b0b71b5f7458ce731",
+      "densities": {
+        "2": {
+          "query_count": 19174,
+          "failure_rows": 541,
+          "retained_rows": 16,
+          "omitted_rows": 525,
+          "strata": [
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 1,
+              "retained_example_rows": 1,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 8,
+              "retained_example_rows": 1,
+              "omitted_rows": 7
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 9,
+              "retained_example_rows": 1,
+              "omitted_rows": 8
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 5,
+              "retained_example_rows": 1,
+              "omitted_rows": 4
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 4,
+              "retained_example_rows": 1,
+              "omitted_rows": 3
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 22,
+              "retained_example_rows": 1,
+              "omitted_rows": 21
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 44,
+              "retained_example_rows": 1,
+              "omitted_rows": 43
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 8,
+              "retained_example_rows": 1,
+              "omitted_rows": 7
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 70,
+              "retained_example_rows": 1,
+              "omitted_rows": 69
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 1,
+              "retained_example_rows": 1,
+              "omitted_rows": 0
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 41,
+              "retained_example_rows": 1,
+              "omitted_rows": 40
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 31,
+              "retained_example_rows": 1,
+              "omitted_rows": 30
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 140,
+              "retained_example_rows": 1,
+              "omitted_rows": 139
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 132,
+              "retained_example_rows": 1,
+              "omitted_rows": 131
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 1,
+              "retained_example_rows": 1,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 24,
+              "retained_example_rows": 1,
+              "omitted_rows": 23
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            }
+          ]
+        },
+        "1": {
+          "query_count": 71809,
+          "failure_rows": 3902,
+          "retained_rows": 21,
+          "omitted_rows": 3881,
+          "strata": [
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 46,
+              "retained_example_rows": 1,
+              "omitted_rows": 45
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 58,
+              "retained_example_rows": 1,
+              "omitted_rows": 57
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 76,
+              "retained_example_rows": 1,
+              "omitted_rows": 75
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 107,
+              "retained_example_rows": 1,
+              "omitted_rows": 106
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 25,
+              "retained_example_rows": 1,
+              "omitted_rows": 24
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 145,
+              "retained_example_rows": 1,
+              "omitted_rows": 144
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 33,
+              "retained_example_rows": 1,
+              "omitted_rows": 32
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 84,
+              "retained_example_rows": 1,
+              "omitted_rows": 83
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 148,
+              "retained_example_rows": 1,
+              "omitted_rows": 147
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 334,
+              "retained_example_rows": 1,
+              "omitted_rows": 333
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 84,
+              "retained_example_rows": 1,
+              "omitted_rows": 83
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 380,
+              "retained_example_rows": 1,
+              "omitted_rows": 379
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 62,
+              "retained_example_rows": 1,
+              "omitted_rows": 61
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 59,
+              "retained_example_rows": 1,
+              "omitted_rows": 58
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 343,
+              "retained_example_rows": 1,
+              "omitted_rows": 342
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 302,
+              "retained_example_rows": 1,
+              "omitted_rows": 301
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 657,
+              "retained_example_rows": 1,
+              "omitted_rows": 656
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 650,
+              "retained_example_rows": 1,
+              "omitted_rows": 649
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 4,
+              "retained_example_rows": 1,
+              "omitted_rows": 3
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 5,
+              "retained_example_rows": 1,
+              "omitted_rows": 4
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 300,
+              "retained_example_rows": 1,
+              "omitted_rows": 299
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            }
+          ]
+        }
+      },
+      "failure_rows": 4443,
+      "retained_rows": 37,
+      "omitted_rows": 4406
+    },
+    {
+      "source_inventory_index": 20,
+      "case_id": "hug_milk_box_scene_001_seed_0",
+      "native_sha256": "52ec7441c108f7a9704535c63611ff9d9da3d5f2871b57396b33fdb1e73a7d8b",
+      "densities": {
+        "2": {
+          "query_count": 19174,
+          "failure_rows": 530,
+          "retained_rows": 14,
+          "omitted_rows": 516,
+          "strata": [
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 5,
+              "retained_example_rows": 1,
+              "omitted_rows": 4
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 10,
+              "retained_example_rows": 1,
+              "omitted_rows": 9
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 16,
+              "retained_example_rows": 1,
+              "omitted_rows": 15
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 1,
+              "retained_example_rows": 1,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 5,
+              "retained_example_rows": 1,
+              "omitted_rows": 4
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 27,
+              "retained_example_rows": 1,
+              "omitted_rows": 26
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 21,
+              "retained_example_rows": 1,
+              "omitted_rows": 20
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 36,
+              "retained_example_rows": 1,
+              "omitted_rows": 35
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 28,
+              "retained_example_rows": 1,
+              "omitted_rows": 27
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 32,
+              "retained_example_rows": 1,
+              "omitted_rows": 31
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 59,
+              "retained_example_rows": 1,
+              "omitted_rows": 58
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 101,
+              "retained_example_rows": 1,
+              "omitted_rows": 100
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 186,
+              "retained_example_rows": 1,
+              "omitted_rows": 185
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 3,
+              "retained_example_rows": 1,
+              "omitted_rows": 2
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            }
+          ]
+        }
+      },
+      "failure_rows": 530,
+      "retained_rows": 14,
+      "omitted_rows": 516
+    },
+    {
+      "source_inventory_index": 24,
+      "case_id": "hug_mug_scene_002_seed_0",
+      "native_sha256": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+      "densities": {
+        "2": {
+          "query_count": 45484,
+          "failure_rows": 3515,
+          "retained_rows": 24,
+          "omitted_rows": 3491,
+          "strata": [
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 76,
+              "retained_example_rows": 1,
+              "omitted_rows": 75
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 568,
+              "retained_example_rows": 1,
+              "omitted_rows": 567
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 1,
+              "retained_example_rows": 1,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 2,
+              "retained_example_rows": 1,
+              "omitted_rows": 1
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 172,
+              "retained_example_rows": 1,
+              "omitted_rows": 171
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 173,
+              "retained_example_rows": 1,
+              "omitted_rows": 172
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 699,
+              "retained_example_rows": 1,
+              "omitted_rows": 698
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 362,
+              "retained_example_rows": 1,
+              "omitted_rows": 361
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 1,
+              "retained_example_rows": 1,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 74,
+              "retained_example_rows": 1,
+              "omitted_rows": 73
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 19,
+              "retained_example_rows": 1,
+              "omitted_rows": 18
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 244,
+              "retained_example_rows": 1,
+              "omitted_rows": 243
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 1,
+              "retained_example_rows": 1,
+              "omitted_rows": 0
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 4,
+              "retained_example_rows": 1,
+              "omitted_rows": 3
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 86,
+              "retained_example_rows": 1,
+              "omitted_rows": 85
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 81,
+              "retained_example_rows": 1,
+              "omitted_rows": 80
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 108,
+              "retained_example_rows": 1,
+              "omitted_rows": 107
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 22,
+              "retained_example_rows": 1,
+              "omitted_rows": 21
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 53,
+              "retained_example_rows": 1,
+              "omitted_rows": 52
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 109,
+              "retained_example_rows": 1,
+              "omitted_rows": 108
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 218,
+              "retained_example_rows": 1,
+              "omitted_rows": 217
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 403,
+              "retained_example_rows": 1,
+              "omitted_rows": 402
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 6,
+              "retained_example_rows": 1,
+              "omitted_rows": 5
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 33,
+              "retained_example_rows": 1,
+              "omitted_rows": 32
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            }
+          ]
+        },
+        "1": {
+          "query_count": 178990,
+          "failure_rows": 27164,
+          "retained_rows": 33,
+          "omitted_rows": 27131,
+          "strata": [
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 135,
+              "retained_example_rows": 1,
+              "omitted_rows": 134
+            },
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 746,
+              "retained_example_rows": 1,
+              "omitted_rows": 745
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 2858,
+              "retained_example_rows": 1,
+              "omitted_rows": 2857
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 355,
+              "retained_example_rows": 1,
+              "omitted_rows": 354
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 349,
+              "retained_example_rows": 1,
+              "omitted_rows": 348
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 1643,
+              "retained_example_rows": 1,
+              "omitted_rows": 1642
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 1518,
+              "retained_example_rows": 1,
+              "omitted_rows": 1517
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 3698,
+              "retained_example_rows": 1,
+              "omitted_rows": 3697
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 1914,
+              "retained_example_rows": 1,
+              "omitted_rows": 1913
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 307,
+              "retained_example_rows": 1,
+              "omitted_rows": 306
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 138,
+              "retained_example_rows": 1,
+              "omitted_rows": 137
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 938,
+              "retained_example_rows": 1,
+              "omitted_rows": 937
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 301,
+              "retained_example_rows": 1,
+              "omitted_rows": 300
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 1879,
+              "retained_example_rows": 1,
+              "omitted_rows": 1878
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 53,
+              "retained_example_rows": 1,
+              "omitted_rows": 52
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 356,
+              "retained_example_rows": 1,
+              "omitted_rows": 355
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 370,
+              "retained_example_rows": 1,
+              "omitted_rows": 369
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 1059,
+              "retained_example_rows": 1,
+              "omitted_rows": 1058
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 957,
+              "retained_example_rows": 1,
+              "omitted_rows": 956
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 962,
+              "retained_example_rows": 1,
+              "omitted_rows": 961
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 320,
+              "retained_example_rows": 1,
+              "omitted_rows": 319
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 136,
+              "retained_example_rows": 1,
+              "omitted_rows": 135
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 240,
+              "retained_example_rows": 1,
+              "omitted_rows": 239
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 565,
+              "retained_example_rows": 1,
+              "omitted_rows": 564
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 1167,
+              "retained_example_rows": 1,
+              "omitted_rows": 1166
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 1276,
+              "retained_example_rows": 1,
+              "omitted_rows": 1275
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 2249,
+              "retained_example_rows": 1,
+              "omitted_rows": 2248
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 83,
+              "retained_example_rows": 1,
+              "omitted_rows": 82
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 55,
+              "retained_example_rows": 1,
+              "omitted_rows": 54
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 171,
+              "retained_example_rows": 1,
+              "omitted_rows": 170
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 68,
+              "retained_example_rows": 1,
+              "omitted_rows": 67
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 282,
+              "retained_example_rows": 1,
+              "omitted_rows": 281
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 16,
+              "retained_example_rows": 1,
+              "omitted_rows": 15
+            }
+          ]
+        }
+      },
+      "failure_rows": 30679,
+      "retained_rows": 57,
+      "omitted_rows": 30622
+    },
+    {
+      "source_inventory_index": 28,
+      "case_id": "hug_mug_scene_003_seed_0",
+      "native_sha256": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+      "densities": {
+        "2": {
+          "query_count": 45484,
+          "failure_rows": 3183,
+          "retained_rows": 22,
+          "omitted_rows": 3161,
+          "strata": [
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 36,
+              "retained_example_rows": 1,
+              "omitted_rows": 35
+            },
+            {
+              "part": "palm",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 421,
+              "retained_example_rows": 1,
+              "omitted_rows": 420
+            },
+            {
+              "part": "palm",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 1,
+              "retained_example_rows": 1,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 260,
+              "retained_example_rows": 1,
+              "omitted_rows": 259
+            },
+            {
+              "part": "index",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 120,
+              "retained_example_rows": 1,
+              "omitted_rows": 119
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 1024,
+              "retained_example_rows": 1,
+              "omitted_rows": 1023
+            },
+            {
+              "part": "index",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 182,
+              "retained_example_rows": 1,
+              "omitted_rows": 181
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 42,
+              "retained_example_rows": 1,
+              "omitted_rows": 41
+            },
+            {
+              "part": "middle",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 4,
+              "retained_example_rows": 1,
+              "omitted_rows": 3
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 157,
+              "retained_example_rows": 1,
+              "omitted_rows": 156
+            },
+            {
+              "part": "middle",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 1,
+              "retained_example_rows": 1,
+              "omitted_rows": 0
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "ring",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 2,
+              "retained_example_rows": 1,
+              "omitted_rows": 1
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 45,
+              "retained_example_rows": 1,
+              "omitted_rows": 44
+            },
+            {
+              "part": "ring",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 49,
+              "retained_example_rows": 1,
+              "omitted_rows": 48
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 90,
+              "retained_example_rows": 1,
+              "omitted_rows": 89
+            },
+            {
+              "part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 31,
+              "retained_example_rows": 1,
+              "omitted_rows": 30
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "little",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 51,
+              "retained_example_rows": 1,
+              "omitted_rows": 50
+            },
+            {
+              "part": "little",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 100,
+              "retained_example_rows": 1,
+              "omitted_rows": 99
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 192,
+              "retained_example_rows": 1,
+              "omitted_rows": 191
+            },
+            {
+              "part": "little",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 335,
+              "retained_example_rows": 1,
+              "omitted_rows": 334
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 1,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 7,
+              "retained_example_rows": 1,
+              "omitted_rows": 6
+            },
+            {
+              "part": "thumb",
+              "band_mm": 2,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "lost_native",
+              "definite_failing_cell_rows": 33,
+              "retained_example_rows": 1,
+              "omitted_rows": 32
+            },
+            {
+              "part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "definite_failing_cell_rows": 0,
+              "retained_example_rows": 0,
+              "omitted_rows": 0
+            }
+          ]
+        }
+      },
+      "failure_rows": 3183,
+      "retained_rows": 22,
+      "omitted_rows": 3161
+    }
+  ],
+  "scope": "Original pose only; counts of case/density/part/band/change/cell tuples. Nested bands, distinct parts and coarse/fine grids overlap; do not interpret as distinct physical failure sites or contact area.",
+  "new_geometry_queries": 0,
+  "new_grid_construction": 0,
+  "new_FK": 0,
+  "new_fit": false,
+  "new_eval_data": false
+}

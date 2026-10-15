@@ -1,0 +1,40 @@
+{
+  "schema": "hug_surface_constraints_pooling_policy_v3",
+  "frozen_utc": "2026-10-15T06:37:05.213502+00:00",
+  "selection_script_sha256": "e491b759094cb0b1ad8a0dd833f2a45c3fc8b563eedca28aae6c5cf4246305de",
+  "synthetic_controls_sha256": "810546bdcc0ab40f88a6c268a875c6182391003fb57cc1bcb8205b1720094fc1",
+  "V1_candidate_path": "/private/tmp/hug_surface_constraints_2026-10-15_v1/candidate_targets.json",
+  "V1_candidate_sha256": "a9fdad9debe301d34cf9df73d246c66ebe85e3bc02eae612f91d2f6af9f200d7",
+  "V2_candidate_path": "/private/tmp/hug_surface_constraints_2026-10-15_v2/candidate_targets.json",
+  "V2_candidate_hash_status": "PENDING_COMPLETION_AND_INDEPENDENT_REVIEW; bind final protocol before ranking",
+  "V2_candidate_exists_at_policy_freeze": false,
+  "case_indices": [
+    8,
+    12,
+    16,
+    20,
+    24,
+    28
+  ],
+  "scientific_acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4",
+  "selection_rule": "Compare only each version already-selected, independently source/FK/cap/domain-checked state using the same five-component exact diagnostic_rank (literal retained-row feasibility, invalid orientation rows, maximum exact normalized violation, failed retained-row count, normalized pose squared norm). Lexicographic minimum; exact rank tie favors V1. No raw probe selection, refitting, average cost, full-grid metric selection, or criteria change.",
+  "required_reviews": "Independent numerical replay PASS for both V1/V2 selected poses and identical exact rank semantics before selection. Root may authorize execution after reviewing this policy.",
+  "scientific_status": "Selection does not establish surface mapping acceptance; retained witnesses are capped, orientation missing coverage remains unavailable. Final selected six require unchanged nine-grid audit.",
+  "new_eval_data": false,
+  "physics_steps": 0,
+  "new_inference": false,
+  "supersedes_pre_execution_schema_only": {
+    "path": "/private/tmp/hug_surface_constraints_audit_2026-10-15_v1/pooled_selection/policy.json",
+    "sha256": "dc496fc8455e9f4ec0f45018d8421502998752bf3b1307ac545a5ed2555e6237",
+    "reason": "Primary confirmed V2 uses versioned candidate schema v2; source-specific allowed schema assertion corrected. Rank, eligibility, ties and selection rule unchanged. No selection or full-grid computation occurred under V1 policy."
+  },
+  "supersedes_pre_execution_validation_only": {
+    "path": "/private/tmp/hug_surface_constraints_audit_2026-10-15_v1/pooled_selection/policy_v2.json",
+    "sha256": "5a6aadb2b4176a612aada92a03fd49de923178f54a3080e5bed7866dec66dfd3",
+    "reason": "Independent review requested explicit PASS receipts bound to both exact candidate hashes, source constraint-row and original root comparability. Added root frozen-rule binding. Rank, ties, eligibility predicates and selection rule unchanged. No ranking/full grid occurred under earlier policies."
+  },
+  "root_selection_rule": {
+    "path": "/private/tmp/hug_surface_constraints_root_2026-10-15_v1/cross_version_selection_rule.json",
+    "sha256": "9ec5a1c40282aa3750808b76dcd746010e290c408fa8c47e0263a9e077bbea49"
+  }
+}

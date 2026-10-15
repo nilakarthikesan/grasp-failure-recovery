@@ -1,0 +1,96 @@
+{
+  "schema": "hug_surface_constraints_independent_static_validation_protocol_v1",
+  "script_sha256": "35e24748c8e0a140ed8422cfaa343f9b6e9155f4e297c272f8375895ea1a3e36",
+  "fixed_files_sha256": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/orientation/check_orientation.py": "344b491bf1538d6f451a4a14f0f757d9f8dc37808c7aace64449e8102c47a4f8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/orientation/protocol.json": "22ef5c539c4298589937312218272ea1d41bd1eae9a87e66b45f068dcbce0134",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/orientation/orientation_report_full.json.gz": "09f506bd364648d7fe08a9a27fee7fc7f743c4021c0e85b006f0092c75c0d0b3",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/cell_intervals.py": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/protocol.json": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/sampling_uncertainty.json": "91102356153a2ce6a617cefe9d3fc24cc83506233c2866d2d5e50272c2552284",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/acceptance/acceptance_rule.json": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/acceptance/acceptance_application.json": "2aca704e39838d44790c36a887ac9602962806f4c49aca89be51cbd559d0b4ee",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/protected_input_sha256.json": "c24924922c38b26f9ddbb6c042402fec868aac52767076421cd8a774b699d9c9",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_palm_object_validation_2026-10-14/surfaces/audit_other_surfaces.py": "b235f8b88b5ecb0fc2bc842c3fdb4a17d4c2eb526f321a449169dcbc3cc27bdd",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/existing_hug_inventory.json": "5fc28832494c54c7822543a00ea735ab47e1d44d944ff50fc26712eb27536fcb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/static_saved_hug_fk.json": "04ebe393388193cf4ac256ea0fa0f61d8f2869805618d339c2572673f7445ae8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/pose_validation.py": "1136cdfe80c405031e7060c5f31dd3a0270400314e6ff5aa7a4630c487cdea75",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/retargeting.py": "a6631a0f0d20f6ef94c389529b7d6d677a8a8cd9f8e923efff19ccfee26aa4ff",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/integrations/hug.py": "48e9e62cace4add358b546f3d15cff19535463714613ad22eb955d6fb278dd5a",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/integrations/hug_frames.py": "cd7ad9b8df1d5d6adad70e949a9c7f21ad448a25710a54f47e1ffa95fa28562a",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_feasible_refinement_2026-10-14/validation/validate_candidate.py": "e8e9555f841912b01d5d1b0286579ce5ec6751363f51f60098c744fe195df0e9"
+  },
+  "candidate_schema": "hug_pooled_surface_constraint_candidates_v1",
+  "scope": "Same six saved native grasps; independent source/FK/exact frozen caps and mean gates before the same six coarse and three fine fresh static grids. Direct fitting on saved witness rows is developmental and cannot replace full-grid acceptance. Every final pose is labeled accepted by fitting constraints, refused diagnostic, or exact original fallback; none is scientific acceptance by label.",
+  "case_indices": [
+    8,
+    12,
+    16,
+    20,
+    24,
+    28
+  ],
+  "bands_mm": [
+    1,
+    2,
+    5
+  ],
+  "sampling_parameters": "Literal inherited sampling protocol numerical allowances, primary allowance, cell construction and native patch/collider boundary distance definitions. No post-candidate fitting.",
+  "orientation_parameters": "Literal inherited orientation protocol inspect_orientation eligibility, tie safeguards, normal definitions, strata and direction state deadzone. Orientation remains unresolved on continuous cells.",
+  "range_policy": "Physical source URDF bound \u00b11e-9; captured scene bound allowed only its own source-URDF decimal representation difference +1e-9, while strict scene overflow logged separately. No target clipping, no preflight acceptance claim.",
+  "anchor_policy": "Original root quaternion stays bitwise identical. New palm position = original source native wrist world position + declared per-grasp world displacement. Actual floating forearm root includes joint-dependent wrist compensation. Independently compare sourceURDF q-relative palm/task geometry transformed by original operator R to full captured scene at declared translated anchor.",
+  "candidate_fallback_policy": "Invalid/missing/schema/source poses refuse execution. Tip-feasible constraint-refused diagnostics may be measured with explicit refusal role and not promoted. Original fallback must match complete original scene exactly. Never drop a failing case or convert ambiguity to preservation.",
+  "limitations": [
+    "Conditional closest-query arithmetic assumptions are inherited; not a formal arithmetic error certificate.",
+    "Individual-collider surface distances may include buried interfaces, while orientation excludes buried nearest features. No global accessible contact boundary proof.",
+    "Native patches and target morphology differ. Strict band criteria may be infeasible for all cases; cannot loosen current frozen rule to get pass.",
+    "Pointwise orientation witnesses refute claim but matching signs alone never establish full continuous orientation.",
+    "Poor native poses and added/lost proximity retained; lower penetration or successful lifts are not mapping acceptance.",
+    "Same six development cases and one MANO shape; independent generalization/failure-label preservation not tested.",
+    "Per-tip original-norm nonworsening is an engineering guard. Exactcomputed arithmetic and 1e-12 full/FK comparison are not continuous surface/contact/failure-label equivalence certificates. No feasibility margin is added."
+  ],
+  "maximum_joint_delta_rad": 0.35,
+  "independent_FK_numeric_tolerances": {
+    "palm_position_error_m": 1e-07,
+    "palm_rotation_maxabs": 1e-06,
+    "fixed_URDF_vs_captured_scene_max_link_error_m": 1.1e-07,
+    "rationale": "Existing frozen fixedURDF-vs-scene staticFK observed<=1.01e-7m; representationguard allowance1.1e-7m is numerical audit, not scientific contact margin. No candidategeometrymetricreadbeforefreezing."
+  },
+  "amendment": "New candidate provenance and explicit per-grasp translated-anchor preflight only. full_fields/status and entire original density query/proximity/cell/orientation block retained byte-identical to previous independent wrapper.",
+  "candidate_protocol_expected_sha256": "PENDING_PROTOCOL",
+  "existing_engineering_mean_tip_guard_m": 0.01,
+  "protected_snapshot_sha256": "731eea20d74d575d54e812509586b0de73c0cdb0ff6fb8195203eccb761b3654",
+  "protected_file_count": 89,
+  "individual_fingertip_arithmetic_allowance_m": 0.0,
+  "selection_trace_audit": "Separate independent fit review checks declared saved witness constraints, finite solver budget, exact original target/cap/domain and candidate selection. This surface audit independently measures final poses; it does not replay all historical callbacks.",
+  "candidate_path": "/private/tmp/hug_surface_constraints_audit_2026-10-15_v1/pooled_selection/candidate_targets.json",
+  "execution_authorized_by_root_review": false,
+  "execution_launcher_sha256": "94d72c8e96a1eab2968e75565237f788e85c5243d719570eee69cf398ca7ee0a",
+  "numba_pool_capacity": 4,
+  "numba_threads_per_process": 2,
+  "allowed_full_audit_cohorts": [
+    [
+      8,
+      12,
+      16
+    ],
+    [
+      20,
+      24,
+      28
+    ]
+  ],
+  "maximum_concurrent_audit_processes": 2,
+  "candidate_sha256": "PENDING_CANDIDATES",
+  "candidate_bound_files_sha256": {},
+  "translated_anchor_position_tolerance_m": 1e-12,
+  "original_cap_policy": "Candidate exact computed tip norms must be <= both frozen authoritative original caps and fresh independent original-cap reconstruction, with zero allowance. The 1e-12 norm reconstruction consistency bound never rebases acceptance caps.",
+  "root_review": "Root authorized direct surface-constraint study on same six existing grasps and unchanged final9 scientific checks; final source/selection review and candidate/protocol bindings required before any grid. Old extra direction SSE is diagnostic only; unchanged original frozen proximity and orientation criteria remain authoritative.",
+  "allowed_audited_pose_roles": [
+    "surface_constraint_selected",
+    "tip_feasible_constraint_refused_diagnostic",
+    "original_fallback"
+  ],
+  "candidate_domain_policy": "Final 27D normalized state and actual world palm shift must lie within primary frozen source-reach bounds with zero endpoint allowance; normalized state must reconstruct declared q/shift within1e-12. Independent reviewer checks bound derivation. This domain check is not a scientific surface tolerance.",
+  "cross_version_selection_scope": "Only independently reviewed final selected V1/V2 states, identical exact five-component diagnostic rank and stable V1 tie, frozen before V2 results. Source study and candidate role retained per case. No fitting or scientific grid metrics used to choose."
+}

@@ -1,0 +1,18 @@
+\begin{abstract}
+Grasp-failure predictors trained on simulated attempts may encounter unfamiliar
+objects and configurations whose coverage depends on the grasp proposal source.
+We investigate whether training with proposals from multiple generators improves
+generalization relative to single-generator training, using HUG, ContactGen,
+DexGrasp Anything and UniDexGrasp as candidate sources for a common Shadow Hand
+task in MuJoCo. Before collecting comparison data, we audit each source's native
+representation, coordinate conversion, articulation and object-relative surface
+geometry, separating mapping fidelity from eventual task success.
+Completed HUG development checks support numerical reconstruction and kinematic
+composition, but reject strict surface preservation across six detailed cases
+and three finer repeats. Neither constrained finger fitting nor per-grasp palm
+placement has established a validated replacement. Historical HUG prediction diagnostics also
+show that useful failure ranking can coexist with warnings on successful
+unfamiliar attempts. The multiple-generator training comparison and independent
+generalization evaluation remain unexecuted, so improved prediction is a
+hypothesis rather than a reported result.
+\end{abstract}

@@ -1,0 +1,38 @@
+
+We then directly constrain 178 retained whole-cell proximity counterexamples
+and 134 saved signed-orientation records from these same grasps. The records
+are capped examples, with repeated bands and studies retained, rather than
+complete surface coverage. Near cells must remain wholly near and far cells
+wholly far under the inherited bounds; native-away directions are preserved.
+Turning a counterexample into an ambiguous or ineligible measurement is not
+counted as repair. The same 27 pose coordinates, native targets, Shadow
+geometry, individual tip caps, mean guard and physical/correction bounds remain
+fixed. A bounded minimax search targets the worst normalized violation instead
+of an average fitting cost; exact feature and orientation eligibility are
+checked separately.
+
+The first run performs 6,585 raw callbacks and 66 exact checkpoints without
+finding a pose satisfying every retained witness. Its new mug-A diagnostic
+moves the palm by 22.360 mm and satisfies 10 of 57 proximity examples while
+retaining all original fingertip caps. Saved terminal evidence also exposes a
+flat far-distance search residual: the inherited lower bound clips negative
+values to zero. For a positive band, removing this clipping from the optimizer
+residual preserves the feasible set and provides distance guidance. One
+separately frozen revision makes only this search change; literal final tests,
+starting poses, ranking and budgets remain unchanged. Before its outputs or
+any full-grid results are read, selection between the two versions is fixed
+by the same exact diagnostic rank, with ties favoring the first version.
+
+The revised run performs 13,941 raw callbacks and 46 exact checkpoints, with
+all twelve starts reaching the iteration limit. Every terminal violates at
+least one literal original fingertip cap (0.000176--0.0350 mm maximum excess
+per terminal) and is refused; these values are not rounded into acceptance.
+The fixed cross-version selection retains the first-run pose for every case,
+with five exact ties and a better first-run mug-A diagnostic. All thirty
+individual caps and the six mean guards hold for the selected poses, but no
+pose satisfies every retained witness. Independent source, trace and
+arithmetic replay verifies these calculations, not mapping acceptance.
+A disclosed runtime deviation affects both fits: an imported geometry module
+sets four rather than the declared two Numba threads per worker. The final
+audit sets and verifies two after imports; source data, scientific predicates
+and numerical search budgets remain unchanged.

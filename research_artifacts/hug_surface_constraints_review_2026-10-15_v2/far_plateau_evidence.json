@@ -1,0 +1,989 @@
+{
+  "passed": true,
+  "checks": 51,
+  "source_bindings": {
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/candidate_targets.json": "a9fdad9debe301d34cf9df73d246c66ebe85e3bc02eae612f91d2f6af9f200d7",
+    "/private/tmp/hug_surface_constraints_review_2026-10-15_v2/verify_far_plateau.py": "e2f30d4524d0cc8070405110a86c66d6ca7e97e4518fa40794d414cd3632147a",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/traces/case_8_trace.jsonl.gz": "9e01302a1766eec20a63ce33ef6d8c0492014db06939b0848e072c2f298ff47a",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/traces/case_12_trace.jsonl.gz": "38231493d729939df58c56f1e6c0437f491cf18ad063673d557ec02b597b5344",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/traces/case_16_trace.jsonl.gz": "e278b31dd3d3b5185e5238f86310c9007f52dd6bcb0e70390799462c15875489",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/traces/case_20_trace.jsonl.gz": "f81a5d44c406db68983a80cfcef68d3e67afb34ba5c2fd1224c16864f5c00b1e",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/traces/case_24_trace.jsonl.gz": "abab184fccbf5469432bc6d7fed0f3e72d861220e0c9300d16c25f91a998e5f1",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/traces/case_28_trace.jsonl.gz": "8ad8eeb257055db6e8cde3ea8bed00fa998005e811f4063ed89e02d02ba0e862"
+  },
+  "terminals": [
+    {
+      "source_inventory_index": 8,
+      "start_index": 0,
+      "reported_success": false,
+      "optimizer_status": 9,
+      "optimizer_message": "Iteration limit reached",
+      "terminal_epigraph": 3.2855913005313293,
+      "worst_raw_violation": 3.852969281493305,
+      "worst_proximity_violation": 3.852969281493305,
+      "global_minus_proximity_worst": 0.0,
+      "worst_far_violation": 3.264862478040842,
+      "global_minus_far_worst": 0.588106803452463,
+      "worst_clamped_far_row_count": 0,
+      "terminal_exact_tip_pass": false,
+      "worst_clamped_far_rows": []
+    },
+    {
+      "source_inventory_index": 8,
+      "start_index": 1,
+      "reported_success": false,
+      "optimizer_status": 9,
+      "optimizer_message": "Iteration limit reached",
+      "terminal_epigraph": 3.3196671492980365,
+      "worst_raw_violation": 3.3215493608221363,
+      "worst_proximity_violation": 3.3215493608221363,
+      "global_minus_proximity_worst": 0.0,
+      "worst_far_violation": 3.3167229058202063,
+      "global_minus_far_worst": 0.004826455001929908,
+      "worst_clamped_far_row_count": 0,
+      "terminal_exact_tip_pass": false,
+      "worst_clamped_far_rows": []
+    },
+    {
+      "source_inventory_index": 12,
+      "start_index": 0,
+      "reported_success": false,
+      "optimizer_status": 9,
+      "optimizer_message": "Iteration limit reached",
+      "terminal_epigraph": 2.4872020359205242,
+      "worst_raw_violation": 2.487289237408659,
+      "worst_proximity_violation": 2.487289237408659,
+      "global_minus_proximity_worst": 0.0,
+      "worst_far_violation": 2.4866450576787966,
+      "global_minus_far_worst": 0.0006441797298624152,
+      "worst_clamped_far_row_count": 0,
+      "terminal_exact_tip_pass": false,
+      "worst_clamped_far_rows": []
+    },
+    {
+      "source_inventory_index": 12,
+      "start_index": 1,
+      "reported_success": true,
+      "optimizer_status": 0,
+      "optimizer_message": "Optimization terminated successfully",
+      "terminal_epigraph": 5.000000999999991,
+      "worst_raw_violation": 5.000001000124676,
+      "worst_proximity_violation": 5.000001000124676,
+      "global_minus_proximity_worst": 0.0,
+      "worst_far_violation": 5.000001,
+      "global_minus_far_worst": 1.2467626930856568e-10,
+      "worst_clamped_far_row_count": 1,
+      "terminal_exact_tip_pass": true,
+      "worst_clamped_far_rows": [
+        {
+          "source_row_index": 14,
+          "source_binding": {
+            "source_inventory_index": 12,
+            "source_report": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/strict_preservation_witnesses.json",
+            "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+            "source_json_pointer": "/witnesses/47",
+            "original_full_field_cache_path": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_apple_scene_003_seed_0_density2mm_full_current.npz",
+            "original_full_field_cache_sha256": "92613f6b786541ec3258b018a60f0fa80866b6a737c3c01bcd8f6c36338c162d",
+            "row": {
+              "case_id": "hug_apple_scene_003_seed_0",
+              "density_mm": 2,
+              "anatomical_part": "little",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "child_cell_index": 926,
+              "original_visual_face_index_after_degenerate_exclusion": 392,
+              "centroid_object_m": [
+                0.005110473550386772,
+                -0.03846339252038949,
+                -0.01153945995694239
+              ],
+              "cell_area_mm2": 3.8918162210534866,
+              "centroid_radius_m": 0.0020176043676726073,
+              "numerical_allowance_m": 1e-08,
+              "native_centroid_distance_m": 0.009081674561309223,
+              "mapped_centroid_distance_m": 2.4992907426327225e-05,
+              "native_cell_distance_interval_m": [
+                0.007064060193636616,
+                0.01109928892898183
+              ],
+              "mapped_cell_distance_interval_m": [
+                0,
+                0.0020426072750989346
+              ],
+              "native_sha256": "2a1f9fd42435e90b5f3b9684c4fa1a7af92e2bcf60723cdc04ed7413a7d368d2",
+              "original_query_cache_sha256": "8d032590372a532da4eb62e7abb161553e459223d29764b229e168c4e1e6f5e0",
+              "cell_library_sha256": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+              "sampling_protocol_sha256": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+              "acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+            }
+          },
+          "distance_m": 0.0018881966577917772,
+          "radius_plus_allowance_m": 0.0020176143676726072,
+          "distance_inside_clamped_region_m": 0.00012941770988083006,
+          "band_m": 0.005,
+          "literal_margin_m": -0.005,
+          "old_solver_margin": -5.000001,
+          "unclamped_solver_margin": -5.129418709880831,
+          "terminal_jacobian_available": false
+        }
+      ]
+    },
+    {
+      "source_inventory_index": 16,
+      "start_index": 0,
+      "reported_success": true,
+      "optimizer_status": 0,
+      "optimizer_message": "Optimization terminated successfully",
+      "terminal_epigraph": 5.0000009999999975,
+      "worst_raw_violation": 5.000001000013761,
+      "worst_proximity_violation": 5.000001000013761,
+      "global_minus_proximity_worst": 0.0,
+      "worst_far_violation": 5.000001,
+      "global_minus_far_worst": 1.376054825641404e-11,
+      "worst_clamped_far_row_count": 1,
+      "terminal_exact_tip_pass": true,
+      "worst_clamped_far_rows": [
+        {
+          "source_row_index": 13,
+          "source_binding": {
+            "source_inventory_index": 16,
+            "source_report": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/strict_preservation_witnesses.json",
+            "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+            "source_json_pointer": "/witnesses/61",
+            "original_full_field_cache_path": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_milk_box_scene_000_seed_0_density2mm_full_current.npz",
+            "original_full_field_cache_sha256": "7e24fb9877f01f657023a016c5c9a6ccef584c0ccfdf3f3d935ee3d8f8add629",
+            "row": {
+              "case_id": "hug_milk_box_scene_000_seed_0",
+              "density_mm": 2,
+              "anatomical_part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "child_cell_index": 18683,
+              "original_visual_face_index_after_degenerate_exclusion": 8042,
+              "centroid_object_m": [
+                -0.01529256023769885,
+                0.027563813621271933,
+                0.030539536776958448
+              ],
+              "cell_area_mm2": 3.692818664053734,
+              "centroid_radius_m": 0.0023589601345126976,
+              "numerical_allowance_m": 1e-08,
+              "native_centroid_distance_m": 0.008990501331613488,
+              "mapped_centroid_distance_m": 0.0009813002988107876,
+              "native_cell_distance_interval_m": [
+                0.00663153119710079,
+                0.011349471466126186
+              ],
+              "mapped_cell_distance_interval_m": [
+                0,
+                0.003340270433323485
+              ],
+              "native_sha256": "9b543c10c9c647f6c0986954381dff9e24aa4aaec338433b0b71b5f7458ce731",
+              "original_query_cache_sha256": "291618ec92db0c4e5b1dd857d4ffba8e556efc7a2a8feb3068b89eae9276ce17",
+              "cell_library_sha256": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+              "sampling_protocol_sha256": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+              "acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+            }
+          },
+          "distance_m": 0.0016150737080059408,
+          "radius_plus_allowance_m": 0.0023589701345126976,
+          "distance_inside_clamped_region_m": 0.0007438964265067567,
+          "band_m": 0.005,
+          "literal_margin_m": -0.005,
+          "old_solver_margin": -5.000001,
+          "unclamped_solver_margin": -5.7438974265067575,
+          "terminal_jacobian_available": false
+        }
+      ]
+    },
+    {
+      "source_inventory_index": 16,
+      "start_index": 1,
+      "reported_success": true,
+      "optimizer_status": 0,
+      "optimizer_message": "Optimization terminated successfully",
+      "terminal_epigraph": 5.000001000000042,
+      "worst_raw_violation": 5.000001000042779,
+      "worst_proximity_violation": 5.000001000042779,
+      "global_minus_proximity_worst": 0.0,
+      "worst_far_violation": 5.000001,
+      "global_minus_far_worst": 4.277911358485653e-11,
+      "worst_clamped_far_row_count": 1,
+      "terminal_exact_tip_pass": true,
+      "worst_clamped_far_rows": [
+        {
+          "source_row_index": 13,
+          "source_binding": {
+            "source_inventory_index": 16,
+            "source_report": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/strict_preservation_witnesses.json",
+            "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+            "source_json_pointer": "/witnesses/61",
+            "original_full_field_cache_path": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_milk_box_scene_000_seed_0_density2mm_full_current.npz",
+            "original_full_field_cache_sha256": "7e24fb9877f01f657023a016c5c9a6ccef584c0ccfdf3f3d935ee3d8f8add629",
+            "row": {
+              "case_id": "hug_milk_box_scene_000_seed_0",
+              "density_mm": 2,
+              "anatomical_part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "child_cell_index": 18683,
+              "original_visual_face_index_after_degenerate_exclusion": 8042,
+              "centroid_object_m": [
+                -0.01529256023769885,
+                0.027563813621271933,
+                0.030539536776958448
+              ],
+              "cell_area_mm2": 3.692818664053734,
+              "centroid_radius_m": 0.0023589601345126976,
+              "numerical_allowance_m": 1e-08,
+              "native_centroid_distance_m": 0.008990501331613488,
+              "mapped_centroid_distance_m": 0.0009813002988107876,
+              "native_cell_distance_interval_m": [
+                0.00663153119710079,
+                0.011349471466126186
+              ],
+              "mapped_cell_distance_interval_m": [
+                0,
+                0.003340270433323485
+              ],
+              "native_sha256": "9b543c10c9c647f6c0986954381dff9e24aa4aaec338433b0b71b5f7458ce731",
+              "original_query_cache_sha256": "291618ec92db0c4e5b1dd857d4ffba8e556efc7a2a8feb3068b89eae9276ce17",
+              "cell_library_sha256": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+              "sampling_protocol_sha256": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+              "acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+            }
+          },
+          "distance_m": 0.0016195983201344702,
+          "radius_plus_allowance_m": 0.0023589701345126976,
+          "distance_inside_clamped_region_m": 0.0007393718143782273,
+          "band_m": 0.005,
+          "literal_margin_m": -0.005,
+          "old_solver_margin": -5.000001,
+          "unclamped_solver_margin": -5.739372814378227,
+          "terminal_jacobian_available": false
+        }
+      ]
+    },
+    {
+      "source_inventory_index": 20,
+      "start_index": 0,
+      "reported_success": true,
+      "optimizer_status": 0,
+      "optimizer_message": "Optimization terminated successfully",
+      "terminal_epigraph": 5.000000999999995,
+      "worst_raw_violation": 5.000001000000131,
+      "worst_proximity_violation": 5.000001000000131,
+      "global_minus_proximity_worst": 0.0,
+      "worst_far_violation": 5.000001,
+      "global_minus_far_worst": 1.305622276959184e-13,
+      "worst_clamped_far_row_count": 1,
+      "terminal_exact_tip_pass": true,
+      "worst_clamped_far_rows": [
+        {
+          "source_row_index": 13,
+          "source_binding": {
+            "source_inventory_index": 20,
+            "source_report": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/strict_preservation_witnesses.json",
+            "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+            "source_json_pointer": "/witnesses/98",
+            "original_full_field_cache_path": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_milk_box_scene_001_seed_0_density2mm_full_current.npz",
+            "original_full_field_cache_sha256": "3c856dcf431ac34b171017db46ab9305759d4a084164cce9f04ff2b66cad803a",
+            "row": {
+              "case_id": "hug_milk_box_scene_001_seed_0",
+              "density_mm": 2,
+              "anatomical_part": "little",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "child_cell_index": 227,
+              "original_visual_face_index_after_degenerate_exclusion": 107,
+              "centroid_object_m": [
+                0.011988986004135465,
+                0.030052533511761514,
+                0.047218234253653436
+              ],
+              "cell_area_mm2": 3.4471235976003416,
+              "centroid_radius_m": 0.0018322280739383105,
+              "numerical_allowance_m": 1e-08,
+              "native_centroid_distance_m": 0.008957810227533274,
+              "mapped_centroid_distance_m": 0.0021244315120851846,
+              "native_cell_distance_interval_m": [
+                0.007125572153594963,
+                0.010790048301471584
+              ],
+              "mapped_cell_distance_interval_m": [
+                0.0002921934381468741,
+                0.003956669586023495
+              ],
+              "native_sha256": "52ec7441c108f7a9704535c63611ff9d9da3d5f2871b57396b33fdb1e73a7d8b",
+              "original_query_cache_sha256": "999a927e524ab6030e104443ac48659cc89a199080d98b1afbeb4bd6781af7e2",
+              "cell_library_sha256": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+              "sampling_protocol_sha256": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+              "acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+            }
+          },
+          "distance_m": 0.0015273102888616035,
+          "radius_plus_allowance_m": 0.0018322380739383105,
+          "distance_inside_clamped_region_m": 0.00030492778507670696,
+          "band_m": 0.005,
+          "literal_margin_m": -0.005,
+          "old_solver_margin": -5.000001,
+          "unclamped_solver_margin": -5.304928785076707,
+          "terminal_jacobian_available": false
+        }
+      ]
+    },
+    {
+      "source_inventory_index": 20,
+      "start_index": 1,
+      "reported_success": false,
+      "optimizer_status": 9,
+      "optimizer_message": "Iteration limit reached",
+      "terminal_epigraph": 3.33926459204102,
+      "worst_raw_violation": 3.33950499948217,
+      "worst_proximity_violation": 3.33950499948217,
+      "global_minus_proximity_worst": 0.0,
+      "worst_far_violation": 3.33950499948217,
+      "global_minus_far_worst": 0.0,
+      "worst_clamped_far_row_count": 0,
+      "terminal_exact_tip_pass": true,
+      "worst_clamped_far_rows": []
+    },
+    {
+      "source_inventory_index": 24,
+      "start_index": 0,
+      "reported_success": true,
+      "optimizer_status": 0,
+      "optimizer_message": "Optimization terminated successfully",
+      "terminal_epigraph": 5.000001000002976,
+      "worst_raw_violation": 5.000001,
+      "worst_proximity_violation": 5.000001,
+      "global_minus_proximity_worst": 0.0,
+      "worst_far_violation": 5.000001,
+      "global_minus_far_worst": 0.0,
+      "worst_clamped_far_row_count": 3,
+      "terminal_exact_tip_pass": true,
+      "worst_clamped_far_rows": [
+        {
+          "source_row_index": 17,
+          "source_binding": {
+            "source_inventory_index": 24,
+            "source_report": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/strict_preservation_witnesses.json",
+            "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+            "source_json_pointer": "/witnesses/116",
+            "original_full_field_cache_path": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_002_seed_0_density2mm_full_current.npz",
+            "original_full_field_cache_sha256": "3516644c43d78e2df25eea75a8688b4738800f43e90be03d41696649caf17a89",
+            "row": {
+              "case_id": "hug_mug_scene_002_seed_0",
+              "density_mm": 2,
+              "anatomical_part": "index",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "child_cell_index": 3590,
+              "original_visual_face_index_after_degenerate_exclusion": 643,
+              "centroid_object_m": [
+                -0.001994440149518949,
+                0.055945642164158156,
+                0.05635876112197908
+              ],
+              "cell_area_mm2": 3.837778575107722,
+              "centroid_radius_m": 0.0020809359588809377,
+              "numerical_allowance_m": 1e-08,
+              "native_centroid_distance_m": 0.007131798387718337,
+              "mapped_centroid_distance_m": 0.00017569132360221573,
+              "native_cell_distance_interval_m": [
+                0.005050852428837399,
+                0.009212744346599275
+              ],
+              "mapped_cell_distance_interval_m": [
+                0,
+                0.0022566372824831533
+              ],
+              "native_sha256": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+              "original_query_cache_sha256": "2b405e6db66bc8ac4cd89227768bf8727bea8c64d1d2cafd24a2795f241ca754",
+              "cell_library_sha256": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+              "sampling_protocol_sha256": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+              "acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+            }
+          },
+          "distance_m": 0.00040422770950002823,
+          "radius_plus_allowance_m": 0.0020809459588809376,
+          "distance_inside_clamped_region_m": 0.0016767182493809094,
+          "band_m": 0.005,
+          "literal_margin_m": -0.005,
+          "old_solver_margin": -5.000001,
+          "unclamped_solver_margin": -6.67671924938091,
+          "terminal_jacobian_available": false
+        },
+        {
+          "source_row_index": 21,
+          "source_binding": {
+            "source_inventory_index": 24,
+            "source_report": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/strict_preservation_witnesses.json",
+            "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+            "source_json_pointer": "/witnesses/120",
+            "original_full_field_cache_path": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_002_seed_0_density2mm_full_current.npz",
+            "original_full_field_cache_sha256": "3516644c43d78e2df25eea75a8688b4738800f43e90be03d41696649caf17a89",
+            "row": {
+              "case_id": "hug_mug_scene_002_seed_0",
+              "density_mm": 2,
+              "anatomical_part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "child_cell_index": 16613,
+              "original_visual_face_index_after_degenerate_exclusion": 3563,
+              "centroid_object_m": [
+                0.018192724906862745,
+                0.05298758974494936,
+                0.004196877795564424
+              ],
+              "cell_area_mm2": 3.198632508050124,
+              "centroid_radius_m": 0.001978784785093442,
+              "numerical_allowance_m": 1e-08,
+              "native_centroid_distance_m": 0.007673446276847092,
+              "mapped_centroid_distance_m": 0.0026934918021200172,
+              "native_cell_distance_interval_m": [
+                0.00569465149175365,
+                0.009652241061940533
+              ],
+              "mapped_cell_distance_interval_m": [
+                0.0007146970170265753,
+                0.00467228658721346
+              ],
+              "native_sha256": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+              "original_query_cache_sha256": "2b405e6db66bc8ac4cd89227768bf8727bea8c64d1d2cafd24a2795f241ca754",
+              "cell_library_sha256": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+              "sampling_protocol_sha256": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+              "acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+            }
+          },
+          "distance_m": 0.00038746719082319043,
+          "radius_plus_allowance_m": 0.001978794785093442,
+          "distance_inside_clamped_region_m": 0.0015913275942702515,
+          "band_m": 0.005,
+          "literal_margin_m": -0.005,
+          "old_solver_margin": -5.000001,
+          "unclamped_solver_margin": -6.591328594270252,
+          "terminal_jacobian_available": false
+        },
+        {
+          "source_row_index": 54,
+          "source_binding": {
+            "source_inventory_index": 24,
+            "source_report": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/strict_preservation_witnesses.json",
+            "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+            "source_json_pointer": "/witnesses/153",
+            "original_full_field_cache_path": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_002_seed_0_density1mm_full_current.npz",
+            "original_full_field_cache_sha256": "e751ae68f123201fdcab0fb818b0516ba7bbf3c6bea856015ed018b00048d2a9",
+            "row": {
+              "case_id": "hug_mug_scene_002_seed_0",
+              "density_mm": 1,
+              "anatomical_part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "child_cell_index": 98430,
+              "original_visual_face_index_after_degenerate_exclusion": 5345,
+              "centroid_object_m": [
+                0.022658061813415287,
+                0.05106090775495523,
+                0.0037341206858956927
+              ],
+              "cell_area_mm2": 0.9793491719855741,
+              "centroid_radius_m": 0.0009125711554684402,
+              "numerical_allowance_m": 1e-08,
+              "native_centroid_distance_m": 0.006111680028533375,
+              "mapped_centroid_distance_m": 0.0007530731294275068,
+              "native_cell_distance_interval_m": [
+                0.005199098873064935,
+                0.007024261184001815
+              ],
+              "mapped_cell_distance_interval_m": [
+                0,
+                0.001665654284895947
+              ],
+              "native_sha256": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+              "original_query_cache_sha256": "80e518b96dbd1b0e74134f12310b9fbd6fcf4d26537de87903639dc88a0a3adb",
+              "cell_library_sha256": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+              "sampling_protocol_sha256": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+              "acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+            }
+          },
+          "distance_m": 0.0005292507808794516,
+          "radius_plus_allowance_m": 0.0009125811554684403,
+          "distance_inside_clamped_region_m": 0.0003833303745889887,
+          "band_m": 0.005,
+          "literal_margin_m": -0.005,
+          "old_solver_margin": -5.000001,
+          "unclamped_solver_margin": -5.383331374588989,
+          "terminal_jacobian_available": false
+        }
+      ]
+    },
+    {
+      "source_inventory_index": 24,
+      "start_index": 1,
+      "reported_success": true,
+      "optimizer_status": 0,
+      "optimizer_message": "Optimization terminated successfully",
+      "terminal_epigraph": 5.000001000004523,
+      "worst_raw_violation": 5.000001000005518,
+      "worst_proximity_violation": 5.000001000005518,
+      "global_minus_proximity_worst": 0.0,
+      "worst_far_violation": 5.000001,
+      "global_minus_far_worst": 5.518252521596878e-12,
+      "worst_clamped_far_row_count": 4,
+      "terminal_exact_tip_pass": true,
+      "worst_clamped_far_rows": [
+        {
+          "source_row_index": 17,
+          "source_binding": {
+            "source_inventory_index": 24,
+            "source_report": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/strict_preservation_witnesses.json",
+            "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+            "source_json_pointer": "/witnesses/116",
+            "original_full_field_cache_path": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_002_seed_0_density2mm_full_current.npz",
+            "original_full_field_cache_sha256": "3516644c43d78e2df25eea75a8688b4738800f43e90be03d41696649caf17a89",
+            "row": {
+              "case_id": "hug_mug_scene_002_seed_0",
+              "density_mm": 2,
+              "anatomical_part": "index",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "child_cell_index": 3590,
+              "original_visual_face_index_after_degenerate_exclusion": 643,
+              "centroid_object_m": [
+                -0.001994440149518949,
+                0.055945642164158156,
+                0.05635876112197908
+              ],
+              "cell_area_mm2": 3.837778575107722,
+              "centroid_radius_m": 0.0020809359588809377,
+              "numerical_allowance_m": 1e-08,
+              "native_centroid_distance_m": 0.007131798387718337,
+              "mapped_centroid_distance_m": 0.00017569132360221573,
+              "native_cell_distance_interval_m": [
+                0.005050852428837399,
+                0.009212744346599275
+              ],
+              "mapped_cell_distance_interval_m": [
+                0,
+                0.0022566372824831533
+              ],
+              "native_sha256": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+              "original_query_cache_sha256": "2b405e6db66bc8ac4cd89227768bf8727bea8c64d1d2cafd24a2795f241ca754",
+              "cell_library_sha256": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+              "sampling_protocol_sha256": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+              "acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+            }
+          },
+          "distance_m": 4.655953299673339e-05,
+          "radius_plus_allowance_m": 0.0020809459588809376,
+          "distance_inside_clamped_region_m": 0.002034386425884204,
+          "band_m": 0.005,
+          "literal_margin_m": -0.005,
+          "old_solver_margin": -5.000001,
+          "unclamped_solver_margin": -7.034387425884205,
+          "terminal_jacobian_available": false
+        },
+        {
+          "source_row_index": 21,
+          "source_binding": {
+            "source_inventory_index": 24,
+            "source_report": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/strict_preservation_witnesses.json",
+            "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+            "source_json_pointer": "/witnesses/120",
+            "original_full_field_cache_path": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_002_seed_0_density2mm_full_current.npz",
+            "original_full_field_cache_sha256": "3516644c43d78e2df25eea75a8688b4738800f43e90be03d41696649caf17a89",
+            "row": {
+              "case_id": "hug_mug_scene_002_seed_0",
+              "density_mm": 2,
+              "anatomical_part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "child_cell_index": 16613,
+              "original_visual_face_index_after_degenerate_exclusion": 3563,
+              "centroid_object_m": [
+                0.018192724906862745,
+                0.05298758974494936,
+                0.004196877795564424
+              ],
+              "cell_area_mm2": 3.198632508050124,
+              "centroid_radius_m": 0.001978784785093442,
+              "numerical_allowance_m": 1e-08,
+              "native_centroid_distance_m": 0.007673446276847092,
+              "mapped_centroid_distance_m": 0.0026934918021200172,
+              "native_cell_distance_interval_m": [
+                0.00569465149175365,
+                0.009652241061940533
+              ],
+              "mapped_cell_distance_interval_m": [
+                0.0007146970170265753,
+                0.00467228658721346
+              ],
+              "native_sha256": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+              "original_query_cache_sha256": "2b405e6db66bc8ac4cd89227768bf8727bea8c64d1d2cafd24a2795f241ca754",
+              "cell_library_sha256": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+              "sampling_protocol_sha256": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+              "acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+            }
+          },
+          "distance_m": 0.0005933320243230204,
+          "radius_plus_allowance_m": 0.001978794785093442,
+          "distance_inside_clamped_region_m": 0.0013854627607704216,
+          "band_m": 0.005,
+          "literal_margin_m": -0.005,
+          "old_solver_margin": -5.000001,
+          "unclamped_solver_margin": -6.385463760770422,
+          "terminal_jacobian_available": false
+        },
+        {
+          "source_row_index": 48,
+          "source_binding": {
+            "source_inventory_index": 24,
+            "source_report": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/strict_preservation_witnesses.json",
+            "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+            "source_json_pointer": "/witnesses/147",
+            "original_full_field_cache_path": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_002_seed_0_density1mm_full_current.npz",
+            "original_full_field_cache_sha256": "e751ae68f123201fdcab0fb818b0516ba7bbf3c6bea856015ed018b00048d2a9",
+            "row": {
+              "case_id": "hug_mug_scene_002_seed_0",
+              "density_mm": 1,
+              "anatomical_part": "thumb",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "child_cell_index": 86705,
+              "original_visual_face_index_after_degenerate_exclusion": 4735,
+              "centroid_object_m": [
+                0.010967960710021582,
+                -0.04858596618451869,
+                0.0434403765673869
+              ],
+              "cell_area_mm2": 0.7330589222208613,
+              "centroid_radius_m": 0.000854656048089291,
+              "numerical_allowance_m": 1e-08,
+              "native_centroid_distance_m": 0.006318401534345166,
+              "mapped_centroid_distance_m": 0.0036173734717091996,
+              "native_cell_distance_interval_m": [
+                0.005463735486255875,
+                0.0071730675824344566
+              ],
+              "mapped_cell_distance_interval_m": [
+                0.0027627074236199088,
+                0.00447203951979849
+              ],
+              "native_sha256": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+              "original_query_cache_sha256": "80e518b96dbd1b0e74134f12310b9fbd6fcf4d26537de87903639dc88a0a3adb",
+              "cell_library_sha256": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+              "sampling_protocol_sha256": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+              "acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+            }
+          },
+          "distance_m": 7.620187227790551e-06,
+          "radius_plus_allowance_m": 0.000854666048089291,
+          "distance_inside_clamped_region_m": 0.0008470458608615005,
+          "band_m": 0.005,
+          "literal_margin_m": -0.005,
+          "old_solver_margin": -5.000001,
+          "unclamped_solver_margin": -5.847046860861501,
+          "terminal_jacobian_available": false
+        },
+        {
+          "source_row_index": 54,
+          "source_binding": {
+            "source_inventory_index": 24,
+            "source_report": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/strict_preservation_witnesses.json",
+            "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+            "source_json_pointer": "/witnesses/153",
+            "original_full_field_cache_path": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_002_seed_0_density1mm_full_current.npz",
+            "original_full_field_cache_sha256": "e751ae68f123201fdcab0fb818b0516ba7bbf3c6bea856015ed018b00048d2a9",
+            "row": {
+              "case_id": "hug_mug_scene_002_seed_0",
+              "density_mm": 1,
+              "anatomical_part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "child_cell_index": 98430,
+              "original_visual_face_index_after_degenerate_exclusion": 5345,
+              "centroid_object_m": [
+                0.022658061813415287,
+                0.05106090775495523,
+                0.0037341206858956927
+              ],
+              "cell_area_mm2": 0.9793491719855741,
+              "centroid_radius_m": 0.0009125711554684402,
+              "numerical_allowance_m": 1e-08,
+              "native_centroid_distance_m": 0.006111680028533375,
+              "mapped_centroid_distance_m": 0.0007530731294275068,
+              "native_cell_distance_interval_m": [
+                0.005199098873064935,
+                0.007024261184001815
+              ],
+              "mapped_cell_distance_interval_m": [
+                0,
+                0.001665654284895947
+              ],
+              "native_sha256": "11e5f1cad6fd4f28f57fc0c31ce3d0cc315f8e451e73d0a863735315b8782b9d",
+              "original_query_cache_sha256": "80e518b96dbd1b0e74134f12310b9fbd6fcf4d26537de87903639dc88a0a3adb",
+              "cell_library_sha256": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+              "sampling_protocol_sha256": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+              "acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+            }
+          },
+          "distance_m": 0.0004220665336815803,
+          "radius_plus_allowance_m": 0.0009125811554684403,
+          "distance_inside_clamped_region_m": 0.00049051462178686,
+          "band_m": 0.005,
+          "literal_margin_m": -0.005,
+          "old_solver_margin": -5.000001,
+          "unclamped_solver_margin": -5.4905156217868605,
+          "terminal_jacobian_available": false
+        }
+      ]
+    },
+    {
+      "source_inventory_index": 28,
+      "start_index": 0,
+      "reported_success": true,
+      "optimizer_status": 0,
+      "optimizer_message": "Optimization terminated successfully",
+      "terminal_epigraph": 5.000001000000333,
+      "worst_raw_violation": 5.000001000004646,
+      "worst_proximity_violation": 5.000001000004646,
+      "global_minus_proximity_worst": 0.0,
+      "worst_far_violation": 5.000001,
+      "global_minus_far_worst": 4.646061313451355e-12,
+      "worst_clamped_far_row_count": 2,
+      "terminal_exact_tip_pass": true,
+      "worst_clamped_far_rows": [
+        {
+          "source_row_index": 19,
+          "source_binding": {
+            "source_inventory_index": 28,
+            "source_report": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/strict_preservation_witnesses.json",
+            "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+            "source_json_pointer": "/witnesses/175",
+            "original_full_field_cache_path": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_003_seed_0_density2mm_full_current.npz",
+            "original_full_field_cache_sha256": "53f7f95300612c331145b396d789cd1cc56d60cc14db0cbbd0b14e886a25407e",
+            "row": {
+              "case_id": "hug_mug_scene_003_seed_0",
+              "density_mm": 2,
+              "anatomical_part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "child_cell_index": 15783,
+              "original_visual_face_index_after_degenerate_exclusion": 3399,
+              "centroid_object_m": [
+                0.005802686891103898,
+                0.05280228358738937,
+                0.0002181139750975111
+              ],
+              "cell_area_mm2": 3.8045124213880746,
+              "centroid_radius_m": 0.0024489270533055592,
+              "numerical_allowance_m": 1e-08,
+              "native_centroid_distance_m": 0.007464291141911252,
+              "mapped_centroid_distance_m": 0.001782214835529831,
+              "native_cell_distance_interval_m": [
+                0.005015354088605694,
+                0.009913228195216811
+              ],
+              "mapped_cell_distance_interval_m": [
+                0,
+                0.00423115188883539
+              ],
+              "native_sha256": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+              "original_query_cache_sha256": "3375410e0b77554bba816e13e3a0f32620df9850d370634e8366187e8b48bfbb",
+              "cell_library_sha256": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+              "sampling_protocol_sha256": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+              "acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+            }
+          },
+          "distance_m": 0.0023456226934684523,
+          "radius_plus_allowance_m": 0.002448937053305559,
+          "distance_inside_clamped_region_m": 0.00010331435983710691,
+          "band_m": 0.005,
+          "literal_margin_m": -0.005,
+          "old_solver_margin": -5.000001,
+          "unclamped_solver_margin": -5.103315359837108,
+          "terminal_jacobian_available": false
+        },
+        {
+          "source_row_index": 21,
+          "source_binding": {
+            "source_inventory_index": 28,
+            "source_report": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/strict_preservation_witnesses.json",
+            "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+            "source_json_pointer": "/witnesses/177",
+            "original_full_field_cache_path": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_003_seed_0_density2mm_full_current.npz",
+            "original_full_field_cache_sha256": "53f7f95300612c331145b396d789cd1cc56d60cc14db0cbbd0b14e886a25407e",
+            "row": {
+              "case_id": "hug_mug_scene_003_seed_0",
+              "density_mm": 2,
+              "anatomical_part": "little",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "child_cell_index": 28698,
+              "original_visual_face_index_after_degenerate_exclusion": 6120,
+              "centroid_object_m": [
+                -0.00040344590747153146,
+                0.050953313227730175,
+                -0.03455926283375715
+              ],
+              "cell_area_mm2": 3.911136677926165,
+              "centroid_radius_m": 0.002218936630618212,
+              "numerical_allowance_m": 1e-08,
+              "native_centroid_distance_m": 0.009240936898225492,
+              "mapped_centroid_distance_m": 3.794218938188529e-05,
+              "native_cell_distance_interval_m": [
+                0.007021990267607281,
+                0.011459883528843704
+              ],
+              "mapped_cell_distance_interval_m": [
+                0,
+                0.002256888820000097
+              ],
+              "native_sha256": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+              "original_query_cache_sha256": "3375410e0b77554bba816e13e3a0f32620df9850d370634e8366187e8b48bfbb",
+              "cell_library_sha256": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+              "sampling_protocol_sha256": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+              "acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+            }
+          },
+          "distance_m": 0.0006261278760798306,
+          "radius_plus_allowance_m": 0.002218946630618212,
+          "distance_inside_clamped_region_m": 0.0015928187545383814,
+          "band_m": 0.005,
+          "literal_margin_m": -0.005,
+          "old_solver_margin": -5.000001,
+          "unclamped_solver_margin": -6.5928197545383815,
+          "terminal_jacobian_available": false
+        }
+      ]
+    },
+    {
+      "source_inventory_index": 28,
+      "start_index": 1,
+      "reported_success": true,
+      "optimizer_status": 0,
+      "optimizer_message": "Optimization terminated successfully",
+      "terminal_epigraph": 5.000001000000011,
+      "worst_raw_violation": 5.000001000034069,
+      "worst_proximity_violation": 5.000001000034069,
+      "global_minus_proximity_worst": 0.0,
+      "worst_far_violation": 5.000001,
+      "global_minus_far_worst": 3.4068747822857404e-11,
+      "worst_clamped_far_row_count": 2,
+      "terminal_exact_tip_pass": true,
+      "worst_clamped_far_rows": [
+        {
+          "source_row_index": 19,
+          "source_binding": {
+            "source_inventory_index": 28,
+            "source_report": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/strict_preservation_witnesses.json",
+            "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+            "source_json_pointer": "/witnesses/175",
+            "original_full_field_cache_path": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_003_seed_0_density2mm_full_current.npz",
+            "original_full_field_cache_sha256": "53f7f95300612c331145b396d789cd1cc56d60cc14db0cbbd0b14e886a25407e",
+            "row": {
+              "case_id": "hug_mug_scene_003_seed_0",
+              "density_mm": 2,
+              "anatomical_part": "ring",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "child_cell_index": 15783,
+              "original_visual_face_index_after_degenerate_exclusion": 3399,
+              "centroid_object_m": [
+                0.005802686891103898,
+                0.05280228358738937,
+                0.0002181139750975111
+              ],
+              "cell_area_mm2": 3.8045124213880746,
+              "centroid_radius_m": 0.0024489270533055592,
+              "numerical_allowance_m": 1e-08,
+              "native_centroid_distance_m": 0.007464291141911252,
+              "mapped_centroid_distance_m": 0.001782214835529831,
+              "native_cell_distance_interval_m": [
+                0.005015354088605694,
+                0.009913228195216811
+              ],
+              "mapped_cell_distance_interval_m": [
+                0,
+                0.00423115188883539
+              ],
+              "native_sha256": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+              "original_query_cache_sha256": "3375410e0b77554bba816e13e3a0f32620df9850d370634e8366187e8b48bfbb",
+              "cell_library_sha256": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+              "sampling_protocol_sha256": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+              "acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+            }
+          },
+          "distance_m": 0.0012711560447872207,
+          "radius_plus_allowance_m": 0.002448937053305559,
+          "distance_inside_clamped_region_m": 0.0011777810085183385,
+          "band_m": 0.005,
+          "literal_margin_m": -0.005,
+          "old_solver_margin": -5.000001,
+          "unclamped_solver_margin": -6.1777820085183395,
+          "terminal_jacobian_available": false
+        },
+        {
+          "source_row_index": 21,
+          "source_binding": {
+            "source_inventory_index": 28,
+            "source_report": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/sampling/strict_preservation_witnesses.json",
+            "source_report_sha256": "a56cc6505ad82320985b4d060a9e75500fe2d4fc5600d84664cbe0d715d3acfe",
+            "source_json_pointer": "/witnesses/177",
+            "original_full_field_cache_path": "/private/tmp/hug_sampling_checks_2026-10-14/ephemeral/hug_mug_scene_003_seed_0_density2mm_full_current.npz",
+            "original_full_field_cache_sha256": "53f7f95300612c331145b396d789cd1cc56d60cc14db0cbbd0b14e886a25407e",
+            "row": {
+              "case_id": "hug_mug_scene_003_seed_0",
+              "density_mm": 2,
+              "anatomical_part": "little",
+              "band_mm": 5,
+              "relationship_change": "new_mapped",
+              "child_cell_index": 28698,
+              "original_visual_face_index_after_degenerate_exclusion": 6120,
+              "centroid_object_m": [
+                -0.00040344590747153146,
+                0.050953313227730175,
+                -0.03455926283375715
+              ],
+              "cell_area_mm2": 3.911136677926165,
+              "centroid_radius_m": 0.002218936630618212,
+              "numerical_allowance_m": 1e-08,
+              "native_centroid_distance_m": 0.009240936898225492,
+              "mapped_centroid_distance_m": 3.794218938188529e-05,
+              "native_cell_distance_interval_m": [
+                0.007021990267607281,
+                0.011459883528843704
+              ],
+              "mapped_cell_distance_interval_m": [
+                0,
+                0.002256888820000097
+              ],
+              "native_sha256": "a70e337e8edc5a4e69d5e66ed2c2e2f087b855fbff2a92c340f8909467ae63ea",
+              "original_query_cache_sha256": "3375410e0b77554bba816e13e3a0f32620df9850d370634e8366187e8b48bfbb",
+              "cell_library_sha256": "ba11701b57d0e73c809b6a2af23bb36826b511fceca4ded58a1b6acdedcaa071",
+              "sampling_protocol_sha256": "d2103f7f6f5ed97efef7a7d580d3282999aabd587c8a21f5a05915f096c345fb",
+              "acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+            }
+          },
+          "distance_m": 0.00046575545368196574,
+          "radius_plus_allowance_m": 0.002218946630618212,
+          "distance_inside_clamped_region_m": 0.0017531911769362463,
+          "band_m": 0.005,
+          "literal_margin_m": -0.005,
+          "old_solver_margin": -5.000001,
+          "unclamped_solver_margin": -6.753192176936246,
+          "terminal_jacobian_available": false
+        }
+      ]
+    }
+  ],
+  "clamped_worst_far_row_count": 15,
+  "exact_terminal_jacobian_available_rows": 0,
+  "responsive_distance_probe_rows": 0,
+  "interpretation": "For eight reported-success V1 terminals, worst far-cell epigraph rows are in d<radius+allowance. Where an exact terminal Jacobian was stored, saved far-residual Jacobian rows have zero 27D gradient; matching saved distance probes and their responsiveness are reported per row. Missing terminal Jacobians are explicitly unavailable. The global raw maximum exceeds the far maximum by at most about 1.25e-10 from other rows, recorded explicitly. This certifies a local optimizer-guidance plateau in those records; it does not establish that it is the sole cause of failure, that V2 will improve, or that feasible mapping exists.",
+  "new_geometry_queries": 0,
+  "new_FK": 0,
+  "new_fit": false,
+  "new_eval_data": false
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "hug_numba_import_order_deviation_v1",
+  "method_directory": "/private/tmp/hug_surface_constraints_2026-10-15_v2",
+  "declared_numba_threads_per_process": 2,
+  "effective_numba_threads_after_fresh_identical_engine_import": 4,
+  "numba_pool_capacity": 4,
+  "engine_sha256": "e7d1ddf000dfe792fc43a0dd31c76509d27a2a76398b7a83cdecdad98b4f9138",
+  "driver_sha256": "88f323a187918da3864c09911430527b1114314ef3e89a08b4d796f6fe4f5f0d",
+  "nested_frozen_audit_path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_palm_object_validation_2026-10-14/surfaces/audit_other_surfaces.py",
+  "nested_frozen_audit_sha256": "b235f8b88b5ecb0fc2bc842c3fdb4a17d4c2eb526f321a449169dcbc3cc27bdd",
+  "cause": "constraint_engine sets 2 before importing exact_direction; nested frozen audit module later sets 4. The actual driver does not reset after imports.",
+  "launch_inference": "Actual fitting launch commands execute run_constraints.py directly with no post-import reset, so imported effective Numba thread setting is 4 per worker, not protocol-declared 2. No worker timing/speedup claim is made.",
+  "scientific_predicates_or_budgets_changed": false,
+  "active_sources_modified": false,
+  "geometry_queries": 0,
+  "optimizer_calls": 0,
+  "new_eval_data": false
+}

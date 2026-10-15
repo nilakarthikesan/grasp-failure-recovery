@@ -1,0 +1,159 @@
+{
+  "schema": "hug_surface_constraints_independent_final_output_review_v1",
+  "passed": true,
+  "source_and_trace_checks": 8286,
+  "constraint_arithmetic_checks": 78574,
+  "source_bindings": {
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/candidate_cohort_8_16_24.json": "4c7feab8ae340765a11824fe29940046d541a67426f1e1ae038c104b0ae39e86",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/protocol.json": "898a9fe5353329690a775b9a018e8f0984b28f3926a0df9b35e5d6c5f950667b",
+    "/private/tmp/hug_surface_constraints_audit_2026-10-15_v1/saved_witnesses.json": "0fb0898694f4f4a6f0ff3155ec18109fd95ec71f5eff4b35ada1c46abf49dec6",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_orientation_uncertainty_acceptance_2026-10-14/orientation/protocol.json": "22ef5c539c4298589937312218272ea1d41bd1eae9a87e66b45f068dcbce0134",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_mapping_refinement_2026-10-14/saved_proposals/existing_hug_inventory.json": "5fc28832494c54c7822543a00ea735ab47e1d44d944ff50fc26712eb27536fcb",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/hug_canonical_mcp_calibration_2026-10-14_v1/runtime_v3/candidate_targets.json": "84496804c00267024af56f3364457943696db8481b9c1853bca2c93c6c824b9d",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/third_party/dex-urdf/robots/hands/shadow_hand/shadow_hand_right.urdf": "29a50063cced2fba81dfe3d208ba54499fc12635c9189d0822f7caa2771c36de",
+    "/private/tmp/hug_free_palm_review_2026-10-15_v1/verify_outputs.py": "a2045b0ac673f4c19924c81fe383e686bf4ac7435355a7b9ac452094ff814c4c",
+    "/private/tmp/hug_surface_constraints_review_2026-10-15_v1/verify_final_outputs.py": "3cef8af45b2227366155fac90e73deb9da8e4be56589f3cecef9571729d84e22",
+    "/private/tmp/hug_surface_constraints_review_2026-10-15_v1/constraint_arithmetic.py": "59c20631b9d95a5953cf053ee90f9e37fb1e7aa915293551f3a0f2fb004b5b82"
+  },
+  "cases": [
+    {
+      "source_inventory_index": 8,
+      "palm_shift_world_m": [
+        2.518237826729921e-05,
+        -4.36469233117656e-05,
+        -3.8746894533227024e-05
+      ],
+      "palm_shift_norm_m": 6.356514709925172e-05,
+      "max_exact_original_cap_excess_m": -1.0000000150861554e-09,
+      "mean_tip_error_m": 0.005838904279830026,
+      "source_scene_FK_maxerror_m": 7.22236630834133e-08,
+      "exact_original_fallback": false,
+      "trace_review": {
+        "trace_sha256": "9e01302a1766eec20a63ce33ef6d8c0492014db06939b0848e072c2f298ff47a",
+        "arithmetic_checks": 55532,
+        "trace_event_counts": {
+          "raw_callback": 2307,
+          "exact_checkpoint": 3,
+          "raw_cache_hit": 169,
+          "optimizer_start": 2,
+          "constraint_jacobian": 82,
+          "optimizer_major_iterate": 80,
+          "selection_refusal_before_orientation": 82,
+          "optimizer_terminal": 2,
+          "selected_fresh_terminal": 1
+        },
+        "selected_event": 1367,
+        "selected_reason": "start_1",
+        "fresh_terminal_fallback": false,
+        "rank": [
+          1,
+          0,
+          5.836208642817562,
+          87,
+          0.00038762102990749645
+        ],
+        "tip_pass": true,
+        "all_witness_rows_pass": false,
+        "failed_proximity_rows": 33,
+        "failed_orientation_rows": 54,
+        "invalid_orientation_rows": 0,
+        "max_exact_original_cap_excess_m": -1.0000000150861554e-09
+      }
+    },
+    {
+      "source_inventory_index": 16,
+      "palm_shift_world_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "palm_shift_norm_m": 0.0,
+      "max_exact_original_cap_excess_m": 0.0,
+      "mean_tip_error_m": 0.006646874932330682,
+      "source_scene_FK_maxerror_m": 6.101763700031574e-08,
+      "exact_original_fallback": true,
+      "trace_review": {
+        "trace_sha256": "e278b31dd3d3b5185e5238f86310c9007f52dd6bcb0e70390799462c15875489",
+        "arithmetic_checks": 9866,
+        "trace_event_counts": {
+          "raw_callback": 394,
+          "exact_checkpoint": 9,
+          "raw_cache_hit": 35,
+          "optimizer_start": 2,
+          "constraint_jacobian": 14,
+          "optimizer_major_iterate": 14,
+          "selection_refusal_before_orientation": 10,
+          "optimizer_terminal": 2,
+          "selected_fresh_terminal": 1
+        },
+        "selected_event": 2,
+        "selected_reason": "original_baseline",
+        "fresh_terminal_fallback": false,
+        "rank": [
+          1,
+          0,
+          6.735963944211342,
+          89,
+          0.0
+        ],
+        "tip_pass": true,
+        "all_witness_rows_pass": false,
+        "failed_proximity_rows": 37,
+        "failed_orientation_rows": 52,
+        "invalid_orientation_rows": 0,
+        "max_exact_original_cap_excess_m": 0.0
+      }
+    },
+    {
+      "source_inventory_index": 24,
+      "palm_shift_world_m": [
+        -0.008013833368474157,
+        -0.0184027234345939,
+        0.009852239303015995
+      ],
+      "palm_shift_norm_m": 0.02235952536060894,
+      "max_exact_original_cap_excess_m": -4.772420614078399e-10,
+      "mean_tip_error_m": 0.004492666335344353,
+      "source_scene_FK_maxerror_m": 6.04618567933556e-08,
+      "exact_original_fallback": false,
+      "trace_review": {
+        "trace_sha256": "abab184fccbf5469432bc6d7fed0f3e72d861220e0c9300d16c25f91a998e5f1",
+        "arithmetic_checks": 13176,
+        "trace_event_counts": {
+          "raw_callback": 534,
+          "exact_checkpoint": 9,
+          "raw_cache_hit": 45,
+          "optimizer_start": 2,
+          "constraint_jacobian": 19,
+          "optimizer_major_iterate": 19,
+          "selection_refusal_before_orientation": 15,
+          "optimizer_terminal": 2,
+          "selected_fresh_terminal": 1
+        },
+        "selected_event": 271,
+        "selected_reason": "start_0_major_8",
+        "fresh_terminal_fallback": false,
+        "rank": [
+          1,
+          0,
+          5.0,
+          47,
+          74.3217051142339
+        ],
+        "tip_pass": true,
+        "all_witness_rows_pass": false,
+        "failed_proximity_rows": 47,
+        "failed_orientation_rows": 0,
+        "invalid_orientation_rows": 0,
+        "max_exact_original_cap_excess_m": -4.772420614078399e-10
+      }
+    }
+  ],
+  "runtime_seconds": 2.194546415936202,
+  "physics_steps": 0,
+  "new_eval_data": false,
+  "new_inference": false,
+  "new_surface_queries": 0,
+  "mapping_acceptance": false,
+  "scope": "Independently reconstructed source/native targets, original caps, physical/domain bounds, translated root and source/scene FK; replayed every raw/exact recorded constraint and exact checkpoint selection. Full scientific surface grid audit remains separate."
+}

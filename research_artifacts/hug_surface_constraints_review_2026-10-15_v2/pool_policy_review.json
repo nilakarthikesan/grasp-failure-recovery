@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "scope": "Static implementation and six manufactured rank controls only. No actual candidate ranking, geometry/FK, fitting, full-grid outcome use or data generation.",
+  "source_bindings": {
+    "/private/tmp/hug_surface_constraints_audit_2026-10-15_v1/pooled_selection/policy_v3.json": "fb2883feec2924232ba29598952cc966339f8d0355d9b28c894e9893324bd47c",
+    "/private/tmp/hug_surface_constraints_audit_2026-10-15_v1/pooled_selection/select_candidates_v3.py": "e491b759094cb0b1ad8a0dd833f2a45c3fc8b563eedca28aae6c5cf4246305de",
+    "/private/tmp/hug_surface_constraints_root_2026-10-15_v1/cross_version_selection_rule.json": "9ec5a1c40282aa3750808b76dcd746010e290c408fa8c47e0263a9e077bbea49",
+    "/private/tmp/hug_surface_constraints_review_2026-10-15_v2/review_pool_policy.py": "94618cbbd3d42473b0022575b6bca45ade37e533a26090ededdd617d35931236"
+  },
+  "synthetic_controls": [
+    {
+      "test": "feasible_first",
+      "pass": true
+    },
+    {
+      "test": "eligible_count_first",
+      "pass": true
+    },
+    {
+      "test": "worst_exact_violation",
+      "pass": true
+    },
+    {
+      "test": "failed_rows",
+      "pass": true
+    },
+    {
+      "test": "pose_final",
+      "pass": true
+    },
+    {
+      "test": "stable_V1_tie",
+      "pass": true
+    }
+  ],
+  "review": {
+    "exact_source_schemas_v1_v2": true,
+    "each_numerical_receipt_must_pass": true,
+    "both_candidate_hashes_covered_by_passed_receipts": true,
+    "original_caps_domain_root_and_source_rows_comparable": true,
+    "exact_five_component_rank_and_stable_V1_tie": true,
+    "no_raw_probe_or_full_grid_outcome_selection": true
+  },
+  "execution_scope": "May run frozen rule once both independently verified source outputs exist. This preserves V1/V2 evidence and does not establish mapping acceptance."
+}

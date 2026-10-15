@@ -1,0 +1,60 @@
+{
+  "schema": "hug_surface_constraint_independent_method_preflight_v1",
+  "passed": true,
+  "protocol_draft_path": "/private/tmp/hug_surface_constraints_2026-10-15_v1/protocol.draft.json",
+  "protocol_draft_sha256": "c976528a5043e68e482af0858e68fdd485c6cc1272b0ae4c146dbc204ab9d15b",
+  "hash_and_start_checks": 172,
+  "source_implementation_bindings": {
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/constraint_core.py": "cafbe276ae9c85f63dabad5485acd63c4c851d94bdd25e9fdce8ea46c4f5f24a",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/constraint_engine.py": "e7d1ddf000dfe792fc43a0dd31c76509d27a2a76398b7a83cdecdad98b4f9138",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/constraint_solver.py": "c4dd48037b06d851e379c4962a4b7a1f7efb5829796e5fafaaf57cd1010d7f7d",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/run_constraints.py": "88f323a187918da3864c09911430527b1114314ef3e89a08b4d796f6fe4f5f0d",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/free_palm_kinematics.py": "70e98c5a1c177d55510f16469a48db9ea739e34abc4098336a7786162656aaac",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/exact_direction.py": "c20380677f727206830e3e87beebd91948009ffb83dc341c53dad2fc5df9baae",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/geometry_helpers.py": "2e5c3be519fb3d464377f8348329dc7b7f7ac4d8852281cfb26adf48d84d01ac",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/surface_component_guard.py": "77cebfcbfcfff22da591f9cda2dbbe2f072bd32953d7b9145c1e5d4004d5efc9",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/test_constraint_solver.py": "d43dce71f3dea8f45cca312781546dbcffae8d373c6c1eb318c76e83c56b196e",
+    "/private/tmp/hug_surface_constraints_2026-10-15_v1/source_preflight.py": "8bd52e91ed3dc7236efb0000457458c69895808851b29a42c6004412d3e48699"
+  },
+  "prerequisites": {
+    "/private/tmp/hug_surface_constraints_review_2026-10-15_v1/manufactured_constraint_controls.json": "9b2fa33f6ad2efe7ef58c6b4fae70feaf9061c044859d2ce3c59a8ca63de9de6",
+    "/private/tmp/hug_surface_constraints_review_2026-10-15_v1/saved_rows_review.json": "da32494a9f286018bef043a9050417d8ca78e9ccda068915ac6b6e5cbacf3248",
+    "/private/tmp/hug_surface_constraints_review_2026-10-15_v1/identity_interval_control.json": "5fe36404cfc676889778c4a871b985e97ef1a368031a59a0239ba602565d7ee7",
+    "/private/tmp/hug_surface_constraints_review_2026-10-15_v1/source_preflight_arithmetic_review.json": "cdb7e05e999c7028244ee3cbbfe4fc8aae80024b91c376f9421975bc9836d436",
+    "/private/tmp/hug_surface_constraints_review_2026-10-15_v1/independent_solver_tests.log": "eb78212704e00f3d93d6544826ad5c73c6f2a2398fc758a54423c378fc9fc2cb",
+    "/private/tmp/hug_surface_constraints_root_2026-10-15_v1/all_six_source_preflight.json": "d8faa9c584eb6459bab0f971b31d9ad0c5decf3dd2bab56e56dc4fbbd95da8a8"
+  },
+  "evidence_counts": {
+    "independently_authored_constraint_controls": 36,
+    "primary_manufactured_solver_tests_independently_rerun": 8,
+    "independent_source_row_checks": 5156,
+    "independent_baseline_arithmetic_checks": 253,
+    "original_source_cases_and_analytic_jacobian_gates": 6
+  },
+  "method_review": {
+    "literal_near_and_strict_far_sufficient_constraints": true,
+    "inward_solver_buffers_never_final_acceptance_allowance": true,
+    "native_away_and_source_band_retained": true,
+    "all_retained_rows_and_fixed_source_provenance": true,
+    "raw_guidance_not_exact_eligibility": true,
+    "exact_global_nearest_part_normal_tie_exterior_buried_visual_conditions": true,
+    "exact_original_caps_and_inclusive_10mm_mean": true,
+    "all_literal_row_feasible_states_rank_first": true,
+    "raw_probes_not_selection_eligible": true,
+    "fresh_fallback_source_metadata_fixed_and_tested": true,
+    "full27_cache_and_bounded_execution_counts": true,
+    "exact_raw_work_in_raw_budget": true,
+    "legacy_direction_SSE_guard_diagnostic_only": true,
+    "source_helpers_byte_identical_to_prior_review": true
+  },
+  "limitations": [
+    "178 constrained capped cell examples are only a subset of 44,558 original failing tuples; overlap prevents interpreting tuple count as independent regions.",
+    "134 retained orientation examples include repeated/banded rows and zero reliable examples for mug A; absent witnesses are unavailable coverage.",
+    "Nonsmooth raw search surrogates and finite SLSQP do not prove convergence or global infeasibility.",
+    "Even perfect native/mapped identity can leave frozen interval upper mismatch bounds positive on native-ambiguous cells; lack of PASS there is uncertainty, not geometric disagreement.",
+    "Whole-cell witness feasibility does not establish full mapping validity or continuous orientation coverage; unchanged independent full grids remain required."
+  ],
+  "execution_review": "PASS to freeze and run exactly declared two-start bounded method; only authorization metadata may change without renewed code review. No extra starts, fitting extension, resampling, inference, physics, new eval data or promotion.",
+  "scientific_mapping_acceptance": false,
+  "unchanged_acceptance_rule_sha256": "87da8d6c03c0f5692f08cbad99f3af42f72f16d818b5b30df581791361d400d4"
+}
