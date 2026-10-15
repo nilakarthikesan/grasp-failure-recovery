@@ -1429,3 +1429,52 @@ failure. Only instantiated world geom masks are disabled; the original
 default template is required and preserved. Skin, frames, faces, exactshape,
 source32/continuous64/originalnormal gates and all109state quotas remain
 unchanged. Actual v2 model/forward/skin results are pending at this freeze.
+
+### 2026-10-15 — Actual engine finger surfaces match continuous skin; source normals fail
+
+Engine bridge v2 (`5164742d`, source freeze `99af7b1`) completes both native
+cases and all 109 declared static states per case. Each case uses one model,
+one Data, 109 static forwards, 109 skin evaluations and 109 direct flex updates;
+there are zero physics steps, object queries or actuator commands. Contact and
+actuation remain explicitly disabled. This checks articulated geometry from
+actual engine state, rather than dynamic tracking or grasp execution.
+
+Actual engine vertices match the independently sealed continuous64 skin within
+1.11e-16/1.67e-16 m (cases 20/28); corresponding normal-component errors are
+4.82e-14/4.29e-14. Joint-anchor errors are 0.270/0.262 micrometers. Protected
+state, model and force-buffer checks pass. The unchanged strict source32 normal
+comparison FAILS: maximum component errors 2.5434e-5/1.0917e-5 exceed 1e-6.
+The original saved baseline comparison also fails on normals, despite vertex
+errors below 0.1 micrometers. These are distinct verdicts; engine placement
+agreement does not convert the source-normal failure into a pass.
+
+Report SHA256:
+`ddd540216c5b3a32c6c8e2e41769e2675ed2c22ed857a376814669c93cfba387`.
+Independent saved-only receipt
+`research_artifacts/manosim_skin_engine_bridge_2026-10-15_v2/run_v1/independent_readback.json`
+has SHA256 `2b554e501e8f22bfa3e7edb3923bb0ed2fda56a5bb9af992d46393aa0ea8c069`.
+It verifies 5,277 bindings, 155 Git blobs and 15 creation-time artifacts, and
+recomputes all saved vertex/normal comparisons without engine or skin replay.
+Assertions available only from the bound producer, rather than persisted
+operands, are identified separately in the receipt. The source freeze is released.
+
+Saved-output diagnostics locate discrepancies in the already-sealed source
+precision profiles, before the engine surface update. Read-only coordinate
+algebra then identifies a concrete pipeline mismatch: the old root state uses
+float64 Gram-Schmidt of the saved 6D root, while HUG evaluates its post-conversion
+float32 axis-angle root in camera coordinates. Inverse recovery from the old
+root differs by one float32 ULP in case 20's root Y and all three root entries
+of case 28; all 45 local finger entries and all three camera translations
+recover exactly. This algebra does not execute a new skin, model or physics run.
+
+Next is a separately versioned source-initialized state/pipeline correction,
+preserving the original HUG geometry, thresholds, old state grids and failures.
+No geometry fitting, offsets or relaxed normal tolerance are permitted. A new
+float32 surface must not silently inherit continuous64 contact derivatives.
+Full mapping, oriented native contact, collection and training remain closed.
+
+Saved-array illustration source:
+`research_artifacts/manosim_saved_evidence_figures_2026-10-15_v1/render_engine_bridge.py`;
+output: `runs/manosim_engine_bridge_evidence_2026-10-15_v1/engine_fingers_and_normal_failure.png`.
+The figure shows actual engine meshes and the failed source-normal gate; it is
+not a physics or actuator-motion demonstration.

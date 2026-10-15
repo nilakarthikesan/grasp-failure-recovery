@@ -2997,3 +2997,37 @@ that source inventory in a distinct v2; require the exact original default
 template unchanged, preserve original physics/skin/normal gates and retain
 the failed v1. Next check is actual geometry readback across all109states,
 with native/source precision profiles and any normal failure explicit.
+
+### 2026-10-15 — Correct the source execution path while retaining strict normal failures
+
+Previous plan: place the continuous64 full MANO skin in the actual engine and
+compare it with both the sealed skin and HUG's source32 surface. Measured bridge
+v2 completes 218 declared static states. Engine-to-continuous64 vertices and
+normals agree at roundoff, but the source32 normal-component gate fails at
+2.5434e-5/1.0917e-5 versus 1e-6. Independent saved-only receipt `2b554e50`
+confirms these results. Contact/actuation were disabled; there is no dynamic
+finger-tracking or native contact qualification.
+
+New read-only source and coordinate evidence: HUG evaluates post-conversion
+axis angles and translation in float32 camera coordinates, then applies its
+camera-to-world transform in float64. The old engine root instead starts from
+float64 Gram-Schmidt of the saved 6D rotation. Recovering source axis angles
+from this old root misses original float32 entries by one ULP. Thus preserving
+the old root cannot satisfy an exact original-input recovery guard. This is an
+execution-path/state-domain mismatch, not evidence for fitting mesh vertices or
+loosening thresholds.
+
+Decision: implement a distinct source-native pipeline initialized from the
+original post-conversion float32 axis-angle root and literal camera transform.
+Keep the same finite perturbation grid specification in the new state domain,
+and preserve the old states, targets and FAIL reports. Require exact original
+float32 axis-angle/translation recovery at baseline before any source/model
+evaluation. Resolve equivalent axis-angle branches mathematically, using the
+original coordinate branch; do not fit geometry or add a baseline offset.
+Compare engine geometry with the unchanged original source and strict gates.
+
+Implementation is pending at this decision. The next check is source review,
+manufactured coordinate controls, a fresh bounded protocol and actual engine
+readback. Any source32 surface requires its own consistent derivative/contact
+qualification; the existing continuous64 Jacobian cannot be promoted by this
+geometry correction. Collection and training remain blocked.
