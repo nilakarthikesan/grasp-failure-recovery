@@ -1,0 +1,335 @@
+{
+  "schema": "hug_saved_pilot_independent_scalar_receipt_v1",
+  "status": "PASS",
+  "source_sha256": "sha256:9312be75935f6ac2da667f1224bfb6d4c1fa815057d570081dce2ec1ab199499",
+  "protocol_sha256": "sha256:baa34141b24dcc18bf6011f203726e452722b8ea1c3c67ec87ce6eeb58f665bf",
+  "authorization_sha256": "sha256:cd3f4fbd5dbfe346511cb44146d9ab750a1b4449e5e6954e27964cc017602353",
+  "summary_sha256": "sha256:86fe41d401e14f5bd7847dd5b6131a7ba0df0f7acef0ac8bd4689e0a883f3f49",
+  "attempts_accounted": 20,
+  "completed": 20,
+  "null_outcomes": 0,
+  "unique_saved_commands": 16,
+  "repeats": [
+    {
+      "attempt_id": "attempt_0016",
+      "repeat_of": "attempt_0000",
+      "scored_outcome_exact": true,
+      "maximum_recorded_endpoint_errors": {
+        "observables/hand_qpos": 0.0,
+        "observables/hand_qvel": 0.0,
+        "observables/requested_target_rad": 0.0,
+        "observables/applied_target_rad": 0.0,
+        "observables/time_s": 0.0,
+        "observables/action_interval_start_s": 0.0,
+        "observables/target_limits_rad": 0.0,
+        "diagnostics/diagnostic_contact_time_s": 0.0,
+        "diagnostics/full_qpos": 0.0,
+        "diagnostics/full_qvel": 0.0,
+        "diagnostics/contact_count": 0.0,
+        "diagnostics/hand_object_contact": 0.0,
+        "diagnostics/hand_table_contact": 0.0,
+        "diagnostics/object_table_contact": 0.0,
+        "diagnostics/maximum_contact_normal_force_n": 0.0,
+        "diagnostics/time_s": 0.0
+      }
+    },
+    {
+      "attempt_id": "attempt_0017",
+      "repeat_of": "attempt_0004",
+      "scored_outcome_exact": true,
+      "maximum_recorded_endpoint_errors": {
+        "observables/hand_qpos": 0.0,
+        "observables/hand_qvel": 0.0,
+        "observables/requested_target_rad": 0.0,
+        "observables/applied_target_rad": 0.0,
+        "observables/time_s": 0.0,
+        "observables/action_interval_start_s": 0.0,
+        "observables/target_limits_rad": 0.0,
+        "diagnostics/diagnostic_contact_time_s": 0.0,
+        "diagnostics/full_qpos": 0.0,
+        "diagnostics/full_qvel": 0.0,
+        "diagnostics/contact_count": 0.0,
+        "diagnostics/hand_object_contact": 0.0,
+        "diagnostics/hand_table_contact": 0.0,
+        "diagnostics/object_table_contact": 0.0,
+        "diagnostics/maximum_contact_normal_force_n": 0.0,
+        "diagnostics/time_s": 0.0
+      }
+    },
+    {
+      "attempt_id": "attempt_0018",
+      "repeat_of": "attempt_0008",
+      "scored_outcome_exact": true,
+      "maximum_recorded_endpoint_errors": {
+        "observables/hand_qpos": 0.0,
+        "observables/hand_qvel": 0.0,
+        "observables/requested_target_rad": 0.0,
+        "observables/applied_target_rad": 0.0,
+        "observables/time_s": 0.0,
+        "observables/action_interval_start_s": 0.0,
+        "observables/target_limits_rad": 0.0,
+        "diagnostics/diagnostic_contact_time_s": 0.0,
+        "diagnostics/full_qpos": 0.0,
+        "diagnostics/full_qvel": 0.0,
+        "diagnostics/contact_count": 0.0,
+        "diagnostics/hand_object_contact": 0.0,
+        "diagnostics/hand_table_contact": 0.0,
+        "diagnostics/object_table_contact": 0.0,
+        "diagnostics/maximum_contact_normal_force_n": 0.0,
+        "diagnostics/time_s": 0.0
+      }
+    },
+    {
+      "attempt_id": "attempt_0019",
+      "repeat_of": "attempt_0012",
+      "scored_outcome_exact": true,
+      "maximum_recorded_endpoint_errors": {
+        "observables/hand_qpos": 0.0,
+        "observables/hand_qvel": 0.0,
+        "observables/requested_target_rad": 0.0,
+        "observables/applied_target_rad": 0.0,
+        "observables/time_s": 0.0,
+        "observables/action_interval_start_s": 0.0,
+        "observables/target_limits_rad": 0.0,
+        "diagnostics/diagnostic_contact_time_s": 0.0,
+        "diagnostics/full_qpos": 0.0,
+        "diagnostics/full_qvel": 0.0,
+        "diagnostics/contact_count": 0.0,
+        "diagnostics/hand_object_contact": 0.0,
+        "diagnostics/hand_table_contact": 0.0,
+        "diagnostics/object_table_contact": 0.0,
+        "diagnostics/maximum_contact_normal_force_n": 0.0,
+        "diagnostics/time_s": 0.0
+      }
+    }
+  ],
+  "successes": 8,
+  "physical_failures": 12,
+  "excluded_pre_cutoff_approach": 5,
+  "included_prefixes": 15,
+  "feature_shape": [
+    15,
+    1440
+  ],
+  "all_manual_task_outcomes_match": true,
+  "all_features_match_allowed_causal_channels_exactly": true,
+  "all_source_input_model_hashes_unchanged": true,
+  "model_checks": {
+    "commands_only": {
+      "max_probability_error": 1.1102230246251565e-16,
+      "independent_auc": 0.5535714285714286,
+      "independent_log_loss": 1.0590896645436771,
+      "independent_brier": 0.31876621703738195,
+      "failure_confusion": {
+        "true_positive": 6,
+        "false_positive": 4,
+        "true_negative": 4,
+        "false_negative": 1
+      },
+      "scope": "compatibility smoke only; reused development inputs, no fit"
+    },
+    "proprioception_and_commands": {
+      "max_probability_error": 9.71445146547012e-17,
+      "independent_auc": 1.0,
+      "independent_log_loss": 0.3810510329691269,
+      "independent_brier": 0.13173249221542224,
+      "failure_confusion": {
+        "true_positive": 7,
+        "false_positive": 4,
+        "true_negative": 4,
+        "false_negative": 0
+      },
+      "scope": "compatibility smoke only; reused development inputs, no fit"
+    }
+  },
+  "cases": [
+    {
+      "attempt_id": "attempt_0000",
+      "label": 1,
+      "failure_type": null,
+      "eligible_prefix": true,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0001",
+      "label": 1,
+      "failure_type": null,
+      "eligible_prefix": true,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0002",
+      "label": 1,
+      "failure_type": null,
+      "eligible_prefix": true,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0003",
+      "label": 0,
+      "failure_type": "failed_acquisition",
+      "eligible_prefix": true,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0004",
+      "label": 0,
+      "failure_type": "failed_acquisition",
+      "eligible_prefix": true,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0005",
+      "label": 0,
+      "failure_type": "failed_acquisition",
+      "eligible_prefix": true,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0006",
+      "label": 0,
+      "failure_type": "failed_acquisition",
+      "eligible_prefix": true,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0007",
+      "label": 0,
+      "failure_type": "failed_acquisition",
+      "eligible_prefix": true,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0008",
+      "label": 1,
+      "failure_type": null,
+      "eligible_prefix": true,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0009",
+      "label": 1,
+      "failure_type": null,
+      "eligible_prefix": true,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0010",
+      "label": 0,
+      "failure_type": "failed_acquisition",
+      "eligible_prefix": true,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0011",
+      "label": 1,
+      "failure_type": null,
+      "eligible_prefix": true,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0012",
+      "label": 0,
+      "failure_type": "approach_collision",
+      "eligible_prefix": false,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0013",
+      "label": 0,
+      "failure_type": "approach_collision",
+      "eligible_prefix": false,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0014",
+      "label": 0,
+      "failure_type": "approach_collision",
+      "eligible_prefix": false,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0015",
+      "label": 0,
+      "failure_type": "approach_collision",
+      "eligible_prefix": false,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0016",
+      "label": 1,
+      "failure_type": null,
+      "eligible_prefix": true,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0017",
+      "label": 0,
+      "failure_type": "failed_acquisition",
+      "eligible_prefix": true,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0018",
+      "label": 1,
+      "failure_type": null,
+      "eligible_prefix": true,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    },
+    {
+      "attempt_id": "attempt_0019",
+      "label": 0,
+      "failure_type": "approach_collision",
+      "eligible_prefix": false,
+      "recording_hashes_verified": true,
+      "manual_outcome_matches": true,
+      "joint_qpos_qvel_order_matches_saved_model": true
+    }
+  ],
+  "receipt_physics_steps": 0,
+  "receipt_static_forwards": 0,
+  "compiled_model_reads_only": 20,
+  "limits": [
+    "repeat comparison covers recorded163 control endpoints and diagnostic full qpos/qvel, not every physics substep",
+    "first_failure_time_s is first sampled approach contact diagnostic time, not exact continuous onset",
+    "20attempts reuse16development proposals with4repeats; smoke metrics are not independent generalization results"
+  ]
+}

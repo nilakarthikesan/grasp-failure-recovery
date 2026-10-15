@@ -1,0 +1,97 @@
+{
+  "model_training_performed": false,
+  "models": {
+    "commands_only": {
+      "feature_shape": [
+        15,
+        96
+      ],
+      "model_sha256": "sha256:18580278554dfa8660cecd4b6b495e23255c492d83dd69d910cb0dd672cf57ad",
+      "p_success": [
+        0.8150246383756314,
+        0.8814881076726683,
+        0.5280583721971872,
+        0.6544676346565316,
+        0.384947444841471,
+        0.19081077163765875,
+        0.36202718263149275,
+        0.2146387786334459,
+        0.08658689214341744,
+        0.04211346013083084,
+        5.37863199254963e-07,
+        0.02436959284061819,
+        0.8150246383756314,
+        0.384947444841471,
+        0.08658689214341744
+      ],
+      "smoke_metrics": {
+        "accuracy": 0.6666666666666666,
+        "balanced_accuracy": 0.6785714285714286,
+        "brier_score": 0.31876621703738195,
+        "decision_rule": "alert if p_failure >= 0.5; p_failure = 1 - p_success",
+        "episodes": 15,
+        "failure_average_precision": 0.577891156462585,
+        "failure_confusion": {
+          "false_negative": 1,
+          "false_positive": 4,
+          "true_negative": 4,
+          "true_positive": 6
+        },
+        "failure_precision": 0.6,
+        "failure_recall": 0.8571428571428571,
+        "failure_roc_auc": 0.5535714285714286,
+        "failures": 7,
+        "log_loss": 1.0590896645436771,
+        "success_false_alarm_rate": 0.5,
+        "successes": 8
+      }
+    },
+    "proprioception_and_commands": {
+      "feature_shape": [
+        15,
+        288
+      ],
+      "model_sha256": "sha256:16c9941a51130daea818c6ad227ef1e3a02e4be9ed1c7aa5a8e8f3e023428beb",
+      "p_success": [
+        0.9477157512160509,
+        0.8658435401533097,
+        0.8557932667609212,
+        0.09476301313735963,
+        0.17355091101625233,
+        0.020774196340902225,
+        0.11779883742663692,
+        0.04900075385676984,
+        0.3889219991606119,
+        0.32378581555625463,
+        3.948195001814434e-05,
+        0.19893869401976905,
+        0.9477157512160509,
+        0.17355091101625233,
+        0.3889219991606119
+      ],
+      "smoke_metrics": {
+        "accuracy": 0.7333333333333333,
+        "balanced_accuracy": 0.75,
+        "brier_score": 0.13173249221542227,
+        "decision_rule": "alert if p_failure >= 0.5; p_failure = 1 - p_success",
+        "episodes": 15,
+        "failure_average_precision": 1.0,
+        "failure_confusion": {
+          "false_negative": 0,
+          "false_positive": 4,
+          "true_negative": 4,
+          "true_positive": 7
+        },
+        "failure_precision": 0.6363636363636364,
+        "failure_recall": 1.0,
+        "failure_roc_auc": 1.0,
+        "failures": 7,
+        "log_loss": 0.38105103296912696,
+        "success_false_alarm_rate": 0.5,
+        "successes": 8
+      }
+    }
+  },
+  "scope": "unchanged saved weights on reused development inputs/current source; pipeline compatibility only, no prospective eval or improved baseline",
+  "weights_report_sha256": "sha256:19f1aa3e7ab0902da1c955aaaa992b8023f7c6b453fa60b835d284cd385c13a8"
+}

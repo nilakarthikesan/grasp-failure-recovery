@@ -1,0 +1,351 @@
+{
+  "authorization_sha256": "sha256:cd3f4fbd5dbfe346511cb44146d9ab750a1b4449e5e6954e27964cc017602353",
+  "control_endpoints": 3260,
+  "counts": {
+    "approach_collision": 5,
+    "completed": 20,
+    "incomplete": 0,
+    "not_run": 0,
+    "physical_failure": 12,
+    "planned": 20,
+    "success": 8
+  },
+  "early_approach_collision_count": 5,
+  "export": {
+    "counts": {
+      "attempted": 20,
+      "excluded": 5,
+      "executed": 20,
+      "failure": 7,
+      "geometry_groups": 3,
+      "included": 15,
+      "mapped": 20,
+      "observation_groups": 6,
+      "physically_labeled": 20,
+      "proposal_groups": 12,
+      "success": 8
+    },
+    "model_smoke_path": "model_input_smoke.json",
+    "model_training_performed": false,
+    "prefix_shape": [
+      15,
+      1440
+    ],
+    "status": "EXPORTED"
+  },
+  "historical_comparison_sha256": "sha256:1d29f854b4010d4db24df1cf940715d883e54c7cc63c5359ade81dd6e39d3d26",
+  "input_bindings_verified": 419,
+  "limitations": [
+    "20attempts include4deterministic repeats;16distinct saved development proposal families,4objects,8observations.",
+    "15eligible prefixes include3deterministic repeats;5pre-cutoff mug approach collisions are excluded and retained in denominators.",
+    "Saved-weight scores are pipeline smoke results on reused inputs/current source, not prospective evaluation or an improved baseline.",
+    "Tracking error is relative to the final applied interval target and has no physical-fidelity acceptance threshold."
+  ],
+  "per_object_all20": {
+    "hug_apple": {
+      "attempts": 5,
+      "failed_acquisition": 5,
+      "failure": 5
+    },
+    "hug_milk_box": {
+      "attempts": 5,
+      "failed_acquisition": 1,
+      "failure": 1,
+      "success": 4
+    },
+    "hug_mug": {
+      "approach_collision": 5,
+      "attempts": 5,
+      "failure": 5
+    },
+    "object01": {
+      "attempts": 5,
+      "failed_acquisition": 1,
+      "failure": 1,
+      "success": 4
+    }
+  },
+  "per_object_unique16": {
+    "hug_apple": {
+      "attempts": 4,
+      "failed_acquisition": 4,
+      "failure": 4
+    },
+    "hug_milk_box": {
+      "attempts": 4,
+      "failed_acquisition": 1,
+      "failure": 1,
+      "success": 3
+    },
+    "hug_mug": {
+      "approach_collision": 4,
+      "attempts": 4,
+      "failure": 4
+    },
+    "object01": {
+      "attempts": 4,
+      "failed_acquisition": 1,
+      "failure": 1,
+      "success": 3
+    }
+  },
+  "physics_steps": 65200,
+  "protocol_sha256": "sha256:baa34141b24dcc18bf6011f203726e452722b8ea1c3c67ec87ce6eeb58f665bf",
+  "quota": {
+    "attempts": 20,
+    "control_endpoints_per_attempt": 163,
+    "deterministic_repeats": 4,
+    "maximum_total_physics_steps": 65200,
+    "objects": 4,
+    "observations": 8,
+    "physics_steps_per_attempt": 3260,
+    "unique_saved_commands": 16
+  },
+  "raw_file_hashes_verified": {
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0000/recording/attempt.json": "sha256:fb678fdec673cf4d6f138d6139f3043d838ecad9bbc587a34156013ad54bfaae",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0000/recording/diagnostics.npz": "sha256:2d8c73fe70c4217547e8afab6dc3dcf1b74b1f61b29b846a0275a1d4cba3fe7e",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0000/recording/observables.npz": "sha256:9eb8bea2b9aeb0238dd748191e351beb49fcb642f598fb2c6c9795e490f91a0a",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0000/scene.mjb": "sha256:801a5f776d4bd97f22278e6c12888fc2bcb1c1e916bbb1c909301378c3be6269",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0001/recording/attempt.json": "sha256:0363096987ebb98cd78d8b82b6dda0d2751f39929104e73c87e219e8e58a82e2",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0001/recording/diagnostics.npz": "sha256:74ffc0298504417e270711ad3fd14d733bd4fa94f86dc2e88e1b2bb775512097",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0001/recording/observables.npz": "sha256:802df645913bf6d495b40702f97fb0da13f027fbdc01cfaa4acbf73bfada8106",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0001/scene.mjb": "sha256:801a5f776d4bd97f22278e6c12888fc2bcb1c1e916bbb1c909301378c3be6269",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0002/recording/attempt.json": "sha256:32f1a6fe23256108eb067395cd6d7f58829bc525b3e0a36a3b5df897df23236e",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0002/recording/diagnostics.npz": "sha256:71c3671ec4b40362c4cabc24658504fcbde0203dcf93e9b0ba489c36eafe11c8",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0002/recording/observables.npz": "sha256:7fc48640f9cc7cc5ee0af4fcf02de3f2aad26f806bd0d59f456fc8e5afe2e039",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0002/scene.mjb": "sha256:801a5f776d4bd97f22278e6c12888fc2bcb1c1e916bbb1c909301378c3be6269",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0003/recording/attempt.json": "sha256:b4e2b2409611d8aac72eb360227074f907614798efc19ccb4fa7a67cd87bf6af",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0003/recording/diagnostics.npz": "sha256:d1ed940ecfa132fa1b016a57a9b2ba66d26cc37e31a721a6702d1c909cfa8e0c",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0003/recording/observables.npz": "sha256:c576f501dba8a9a7c387fcb6dec16d538fa18456bfc68b69adb277ef9652dd42",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0003/scene.mjb": "sha256:801a5f776d4bd97f22278e6c12888fc2bcb1c1e916bbb1c909301378c3be6269",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0004/recording/attempt.json": "sha256:158fdb3adfa2a66d6238c94fb539ad54168b3eb7b76e1b2e025c3e3ef047d2f5",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0004/recording/diagnostics.npz": "sha256:2610b5d4e118eeb2833fe1664c1f67731ed069202fca553c853a6831e3cfd487",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0004/recording/observables.npz": "sha256:190952df591b3f8eceb1e29f7c0a2fb9e90d45ec4c2198150efa2f7952cb1af0",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0004/scene.mjb": "sha256:5a7e0f3fd8ed683aadf81dd49d30a952b1023a67a16157710ad8e4f4f628436f",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0005/recording/attempt.json": "sha256:68dda6b96f9440b11c1d1ac56382e7fb297f8350e874f9b6fc445293b50c97d1",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0005/recording/diagnostics.npz": "sha256:4205261114deb81403bd410a6e33eaa1b329368966c9193375a479f2b443a782",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0005/recording/observables.npz": "sha256:38aecb9f142604b2e206ad111794aa62b7c41448ebdca3199dad35d61529cd28",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0005/scene.mjb": "sha256:5a7e0f3fd8ed683aadf81dd49d30a952b1023a67a16157710ad8e4f4f628436f",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0006/recording/attempt.json": "sha256:6fdc85a73e9dface6ea9d993797744201385f39edcbb9e8b062d335258282f36",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0006/recording/diagnostics.npz": "sha256:78860b3038fe50ea3e4d2213858046f55841bf33587a5f8b8c6cc3f4f3bdd7b5",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0006/recording/observables.npz": "sha256:573d0f0939c5f230e8a37936c1f200505773b83a770825e326c231b71e88c766",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0006/scene.mjb": "sha256:5a7e0f3fd8ed683aadf81dd49d30a952b1023a67a16157710ad8e4f4f628436f",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0007/recording/attempt.json": "sha256:ba3359fabecbd80d0bac21e266ef0cf2a8ad54d4fbf93e35f69adedabe8e6053",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0007/recording/diagnostics.npz": "sha256:02526ee19084b6d160e88be443b2ecf3301a72426b96770d148659b9bab6a8f0",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0007/recording/observables.npz": "sha256:e0629aca2b9a85830bfb2eacd403cc4f3d25ebb62d6ed2eef623dbeef3fc7d19",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0007/scene.mjb": "sha256:5a7e0f3fd8ed683aadf81dd49d30a952b1023a67a16157710ad8e4f4f628436f",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0008/recording/attempt.json": "sha256:6e376401b69b50b56f0119226656acfa14525b9694b468f8089c0f66f290ed3f",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0008/recording/diagnostics.npz": "sha256:ff01cccdaa99387544c3f3bd9f9b8d532cab1bec208fe5a08d8870fc82d8eba9",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0008/recording/observables.npz": "sha256:ae0c5e93a825ddf45b923a3c89c7804c4b6a1ff2564240b6f1df0778cd8e7045",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0008/scene.mjb": "sha256:81fe45a502e550d02bfd4b562c0745e606e9d6a342c2a3091a8940ba2194fcde",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0009/recording/attempt.json": "sha256:81e7f915ea600a2d78addb88bc829fcaed70535b667b0deff61ee7151d4d6309",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0009/recording/diagnostics.npz": "sha256:1c8ec80e997ec7c7fbbbb5b8fb8c66ac294101f77f119e317c9c4969af11eefe",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0009/recording/observables.npz": "sha256:ea4e921988d0dcf17962a3661a2d0ac8b900202af3b61d8b18eef23037ebc212",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0009/scene.mjb": "sha256:81fe45a502e550d02bfd4b562c0745e606e9d6a342c2a3091a8940ba2194fcde",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0010/recording/attempt.json": "sha256:f659af231f3bcc18731fc3a8c3f4ac4f08a8df7c1b53866d55a15a5d20921ac6",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0010/recording/diagnostics.npz": "sha256:3842203a28d8746b822ae11096cf52296e6e8a52a5e9ebe8d786f3372b350bb7",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0010/recording/observables.npz": "sha256:ad8e939cc2ea994203100bf1a82c740ca905dc324201bbf28814dceb68b546b7",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0010/scene.mjb": "sha256:81fe45a502e550d02bfd4b562c0745e606e9d6a342c2a3091a8940ba2194fcde",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0011/recording/attempt.json": "sha256:b04b94ef5ba425c67a0ebeb62f1cc6bde52b7679c53f8468a23ac52b4ead28f3",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0011/recording/diagnostics.npz": "sha256:1fad1d39ef8d44d4414f26861a1cfbbe23580f597a2cf64723e2dee61217d978",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0011/recording/observables.npz": "sha256:83c749020706ea0c7c6fffb4ec42ae061d65c8c72be75f7ecd8d23836e57a235",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0011/scene.mjb": "sha256:81fe45a502e550d02bfd4b562c0745e606e9d6a342c2a3091a8940ba2194fcde",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0012/recording/attempt.json": "sha256:8a649e6afab18b4ba9202d050cb6e8768632049a7ab832294e40ac7ea539e604",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0012/recording/diagnostics.npz": "sha256:ce302707b676a06cb6326501e924d2ac94b37ac1a8ac5ca0403e0f0b0295b491",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0012/recording/observables.npz": "sha256:ef84d0c10f37bb830460024c2aabc3c7415c404e0b6d1b2c04c492b93b1be334",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0012/scene.mjb": "sha256:b73d84ff684604be962071fd56fcde9033df293a549108d91326b880e52300a0",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0013/recording/attempt.json": "sha256:8cd1a70fb9222e97612d804017db0759bdf6c055edb1d899de8a88cd5b74d1d5",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0013/recording/diagnostics.npz": "sha256:fc33629277a18e8addd0755f027a1ffcdcacd72ae0dca5eaec67e3aceff3cac7",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0013/recording/observables.npz": "sha256:5a638fcc0af24afe5fa72316c25547ef0aa55c7fcf36369cfa351db2b2ad50b9",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0013/scene.mjb": "sha256:b73d84ff684604be962071fd56fcde9033df293a549108d91326b880e52300a0",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0014/recording/attempt.json": "sha256:84b73b4ad2b330319f42ff7b279ba08cc97e819a38476f2e33b18878e0021acf",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0014/recording/diagnostics.npz": "sha256:0382068c0a35108de3d2c9630ed8156547d989f2415347be4b8e13d442cd9988",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0014/recording/observables.npz": "sha256:c22545002be38e90bff877c3714770898bef8237d2dcc1aacd09f2c48254da0d",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0014/scene.mjb": "sha256:b73d84ff684604be962071fd56fcde9033df293a549108d91326b880e52300a0",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0015/recording/attempt.json": "sha256:93c0343e126c715ab75d7c001bfb99e7f87eeb1891b9937789670be75b92b2b1",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0015/recording/diagnostics.npz": "sha256:20969ad272b38aa517dab62c39ed93921b78f4cc58d8e740f4609e8079958b61",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0015/recording/observables.npz": "sha256:798582ff36f4d2ae453f6b10d6dc4b89671807c586dce23548b21000870f1aff",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0015/scene.mjb": "sha256:b73d84ff684604be962071fd56fcde9033df293a549108d91326b880e52300a0",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0016/recording/attempt.json": "sha256:b81cdb0845389382431c50a68befb97a163f14c8cc46bec4a7d61aac512b1638",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0016/recording/diagnostics.npz": "sha256:2d8c73fe70c4217547e8afab6dc3dcf1b74b1f61b29b846a0275a1d4cba3fe7e",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0016/recording/observables.npz": "sha256:9eb8bea2b9aeb0238dd748191e351beb49fcb642f598fb2c6c9795e490f91a0a",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0016/scene.mjb": "sha256:801a5f776d4bd97f22278e6c12888fc2bcb1c1e916bbb1c909301378c3be6269",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0017/recording/attempt.json": "sha256:c646a41c8fc466e6fbd4fc9b2f96a528e8b604f4d7913359f92cd435c7101067",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0017/recording/diagnostics.npz": "sha256:2610b5d4e118eeb2833fe1664c1f67731ed069202fca553c853a6831e3cfd487",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0017/recording/observables.npz": "sha256:190952df591b3f8eceb1e29f7c0a2fb9e90d45ec4c2198150efa2f7952cb1af0",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0017/scene.mjb": "sha256:5a7e0f3fd8ed683aadf81dd49d30a952b1023a67a16157710ad8e4f4f628436f",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0018/recording/attempt.json": "sha256:b7dd39a68dbb71b7ac135732889f06373cb6cf3f5219729b159b7b9f4c72b87c",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0018/recording/diagnostics.npz": "sha256:ff01cccdaa99387544c3f3bd9f9b8d532cab1bec208fe5a08d8870fc82d8eba9",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0018/recording/observables.npz": "sha256:ae0c5e93a825ddf45b923a3c89c7804c4b6a1ff2564240b6f1df0778cd8e7045",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0018/scene.mjb": "sha256:81fe45a502e550d02bfd4b562c0745e606e9d6a342c2a3091a8940ba2194fcde",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0019/recording/attempt.json": "sha256:723a1e6b7198e17aeafa56998acf2f3f36d1da78debeef84607ead15535bb5c3",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0019/recording/diagnostics.npz": "sha256:ce302707b676a06cb6326501e924d2ac94b37ac1a8ac5ca0403e0f0b0295b491",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0019/recording/observables.npz": "sha256:ef84d0c10f37bb830460024c2aabc3c7415c404e0b6d1b2c04c492b93b1be334",
+    "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0019/scene.mjb": "sha256:b73d84ff684604be962071fd56fcde9033df293a549108d91326b880e52300a0"
+  },
+  "raw_files_verified": 80,
+  "repeat_checks": [
+    {
+      "attempt_id": "attempt_0016",
+      "determinism": {
+        "categorical_and_scored_outcome_exact": true,
+        "maximum_absolute_errors": {
+          "applied_target_rad": 0.0,
+          "full_qpos": 0.0,
+          "full_qvel": 0.0,
+          "hand_qpos": 0.0,
+          "hand_qvel": 0.0,
+          "requested_target_rad": 0.0,
+          "time_s": 0.0
+        },
+        "passed": true
+      },
+      "repeat_of": "attempt_0000",
+      "source_inventory_index": 0
+    },
+    {
+      "attempt_id": "attempt_0017",
+      "determinism": {
+        "categorical_and_scored_outcome_exact": true,
+        "maximum_absolute_errors": {
+          "applied_target_rad": 0.0,
+          "full_qpos": 0.0,
+          "full_qvel": 0.0,
+          "hand_qpos": 0.0,
+          "hand_qvel": 0.0,
+          "requested_target_rad": 0.0,
+          "time_s": 0.0
+        },
+        "passed": true
+      },
+      "repeat_of": "attempt_0004",
+      "source_inventory_index": 8
+    },
+    {
+      "attempt_id": "attempt_0018",
+      "determinism": {
+        "categorical_and_scored_outcome_exact": true,
+        "maximum_absolute_errors": {
+          "applied_target_rad": 0.0,
+          "full_qpos": 0.0,
+          "full_qvel": 0.0,
+          "hand_qpos": 0.0,
+          "hand_qvel": 0.0,
+          "requested_target_rad": 0.0,
+          "time_s": 0.0
+        },
+        "passed": true
+      },
+      "repeat_of": "attempt_0008",
+      "source_inventory_index": 16
+    },
+    {
+      "attempt_id": "attempt_0019",
+      "determinism": {
+        "categorical_and_scored_outcome_exact": true,
+        "maximum_absolute_errors": {
+          "applied_target_rad": 0.0,
+          "full_qpos": 0.0,
+          "full_qvel": 0.0,
+          "hand_qpos": 0.0,
+          "hand_qvel": 0.0,
+          "requested_target_rad": 0.0,
+          "time_s": 0.0
+        },
+        "passed": true
+      },
+      "repeat_of": "attempt_0012",
+      "source_inventory_index": 24
+    }
+  ],
+  "run_log_sha256": "sha256:847403f8c85fe02a357b089d6e451d28c9b35b58d5fd54656f86ba589f2ba3d1",
+  "sampled_approach_collision_times_s": [
+    0.7580000000000006,
+    0.43800000000000033,
+    0.9980000000000007,
+    0.7180000000000005,
+    0.7580000000000006
+  ],
+  "saved_weight_smoke_sha256": "sha256:9b52fd58bf5e9c29443767901b55bd67c8e3f3411b94cb66331a8c82ac478861",
+  "schema_version": "hug_saved_recording_pilot_post_run_verification_v1",
+  "source_bindings_verified": 35,
+  "summary_sha256": "sha256:86fe41d401e14f5bd7847dd5b6131a7ba0df0f7acef0ac8bd4689e0a883f3f49",
+  "tracking_all20_report_only": {
+    "approach": {
+      "control_endpoints": 500,
+      "joint_values": 12000,
+      "maximum_absolute_error_rad": 0.21460453757319742,
+      "mean_absolute_error_rad": 0.0048131752748700645,
+      "p95_absolute_error_rad": 0.02047125459436013,
+      "rmse_rad": 0.009449275024133164
+    },
+    "close_fingers": {
+      "control_endpoints": 900,
+      "joint_values": 21600,
+      "maximum_absolute_error_rad": 0.46989158306258744,
+      "mean_absolute_error_rad": 0.020206035977195082,
+      "p95_absolute_error_rad": 0.0710542434799138,
+      "rmse_rad": 0.0394626356189647
+    },
+    "hold": {
+      "control_endpoints": 1000,
+      "joint_values": 24000,
+      "maximum_absolute_error_rad": 0.489647016695129,
+      "mean_absolute_error_rad": 0.01886685222538603,
+      "p95_absolute_error_rad": 0.05658249309816469,
+      "rmse_rad": 0.05792878409837291
+    },
+    "lift": {
+      "control_endpoints": 760,
+      "joint_values": 18240,
+      "maximum_absolute_error_rad": 0.4852926806000438,
+      "mean_absolute_error_rad": 0.022262331452924628,
+      "p95_absolute_error_rad": 0.06262588321314966,
+      "rmse_rad": 0.05976625804809223
+    },
+    "load_object": {
+      "control_endpoints": 20,
+      "joint_values": 480,
+      "maximum_absolute_error_rad": 0.04683341003115016,
+      "mean_absolute_error_rad": 0.004991083631672649,
+      "p95_absolute_error_rad": 0.010131301938540126,
+      "rmse_rad": 0.009144293305805434
+    },
+    "move_to_pregrasp": {
+      "control_endpoints": 20,
+      "joint_values": 480,
+      "maximum_absolute_error_rad": 0.032594048017342336,
+      "mean_absolute_error_rad": 0.0038802807083861174,
+      "p95_absolute_error_rad": 0.01171116545634243,
+      "rmse_rad": 0.00616693234778641
+    },
+    "reset": {
+      "control_endpoints": 20,
+      "joint_values": 480,
+      "maximum_absolute_error_rad": 0.03063713974312443,
+      "mean_absolute_error_rad": 0.002182033016056171,
+      "p95_absolute_error_rad": 0.014066445491605897,
+      "rmse_rad": 0.004981015137844455
+    },
+    "retarget": {
+      "control_endpoints": 20,
+      "joint_values": 480,
+      "maximum_absolute_error_rad": 0.043974596841617,
+      "mean_absolute_error_rad": 0.005230060164254922,
+      "p95_absolute_error_rad": 0.013135207325245507,
+      "rmse_rad": 0.008295188478558087
+    },
+    "score": {
+      "control_endpoints": 20,
+      "joint_values": 480,
+      "maximum_absolute_error_rad": 0.48574587868497,
+      "mean_absolute_error_rad": 0.01886849134308736,
+      "p95_absolute_error_rad": 0.05602028843641974,
+      "rmse_rad": 0.05795734826913842
+    }
+  },
+  "validated_prefix_shape": [
+    15,
+    1440
+  ]
+}

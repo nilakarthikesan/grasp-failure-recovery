@@ -1,0 +1,1952 @@
+{
+  "all_inputs_sources_still_bound": true,
+  "authorization_sha256": "sha256:cd3f4fbd5dbfe346511cb44146d9ab750a1b4449e5e6954e27964cc017602353",
+  "counts": {
+    "approach_collision": 5,
+    "completed": 20,
+    "incomplete": 0,
+    "not_run": 0,
+    "physical_failure": 12,
+    "planned": 20,
+    "success": 8
+  },
+  "export": {
+    "counts": {
+      "attempted": 20,
+      "excluded": 5,
+      "executed": 20,
+      "failure": 7,
+      "geometry_groups": 3,
+      "included": 15,
+      "mapped": 20,
+      "observation_groups": 6,
+      "physically_labeled": 20,
+      "proposal_groups": 12,
+      "success": 8
+    },
+    "model_smoke_path": "model_input_smoke.json",
+    "model_training_performed": false,
+    "prefix_shape": [
+      15,
+      1440
+    ],
+    "status": "EXPORTED"
+  },
+  "new_inference_calls": 0,
+  "new_retarget_solves": 0,
+  "physics_steps": 65200,
+  "protocol_sha256": "sha256:baa34141b24dcc18bf6011f203726e452722b8ea1c3c67ec87ce6eeb58f665bf",
+  "schedule": [
+    {
+      "attempt_id": "attempt_0000",
+      "determinism": null,
+      "outcome": {
+        "failure_type": null,
+        "first_failure_time_s": null,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": true
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:2d8c73fe70c4217547e8afab6dc3dcf1b74b1f61b29b846a0275a1d4cba3fe7e",
+        "observables.npz": "sha256:9eb8bea2b9aeb0238dd748191e351beb49fcb642f598fb2c6c9795e490f91a0a"
+      },
+      "raw_record_sha256": "sha256:fb678fdec673cf4d6f138d6139f3043d838ecad9bbc587a34156013ad54bfaae",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0000/recording",
+      "repeat_of": null,
+      "source_inventory_index": 0,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.023188383565397923,
+          "mean_abs_rad": 0.0032836745144937595,
+          "p95_abs_rad": 0.006753595945423272,
+          "rmse_rad": 0.0052028573986989055,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.17303475016699515,
+          "mean_abs_rad": 0.012753547899490892,
+          "p95_abs_rad": 0.04248593679972279,
+          "rmse_rad": 0.021145733250753068,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.21748704683443398,
+          "mean_abs_rad": 0.02393951254124192,
+          "p95_abs_rad": 0.05947270553987306,
+          "rmse_rad": 0.04881530009443523,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.21539865280171594,
+          "mean_abs_rad": 0.02444612798617516,
+          "p95_abs_rad": 0.05964702604350004,
+          "rmse_rad": 0.04854013002884401,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.03372653463703944,
+          "mean_abs_rad": 0.004520400769489772,
+          "p95_abs_rad": 0.008124109537185675,
+          "rmse_rad": 0.008084384541227863,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.01521816785097552,
+          "mean_abs_rad": 0.002923105454478901,
+          "p95_abs_rad": 0.005998698564885868,
+          "rmse_rad": 0.004370562849200203,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.017934538970347007,
+          "mean_abs_rad": 0.0014074929046435276,
+          "p95_abs_rad": 0.0034904218940882466,
+          "rmse_rad": 0.003806463305569755,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.02227666242281642,
+          "mean_abs_rad": 0.004183887379372242,
+          "p95_abs_rad": 0.008585663901863754,
+          "rmse_rad": 0.006316658195575698,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.2169232862138324,
+          "mean_abs_rad": 0.02380534070330169,
+          "p95_abs_rad": 0.05584284479357257,
+          "rmse_rad": 0.048871346344324905,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0001",
+      "determinism": null,
+      "outcome": {
+        "failure_type": null,
+        "first_failure_time_s": null,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": true
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:74ffc0298504417e270711ad3fd14d733bd4fa94f86dc2e88e1b2bb775512097",
+        "observables.npz": "sha256:802df645913bf6d495b40702f97fb0da13f027fbdc01cfaa4acbf73bfada8106"
+      },
+      "raw_record_sha256": "sha256:0363096987ebb98cd78d8b82b6dda0d2751f39929104e73c87e219e8e58a82e2",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0001/recording",
+      "repeat_of": null,
+      "source_inventory_index": 2,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.027679744865683475,
+          "mean_abs_rad": 0.0034087076487091476,
+          "p95_abs_rad": 0.007804970289682545,
+          "rmse_rad": 0.00559536677135888,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.2082373528590924,
+          "mean_abs_rad": 0.017462689380286653,
+          "p95_abs_rad": 0.051468931721160446,
+          "rmse_rad": 0.03490877542861602,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.11941321810974659,
+          "mean_abs_rad": 0.01769832324123134,
+          "p95_abs_rad": 0.06090036901290023,
+          "rmse_rad": 0.03170341800931244,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.19880482305197777,
+          "mean_abs_rad": 0.0188772004142187,
+          "p95_abs_rad": 0.06154179820216048,
+          "rmse_rad": 0.033590247537835176,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.03580824054043395,
+          "mean_abs_rad": 0.004652781422298395,
+          "p95_abs_rad": 0.00906244561334648,
+          "rmse_rad": 0.008498408683584653,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.01621827657233695,
+          "mean_abs_rad": 0.0030440666141520896,
+          "p95_abs_rad": 0.006872953781705023,
+          "rmse_rad": 0.004685435585953913,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.018829914873420114,
+          "mean_abs_rad": 0.0014067625538652228,
+          "p95_abs_rad": 0.0020116679025614704,
+          "rmse_rad": 0.003936470312347428,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.02412387639364854,
+          "mean_abs_rad": 0.004369883616803154,
+          "p95_abs_rad": 0.009716256246118935,
+          "rmse_rad": 0.00677885191887472,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.11919489720501925,
+          "mean_abs_rad": 0.01766018404511483,
+          "p95_abs_rad": 0.05965681247322342,
+          "rmse_rad": 0.03165791886776253,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0002",
+      "determinism": null,
+      "outcome": {
+        "failure_type": null,
+        "first_failure_time_s": null,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": true
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:71c3671ec4b40362c4cabc24658504fcbde0203dcf93e9b0ba489c36eafe11c8",
+        "observables.npz": "sha256:7fc48640f9cc7cc5ee0af4fcf02de3f2aad26f806bd0d59f456fc8e5afe2e039"
+      },
+      "raw_record_sha256": "sha256:32f1a6fe23256108eb067395cd6d7f58829bc525b3e0a36a3b5df897df23236e",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0002/recording",
+      "repeat_of": null,
+      "source_inventory_index": 4,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.025784281841737644,
+          "mean_abs_rad": 0.003036319399807458,
+          "p95_abs_rad": 0.007450315868735272,
+          "rmse_rad": 0.005140806226880441,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.24817031249073893,
+          "mean_abs_rad": 0.015295062673146316,
+          "p95_abs_rad": 0.050820441728606225,
+          "rmse_rad": 0.026987350999090613,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.27729910257494134,
+          "mean_abs_rad": 0.02717907310841626,
+          "p95_abs_rad": 0.0592381477772667,
+          "rmse_rad": 0.06041011555309567,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.2764119940607842,
+          "mean_abs_rad": 0.027285111800538445,
+          "p95_abs_rad": 0.05937520127528268,
+          "rmse_rad": 0.06021445876609382,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.03331183858608728,
+          "mean_abs_rad": 0.0042968047050390605,
+          "p95_abs_rad": 0.007819268892104431,
+          "rmse_rad": 0.007885191902209647,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.014999252611003308,
+          "mean_abs_rad": 0.002563599184387295,
+          "p95_abs_rad": 0.005800281430954185,
+          "rmse_rad": 0.004096958275684807,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.017951572246994122,
+          "mean_abs_rad": 0.0013315646397068842,
+          "p95_abs_rad": 0.003656359620506337,
+          "rmse_rad": 0.0038022505737351046,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.021552957243793868,
+          "mean_abs_rad": 0.003791405612065814,
+          "p95_abs_rad": 0.007939095969175792,
+          "rmse_rad": 0.0059281386811582595,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.2767829557914576,
+          "mean_abs_rad": 0.02721336409175493,
+          "p95_abs_rad": 0.05599487476281667,
+          "rmse_rad": 0.06045588325380596,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0003",
+      "determinism": null,
+      "outcome": {
+        "failure_type": "failed_acquisition",
+        "first_failure_time_s": null,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": false
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:d1ed940ecfa132fa1b016a57a9b2ba66d26cc37e31a721a6702d1c909cfa8e0c",
+        "observables.npz": "sha256:c576f501dba8a9a7c387fcb6dec16d538fa18456bfc68b69adb277ef9652dd42"
+      },
+      "raw_record_sha256": "sha256:b4e2b2409611d8aac72eb360227074f907614798efc19ccb4fa7a67cd87bf6af",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0003/recording",
+      "repeat_of": null,
+      "source_inventory_index": 6,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.057650502673479515,
+          "mean_abs_rad": 0.004138763037196244,
+          "p95_abs_rad": 0.020440659072215026,
+          "rmse_rad": 0.007576938971686979,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.2746429780900037,
+          "mean_abs_rad": 0.02784677128113278,
+          "p95_abs_rad": 0.08358823338612469,
+          "rmse_rad": 0.04666496156171438,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.019667339772729987,
+          "mean_abs_rad": 0.003179820452263532,
+          "p95_abs_rad": 0.011464314728431336,
+          "rmse_rad": 0.005163746667010897,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.26983191860073874,
+          "mean_abs_rad": 0.009994838141536946,
+          "p95_abs_rad": 0.04334487232992045,
+          "rmse_rad": 0.02801942832178661,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.03545070798155532,
+          "mean_abs_rad": 0.0044873906311279155,
+          "p95_abs_rad": 0.008405570431645276,
+          "rmse_rad": 0.008325308816219354,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.01611350932195607,
+          "mean_abs_rad": 0.002929734713816504,
+          "p95_abs_rad": 0.006552617891613965,
+          "rmse_rad": 0.004520198601687759,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.018975246128970426,
+          "mean_abs_rad": 0.0013145169301803353,
+          "p95_abs_rad": 0.0020567420501160206,
+          "rmse_rad": 0.003952646636238777,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.023462966575585633,
+          "mean_abs_rad": 0.004149422670953626,
+          "p95_abs_rad": 0.008844150620422537,
+          "rmse_rad": 0.006482986056022556,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.01718073866624255,
+          "mean_abs_rad": 0.0031821270459909006,
+          "p95_abs_rad": 0.011348462241796408,
+          "rmse_rad": 0.005204296872784892,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0004",
+      "determinism": null,
+      "outcome": {
+        "failure_type": "failed_acquisition",
+        "first_failure_time_s": null,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": false
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:2610b5d4e118eeb2833fe1664c1f67731ed069202fca553c853a6831e3cfd487",
+        "observables.npz": "sha256:190952df591b3f8eceb1e29f7c0a2fb9e90d45ec4c2198150efa2f7952cb1af0"
+      },
+      "raw_record_sha256": "sha256:158fdb3adfa2a66d6238c94fb539ad54168b3eb7b76e1b2e025c3e3ef047d2f5",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0004/recording",
+      "repeat_of": null,
+      "source_inventory_index": 8,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.025548578184497468,
+          "mean_abs_rad": 0.003826903481876768,
+          "p95_abs_rad": 0.008376854424077084,
+          "rmse_rad": 0.006063438515091053,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.1644181741404411,
+          "mean_abs_rad": 0.016580308281090687,
+          "p95_abs_rad": 0.05775209902665196,
+          "rmse_rad": 0.027418650011134048,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.020348067891963532,
+          "mean_abs_rad": 0.002297159407188815,
+          "p95_abs_rad": 0.005899186024683348,
+          "rmse_rad": 0.0041059559941393365,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.23657802048238852,
+          "mean_abs_rad": 0.008335433972103505,
+          "p95_abs_rad": 0.03500079384948861,
+          "rmse_rad": 0.025304784908178005,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.036729461113506216,
+          "mean_abs_rad": 0.0050878450650988635,
+          "p95_abs_rad": 0.009599108018998945,
+          "rmse_rad": 0.008939718111478543,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.016666616164654462,
+          "mean_abs_rad": 0.0034607658578735302,
+          "p95_abs_rad": 0.00770015471881348,
+          "rmse_rad": 0.0051347176218263,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.01898616954560381,
+          "mean_abs_rad": 0.0015864484305155204,
+          "p95_abs_rad": 0.0029047186383632808,
+          "rmse_rad": 0.0040354834907028675,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.02531156446414384,
+          "mean_abs_rad": 0.004916180512902354,
+          "p95_abs_rad": 0.010504507484437426,
+          "rmse_rad": 0.007392763853211733,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.017811838448915023,
+          "mean_abs_rad": 0.0023128703544860775,
+          "p95_abs_rad": 0.00546463446730297,
+          "rmse_rad": 0.0041236373512444505,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0005",
+      "determinism": null,
+      "outcome": {
+        "failure_type": "failed_acquisition",
+        "first_failure_time_s": null,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": false
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:4205261114deb81403bd410a6e33eaa1b329368966c9193375a479f2b443a782",
+        "observables.npz": "sha256:38aecb9f142604b2e206ad111794aa62b7c41448ebdca3199dad35d61529cd28"
+      },
+      "raw_record_sha256": "sha256:68dda6b96f9440b11c1d1ac56382e7fb297f8350e874f9b6fc445293b50c97d1",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0005/recording",
+      "repeat_of": null,
+      "source_inventory_index": 10,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.028076646049872117,
+          "mean_abs_rad": 0.00400043971669185,
+          "p95_abs_rad": 0.012933226632345078,
+          "rmse_rad": 0.006487132959739001,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.15064557025368364,
+          "mean_abs_rad": 0.018879760585384403,
+          "p95_abs_rad": 0.06693152654467092,
+          "rmse_rad": 0.030621308090844162,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.021624312103293596,
+          "mean_abs_rad": 0.002269129165568661,
+          "p95_abs_rad": 0.00703775133757263,
+          "rmse_rad": 0.004414695010372111,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.1442740978350917,
+          "mean_abs_rad": 0.008259604668492165,
+          "p95_abs_rad": 0.043311183017702225,
+          "rmse_rad": 0.020783115657142685,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.03838995091979053,
+          "mean_abs_rad": 0.004969465442900808,
+          "p95_abs_rad": 0.01029645244833589,
+          "rmse_rad": 0.009236743430169397,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.017519636755427673,
+          "mean_abs_rad": 0.003431949422966541,
+          "p95_abs_rad": 0.008605179191624589,
+          "rmse_rad": 0.005365674253043669,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.01973524069757827,
+          "mean_abs_rad": 0.0014795910713767757,
+          "p95_abs_rad": 0.0025475708051086498,
+          "rmse_rad": 0.004143854689825669,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.02678589744414024,
+          "mean_abs_rad": 0.004851843594062224,
+          "p95_abs_rad": 0.011370270937012967,
+          "rmse_rad": 0.007725507692467661,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.018972993832095972,
+          "mean_abs_rad": 0.002285604197441851,
+          "p95_abs_rad": 0.006484566105230442,
+          "rmse_rad": 0.004436464234890813,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0006",
+      "determinism": null,
+      "outcome": {
+        "failure_type": "failed_acquisition",
+        "first_failure_time_s": null,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": false
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:78860b3038fe50ea3e4d2213858046f55841bf33587a5f8b8c6cc3f4f3bdd7b5",
+        "observables.npz": "sha256:573d0f0939c5f230e8a37936c1f200505773b83a770825e326c231b71e88c766"
+      },
+      "raw_record_sha256": "sha256:6fdc85a73e9dface6ea9d993797744201385f39edcbb9e8b062d335258282f36",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0006/recording",
+      "repeat_of": null,
+      "source_inventory_index": 12,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.025455975728090594,
+          "mean_abs_rad": 0.003583586633653176,
+          "p95_abs_rad": 0.008141490925425036,
+          "rmse_rad": 0.0058518178198056344,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.18800988348883663,
+          "mean_abs_rad": 0.01772450577768011,
+          "p95_abs_rad": 0.06322335681324337,
+          "rmse_rad": 0.029291521931709197,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.02030287820130508,
+          "mean_abs_rad": 0.002174937179035319,
+          "p95_abs_rad": 0.006108481314941894,
+          "rmse_rad": 0.004052421948436116,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.19302753619997742,
+          "mean_abs_rad": 0.007749682376150355,
+          "p95_abs_rad": 0.034542271148975116,
+          "rmse_rad": 0.021502964843180625,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.036638385288750866,
+          "mean_abs_rad": 0.004850310539095168,
+          "p95_abs_rad": 0.009376627678173021,
+          "rmse_rad": 0.00879154625623618,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.016625605287935916,
+          "mean_abs_rad": 0.003249835051212112,
+          "p95_abs_rad": 0.007598175367608398,
+          "rmse_rad": 0.004982467824193974,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.01902573650397876,
+          "mean_abs_rad": 0.0014846733190172674,
+          "p95_abs_rad": 0.0023519878786298974,
+          "rmse_rad": 0.00400280183146371,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.025128122853880355,
+          "mean_abs_rad": 0.004646932504072945,
+          "p95_abs_rad": 0.010206096150804722,
+          "rmse_rad": 0.007192381941529255,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.01776897918826251,
+          "mean_abs_rad": 0.0021933935978434523,
+          "p95_abs_rad": 0.005617012540253155,
+          "rmse_rad": 0.004072146523124936,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0007",
+      "determinism": null,
+      "outcome": {
+        "failure_type": "failed_acquisition",
+        "first_failure_time_s": null,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": false
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:02526ee19084b6d160e88be443b2ecf3301a72426b96770d148659b9bab6a8f0",
+        "observables.npz": "sha256:e0629aca2b9a85830bfb2eacd403cc4f3d25ebb62d6ed2eef623dbeef3fc7d19"
+      },
+      "raw_record_sha256": "sha256:ba3359fabecbd80d0bac21e266ef0cf2a8ad54d4fbf93e35f69adedabe8e6053",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0007/recording",
+      "repeat_of": null,
+      "source_inventory_index": 14,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.026769755333238582,
+          "mean_abs_rad": 0.0038649430104288496,
+          "p95_abs_rad": 0.010564815151104764,
+          "rmse_rad": 0.006274653676291009,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.16362548368962992,
+          "mean_abs_rad": 0.02017127746423099,
+          "p95_abs_rad": 0.07334686575761416,
+          "rmse_rad": 0.033312186827232915,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.021552384170090075,
+          "mean_abs_rad": 0.002292376031962784,
+          "p95_abs_rad": 0.0069901043189322725,
+          "rmse_rad": 0.004386121139229759,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.16810792060426857,
+          "mean_abs_rad": 0.008183756997974313,
+          "p95_abs_rad": 0.040779632158820585,
+          "rmse_rad": 0.021766768230582306,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.03836787601848005,
+          "mean_abs_rad": 0.004904763368257989,
+          "p95_abs_rad": 0.01000074162369802,
+          "rmse_rad": 0.009196470606140938,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.017528906605551002,
+          "mean_abs_rad": 0.003387777167234384,
+          "p95_abs_rad": 0.0082786510044403,
+          "rmse_rad": 0.005305677892421332,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.019855186882367475,
+          "mean_abs_rad": 0.0014379667338027325,
+          "p95_abs_rad": 0.0024807170895915077,
+          "rmse_rad": 0.0041605395064118825,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.026622257954961655,
+          "mean_abs_rad": 0.004800390788362866,
+          "p95_abs_rad": 0.010971204736962014,
+          "rmse_rad": 0.007631673268567035,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.01890734365330675,
+          "mean_abs_rad": 0.002308124108322628,
+          "p95_abs_rad": 0.006476991879851351,
+          "rmse_rad": 0.004406713564293951,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0008",
+      "determinism": null,
+      "outcome": {
+        "failure_type": null,
+        "first_failure_time_s": null,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": true
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:ff01cccdaa99387544c3f3bd9f9b8d532cab1bec208fe5a08d8870fc82d8eba9",
+        "observables.npz": "sha256:ae0c5e93a825ddf45b923a3c89c7804c4b6a1ff2564240b6f1df0778cd8e7045"
+      },
+      "raw_record_sha256": "sha256:6e376401b69b50b56f0119226656acfa14525b9694b468f8089c0f66f290ed3f",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0008/recording",
+      "repeat_of": null,
+      "source_inventory_index": 16,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.025337155199438736,
+          "mean_abs_rad": 0.003330714810341739,
+          "p95_abs_rad": 0.0078035641980031345,
+          "rmse_rad": 0.005740992391570463,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.2685699302754501,
+          "mean_abs_rad": 0.012993123012928626,
+          "p95_abs_rad": 0.04051933030014996,
+          "rmse_rad": 0.026028433265627045,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.30953302588321857,
+          "mean_abs_rad": 0.023046961875867446,
+          "p95_abs_rad": 0.058061306755759906,
+          "rmse_rad": 0.065304887569667,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.3089607899494705,
+          "mean_abs_rad": 0.023119503822843373,
+          "p95_abs_rad": 0.058310441244234644,
+          "rmse_rad": 0.06475001890564525,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.03660170327733589,
+          "mean_abs_rad": 0.0044800809128138185,
+          "p95_abs_rad": 0.008857723060168132,
+          "rmse_rad": 0.008607517410125713,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.0168828697116528,
+          "mean_abs_rad": 0.002962555527623678,
+          "p95_abs_rad": 0.007268882499465796,
+          "rmse_rad": 0.004775894318550341,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.019869594594003497,
+          "mean_abs_rad": 0.001379104471261889,
+          "p95_abs_rad": 0.0022111000188166485,
+          "rmse_rad": 0.004136344556071519,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.024274676717073104,
+          "mean_abs_rad": 0.0041399249966594396,
+          "p95_abs_rad": 0.0095727161795326,
+          "rmse_rad": 0.006744007752333984,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.3093199244634697,
+          "mean_abs_rad": 0.02311420239263164,
+          "p95_abs_rad": 0.05400293551413686,
+          "rmse_rad": 0.0653371420320468,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0009",
+      "determinism": null,
+      "outcome": {
+        "failure_type": null,
+        "first_failure_time_s": null,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": true
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:1c8ec80e997ec7c7fbbbb5b8fb8c66ac294101f77f119e317c9c4969af11eefe",
+        "observables.npz": "sha256:ea4e921988d0dcf17962a3661a2d0ac8b900202af3b61d8b18eef23037ebc212"
+      },
+      "raw_record_sha256": "sha256:81e7f915ea600a2d78addb88bc829fcaed70535b667b0deff61ee7151d4d6309",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0009/recording",
+      "repeat_of": null,
+      "source_inventory_index": 18,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.026670233809257565,
+          "mean_abs_rad": 0.003625463550141516,
+          "p95_abs_rad": 0.009031358236658535,
+          "rmse_rad": 0.006084598993282202,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.250401329452838,
+          "mean_abs_rad": 0.011708467239498466,
+          "p95_abs_rad": 0.04198201223563428,
+          "rmse_rad": 0.023639158384002604,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.29665381194127327,
+          "mean_abs_rad": 0.023865696344749106,
+          "p95_abs_rad": 0.05562657273491726,
+          "rmse_rad": 0.06293201520215248,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.29571420965959205,
+          "mean_abs_rad": 0.023914907539964798,
+          "p95_abs_rad": 0.05613699612278355,
+          "rmse_rad": 0.06248009094397214,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.03830787398584118,
+          "mean_abs_rad": 0.004912243015690075,
+          "p95_abs_rad": 0.010066069262929423,
+          "rmse_rad": 0.009146702238663726,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.01765545548602187,
+          "mean_abs_rad": 0.003320327608706694,
+          "p95_abs_rad": 0.008554629391934682,
+          "rmse_rad": 0.005211888689777341,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.020346594533273303,
+          "mean_abs_rad": 0.001436425048582984,
+          "p95_abs_rad": 0.0025288730714896207,
+          "rmse_rad": 0.004254172248396079,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.0260960322664303,
+          "mean_abs_rad": 0.004746604243409489,
+          "p95_abs_rad": 0.011189416246164728,
+          "rmse_rad": 0.007433261189385535,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.29621889247668287,
+          "mean_abs_rad": 0.02390764545310013,
+          "p95_abs_rad": 0.0523657994029042,
+          "rmse_rad": 0.06301899136014806,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0010",
+      "determinism": null,
+      "outcome": {
+        "failure_type": "failed_acquisition",
+        "first_failure_time_s": null,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": false
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:3842203a28d8746b822ae11096cf52296e6e8a52a5e9ebe8d786f3372b350bb7",
+        "observables.npz": "sha256:ad8e939cc2ea994203100bf1a82c740ca905dc324201bbf28814dceb68b546b7"
+      },
+      "raw_record_sha256": "sha256:f659af231f3bcc18731fc3a8c3f4ac4f08a8df7c1b53866d55a15a5d20921ac6",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0010/recording",
+      "repeat_of": null,
+      "source_inventory_index": 20,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.21460453757319742,
+          "mean_abs_rad": 0.010324894265770712,
+          "p95_abs_rad": 0.046626065031590315,
+          "rmse_rad": 0.026981501074461112,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.46989158306258744,
+          "mean_abs_rad": 0.031474938037961135,
+          "p95_abs_rad": 0.1731645638920078,
+          "rmse_rad": 0.08548576456367005,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.019145704326335028,
+          "mean_abs_rad": 0.004023512380281134,
+          "p95_abs_rad": 0.015526420463254831,
+          "rmse_rad": 0.00619867425663578,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.022190853488735673,
+          "mean_abs_rad": 0.004298106000971437,
+          "p95_abs_rad": 0.016952328321947308,
+          "rmse_rad": 0.006666372945460048,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.034092751489742404,
+          "mean_abs_rad": 0.0036784875411842166,
+          "p95_abs_rad": 0.009375844792374953,
+          "rmse_rad": 0.007792940186220371,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.015998427101473173,
+          "mean_abs_rad": 0.0021701197547062214,
+          "p95_abs_rad": 0.007312873682864198,
+          "rmse_rad": 0.004090383741695771,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.01953205049437999,
+          "mean_abs_rad": 0.0013829168557453282,
+          "p95_abs_rad": 0.002264177336221011,
+          "rmse_rad": 0.004071929917258514,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.021405781019019327,
+          "mean_abs_rad": 0.0030627472486214557,
+          "p95_abs_rad": 0.009701183046065567,
+          "rmse_rad": 0.005581521105443306,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.016957642626101846,
+          "mean_abs_rad": 0.004012184485837073,
+          "p95_abs_rad": 0.015228332398209437,
+          "rmse_rad": 0.006165709808584694,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0011",
+      "determinism": null,
+      "outcome": {
+        "failure_type": null,
+        "first_failure_time_s": null,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": true
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:1fad1d39ef8d44d4414f26861a1cfbbe23580f597a2cf64723e2dee61217d978",
+        "observables.npz": "sha256:83c749020706ea0c7c6fffb4ec42ae061d65c8c72be75f7ecd8d23836e57a235"
+      },
+      "raw_record_sha256": "sha256:b04b94ef5ba425c67a0ebeb62f1cc6bde52b7679c53f8468a23ac52b4ead28f3",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0011/recording",
+      "repeat_of": null,
+      "source_inventory_index": 22,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.02586856086261001,
+          "mean_abs_rad": 0.0033323388778512294,
+          "p95_abs_rad": 0.00933519881223854,
+          "rmse_rad": 0.005562750911642488,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.3560315249480916,
+          "mean_abs_rad": 0.01710916472254662,
+          "p95_abs_rad": 0.06352029909303016,
+          "rmse_rad": 0.03600844824890601,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.39040527359035215,
+          "mean_abs_rad": 0.03042240831257491,
+          "p95_abs_rad": 0.05513953694149453,
+          "rmse_rad": 0.0822954382303042,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.38962619250574726,
+          "mean_abs_rad": 0.030484411633821238,
+          "p95_abs_rad": 0.05554770945077976,
+          "rmse_rad": 0.08161582257283413,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.03730262433134507,
+          "mean_abs_rad": 0.004602967407331625,
+          "p95_abs_rad": 0.009870723782942806,
+          "rmse_rad": 0.00879007696164463,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.017266304668006986,
+          "mean_abs_rad": 0.003063776512740929,
+          "p95_abs_rad": 0.008212110566015434,
+          "rmse_rad": 0.004919361701309087,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.02022620451101137,
+          "mean_abs_rad": 0.0013390510444938636,
+          "p95_abs_rad": 0.0023860416602361043,
+          "rmse_rad": 0.004205535363409415,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.02489379468251774,
+          "mean_abs_rad": 0.004368378345925073,
+          "p95_abs_rad": 0.010828414895533562,
+          "rmse_rad": 0.006959725411003598,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.39041292049188725,
+          "mean_abs_rad": 0.03039138138933295,
+          "p95_abs_rad": 0.053354263895956135,
+          "rmse_rad": 0.08252777241994215,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0012",
+      "determinism": null,
+      "outcome": {
+        "failure_type": "approach_collision",
+        "first_failure_time_s": 0.7580000000000006,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": false
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:ce302707b676a06cb6326501e924d2ac94b37ac1a8ac5ca0403e0f0b0295b491",
+        "observables.npz": "sha256:ef84d0c10f37bb830460024c2aabc3c7415c404e0b6d1b2c04c492b93b1be334"
+      },
+      "raw_record_sha256": "sha256:8a649e6afab18b4ba9202d050cb6e8768632049a7ab832294e40ac7ea539e604",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0012/recording",
+      "repeat_of": null,
+      "source_inventory_index": 24,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.031147433911726426,
+          "mean_abs_rad": 0.006168210844368787,
+          "p95_abs_rad": 0.018502952293076358,
+          "rmse_rad": 0.008706735597902622,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.3097387212213593,
+          "mean_abs_rad": 0.029962954995434735,
+          "p95_abs_rad": 0.08408151750745038,
+          "rmse_rad": 0.04642810332933031,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.44965546479487045,
+          "mean_abs_rad": 0.03858567594454583,
+          "p95_abs_rad": 0.05969475889487988,
+          "rmse_rad": 0.09476209382187141,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.4465515121890572,
+          "mean_abs_rad": 0.042470243443173364,
+          "p95_abs_rad": 0.09777662122780716,
+          "rmse_rad": 0.0936599944477477,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.04683341003115016,
+          "mean_abs_rad": 0.006310916358859005,
+          "p95_abs_rad": 0.009813102457112956,
+          "rmse_rad": 0.010992733257599136,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.03197731965382697,
+          "mean_abs_rad": 0.0060874515631011575,
+          "p95_abs_rad": 0.01208999616654413,
+          "rmse_rad": 0.009003859680349367,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.01719011666243747,
+          "mean_abs_rad": 0.0035712638788079703,
+          "p95_abs_rad": 0.014177066069302422,
+          "rmse_rad": 0.0055630138956553835,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.04336418299381939,
+          "mean_abs_rad": 0.007398388443568482,
+          "p95_abs_rad": 0.013074312796430662,
+          "rmse_rad": 0.011261265987197847,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.44577507695095653,
+          "mean_abs_rad": 0.03860109095755012,
+          "p95_abs_rad": 0.058453314764684225,
+          "rmse_rad": 0.0947458405098338,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0013",
+      "determinism": null,
+      "outcome": {
+        "failure_type": "approach_collision",
+        "first_failure_time_s": 0.43800000000000033,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": false
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:fc33629277a18e8addd0755f027a1ffcdcacd72ae0dca5eaec67e3aceff3cac7",
+        "observables.npz": "sha256:5a638fcc0af24afe5fa72316c25547ef0aa55c7fcf36369cfa351db2b2ad50b9"
+      },
+      "raw_record_sha256": "sha256:8cd1a70fb9222e97612d804017db0759bdf6c055edb1d899de8a88cd5b74d1d5",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0013/recording",
+      "repeat_of": null,
+      "source_inventory_index": 26,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.046694934288465606,
+          "mean_abs_rad": 0.008180934827798624,
+          "p95_abs_rad": 0.023999767866928846,
+          "rmse_rad": 0.01209647435672238,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.22054377767837974,
+          "mean_abs_rad": 0.015413618316618853,
+          "p95_abs_rad": 0.057527852771337054,
+          "rmse_rad": 0.02925126388532079,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.03218781303287599,
+          "mean_abs_rad": 0.00458649374739233,
+          "p95_abs_rad": 0.009703952061115139,
+          "rmse_rad": 0.007303283969243509,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.2273892870902452,
+          "mean_abs_rad": 0.01623933562695225,
+          "p95_abs_rad": 0.05871154209454079,
+          "rmse_rad": 0.03700508437948734,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.04231073131268823,
+          "mean_abs_rad": 0.0060642421868926455,
+          "p95_abs_rad": 0.014190172192990489,
+          "rmse_rad": 0.010326390203166825,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.030942604190754508,
+          "mean_abs_rad": 0.006615038379119492,
+          "p95_abs_rad": 0.012243740749844996,
+          "rmse_rad": 0.009063910033502088,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.03060868669747363,
+          "mean_abs_rad": 0.0053713019723667195,
+          "p95_abs_rad": 0.014671551745123999,
+          "rmse_rad": 0.008545952841138797,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.0415165675190203,
+          "mean_abs_rad": 0.008341530911294576,
+          "p95_abs_rad": 0.01714548878594957,
+          "rmse_rad": 0.011732197937797485,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.028999552428376013,
+          "mean_abs_rad": 0.004590350881304928,
+          "p95_abs_rad": 0.009504715981895452,
+          "rmse_rad": 0.007315500537989807,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0014",
+      "determinism": null,
+      "outcome": {
+        "failure_type": "approach_collision",
+        "first_failure_time_s": 0.9980000000000007,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": false
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:0382068c0a35108de3d2c9630ed8156547d989f2415347be4b8e13d442cd9988",
+        "observables.npz": "sha256:c22545002be38e90bff877c3714770898bef8237d2dcc1aacd09f2c48254da0d"
+      },
+      "raw_record_sha256": "sha256:84b73b4ad2b330319f42ff7b279ba08cc97e819a38476f2e33b18878e0021acf",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0014/recording",
+      "repeat_of": null,
+      "source_inventory_index": 28,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.04288855085553373,
+          "mean_abs_rad": 0.007052372507856425,
+          "p95_abs_rad": 0.024992570754964253,
+          "rmse_rad": 0.01013582179984209,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.32640548493278165,
+          "mean_abs_rad": 0.03288602940813235,
+          "p95_abs_rad": 0.09706383600684927,
+          "rmse_rad": 0.051124835894675126,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.489647016695129,
+          "mean_abs_rad": 0.044720682908666765,
+          "p95_abs_rad": 0.08299221365338086,
+          "rmse_rad": 0.10510639819638347,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.4852926806000438,
+          "mean_abs_rad": 0.04672015679090227,
+          "p95_abs_rad": 0.1319727848666626,
+          "rmse_rad": 0.1034364837461968,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.04510631304648227,
+          "mean_abs_rad": 0.005852551078391374,
+          "p95_abs_rad": 0.009989053340820717,
+          "rmse_rad": 0.010524049796825021,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.032594048017342336,
+          "mean_abs_rad": 0.006287669864370558,
+          "p95_abs_rad": 0.011602275319765912,
+          "rmse_rad": 0.009152392618204129,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.02453468616921406,
+          "mean_abs_rad": 0.004646533567862848,
+          "p95_abs_rad": 0.013073761393222425,
+          "rmse_rad": 0.007060018542209106,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.04368632916041193,
+          "mean_abs_rad": 0.00782365768905882,
+          "p95_abs_rad": 0.013273320220666164,
+          "rmse_rad": 0.011602300054275308,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.48574587868497,
+          "mean_abs_rad": 0.04474050209898306,
+          "p95_abs_rad": 0.08047794784353753,
+          "rmse_rad": 0.1051049123710853,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0015",
+      "determinism": null,
+      "outcome": {
+        "failure_type": "approach_collision",
+        "first_failure_time_s": 0.7180000000000005,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": false
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:20969ad272b38aa517dab62c39ed93921b78f4cc58d8e740f4609e8079958b61",
+        "observables.npz": "sha256:798582ff36f4d2ae453f6b10d6dc4b89671807c586dce23548b21000870f1aff"
+      },
+      "raw_record_sha256": "sha256:93c0343e126c715ab75d7c001bfb99e7f87eeb1891b9937789670be75b92b2b1",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0015/recording",
+      "repeat_of": null,
+      "source_inventory_index": 30,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.04965579588307156,
+          "mean_abs_rad": 0.008495734719333957,
+          "p95_abs_rad": 0.024103066660556376,
+          "rmse_rad": 0.012833627091720224,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.38583729460907057,
+          "mean_abs_rad": 0.0335685662793931,
+          "p95_abs_rad": 0.11059512457785288,
+          "rmse_rad": 0.058476575370630966,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.4541679804010952,
+          "mean_abs_rad": 0.039185972097890424,
+          "p95_abs_rad": 0.06227377041327086,
+          "rmse_rad": 0.09600902714779322,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.45234719630363956,
+          "mean_abs_rad": 0.04649689861837877,
+          "p95_abs_rad": 0.258194185510484,
+          "rmse_rad": 0.09966208568539171,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.042240770922661486,
+          "mean_abs_rad": 0.005751179082720804,
+          "p95_abs_rad": 0.01283219572360748,
+          "rmse_rad": 0.010100000427782552,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.03249304668837849,
+          "mean_abs_rad": 0.006673963088154993,
+          "p95_abs_rad": 0.012109754111149288,
+          "rmse_rad": 0.009326165338675824,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.03063713974312443,
+          "mean_abs_rad": 0.005120737213664653,
+          "p95_abs_rad": 0.013835582902056205,
+          "rmse_rad": 0.008199149693283059,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.043974596841617,
+          "mean_abs_rad": 0.00837164339546336,
+          "p95_abs_rad": 0.01439596620036335,
+          "rmse_rad": 0.011942272853319379,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.451920484819633,
+          "mean_abs_rad": 0.03921795665078142,
+          "p95_abs_rad": 0.06092510919397568,
+          "rmse_rad": 0.09601103099512114,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0016",
+      "determinism": {
+        "categorical_and_scored_outcome_exact": true,
+        "maximum_absolute_errors": {
+          "applied_target_rad": 0.0,
+          "full_qpos": 0.0,
+          "full_qvel": 0.0,
+          "hand_qpos": 0.0,
+          "hand_qvel": 0.0,
+          "requested_target_rad": 0.0,
+          "time_s": 0.0
+        },
+        "passed": true
+      },
+      "outcome": {
+        "failure_type": null,
+        "first_failure_time_s": null,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": true
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:2d8c73fe70c4217547e8afab6dc3dcf1b74b1f61b29b846a0275a1d4cba3fe7e",
+        "observables.npz": "sha256:9eb8bea2b9aeb0238dd748191e351beb49fcb642f598fb2c6c9795e490f91a0a"
+      },
+      "raw_record_sha256": "sha256:b81cdb0845389382431c50a68befb97a163f14c8cc46bec4a7d61aac512b1638",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0016/recording",
+      "repeat_of": "attempt_0000",
+      "source_inventory_index": 0,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.023188383565397923,
+          "mean_abs_rad": 0.0032836745144937595,
+          "p95_abs_rad": 0.006753595945423272,
+          "rmse_rad": 0.0052028573986989055,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.17303475016699515,
+          "mean_abs_rad": 0.012753547899490892,
+          "p95_abs_rad": 0.04248593679972279,
+          "rmse_rad": 0.021145733250753068,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.21748704683443398,
+          "mean_abs_rad": 0.02393951254124192,
+          "p95_abs_rad": 0.05947270553987306,
+          "rmse_rad": 0.04881530009443523,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.21539865280171594,
+          "mean_abs_rad": 0.02444612798617516,
+          "p95_abs_rad": 0.05964702604350004,
+          "rmse_rad": 0.04854013002884401,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.03372653463703944,
+          "mean_abs_rad": 0.004520400769489772,
+          "p95_abs_rad": 0.008124109537185675,
+          "rmse_rad": 0.008084384541227863,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.01521816785097552,
+          "mean_abs_rad": 0.002923105454478901,
+          "p95_abs_rad": 0.005998698564885868,
+          "rmse_rad": 0.004370562849200203,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.017934538970347007,
+          "mean_abs_rad": 0.0014074929046435276,
+          "p95_abs_rad": 0.0034904218940882466,
+          "rmse_rad": 0.003806463305569755,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.02227666242281642,
+          "mean_abs_rad": 0.004183887379372242,
+          "p95_abs_rad": 0.008585663901863754,
+          "rmse_rad": 0.006316658195575698,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.2169232862138324,
+          "mean_abs_rad": 0.02380534070330169,
+          "p95_abs_rad": 0.05584284479357257,
+          "rmse_rad": 0.048871346344324905,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0017",
+      "determinism": {
+        "categorical_and_scored_outcome_exact": true,
+        "maximum_absolute_errors": {
+          "applied_target_rad": 0.0,
+          "full_qpos": 0.0,
+          "full_qvel": 0.0,
+          "hand_qpos": 0.0,
+          "hand_qvel": 0.0,
+          "requested_target_rad": 0.0,
+          "time_s": 0.0
+        },
+        "passed": true
+      },
+      "outcome": {
+        "failure_type": "failed_acquisition",
+        "first_failure_time_s": null,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": false
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:2610b5d4e118eeb2833fe1664c1f67731ed069202fca553c853a6831e3cfd487",
+        "observables.npz": "sha256:190952df591b3f8eceb1e29f7c0a2fb9e90d45ec4c2198150efa2f7952cb1af0"
+      },
+      "raw_record_sha256": "sha256:c646a41c8fc466e6fbd4fc9b2f96a528e8b604f4d7913359f92cd435c7101067",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0017/recording",
+      "repeat_of": "attempt_0004",
+      "source_inventory_index": 8,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.025548578184497468,
+          "mean_abs_rad": 0.003826903481876768,
+          "p95_abs_rad": 0.008376854424077084,
+          "rmse_rad": 0.006063438515091053,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.1644181741404411,
+          "mean_abs_rad": 0.016580308281090687,
+          "p95_abs_rad": 0.05775209902665196,
+          "rmse_rad": 0.027418650011134048,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.020348067891963532,
+          "mean_abs_rad": 0.002297159407188815,
+          "p95_abs_rad": 0.005899186024683348,
+          "rmse_rad": 0.0041059559941393365,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.23657802048238852,
+          "mean_abs_rad": 0.008335433972103505,
+          "p95_abs_rad": 0.03500079384948861,
+          "rmse_rad": 0.025304784908178005,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.036729461113506216,
+          "mean_abs_rad": 0.0050878450650988635,
+          "p95_abs_rad": 0.009599108018998945,
+          "rmse_rad": 0.008939718111478543,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.016666616164654462,
+          "mean_abs_rad": 0.0034607658578735302,
+          "p95_abs_rad": 0.00770015471881348,
+          "rmse_rad": 0.0051347176218263,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.01898616954560381,
+          "mean_abs_rad": 0.0015864484305155204,
+          "p95_abs_rad": 0.0029047186383632808,
+          "rmse_rad": 0.0040354834907028675,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.02531156446414384,
+          "mean_abs_rad": 0.004916180512902354,
+          "p95_abs_rad": 0.010504507484437426,
+          "rmse_rad": 0.007392763853211733,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.017811838448915023,
+          "mean_abs_rad": 0.0023128703544860775,
+          "p95_abs_rad": 0.00546463446730297,
+          "rmse_rad": 0.0041236373512444505,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0018",
+      "determinism": {
+        "categorical_and_scored_outcome_exact": true,
+        "maximum_absolute_errors": {
+          "applied_target_rad": 0.0,
+          "full_qpos": 0.0,
+          "full_qvel": 0.0,
+          "hand_qpos": 0.0,
+          "hand_qvel": 0.0,
+          "requested_target_rad": 0.0,
+          "time_s": 0.0
+        },
+        "passed": true
+      },
+      "outcome": {
+        "failure_type": null,
+        "first_failure_time_s": null,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": true
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:ff01cccdaa99387544c3f3bd9f9b8d532cab1bec208fe5a08d8870fc82d8eba9",
+        "observables.npz": "sha256:ae0c5e93a825ddf45b923a3c89c7804c4b6a1ff2564240b6f1df0778cd8e7045"
+      },
+      "raw_record_sha256": "sha256:b7dd39a68dbb71b7ac135732889f06373cb6cf3f5219729b159b7b9f4c72b87c",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0018/recording",
+      "repeat_of": "attempt_0008",
+      "source_inventory_index": 16,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.025337155199438736,
+          "mean_abs_rad": 0.003330714810341739,
+          "p95_abs_rad": 0.0078035641980031345,
+          "rmse_rad": 0.005740992391570463,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.2685699302754501,
+          "mean_abs_rad": 0.012993123012928626,
+          "p95_abs_rad": 0.04051933030014996,
+          "rmse_rad": 0.026028433265627045,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.30953302588321857,
+          "mean_abs_rad": 0.023046961875867446,
+          "p95_abs_rad": 0.058061306755759906,
+          "rmse_rad": 0.065304887569667,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.3089607899494705,
+          "mean_abs_rad": 0.023119503822843373,
+          "p95_abs_rad": 0.058310441244234644,
+          "rmse_rad": 0.06475001890564525,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.03660170327733589,
+          "mean_abs_rad": 0.0044800809128138185,
+          "p95_abs_rad": 0.008857723060168132,
+          "rmse_rad": 0.008607517410125713,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.0168828697116528,
+          "mean_abs_rad": 0.002962555527623678,
+          "p95_abs_rad": 0.007268882499465796,
+          "rmse_rad": 0.004775894318550341,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.019869594594003497,
+          "mean_abs_rad": 0.001379104471261889,
+          "p95_abs_rad": 0.0022111000188166485,
+          "rmse_rad": 0.004136344556071519,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.024274676717073104,
+          "mean_abs_rad": 0.0041399249966594396,
+          "p95_abs_rad": 0.0095727161795326,
+          "rmse_rad": 0.006744007752333984,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.3093199244634697,
+          "mean_abs_rad": 0.02311420239263164,
+          "p95_abs_rad": 0.05400293551413686,
+          "rmse_rad": 0.0653371420320468,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "attempt_id": "attempt_0019",
+      "determinism": {
+        "categorical_and_scored_outcome_exact": true,
+        "maximum_absolute_errors": {
+          "applied_target_rad": 0.0,
+          "full_qpos": 0.0,
+          "full_qvel": 0.0,
+          "hand_qpos": 0.0,
+          "hand_qvel": 0.0,
+          "requested_target_rad": 0.0,
+          "time_s": 0.0
+        },
+        "passed": true
+      },
+      "outcome": {
+        "failure_type": "approach_collision",
+        "first_failure_time_s": 0.7580000000000006,
+        "label_rule_id": "fixed_grasp_lift_v2_task_outcome_v1",
+        "success": false
+      },
+      "raw_artifacts_sha256": {
+        "diagnostics.npz": "sha256:ce302707b676a06cb6326501e924d2ac94b37ac1a8ac5ca0403e0f0b0295b491",
+        "observables.npz": "sha256:ef84d0c10f37bb830460024c2aabc3c7415c404e0b6d1b2c04c492b93b1be334"
+      },
+      "raw_record_sha256": "sha256:723a1e6b7198e17aeafa56998acf2f3f36d1da78debeef84607ead15535bb5c3",
+      "recording": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_saved_recording_pilot_2026-10-15_v1/attempts/attempt_0019/recording",
+      "repeat_of": "attempt_0012",
+      "source_inventory_index": 24,
+      "status": "COMPLETED",
+      "tracking_by_phase": {
+        "approach": {
+          "joint_values": 600,
+          "max_abs_rad": 0.031147433911726426,
+          "mean_abs_rad": 0.006168210844368787,
+          "p95_abs_rad": 0.018502952293076358,
+          "rmse_rad": 0.008706735597902622,
+          "samples": 25
+        },
+        "close_fingers": {
+          "joint_values": 1080,
+          "max_abs_rad": 0.3097387212213593,
+          "mean_abs_rad": 0.029962954995434735,
+          "p95_abs_rad": 0.08408151750745038,
+          "rmse_rad": 0.04642810332933031,
+          "samples": 45
+        },
+        "hold": {
+          "joint_values": 1200,
+          "max_abs_rad": 0.44965546479487045,
+          "mean_abs_rad": 0.03858567594454583,
+          "p95_abs_rad": 0.05969475889487988,
+          "rmse_rad": 0.09476209382187141,
+          "samples": 50
+        },
+        "lift": {
+          "joint_values": 912,
+          "max_abs_rad": 0.4465515121890572,
+          "mean_abs_rad": 0.042470243443173364,
+          "p95_abs_rad": 0.09777662122780716,
+          "rmse_rad": 0.0936599944477477,
+          "samples": 38
+        },
+        "load_object": {
+          "joint_values": 24,
+          "max_abs_rad": 0.04683341003115016,
+          "mean_abs_rad": 0.006310916358859005,
+          "p95_abs_rad": 0.009813102457112956,
+          "rmse_rad": 0.010992733257599136,
+          "samples": 1
+        },
+        "move_to_pregrasp": {
+          "joint_values": 24,
+          "max_abs_rad": 0.03197731965382697,
+          "mean_abs_rad": 0.0060874515631011575,
+          "p95_abs_rad": 0.01208999616654413,
+          "rmse_rad": 0.009003859680349367,
+          "samples": 1
+        },
+        "reset": {
+          "joint_values": 24,
+          "max_abs_rad": 0.01719011666243747,
+          "mean_abs_rad": 0.0035712638788079703,
+          "p95_abs_rad": 0.014177066069302422,
+          "rmse_rad": 0.0055630138956553835,
+          "samples": 1
+        },
+        "retarget": {
+          "joint_values": 24,
+          "max_abs_rad": 0.04336418299381939,
+          "mean_abs_rad": 0.007398388443568482,
+          "p95_abs_rad": 0.013074312796430662,
+          "rmse_rad": 0.011261265987197847,
+          "samples": 1
+        },
+        "score": {
+          "joint_values": 24,
+          "max_abs_rad": 0.44577507695095653,
+          "mean_abs_rad": 0.03860109095755012,
+          "p95_abs_rad": 0.058453314764684225,
+          "rmse_rad": 0.0947458405098338,
+          "samples": 1
+        }
+      }
+    }
+  ],
+  "schema_version": "hug_saved_recording_pilot_v1",
+  "status": "COMPLETED_BOUNDED_QUOTA",
+  "tracking_scope": "joint error to final clipped interval target; report only"
+}
