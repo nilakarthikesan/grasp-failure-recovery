@@ -205,3 +205,29 @@ Python3.12.13 / NumPy2.2.6 / MuJoCo3.3.7 / Pydantic2.13.5.
 **Verdict:** provenance increment PASS. Does not yet establish new-input mapping
 acceptance or complete the consolidated Phase1 gate. No inference, physical
 collection, model fitting or manuscript change occurred.
+
+
+## 15 October 2026 — Phase 1 consolidated mapping gate PASS_WITH_CAVEATS
+
+**Source/protocol freeze:** `7d157dd`. Reproduce with:
+`PYTHONDONTWRITEBYTECODE=1 /Users/nilakarthikesan/grasp-failure-prediction/.venv/bin/python scripts/validate_hug_mapping.py --hug-root /Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/hug --output NEW_REPORT.json --prepare-protocol NEW_PROTOCOL.json saved`, commit that new protocol, then replace `--prepare-protocol` with `--protocol`. The frozen output path must match. Never overwrite this run.
+
+**Results:** 32/32 current static input gates PASS, 96 static forwards and zero
+integration attempts. Licensed MANO reconstruction, literal limits, independent
+source-XML FK versus compiled hand, actual world-palm placement, unchanged mean
+fingertip guard, camera projection and captured camera calibration pass. Scoped
+contact distortion, source object/scene realization and dynamic tracking/repeats
+are separately bound historical evidence, identified as such per case; they are
+not new physical measurements or a new fidelity pass.
+
+**Artifacts:** `research_artifacts/hug_consolidated_mapping_validation_2026-10-15_v1/`
+contains the frozen protocol, complete per-case JSON and Markdown report.
+Ninety-six focused static tests pass, including19 new validator controls; real
+integration APIs were blocked.
+
+**Verdict/claim:** Phase1 saved-input automation PASS_WITH_CAVEATS. Supports
+re-runnable static acceptance of these32 commands with documented approximate
+MANO-to-Shadow mapping. Does not establish exact contact equivalence or arbitrary
+new-input acceptance. Every new proposal must pass the reusable validator before
+execution; failed gates retain null physical labels. Phase2 bounded collection
+can proceed with the validated Shadow hand, not the static native proxy.

@@ -1,0 +1,580 @@
+# HUG mapping validation
+Final verdict: **PASS_WITH_CAVEATS**.
+Scope: static simulator inputs. Contact/tracking remain measurements; native fidelity and large collection are unqualified.
+
+- Case 0: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: PASS (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: PASS (hash-bound; not recomputed).
+- Case 1: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: NOT_RUN (hash-bound; not recomputed).
+- Case 2: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: PASS (hash-bound; not recomputed).
+- Case 3: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: NOT_RUN (hash-bound; not recomputed).
+- Case 4: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: PASS (hash-bound; not recomputed).
+- Case 5: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: NOT_RUN (hash-bound; not recomputed).
+- Case 6: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: PASS (hash-bound; not recomputed).
+- Case 7: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: NOT_RUN (hash-bound; not recomputed).
+- Case 8: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: PASS (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: PASS (hash-bound; not recomputed).
+- Case 9: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: NOT_RUN (hash-bound; not recomputed).
+- Case 10: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: PASS (hash-bound; not recomputed).
+- Case 11: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: NOT_RUN (hash-bound; not recomputed).
+- Case 12: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: PASS (hash-bound; not recomputed).
+- Case 13: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: NOT_RUN (hash-bound; not recomputed).
+- Case 14: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: PASS (hash-bound; not recomputed).
+- Case 15: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: NOT_RUN (hash-bound; not recomputed).
+- Case 16: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: PASS (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: PASS (hash-bound; not recomputed).
+- Case 17: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: NOT_RUN (hash-bound; not recomputed).
+- Case 18: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: PASS (hash-bound; not recomputed).
+- Case 19: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: NOT_RUN (hash-bound; not recomputed).
+- Case 20: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: PASS (hash-bound; not recomputed).
+- Case 21: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: NOT_RUN (hash-bound; not recomputed).
+- Case 22: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: PASS (hash-bound; not recomputed).
+- Case 23: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: NOT_RUN (hash-bound; not recomputed).
+- Case 24: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: PASS (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: PASS (hash-bound; not recomputed).
+- Case 25: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: NOT_RUN (hash-bound; not recomputed).
+- Case 26: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: PASS (hash-bound; not recomputed).
+- Case 27: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: NOT_RUN (hash-bound; not recomputed).
+- Case 28: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: PASS (hash-bound; not recomputed).
+- Case 29: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: NOT_RUN (hash-bound; not recomputed).
+- Case 30: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: PASS (hash-bound; not recomputed).
+- Case 31: PASS.
+  - native_frame_input: PASS (recomputed_static).
+  - literal_joint_limits: PASS (recomputed_static).
+  - compiled_hand_realization: PASS (recomputed_static).
+  - mean_fingertip_guard: PASS (recomputed_static).
+  - static_contacts: MEASURED (recomputed_static).
+  - mapped_world_palm: PASS (recomputed_static).
+  - camera_export_consistency: PASS (recomputed_static).
+  - compiled_camera_calibration: PASS (recomputed_static).
+  - native_reconstruction: PASS (recomputed_static).
+  - fresh_mapping_provenance: NOT_APPLICABLE (recomputed_static).
+  - Historical native_reconstruction: PASS (hash-bound; not recomputed).
+  - Historical component_contact_metrics: MEASURED (hash-bound; not recomputed).
+  - Historical native_exposed_boundary: MEASURED (hash-bound; not recomputed).
+  - Historical assembled_saved_scene: PASS (hash-bound; not recomputed).
+  - Historical saved_camera: PASS (hash-bound; not recomputed).
+  - Historical fresh_solve_development: NOT_RUN (hash-bound; not recomputed).
+  - Historical dynamic_saved_replay_and_tracking: NOT_RUN (hash-bound; not recomputed).

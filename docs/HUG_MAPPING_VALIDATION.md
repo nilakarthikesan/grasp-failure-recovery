@@ -100,3 +100,16 @@ failure types agree on all 16 unique inputs, without rewriting historical data
 or inferring general outcome equivalence. The final focused static regression
 passes 246 tests, skips two optional controls and deselects two free-fall tests;
 it advances no physics. [Pilot evidence](../research_artifacts/hug_saved_recording_pilot_2026-10-15_v1/README.md).
+
+
+## Consolidated reusable gate
+
+`7d157dd` adds `scripts/validate_hug_mapping.py` and the reusable
+`evaluation.mapping_validation.validate_hug_mapping` API. The frozen consolidated
+report in `research_artifacts/hug_consolidated_mapping_validation_2026-10-15_v1/`
+recomputes all32 saved static gates:32PASS,96forwards,zero integration attempts.
+Its final verdict is PASS_WITH_CAVEATS. Historical contact/object-scene/tracking
+measurements are hash-bound and explicitly distinguished from recomputation.
+The same API requires original camera/compiled calibration, licensed MANO
+reconstruction and complete raw/status provenance on fresh proposals. Missing
+required checks are INCOMPLETE, never an inferred pass. No threshold was changed.
