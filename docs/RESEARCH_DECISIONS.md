@@ -3490,3 +3490,22 @@ support during hold. A completed pilot needs independent saved-data validation,
 holdout class counts and numerical-readiness checks before scientific training.
 The 28 passing predictor software controls establish software behavior only.
 No manuscript edits and no scientific predictor fitting at this decision.
+
+### 2026-10-16 — Freeze native object pilot and separate holdout protocol families
+
+With bounded physics v2 independently qualified, freeze a 135-slot real-object
+pilot before its first object query or step. Protocol
+`05bd9b2c231211452681ffcb541afc3dc774d9a1e77b6200f7e12b54ff4c17d7`
+binds 1,534 inputs, 44 selected sources, 120 original proposals and 15 matched
+timestep re-evaluations. Sixty-seven manufactured controls pass; actual task
+outcomes are pending. Record every mapping refusal and quarantine in the fixed
+denominator rather than turn invalid execution into failure supervision.
+
+The user requested both object and category holdouts. Emit the previously frozen
+seven catalog folds before outcomes in a separate manifest; preserve the existing
+trainer's five whole-category folds and schema. This implements prospective
+holdout readiness reporting, not a new seven-fold fitting API or scientific fit.
+The training plan explains HUG-Bench coverage, UniDexGrasp grouping and Dex-Net
+controlled uncertainty, with executed task labels and fixed pre-lift features.
+Class support, independent task qualification and timestep evidence must justify
+scientific fitting; software availability alone cannot do so. No manuscript work.

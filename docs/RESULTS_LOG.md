@@ -2033,3 +2033,29 @@ assumption refusal and its correction remain in the readback history.
 Scope: two development poses, authored capsule colliders, analytic two-plane
 contacts and sphere/table approach. This admits a separately frozen real-object
 pilot; it is not task-label, full-skin, hardware or training qualification.
+
+## 2026-10-16 — Native object pilot source and prospective denominator frozen
+
+The new pilot protocol SHA256
+`05bd9b2c231211452681ffcb541afc3dc774d9a1e77b6200f7e12b54ff4c17d7`
+binds 1,534 active inputs and 44 selected Git sources. Sixty-seven manufactured
+controls pass in 2.35 s with zero integration. Source controls SHA256:
+`ded4c246a94d3832cf6979dec7b5c69bc06b012257ebe8e82b765cf001dc09a5`.
+Preparation reads, hashes and authors metadata; zero object geometry queries,
+models, physics steps or training fits have run at this entry.
+
+Declared schedule: 120 primary attempts across 30 official objects, 15 geometry
+by size cells, two views and two fixed HUG seeds; 15 matched 1 ms re-evaluations.
+Upper bounds: 45 model/data pairs, 405 static forwards, 270 resets, 412,500 steps,
+19.2 million point-triangle comparisons, 256 contacts per step, 60 s per rollout
+and 1,800 s total worker time. All 135 static source/chart checks precede any
+task integration. Seven catalog object/category holdout assignments are emitted
+before outcomes, separately from the trainer's five category folds.
+
+Fixed guards preserve 1 mm/2 degree no-contact support stability, 2 mm/2 degree
+preclose tracking, the principal actuator chart and 5 mm maximum penetration.
+Their violations retain partial operands and null quarantined outcomes. Other
+unexpected errors hard-stop the transaction; remaining planned slots stay NOT_RUN.
+Success additionally excludes object-table support through hold. Prospective
+primary recordings remain unqualified for training. Task execution and independent
+saved-only readback are the next checks, not results inferred from preparation.
