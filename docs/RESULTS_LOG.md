@@ -1788,3 +1788,15 @@ V3 will explicitly clear/bind that flag and check/save actual plane pose/gap
 at the existing preflight forward, before any motion. No penetration or other
 physical gate is loosened. V2 remains immutable; freeze released after readback.
 No task collection, prediction training or manuscript changes.
+
+### 2026-10-15 — Capsule v3 prepared with explicit plane realization checks
+
+Protocol SHA256 `9df046dda96f4ea929955d6e82723472450d234e9529d6016b26bdc22231e7dd`;
+687 active bindings,38 selected Git sources,12 fixture XMLs.85 manufactured
+controls PASS, independently repeated, zero native operations. The scoped
+plane cache correction is fingerprinted and actual transforms/tangent contact
+are saved/checked before any motion. Zero-or-one contact is permitted at the
+zero-gap boundary with if-present pair/normal/gap checks; positive force after
+indentation remains required. Physical fixture math is byte-identical to v2,
+with unchanged quotas/limits and76 complete artifacts expected. No actual v3
+model/forward/integration has run before this new freeze; all admissions false.

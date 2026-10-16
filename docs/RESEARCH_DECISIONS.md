@@ -3311,3 +3311,54 @@ before any integration. Preserve actual contact operands before guard refusal.
 This changes fixture construction/logging, not gains, source inertia, physical
 thresholds or the12-model/36-forward/10,500-step plan. No new native execution
 has occurred for v3. Collection/training remains closed; no manuscript edits.
+
+### 2026-10-15 — Evaluation variety options from primary papers; collection pending
+
+The user requests a reasoned definition of variety after mapping. Three useful
+precedents are [HUG-Bench's geometry×size coverage](https://arxiv.org/html/2606.17054v1#S5),
+[UniDexGrasp's unseen-instance/unseen-category distinction](https://arxiv.org/html/2303.00938#S4.SS1),
+and [Dex-Net2.0's physical uncertainty and observation corruption](https://arxiv.org/html/1703.09312).
+HUG-Bench spans five geometric categories and three size groups. UniDexGrasp
+separates grasp translation/rotation/articulation diversity from execution and
+evaluates distinct generalization splits. Dex-Net's analytic robustness labels
+are not executed lift/hold labels and should not be substituted for ours.
+
+Proposed HUG-only design: cover geometry×size with multiple distinct object
+assets; record spread of actual wrist/finger poses as well as requested random
+seeds. Keep scene/view changes and physical mass/friction sensitivity separate,
+using qualified physical ranges. Freeze object/category partitions before new
+proposals, grouping all captures, seeds, perturbations, repeats and temporal
+windows of an asset together. Report familiar-object and held-out-object/category
+results separately; never infer unseen-object prediction from a frame-only split.
+All successes and physical failure phases must be retained; mapping/runtime
+refusals have null physical labels. A phase-defined pre-lift feature cutoff must
+exclude later lift/hold signals and outcome timestamps.
+
+This is a proposed coverage/split rationale, not an activated collection or
+training protocol. Counts, perturbation ranges and the object/approach pilot
+remain to be finalized after physical fixture qualification. Two HUG grasps
+with109 test perturbations each are218 reconstruction states, not218 independent
+grasp samples. Coverage and grouped splits make generalization claims testable;
+they do not guarantee predictor accuracy. No new generation, collection, training
+or manuscript work is performed by this design note.
+
+### 2026-10-15 — Freeze the corrected plane realization before v3 motion
+
+The fresh v3 fixture setter is scoped to the declared static world plane and
+explicitly sets the pinned `mjSAMEFRAME_NONE` flag. That flag is now part of
+the model mutation fingerprint. At the second already-budgeted forward, save
+actual plane/capsule transforms and all contact operands, then require the
+planned plane position/normal and analytic tangent gap. At zero mathematical
+gap, zero or one engine contact is legitimate under roundoff; if present,
+require the declared pair/dimension, engine gap and oriented normal. This rule
+was corrected during source review, before any v3 native execution. Positive
+reaction after commanded indentation remains mandatory and unchanged.
+
+V3 binds687 active inputs,38 selected Git sources and12 XML identities under
+protocol `9df046dda96f4ea929955d6e82723472450d234e9529d6016b26bdc22231e7dd`.
+85 manufactured controls pass and the independent reviewer repeats85PASS with
+zero integration. Four new preflight witnesses give76 complete artifacts;
+engine operation quotas and physical math are byte-identical to v2. V1/v2
+remain historical failures with their independently verified partial passes.
+New native results are pending source/protocol commit. No collection, training
+or manuscript changes are admitted by preparation.

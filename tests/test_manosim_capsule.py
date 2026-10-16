@@ -53,7 +53,7 @@ def fake_model(assets):
     # Reverse actuator order proves named scattering, not positional flattening.
     for k,a in enumerate(assets['actuators']):
         aid=50-k;jid=mc.JOINT_NAMES.index(a['joint']);m.actuator_trnid[aid,0]=jid;m.actuator_gear[aid]=a['gear'];m.actuator_gainprm[aid,0]=a['kp'];m.actuator_biasprm[aid,1]=-a['kp'];dof=int(m.jnt_dofadr[jid])+(0 if k<3 else (k-3)%3);m.actuator_biasprm[aid,2]=-2*a['dampratio']*np.sqrt(a['kp']*m.dof_M0[dof])
-    m.geom_type=np.r_[0,7,np.full(15,3)].astype(int);m.geom_bodyid=np.r_[0,np.arange(1,17)];m.geom_pos=np.vstack([np.zeros((2,3)),np.tile([0,0,.01],(15,1))]);m.geom_quat=np.tile([1.,0,0,0],(17,1));m.geom_size=np.vstack([np.zeros((2,3)),np.tile([.005,.01,0],(15,1))]);m.geom_dataid=np.r_[-1,0,np.full(15,-1)].astype(int);m.mesh_vert=np.zeros((4,3));m.mesh_face=np.array([[0,1,2]],int);m.mesh_pos=np.zeros((1,3));m.mesh_quat=np.array([[1.,0,0,0]]);m.geom_solref=np.tile([.04,1.],(17,1));m.geom_solimp=np.tile([.5,.95,.001,.5,2.],(17,1));m.geom_friction=np.tile([1.,.005,.0001],(17,1));m.geom_priority=np.zeros(17,int);m.geom_contype=np.ones(17,int);m.geom_conaffinity=np.ones(17,int)
+    m.geom_type=np.r_[0,7,np.full(15,3)].astype(int);m.geom_sameframe=np.r_[1,1,np.full(15,3)].astype(np.uint8);m.geom_bodyid=np.r_[0,np.arange(1,17)];m.geom_pos=np.vstack([np.zeros((2,3)),np.tile([0,0,.01],(15,1))]);m.geom_quat=np.tile([1.,0,0,0],(17,1));m.geom_size=np.vstack([np.zeros((2,3)),np.tile([.005,.01,0],(15,1))]);m.geom_dataid=np.r_[-1,0,np.full(15,-1)].astype(int);m.mesh_vert=np.zeros((4,3));m.mesh_face=np.array([[0,1,2]],int);m.mesh_pos=np.zeros((1,3));m.mesh_quat=np.array([[1.,0,0,0]]);m.geom_solref=np.tile([.04,1.],(17,1));m.geom_solimp=np.tile([.5,.95,.001,.5,2.],(17,1));m.geom_friction=np.tile([1.,.005,.0001],(17,1));m.geom_priority=np.zeros(17,int);m.geom_contype=np.ones(17,int);m.geom_conaffinity=np.ones(17,int)
     def resolve(kind,name):
         if kind=='body':return mc.BODY_NAMES.index(name)+1
         if kind=='joint':return mc.JOINT_NAMES.index(name)
@@ -202,3 +202,9 @@ def test_inertia_wrong_diagonal_and_beyond_jacobi_envelope_refused():
     principal=np.array([3e-4,2.5e-4,1.5e-4]);q=np.array([1.,0,0,0])
     with pytest.raises(ValueError,match='principal diagonal'):mc.inertia_representation_receipt(np.r_[principal,0.,0.,0.],principal*np.array([1.1,1,1]),q)
     with pytest.raises(ValueError,match='Jacobi stop envelope'):mc.inertia_representation_receipt(np.r_[principal,1e-7,0.,0.],principal,q)
+
+
+def test_contract_detects_later_cached_geom_frame_flag_mutation(compiled):
+    m,res,a,rest,shape=compiled;c=mc.validate_compiled_contract(m,res,a,rest)
+    m.geom_sameframe[0]=0
+    with pytest.raises(ValueError,match='changed'):mc.verify_compiled_contract(m,c)
