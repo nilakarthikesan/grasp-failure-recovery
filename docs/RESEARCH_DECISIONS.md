@@ -3362,3 +3362,34 @@ engine operation quotas and physical math are byte-identical to v2. V1/v2
 remain historical failures with their independently verified partial passes.
 New native results are pending source/protocol commit. No collection, training
 or manuscript changes are admitted by preparation.
+
+### 2026-10-15 — Accept finite native transfer; advance to object-execution qualification
+
+V3 independently passes12 static source/command checks, all12 motion/gravity/
+capsule-contact fixtures and six timestep comparisons over10,500 steps, using
+the same physical math/gains/source inertia as v2. Saved actual plane transforms
+andNONE cache flags verify realization of the intended contact fixture. The
+independent receipt `42135771d8d8128e104f28effd9df18175054832a7828d983a631c1734bde7fd`
+rechecks687 live bindings,38 selected Git blobs and76 creation-time artifacts,
+and derives the decisions without an engine/MANO/FK/physics replay. V1/v2
+remain separately failed protocols with their original partial evidence.
+
+Decision: accept source reconstruction and authored-capsule command mapping
+within the tested two-input domain, plus the bounded basic physical-contact
+component. Use this native MANO embodiment for the next object-scene/approach
+pilot; do not pool Shadow outcomes. New proposals must still pass per-proposal
+shape/frame/branch/compiled-state checks. A finite qualification is not a
+universal certificate for arbitrary generated poses or full source-skin contact.
+
+The authored uncompensated controller has expected13.08mm downward gravity sag,
+which is measured and matches equilibrium. Its gravity policy must be explicit
+and validated for object execution; do not hide it as a mapping offset. Palm,
+multifinger and oriented object-contact/approach behavior, scoring and human
+oracle/calibration remain outside these fixtures. Task collection/training
+admission stays closed until that named execution protocol is qualified.
+
+The variety design can now build on actual transfer evidence: use the proposed
+geometry×size coverage, measure actual wrist/finger pose diversity, and group
+entire object/category partitions before proposals. Calibrated mass/friction
+sensitivity and observation noise remain separate axes. Final counts/ranges and
+task outcomes are not inferred from these synthetic fixtures. No manuscript work.

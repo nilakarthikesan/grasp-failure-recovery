@@ -1800,3 +1800,61 @@ zero-gap boundary with if-present pair/normal/gap checks; positive force after
 indentation remains required. Physical fixture math is byte-identical to v2,
 with unchanged quotas/limits and76 complete artifacts expected. No actual v3
 model/forward/integration has run before this new freeze; all admissions false.
+
+### 2026-10-15 — Capsule v3 independently VERIFIED PASS: mapping and bounded execution
+
+Frozen source `9e7a0a72e338c0a493579e57c880bd7d0ae3bb66`, protocol
+`9df046dda96f4ea929955d6e82723472450d234e9529d6016b26bdc22231e7dd`.
+The passing run completes12 models/Data,36 explicit forwards,10,500 steps and
+1,492 contact-force reads. All12 static source/actuator checks pass before any
+integration; all12 tracking/gravity/contact conditions and six2ms/1ms final-state
+comparisons pass.85 manufactured controls preceded execution. The earlier
+reconstruction readback independently verifies two HUG grasps×109 test states;
+these are218 states, not218 independent grasp generations.
+
+Measured: gravity-OFF motion tracking tail maxima are1.2553µm wrist and
+0.01137degrees over all16 bones. Authored gravity-ON holds show the declared
+13.08mm downward spring sag; maximum residual from that equilibrium is12.008nm,
+with0.27370degree bone error and force-balance residual below1.775e-6N.
+This verifies the uncompensated controller, not perfect target tracking under
+gravity; gravity policy remains a practical object-execution design issue.
+
+All four actual plane/cache/tangent preflights pass: saved cache enum isNONE,
+actual plane positions match exactly, normal differences are at most6.662e-16.
+All four start with zero contacts at numerical tangency, correctly retained as
+N/A for if-present tests; all develop positive reaction after indentation.
+Tail mean reactions are33.276–33.504mN, maximum penetration0.37030mm under
+unchanged5mm hard bound. Independent contact gap error≤9.541e-18m, oriented
+normal error≤2.221e-16, J component error≤5.552e-17, generalized-force residuals
+≤3.470e-18N/1.735e-18Nm and virtual-power error≤2.082e-17W. Friction-cone
+primal/dual/complementarity gates all pass. Across six timestep pairs, maximum
+final wrist difference is30.57nm and bone difference3.682e-6rad.
+
+Report SHA256 `a2c5d4f249fb2e7266338efdab621a785ca210d83c668da067f4991b48013f45`.
+Independent receipt at
+`research_artifacts/manosim_capsule_execution_2026-10-15_v3/run_v1/independent_readback.json`
+SHA256 `42135771d8d8128e104f28effd9df18175054832a7828d983a631c1734bde7fd`
+rechecks687 live bindings,38 selected Git blobs plus protocol,76 creation-time
+artifacts and report/worker/STARTED identities before/after at held HEAD. It
+recomputes12 static checks,192 body inertia checks, four measured plane checks,
+all fixture decisions and convergence from saved operands, including Jᵀf,
+virtual power and cone conditions. Zero native/model/FK/physics calls are used.
+An initial verifier-only BLAS warning attempt is preserved; final einsum
+contractions are checked at every coordinate against scalar math.fsum, maximum
+difference1.11e-16. Actual native run.log is empty and all warning counts zero.
+
+Saved-only PNG/PDF plots, with10,500 actual rows and all76 source hashes checked,
+are under `runs/manosim_capsule_execution_figures_2026-10-15_v1/render_v3_v2`:
+tracking, gravity_sag, contact and static_scope. Manifest SHA256
+`31ec669ff4273ea47213d9d89ff64e5cc89093d468bfe6954f4f8c21d1f76cf1`;
+visual-review SHA256 `0ad3ae6679d84e39b6dc9bc2ea2eef031f4b34379f639008f0b5d81dc9a6154b`.
+The first render is retained; only presentation labels changed for legibility.
+
+Accept the tested native source/command mapping and primitive capsule-execution
+component. This is two development inputs and an isolated finger-plane fixture,
+not object grasp success, full-skin parity, human-oracle reproduction, palm or
+multifinger contact calibration. New object-scene/approach validation and a
+declared collection/scoring protocol remain before task data/training. All
+physical task outcomes are null and global admission flags stay false. V1/v2
+failures are preserved separately; no historical results or manuscript changed.
+HEAD/source hold released only after the independent receipt.
