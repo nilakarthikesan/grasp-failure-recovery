@@ -3421,3 +3421,24 @@ Per-proposal native source/command/scene qualification still precedes task use.
 Unexecuted protocol drafts remain explicitly named drafts. The new prediction
 pipeline is source/software work only; old Shadow labels and native component
 fixtures remain inadmissible as native task training examples. No paper edits.
+
+### 2026-10-16 — Accept finite native proposal coordinates; qualify compensated physics next
+
+The v2 bounded HUG run produced all 120 planned grasps across the 30-object
+geometry×size pilot after an isolated dependency repair. Independent saved-only
+readback `a188243414094823a82ca45e43dd22fc97ef30ea72e2bb6b00325278a46e64ac`
+rechecks all input/output bytes and source/native coordinate algebra. Maximum
+source anchor/rotation errors are 76.25 nm/3.79e-7, inside the original gates.
+Saved repeat tensors are exact; distinct seed/view pose differences are measured,
+with zero exact primary duplicates. This broadens finite coordinate evidence;
+it does not yet prove compiled task execution, contact or successful grasps.
+
+Next use a separately frozen 12-fixture compensated profile, preserving the
+authored sag baseline. Check actual per-body COM gravity loads, all 16 bone
+motions, simultaneous index/middle reactions with summed force/virtual work,
+and every native collider against a fixed sphere/table approach. Reference
+geometry bounds and per-step actual trajectory checks have different scopes;
+do not call them a continuous certificate for arbitrary object approaches.
+Source-only preparation and manufactured controls are implemented. Actual
+fixture results and independent readback are pending. Task labels, grouped
+holdout readiness and predictor fitting remain separate gates. No paper work.

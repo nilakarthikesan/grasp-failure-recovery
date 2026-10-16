@@ -1,0 +1,2643 @@
+{
+  "HUG_source_checkout": {
+    "clean": true,
+    "path": "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_integration_check/hug",
+    "revision": "8d1c52d4c24bfae5a369e32e3f134f5601a02630"
+  },
+  "elapsed_s": 2.8010324999995646,
+  "errors": [],
+  "freeze_commit": "a2585368393d6807a18151eaa55553d76f8604a5",
+  "gates": {
+    "proper_camera_and_state": 1e-12,
+    "source_anchor_m": 5e-06,
+    "source_rotation_component": 1e-06,
+    "world_reexpression_m": 1e-12
+  },
+  "input_bindings_verified_before_after": 5609,
+  "limitations": [
+    "Pure saved-state coordinate/hierarchy algebra only; no new simulator readback or MANO skin output is generated. The6D->AA32 learned-output conversion itself is bound to frozen source rather than rerun with Torch.",
+    "Input tensor digest consistency is checked across seeds; RGB/depth preprocessing is not rerun.",
+    "Actual post-AA capture and original-byte-recovery are bound producer assertions unless separately persisted operands permit independent recovery.",
+    "No physical success/failure labels, task/controller/skin contact qualification or collection/training admission."
+  ],
+  "planned_slots": 120,
+  "pose_diversity": {
+    "across_two_stored_observations_same_object_matched_seed": {
+      "pairs": 60,
+      "rows": [
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.445909534366256,
+          "finger_local_rotation_mean_geodesic_rad": 0.1581326077500028,
+          "left_id": "00_seed42",
+          "left_observation": "test/large_1/headphones/00000064.pkl",
+          "object_path": "test/large_1/headphones",
+          "right_id": "01_seed42",
+          "right_observation": "test/large_1/headphones/00000135.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.8618013673207161,
+          "wrist_translation_world_m": 0.06773094352260917
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.20755149006760146,
+          "finger_local_rotation_mean_geodesic_rad": 0.07357330528340925,
+          "left_id": "00_seed43",
+          "left_observation": "test/large_1/headphones/00000064.pkl",
+          "object_path": "test/large_1/headphones",
+          "right_id": "01_seed43",
+          "right_observation": "test/large_1/headphones/00000135.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.7395071886637193,
+          "wrist_translation_world_m": 0.04929776124076072
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.10550483157736179,
+          "finger_local_rotation_mean_geodesic_rad": 0.05081779483043772,
+          "left_id": "02_seed42",
+          "left_observation": "test/large_1/pineapple/00000064.pkl",
+          "object_path": "test/large_1/pineapple",
+          "right_id": "03_seed42",
+          "right_observation": "test/large_1/pineapple/00000135.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.5393376176407484,
+          "wrist_translation_world_m": 0.07391334619911323
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.24882440935492575,
+          "finger_local_rotation_mean_geodesic_rad": 0.0777833775024738,
+          "left_id": "02_seed43",
+          "left_observation": "test/large_1/pineapple/00000064.pkl",
+          "object_path": "test/large_1/pineapple",
+          "right_id": "03_seed43",
+          "right_observation": "test/large_1/pineapple/00000135.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.18002901833928603,
+          "wrist_translation_world_m": 0.028677879110467142
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.2641848355949595,
+          "finger_local_rotation_mean_geodesic_rad": 0.11284573704685029,
+          "left_id": "04_seed42",
+          "left_observation": "test/large_1/saucepan/00000064.pkl",
+          "object_path": "test/large_1/saucepan",
+          "right_id": "05_seed42",
+          "right_observation": "test/large_1/saucepan/00000135.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.5426142521096567,
+          "wrist_translation_world_m": 0.0478224526419553
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 1.0164006606291414,
+          "finger_local_rotation_mean_geodesic_rad": 0.21342545020294434,
+          "left_id": "04_seed43",
+          "left_observation": "test/large_1/saucepan/00000064.pkl",
+          "object_path": "test/large_1/saucepan",
+          "right_id": "05_seed43",
+          "right_observation": "test/large_1/saucepan/00000135.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.4666384025097961,
+          "wrist_translation_world_m": 0.03285802565173332
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.06396093691374267,
+          "finger_local_rotation_mean_geodesic_rad": 0.04291306666972823,
+          "left_id": "06_seed42",
+          "left_observation": "test/large_1/spray_bottle/00000064.pkl",
+          "object_path": "test/large_1/spray_bottle",
+          "right_id": "07_seed42",
+          "right_observation": "test/large_1/spray_bottle/00000135.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.8092138878245343,
+          "wrist_translation_world_m": 0.1091916405153346
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.11925548619294482,
+          "finger_local_rotation_mean_geodesic_rad": 0.05076518779869805,
+          "left_id": "06_seed43",
+          "left_observation": "test/large_1/spray_bottle/00000064.pkl",
+          "object_path": "test/large_1/spray_bottle",
+          "right_id": "07_seed43",
+          "right_observation": "test/large_1/spray_bottle/00000135.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.7451410653994398,
+          "wrist_translation_world_m": 0.08147310578303892
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.14002507080639273,
+          "finger_local_rotation_mean_geodesic_rad": 0.04428229436427712,
+          "left_id": "08_seed42",
+          "left_observation": "test/large_1/wipe_dispenser/00000064.pkl",
+          "object_path": "test/large_1/wipe_dispenser",
+          "right_id": "09_seed42",
+          "right_observation": "test/large_1/wipe_dispenser/00000135.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 1.5650329305407842,
+          "wrist_translation_world_m": 0.13101077185181526
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.8478390155535113,
+          "finger_local_rotation_mean_geodesic_rad": 0.310286688650616,
+          "left_id": "08_seed43",
+          "left_observation": "test/large_1/wipe_dispenser/00000064.pkl",
+          "object_path": "test/large_1/wipe_dispenser",
+          "right_id": "09_seed43",
+          "right_observation": "test/large_1/wipe_dispenser/00000135.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.9700123339590758,
+          "wrist_translation_world_m": 0.16779654701618382
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.942905175823544,
+          "finger_local_rotation_mean_geodesic_rad": 0.45315591184235443,
+          "left_id": "10_seed42",
+          "left_observation": "test/large_2/easel/00000087.pkl",
+          "object_path": "test/large_2/easel",
+          "right_id": "11_seed42",
+          "right_observation": "test/large_2/easel/00000196.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.7684992176565763,
+          "wrist_translation_world_m": 0.14748351822979955
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.7515661380774565,
+          "finger_local_rotation_mean_geodesic_rad": 0.29446446863052156,
+          "left_id": "10_seed43",
+          "left_observation": "test/large_2/easel/00000087.pkl",
+          "object_path": "test/large_2/easel",
+          "right_id": "11_seed43",
+          "right_observation": "test/large_2/easel/00000196.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.9086484506497767,
+          "wrist_translation_world_m": 0.055530693598117374
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.1962831832892026,
+          "finger_local_rotation_mean_geodesic_rad": 0.0827810227559407,
+          "left_id": "12_seed42",
+          "left_observation": "test/large_2/football/00000087.pkl",
+          "object_path": "test/large_2/football",
+          "right_id": "13_seed42",
+          "right_observation": "test/large_2/football/00000196.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.22900126019030045,
+          "wrist_translation_world_m": 0.07060479138329379
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.17097028629330635,
+          "finger_local_rotation_mean_geodesic_rad": 0.06493750208295246,
+          "left_id": "12_seed43",
+          "left_observation": "test/large_2/football/00000087.pkl",
+          "object_path": "test/large_2/football",
+          "right_id": "13_seed43",
+          "right_observation": "test/large_2/football/00000196.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.25420878179025413,
+          "wrist_translation_world_m": 0.04551664942665583
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.885292914522855,
+          "finger_local_rotation_mean_geodesic_rad": 0.18700846632871965,
+          "left_id": "14_seed42",
+          "left_observation": "test/large_2/picnic_basket/00000087.pkl",
+          "object_path": "test/large_2/picnic_basket",
+          "right_id": "15_seed42",
+          "right_observation": "test/large_2/picnic_basket/00000196.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 2.3845929940129302,
+          "wrist_translation_world_m": 0.2079522133712991
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.21922414736586854,
+          "finger_local_rotation_mean_geodesic_rad": 0.10099643488415687,
+          "left_id": "14_seed43",
+          "left_observation": "test/large_2/picnic_basket/00000087.pkl",
+          "object_path": "test/large_2/picnic_basket",
+          "right_id": "15_seed43",
+          "right_observation": "test/large_2/picnic_basket/00000196.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 2.050881148620683,
+          "wrist_translation_world_m": 0.15753695927513578
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.25178987918350765,
+          "finger_local_rotation_mean_geodesic_rad": 0.13789291006203291,
+          "left_id": "16_seed42",
+          "left_observation": "test/large_2/storage_bin/00000087.pkl",
+          "object_path": "test/large_2/storage_bin",
+          "right_id": "17_seed42",
+          "right_observation": "test/large_2/storage_bin/00000196.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.9455632886252865,
+          "wrist_translation_world_m": 0.18171837154216
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.9572219607116347,
+          "finger_local_rotation_mean_geodesic_rad": 0.25346320427831753,
+          "left_id": "16_seed43",
+          "left_observation": "test/large_2/storage_bin/00000087.pkl",
+          "object_path": "test/large_2/storage_bin",
+          "right_id": "17_seed43",
+          "right_observation": "test/large_2/storage_bin/00000196.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.8931655660783014,
+          "wrist_translation_world_m": 0.14510452765228682
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.13621834955262818,
+          "finger_local_rotation_mean_geodesic_rad": 0.0656979863445611,
+          "left_id": "18_seed42",
+          "left_observation": "test/large_2/wine_bottle/00000087.pkl",
+          "object_path": "test/large_2/wine_bottle",
+          "right_id": "19_seed42",
+          "right_observation": "test/large_2/wine_bottle/00000196.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.8472260375355402,
+          "wrist_translation_world_m": 0.10712408049770528
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.1804294751634693,
+          "finger_local_rotation_mean_geodesic_rad": 0.08173734832018763,
+          "left_id": "18_seed43",
+          "left_observation": "test/large_2/wine_bottle/00000087.pkl",
+          "object_path": "test/large_2/wine_bottle",
+          "right_id": "19_seed43",
+          "right_observation": "test/large_2/wine_bottle/00000196.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.7330704195446075,
+          "wrist_translation_world_m": 0.08248252091543244
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.21349797165620257,
+          "finger_local_rotation_mean_geodesic_rad": 0.13025691661609323,
+          "left_id": "20_seed42",
+          "left_observation": "test/medium_1/card_deck/00000058.pkl",
+          "object_path": "test/medium_1/card_deck",
+          "right_id": "21_seed42",
+          "right_observation": "test/medium_1/card_deck/00000182.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.9781153459789564,
+          "wrist_translation_world_m": 0.10154998356514038
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.40653574976302786,
+          "finger_local_rotation_mean_geodesic_rad": 0.1675330672298673,
+          "left_id": "20_seed43",
+          "left_observation": "test/medium_1/card_deck/00000058.pkl",
+          "object_path": "test/medium_1/card_deck",
+          "right_id": "21_seed43",
+          "right_observation": "test/medium_1/card_deck/00000182.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.8279176994970099,
+          "wrist_translation_world_m": 0.08581347931815635
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.3864148033892067,
+          "finger_local_rotation_mean_geodesic_rad": 0.1360489053959695,
+          "left_id": "22_seed42",
+          "left_observation": "test/medium_1/dustpan/00000058.pkl",
+          "object_path": "test/medium_1/dustpan",
+          "right_id": "23_seed42",
+          "right_observation": "test/medium_1/dustpan/00000182.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.6359684404223662,
+          "wrist_translation_world_m": 0.08361842594110976
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.264527812958794,
+          "finger_local_rotation_mean_geodesic_rad": 0.13255463512437926,
+          "left_id": "22_seed43",
+          "left_observation": "test/medium_1/dustpan/00000058.pkl",
+          "object_path": "test/medium_1/dustpan",
+          "right_id": "23_seed43",
+          "right_observation": "test/medium_1/dustpan/00000182.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.7665402433372795,
+          "wrist_translation_world_m": 0.06924293789606917
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.11920540952936186,
+          "finger_local_rotation_mean_geodesic_rad": 0.055438567038698386,
+          "left_id": "24_seed42",
+          "left_observation": "test/medium_1/pear/00000058.pkl",
+          "object_path": "test/medium_1/pear",
+          "right_id": "25_seed42",
+          "right_observation": "test/medium_1/pear/00000182.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.8511125860962346,
+          "wrist_translation_world_m": 0.0629210368392022
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.1801643132312416,
+          "finger_local_rotation_mean_geodesic_rad": 0.07058861170854248,
+          "left_id": "24_seed43",
+          "left_observation": "test/medium_1/pear/00000058.pkl",
+          "object_path": "test/medium_1/pear",
+          "right_id": "25_seed43",
+          "right_observation": "test/medium_1/pear/00000182.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.7535024170386911,
+          "wrist_translation_world_m": 0.034444299736129134
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.3799969998340267,
+          "finger_local_rotation_mean_geodesic_rad": 0.21329588584862272,
+          "left_id": "26_seed42",
+          "left_observation": "test/medium_1/tape_dispenser/00000058.pkl",
+          "object_path": "test/medium_1/tape_dispenser",
+          "right_id": "27_seed42",
+          "right_observation": "test/medium_1/tape_dispenser/00000182.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.8127713755081951,
+          "wrist_translation_world_m": 0.09574379567712982
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.2843014976454079,
+          "finger_local_rotation_mean_geodesic_rad": 0.10869875521480708,
+          "left_id": "26_seed43",
+          "left_observation": "test/medium_1/tape_dispenser/00000058.pkl",
+          "object_path": "test/medium_1/tape_dispenser",
+          "right_id": "27_seed43",
+          "right_observation": "test/medium_1/tape_dispenser/00000182.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.8046710676667805,
+          "wrist_translation_world_m": 0.07518009091444353
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.6219786671195243,
+          "finger_local_rotation_mean_geodesic_rad": 0.13677490085170518,
+          "left_id": "28_seed42",
+          "left_observation": "test/medium_1/umbrella/00000058.pkl",
+          "object_path": "test/medium_1/umbrella",
+          "right_id": "29_seed42",
+          "right_observation": "test/medium_1/umbrella/00000182.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.343357421582355,
+          "wrist_translation_world_m": 0.0732799981530734
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.6153636102062526,
+          "finger_local_rotation_mean_geodesic_rad": 0.10813904745869612,
+          "left_id": "28_seed43",
+          "left_observation": "test/medium_1/umbrella/00000058.pkl",
+          "object_path": "test/medium_1/umbrella",
+          "right_id": "29_seed43",
+          "right_observation": "test/medium_1/umbrella/00000182.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.1828640745058104,
+          "wrist_translation_world_m": 0.05992677246780299
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.15941844975519037,
+          "finger_local_rotation_mean_geodesic_rad": 0.0723628657306331,
+          "left_id": "30_seed42",
+          "left_observation": "test/medium_2/bowl/00000060.pkl",
+          "object_path": "test/medium_2/bowl",
+          "right_id": "31_seed42",
+          "right_observation": "test/medium_2/bowl/00000162.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.4812800952379402,
+          "wrist_translation_world_m": 0.06358860288319335
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.2738858578954099,
+          "finger_local_rotation_mean_geodesic_rad": 0.0526171127591081,
+          "left_id": "30_seed43",
+          "left_observation": "test/medium_2/bowl/00000060.pkl",
+          "object_path": "test/medium_2/bowl",
+          "right_id": "31_seed43",
+          "right_observation": "test/medium_2/bowl/00000162.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.3313464189132011,
+          "wrist_translation_world_m": 0.034025844048567455
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.5650998302650834,
+          "finger_local_rotation_mean_geodesic_rad": 0.2856870878305301,
+          "left_id": "32_seed42",
+          "left_observation": "test/medium_2/grapes/00000060.pkl",
+          "object_path": "test/medium_2/grapes",
+          "right_id": "33_seed42",
+          "right_observation": "test/medium_2/grapes/00000162.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.5816712247390317,
+          "wrist_translation_world_m": 0.04189343487554862
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.3637015472869361,
+          "finger_local_rotation_mean_geodesic_rad": 0.08926601857116548,
+          "left_id": "32_seed43",
+          "left_observation": "test/medium_2/grapes/00000060.pkl",
+          "object_path": "test/medium_2/grapes",
+          "right_id": "33_seed43",
+          "right_observation": "test/medium_2/grapes/00000162.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.672673798364249,
+          "wrist_translation_world_m": 0.048832961385278026
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.5764788566343508,
+          "finger_local_rotation_mean_geodesic_rad": 0.24430596908427804,
+          "left_id": "34_seed42",
+          "left_observation": "test/medium_2/handbell/00000060.pkl",
+          "object_path": "test/medium_2/handbell",
+          "right_id": "35_seed42",
+          "right_observation": "test/medium_2/handbell/00000162.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.714853203234627,
+          "wrist_translation_world_m": 0.07146428787735974
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.5639600647770127,
+          "finger_local_rotation_mean_geodesic_rad": 0.16001734037036305,
+          "left_id": "34_seed43",
+          "left_observation": "test/medium_2/handbell/00000060.pkl",
+          "object_path": "test/medium_2/handbell",
+          "right_id": "35_seed43",
+          "right_observation": "test/medium_2/handbell/00000162.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.8368863801056091,
+          "wrist_translation_world_m": 0.06628349689336471
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.16590667882835877,
+          "finger_local_rotation_mean_geodesic_rad": 0.06764619336501078,
+          "left_id": "36_seed42",
+          "left_observation": "test/medium_2/softball/00000060.pkl",
+          "object_path": "test/medium_2/softball",
+          "right_id": "37_seed42",
+          "right_observation": "test/medium_2/softball/00000162.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.2392551266687304,
+          "wrist_translation_world_m": 0.03716396704151119
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.1910632134153521,
+          "finger_local_rotation_mean_geodesic_rad": 0.07998775258332048,
+          "left_id": "36_seed43",
+          "left_observation": "test/medium_2/softball/00000060.pkl",
+          "object_path": "test/medium_2/softball",
+          "right_id": "37_seed43",
+          "right_observation": "test/medium_2/softball/00000162.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.1390910343195574,
+          "wrist_translation_world_m": 0.02964468978130183
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.6328181920952347,
+          "finger_local_rotation_mean_geodesic_rad": 0.25724672585440195,
+          "left_id": "38_seed42",
+          "left_observation": "test/medium_2/sponge/00000060.pkl",
+          "object_path": "test/medium_2/sponge",
+          "right_id": "39_seed42",
+          "right_observation": "test/medium_2/sponge/00000162.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.20526970245360762,
+          "wrist_translation_world_m": 0.03654320406481431
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.9396281467162545,
+          "finger_local_rotation_mean_geodesic_rad": 0.26805291739630976,
+          "left_id": "38_seed43",
+          "left_observation": "test/medium_2/sponge/00000060.pkl",
+          "object_path": "test/medium_2/sponge",
+          "right_id": "39_seed43",
+          "right_observation": "test/medium_2/sponge/00000162.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.18655629003673,
+          "wrist_translation_world_m": 0.04156899494901002
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.4474693821824501,
+          "finger_local_rotation_mean_geodesic_rad": 0.2404183131228012,
+          "left_id": "40_seed42",
+          "left_observation": "test/small_1/eraser/00000080.pkl",
+          "object_path": "test/small_1/eraser",
+          "right_id": "41_seed42",
+          "right_observation": "test/small_1/eraser/00000168.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 1.3305770944941175,
+          "wrist_translation_world_m": 0.11024850858288572
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.15282320109623215,
+          "finger_local_rotation_mean_geodesic_rad": 0.07922566675257339,
+          "left_id": "40_seed43",
+          "left_observation": "test/small_1/eraser/00000080.pkl",
+          "object_path": "test/small_1/eraser",
+          "right_id": "41_seed43",
+          "right_observation": "test/small_1/eraser/00000168.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.2734854764275698,
+          "wrist_translation_world_m": 0.015046082957977788
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.20061811340167712,
+          "finger_local_rotation_mean_geodesic_rad": 0.07136269298441719,
+          "left_id": "42_seed42",
+          "left_observation": "test/small_1/glue_stick/00000080.pkl",
+          "object_path": "test/small_1/glue_stick",
+          "right_id": "43_seed42",
+          "right_observation": "test/small_1/glue_stick/00000168.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.1229575003146629,
+          "wrist_translation_world_m": 0.02016664689860553
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.11263946715355466,
+          "finger_local_rotation_mean_geodesic_rad": 0.03630020797067538,
+          "left_id": "42_seed43",
+          "left_observation": "test/small_1/glue_stick/00000080.pkl",
+          "object_path": "test/small_1/glue_stick",
+          "right_id": "43_seed43",
+          "right_observation": "test/small_1/glue_stick/00000168.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.18273604554883663,
+          "wrist_translation_world_m": 0.022924721860535378
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.6676989851318003,
+          "finger_local_rotation_mean_geodesic_rad": 0.30052061825568865,
+          "left_id": "44_seed42",
+          "left_observation": "test/small_1/nail_clipper/00000080.pkl",
+          "object_path": "test/small_1/nail_clipper",
+          "right_id": "45_seed42",
+          "right_observation": "test/small_1/nail_clipper/00000168.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.48501639130666835,
+          "wrist_translation_world_m": 0.07151148253576181
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.17527067114112738,
+          "finger_local_rotation_mean_geodesic_rad": 0.063073460804332,
+          "left_id": "44_seed43",
+          "left_observation": "test/small_1/nail_clipper/00000080.pkl",
+          "object_path": "test/small_1/nail_clipper",
+          "right_id": "45_seed43",
+          "right_observation": "test/small_1/nail_clipper/00000168.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.11787202267698205,
+          "wrist_translation_world_m": 0.03657330982484758
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.12268877786546631,
+          "finger_local_rotation_mean_geodesic_rad": 0.04339205493399888,
+          "left_id": "46_seed42",
+          "left_observation": "test/small_1/rubber_duck/00000080.pkl",
+          "object_path": "test/small_1/rubber_duck",
+          "right_id": "47_seed42",
+          "right_observation": "test/small_1/rubber_duck/00000168.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.06406465976347461,
+          "wrist_translation_world_m": 0.028106181766691517
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.07813738290662356,
+          "finger_local_rotation_mean_geodesic_rad": 0.03640384491761686,
+          "left_id": "46_seed43",
+          "left_observation": "test/small_1/rubber_duck/00000080.pkl",
+          "object_path": "test/small_1/rubber_duck",
+          "right_id": "47_seed43",
+          "right_observation": "test/small_1/rubber_duck/00000168.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.060582836185605206,
+          "wrist_translation_world_m": 0.02281768397890756
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.6377631197942571,
+          "finger_local_rotation_mean_geodesic_rad": 0.4024215839895501,
+          "left_id": "48_seed42",
+          "left_observation": "test/small_1/strawberry/00000080.pkl",
+          "object_path": "test/small_1/strawberry",
+          "right_id": "49_seed42",
+          "right_observation": "test/small_1/strawberry/00000168.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 0.3943243021211402,
+          "wrist_translation_world_m": 0.0605069869487873
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.23917590485549653,
+          "finger_local_rotation_mean_geodesic_rad": 0.11518576312701953,
+          "left_id": "48_seed43",
+          "left_observation": "test/small_1/strawberry/00000080.pkl",
+          "object_path": "test/small_1/strawberry",
+          "right_id": "49_seed43",
+          "right_observation": "test/small_1/strawberry/00000168.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 0.0785950089391848,
+          "wrist_translation_world_m": 0.02553150567165345
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.6511603860505379,
+          "finger_local_rotation_mean_geodesic_rad": 0.29188617056002664,
+          "left_id": "50_seed42",
+          "left_observation": "test/small_2/hacky_sack/00000039.pkl",
+          "object_path": "test/small_2/hacky_sack",
+          "right_id": "51_seed42",
+          "right_observation": "test/small_2/hacky_sack/00000169.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 1.2536761241837249,
+          "wrist_translation_world_m": 0.1321464755299767
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.3384690069611369,
+          "finger_local_rotation_mean_geodesic_rad": 0.157967703838998,
+          "left_id": "50_seed43",
+          "left_observation": "test/small_2/hacky_sack/00000039.pkl",
+          "object_path": "test/small_2/hacky_sack",
+          "right_id": "51_seed43",
+          "right_observation": "test/small_2/hacky_sack/00000169.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 1.3105621231283748,
+          "wrist_translation_world_m": 0.12510695254159232
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.9675893408680597,
+          "finger_local_rotation_mean_geodesic_rad": 0.3741626540647386,
+          "left_id": "52_seed42",
+          "left_observation": "test/small_2/lock/00000039.pkl",
+          "object_path": "test/small_2/lock",
+          "right_id": "53_seed42",
+          "right_observation": "test/small_2/lock/00000169.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 1.049035819944695,
+          "wrist_translation_world_m": 0.102462226856137
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.8228059124445958,
+          "finger_local_rotation_mean_geodesic_rad": 0.1180219232989348,
+          "left_id": "52_seed43",
+          "left_observation": "test/small_2/lock/00000039.pkl",
+          "object_path": "test/small_2/lock",
+          "right_id": "53_seed43",
+          "right_observation": "test/small_2/lock/00000169.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 1.0868661353653555,
+          "wrist_translation_world_m": 0.07916266689474438
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.7882045415681567,
+          "finger_local_rotation_mean_geodesic_rad": 0.3056988898948394,
+          "left_id": "54_seed42",
+          "left_observation": "test/small_2/match_box/00000039.pkl",
+          "object_path": "test/small_2/match_box",
+          "right_id": "55_seed42",
+          "right_observation": "test/small_2/match_box/00000169.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 1.4248657032509757,
+          "wrist_translation_world_m": 0.13571411482770543
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.41610988982878955,
+          "finger_local_rotation_mean_geodesic_rad": 0.13168935941599083,
+          "left_id": "54_seed43",
+          "left_observation": "test/small_2/match_box/00000039.pkl",
+          "object_path": "test/small_2/match_box",
+          "right_id": "55_seed43",
+          "right_observation": "test/small_2/match_box/00000169.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 1.4175565660732607,
+          "wrist_translation_world_m": 0.12267764453644876
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.8182084504869328,
+          "finger_local_rotation_mean_geodesic_rad": 0.4058302196067748,
+          "left_id": "56_seed42",
+          "left_observation": "test/small_2/pepper_shaker/00000039.pkl",
+          "object_path": "test/small_2/pepper_shaker",
+          "right_id": "57_seed42",
+          "right_observation": "test/small_2/pepper_shaker/00000169.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 1.2602955825587001,
+          "wrist_translation_world_m": 0.1727295534346453
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.624714254497675,
+          "finger_local_rotation_mean_geodesic_rad": 0.18987573079544054,
+          "left_id": "56_seed43",
+          "left_observation": "test/small_2/pepper_shaker/00000039.pkl",
+          "object_path": "test/small_2/pepper_shaker",
+          "right_id": "57_seed43",
+          "right_observation": "test/small_2/pepper_shaker/00000169.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 1.0078901230346409,
+          "wrist_translation_world_m": 0.13924800524031325
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.6679526753621112,
+          "finger_local_rotation_mean_geodesic_rad": 0.23217403694280142,
+          "left_id": "58_seed42",
+          "left_observation": "test/small_2/tape_measure/00000039.pkl",
+          "object_path": "test/small_2/tape_measure",
+          "right_id": "59_seed42",
+          "right_observation": "test/small_2/tape_measure/00000169.pkl",
+          "seed": 42,
+          "wrist_rotation_geodesic_rad": 1.060214516260882,
+          "wrist_translation_world_m": 0.1318458676514835
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.9531862734291047,
+          "finger_local_rotation_mean_geodesic_rad": 0.19946188225799324,
+          "left_id": "58_seed43",
+          "left_observation": "test/small_2/tape_measure/00000039.pkl",
+          "object_path": "test/small_2/tape_measure",
+          "right_id": "59_seed43",
+          "right_observation": "test/small_2/tape_measure/00000169.pkl",
+          "seed": 43,
+          "wrist_rotation_geodesic_rad": 1.4046684462784584,
+          "wrist_translation_world_m": 0.12360935820781033
+        }
+      ],
+      "summary": {
+        "finger_local_rotation_max_geodesic_rad": {
+          "maximum": 1.0164006606291414,
+          "mean": 0.43229985318447206,
+          "median": 0.3510852771240365,
+          "minimum": 0.06396093691374267,
+          "q25": 0.18036318468041238,
+          "q75": 0.6411124363583274
+        },
+        "finger_local_rotation_mean_geodesic_rad": {
+          "maximum": 0.45315591184235443,
+          "mean": 0.15814254698661498,
+          "median": 0.13097313801604205,
+          "minimum": 0.03630020797067538,
+          "q25": 0.07211282254407912,
+          "q75": 0.23423510598780137
+        },
+        "wrist_rotation_geodesic_rad": {
+          "maximum": 2.3845929940129302,
+          "mean": 0.736095527542938,
+          "median": 0.7493217412190655,
+          "minimum": 0.060582836185605206,
+          "q25": 0.31688118329179327,
+          "q75": 0.9720380869640459
+        },
+        "wrist_translation_world_m": {
+          "maximum": 0.2079522133712991,
+          "mean": 0.08136155134134355,
+          "median": 0.07148788520656077,
+          "minimum": 0.015046082957977788,
+          "q25": 0.04181232489391397,
+          "q75": 0.11335579257127648
+        }
+      }
+    },
+    "exact_duplicates": {
+      "native_qpos": {
+        "duplicate_groups": [],
+        "exact_duplicate_rows_beyond_first": 0,
+        "unique": 120
+      },
+      "prediction99": {
+        "duplicate_groups": [],
+        "exact_duplicate_rows_beyond_first": 0,
+        "unique": 120
+      }
+    },
+    "finger_angles": "15parent-relative physical body rotations, with authored rest quaternion composed; wrist angle is world-frame physical root rotation",
+    "pose_names": [
+      "wrist",
+      "index_proximal",
+      "index_middle",
+      "index_distal",
+      "middle_proximal",
+      "middle_middle",
+      "middle_distal",
+      "little_proximal",
+      "little_middle",
+      "little_distal",
+      "ring_proximal",
+      "ring_middle",
+      "ring_distal",
+      "thumb_proximal",
+      "thumb_middle",
+      "thumb_distal"
+    ],
+    "scope": "Descriptive pose separation in unchanged source-native target coordinates; no quality, success, generalization accuracy or independent human-grasp claim.",
+    "within_observation_seed42_vs43": {
+      "pairs": 60,
+      "rows": [
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.3127835075867459,
+          "finger_local_rotation_mean_geodesic_rad": 0.14799015316400138,
+          "left_id": "00_seed42",
+          "observation": "test/large_1/headphones/00000064.pkl",
+          "right_id": "00_seed43",
+          "wrist_rotation_geodesic_rad": 0.5937926155802168,
+          "wrist_translation_world_m": 0.035139060015234314
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.5046416547361102,
+          "finger_local_rotation_mean_geodesic_rad": 0.19276164642073687,
+          "left_id": "01_seed42",
+          "observation": "test/large_1/headphones/00000135.pkl",
+          "right_id": "01_seed43",
+          "wrist_rotation_geodesic_rad": 0.6814773359063715,
+          "wrist_translation_world_m": 0.02952353056767787
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.33157211616493465,
+          "finger_local_rotation_mean_geodesic_rad": 0.11050354686593282,
+          "left_id": "02_seed42",
+          "observation": "test/large_1/pineapple/00000064.pkl",
+          "right_id": "02_seed43",
+          "wrist_rotation_geodesic_rad": 0.24690674607218557,
+          "wrist_translation_world_m": 0.018045822209932363
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.30683247188385127,
+          "finger_local_rotation_mean_geodesic_rad": 0.1380854712722676,
+          "left_id": "03_seed42",
+          "observation": "test/large_1/pineapple/00000135.pkl",
+          "right_id": "03_seed43",
+          "wrist_rotation_geodesic_rad": 0.5925506815984432,
+          "wrist_translation_world_m": 0.07163668796538762
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.1840583401170531,
+          "finger_local_rotation_mean_geodesic_rad": 0.06412680542641332,
+          "left_id": "04_seed42",
+          "observation": "test/large_1/saucepan/00000064.pkl",
+          "right_id": "04_seed43",
+          "wrist_rotation_geodesic_rad": 0.24079814010637185,
+          "wrist_translation_world_m": 0.026593046098165016
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.8412004976134135,
+          "finger_local_rotation_mean_geodesic_rad": 0.24834907659177302,
+          "left_id": "05_seed42",
+          "observation": "test/large_1/saucepan/00000135.pkl",
+          "right_id": "05_seed43",
+          "wrist_rotation_geodesic_rad": 0.26684602722809836,
+          "wrist_translation_world_m": 0.026338162290838026
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.1387666542457065,
+          "finger_local_rotation_mean_geodesic_rad": 0.06983087659258148,
+          "left_id": "06_seed42",
+          "observation": "test/large_1/spray_bottle/00000064.pkl",
+          "right_id": "06_seed43",
+          "wrist_rotation_geodesic_rad": 0.2514149010893506,
+          "wrist_translation_world_m": 0.026166951927495966
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.19578439919192947,
+          "finger_local_rotation_mean_geodesic_rad": 0.07578125992324189,
+          "left_id": "07_seed42",
+          "observation": "test/large_1/spray_bottle/00000135.pkl",
+          "right_id": "07_seed43",
+          "wrist_rotation_geodesic_rad": 0.3145971720540489,
+          "wrist_translation_world_m": 0.035607213849743406
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.8793147700312763,
+          "finger_local_rotation_mean_geodesic_rad": 0.29139647843167454,
+          "left_id": "08_seed42",
+          "observation": "test/large_1/wipe_dispenser/00000064.pkl",
+          "right_id": "08_seed43",
+          "wrist_rotation_geodesic_rad": 0.28373178269062915,
+          "wrist_translation_world_m": 0.06591967793350195
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.30675532142877426,
+          "finger_local_rotation_mean_geodesic_rad": 0.07896942717174825,
+          "left_id": "09_seed42",
+          "observation": "test/large_1/wipe_dispenser/00000135.pkl",
+          "right_id": "09_seed43",
+          "wrist_rotation_geodesic_rad": 0.6982520555728255,
+          "wrist_translation_world_m": 0.024820137963015434
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.7496719009340435,
+          "finger_local_rotation_mean_geodesic_rad": 0.32664771281098764,
+          "left_id": "10_seed42",
+          "observation": "test/large_2/easel/00000087.pkl",
+          "right_id": "10_seed43",
+          "wrist_rotation_geodesic_rad": 1.628167853628644,
+          "wrist_translation_world_m": 0.1796970751173517
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.7472639596090251,
+          "finger_local_rotation_mean_geodesic_rad": 0.3092796085995237,
+          "left_id": "11_seed42",
+          "observation": "test/large_2/easel/00000196.pkl",
+          "right_id": "11_seed43",
+          "wrist_rotation_geodesic_rad": 1.8804505099076254,
+          "wrist_translation_world_m": 0.1681601800153584
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.14115185731982913,
+          "finger_local_rotation_mean_geodesic_rad": 0.0679985169425795,
+          "left_id": "12_seed42",
+          "observation": "test/large_2/football/00000087.pkl",
+          "right_id": "12_seed43",
+          "wrist_rotation_geodesic_rad": 0.2674640853512946,
+          "wrist_translation_world_m": 0.03212523219939296
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.1780787118581078,
+          "finger_local_rotation_mean_geodesic_rad": 0.0820763659348886,
+          "left_id": "13_seed42",
+          "observation": "test/large_2/football/00000196.pkl",
+          "right_id": "13_seed43",
+          "wrist_rotation_geodesic_rad": 0.3588712806937104,
+          "wrist_translation_world_m": 0.022850018409629424
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.44666473332240125,
+          "finger_local_rotation_mean_geodesic_rad": 0.1771291488066847,
+          "left_id": "14_seed42",
+          "observation": "test/large_2/picnic_basket/00000087.pkl",
+          "right_id": "14_seed43",
+          "wrist_rotation_geodesic_rad": 0.5730675803621372,
+          "wrist_translation_world_m": 0.06754624482774822
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 1.006846977400438,
+          "finger_local_rotation_mean_geodesic_rad": 0.27783111794560966,
+          "left_id": "15_seed42",
+          "observation": "test/large_2/picnic_basket/00000196.pkl",
+          "right_id": "15_seed43",
+          "wrist_rotation_geodesic_rad": 0.4333314462484588,
+          "wrist_translation_world_m": 0.028828634160294908
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.4061000574718075,
+          "finger_local_rotation_mean_geodesic_rad": 0.16881814617744548,
+          "left_id": "16_seed42",
+          "observation": "test/large_2/storage_bin/00000087.pkl",
+          "right_id": "16_seed43",
+          "wrist_rotation_geodesic_rad": 0.5020797404700678,
+          "wrist_translation_world_m": 0.03226068011184777
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.7713816724781545,
+          "finger_local_rotation_mean_geodesic_rad": 0.24779063993117653,
+          "left_id": "17_seed42",
+          "observation": "test/large_2/storage_bin/00000196.pkl",
+          "right_id": "17_seed43",
+          "wrist_rotation_geodesic_rad": 0.4743619830450581,
+          "wrist_translation_world_m": 0.02548060807804883
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.21168834617769489,
+          "finger_local_rotation_mean_geodesic_rad": 0.08264884677741931,
+          "left_id": "18_seed42",
+          "observation": "test/large_2/wine_bottle/00000087.pkl",
+          "right_id": "18_seed43",
+          "wrist_rotation_geodesic_rad": 0.35209898891983826,
+          "wrist_translation_world_m": 0.037164878122099794
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.14985377659112045,
+          "finger_local_rotation_mean_geodesic_rad": 0.07351778941289812,
+          "left_id": "19_seed42",
+          "observation": "test/large_2/wine_bottle/00000196.pkl",
+          "right_id": "19_seed43",
+          "wrist_rotation_geodesic_rad": 0.2385332558109715,
+          "wrist_translation_world_m": 0.030926010650629197
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.555477510888743,
+          "finger_local_rotation_mean_geodesic_rad": 0.19529430306065837,
+          "left_id": "20_seed42",
+          "observation": "test/medium_1/card_deck/00000058.pkl",
+          "right_id": "20_seed43",
+          "wrist_rotation_geodesic_rad": 0.5079954494030641,
+          "wrist_translation_world_m": 0.0299735889512109
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.23294463953083958,
+          "finger_local_rotation_mean_geodesic_rad": 0.10862847685394598,
+          "left_id": "21_seed42",
+          "observation": "test/medium_1/card_deck/00000182.pkl",
+          "right_id": "21_seed43",
+          "wrist_rotation_geodesic_rad": 0.3663715108657905,
+          "wrist_translation_world_m": 0.024440275097460943
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 1.0124540328934983,
+          "finger_local_rotation_mean_geodesic_rad": 0.43156310552966964,
+          "left_id": "22_seed42",
+          "observation": "test/medium_1/dustpan/00000058.pkl",
+          "right_id": "22_seed43",
+          "wrist_rotation_geodesic_rad": 0.4384863140413057,
+          "wrist_translation_world_m": 0.038111495314370594
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 1.2166208378832106,
+          "finger_local_rotation_mean_geodesic_rad": 0.5419032139146389,
+          "left_id": "23_seed42",
+          "observation": "test/medium_1/dustpan/00000182.pkl",
+          "right_id": "23_seed43",
+          "wrist_rotation_geodesic_rad": 0.5922708224942953,
+          "wrist_translation_world_m": 0.03641476999165523
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.303022623122042,
+          "finger_local_rotation_mean_geodesic_rad": 0.09804813908649469,
+          "left_id": "24_seed42",
+          "observation": "test/medium_1/pear/00000058.pkl",
+          "right_id": "24_seed43",
+          "wrist_rotation_geodesic_rad": 0.4052827193440478,
+          "wrist_translation_world_m": 0.04018479247967375
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.22295536944869757,
+          "finger_local_rotation_mean_geodesic_rad": 0.07899671338467767,
+          "left_id": "25_seed42",
+          "observation": "test/medium_1/pear/00000182.pkl",
+          "right_id": "25_seed43",
+          "wrist_rotation_geodesic_rad": 0.31036402020002435,
+          "wrist_translation_world_m": 0.015320403147989905
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.4779268777767526,
+          "finger_local_rotation_mean_geodesic_rad": 0.24550249891795922,
+          "left_id": "26_seed42",
+          "observation": "test/medium_1/tape_dispenser/00000058.pkl",
+          "right_id": "26_seed43",
+          "wrist_rotation_geodesic_rad": 0.47772136275635996,
+          "wrist_translation_world_m": 0.04530033207908241
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.3287785532867763,
+          "finger_local_rotation_mean_geodesic_rad": 0.12943464059369622,
+          "left_id": "27_seed42",
+          "observation": "test/medium_1/tape_dispenser/00000182.pkl",
+          "right_id": "27_seed43",
+          "wrist_rotation_geodesic_rad": 0.5076472780449053,
+          "wrist_translation_world_m": 0.02759540580598321
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.45243866680384853,
+          "finger_local_rotation_mean_geodesic_rad": 0.20062668821008792,
+          "left_id": "28_seed42",
+          "observation": "test/medium_1/umbrella/00000058.pkl",
+          "right_id": "28_seed43",
+          "wrist_rotation_geodesic_rad": 0.19335862833282813,
+          "wrist_translation_world_m": 0.017690071572690313
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.4383705449533081,
+          "finger_local_rotation_mean_geodesic_rad": 0.21307715999400853,
+          "left_id": "29_seed42",
+          "observation": "test/medium_1/umbrella/00000182.pkl",
+          "right_id": "29_seed43",
+          "wrist_rotation_geodesic_rad": 0.27963239433598064,
+          "wrist_translation_world_m": 0.013794424350213065
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.4803821071896139,
+          "finger_local_rotation_mean_geodesic_rad": 0.18155152223523513,
+          "left_id": "30_seed42",
+          "observation": "test/medium_2/bowl/00000060.pkl",
+          "right_id": "30_seed43",
+          "wrist_rotation_geodesic_rad": 0.5662509399827143,
+          "wrist_translation_world_m": 0.034093451100889106
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.30527161588671764,
+          "finger_local_rotation_mean_geodesic_rad": 0.0886247245138331,
+          "left_id": "31_seed42",
+          "observation": "test/medium_2/bowl/00000162.pkl",
+          "right_id": "31_seed43",
+          "wrist_rotation_geodesic_rad": 0.25372525554063835,
+          "wrist_translation_world_m": 0.020180659683645543
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.885450972421461,
+          "finger_local_rotation_mean_geodesic_rad": 0.38282327504385827,
+          "left_id": "32_seed42",
+          "observation": "test/medium_2/grapes/00000060.pkl",
+          "right_id": "32_seed43",
+          "wrist_rotation_geodesic_rad": 0.9228956651155119,
+          "wrist_translation_world_m": 0.06219631288101217
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.4326291845133134,
+          "finger_local_rotation_mean_geodesic_rad": 0.2181180122999108,
+          "left_id": "33_seed42",
+          "observation": "test/medium_2/grapes/00000162.pkl",
+          "right_id": "33_seed43",
+          "wrist_rotation_geodesic_rad": 1.0442317031545445,
+          "wrist_translation_world_m": 0.06034460532262664
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.5893780398799437,
+          "finger_local_rotation_mean_geodesic_rad": 0.19724672282294456,
+          "left_id": "34_seed42",
+          "observation": "test/medium_2/handbell/00000060.pkl",
+          "right_id": "34_seed43",
+          "wrist_rotation_geodesic_rad": 0.40304029638489774,
+          "wrist_translation_world_m": 0.04917554571715672
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.7050529018535894,
+          "finger_local_rotation_mean_geodesic_rad": 0.3165516368995088,
+          "left_id": "35_seed42",
+          "observation": "test/medium_2/handbell/00000162.pkl",
+          "right_id": "35_seed43",
+          "wrist_rotation_geodesic_rad": 0.6649391897237092,
+          "wrist_translation_world_m": 0.04633748541931237
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.21309689992256645,
+          "finger_local_rotation_mean_geodesic_rad": 0.08637042504356897,
+          "left_id": "36_seed42",
+          "observation": "test/medium_2/softball/00000060.pkl",
+          "right_id": "36_seed43",
+          "wrist_rotation_geodesic_rad": 0.37508340130290596,
+          "wrist_translation_world_m": 0.02972618883374802
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.20757751831278146,
+          "finger_local_rotation_mean_geodesic_rad": 0.06990324875244164,
+          "left_id": "37_seed42",
+          "observation": "test/medium_2/softball/00000162.pkl",
+          "right_id": "37_seed43",
+          "wrist_rotation_geodesic_rad": 0.2685508728220711,
+          "wrist_translation_world_m": 0.01677139458386392
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.44173466653076937,
+          "finger_local_rotation_mean_geodesic_rad": 0.22329278021304566,
+          "left_id": "38_seed42",
+          "observation": "test/medium_2/sponge/00000060.pkl",
+          "right_id": "38_seed43",
+          "wrist_rotation_geodesic_rad": 0.35322453043551333,
+          "wrist_translation_world_m": 0.03542305784932956
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.21088240715667636,
+          "finger_local_rotation_mean_geodesic_rad": 0.09003923012435647,
+          "left_id": "39_seed42",
+          "observation": "test/medium_2/sponge/00000162.pkl",
+          "right_id": "39_seed43",
+          "wrist_rotation_geodesic_rad": 0.28274844777149355,
+          "wrist_translation_world_m": 0.018491428635066302
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.4185638734160706,
+          "finger_local_rotation_mean_geodesic_rad": 0.1889084685392633,
+          "left_id": "40_seed42",
+          "observation": "test/small_1/eraser/00000080.pkl",
+          "right_id": "40_seed43",
+          "wrist_rotation_geodesic_rad": 0.6251238520124023,
+          "wrist_translation_world_m": 0.02136755583768919
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.6383884516562113,
+          "finger_local_rotation_mean_geodesic_rad": 0.3920800397546682,
+          "left_id": "41_seed42",
+          "observation": "test/small_1/eraser/00000168.pkl",
+          "right_id": "41_seed43",
+          "wrist_rotation_geodesic_rad": 1.6648277812979728,
+          "wrist_translation_world_m": 0.1067331757638998
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.4038570659482763,
+          "finger_local_rotation_mean_geodesic_rad": 0.1702112888089066,
+          "left_id": "42_seed42",
+          "observation": "test/small_1/glue_stick/00000080.pkl",
+          "right_id": "42_seed43",
+          "wrist_rotation_geodesic_rad": 0.47372449201249023,
+          "wrist_translation_world_m": 0.03957353118937279
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.3873835791961267,
+          "finger_local_rotation_mean_geodesic_rad": 0.19573599161478397,
+          "left_id": "43_seed42",
+          "observation": "test/small_1/glue_stick/00000168.pkl",
+          "right_id": "43_seed43",
+          "wrist_rotation_geodesic_rad": 0.6101882690460503,
+          "wrist_translation_world_m": 0.057549072047944905
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.9456064359961434,
+          "finger_local_rotation_mean_geodesic_rad": 0.41491009398288264,
+          "left_id": "44_seed42",
+          "observation": "test/small_1/nail_clipper/00000080.pkl",
+          "right_id": "44_seed43",
+          "wrist_rotation_geodesic_rad": 0.7855479622663393,
+          "wrist_translation_world_m": 0.02096435363449791
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.5716736068603983,
+          "finger_local_rotation_mean_geodesic_rad": 0.3315203396412857,
+          "left_id": "45_seed42",
+          "observation": "test/small_1/nail_clipper/00000168.pkl",
+          "right_id": "45_seed43",
+          "wrist_rotation_geodesic_rad": 1.206205588099565,
+          "wrist_translation_world_m": 0.042984755136799425
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.5456995940385762,
+          "finger_local_rotation_mean_geodesic_rad": 0.17290380847830836,
+          "left_id": "46_seed42",
+          "observation": "test/small_1/rubber_duck/00000080.pkl",
+          "right_id": "46_seed43",
+          "wrist_rotation_geodesic_rad": 0.22144651705904744,
+          "wrist_translation_world_m": 0.016657742137917486
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.49614680441961534,
+          "finger_local_rotation_mean_geodesic_rad": 0.17121730732383175,
+          "left_id": "47_seed42",
+          "observation": "test/small_1/rubber_duck/00000168.pkl",
+          "right_id": "47_seed43",
+          "wrist_rotation_geodesic_rad": 0.300875714649179,
+          "wrist_translation_world_m": 0.03170486048117764
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 1.0382191494796302,
+          "finger_local_rotation_mean_geodesic_rad": 0.4224358649232793,
+          "left_id": "48_seed42",
+          "observation": "test/small_1/strawberry/00000080.pkl",
+          "right_id": "48_seed43",
+          "wrist_rotation_geodesic_rad": 0.5866778453719844,
+          "wrist_translation_world_m": 0.028938061358956997
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.4799801649817771,
+          "finger_local_rotation_mean_geodesic_rad": 0.3124563575338568,
+          "left_id": "49_seed42",
+          "observation": "test/small_1/strawberry/00000168.pkl",
+          "right_id": "49_seed43",
+          "wrist_rotation_geodesic_rad": 0.920360260947843,
+          "wrist_translation_world_m": 0.09851712995168246
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.1290853726043561,
+          "finger_local_rotation_mean_geodesic_rad": 0.06106555881451252,
+          "left_id": "50_seed42",
+          "observation": "test/small_2/hacky_sack/00000039.pkl",
+          "right_id": "50_seed43",
+          "wrist_rotation_geodesic_rad": 0.3690291262194766,
+          "wrist_translation_world_m": 0.034666681854482614
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.7621472632131914,
+          "finger_local_rotation_mean_geodesic_rad": 0.30268796544326704,
+          "left_id": "51_seed42",
+          "observation": "test/small_2/hacky_sack/00000169.pkl",
+          "right_id": "51_seed43",
+          "wrist_rotation_geodesic_rad": 0.43788712282940406,
+          "wrist_translation_world_m": 0.03309261729590283
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.20262711709029285,
+          "finger_local_rotation_mean_geodesic_rad": 0.09604535778857337,
+          "left_id": "52_seed42",
+          "observation": "test/small_2/lock/00000039.pkl",
+          "right_id": "52_seed43",
+          "wrist_rotation_geodesic_rad": 0.4905238174536496,
+          "wrist_translation_world_m": 0.03811833879082874
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 1.161350857728251,
+          "finger_local_rotation_mean_geodesic_rad": 0.4893098195305081,
+          "left_id": "53_seed42",
+          "observation": "test/small_2/lock/00000169.pkl",
+          "right_id": "53_seed43",
+          "wrist_rotation_geodesic_rad": 0.5397702478832306,
+          "wrist_translation_world_m": 0.027629897211335606
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.1616288585726593,
+          "finger_local_rotation_mean_geodesic_rad": 0.07750771726686369,
+          "left_id": "54_seed42",
+          "observation": "test/small_2/match_box/00000039.pkl",
+          "right_id": "54_seed43",
+          "wrist_rotation_geodesic_rad": 0.46200629988546726,
+          "wrist_translation_world_m": 0.0259474826531605
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 1.031643846319098,
+          "finger_local_rotation_mean_geodesic_rad": 0.4128429059327578,
+          "left_id": "55_seed42",
+          "observation": "test/small_2/match_box/00000169.pkl",
+          "right_id": "55_seed43",
+          "wrist_rotation_geodesic_rad": 0.4663907724673192,
+          "wrist_translation_world_m": 0.021942176067522884
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.5803261006005249,
+          "finger_local_rotation_mean_geodesic_rad": 0.23464727882187247,
+          "left_id": "56_seed42",
+          "observation": "test/small_2/pepper_shaker/00000039.pkl",
+          "right_id": "56_seed43",
+          "wrist_rotation_geodesic_rad": 0.5524270744724692,
+          "wrist_translation_world_m": 0.030041981949808512
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.36222620086120194,
+          "finger_local_rotation_mean_geodesic_rad": 0.11793646224823146,
+          "left_id": "57_seed42",
+          "observation": "test/small_2/pepper_shaker/00000169.pkl",
+          "right_id": "57_seed43",
+          "wrist_rotation_geodesic_rad": 0.3814360479434625,
+          "wrist_translation_world_m": 0.03122635644329027
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 1.0501296211481352,
+          "finger_local_rotation_mean_geodesic_rad": 0.4247841045894695,
+          "left_id": "58_seed42",
+          "observation": "test/small_2/tape_measure/00000039.pkl",
+          "right_id": "58_seed43",
+          "wrist_rotation_geodesic_rad": 0.33081452033127495,
+          "wrist_translation_world_m": 0.02458882453500954
+        },
+        {
+          "finger_local_rotation_max_geodesic_rad": 0.631370303714249,
+          "finger_local_rotation_mean_geodesic_rad": 0.27784695047564256,
+          "left_id": "59_seed42",
+          "observation": "test/small_2/tape_measure/00000169.pkl",
+          "right_id": "59_seed43",
+          "wrist_rotation_geodesic_rad": 0.7364159139613364,
+          "wrist_translation_world_m": 0.02316910803579966
+        }
+      ],
+      "summary": {
+        "finger_local_rotation_max_geodesic_rad": {
+          "maximum": 1.2166208378832106,
+          "mean": 0.5086818660710392,
+          "median": 0.4441996999265853,
+          "minimum": 0.1290853726043561,
+          "q25": 0.28550312722424137,
+          "q75": 0.7156056662924484
+        },
+        "finger_local_rotation_mean_geodesic_rad": {
+          "maximum": 0.5419032139146389,
+          "mean": 0.20993638057011485,
+          "median": 0.19083505748000007,
+          "minimum": 0.06106555881451252,
+          "q25": 0.09454382587251914,
+          "q75": 0.2942193501845727
+        },
+        "wrist_rotation_geodesic_rad": {
+          "maximum": 1.8804505099076254,
+          "mean": 0.5375715701766485,
+          "median": 0.46419853617639323,
+          "minimum": 0.19335862833282813,
+          "q25": 0.31353888409054276,
+          "q75": 0.5928611650938865
+        },
+        "wrist_translation_world_m": {
+          "maximum": 0.1796970751173517,
+          "mean": 0.04003015406179089,
+          "median": 0.031076183546959735,
+          "minimum": 0.013794424350213065,
+          "q25": 0.02476230960601396,
+          "q75": 0.03972634651194803
+        }
+      }
+    }
+  },
+  "producer_counts": {
+    "primary": 120,
+    "repeat": 1,
+    "source_geometry": 120
+  },
+  "producer_status": "COMPLETE",
+  "protocol": {
+    "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_native_pilot_2026-10-16_v2/generation_protocol.json",
+    "sha256": "2cf6e214baf1387b4edb8c032e89895b8f331182ff53a9aab4d07328cc46de57"
+  },
+  "repeat_saved_arrays_exact": true,
+  "report": {
+    "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_native_hug_pilot_generation_2026-10-16_v2/generation_report.json",
+    "sha256": "f0a1e26b2aa73c3c3bca2a8ba6e5a8091b7b8e28fd215b802fc44eb18b94fc7b"
+  },
+  "rows": [
+    {
+      "id": "00_seed42",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 2.0252661075970124e-07,
+      "source_anchor_component_error_m": 5.2757848978401967e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "00_seed43",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 1.5698268185371234e-07,
+      "source_anchor_component_error_m": 5.567699751241051e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "01_seed42",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 1.4310677772313984e-07,
+      "source_anchor_component_error_m": 6.035301353124467e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "01_seed43",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 2.530616816098785e-07,
+      "source_anchor_component_error_m": 6.603656654835532e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "02_seed42",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 1.659190328462401e-07,
+      "source_anchor_component_error_m": 5.081683107643897e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "02_seed43",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 1.7748204061973638e-07,
+      "source_anchor_component_error_m": 5.516073717237724e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.498001805406602e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "03_seed42",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 2.038219046873735e-07,
+      "source_anchor_component_error_m": 5.7707382053462375e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.220446049250313e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "03_seed43",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 2.119488874130493e-07,
+      "source_anchor_component_error_m": 6.72637798515563e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "04_seed42",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 2.030134504671377e-07,
+      "source_anchor_component_error_m": 4.490499871945275e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "04_seed43",
+      "root_translation_error_m": 1.3877787807814457e-17,
+      "source_absolute_rotation_component_error": 2.636981267789551e-07,
+      "source_anchor_component_error_m": 5.909808142856576e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "05_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.559632189536032e-07,
+      "source_anchor_component_error_m": 5.672591296690399e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.220446049250313e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "05_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.857315063442556e-07,
+      "source_anchor_component_error_m": 6.048710396444612e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "06_seed42",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 2.3093324134221271e-07,
+      "source_anchor_component_error_m": 5.041536155214743e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.7755575615628914e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "06_seed43",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 1.6469627132920106e-07,
+      "source_anchor_component_error_m": 5.7531620634154734e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "07_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.432008479047454e-07,
+      "source_anchor_component_error_m": 5.5303109536275485e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "07_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 1.9427475383970716e-07,
+      "source_anchor_component_error_m": 5.85008816389454e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.220446049250313e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "08_seed42",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 1.7423900533497516e-07,
+      "source_anchor_component_error_m": 5.1532719647084946e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "08_seed43",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 2.2309968405326286e-07,
+      "source_anchor_component_error_m": 5.000943459343432e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.412337245047638e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "09_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.9349031266102656e-07,
+      "source_anchor_component_error_m": 4.414960082244068e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "09_seed43",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 1.8828146616800545e-07,
+      "source_anchor_component_error_m": 4.447642065752433e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "10_seed42",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 2.6638329708728037e-07,
+      "source_anchor_component_error_m": 5.641718492377379e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "10_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 2.220175370631905e-07,
+      "source_anchor_component_error_m": 4.585760388087223e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.7755575615628914e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "11_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.461035100154163e-07,
+      "source_anchor_component_error_m": 5.317206441812772e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "11_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.192576261661472e-07,
+      "source_anchor_component_error_m": 7.58116730503744e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "12_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.786824184168978e-07,
+      "source_anchor_component_error_m": 4.7592579779931476e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "12_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.6473832731289662e-07,
+      "source_anchor_component_error_m": 5.482706109949387e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 1.6653345369377348e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "13_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 9.337926498709237e-08,
+      "source_anchor_component_error_m": 6.746242069144426e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "13_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.190304480009786e-07,
+      "source_anchor_component_error_m": 6.334947097452748e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "14_seed42",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 2.897100200849323e-07,
+      "source_anchor_component_error_m": 6.215131242992555e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "14_seed43",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 2.3802972448638826e-07,
+      "source_anchor_component_error_m": 5.997908475441349e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.885780586188048e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "15_seed42",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 2.4731345527051474e-07,
+      "source_anchor_component_error_m": 4.7366298383533234e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "15_seed43",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 2.0686187927887456e-07,
+      "source_anchor_component_error_m": 6.208307076760455e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "16_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 3.794157331094006e-07,
+      "source_anchor_component_error_m": 3.835692918841005e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.220446049250313e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "16_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 3.631879078036526e-07,
+      "source_anchor_component_error_m": 5.168889000151111e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "17_seed42",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 2.6358084603828047e-07,
+      "source_anchor_component_error_m": 6.873950991748146e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "17_seed43",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 1.2513402003477836e-07,
+      "source_anchor_component_error_m": 7.285264946865766e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "18_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.7791763432667418e-07,
+      "source_anchor_component_error_m": 6.459602674979692e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.220446049250313e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "18_seed43",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 3.688355731945592e-07,
+      "source_anchor_component_error_m": 6.762322174447277e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.220446049250313e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "19_seed42",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 1.5456162497096138e-07,
+      "source_anchor_component_error_m": 7.211741519241865e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.885780586188048e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "19_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 1.6286366599782554e-07,
+      "source_anchor_component_error_m": 6.30859087746849e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "20_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.9691356253903614e-07,
+      "source_anchor_component_error_m": 6.242378147724992e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.718447854656915e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "20_seed43",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 1.6949216788408883e-07,
+      "source_anchor_component_error_m": 5.585701612353944e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.220446049250313e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "21_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.1558137064392469e-07,
+      "source_anchor_component_error_m": 6.561361215115524e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 1.6653345369377348e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "21_seed43",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 1.8971063575623504e-07,
+      "source_anchor_component_error_m": 5.58178329598813e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.220446049250313e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "22_seed42",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 2.2155267176415805e-07,
+      "source_anchor_component_error_m": 4.9873555119095414e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "22_seed43",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 3.0584093924090894e-07,
+      "source_anchor_component_error_m": 6.246042072444169e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "23_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.7848309974421994e-07,
+      "source_anchor_component_error_m": 4.960178254242997e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "23_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.7328183022090613e-07,
+      "source_anchor_component_error_m": 4.293074751249293e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "24_seed42",
+      "root_translation_error_m": 1.3877787807814457e-17,
+      "source_absolute_rotation_component_error": 1.5439911732473277e-07,
+      "source_anchor_component_error_m": 4.5760371991665494e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "24_seed43",
+      "root_translation_error_m": 1.3877787807814457e-17,
+      "source_absolute_rotation_component_error": 2.496557850450998e-07,
+      "source_anchor_component_error_m": 5.085716736630275e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.220446049250313e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "25_seed42",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 1.3456178837856214e-07,
+      "source_anchor_component_error_m": 4.3400358390455196e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "25_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 2.00624018953377e-07,
+      "source_anchor_component_error_m": 5.26044862392272e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "26_seed42",
+      "root_translation_error_m": 1.1102230246251565e-16,
+      "source_absolute_rotation_component_error": 2.2755797446372128e-07,
+      "source_anchor_component_error_m": 6.366486615672073e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.220446049250313e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "26_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.8735266222046363e-07,
+      "source_anchor_component_error_m": 4.656553592718993e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "27_seed42",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 3.717307616168952e-07,
+      "source_anchor_component_error_m": 4.552538161728403e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "27_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.1151082524317744e-07,
+      "source_anchor_component_error_m": 5.344129910822559e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.220446049250313e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "28_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.2782644145947764e-07,
+      "source_anchor_component_error_m": 4.557413605527083e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "28_seed43",
+      "root_translation_error_m": 1.3877787807814457e-17,
+      "source_absolute_rotation_component_error": 1.5393805774532865e-07,
+      "source_anchor_component_error_m": 5.3838408169137875e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.689893001203927e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "29_seed42",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 2.380505841614866e-07,
+      "source_anchor_component_error_m": 5.024342131232373e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "29_seed43",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 1.4784438628900887e-07,
+      "source_anchor_component_error_m": 5.660801562570872e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.996003610813204e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "30_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.8326382356104176e-07,
+      "source_anchor_component_error_m": 3.896519179535929e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "30_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.7942066332654605e-07,
+      "source_anchor_component_error_m": 4.941367001687347e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "31_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.1077802347946317e-07,
+      "source_anchor_component_error_m": 4.8173394745498754e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "31_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 2.349577430255101e-07,
+      "source_anchor_component_error_m": 6.647251635238938e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "32_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.6836966276745358e-07,
+      "source_anchor_component_error_m": 5.8174421002643584e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "32_seed43",
+      "root_translation_error_m": 1.3877787807814457e-17,
+      "source_absolute_rotation_component_error": 2.0874552143779201e-07,
+      "source_anchor_component_error_m": 7.625434240987605e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "33_seed42",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 1.8634009790741146e-07,
+      "source_anchor_component_error_m": 4.595836937404396e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 7.771561172376096e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "33_seed43",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 2.013214692730969e-07,
+      "source_anchor_component_error_m": 5.5713707008964164e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "34_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.8959566960852214e-07,
+      "source_anchor_component_error_m": 5.7438467981896224e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.220446049250313e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "34_seed43",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 1.9512906379581807e-07,
+      "source_anchor_component_error_m": 5.756236196030606e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "35_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.5065654446487784e-07,
+      "source_anchor_component_error_m": 6.477528663451082e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 6.661338147750939e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "35_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 2.3096916090814545e-07,
+      "source_anchor_component_error_m": 5.86378281208777e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.718447854656915e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "36_seed42",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 1.907843114046237e-07,
+      "source_anchor_component_error_m": 5.4900853863060206e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.7755575615628914e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "36_seed43",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 1.4044036444893493e-07,
+      "source_anchor_component_error_m": 4.734821734686534e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "37_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.9281682606120398e-07,
+      "source_anchor_component_error_m": 5.680562853438431e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.3021142204224816e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "37_seed43",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 2.1311961651004907e-07,
+      "source_anchor_component_error_m": 5.33651474954322e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.718447854656915e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "38_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.534838478007728e-07,
+      "source_anchor_component_error_m": 4.416960992792429e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 6.661338147750939e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "38_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 2.429471330778199e-07,
+      "source_anchor_component_error_m": 5.4175877423068286e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.8163916471489756e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "39_seed42",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 1.8019236458499677e-07,
+      "source_anchor_component_error_m": 7.237443233609753e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "39_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.1505669961220377e-07,
+      "source_anchor_component_error_m": 6.683874428925485e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "40_seed42",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 1.714340087666244e-07,
+      "source_anchor_component_error_m": 4.884187509990312e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 7.771561172376096e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 5.551115123125783e-17
+    },
+    {
+      "id": "40_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.3785421904000117e-07,
+      "source_anchor_component_error_m": 5.516633794222514e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.412337245047638e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 5.551115123125783e-17
+    },
+    {
+      "id": "41_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.391964877279662e-07,
+      "source_anchor_component_error_m": 5.249998116796384e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "41_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.0471036384084318e-07,
+      "source_anchor_component_error_m": 6.70856081241844e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "42_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.7384510597739933e-07,
+      "source_anchor_component_error_m": 4.780494611278385e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 7.077671781985373e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "42_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 1.493983308661906e-07,
+      "source_anchor_component_error_m": 5.1561063529881324e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 6.071532165918825e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "43_seed42",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 1.841989270001676e-07,
+      "source_anchor_component_error_m": 4.725814173323073e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "43_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 1.7937344287677348e-07,
+      "source_anchor_component_error_m": 4.160523725538212e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "44_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.9570766962573316e-07,
+      "source_anchor_component_error_m": 5.73944640702706e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 8.326672684688674e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 5.551115123125783e-17
+    },
+    {
+      "id": "44_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.627534493315764e-07,
+      "source_anchor_component_error_m": 4.338214754096015e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 7.771561172376096e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 5.551115123125783e-17
+    },
+    {
+      "id": "45_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.7590914536125268e-07,
+      "source_anchor_component_error_m": 4.9504609522799115e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.220446049250313e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "45_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.7017351456049e-07,
+      "source_anchor_component_error_m": 5.353455351242431e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "46_seed42",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 2.777780708229649e-07,
+      "source_anchor_component_error_m": 4.734617453650003e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 6.38378239159465e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 5.551115123125783e-17
+    },
+    {
+      "id": "46_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.9689978103532013e-07,
+      "source_anchor_component_error_m": 5.721486462384462e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 6.661338147750939e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 5.551115123125783e-17
+    },
+    {
+      "id": "47_seed42",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 3.0272590101354524e-07,
+      "source_anchor_component_error_m": 5.193089297472753e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.220446049250313e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "47_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.1196918503486586e-07,
+      "source_anchor_component_error_m": 5.1081712748590746e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "48_seed42",
+      "root_translation_error_m": 1.3877787807814457e-17,
+      "source_absolute_rotation_component_error": 1.944681835563955e-07,
+      "source_anchor_component_error_m": 5.097281574606427e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 7.632783294297951e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 5.551115123125783e-17
+    },
+    {
+      "id": "48_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 1.734847361323233e-07,
+      "source_anchor_component_error_m": 7.284742914448472e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.84601811404184e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 5.551115123125783e-17
+    },
+    {
+      "id": "49_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 3.5110982654629197e-07,
+      "source_anchor_component_error_m": 5.72059234427158e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "49_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 2.1532549432379255e-07,
+      "source_anchor_component_error_m": 4.524046604004184e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "50_seed42",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 2.771607941487453e-07,
+      "source_anchor_component_error_m": 5.600384497816968e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.220446049250313e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "50_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.962182097151044e-07,
+      "source_anchor_component_error_m": 5.846484801841356e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.7755575615628914e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 5.551115123125783e-17
+    },
+    {
+      "id": "51_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.2428560120246743e-07,
+      "source_anchor_component_error_m": 5.5227219714071296e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "51_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.1662728522109376e-07,
+      "source_anchor_component_error_m": 6.083579816296147e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "52_seed42",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 1.7869846741236373e-07,
+      "source_anchor_component_error_m": 5.119016655008579e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 6.38378239159465e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 5.551115123125783e-17
+    },
+    {
+      "id": "52_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 1.3406361343282214e-07,
+      "source_anchor_component_error_m": 5.0368412551904385e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.706168622523819e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 5.551115123125783e-17
+    },
+    {
+      "id": "53_seed42",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 2.787883168764438e-07,
+      "source_anchor_component_error_m": 4.5821288336550525e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 6.661338147750939e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "53_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 2.592186880701064e-07,
+      "source_anchor_component_error_m": 4.778216480816333e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 7.771561172376096e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "54_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.74616231088487e-07,
+      "source_anchor_component_error_m": 6.703821700537738e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "54_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 1.7007854929973476e-07,
+      "source_anchor_component_error_m": 4.3524127468774765e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 2.498001805406602e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "55_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.4313446411738937e-07,
+      "source_anchor_component_error_m": 3.975530982192055e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "55_seed43",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.4525459209394076e-07,
+      "source_anchor_component_error_m": 5.146191244670417e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "56_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 1.8862711892442263e-07,
+      "source_anchor_component_error_m": 6.062576984877666e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 5.551115123125783e-17
+    },
+    {
+      "id": "56_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 1.795833497464372e-07,
+      "source_anchor_component_error_m": 7.068933244314124e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 5.551115123125783e-17
+    },
+    {
+      "id": "57_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.4571123335981326e-07,
+      "source_anchor_component_error_m": 4.8296703775152494e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "57_seed43",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 2.4239416954174864e-07,
+      "source_anchor_component_error_m": 5.433717939484772e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "58_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.3477257782289485e-07,
+      "source_anchor_component_error_m": 5.654418649969628e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 3.3306690738754696e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 5.551115123125783e-17
+    },
+    {
+      "id": "58_seed43",
+      "root_translation_error_m": 2.7755575615628914e-17,
+      "source_absolute_rotation_component_error": 1.5569243716484493e-07,
+      "source_anchor_component_error_m": 5.4385805081658134e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 5.551115123125783e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 5.551115123125783e-17
+    },
+    {
+      "id": "59_seed42",
+      "root_translation_error_m": 0.0,
+      "source_absolute_rotation_component_error": 2.4696033318338806e-07,
+      "source_anchor_component_error_m": 4.591482100080313e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.440892098500626e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    },
+    {
+      "id": "59_seed43",
+      "root_translation_error_m": 5.551115123125783e-17,
+      "source_absolute_rotation_component_error": 2.2565653368111782e-07,
+      "source_anchor_component_error_m": 5.9044010854159e-08,
+      "source_arrays_finite": true,
+      "target_rotation_component_error": 4.0245584642661925e-16,
+      "task_label": null,
+      "world_vertex_component_error_m": 1.1102230246251565e-16
+    }
+  ],
+  "saved_output_npz_count": 121,
+  "saved_rows": 120,
+  "schema_version": "manosim_native_hug_generation_independent_saved_readback_v2",
+  "selected_git_blobs": [
+    "research_artifacts/manosim_native_pilot_2026-10-16_v2/generation_protocol.json",
+    "research_artifacts/manosim_native_pilot_2026-10-16_v2/generate.py",
+    "research_artifacts/manosim_native_source_pipeline_2026-10-15_v1/source_coordinates.py",
+    "src/grasp_failure_prediction/evaluation/manosim_capsule.py",
+    "src/grasp_failure_prediction/integrations/hug_preprocessing.py",
+    "src/grasp_failure_prediction/integrations/hug_rng.py"
+  ],
+  "status": "VERIFIED_SAVED_NATIVE_TARGET_ALGEBRA",
+  "summary": {
+    "root_translation_error_m": 1.1102230246251565e-16,
+    "source_absolute_rotation_component_error": 3.794157331094006e-07,
+    "source_anchor_component_error_m": 7.625434240987605e-08,
+    "target_rotation_component_error": 8.326672684688674e-16,
+    "world_vertex_component_error_m": 1.1102230246251565e-16
+  },
+  "verifier": {
+    "engine_MANO_inference_geometry_calls": 0,
+    "sha256": "a9d01c742f80ee06793c2b4ee846a08a9d0823519c5f5db524a9a030c73a228a",
+    "source": "\"\"\"Independent saved-only HUG native-target replay: stdlib + NumPy only.\nNever imports producer/source-coordinate helpers, Torch, MANO or an engine.\nRuns only on a parent-authorized completed/failing saved generation report.\n\"\"\"\nfrom pathlib import Path\nimport argparse,hashlib,io,json,math,pickle,subprocess,time\nimport numpy as np\nPARENTS=(-1,0,1,2,0,4,5,0,7,8,0,10,11,0,13,14)\nGATES=dict(proper_camera_and_state=1e-12,world_reexpression_m=1e-12,source_anchor_m=5e-6,source_rotation_component=1e-6)\n\ndef require(x,msg):\n if not x:raise ValueError(msg)\ndef sha(path):\n h=hashlib.sha256()\n with Path(path).open('rb') as f:\n  while data:=f.read(1024*1024):h.update(data)\n return h.hexdigest()\ndef digest(a):\n a=np.ascontiguousarray(a);return hashlib.sha256(a.dtype.str.encode()+str(a.shape).encode()+a.tobytes()).hexdigest()\ndef read(path):return json.loads(Path(path).read_text())\ndef arr(a,shape,dtype):\n a=np.asarray(a);require(a.shape==shape and a.dtype==np.dtype(dtype) and np.isfinite(a).all(),'Literal finite array contract differs '+str(shape));return a\n\ndef mul(a,b):\n aw,ax,ay,az=a;bw,bx,by,bz=b\n return np.array([aw*bw-ax*bx-ay*by-az*bz,aw*bx+ax*bw+ay*bz-az*by,aw*by-ax*bz+ay*bw+az*bx,aw*bz+ax*by-ay*bx+az*bw])\ndef quat_matrix(q):\n q=np.asarray(q,dtype=float);n=float(sum(float(x)*float(x) for x in q));require(abs(n-1)<=1e-12,'State/rest quaternion not proper');w,x,y,z=q;s=2/n\n return np.array([[1-s*(y*y+z*z),s*(x*y-z*w),s*(x*z+y*w)],[s*(x*y+z*w),1-s*(x*x+z*z),s*(y*z-x*w)],[s*(x*z-y*w),s*(y*z+x*w),1-s*(x*x+y*y)]])\ndef exp_matrix(aa):\n a=np.asarray(aa,dtype=float);theta=math.sqrt(math.fsum(float(v)*float(v) for v in a));x,y,z=a\n K=np.array([[0.,-z,y],[z,0.,-x],[-y,x,0.]])\n if theta==0:return np.eye(3)\n return np.eye(3)+(math.sin(theta)/theta)*K+((1-math.cos(theta))/(theta*theta))*mat3(K,K)\ndef mat3(A,B):return np.array([[math.fsum(float(A[i,k])*float(B[k,j]) for k in range(3)) for j in range(3)] for i in range(3)])\ndef dot3(R,v):return np.array([math.fsum(float(R[i,j])*float(v[j]) for j in range(3)) for i in range(3)])\ndef world(R,points,t):return np.array([dot3(R,v)+t for v in points])\ndef camera(c):\n c=arr(c,(4,4),'float64');require(np.array_equal(c[3],[0,0,0,1]),'Nonhomogeneous camera');r=c[:3,:3]\n require(np.max(np.abs(mat3(r.T,r)-np.eye(3)))<=1e-12 and abs(np.linalg.det(r)-1)<=1e-12,'Nonrigid camera');return r,c[:3,3]\ndef neutral_joints(buffers):\n template=arr(buffers['template'],(778,3),'float32').astype(float);directions=arr(buffers['shapedirs'],(778,3,10),'float32').astype(float);beta=arr(buffers['shape'],(1,10),'float32')[0].astype(float);reg=arr(buffers['joint_regressor'],(16,778),'float32').astype(float)\n shaped=template+np.einsum('vci,i->vc',directions,beta,optimize=False)\n return np.einsum('jv,vc->jc',reg,shaped,optimize=False)\ndef source_fk(aa,translation,camera_world,joints):\n R,t=camera(camera_world);local=np.array([exp_matrix(a) for a in aa.reshape(16,3)]);rot=[];pos=[]\n for i,p in enumerate(PARENTS):\n  if p<0:rot.append(mat3(R,local[i]));pos.append(dot3(R,translation.astype(float))+t)\n  else:rot.append(mat3(rot[p],local[i]));pos.append(pos[p]+dot3(rot[p],joints[i]-joints[p]))\n return np.array(pos),np.array(rot),local\n\nclass RestrictedObservation(pickle.Unpickler):\n def find_class(self,m,n):\n  allow={('numpy','ndarray'),('numpy','dtype'),('_codecs','encode')}\n  allow|={(x,y) for x in ('numpy.core.multiarray','numpy._core.multiarray') for y in ('_reconstruct','scalar')}\n  allow|={(x,'_frombuffer') for x in ('numpy.core.numeric','numpy._core.numeric')}\n  require((m,n) in allow,'Unsupported observation pickle global')\n  return super().find_class(m,n)\ndef observation(path):\n obj=RestrictedObservation(io.BytesIO(Path(path).read_bytes())).load();require(type(obj) is dict and obj.get('grasp') is None,'Expected source unlabeled observation');return obj\n\ndef row_check(row,arrays,buffers,source_observation):\n a=arrays;aa=arr(a['postAA32'],(48,),'float32');t=arr(a['translation32'],(3,),'float32');pred=arr(a['prediction99'],(99,),'float32');q=arr(a['native_qpos'],(67,),'float64');rest=arr(a['rest_quaternions'],(16,4),'float64');shape=arr(a['shape'],(1,10),'float32');R,shift=camera(a['cameraWorld64'])\n require(t.tobytes()==pred[:3].tobytes(),'Translation differs from original HUG prediction')\n require(shape.tobytes()==buffers['shape'].tobytes() and rest.tobytes()==buffers['rest_quaternions'].tobytes(),'Qualified shape/rest identity differs')\n require(np.array_equal(np.asarray(source_observation['T_world_camera'],dtype=np.float64),a['cameraWorld64']),'Saved camera differs from literal observation')\n require(np.array_equal(np.asarray(source_observation['camera']['K'],dtype=np.float32),a['K']),'K differs from official eval conversion')\n require(np.array_equal(np.asarray(source_observation['condition_point'],dtype=np.float32)[:2],a['query_point'][:2]),'Query point differs from stored source')\n arr(a['vertices_camera32'],(778,3),'float32');arr(a['vertices_world'],(778,3),'float64');arr(a['source_anchors_world'],(16,3),'float64');arr(a['source_rotations_world'],(16,3,3),'float64')\n got=world(R,a['vertices_camera32'].astype(float),shift);worlderr=float(np.max(np.abs(got-a['vertices_world'])));require(worlderr<=GATES['world_reexpression_m'],'Camera/world vertex algebra failed')\n expected_root=dot3(R,t.astype(float))+shift;rooterr=float(np.max(np.abs(expected_root-q[:3])));require(rooterr<=1e-12,'Native root translation changed')\n joints=neutral_joints(buffers);anchors,rotations,local=source_fk(aa,t,a['cameraWorld64'],joints)\n targetlocal=np.array([quat_matrix(mul(rest[i],q[3+4*i:7+4*i])) for i in range(16)])\n target_expected=local.copy();target_expected[0]=mat3(R,local[0]);qerr=float(np.max(np.abs(targetlocal-target_expected)));require(qerr<=1e-12,'67-state body-local/rest rotation differs from source AA32')\n # Independent hierarchy algebra from saved source-neutral buffers. This is\n # not a call to either a MANO model or simulator FK and not a skin replay.\n anchorerr=float(np.max(np.abs(anchors-a['source_anchors_world'])));rerr=float(np.max(np.abs(rotations-a['source_rotations_world'])));require(anchorerr<=5e-6 and rerr<=1e-6,'Source anchor/body-R transfer outside original numerical gates')\n md=row['mapping'];require(md['qpos_sha256']==digest(q) and md['shape_digest']==digest(shape) and md['rest_digest']==digest(rest),'Mapping receipt array digest differs')\n sr=md['source_receipt'];require(sr['original_AA32_sha256']==digest(aa) and sr['original_translation32_sha256']==digest(t) and sr['camera64_sha256']==digest(a['cameraWorld64']),'Source receipt operands differ')\n require(sr['original_input_byte_guard']['original_axisangle_bytes_exact'] and sr['original_input_byte_guard']['original_translation_bytes_exact'],'Producer original-byte guard absent')\n require(all(md[k] is False for k in ('accepted_mapping','collection_or_training_allowed','physical_model_qualified')) and row['grasp_label_available'] is False,'Unexpected task/admission claim')\n return dict(id=row['id'],world_vertex_component_error_m=worlderr,root_translation_error_m=rooterr,target_rotation_component_error=qerr,source_anchor_component_error_m=anchorerr,source_absolute_rotation_component_error=rerr,source_arrays_finite=True,task_label=None)\n\ndef geodesic(A,B):\n C=mat3(A.T,B);cos=max(-1.,min(1.,(float(np.trace(C))-1)/2));vee=np.array([C[2,1]-C[1,2],C[0,2]-C[2,0],C[1,0]-C[0,1]])/2\n return math.atan2(float(np.linalg.norm(vee)),cos)\ndef pose_pair(a,b):\n qa,qb=a['native_qpos'],b['native_qpos'];rest=a['rest_quaternions'];Ra=[quat_matrix(mul(rest[i],qa[3+4*i:7+4*i])) for i in range(16)];Rb=[quat_matrix(mul(rest[i],qb[3+4*i:7+4*i])) for i in range(16)];finger=[geodesic(x,y) for x,y in zip(Ra[1:],Rb[1:])]\n return dict(wrist_translation_world_m=float(np.linalg.norm(qa[:3]-qb[:3])),wrist_rotation_geodesic_rad=geodesic(Ra[0],Rb[0]),finger_local_rotation_mean_geodesic_rad=float(np.mean(finger)),finger_local_rotation_max_geodesic_rad=float(max(finger)))\ndef distribution(rows):\n fields=('wrist_translation_world_m','wrist_rotation_geodesic_rad','finger_local_rotation_mean_geodesic_rad','finger_local_rotation_max_geodesic_rad');out={}\n for field in fields:\n  a=np.array([r[field] for r in rows]);out[field]=dict(minimum=float(a.min()),q25=float(np.quantile(a,.25)),median=float(np.median(a)),mean=float(a.mean()),q75=float(np.quantile(a,.75)),maximum=float(a.max())) if len(a) else None\n return out\ndef pose_diversity(saved):\n within=[];across=[];objects={};observations={}\n for row,a in saved:\n  observations.setdefault(row['observation'],{})[row['seed']]=(row,a);objects.setdefault(row['object_path'],{}).setdefault(row['observation'],{})[row['seed']]=(row,a)\n for obs,seedrows in sorted(observations.items()):\n  if set(seedrows)=={42,43}:\n   left,right=seedrows[42],seedrows[43];within.append(dict(observation=obs,left_id=left[0]['id'],right_id=right[0]['id'],**pose_pair(left[1],right[1])))\n for obj,views in sorted(objects.items()):\n  if len(views)==2:\n   left,right=sorted(views)\n   for seed in (42,43):\n    if seed in views[left] and seed in views[right]:\n     a,b=views[left][seed],views[right][seed];across.append(dict(object_path=obj,seed=seed,left_id=a[0]['id'],right_id=b[0]['id'],left_observation=left,right_observation=right,**pose_pair(a[1],b[1])))\n duplicate={}\n for field in ('prediction99','native_qpos'):\n  groups={}\n  for row,a in saved:groups.setdefault(digest(a[field]),[]).append(row['id'])\n  duplicate[field]=dict(unique=len(groups),exact_duplicate_rows_beyond_first=sum(len(g)-1 for g in groups.values()),duplicate_groups=[g for g in groups.values() if len(g)>1])\n return dict(scope='Descriptive pose separation in unchanged source-native target coordinates; no quality, success, generalization accuracy or independent human-grasp claim.',exact_duplicates=duplicate,within_observation_seed42_vs43=dict(pairs=len(within),summary=distribution(within),rows=within),across_two_stored_observations_same_object_matched_seed=dict(pairs=len(across),summary=distribution(across),rows=across),pose_names=['wrist','index_proximal','index_middle','index_distal','middle_proximal','middle_middle','middle_distal','little_proximal','little_middle','little_distal','ring_proximal','ring_middle','ring_distal','thumb_proximal','thumb_middle','thumb_distal'],finger_angles='15parent-relative physical body rotations, with authored rest quaternion composed; wrist angle is world-frame physical root rotation')\n\ndef audit(root,protocol_path,report_path,freeze,expected_report_sha,out):\n start=time.monotonic();root=Path(root);protocol_path=Path(protocol_path);report_path=Path(report_path)\n def resolved_record(value):\n  q=Path(value);return q if q.is_absolute() else root/q\n def git(*args):return subprocess.check_output(['git','-C',str(root),*args])\n require(git('rev-parse','HEAD').decode().strip()==freeze,'Frozen HEAD changed');require(sha(report_path)==expected_report_sha,'Report differs')\n p=read(protocol_path);r=read(report_path);psha=sha(protocol_path);require(r['freeze_commit']==freeze and r['protocol_sha256']==psha,'Report protocol/freeze differs')\n def inputs():\n  for name,b in p['bindings'].items():require(Path(name).is_file() and Path(name).stat().st_size==b['bytes'] and sha(name)==b['sha256'],'Bound bytes changed: '+name)\n inputs();tracked=set(git('ls-tree','-r','--name-only',freeze).decode().splitlines());selected=[]\n for path in [protocol_path]+[Path(x) for x in p['bindings'] if Path(x).is_relative_to(root)]:\n  rel=path.relative_to(root).as_posix()\n  if rel in tracked:require(hashlib.sha256(git('show',freeze+':'+rel)).hexdigest()==sha(path),'Selected frozen Git blob differs');selected.append(rel)\n with np.load(p['source_buffers'],allow_pickle=False) as z:buffers={k:z[k].copy() for k in z.files}\n plan=[(obs,seed) for obs in p['observations'] for seed in p['seeds']];results=[];expected_files=set();tensors={};saved=[]\n for i,row in enumerate(r['rows']):\n  require((row['observation'],row['seed'])==plan[i],'Saved row is outside prospective slot order');path=resolved_record(row['path']);require(path.parent==report_path.parent and sha(path)==row['sha256'],'Output row bytes/path differ');expected_files.add(str(path));input_path=Path(p['asset_root'])/row['observation'];require(sha(input_path)==row['input_sha256'],'Observation bytes differ')\n  require(row['id']==f'{i//len(p[\"seeds\"]):02d}_seed{row[\"seed\"]}' and row['object_path']==str(Path(row['observation']).parent),'Object/slot identity differs')\n  tensors.setdefault(row['observation'],set()).add(row['input_tensor_hash'])\n  with np.load(path,allow_pickle=False) as z:a={k:z[k].copy() for k in z.files}\n  results.append(row_check(row,a,buffers,observation(input_path)));saved.append((row,a))\n require(all(len(v)==1 for v in tensors.values()),'Input tensor hash varies with grasp seed')\n require(all(r[k]==0 for k in ('physics_steps','retarget_calls','training_calls')) and r['training_allowed'] is False and r['closure_verified_after'] is True,'Unexpected work/admission')\n inventory={str(resolved_record(name)):b for name,b in r['partial_artifact_inventory'].items()}\n for name,b in inventory.items():require(Path(name).parent==report_path.parent and sha(name)==b['sha256'] and Path(name).stat().st_size==b['bytes'],'Creation inventory differs')\n if r['status']=='COMPLETE':\n  require(len(results)==120 and r['counts']==dict(primary=120,repeat=1,source_geometry=120) and not r['errors'],'Incomplete work declared complete')\n  repeat=report_path.parent/'first_seed_repeat.npz';require(str(repeat) in inventory,'Repeat arrays missing from original inventory')\n  with np.load(repeat,allow_pickle=False) as z:\n   require(set(z.files)=={'original','repeated'},'Repeat operand inventory differs');original=arr(z['original'],(99,),'float32');repeated=arr(z['repeated'],(99,),'float32');require(original.tobytes()==repeated.tobytes(),'Actual repeat predictions differ')\n  with np.load(resolved_record(r['rows'][0]['path']),allow_pickle=False) as z:require(original.tobytes()==z['prediction99'].tobytes(),'Repeat does not reference first primary proposal')\n  expected_files.add(str(repeat));require(set(inventory)==expected_files and {str(x) for x in report_path.parent.glob('*.npz')}==expected_files,'Complete output has missing/unindexed/unexpected artifacts')\n inputs();require(sha(report_path)==expected_report_sha and sha(protocol_path)==psha and git('rev-parse','HEAD').decode().strip()==freeze,'Final immutable closure differs')\n diversity=pose_diversity(saved)\n hug_mano=next(Path(x) for x in p['bindings'] if x.endswith('/hug/src/models/mano.py'));hug_root=hug_mano.parents[2]\n hug_revision=subprocess.check_output(['git','-C',str(hug_root),'rev-parse','HEAD'],text=True).strip();hug_dirty=subprocess.check_output(['git','-C',str(hug_root),'status','--porcelain'],text=True)\n require(hug_revision==p['HUG_revision'] and not hug_dirty,'Pinned HUG source checkout identity differs')\n inputs();require(sha(report_path)==expected_report_sha and sha(protocol_path)==psha and git('rev-parse','HEAD').decode().strip()==freeze,'After-diversity immutable closure differs')\n summary={key:max((row[key] for row in results),default=None) for key in ('world_vertex_component_error_m','root_translation_error_m','target_rotation_component_error','source_anchor_component_error_m','source_absolute_rotation_component_error')}\n receipt=dict(schema_version='manosim_native_hug_generation_independent_saved_readback_v2',status='VERIFIED_SAVED_NATIVE_TARGET_ALGEBRA' if r['status']=='COMPLETE' else 'VERIFIED_PARTIAL_NATIVE_TARGET_ALGEBRA',freeze_commit=freeze,protocol=dict(path=str(protocol_path),sha256=psha),report=dict(path=str(report_path),sha256=expected_report_sha),input_bindings_verified_before_after=len(p['bindings']),selected_git_blobs=selected,planned_slots=len(plan),saved_rows=len(results),producer_status=r['status'],producer_counts=r['counts'],errors=r['errors'],gates=GATES,summary=summary,rows=results,pose_diversity=diversity,repeat_saved_arrays_exact=(r['status']=='COMPLETE'),saved_output_npz_count=len(list(report_path.parent.glob('*.npz'))),HUG_source_checkout=dict(path=str(hug_root),revision=hug_revision,clean=True),verifier_history=read('/private/tmp/hug_native_generation_v2_verifier_history.json'),limitations=['Pure saved-state coordinate/hierarchy algebra only; no new simulator readback or MANO skin output is generated. The6D->AA32 learned-output conversion itself is bound to frozen source rather than rerun with Torch.','Input tensor digest consistency is checked across seeds; RGB/depth preprocessing is not rerun.','Actual post-AA capture and original-byte-recovery are bound producer assertions unless separately persisted operands permit independent recovery.','No physical success/failure labels, task/controller/skin contact qualification or collection/training admission.'],verifier=dict(source=Path(__file__).read_text(),sha256=sha(__file__),stdlib_numpy_only=True,engine_MANO_inference_geometry_calls=0),elapsed_s=time.monotonic()-start)\n Path(out).write_text(json.dumps(receipt,sort_keys=True,indent=2,allow_nan=False)+'\\n');print(json.dumps(dict(output=str(out),sha256=sha(out),summary=summary,saved_rows=len(results))))\nif __name__=='__main__':\n ap=argparse.ArgumentParser();ap.add_argument('--root',required=True);ap.add_argument('--protocol',required=True);ap.add_argument('--report',required=True);ap.add_argument('--freeze',required=True);ap.add_argument('--report-sha256',required=True);ap.add_argument('--output',required=True);a=ap.parse_args();audit(a.root,a.protocol,a.report,a.freeze,a.report_sha256,a.output)\n",
+    "stdlib_numpy_only": true
+  },
+  "verifier_history": {
+    "correction": "Resolve relative record paths against frozen ROOT; keep strict containment and hashes.",
+    "experimental_source_results_gates_changed": false,
+    "initial_attempt": "Verifier stopped before numeric replay because it assumed absolute producer artifact paths; frozen output paths are canonical-checkout-relative."
+  }
+}

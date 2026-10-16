@@ -1889,3 +1889,49 @@ V2 preparation retains base NumPy/Torch/PIL, gives isolated HUG dependencies
 priority, asserts resolved module paths and zero hand mean, saves actual
 post-mean AA32 and both repeat tensors. V1 source/results remain unchanged.
 No new physics, task data, or scientific predictor fit has run at this entry.
+
+## 2026-10-16 — 120 HUG native proposals independently verified across 30 objects
+
+V2 generation completed at frozen `a2585368393d6807a18151eaa55553d76f8604a5`:
+120 primary samples, one exact-seed repeat and 120 source geometry evaluations,
+111.742 s CPU wall time, zero physics/retarget/predictor-training calls.
+Report SHA256 `f0a1e26b2aa73c3c3bca2a8ba6e5a8091b7b8e28fd215b802fc44eb18b94fc7b`.
+All 30 declared objects, 60 observations and seeds 42/43 are accounted for.
+
+Saved-only independent receipt:
+`research_artifacts/manosim_native_pilot_2026-10-16_v2/readback/independent_readback.json`,
+SHA256 `a188243414094823a82ca45e43dd22fc97ef30ea72e2bb6b00325278a46e64ac`.
+All 5,609 live input bindings were verified before/after, with frozen Git/source
+identities and all 121 NPZ files. Independent source hierarchy/native-target
+algebra passes the existing 5 µm anchor and 1e-6 rotation gates: maximum anchor
+error 76.25 nm, maximum source rotation component error 3.79e-7. Target/world
+algebra errors stay below 9e-16. The saved repeat tensors are byte-identical.
+Independent controls: seven manufactured algebra tests pass; zero native,
+source-model, FK, geometry-query, physics or inference replay operations.
+
+There are no exact duplicate primary outputs. Across 60 within-observation seed
+pairs, median wrist separation is 31.08 mm and rotation separation 0.4642 rad;
+median mean/max finger-joint separations are 0.1908/0.4442 rad. Across 60 matched
+seed pairs between the two observations, medians are 71.49 mm/0.7493 rad and
+0.1310/0.3511 rad. These quantify actual pose variety; they do not measure grasp
+quality or predictor accuracy. Native compiled scene/approach/task checks remain
+before execution labels. No scientific predictor fitting is admitted.
+
+## 2026-10-16 — Compensated physics fixture source freeze; native run pending
+
+`research_artifacts/manosim_native_physics_profile_2026-10-16_v1` now has
+49 passing manufactured controls, zero integration calls, and a prospective
+protocol SHA256 `3fb68ece65bc78e761467da3d75673aa477581627787e2305249ab9f4e2bc7bd`.
+Its 780 active bindings and 54 selected Git sources preserve prior failures,
+the completed uncompensated baseline and durable source reconstruction.
+Declared total: 12 model/data pairs, 240 static forwards (228 before any step),
+9,750 physics steps, at most 4,500 contact-force reads. Cases 20/28 each have
+2 ms/1 ms gravity motion, simultaneous two-finger planes, and guarded approach.
+The two-finger tail requires both positive reactions at every sampled instant,
+not merely positive average forces. Hand self-contact is explicitly excluded
+from the sphere/table approach fixture. Original tolerances remain fixed.
+
+Only source, hashes, XML and manufactured controls have run at this entry.
+The initial unexecuted preparation and 48-test receipt remain explicitly named
+unused preparations. No task labels or scientific training are authorized by
+fixture preparation; actual execution and independent evidence come next.
