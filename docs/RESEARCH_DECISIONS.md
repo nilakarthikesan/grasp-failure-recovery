@@ -3290,3 +3290,24 @@ uninterpreted compiled-array snapshot immediately after each already-budgeted
 compile and before validation. The v1 protocol and failure remain unchanged.
 New actual execution is pending a separate source/protocol freeze and
 independent readback; no task collection or training is admitted.
+
+### 2026-10-15 — Separate passed mapping from a failed contact fixture
+
+V2 independent receipt `3c6683676ebd6ada331e7135fe07a301e5904876363e4a069bfb3e0e5d3fd36b`
+verifies all12 static source-pose/actuator checks and12×16 inertia postconditions,
+plus two completed tracking/gravity PASS conditions. It preserves the contact
+penetration hard stop after1501 steps and all ten unfinished conditions. There
+is no contact or task-grasp PASS. These results qualify the tested static
+mapping component and do not grant data/training admission.
+
+Pinned compiler/engine source supports a concrete fixture-construction issue:
+an identity-rotation world plane receives a cached BODYROT flag, which causes
+later quaternion edits to be ignored. V2 saves the intended quaternion edit
+but not the flag or actual failure geom frames, so that causal diagnosis is
+still a hypothesis. Preserve v2 and use fresh v3 paths. Explicitly clear and
+fingerprint `geom_sameframe`, verify/save actual plane position and normal,
+the source-target tangent gap and allowed pair at the second existing forward
+before any integration. Preserve actual contact operands before guard refusal.
+This changes fixture construction/logging, not gains, source inertia, physical
+thresholds or the12-model/36-forward/10,500-step plan. No new native execution
+has occurred for v3. Collection/training remains closed; no manuscript edits.

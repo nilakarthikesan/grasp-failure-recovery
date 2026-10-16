@@ -1754,3 +1754,37 @@ snapshot adds12 artifacts and zero native calls (72 complete artifacts expected)
 Archived v1 failure/Git provenance is bound without claiming its obsolete API
 bytes remain the live implementation. Actual execution remains pending this
 fresh source/protocol commit; collection/training admission is false.
+
+### 2026-10-15 — Capsule v2: all static mappings PASS; contact fixture hard stop
+
+At frozen `6830aefd3da36a6b19acc2ad922ae6ab61088409`, all12 actual static
+source-pose, named67-state/51-command transmission, zero-servo-force and planned
+command-chart gates pass before integration. All12×16 compiled-inertia
+postconditions pass independently from saved tensor operands; maximum world
+tensor re-expression residual is4.11909e-11kg m², within the source-derived
+Jacobi envelope. Source inertia/gains and original physical limits were unchanged.
+
+Completed case20/2ms conditions: tracking PASS (tail maximum wrist1.2553µm,
+bone0.00019845rad); uncompensated gravity equilibrium PASS (wrist residual from
+declared sag12.008nm, bone0.00372981rad, force balance1.7745e-6N). The first
+isolated contact step then exceeded the5mm penetration escape and hard-stopped.
+Ten conditions are unfinished, including contact; no convergence or task-contact
+qualification is claimed. Actual counts:12 models,12 Data,26 explicit forwards,
+1501 steps and0 contact-force reads. All task labels are null.
+
+Report SHA256 `fb86bd02648af407b39e1694b1db6397f5d07ee132534b06e02bd356c02fe5b2`.
+Independent readback SHA256
+`3c6683676ebd6ada331e7135fe07a301e5904876363e4a069bfb3e0e5d3fd36b`,
+under `research_artifacts/manosim_capsule_execution_2026-10-15_v2/run_v1`,
+verifies613 active bindings,29 selected Git blobs plus protocol,63 creation-time
+artifacts and all partial hashes, and independently recomputes the completed
+conditions/static/inertia checks. It preserves the prior failedv1 lineage.
+
+Source-backed diagnosis: the world plane was compiled at identity quaternion,
+then its model quaternion changed. Pinned MuJoCo can cache BODYROT and ignore
+that later rotation. The actual cache flag/failure geom frames were not saved
+in v2, so the cause remains a hypothesis, not a measured orientation result.
+V3 will explicitly clear/bind that flag and check/save actual plane pose/gap
+at the existing preflight forward, before any motion. No penetration or other
+physical gate is loosened. V2 remains immutable; freeze released after readback.
+No task collection, prediction training or manuscript changes.
