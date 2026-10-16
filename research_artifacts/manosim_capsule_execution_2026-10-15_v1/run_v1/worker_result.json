@@ -1,0 +1,178 @@
+{
+  "accepted_mapping": false,
+  "actual_counts": {
+    "contact_force_reads": 0,
+    "data": 0,
+    "models": 1,
+    "static_forwards": 0,
+    "steps": 0
+  },
+  "all12_static_checks_before_dynamics": false,
+  "artifacts": [
+    {
+      "bytes": 18609,
+      "label": "explicit_new_capsule_fixture_XML",
+      "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/manosim_capsule_execution_2026-10-15_v1/run_v1/raw/20/zero_gravity_tracking_500/fixture.xml",
+      "sha256": "71678a33cd303f3aebd416c4b77cf45d676b05ed09fdfeedae61bacb57e94f18"
+    }
+  ],
+  "cases": [],
+  "elapsed_s": 0.07903558299949509,
+  "failure": {
+    "message": "Authored compiled inertia tensor differs",
+    "traceback": "Traceback (most recent call last):\n  File \"/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_capsule_execution_2026-10-15_v1/run_capsule.py\", line 213, in worker\n    engine.index=index;directory=raw/str(index);directory.mkdir();contexts.append(c.prepare_case(index,p['cases'][str(index)],p,directory,engine,notify))\n                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/research_artifacts/manosim_capsule_execution_2026-10-15_v1/capsule_case.py\", line 89, in prepare_case\n    contract=api.validate_compiled_contract(model,resolve,assets,b['rest_quaternions']);data=engine.data(model);goal=np.asarray(target.qpos).copy();command=api.command_from_qpos(goal,contract)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/src/grasp_failure_prediction/evaluation/manosim_capsule.py\", line 213, in validate_compiled_contract\n    if np.max(np.abs(actual_I-expected_I))>numerical_bound:raise ValueError('Authored compiled inertia tensor differs')\n                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: Authored compiled inertia tensor differs\n",
+    "type": "ValueError"
+  },
+  "fixture_schedule": [
+    {
+      "fixture": {
+        "dt_s": 0.002,
+        "duration_s": 1.5,
+        "index": 20,
+        "kind": "zero_gravity_tracking",
+        "steps": 750
+      },
+      "status": "HARD_STOPPED_STATIC_PREFLIGHT"
+    },
+    {
+      "fixture": {
+        "dt_s": 0.002,
+        "duration_s": 1.5,
+        "index": 20,
+        "kind": "authored_gravity_equilibrium",
+        "steps": 750
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "fixture": {
+        "dt_s": 0.002,
+        "duration_s": 0.5,
+        "index": 20,
+        "kind": "isolated_capsule_plane",
+        "steps": 250
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "fixture": {
+        "dt_s": 0.001,
+        "duration_s": 1.5,
+        "index": 20,
+        "kind": "zero_gravity_tracking",
+        "steps": 1500
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "fixture": {
+        "dt_s": 0.001,
+        "duration_s": 1.5,
+        "index": 20,
+        "kind": "authored_gravity_equilibrium",
+        "steps": 1500
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "fixture": {
+        "dt_s": 0.001,
+        "duration_s": 0.5,
+        "index": 20,
+        "kind": "isolated_capsule_plane",
+        "steps": 500
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "fixture": {
+        "dt_s": 0.002,
+        "duration_s": 1.5,
+        "index": 28,
+        "kind": "zero_gravity_tracking",
+        "steps": 750
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "fixture": {
+        "dt_s": 0.002,
+        "duration_s": 1.5,
+        "index": 28,
+        "kind": "authored_gravity_equilibrium",
+        "steps": 750
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "fixture": {
+        "dt_s": 0.002,
+        "duration_s": 0.5,
+        "index": 28,
+        "kind": "isolated_capsule_plane",
+        "steps": 250
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "fixture": {
+        "dt_s": 0.001,
+        "duration_s": 1.5,
+        "index": 28,
+        "kind": "zero_gravity_tracking",
+        "steps": 1500
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "fixture": {
+        "dt_s": 0.001,
+        "duration_s": 1.5,
+        "index": 28,
+        "kind": "authored_gravity_equilibrium",
+        "steps": 1500
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "fixture": {
+        "dt_s": 0.001,
+        "duration_s": 0.5,
+        "index": 28,
+        "kind": "isolated_capsule_plane",
+        "steps": 500
+      },
+      "status": "NOT_RUN"
+    }
+  ],
+  "forbidden_attempts": [],
+  "freeze_commit": "a4b447e1c0467bf877798dd64b090e8ad11af301",
+  "full_skin_parity_claimed": false,
+  "native_task_contact_qualified": false,
+  "new_collection_or_training_allowed": false,
+  "per_case_counts": {
+    "20": {
+      "contact_force_reads": 0,
+      "data": 0,
+      "models": 1,
+      "static_forwards": 0,
+      "steps": 0
+    },
+    "28": {
+      "contact_force_reads": 0,
+      "data": 0,
+      "models": 0,
+      "static_forwards": 0,
+      "steps": 0
+    }
+  },
+  "physical_outcome": null,
+  "protocol_sha256": "0b5c48a7a9e72e66e2075651b19553a49ca2ec8824a28b1049ed74d16d8ef027",
+  "remaining_case_indices_NOT_RUN": [
+    20,
+    28
+  ],
+  "schema_version": "manosim_authored_capsule_execution_v1_worker",
+  "status": "HARD_STOP",
+  "unindexed_partial_files": []
+}

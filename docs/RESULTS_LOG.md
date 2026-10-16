@@ -1713,3 +1713,29 @@ allows12 models/data,36 static forwards and10,500 steps, with all12 static
 checks before any integration,240s worker/250s outer limits and120s per-case
 dynamic limits. Actual work begins only after source/protocol commit. No task
 labels, collection or training; all admission flags remain false.
+
+### 2026-10-15 — Capsule execution v1: preserved static-preflight hard stop
+
+Frozen source `a4b447e1c0467bf877798dd64b090e8ad11af301`, protocol
+`0b5c48a7a9e72e66e2075651b19553a49ca2ec8824a28b1049ed74d16d8ef027`.
+Actual first model compiled, then `validate_compiled_contract` rejected its
+inertia tensor against the validator's128×machine-epsilon relative arithmetic
+bound. No MjData, forward, collision-force read or integration step ran. No
+source-pose, actuator, dynamic or contact PASS is claimed. The first fixture
+hard-stopped in static preflight; remaining11 fixtures were not run.
+
+Report SHA256 `62fd0a4fc41e5430b5e5e981a72cb856ae8f9b57b7f66e36f325a4720b18de9b`.
+Independent saved-only receipt at
+`research_artifacts/manosim_capsule_execution_2026-10-15_v1/run_v1/independent_readback.json`
+SHA256 `da0dc34c722d960adbcdbdbdad60fdb12b58cd8cc88780ac98580df59b05c51a`
+verifies603 active bindings,22 selected Git blobs plus protocol, raw/tracked
+worker equality, and all3 partial-file hashes before/after at fixed HEAD.
+The compiled inertia operands were not saved before validator refusal, so
+this receipt verifies failure provenance and cannot independently diagnose a
+physical inertia defect or numerical representation discrepancy.
+
+The v1 files are preserved. Next: inspect the pinned compiler's tensor
+diagonalization precision, repair only an unsupported validator assumption if
+source evidence establishes it, and use fresh v2 paths with an early compiled
+array snapshot. Physical tracking/contact thresholds and step quotas remain
+unchanged. Freeze released after readback. No grasp outcomes or training.

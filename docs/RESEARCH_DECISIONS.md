@@ -3240,3 +3240,24 @@ object grasp success. Native calls have not yet run for this protocol. All
 task labels are null and collection/training admission remains closed. Source
 and protocol must be committed before the bounded run, then held through an
 independent saved-only readback. No manuscript files are involved.
+
+### 2026-10-15 — Preserve capsule v1 preflight refusal and diagnose the validator
+
+Measured v1 execution stops after one model compile, before MjData or any
+forward/integration. The validator rejects the compiled inertia tensor at its
+128×epsilon relative arithmetic bound. The independent hard-stop receipt
+`da0dc34c722d960adbcdbdbdad60fdb12b58cd8cc88780ac98580df59b05c51a`
+verifies603 active bindings and22 selected Git blobs at fixed HEAD, the declared
+first XML, and all partial outputs. It certifies no physical test PASS; without
+saved compiled tensor operands it cannot establish why the tensor comparison
+failed. All11 remaining fixtures are NOT_RUN and task labels stay null.
+
+Decision: preserve v1 unchanged. Inspect pinned MuJoCo3.4 compiler source to
+justify a tensor-representation check rather than assume diagonalization is
+machine-epsilon exact. Any correction must be supported by that source and
+manufactured controls, with fresh v2 protocol/output paths and the same physical
+gates/operation quotas. Also save compiled model operands immediately after
+each already-budgeted compile, before model validation, so a refusal can be
+diagnosed from preserved evidence. This logging change adds no model, MjData,
+forward or integration call. Implementation and new native results are pending.
+Collection/training admission remains closed; no manuscript changes.
