@@ -3163,3 +3163,42 @@ declare the author-style capsule baseline passed or failed in advance.
 Collection/training admission remains closed until that named execution
 pipeline passes its declared checks. No production simulator, model, historical
 result, manuscript or other-generator work is changed by this research decision.
+
+### 2026-10-15 — Revalidate durable reconstruction before capsule execution
+
+The user prioritizes completion of reconstruction mapping before diverse grasp
+evaluation. A fresh saved-array audit at
+`research_artifacts/manosim_reconstruction_durable_audit_2026-10-15_v1/readback_v2.json`
+passes all eight comparisons in both preserved cases, 109 poses per
+case. Original post-conversion AA32 and translation32 bytes are unchanged at
+q0, named engine states equal the saved target grid, and the float32 camera
+translation then original camera-to-world transform is independently checked.
+This audits preserved engine outputs; it executes no engine, MANO, skin, FK,
+collision query or physics step. It is finite reconstruction evidence, not
+universal pose coverage, dynamic tracking or successful grasp execution.
+The reviewed recheck uses the original strict engine/source limits of1e-12m
+and1e-10 normal error. Its first, weaker reconstruction-only readback is retained
+as development history and is not the qualification receipt.
+
+Provenance limitation: temporary-directory cleanup removed 39 historical input
+paths. The 29 public MANOSim files were restored at exact upstream commit
+`c96e2d5cd70838a2b025b60b85a7e4e06af1b3ac` and all 29 hashes match the prior
+protocol. A durable copy is retained under
+`runs/manosim_upstream_c96e2d5_source_v1`. Ten old temporary caches/witnesses
+remain absent; they were not reconstructed or silently replaced. All 19
+creation-time reconstruction artifacts still match their earlier independent
+receipt. Neither this audit nor a new capsule protocol claims fresh verification
+of the entire historical dependency closure. New execution binds the durable
+inputs it actually uses and retains the archived protocol/receipt identities.
+
+The ten already-downloaded official apple evaluation frames, dataset revision
+`56ea3f100b1a4ec38bb35e986c0dd14d38977283`, each contain `grasp=None`, verified
+by pickle opcodes without executing pickle objects. They are observation
+frames, not ten human grasp oracle labels. Human replay remains unverified.
+
+Decision: retain the exact source geometry reconstruction as qualified on its
+finite tested domain, then qualify the separately named authored capsule hand's
+compiled mapping, actuator transmission, motion and primitive contact behavior.
+Do not manufacture oracle labels or equate capsule contact with full-skin
+geometry. Collection/training admission remains closed. This decision changes
+no earlier threshold, historical result, manuscript or other generator work.

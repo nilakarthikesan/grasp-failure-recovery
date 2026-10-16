@@ -1667,3 +1667,37 @@ skin evaluations, physics steps, grasp generations, task data or training.
 Next baseline/validation choices are prospective and recorded in
 RESEARCH_DECISIONS.md; all existing source, physics failures and admission
 flags are unchanged. No manuscript files were edited.
+
+### 2026-10-15 — Independent durable reconstruction readback: PASS, 218 poses
+
+Saved-only source and receipt:
+`research_artifacts/manosim_reconstruction_durable_audit_2026-10-15_v1/{audit.py,readback_v2.json}`.
+Receipt SHA256 `4ae18b64c9e3347454a1fc6631e6d886988a5a0ac92740175717cb1a00aef51c`.
+Both cases20/28 pass eight checks across109 poses each. Recomputed maximum
+Euclidean vertex errors are3.189e-16/1.943e-16m, normal-vector errors
+1.491e-13/9.576e-14, Euclidean anatomical anchor errors
+0.3664/0.3554micrometers and rotation component errors3.405e-7/2.879e-7.
+Original engine/source bounds are1e-12m for vertices and1e-10 for normals;
+q0/anchor reconstruction bounds are5micrometers and original-q0 normal/rotation
+bounds1e-6. Source coordinate rotation roundtrip is below7.581e-8.
+Euclidean metrics and freshly recomputed triangle arithmetic differ slightly
+from the original component-wise/recorded summaries; original results remain
+unchanged. Per-pose camera transform arithmetic residual is at most5.55e-17m,
+explicitly checked separately at1e-15; no geometry threshold is relaxed.
+
+Original q0 AA32/t32 bytes and actual named109-state grid identities pass.
+All19 creation-time artifacts match the earlier receipt. After restoring29
+byte-identical pinned public MANOSim files,10 old temporary dependency paths
+remain unavailable; the old full closure is not freshly certified. The verifier
+records its two initial arithmetic byte-equality assertion failures and their
+correction. The first persisted reconstruction-only readback.json used weaker
+engine/source allowances; peer-reviewed readback_v2 checks the original strict
+engine/source gates and preserves that first readback as history. The verifier
+refuses Python optimization and requires exactly ten pinned null-grasp frames.
+No saved operand or historical result changed.
+
+Pickle-opcode inspection also verifies ten local official apple observation
+frames have `grasp=None`. No human-oracle replay is claimed. Operations:
+zero model constructions, source/skin evaluations, FK/collision queries and
+physics steps; zero grasp outcomes or training. Dynamic capsule/controller and
+physical contact qualification remain next; collection/training is closed.
