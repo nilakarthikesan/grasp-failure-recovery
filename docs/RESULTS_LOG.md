@@ -1701,3 +1701,15 @@ frames have `grasp=None`. No human-oracle replay is claimed. Operations:
 zero model constructions, source/skin evaluations, FK/collision queries and
 physics steps; zero grasp outcomes or training. Dynamic capsule/controller and
 physical contact qualification remain next; collection/training is closed.
+
+### 2026-10-15 — Authored capsule execution protocol prepared; no native calls yet
+
+`research_artifacts/manosim_capsule_execution_2026-10-15_v1/protocol.json`
+SHA256 `0b5c48a7a9e72e66e2075651b19553a49ca2ec8824a28b1049ed74d16d8ef027`
+binds603 active inputs,22 selected Git sources and12 fixture XML hashes.
+Combined adapter/fixture/transaction manufactured controls:67PASS, zero native
+model constructions or integration calls; independent repeat67PASS. The plan
+allows12 models/data,36 static forwards and10,500 steps, with all12 static
+checks before any integration,240s worker/250s outer limits and120s per-case
+dynamic limits. Actual work begins only after source/protocol commit. No task
+labels, collection or training; all admission flags remain false.

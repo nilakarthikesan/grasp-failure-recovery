@@ -3202,3 +3202,41 @@ compiled mapping, actuator transmission, motion and primitive contact behavior.
 Do not manufacture oracle labels or equate capsule contact with full-skin
 geometry. Collection/training admission remains closed. This decision changes
 no earlier threshold, historical result, manuscript or other generator work.
+
+### 2026-10-15 — Prospective authored capsule command and execution qualification
+
+Previous finite source geometry results do not establish actuator semantics or
+physical motion/contact behavior. The next implementation uses the same literal
+saved HUG shape with the authors' capsule fingers and convex palm. New
+`evaluation/manosim_capsule.py` maps post-conversion source AA32/camera32 inputs
+to67 named qpos values, and those targets to51 named scalar actuator commands:
+world translations plus axis-gear projections of principal quaternion logs.
+No quaternion component/Euler substitution, clipping, pose fitting, gravity
+offset or silent branch unwrapping is allowed. Near-pi chart ambiguity is an
+explicit refusal. Compiled source checks cover anatomical frames, collider
+dimensions, inertias, transmissions, gains, damping and force-clamp semantics.
+
+Proposed bounded physical gate:
+`research_artifacts/manosim_capsule_execution_2026-10-15_v1`. Cases20/28 ×
+timesteps2ms/1ms × three fixture families =12 models/data,36 explicit static
+forwards and at most10,500 steps. All12 static source-pose/transmission and
+sampled command-branch checks must pass before the first integration step.
+Tracking uses a0.5s minimum-jerk motion and1s hold, with2mm wrist/2degree bone
+bounds. Gravity holds retain the authored uncompensated13.08mm expected PD
+wrist sag at0.4kg/300N/m and check force equilibrium. Contact uses one fixed
+index-distal capsule and analytic plane at a prescribed45degree axial/radial
+normal, with0.5mm commanded indentation, independent point Jacobian, force-map,
+virtual-power and friction-cone residual checks. The fixture's elliptic cone
+and dense Jacobian are explicit choices, distinct from upstream's default
+pyramidal cone; its implicitfast integrator matches the public viewer.
+Gains/inertias/compliance are preserved. Final2ms/1ms results must agree within
+1mm wrist/1degree bone orientation. Exact tolerances and operation/time bounds
+are fixed in source/protocol before actual work; numerical failures stop and
+preserve partial evidence, finite scientific failures remain failures.
+
+This is an operational mapping and primitive execution test, not recorded-human
+oracle reproduction, material calibration, full-skin contact equality or diverse
+object grasp success. Native calls have not yet run for this protocol. All
+task labels are null and collection/training admission remains closed. Source
+and protocol must be committed before the bounded run, then held through an
+independent saved-only readback. No manuscript files are involved.
