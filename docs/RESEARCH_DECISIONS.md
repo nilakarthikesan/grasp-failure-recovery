@@ -3509,3 +3509,26 @@ The training plan explains HUG-Bench coverage, UniDexGrasp grouping and Dex-Net
 controlled uncertainty, with executed task labels and fixed pre-lift features.
 Class support, independent task qualification and timestep evidence must justify
 scientific fitting; software availability alone cannot do so. No manuscript work.
+
+### 2026-10-16 — Preserve object-scene refusals; correct K representation separately
+
+The independently checked pilot evaluates all 135 planned static slots but
+admits none to physics. Native pose, anchors, bone rotations, actuator transmission
+and chart checks pass. All camera-to-world matrices are exact. The K gate instead
+compares an intentional upstream float32 input with its float64 capture source.
+Correct that representation check in a new version, with saved original/cast
+operands and perturbation controls; do not rewrite the v1 refusals.
+
+All 60 captures also fail the predeclared depth-to-visual-mesh gate. Only 837 of
+1,920 fixed points pass their depth-bin/pixel-footprint allowances. This establishes
+failure of that narrow engineering criterion, not its cause: the allowance omits
+unmeasured stereo, mask, SLAM and reconstruction uncertainty. HUG Appendix D.1
+describes manual mesh pose/scale alignment, not a guaranteed per-pixel error bound.
+Do not claim that a K cast explains these millimetre residuals, widen the bound
+from observed outcomes, or label refused setups as physical failures.
+
+Seven catalog holdout manifests and the five distinct trainer folds are verified;
+all roles have zero eligible examples. Scientific training stays closed. A new
+K-only re-evaluation can resolve the implementation bug; scene correspondence
+still needs independently justified calibration or reconstruction evidence before
+admitting task collection. No physics outcome or predictor accuracy is inferred.

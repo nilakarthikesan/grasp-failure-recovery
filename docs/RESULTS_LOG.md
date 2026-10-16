@@ -2059,3 +2059,44 @@ unexpected errors hard-stop the transaction; remaining planned slots stay NOT_RU
 Success additionally excludes object-table support through hold. Prospective
 primary recordings remain unqualified for training. Task execution and independent
 saved-only readback are the next checks, not results inferred from preparation.
+
+## 2026-10-16 — Object pilot v1 refuses all slots before physics
+
+Actual freeze `959db6c119b67dbf66a6e2ad67f0da36b36d88eb`. The first invocation
+used an abbreviated commit identity and refused before output roots or models;
+the identical protocol then ran using the required full identity. Report SHA256
+`55ced44bb921f1ae0a76dd46768de3920132ece4a28ae9a75b552d2bbe2fa9c6`:
+COMPLETED, 135 MAPPING_REFUSAL slots, all outcomes null. Actual operations:
+45 model/data pairs, 135 static forwards, 135 resets, 15,013,760 point-triangle
+comparisons, zero integration or contact-force reads. All 649 creation-time
+artifacts/journal records remain bound. No physical task success/failure exists.
+
+Independent mechanical receipt SHA256
+`d093594729839b18d70a480b0e9125207e6b069d2a9c9f9f462295e1f5eac726`
+reproduces every static predicate and null recording from saved operands,
+rechecking all 1,534 bindings and 44 Git sources before/after. Eight manufactured
+reader controls pass. All 135 native source/chart/transmission gates pass:
+maximum anchor discrepancy 0.329080 micrometres, rotation-component discrepancy
+3.79416e-7. Only literal_capture_camera and depth_visual_alignment fail.
+
+All camera-to-world transforms are exact. The literal K comparison incorrectly
+compares saved float32 with original float64, although upstream HUG explicitly
+uses torch.from_numpy(K_np).float(). This is a validation bug; correct it in a
+new version using exact dtype/cast provenance, not an expanded numerical tolerance.
+Separately, all 60 observations fail the frozen 32-point depth/mesh gate; only
+837/1,920 points lie inside their individual depth-bin/pixel-footprint allowances.
+The pooled median surface residual is approximately 4.18 mm. The largest saved
+residual is 707.43 mm for a wine-bottle capture, so some errors are substantial.
+The largest change in these 1,920 backprojected points from the K float32 cast
+alone is 3.31e-8 m, which cannot explain those residuals. That allowance does not
+include calibrated stereo, mask, SLAM or mesh-reconstruction uncertainty; failing
+it alone does not establish a bad coordinate transform or a bad original asset.
+No calibrated replacement bound is available, so task admission remains closed.
+
+Independent cohort receipt SHA256
+`8caeb6dcc973b3488c6bb5097013ffa567c59232e398cdacd261e93dc4b1636b`
+verifies 30 objects, all 15 cells, all seven catalog role joins and object-group
+separation, plus the distinct five trainer folds. Nine manufactured controls
+pass. Every role has zero eligible prefixes and cannot support a predictor
+comparison. No scientific training was performed. Re-evaluate the exact K-cast
+repair while preserving the original alignment rule and all failed v1 evidence.
