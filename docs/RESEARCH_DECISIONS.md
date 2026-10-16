@@ -3442,3 +3442,28 @@ do not call them a continuous certificate for arbitrary object approaches.
 Source-only preparation and manufactured controls are implemented. Actual
 fixture results and independent readback are pending. Task labels, grouped
 holdout readiness and predictor fitting remain separate gates. No paper work.
+
+### 2026-10-16 — Preserve failed physics v1; repair compiled collision bounds and staged timing
+
+The independently verified 9,750-step compensated run corrects gravity tracking
+but does not qualify multi-contact or approach completion. All four gravity
+conditions pass with worst tail wrist error 1.2554 µm. Both fingers have roughly
+0.5 mm analytic indentation but no engine contacts, so zero force/Jacobian
+residuals cannot count as positive evidence. The fixed approach clears obstacles
+but exceeds the 2 mm final-goal gate while still moving. Six timestep comparisons
+pass. Independent receipt: `4f8b4a64035406022be569fbc75833e41860271978f5769c2f8e4101e7a0f312`.
+
+Pinned engine/compiler source explains why moving multiple static world geoms
+after compilation can leave their BVH bounds at the old location. V1 lacks the
+actual cached arrays, so the exact old cache payload remains an inference.
+Create v2 with the intended plane poses in XML before compilation; preserve
+normal construction, indentation depth, masses, gains and all contact gates.
+Save actual BVH/AABB operands and forbid runtime fixture-geometry mutation.
+
+Separately declare 1 s approach motion plus 0.5 s settling, with the original
+2 mm hold gate. This tests reaching and holding the goal, while preserving v1's
+failed moving-window stress test. The real-object pilot will approach, settle,
+then close at a fixed 1.0 s boundary before the prospective 1.5 s lift. Invalid
+support stability or approach tracking yields a quarantined null task label.
+Neither failure justifies collecting training negatives from a broken setup.
+V2 source preparation is pending; task collection/training stays closed.

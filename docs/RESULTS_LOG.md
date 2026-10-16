@@ -1950,3 +1950,42 @@ in 4.10 s, including four valid-but-different final-declaration cases. No native
 task examples or scientific predictor fits were used. An earlier test bootstrap
 lacked the isolated Pydantic path and failed during collection; the corrected
 bootstrap preserves both numerical runtimes and passes the tests.
+
+## 2026-10-16 — Compensated physics v1: gravity passes; contact/approach fail
+
+The unchanged protocol executed at `510cbd4fb87b2432f76dc68374215e3444f78d6f`.
+A relative CLI protocol path first refused during the pre-launch Git check;
+using its absolute path required no source/physics change. Neither pre-launch
+refusal allocated a model or created a run root. Actual run report SHA256
+`1b0937a8f683079ceba0e798296df00e054ae715ee5c7879ff4dba0c48e4b467`:
+COMPLETED, NOT_QUALIFIED, 12 model/data pairs, 240 forwards, 9,750 steps,
+zero contact-force accessor calls. All 12 static gates preceded the first step.
+
+Independent saved-only receipt SHA256
+`4f8b4a64035406022be569fbc75833e41860271978f5769c2f8e4101e7a0f312`
+in the artifact's `run_v1/independent_readback.json` verifies all 780 bindings,
+54 Git sources plus protocol, 80 write-time artifacts and all recorded intervals.
+Seven independent manufactured controls pass; no engine, source-model or
+physics replay occurs. It reproduces four gravity PASSes, four two-finger FAILs,
+four approach FAILs and six timestep PASSes. Task/training admission stays closed.
+
+Gravity: all-16-body COM force-map error is zero in translation and at most
+1.11e-16 N m in angular coordinates; worst tail wrist error is 1.2554 µm.
+This corrects the preserved 13.08 mm authored sag through explicit body gravity
+compensation, without changing pose targets or cancelling moving Coriolis.
+
+Two fingers: both intended planes indent by approximately 0.5 mm analytically,
+but every contact-present/active sample is absent. Force/Jacobian/contact-normal
+qualification is NOT_ESTABLISHED, despite vacuous zero-valued residual checks.
+Pinned MuJoCo source shows multiple static world geoms use a compile-time BVH;
+the fixture compiled its planes at z=-100 and then moved them. Stale collision
+search bounds are a source-supported explanation, not a directly measured old
+cache payload: v1 did not save its BVH/AABB arrays. The new fixture must author
+the plane positions before compilation and save those arrays.
+
+Approach: geometric reference and sampled actual clearances exceed 96.5/98.2 mm,
+but goal error during the final moving 0.1 s is 3.847–3.860 mm, above 2 mm.
+Use an explicitly new 1 s approach plus 0.5 s settling condition; keep the same
+path, gains and limit. Preserve this failed moving-window assessment. The
+object protocol will also settle before closing, with prospective clocks and
+tracking/support guards. No task outcomes or predictor training yet.
