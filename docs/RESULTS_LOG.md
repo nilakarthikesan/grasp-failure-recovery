@@ -2100,3 +2100,16 @@ separation, plus the distinct five trainer folds. Nine manufactured controls
 pass. Every role has zero eligible prefixes and cannot support a predictor
 comparison. No scientific training was performed. Re-evaluate the exact K-cast
 repair while preserving the original alignment rule and all failed v1 evidence.
+
+## 2026-10-16 — Exact source K-cast repair frozen for re-evaluation
+
+Object pilot v2 protocol SHA256
+`81bcde697cfb8cad10f93bb458d97adfa7d931499369b2361e82b8a3e6bf139e`
+binds 2,190 inputs and 48 selected Git sources, including independently verified
+v1 refusal lineage and the pinned upstream dataloader. Sixty-nine manufactured
+controls pass (author 2.57 s, independent repeat 2.24 s), zero integration calls.
+Saved source/cast/proposal K operands will demonstrate exact float32 provenance;
+camera-to-world matrices must still match the original float64 values exactly.
+The 135-slot cohort, geometry queries, compiled source checks, all depth/physics
+guards, task clocks and holdout families remain unchanged. Preparation performed
+zero new object queries, models or task steps. Actual re-evaluation is pending.
