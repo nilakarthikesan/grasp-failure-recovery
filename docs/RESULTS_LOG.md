@@ -2150,3 +2150,23 @@ physics PASS and scene-correspondence refusal are separate results. Next work
 requires a justified scene/multiview reconstruction validation criterion and
 calibration evidence; neither a looser post-hoc gate nor more refused attempts
 would produce reliable prediction supervision.
+
+## 2026-10-16 — Scene diagnosis and conditional authored-asset v3 preparation
+
+Exploratory fixed-transform rasterization covers all 60 original views, with
+7,265 deterministic interior rays (7,054 mesh hits). Median silhouette mask
+recall is 98.45%, IoU 81.84%, and median per-view absolute ray-depth error is
+8.39 mm. All original object/camera transforms remain unchanged. The source and
+input-hashed report are archived under
+`research_artifacts/manosim_scene_correspondence_diagnosis_2026-10-16_v1`.
+These are exploratory scene-quality diagnostics, not calibrated physical error.
+
+The old all32 bound omitted stereo, segmentation, SLAM and reconstruction
+uncertainty; primary-source methods do not justify using it for universal refusal.
+New v3 explicitly qualifies the narrower authored-asset simulation domain with
+exact compiled object vertex/frame checks and retains RGBD residuals diagnostically.
+Original v1/v2 refusal results and physical-calibration limits are preserved.
+V3 protocol SHA256 `7fb1f60855120139d8b1f3859361032beeb4b793b8d247ddb833838bb96a9480`:
+2,196 bindings, 54 sources, 74 manufactured controls PASS in 2.45 s, zero integration
+at preparation. Actual execution and independent task/training readiness pending.
+The separate readiness bridge has 10 manufactured controls PASS, zero fits.

@@ -3555,3 +3555,30 @@ criterion, preserving original object assets, transforms and both pilot versions
 The source aria2mesh frame reference confirms the implemented body-CoM plus
 properties.world_position convention; it does not establish per-capture alignment
 accuracy: https://github.com/KevinyWu/aria2mesh#frame--scale-reference .
+
+### 2026-10-16 — Correct noise-free scene gate; qualify authored-asset simulation separately
+
+The universal refusal arose from treating depth quantization/pixel footprint as
+a bound on estimated stereo and reconstructed mesh error. Primary HUG Appendix
+B.3/D.1 describes reprojection, hole filling, manual mesh pose/scale editing,
+watertighting and decimation; no such total-error bound is supplied. Exploratory
+fixed-transform diagnostics on all 60 views give median mask recall 98.45% and
+median silhouette IoU 81.84%, with millimetre ray-depth residuals and outliers.
+This supports coarse scene correspondence, not calibrated physical surface error.
+No object pose or scale was fitted, and all old refusals remain unchanged.
+
+The user's selected target is HUG's native MANO hand in MANOSim. Version v3
+explicitly studies outcomes conditional on the original authored HUG assets.
+It requires source camera/native mapping, original mass/COM/inertia/placement,
+and actual compiled visual/collision vertex-frame transfer within the existing
+5 micrometre numerical gate. The unsupported RGBD all32 rule remains diagnostic;
+it is not replaced with a threshold tuned to pass these objects. This repairs the
+admission design, not physical RGBD reconstruction calibration or hardware fidelity.
+Independent physical correspondence would still require separate validation scenes.
+
+Protocol `7fb1f60855120139d8b1f3859361032beeb4b793b8d247ddb833838bb96a9480`
+binds 2,196 inputs/54 selected sources and the same 135 slots. Seventy-four
+manufactured controls pass with zero integration. Execute and independently
+check actual task states/contacts/labels and class/group support before fitting.
+Training is authorized immediately once those checks pass; it must retain this
+simulation-conditional scope. No manuscript edits.
