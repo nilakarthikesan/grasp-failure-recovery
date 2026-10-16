@@ -3393,3 +3393,31 @@ geometry×size coverage, measure actual wrist/finger pose diversity, and group
 entire object/category partitions before proposals. Calibrated mass/friction
 sensitivity and observation noise remain separate axes. Final counts/ranges and
 task outcomes are not inferred from these synthetic fixtures. No manuscript work.
+
+### 2026-10-16 — Freeze native gravity repair and outcome-independent pilot coverage
+
+The user requested gravity-sag, object-approach and multi-finger validation,
+then a small diverse native evaluation before training. Preserve the authored
+13.08 mm uncompensated baseline. The proposed new controller profile sets
+hand-body gravcomp=1 with joint actuatorgravcomp=false; it cancels body gravity,
+not the Coriolis component of qfrc_bias. Original masses, gains and source poses
+remain unchanged. New fixture physics is pending a separate source freeze.
+
+Use all 30 official HUG test objects: five author-defined geometry classes ×
+three author-defined size bins × two objects, with first/last observations and
+two fixed generation seeds, selected before outcomes. The pinned individual
+files total 18,417,075 bytes; all 442 upstream Git/LFS hashes were independently
+checked. HUG-Bench defines coverage, UniDexGrasp motivates distinct object and
+category holdouts, and Dex-Net motivates separate controlled physics/sensing
+variation. Do not substitute Dex-Net analytic labels for executed outcomes,
+infer bins from names, or claim that 120 attempts guarantee training accuracy.
+The coverage artifact records seven proposed grouped folds and the shared-scene
+limitation of category holdouts. No outcome-based split selection is permitted.
+
+Freeze the HUG generation source and complete input/runtime closure before the
+120 primary proposals, one exact-seed repeat and 120 source geometry calls.
+This generation stage performs zero physics, retargeting or predictor training.
+Per-proposal native source/command/scene qualification still precedes task use.
+Unexecuted protocol drafts remain explicitly named drafts. The new prediction
+pipeline is source/software work only; old Shadow labels and native component
+fixtures remain inadmissible as native task training examples. No paper edits.

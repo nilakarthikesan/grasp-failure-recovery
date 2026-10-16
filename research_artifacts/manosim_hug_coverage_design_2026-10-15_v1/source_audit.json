@@ -1,0 +1,135 @@
+{
+  "audited_date": "2026-10-15",
+  "catalog_sha256": "04507e8834364d1451c5c34134d6ca1819efe9da45df5c093d8fa322f897626f",
+  "dataset_revision": "56ea3f100b1a4ec38bb35e986c0dd14d38977283",
+  "download_manifest": {
+    "bytes": 18417075,
+    "every_file_remote_git_or_lfs_identity": true,
+    "every_file_sha256": true,
+    "files": 442,
+    "objects": 30,
+    "observations": 60,
+    "path": "/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/runs/hug_native_pilot_assets_2026-10-15_v1/download_manifest.json",
+    "selection": "all source-listed geometry files plus first and last lexicographic frame per object",
+    "sha256": "ee04395185f4c3586ed43e4dbb46e8f2852755260b2f90b4f56dd39aa721e4f6"
+  },
+  "fold_checks": [
+    {
+      "counts": {
+        "test_objects": 15,
+        "train_objects": 10,
+        "validation_objects": 5
+      },
+      "fold_id": "object_holdout_A",
+      "object_disjoint": true,
+      "partition_complete": true
+    },
+    {
+      "counts": {
+        "test_objects": 15,
+        "train_objects": 10,
+        "validation_objects": 5
+      },
+      "fold_id": "object_holdout_B",
+      "object_disjoint": true,
+      "partition_complete": true
+    },
+    {
+      "counts": {
+        "test_objects": 6,
+        "train_objects": 12,
+        "validation_objects": 12
+      },
+      "fold_id": "category_holdout_cylindrical",
+      "object_disjoint": true,
+      "partition_complete": true
+    },
+    {
+      "counts": {
+        "test_objects": 6,
+        "train_objects": 12,
+        "validation_objects": 12
+      },
+      "fold_id": "category_holdout_spheroidal",
+      "object_disjoint": true,
+      "partition_complete": true
+    },
+    {
+      "counts": {
+        "test_objects": 6,
+        "train_objects": 12,
+        "validation_objects": 12
+      },
+      "fold_id": "category_holdout_prismatic",
+      "object_disjoint": true,
+      "partition_complete": true
+    },
+    {
+      "counts": {
+        "test_objects": 6,
+        "train_objects": 12,
+        "validation_objects": 12
+      },
+      "fold_id": "category_holdout_appendaged",
+      "object_disjoint": true,
+      "partition_complete": true
+    },
+    {
+      "counts": {
+        "test_objects": 6,
+        "train_objects": 12,
+        "validation_objects": 12
+      },
+      "fold_id": "category_holdout_amorphous",
+      "object_disjoint": true,
+      "partition_complete": true
+    }
+  ],
+  "fold_spec_sha256": "1d7a7549fd75f25d05a1292e3a9d75ff15f8f60ffe88b9d775e93923cb4887a4",
+  "historical_local_manifests": [
+    {
+      "manifest": "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_benchmark_review_2026-10-09/download_manifest.json",
+      "not_loaded_or_executed": true,
+      "sha256": "8e6129ff43d8af06561eef8b83a76665125e419976fd70d72dc620eb6fb4f21c",
+      "unresolved_paths": [],
+      "verified_file_hashes": 16
+    },
+    {
+      "manifest": "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_build_heldout_assets_2026-10-15_v1/bell_pepper/download_manifest.json",
+      "not_loaded_or_executed": true,
+      "sha256": "142e87e5ff0d837bd502665c13b08396d152d1ea14673cfca5120ced1ca11099",
+      "unresolved_paths": [],
+      "verified_file_hashes": 9
+    },
+    {
+      "manifest": "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_build_heldout_assets_2026-10-15_v1/coffee_cup/download_manifest.json",
+      "not_loaded_or_executed": true,
+      "sha256": "83f05f5ded9565fa4d1686c0bfc4e8e4017a800e429feffae37ce9a700ea8d5c",
+      "unresolved_paths": [],
+      "verified_file_hashes": 15
+    },
+    {
+      "manifest": "/Users/nilakarthikesan/grasp-failure-prediction/runs/hug_build_heldout_assets_2026-10-15_v1/bear_figure/download_manifest.json",
+      "not_loaded_or_executed": true,
+      "sha256": "c0c56e901a93b29f6e000f94d9ac55d283e8e38e479bee92aa66814e387e6510",
+      "unresolved_paths": [],
+      "verified_file_hashes": 19
+    }
+  ],
+  "limitations": [
+    "Byte availability is not geometric, dynamical, controller or task-label qualification.",
+    "Official size bins are the authors labels; no metric cutoffs inferred and no mesh scaling performed.",
+    "Two stored observations per object are views; they are not evidence of two independent human grasps.",
+    "All30 assets belong to the official HUG test split. Predictor splits below are separate prospective partitions, not a change to official HUG training."
+  ],
+  "operations": {
+    "engine_calls": 0,
+    "geometry_queries": 0,
+    "inference_calls": 0,
+    "model_calls": 0,
+    "pickle_loads": 0,
+    "training_calls": 0
+  },
+  "schema_version": "hug_native_coverage_source_audit_v1",
+  "status": "VERIFIED_METADATA_AND_DOWNLOADED_BYTES_ONLY"
+}

@@ -1,0 +1,390 @@
+{
+  "catalog_sha256": "04507e8834364d1451c5c34134d6ca1819efe9da45df5c093d8fa322f897626f",
+  "folds": [
+    {
+      "counts": {
+        "test_objects": 15,
+        "train_objects": 10,
+        "validation_objects": 5
+      },
+      "details": {
+        "limitation": "Only10 training and5validation objects/fold; missing one training size cell/category. This is a low-power plumbing pilot.",
+        "test_one_object_each_geometry_size_cell": true,
+        "training_has_two_of_three_sizes_per_category": true,
+        "validation_one_distinct_object_per_category": true,
+        "validation_size_by_category": {
+          "amorphous": "medium",
+          "appendaged": "small",
+          "cylindrical": "small",
+          "prismatic": "large",
+          "spheroidal": "medium"
+        }
+      },
+      "fold_id": "object_holdout_A",
+      "generalization_claim": "UNSEEN_OBJECT_IN_SEEN_GEOMETRY_CATEGORIES",
+      "test_object_ids": [
+        "test/large_1/headphones",
+        "test/large_1/pineapple",
+        "test/large_1/saucepan",
+        "test/large_1/spray_bottle",
+        "test/large_1/wipe_dispenser",
+        "test/medium_1/card_deck",
+        "test/medium_1/dustpan",
+        "test/medium_1/pear",
+        "test/medium_1/tape_dispenser",
+        "test/medium_1/umbrella",
+        "test/small_1/eraser",
+        "test/small_1/glue_stick",
+        "test/small_1/nail_clipper",
+        "test/small_1/rubber_duck",
+        "test/small_1/strawberry"
+      ],
+      "train_object_ids": [
+        "test/large_2/easel",
+        "test/large_2/football",
+        "test/large_2/picnic_basket",
+        "test/large_2/wine_bottle",
+        "test/medium_2/bowl",
+        "test/medium_2/handbell",
+        "test/medium_2/sponge",
+        "test/small_2/hacky_sack",
+        "test/small_2/match_box",
+        "test/small_2/tape_measure"
+      ],
+      "validation_object_ids": [
+        "test/large_2/storage_bin",
+        "test/medium_2/grapes",
+        "test/medium_2/softball",
+        "test/small_2/lock",
+        "test/small_2/pepper_shaker"
+      ]
+    },
+    {
+      "counts": {
+        "test_objects": 15,
+        "train_objects": 10,
+        "validation_objects": 5
+      },
+      "details": {
+        "limitation": "Only10 training and5validation objects/fold; missing one training size cell/category. This is a low-power plumbing pilot.",
+        "test_one_object_each_geometry_size_cell": true,
+        "training_has_two_of_three_sizes_per_category": true,
+        "validation_one_distinct_object_per_category": true,
+        "validation_size_by_category": {
+          "amorphous": "medium",
+          "appendaged": "small",
+          "cylindrical": "small",
+          "prismatic": "large",
+          "spheroidal": "medium"
+        }
+      },
+      "fold_id": "object_holdout_B",
+      "generalization_claim": "UNSEEN_OBJECT_IN_SEEN_GEOMETRY_CATEGORIES",
+      "test_object_ids": [
+        "test/large_2/easel",
+        "test/large_2/football",
+        "test/large_2/picnic_basket",
+        "test/large_2/storage_bin",
+        "test/large_2/wine_bottle",
+        "test/medium_2/bowl",
+        "test/medium_2/grapes",
+        "test/medium_2/handbell",
+        "test/medium_2/softball",
+        "test/medium_2/sponge",
+        "test/small_2/hacky_sack",
+        "test/small_2/lock",
+        "test/small_2/match_box",
+        "test/small_2/pepper_shaker",
+        "test/small_2/tape_measure"
+      ],
+      "train_object_ids": [
+        "test/large_1/headphones",
+        "test/large_1/pineapple",
+        "test/large_1/saucepan",
+        "test/large_1/spray_bottle",
+        "test/medium_1/card_deck",
+        "test/medium_1/dustpan",
+        "test/medium_1/umbrella",
+        "test/small_1/eraser",
+        "test/small_1/rubber_duck",
+        "test/small_1/strawberry"
+      ],
+      "validation_object_ids": [
+        "test/large_1/wipe_dispenser",
+        "test/medium_1/pear",
+        "test/medium_1/tape_dispenser",
+        "test/small_1/glue_stick",
+        "test/small_1/nail_clipper"
+      ]
+    },
+    {
+      "counts": {
+        "test_objects": 6,
+        "train_objects": 12,
+        "validation_objects": 12
+      },
+      "details": {
+        "limitation": "12training/12validation/6test objects; results can be class-degenerate and uncertain.",
+        "test_category_entirely_absent_train_and_validation": true,
+        "train_validation_one_object_each_remaining_category_size_cell": true,
+        "validation_distinct_objects_in_remaining_categories": true
+      },
+      "fold_id": "category_holdout_cylindrical",
+      "generalization_claim": "UNSEEN_GEOMETRY_CATEGORY",
+      "test_object_ids": [
+        "test/large_1/spray_bottle",
+        "test/large_2/wine_bottle",
+        "test/medium_1/umbrella",
+        "test/medium_2/bowl",
+        "test/small_1/glue_stick",
+        "test/small_2/pepper_shaker"
+      ],
+      "train_object_ids": [
+        "test/large_1/headphones",
+        "test/large_1/pineapple",
+        "test/large_1/saucepan",
+        "test/large_1/wipe_dispenser",
+        "test/medium_1/card_deck",
+        "test/medium_1/dustpan",
+        "test/medium_1/pear",
+        "test/medium_1/tape_dispenser",
+        "test/small_1/eraser",
+        "test/small_1/nail_clipper",
+        "test/small_1/rubber_duck",
+        "test/small_1/strawberry"
+      ],
+      "validation_object_ids": [
+        "test/large_2/easel",
+        "test/large_2/football",
+        "test/large_2/picnic_basket",
+        "test/large_2/storage_bin",
+        "test/medium_2/grapes",
+        "test/medium_2/handbell",
+        "test/medium_2/softball",
+        "test/medium_2/sponge",
+        "test/small_2/hacky_sack",
+        "test/small_2/lock",
+        "test/small_2/match_box",
+        "test/small_2/tape_measure"
+      ]
+    },
+    {
+      "counts": {
+        "test_objects": 6,
+        "train_objects": 12,
+        "validation_objects": 12
+      },
+      "details": {
+        "limitation": "12training/12validation/6test objects; results can be class-degenerate and uncertain.",
+        "test_category_entirely_absent_train_and_validation": true,
+        "train_validation_one_object_each_remaining_category_size_cell": true,
+        "validation_distinct_objects_in_remaining_categories": true
+      },
+      "fold_id": "category_holdout_spheroidal",
+      "generalization_claim": "UNSEEN_GEOMETRY_CATEGORY",
+      "test_object_ids": [
+        "test/large_1/pineapple",
+        "test/large_2/football",
+        "test/medium_1/pear",
+        "test/medium_2/softball",
+        "test/small_1/strawberry",
+        "test/small_2/hacky_sack"
+      ],
+      "train_object_ids": [
+        "test/large_1/headphones",
+        "test/large_1/saucepan",
+        "test/large_1/spray_bottle",
+        "test/large_1/wipe_dispenser",
+        "test/medium_1/card_deck",
+        "test/medium_1/dustpan",
+        "test/medium_1/tape_dispenser",
+        "test/medium_1/umbrella",
+        "test/small_1/eraser",
+        "test/small_1/glue_stick",
+        "test/small_1/nail_clipper",
+        "test/small_1/rubber_duck"
+      ],
+      "validation_object_ids": [
+        "test/large_2/easel",
+        "test/large_2/picnic_basket",
+        "test/large_2/storage_bin",
+        "test/large_2/wine_bottle",
+        "test/medium_2/bowl",
+        "test/medium_2/grapes",
+        "test/medium_2/handbell",
+        "test/medium_2/sponge",
+        "test/small_2/lock",
+        "test/small_2/match_box",
+        "test/small_2/pepper_shaker",
+        "test/small_2/tape_measure"
+      ]
+    },
+    {
+      "counts": {
+        "test_objects": 6,
+        "train_objects": 12,
+        "validation_objects": 12
+      },
+      "details": {
+        "limitation": "12training/12validation/6test objects; results can be class-degenerate and uncertain.",
+        "test_category_entirely_absent_train_and_validation": true,
+        "train_validation_one_object_each_remaining_category_size_cell": true,
+        "validation_distinct_objects_in_remaining_categories": true
+      },
+      "fold_id": "category_holdout_prismatic",
+      "generalization_claim": "UNSEEN_GEOMETRY_CATEGORY",
+      "test_object_ids": [
+        "test/large_1/wipe_dispenser",
+        "test/large_2/storage_bin",
+        "test/medium_1/card_deck",
+        "test/medium_2/sponge",
+        "test/small_1/eraser",
+        "test/small_2/match_box"
+      ],
+      "train_object_ids": [
+        "test/large_1/headphones",
+        "test/large_1/pineapple",
+        "test/large_1/saucepan",
+        "test/large_1/spray_bottle",
+        "test/medium_1/dustpan",
+        "test/medium_1/pear",
+        "test/medium_1/tape_dispenser",
+        "test/medium_1/umbrella",
+        "test/small_1/glue_stick",
+        "test/small_1/nail_clipper",
+        "test/small_1/rubber_duck",
+        "test/small_1/strawberry"
+      ],
+      "validation_object_ids": [
+        "test/large_2/easel",
+        "test/large_2/football",
+        "test/large_2/picnic_basket",
+        "test/large_2/wine_bottle",
+        "test/medium_2/bowl",
+        "test/medium_2/grapes",
+        "test/medium_2/handbell",
+        "test/medium_2/softball",
+        "test/small_2/hacky_sack",
+        "test/small_2/lock",
+        "test/small_2/pepper_shaker",
+        "test/small_2/tape_measure"
+      ]
+    },
+    {
+      "counts": {
+        "test_objects": 6,
+        "train_objects": 12,
+        "validation_objects": 12
+      },
+      "details": {
+        "limitation": "12training/12validation/6test objects; results can be class-degenerate and uncertain.",
+        "test_category_entirely_absent_train_and_validation": true,
+        "train_validation_one_object_each_remaining_category_size_cell": true,
+        "validation_distinct_objects_in_remaining_categories": true
+      },
+      "fold_id": "category_holdout_appendaged",
+      "generalization_claim": "UNSEEN_GEOMETRY_CATEGORY",
+      "test_object_ids": [
+        "test/large_1/saucepan",
+        "test/large_2/picnic_basket",
+        "test/medium_1/dustpan",
+        "test/medium_2/handbell",
+        "test/small_1/nail_clipper",
+        "test/small_2/lock"
+      ],
+      "train_object_ids": [
+        "test/large_1/headphones",
+        "test/large_1/pineapple",
+        "test/large_1/spray_bottle",
+        "test/large_1/wipe_dispenser",
+        "test/medium_1/card_deck",
+        "test/medium_1/pear",
+        "test/medium_1/tape_dispenser",
+        "test/medium_1/umbrella",
+        "test/small_1/eraser",
+        "test/small_1/glue_stick",
+        "test/small_1/rubber_duck",
+        "test/small_1/strawberry"
+      ],
+      "validation_object_ids": [
+        "test/large_2/easel",
+        "test/large_2/football",
+        "test/large_2/storage_bin",
+        "test/large_2/wine_bottle",
+        "test/medium_2/bowl",
+        "test/medium_2/grapes",
+        "test/medium_2/softball",
+        "test/medium_2/sponge",
+        "test/small_2/hacky_sack",
+        "test/small_2/match_box",
+        "test/small_2/pepper_shaker",
+        "test/small_2/tape_measure"
+      ]
+    },
+    {
+      "counts": {
+        "test_objects": 6,
+        "train_objects": 12,
+        "validation_objects": 12
+      },
+      "details": {
+        "limitation": "12training/12validation/6test objects; results can be class-degenerate and uncertain.",
+        "test_category_entirely_absent_train_and_validation": true,
+        "train_validation_one_object_each_remaining_category_size_cell": true,
+        "validation_distinct_objects_in_remaining_categories": true
+      },
+      "fold_id": "category_holdout_amorphous",
+      "generalization_claim": "UNSEEN_GEOMETRY_CATEGORY",
+      "test_object_ids": [
+        "test/large_1/headphones",
+        "test/large_2/easel",
+        "test/medium_1/tape_dispenser",
+        "test/medium_2/grapes",
+        "test/small_1/rubber_duck",
+        "test/small_2/tape_measure"
+      ],
+      "train_object_ids": [
+        "test/large_1/pineapple",
+        "test/large_1/saucepan",
+        "test/large_1/spray_bottle",
+        "test/large_1/wipe_dispenser",
+        "test/medium_1/card_deck",
+        "test/medium_1/dustpan",
+        "test/medium_1/pear",
+        "test/medium_1/umbrella",
+        "test/small_1/eraser",
+        "test/small_1/glue_stick",
+        "test/small_1/nail_clipper",
+        "test/small_1/strawberry"
+      ],
+      "validation_object_ids": [
+        "test/large_2/football",
+        "test/large_2/picnic_basket",
+        "test/large_2/storage_bin",
+        "test/large_2/wine_bottle",
+        "test/medium_2/bowl",
+        "test/medium_2/handbell",
+        "test/medium_2/softball",
+        "test/medium_2/sponge",
+        "test/small_2/hacky_sack",
+        "test/small_2/lock",
+        "test/small_2/match_box",
+        "test/small_2/pepper_shaker"
+      ]
+    }
+  ],
+  "guardrails": [
+    "All source views, seeds, scenarios, perturbations, repeats and trajectory windows of one object stay in its object partition.",
+    "Feature normalization fits training rows only; hyperparameters and any early stopping use validation only; threshold0.5 is predeclared.",
+    "No test-based winner/cutoff/threshold selection; fixed models and fitting budgets need a separate frozen training protocol.",
+    "Class-degenerate folds yield undefined ranking metrics and explicit counts, not fabricated scores.",
+    "Different object and category protocols are separate analysis families; do not pool seeds/windows as independent objects.",
+    "This new prospective split design does not modify any historical whole-category validation protocol."
+  ],
+  "membership_unit": "original_physical_object_asset_identity",
+  "no_labels_loaded": true,
+  "official_hug_split_retained_separately": true,
+  "schema_version": "hug_native_small_pilot_object_category_fold_spec_v1",
+  "status": "PREPARED_PROSPECTIVE_AWAITING_ROOT_GIT_FREEZE_BEFORE_PROPOSALS",
+  "training_performed": false
+}
