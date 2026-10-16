@@ -1935,3 +1935,18 @@ Only source, hashes, XML and manufactured controls have run at this entry.
 The initial unexecuted preparation and 48-test receipt remain explicitly named
 unused preparations. No task labels or scientific training are authorized by
 fixture preparation; actual execution and independent evidence come next.
+
+Pre-launch check at `cd907b108181856c18934b7928a66a4701865b06` refused because
+one declared source, `manufactured_control_lineage.json`, had not been staged.
+All other selected source blobs matched; neither output root nor raw run root
+was created, so no model/physics operation occurred. Add that unchanged source
+to the next freeze; the scientific source, protocol, limits and quota stay exact.
+
+Native training software peer review identified a transaction identity gap.
+The corrected code snapshots the initial protocol bytes/semantic hash, Git HEAD
+and input bindings, compares them with the final independently validated values,
+and quarantines model markers on any drift. Twenty-eight manufactured tests pass
+in 4.10 s, including four valid-but-different final-declaration cases. No native
+task examples or scientific predictor fits were used. An earlier test bootstrap
+lacked the isolated Pydantic path and failed during collection; the corrected
+bootstrap preserves both numerical runtimes and passes the tests.
