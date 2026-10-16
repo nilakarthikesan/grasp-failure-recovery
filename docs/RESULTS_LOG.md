@@ -2113,3 +2113,40 @@ camera-to-world matrices must still match the original float64 values exactly.
 The 135-slot cohort, geometry queries, compiled source checks, all depth/physics
 guards, task clocks and holdout families remain unchanged. Preparation performed
 zero new object queries, models or task steps. Actual re-evaluation is pending.
+
+## 2026-10-16 — K-cast re-evaluation verified; scene correspondence still unqualified
+
+V2 executed at `0ca053f8310239dee8ad24cb483a15bb6735f501`. Report SHA256
+`f220648028393344c5d50545ec0d439563bdf61b12485fe3c6f368621ba7a3a4`:
+COMPLETED, 135 MAPPING_REFUSAL slots, now solely depth_visual_alignment. The
+exact source K-cast/camera predicate passes all 135; all other source, chart,
+transmission and endpoint predicates pass. Actual operations remain 45 model/data
+pairs, 135 forwards/resets, 15,013,760 point-triangle comparisons and zero physics
+steps/contact-force reads. All 649 creation-time artifacts remain verified.
+
+Independent mechanical receipt SHA256
+`c0a42f59a1fd7aa51206624f896bb90bc189c4c9869913b2b1ff919d79070c54`
+checks all 2,190 bindings and 48 Git sources before/after, the six new camera/K
+operand fields, null recordings and creation journal. All 60 alignment operands,
+135 common source-pose arrays and 45 compiled-model snapshots match v1 by dtype,
+shape and bytes. Ten manufactured reader tests pass. No native operations are
+replayed, and no alignment threshold, object pose or model geometry changed.
+
+Independent cohort receipt SHA256
+`35b1f5fef2c317ea0731fafe7071ad39abd004f7d055adbd3388136009c0ec0a`
+verifies all seven catalog holdouts and the distinct five trainer folds, the
+original v1 report/receipts/artifacts and archived source blobs. Twelve controls
+pass. The 120 primary and 15 matched slots all have null labels and zero eligible
+prefixes. Every train/validation/test role is empty; matched object-task timestep
+readiness is NOT_ESTABLISHED because no paired task executed, not because an
+observed physical timestep disagreement occurred. Scientific fits remain zero.
+
+The saved-data figure at
+`research_artifacts/manosim_native_pilot_alignment_figure_2026-10-16_v1/render_v2/`
+shows all 1,920 residual ratios, all 60 capture distributions and a representative
+32-pixel overlay. Its manifest binds 126 inputs before/after, with zero new
+geometry/model/physics work. Root visually reviewed the final figure. Component
+physics PASS and scene-correspondence refusal are separate results. Next work
+requires a justified scene/multiview reconstruction validation criterion and
+calibration evidence; neither a looser post-hoc gate nor more refused attempts
+would produce reliable prediction supervision.

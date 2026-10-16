@@ -2,6 +2,17 @@
 
 Prepared 2026-10-16. System implementation only; no manuscript work.
 
+## Measured status on 2026-10-16
+
+The compensated native component profile passes 12 fixtures and six timestep
+comparisons with independent saved-data verification. The two 135-slot object
+pilot versions produce zero physical labels or eligible training prefixes.
+V2 fixes the exact upstream camera-K cast check (135/135 pass); all 60 captures
+still fail the unchanged depth/visual-mesh gate. Seven grouped catalog holdouts
+and five distinct trainer folds are verified but have no admitted examples.
+No scientific predictor has been fitted. See `docs/RESULTS_LOG.md` for frozen
+protocols, independent receipt hashes, actual operation counts and limitations.
+
 ## Prediction question and admission
 
 The first model estimates whether a grasp will fail after a fixed observation

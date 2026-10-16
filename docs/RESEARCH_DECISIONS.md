@@ -3532,3 +3532,26 @@ all roles have zero eligible examples. Scientific training stays closed. A new
 K-only re-evaluation can resolve the implementation bug; scene correspondence
 still needs independently justified calibration or reconstruction evidence before
 admitting task collection. No physics outcome or predictor accuracy is inferred.
+
+### 2026-10-16 — Resolve camera validation bug; retain scene and training gates
+
+The K-only v2 re-evaluation and two independent saved readers confirm all 135
+camera/source-cast checks now pass. All old alignment operands, native pose
+arrays and compiled-model snapshots remain byte-identical. Mechanical receipt
+`c0a42f59a1fd7aa51206624f896bb90bc189c4c9869913b2b1ff919d79070c54`
+and cohort receipt
+`35b1f5fef2c317ea0731fafe7071ad39abd004f7d055adbd3388136009c0ec0a`
+bind the frozen experiment and preserved v1 failures. The implementation bug is
+fixed; depth/mesh correspondence remains unqualified in all 60 observations.
+
+Keep those 135 outcomes null. There are zero usable pre-lift training prefixes,
+and no physical task timestep comparison was possible. The finite gravity,
+two-finger and approach fixture PASSes do not establish object-scene fidelity.
+Do not start scientific fitting or scale collection while this issue remains.
+The model/software comparison is ready, but needs independently admitted task
+labels and class support in each grouped role. Next investigate multiview scene
+correspondence and reconstruction uncertainty with an independently justified
+criterion, preserving original object assets, transforms and both pilot versions.
+The source aria2mesh frame reference confirms the implemented body-CoM plus
+properties.world_position convention; it does not establish per-capture alignment
+accuracy: https://github.com/KevinyWu/aria2mesh#frame--scale-reference .
