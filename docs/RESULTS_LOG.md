@@ -1989,3 +1989,20 @@ Use an explicitly new 1 s approach plus 0.5 s settling condition; keep the same
 path, gains and limit. Preserve this failed moving-window assessment. The
 object protocol will also settle before closing, with prospective clocks and
 tracking/support guards. No task outcomes or predictor training yet.
+
+## 2026-10-16 — Physics v2 corrected source prepared; execution pending
+
+Prospective protocol SHA256
+`c3fb84075b094e3ffa3f70df16b1ed55f121016c26495f4aaaea6e8bddd8c94c`
+binds 867 live inputs and 60 selected Git sources. Fifty-two manufactured
+controls pass and were independently repeated; zero integration calls.
+The independent saved-data/cache reader has ten manufactured controls passing.
+The prior unexecuted v2 preparation remains explicitly named unused metadata.
+
+Planes now use the same predeclared q0-derived positions/normals in XML before
+compilation. Actual body/world BVH, geom AABB, masks and frames are saved at
+initial and final checkpoints to test cache realization and immutability.
+No runtime world-geometry mutation is permitted. The new approach has the same
+1 s path plus 0.5 s settling. Declared 12 model/data pairs, 240 forwards,
+11,250 steps and 4,500 maximum force reads. Contact depths, normals, gains,
+inertias, tracking limits and positive two-finger tail gates are unchanged.

@@ -1,0 +1,35 @@
+{
+  "schema_version": "manosim_pure_gravity_profile_source_v1",
+  "revision": "e55fff5dea6f1d5dd7963ca52eecc41d05ad0922",
+  "sources": [
+    {
+      "path": "engine_passive.c",
+      "url": "https://raw.githubusercontent.com/google-deepmind/mujoco/e55fff5dea6f1d5dd7963ca52eecc41d05ad0922/src/engine/engine_passive.c",
+      "sha256": "73eee31a5872104ac8f8c2a9c74729ca2dcf3b122843cb881d9a1e33c5eace26"
+    },
+    {
+      "path": "engine_forward.c",
+      "url": "https://raw.githubusercontent.com/google-deepmind/mujoco/e55fff5dea6f1d5dd7963ca52eecc41d05ad0922/src/engine/engine_forward.c",
+      "sha256": "273065d350957cc03e3bd20e3e727f6013034636aaa4f5f7f0ebf227e4b78e27"
+    },
+    {
+      "path": "engine_collision_driver.c",
+      "url": "https://raw.githubusercontent.com/google-deepmind/mujoco/e55fff5dea6f1d5dd7963ca52eecc41d05ad0922/src/engine/engine_collision_driver.c",
+      "sha256": "c8b672dee609e20e92227e65a8c6514c025568d2a3a96b4bf1a09914fffc3d98"
+    },
+    {
+      "path": "user_objects.cc",
+      "url": "https://raw.githubusercontent.com/google-deepmind/mujoco/e55fff5dea6f1d5dd7963ca52eecc41d05ad0922/src/user/user_objects.cc",
+      "sha256": "e88a54d3a1737c3b472496625c68fb92d09597007ef2aed5cd4e9588c1fbbbf2"
+    },
+    {
+      "path": "user_model.cc",
+      "url": "https://raw.githubusercontent.com/google-deepmind/mujoco/e55fff5dea6f1d5dd7963ca52eecc41d05ad0922/src/user/user_model.cc",
+      "sha256": "96ffcd0349179dfee92da253258b459468b817592e54df490a69e5ad890e8c88"
+    }
+  ],
+  "source_model_or_physical_gates_changed": false,
+  "gravity_compensation": "-body_mass*body_gravcomp*gravity at each inertial COM; passive route when !jnt_actgravcomp",
+  "velocity_bias_compensated": false,
+  "world_geometry_policy": "all plane positions/quaternions literal in XML before compilation; no runtime world-geometry mutation"
+}
