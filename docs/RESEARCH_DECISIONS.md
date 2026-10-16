@@ -3467,3 +3467,26 @@ then close at a fixed 1.0 s boundary before the prospective 1.5 s lift. Invalid
 support stability or approach tracking yields a quarantined null task label.
 Neither failure justifies collecting training negatives from a broken setup.
 V2 source preparation is pending; task collection/training stays closed.
+
+### 2026-10-16 — Accept bounded physics v2; require independent object-task evidence
+
+Previously gravity passed while v1 contact detection and moving-window approach
+tracking failed. V2 authors the same planes before compilation and adds the
+declared settling period, preserving original gates and failed v1 evidence.
+All 12 fixtures and six timestep comparisons now pass. Saved-only independent
+receipt `74afc6ddcab6e040e7eec4a456286bd5c4972ea08313389471c65105ce88e745`
+checks all 867 active bindings, 80 artifacts, 11,250 intervals and 4,488 contact
+forces. Every contact-tail sample has both finger reactions; final compiled
+cache/geometry arrays remain unchanged. Implementation and finite fixture
+qualification are complete; arbitrary object-task validity is still untested.
+
+Next freeze 120 primary object attempts plus 15 matched timestep re-evaluations,
+using all 15 official geometry-by-size cells. Keep reset support, preclose
+tracking, principal actuator-chart and 5 mm penetration guards fixed before
+outcomes. Expected guard failures receive null quarantined labels; they are not
+physical training negatives. Save real contact parameters, endpoint states and
+preceding-interval diagnostics separately. Success must also exclude table
+support during hold. A completed pilot needs independent saved-data validation,
+holdout class counts and numerical-readiness checks before scientific training.
+The 28 passing predictor software controls establish software behavior only.
+No manuscript edits and no scientific predictor fitting at this decision.

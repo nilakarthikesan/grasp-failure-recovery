@@ -2006,3 +2006,30 @@ No runtime world-geometry mutation is permitted. The new approach has the same
 1 s path plus 0.5 s settling. Declared 12 model/data pairs, 240 forwards,
 11,250 steps and 4,500 maximum force reads. Contact depths, normals, gains,
 inertias, tracking limits and positive two-finger tail gates are unchanged.
+
+## 2026-10-16 — Physics v2 independently qualifies the bounded fixtures
+
+The corrected protocol executed at `4687918665fa89ebbc825ede07b445005a449b50`.
+Report SHA256 `2e69170bbd42a19c601c0b0f1afc54292c27893561b6827c2f9f1fce77695618`:
+COMPLETED, PASS; 12 model/data pairs, 240 static forwards, 11,250 physics steps,
+4,488 contact-force reads and 80 published artifacts. All 12 fixtures and six
+2 ms versus 1 ms comparisons pass. Independent saved-only receipt SHA256
+`74afc6ddcab6e040e7eec4a456286bd5c4972ea08313389471c65105ce88e745`
+in the v2 artifact's `run_v1/independent_readback.json` verifies 867 input bindings,
+60 selected Git sources plus protocol, every interval and write-time artifact.
+The verifier performs zero engine, source-model, geometry API or physics calls.
+
+Worst compensated tail wrist error is 1.2554 micrometres for gravity and
+3.651 micrometres after approach settling. Both fingers have positive normal
+reactions in every tail sample in all four contact conditions. Maximum measured
+penetration is 0.32705 mm, below the unchanged 5 mm guard. Maximum independent
+contact-Jacobian error is 5.55e-17; summed force and virtual-power arithmetic
+agree at floating-point scale. All 14 final cache/geometry arrays equal their
+initial bytes. The cache reader's 3.815e-6 m arithmetic residual occurs on
+approximately 1e10 m compiled plane boxes and is checked as representation
+arithmetic, without altering any physical gate. An initial verifier-only key
+assumption refusal and its correction remain in the readback history.
+
+Scope: two development poses, authored capsule colliders, analytic two-plane
+contacts and sphere/table approach. This admits a separately frozen real-object
+pilot; it is not task-label, full-skin, hardware or training qualification.
