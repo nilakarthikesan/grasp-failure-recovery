@@ -3582,3 +3582,23 @@ manufactured controls pass with zero integration. Execute and independently
 check actual task states/contacts/labels and class/group support before fitting.
 Training is authorized immediately once those checks pass; it must retain this
 simulation-conditional scope. No manuscript edits.
+
+### 2026-10-16 — Accept exact authored-scene transfer; repair setup before fitting
+
+V3 independently verifies all authored-scene gates, maximum object vertex transfer
+error 15.3 nm, actual contact Jacobians/work and all 13 completed failure labels.
+Its 122 operating-envelope quarantines remain null. Eleven forecast-eligible
+examples contain zero successes, so no valid classifier comparison can start.
+Receipt `0e7582bea4b689c5a49448c55600e2a699d7de74fb39cfc1d3eb4d679f3f78ca`
+and cohort `d983e8d48b84d1962faaf1259c8a35ac89b0129b79351d4e2d0fb203a62e6f2b`
+record completed evidence. No physical RGBD calibration is inferred.
+
+Next declare passive object settling with the hand clear, preserve the measured
+settled state, and re-express the HUG hand by the measured rigid object delta.
+This preserves local finger rotations and the source hand/object relationship;
+it is an explicit scenario initialization change, not a fitted mesh correction.
+Approach should end at a standoff and translate to the grasp during finger
+closure, avoiding a palm-at-grasp-pose before closure. Keep numerical limits,
+null quarantine policy and original failed v3 evidence. Training follows only
+independent execution/readiness and two-class grouped roles. Deadline pressure
+does not justify treating nulls as failures or a single-class fit as a predictor.

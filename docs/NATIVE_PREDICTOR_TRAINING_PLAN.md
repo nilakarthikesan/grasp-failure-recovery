@@ -5,11 +5,15 @@ Prepared 2026-10-16. System implementation only; no manuscript work.
 ## Measured status on 2026-10-16
 
 The compensated native component profile passes 12 fixtures and six timestep
-comparisons with independent saved-data verification. The two 135-slot object
-pilot versions produce zero physical labels or eligible training prefixes.
-V2 fixes the exact upstream camera-K cast check (135/135 pass); all 60 captures
-still fail the unchanged depth/visual-mesh gate. Seven grouped catalog holdouts
-and five distinct trainer folds are verified but have no admitted examples.
+comparisons with independent saved-data verification. The first two 135-slot
+object pilot versions produce zero physical labels. V2 fixes the exact upstream
+camera-K cast check (135/135 pass). V3 corrects the unsupported noise-free depth
+gate and explicitly studies the authored-asset simulation domain, retaining RGBD
+mismatch diagnostically. All 135 source/scene gates pass; maximum object vertex
+transfer error is 15.3 nm. Thirteen task failures complete and 122 attempts
+quarantine; 11 forecast-eligible examples are all future failures. All grouped
+catalog/trainer roles lack two-class support. Physical RGBD accuracy remains
+uncalibrated. Passive-settling/standoff repairs are being prepared in v4.
 No scientific predictor has been fitted. See `docs/RESULTS_LOG.md` for frozen
 protocols, independent receipt hashes, actual operation counts and limitations.
 

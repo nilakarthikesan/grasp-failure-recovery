@@ -2170,3 +2170,33 @@ V3 protocol SHA256 `7fb1f60855120139d8b1f3859361032beeb4b793b8d247ddb833838bb96a
 2,196 bindings, 54 sources, 74 manufactured controls PASS in 2.45 s, zero integration
 at preparation. Actual execution and independent task/training readiness pending.
 The separate readiness bridge has 10 manufactured controls PASS, zero fits.
+
+## 2026-10-16 — Authored-asset v3 executes; single-class data keeps training closed
+
+At freeze `40f34e3d3a2867a7ad9772e10a2bdde2c9c752b2`, v3 COMPLETED:
+report SHA256 `882ea983e92ad1d83106b036d7d946b21250aadab89399800ee0e7a85bf7d0ab`.
+All 135 source/scene gates pass. Maximum source-to-compiled object vertex error
+is 1.52877e-8 m across 432 geom comparisons, below the original 5 micrometre gate.
+Actual: 45 models/Data, 283 forwards, 270 resets, 89,915 steps, 437,953 force reads,
+1,362 creation artifacts. Thirteen primary attempts complete as physical failures:
+8 acquisition, 2 approach collision, 2 no contact, 1 hold slip. Primary quarantines:
+49 reset stability, 36 penetration, 22 preclose tracking; matched quarantines:
+6 reset, 4 penetration, 5 preclose. All 122 retain null outcomes.
+
+Clean independent mechanics receipt `run_v1/independent_readback_v2.json` SHA256
+`0e7582bea4b689c5a49448c55600e2a699d7de74fb39cfc1d3eb4d679f3f78ca`
+verifies 2,196 inputs/54 Git sources/all artifacts before-after, actual clocks,
+compiled object frame/vertex arithmetic and 218 contact witnesses. Maximum
+57D Jacobian/virtual-work discrepancies are 4.16e-17 and 6.66e-16 W. Twelve
+manufactured reader controls pass; zero warnings/native replay. The first reader
+receipt `f693ed8352c0fe5a06649d48f0ba35a68ec8d906a66033cdcb82ab63c25a0cb4`
+and NumPy BLAS warning history remain preserved; only the independent reader's
+matrix expression changed to scalar-checked einsum, not the experiment or gates.
+
+Cohort receipt SHA256
+`d983e8d48b84d1962faaf1259c8a35ac89b0129b79351d4e2d0fb203a62e6f2b`
+independently reproduces every completed label/event, all grouped role assignments
+and 11 eligible 20x169 pre-lift prefixes. All eleven are future failures; the two
+already-observed approach failures are excluded. Every catalog/trainer fold lacks
+two-class support. No scientific fit is valid yet; matched numerical readiness
+is not established. V4 passive-settling/standoff source is prospective work.
