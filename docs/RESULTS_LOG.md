@@ -2200,3 +2200,12 @@ and 11 eligible 20x169 pre-lift prefixes. All eleven are future failures; the tw
 already-observed approach failures are excluded. Every catalog/trainer fold lacks
 two-class support. No scientific fit is valid yet; matched numerical readiness
 is not established. V4 passive-settling/standoff source is prospective work.
+
+
+### 2026-10-16 UTC — Native HUG/MANOSim preliminary workshop submission
+
+Submitted and verified in OpenReview: **Auditing Native Grasp Transfer Before Learning Failure Prediction**, Nila Karthikesan and Enoch Chigbu, Late-Breaking Track, submission `D4dJLM6Rw9` (https://openreview.net/forum?noteId=D4dJLM6Rw9). User explicitly confirmed CC BY 4.0, email sharing with chairs and accepted-paper public release at action time. This records submission, not acceptance.
+
+The existing `docs/paper/working_draft.tex` compiled in the desktop editor. Exported PDF has four body pages plus one references page; all pages were rendered and visually reviewed, and PDF text/metadata contain no author identities or local paths. The final PDF and source hashes are in `research_artifacts/native_submission_2026-10-16/submission_receipt.json`. Form title/abstract match the saved manuscript.
+
+Scientific scope remains authored-asset validation: 120 primary slots = 13 completed failures + 107 null quarantines; all 15 matched timestep slots quarantine. Eleven pre-lift histories are eligible, all future failures; no scientific native predictor was trained. Task-level timestep convergence and physical RGBD calibration remain unestablished. V4 is an unexecuted draft, not a result.

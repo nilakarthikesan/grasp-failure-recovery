@@ -1,11 +1,31 @@
-Title: Auditing Transfer Before Predicting Dexterous Grasp Failure
+Title
+Auditing Native Grasp Transfer Before Learning Failure Prediction
 
-Abstract:
-Failure prediction from simulated grasps depends on proposal transfer, execution and the meaning of the outcome label. We study a HUG-only pipeline with static mapping audits, a fixed Shadow Hand lift-and-hold task and joint-state/command logistic predictors. A 1,040-attempt development collection yields failure AUROC 0.8523 versus 0.6419 for commands alone on a held-out observation; frozen evaluation on 2,080 fresh attempts yields 0.9173 on familiar geometries and 0.5588 on two new geometries pooled together. All 520 original mugs fail during approach before the prediction cutoff, while separate corrected-controller checks trigger warnings on all 20 successful mugs. New retrospective object-held-out fits also show that ranking and warning reliability differ: cube AUROC is 0.8729, but 471/648 successful cube attempts trigger alerts. Static audits accept realization of 32 saved Shadow commands while rejecting strict native-surface preservation; none of these results establishes physical transfer or future-slip warning.
+Authors
+Nila Karthikesan; Enoch Chigbu
 
-Keywords: Dexterous grasping; failure prediction; simulation validation
+Keywords
+dexterous grasping, simulation validation, grasp transfer, failure prediction, MANO, MuJoCo, negative results
 
-TL;DR: HUG-to-Shadow audits and retrospective prediction show that useful ranking can coexist with warnings on successful unfamiliar grasps.
+TL;DR
+Native HUG transfer checks pass, but a diverse MANOSim pilot exposes setup failures and insufficient outcome diversity for reliable predictor training.
 
-Track: Late-Breaking Track
-Length: 4 body pages + 1 references page
+Abstract
+Reliable grasp-failure prediction requires trustworthy transfer, execution, and supervision. We present a layered audit of HUG-generated grasps executed with the native MANO hand in MANOSim. The audit separates source-coordinate fidelity, compiled object geometry, component dynamics, and task outcomes. Twelve component fixtures and six timestep comparisons pass. Across a predeclared 30-object geometry-by-size cohort, compiled object vertices reproduce the authored assets within 15.3 nanometres. We identify an unsupported validation assumption that confused depth encoding precision with stereo and reconstruction accuracy, and explicitly restrict subsequent evaluation to the authored simulation assets. Of 120 primary task slots, 13 complete as failures and 107 are quarantined; all 15 matched timestep slots are also quarantined. Eleven eligible pre-lift histories remain, all failures, so discriminative predictor training is not supported. These preliminary findings show that accurate coordinate transfer does not ensure valid execution or trainable outcome diversity. Next steps address passive object settling, standoff approach, independent scene calibration, and grouped evaluation after collecting both outcome classes.
+
+Track
+Late-Breaking Track
+
+Published Venue
+Leave blank
+
+PDF
+output/pdf/working_draft.pdf
+
+License selected in form
+CC BY 4.0
+
+Status
+Submitted successfully on 2026-10-16 UTC.
+OpenReview: https://openreview.net/forum?noteId=D4dJLM6Rw9
+Submission ID: D4dJLM6Rw9
