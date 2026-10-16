@@ -1858,3 +1858,34 @@ declared collection/scoring protocol remain before task data/training. All
 physical task outcomes are null and global admission flags stay false. V1/v2
 failures are preserved separately; no historical results or manuscript changed.
 HEAD/source hold released only after the independent receipt.
+
+## 2026-10-16 — Native pilot coverage and preserved dependency hard stop
+
+Coverage source audit: `research_artifacts/manosim_hug_coverage_design_2026-10-15_v1`.
+All 30 official test objects fill five geometry categories × three author size
+bins × two distinct objects. First/last observations were selected before
+outcomes. Independently verified 442 downloaded files, 18,417,075 bytes,
+against pinned Git/LFS hashes; download manifest SHA256
+`ee04395185f4c3586ed43e4dbb46e8f2852755260b2f90b4f56dd39aa721e4f6`.
+Catalog SHA256 `04507e8834364d1451c5c34134d6ca1819efe9da45df5c093d8fa322f897626f`.
+Seven grouped predictor fold specifications are proposed, not fitted results.
+Category folds share original scene backgrounds and cannot establish unseen
+scene generalization. Geometry bins follow official Table 6, not name inference.
+
+Generation v1 froze at `5c55096dd165a45e66deadc1baadcad508fefa16`, protocol SHA256
+`7273a1a106647e9344f4aefe025830c09f783416058b41e2481beb673ec3920f`.
+It HARD_STOPPED during `hug.inference` imports: the append-only dependency path
+resolved base huggingface-hub 1.33.0, incompatible with the pinned Transformers
+requirement below 1.0. Actual primary proposals/repeats/source-geometry calls
+were all zero. No mapping result or task outcome exists. Report SHA256
+`1941733d857ee14c1ff80afec58865502b96521a23b023504338ea4173254d76`.
+Independent saved-only receipt SHA256
+`b3cadbc8b1b76808d4002d7e18fdfd67b00f057b2a8cb5d7179f6e8fbeb30f35`
+rechecks 5,448 bindings before/after and frozen Git identities, confirms the
+zero-operation failure and preserves it. The model constructor was not reached,
+based on frozen source order and traceback, rather than an invented counter.
+
+V2 preparation retains base NumPy/Torch/PIL, gives isolated HUG dependencies
+priority, asserts resolved module paths and zero hand mean, saves actual
+post-mean AA32 and both repeat tensors. V1 source/results remain unchanged.
+No new physics, task data, or scientific predictor fit has run at this entry.

@@ -1,0 +1,47 @@
+"""Independent stdlib-only saved-file audit; no runtime/model imports or calls."""
+from pathlib import Path
+import hashlib,json,subprocess,sys,time
+ROOT=Path('/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction')
+FREEZE='5c55096dd165a45e66deadc1baadcad508fefa16'
+D=ROOT/'research_artifacts/manosim_native_pilot_2026-10-16_v1'
+P=D/'generation_protocol.json'
+R=ROOT/'runs/manosim_native_hug_pilot_generation_2026-10-16_v1/generation_report.json'
+EXPECTED_P='7273a1a106647e9344f4aefe025830c09f783416058b41e2481beb673ec3920f'
+EXPECTED_R='1941733d857ee14c1ff80afec58865502b96521a23b023504338ea4173254d76'
+def require(value,message):
+ if not value:raise ValueError(message)
+def sha(path):
+ h=hashlib.sha256()
+ with Path(path).open('rb') as f:
+  while chunk:=f.read(1024*1024):h.update(chunk)
+ return h.hexdigest()
+def git(*args):return subprocess.check_output(['git','-C',str(ROOT),*args])
+def bindings(p):
+ count=0;size=0
+ for path,row in p['bindings'].items():
+  q=Path(path);require(q.is_file() and q.stat().st_size==row['bytes'] and sha(q)==row['sha256'],'Bound bytes changed: '+path);count+=1;size+=row['bytes']
+ return dict(count=count,bytes=size,all_verified=True)
+def main():
+ start=time.monotonic();require(git('rev-parse','HEAD').decode().strip()==FREEZE,'Frozen HEAD changed')
+ require(sha(P)==EXPECTED_P and sha(R)==EXPECTED_R,'Protocol/report identity differs')
+ p=json.loads(P.read_text());r=json.loads(R.read_text());before=bindings(p)
+ tracked=set(git('ls-tree','-r','--name-only',FREEZE).decode().splitlines());selected=[]
+ paths=[P]+[Path(q) for q in p['bindings'] if Path(q).is_relative_to(ROOT)]
+ for q in paths:
+  rel=q.relative_to(ROOT).as_posix()
+  if rel in tracked:
+   data=git('show',FREEZE+':'+rel);require(hashlib.sha256(data).hexdigest()==sha(q),'Selected Git blob differs: '+rel);selected.append(rel)
+ require(r['freeze_commit']==FREEZE and r['protocol_sha256']==EXPECTED_P and r['status']=='HARD_STOP','Failure lineage differs')
+ require(r['counts']==dict(primary=0,repeat=0,source_geometry=0) and r['rows']==[] and r['current_attempt'] is None,'Nonzero measured work/partial target')
+ require(r['partial_artifact_inventory']=={} and not list(R.parent.glob('*.npz')),'Unexpected output geometry arrays')
+ require(r['physics_steps']==r['retarget_calls']==r['training_calls']==0 and r['training_allowed'] is False and r['closure_verified_after'] is True,'Operation/admission flags differ')
+ require(len(r['errors'])==1 and r['errors'][0]['type']=='ImportError','Unexpected failure')
+ error=r['errors'][0];require('huggingface-hub>=0.34.0,<1.0' in error['message'] and 'huggingface-hub==1.33.0' in error['message'],'Import incompatibility differs')
+ require('from hug.inference import load_model,load_raw_checkpoint' in error['traceback'],'Failure not at pre-model import')
+ lines=(D/'generate.py').read_text().splitlines();importline=next(i for i,x in enumerate(lines) if 'from hug.inference import load_model,load_raw_checkpoint' in x);modelline=next(i for i,x in enumerate(lines) if 'model=load_model(' in x)
+ require(importline<modelline,'Model invocation precedes observed import failure')
+ require(len(p['observations'])==60 and len({str(Path(q).parent) for q in p['observations']})==30 and p['maximum_primary_proposals']==120 and p['maximum_repeat_proposals']==1,'Planned denominator differs')
+ after=bindings(p);require(before==after and sha(P)==EXPECTED_P and sha(R)==EXPECTED_R and git('rev-parse','HEAD').decode().strip()==FREEZE,'Final immutable closure differs')
+ receipt=dict(schema_version='manosim_native_hug_generation_failed_independent_readback_v1',status='VERIFIED_PRE_MODEL_IMPORT_HARD_STOP',freeze_commit=FREEZE,protocol=dict(path=str(P),sha256=EXPECTED_P),report=dict(path=str(R),sha256=EXPECTED_R),input_bindings_before=before,input_bindings_after=after,selected_git_blobs=dict(count=len(selected),paths=selected,all_match_frozen_commit=True),planned=dict(objects=30,observations=60,primary_proposals=120,repeat_proposals=1),actual=dict(primary=0,repeat=0,source_geometry=0,output_npz=0,completed_targets=0,physics_steps=0,retarget_calls=0,training_calls=0),failure=dict(type=error['type'],message=error['message'],stage='import hug.inference -> transformers dependency version check',model_calls='zero inferred from frozen source ordering and preserved traceback; no separate model counter exists'),mapping_result='NOT_RUN; no target created and no mapping quality measured',runtime_diagnosis='HUG-deps Transformers imported while append-only path order resolved base huggingface-hub1.33.0; required>=0.34,<1.0',closure_verified_before_and_after=True,accepted_mapping=False,collection_or_training_allowed=False,verifier=dict(path=str(Path(__file__)),sha256=sha(__file__),source=Path(__file__).read_text(),stdlib_only=True,model_engine_geometry_inference_calls=0),elapsed_s=time.monotonic()-start)
+ out=Path('/private/tmp/hug_native_generation_v1_independent_readback.json');out.write_text(json.dumps(receipt,indent=2,sort_keys=True,allow_nan=False)+'\n');print(json.dumps(dict(path=str(out),sha256=sha(out),bindings=before['count'],selected_git=len(selected),status=receipt['status'])))
+if __name__=='__main__':main()
