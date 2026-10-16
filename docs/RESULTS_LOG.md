@@ -1739,3 +1739,18 @@ diagonalization precision, repair only an unsupported validator assumption if
 source evidence establishes it, and use fresh v2 paths with an early compiled
 array snapshot. Physical tracking/contact thresholds and step quotas remain
 unchanged. Freeze released after readback. No grasp outcomes or training.
+
+### 2026-10-15 — Capsule v2 prospective source correction and fresh freeze
+
+V2 protocol SHA256
+`b4f6ec15437a298ad2af7f88873ea3437fe11d16dedf49729a4c667ac765f0e6`:
+613 live active bindings,29 selected Git sources,12 fixture XMLs.73 combined
+manufactured controls PASS with zero native operations, independently repeated.
+The inertia validator now checks the source-supported compiled eigenframe
+postconditions and records each residual/bound; the pinned source and derivation
+are saved separately. The fixture math is byte-identical to v1 (SHA92d04342…),
+and source inertia/gains/physical limits/quotas are unchanged. The new prevalidation
+snapshot adds12 artifacts and zero native calls (72 complete artifacts expected).
+Archived v1 failure/Git provenance is bound without claiming its obsolete API
+bytes remain the live implementation. Actual execution remains pending this
+fresh source/protocol commit; collection/training admission is false.

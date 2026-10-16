@@ -176,3 +176,29 @@ def test_contract_fingerprints_contact_compensation_and_activation_fields(compil
     m,res,a,rest,shape=compiled;c=mc.validate_compiled_contract(m,res,a,rest)
     value=getattr(m,field);value.flat[0]+=1
     with pytest.raises(ValueError,match='changed'):mc.verify_compiled_contract(m,c)
+
+
+def test_pinned_jacobi_absolute_and_cosine_stop_residuals_are_not_machine_zero():
+    for diagonal,b in [(np.array([3e-6,2.5e-6,1.5e-6]),5e-13),(np.array([3e-4,2.5e-4,1.5e-4]),5e-11)]:
+        full=np.r_[diagonal,b,0.,0.]
+        receipt=mc.inertia_representation_receipt(full,diagonal,np.array([1.,0,0,0]))
+        assert receipt['maximum_reconstructed_tensor_error_kg_m2']>128*np.finfo(float).eps*diagonal.max()
+        assert receipt['maximum_offdiagonal_kg_m2']<=receipt['jacobi_offdiagonal_bound_kg_m2']
+        if b>mc.JACOBI_EPS:
+            tau=(diagonal[1]-diagonal[0])/(2*b);t=-1/(-tau+np.sqrt(1+tau*tau));c=1/np.sqrt(1+t*t)
+            assert c>1-mc.JACOBI_EPS # Exactly the pinned compiler's alternative stop.
+        assert receipt['actual_compiler_iteration_count'] is None and receipt['source_inertia_changed'] is False
+
+
+def test_rotated_inertia_uses_its_compiled_eigenframe_without_changing_tensor():
+    principal=np.array([3e-4,2.5e-4,1.5e-4]);q=exp([.3,-.2,.15]);R=mc._rotation(q)
+    I=np.einsum('ik,k,jk->ij',R,principal,R,optimize=False);full=np.r_[np.diag(I),I[0,1],I[0,2],I[1,2]]
+    r=mc.inertia_representation_receipt(full,principal,q)
+    assert r['diagonal_error_kg_m2']<=r['diagonal_arithmetic_bound_kg_m2']
+    assert r['maximum_reconstructed_tensor_error_kg_m2']<1e-18
+
+
+def test_inertia_wrong_diagonal_and_beyond_jacobi_envelope_refused():
+    principal=np.array([3e-4,2.5e-4,1.5e-4]);q=np.array([1.,0,0,0])
+    with pytest.raises(ValueError,match='principal diagonal'):mc.inertia_representation_receipt(np.r_[principal,0.,0.,0.],principal*np.array([1.1,1,1]),q)
+    with pytest.raises(ValueError,match='Jacobi stop envelope'):mc.inertia_representation_receipt(np.r_[principal,1e-7,0.,0.],principal,q)

@@ -24,6 +24,9 @@ PARENTS=(-1,0,1,2,0,4,5,0,7,8,0,10,11,0,13,14)
 PI_GUARD_RAD=1e-6 # predeclared command-chart exclusion, never a fidelity allowance
 MJ_MINVAL=1e-15
 COORDINATE_SHA256='88f9a9b7b6710fc251563d208d727bc55d205e541bbeaed25d655996a0a83433'
+INERTIA_RULE='mujoco_3_4_0_mjuu_eig3_postcondition_v1'
+JACOBI_EPS=1e-12
+INERTIA_SOURCE_SHA256='f9d5ef77317707039f12658e620ff3393f1eb8a0e7087111e4740207f2ee2522'
 CLOSED_FLAGS=dict(accepted_mapping=False,collection_or_training_allowed=False,physical_model_qualified=False)
 _COMPILED_ARRAYS=('body_parentid','body_pos','body_quat','body_mass','body_inertia','body_ipos','body_iquat','jnt_type','jnt_bodyid','jnt_pos','jnt_axis','jnt_qposadr','jnt_dofadr','jnt_limited','qpos0','dof_damping','dof_armature','dof_M0','actuator_trntype','actuator_trnid','actuator_gear','actuator_gaintype','actuator_biastype','actuator_dyntype','actuator_gainprm','actuator_biasprm','actuator_ctrllimited','actuator_ctrlrange','actuator_forcelimited','actuator_forcerange','geom_type','geom_bodyid','geom_pos','geom_quat','geom_size','geom_dataid','mesh_vert','mesh_face','mesh_pos','mesh_quat','geom_solref','geom_solimp','geom_friction','geom_priority','geom_contype','geom_conaffinity','body_gravcomp','actuator_actrange')
 
@@ -59,6 +62,49 @@ def _rotation(q):
     return np.array([[1-scale*(y*y+z*z),scale*(x*y-z*w),scale*(x*z+y*w)],
         [scale*(x*y+z*w),1-scale*(x*x+z*z),scale*(y*z-x*w)],
         [scale*(x*z-y*w),scale*(y*z+x*w),1-scale*(x*x+y*y)]])
+
+
+def inertia_representation_receipt(source_fullinertia,principal_inertia,inertia_quaternion):
+    """Validate the compiler's approximate eigenframe, never retune source I.
+
+    Pinned user_util.cc611-700 stops at max offdiag<1e-12 OR cosine>
+    1-1e-12. The latter implies b<=diagonal_gap*t/(1-t*t), where
+    t*t < cosine**(-2)-1. gamma32 encloses the finite normal 2x2 Schur
+    arithmetic; outward rounding makes the coefficient conservative.
+    gamma128*||I||inf encloses the small quaternion/matrix arithmetic.
+    These are representation postconditions, not physical calibration gates.
+    """
+    f=_literal(np.asarray(source_fullinertia),(6,),'float64','source full inertia')
+    principal=_literal(np.asarray(principal_inertia),(3,),'float64','compiled principal inertia')
+    if np.any(principal<=0):raise ValueError('Positive compiled principal inertia required')
+    I=np.array([[f[0],f[3],f[4]],[f[3],f[1],f[5]],[f[4],f[5],f[2]]])
+    R=_rotation(inertia_quaternion)
+    D=np.einsum('ki,kl,lj->ij',R,I,R,optimize=False)
+    diagonal=np.diag(D);off=D-np.diag(diagonal)
+    unit=np.finfo(np.float64).eps/2
+    gamma32=32*unit/(1-32*unit);gamma128=128*unit/(1-128*unit)
+    # A computed c>fl(1-kEigEPS) has exact c above this lower envelope.
+    lower=np.nextafter((1-JACOBI_EPS)/(1+gamma32),0.)
+    square_lower=np.nextafter(lower*lower,0.)
+    t2_upper=np.nextafter(np.nextafter(1/square_lower,np.inf)-1,np.inf)
+    t_upper=np.nextafter(np.sqrt(t2_upper),np.inf)
+    coefficient=np.nextafter(t_upper/(1-t2_upper)*(1+gamma32),np.inf)
+    scale=float(np.max(np.sum(np.abs(I),axis=1)));arithmetic=gamma128*scale
+    gap=float(np.max(diagonal)-np.min(diagonal))
+    off_bound=max(JACOBI_EPS,float(coefficient)*gap)+arithmetic
+    diag_error=float(np.max(np.abs(diagonal-principal)));off_error=float(np.max(np.abs(off)))
+    reconstructed=np.einsum('ik,k,jk->ij',R,principal,R,optimize=False)
+    if not np.isfinite([scale,arithmetic,gap,off_bound,diag_error,off_error]).all() or scale<=0:raise ValueError('Finite inertia representation arithmetic required')
+    if diag_error>arithmetic:raise ValueError('Authored compiled inertia principal diagonal differs')
+    if off_error>off_bound:raise ValueError('Authored compiled inertia exceeds pinned Jacobi stop envelope; nonconvergence not accepted')
+    return dict(rule=INERTIA_RULE,primary_source_sha256=INERTIA_SOURCE_SHA256,kEigEPS=JACOBI_EPS,
+        source_fullinertia_kg_m2=f.tolist(),compiled_principal_kg_m2=principal.tolist(),compiled_iquat=np.asarray(inertia_quaternion).tolist(),
+        source_in_compiled_frame_kg_m2=D.tolist(),diagonal_error_kg_m2=diag_error,diagonal_arithmetic_bound_kg_m2=arithmetic,
+        maximum_offdiagonal_kg_m2=off_error,jacobi_offdiagonal_bound_kg_m2=off_bound,diagonal_span_kg_m2=gap,
+        cosine_stop_coefficient=float(coefficient),gamma32=gamma32,gamma128=gamma128,
+        maximum_reconstructed_tensor_error_kg_m2=float(np.max(np.abs(reconstructed-I))),
+        compiler_maximum_iterations=500,actual_compiler_iteration_count=None,
+        iteration_limit_is_not_assumed_converged=True,output_eigenframe_postconditions_passed=True,source_inertia_changed=False)
 
 
 def _coordinates():
@@ -177,11 +223,12 @@ class CompiledCapsuleContract:
     model_signature:str
     asset_closure_sha256:str
     shape_digest:str
+    inertia_representations:tuple
     def metadata(self):
-        return dict(schema_version='manosim_authored_capsule_compiled_contract_v1',joint_names=list(JOINT_NAMES),actuator_names=list(ACTUATOR_NAMES),
+        return dict(schema_version='manosim_authored_capsule_compiled_contract_v2',joint_names=list(JOINT_NAMES),actuator_names=list(ACTUATOR_NAMES),
             joint_ids=list(self.joint_ids),qpos_addresses=list(self.qpos_addresses),dof_addresses=list(self.dof_addresses),body_ids=list(self.body_ids),actuator_ids=list(self.actuator_ids),
             gears=self.gears.tolist(),rest_quaternions=self.rest_quaternions.tolist(),model_signature=self.model_signature,asset_closure_sha256=self.asset_closure_sha256,
-            command_domain=COMMAND_DOMAIN,shape_digest=self.shape_digest,**CLOSED_FLAGS)
+            command_domain=COMMAND_DOMAIN,shape_digest=self.shape_digest,inertia_representations=list(self.inertia_representations),**CLOSED_FLAGS)
 
 
 def validate_compiled_contract(model,resolve_name,assets,rest_quaternions):
@@ -197,6 +244,7 @@ def validate_compiled_contract(model,resolve_name,assets,rest_quaternions):
     expectedq=tuple(range(3))+tuple(3+4*i for i in range(16));expectedd=tuple(range(3))+tuple(3+3*i for i in range(16))
     if qadr!=expectedq or dadr!=expectedd or not np.array_equal(model.body_quat[list(body)],rest):raise ValueError('Actual named state/rest domain differs')
     if np.max(np.abs(np.sum(rest*rest,axis=1)-1))>1e-12 or np.any(model.jnt_limited[list(joint)]):raise ValueError('Proper literal rest and unlimited authored joints required')
+    inertia_receipts=[]
     for i,bid in enumerate(body):
         if int(model.body_parentid[bid])!=(0 if i==0 else body[PARENTS[i]]):raise ValueError('Anatomical tree differs')
         original=assets['body_records'][i];attrs=original['attributes'];inertial=original['inertial'];geom=original['geom']
@@ -206,11 +254,7 @@ def validate_compiled_contract(model,resolve_name,assets,rest_quaternions):
         if not np.array_equal(model.body_pos[bid],_numbers(attrs.get('pos','0 0 0'),3)) or not np.array_equal(model.body_ipos[bid],_numbers(inertial.get('pos','0 0 0'),3)):
             raise ValueError('Authored body/inertial origins changed')
         if not np.isfinite(model.body_mass[bid]) or model.body_mass[bid]!=original['mass'] or np.any(np.asarray(model.body_inertia[bid])<=0):raise ValueError('Authored positive mass/inertia required')
-        R=_rotation(model.body_iquat[bid])
-        f=_numbers(inertial['fullinertia'],6);expected_I=np.array([[f[0],f[3],f[4]],[f[3],f[1],f[5]],[f[4],f[5],f[2]]])
-        actual_I=np.einsum('ik,k,jk->ij',R,np.asarray(model.body_inertia[bid]),R,optimize=False)
-        numerical_bound=128*np.finfo(np.float64).eps*float(np.max(np.abs(expected_I)))
-        if np.max(np.abs(actual_I-expected_I))>numerical_bound:raise ValueError('Authored compiled inertia tensor differs')
+        inertia_receipts.append(dict(body_name=BODY_NAMES[i],body_id=bid,**inertia_representation_receipt(_numbers(inertial['fullinertia'],6),model.body_inertia[bid],model.body_iquat[bid])))
         gids=np.flatnonzero(np.asarray(model.geom_bodyid)==bid)
         if len(gids)!=1:raise ValueError('Exactly one authored collider per anatomical body required')
         gid=int(gids[0])
@@ -259,7 +303,7 @@ def validate_compiled_contract(model,resolve_name,assets,rest_quaternions):
         gears.append(gear)
     for key in _COMPILED_ARRAYS:
         if not np.isfinite(np.asarray(getattr(model,key))).all():raise ValueError('Nonfinite compiled mapping/model operand')
-    return CompiledCapsuleContract(joint,qadr,dadr,body,act,_readonly(gears),_readonly(rest),_model_signature(model),assets['closure_sha256'],assets['shape_array_digest'])
+    return CompiledCapsuleContract(joint,qadr,dadr,body,act,_readonly(gears),_readonly(rest),_model_signature(model),assets['closure_sha256'],assets['shape_array_digest'],tuple(inertia_receipts))
 
 
 def verify_compiled_contract(model,contract):

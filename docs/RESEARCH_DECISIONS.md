@@ -3261,3 +3261,32 @@ each already-budgeted compile, before model validation, so a refusal can be
 diagnosed from preserved evidence. This logging change adds no model, MjData,
 forward or integration call. Implementation and new native results are pending.
 Collection/training admission remains closed; no manuscript changes.
+
+### 2026-10-15 — Correct the compiler representation check, retain physical gates
+
+Primary source `google-deepmind/mujoco`3.4.0 `src/user/user_util.cc`, SHA256
+`f9d5ef77317707039f12658e620ff3393f1eb8a0e7087111e4740207f2ee2522`,
+shows `mjuu_fullInertia` uses `mjuu_eig3`. That solver stops when the maximum
+off-diagonal term is below an absolute1e-12kg m² or a Jacobi cosine exceeds
+1−1e-12; it also has a500-iteration cap. Therefore the v1 validator's
+128×epsilon relative full-tensor reconstruction assumption is unsupported.
+This establishes a validator design issue, not a measured v1 tensor defect:
+v1 did not save the compiled operands. The pinned source and derivation are
+retained in `research_artifacts/manosim_capsule_inertia_representation_2026-10-15_v1`.
+
+Implementation: independently check the source tensor projected into the
+compiled inertia frame. Its diagonal must agree with compiled principal values
+at declared arithmetic precision; remaining off-diagonal terms must satisfy a
+conservative envelope derived from both source stopping conditions. Save each
+body's residuals, bounds and source operands. The solver iteration count is
+unavailable and the cap is never assumed to imply convergence: the output must
+pass the residual postcondition. Rotated exact tensors, the absolute/cosine
+stop branches and deliberately incorrect tensors are covered by manufactured
+controls; independent reviewer repeats44 pure tests with native imports blocked.
+
+A fresh capsule execution v2 preserves the same source inertia, gains, hand
+shape, physical acceptance limits and12-model/10,500-step plan. It adds an
+uninterpreted compiled-array snapshot immediately after each already-budgeted
+compile and before validation. The v1 protocol and failure remain unchanged.
+New actual execution is pending a separate source/protocol freeze and
+independent readback; no task collection or training is admitted.
