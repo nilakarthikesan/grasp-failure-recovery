@@ -1,0 +1,216 @@
+{
+  "artifact_sha256": {
+    "T_world_camera.npy": "f2bfafb8a4ace5a230339de8721e76930bdb07cd2e47a6e44d1ffb2a9d5e5506",
+    "depth.png": "afb3cbd0d818d179b98c24b3a6669b7459d2374df5585ccf8fee2f31de29084a",
+    "depth_m.npy": "a72a2fff7532054e060f431420a71097530096ce20dedd8943b3374a0e892c28",
+    "intrinsics.npy": "284e3ac36b9bf5038dc41030f30ef79e397f5e15414767f5730b0da1858a0f4f",
+    "object_mask.png": "dd1cd4941b2400424d3e12a7c5d7357ec42cca25ec6d1744bb9928f71725b66b",
+    "observation_manifest.json": "22621cfd53cc7d267a66e8fc7c73a72cf17b383ee7cbfa6faa404ff86732f703",
+    "rgb.png": "b31752ecfb43e4fd42358dbfab994bbc19c5520189ec87054d33b87daf3ef3f6",
+    "scene.xml": "bfb464a18c52db3e78528390215cf1e65811f571c65bfb9426d654abab1984b8",
+    "scene_config.json": "912c17c674982c49ff4db504bd975438723f661b0395f8bc59788f04319bc744",
+    "scene_state.npz": "033d603e5bf85f348d5a7a00e45fef67f191c5c1df99b46df27ae1d68bf4f872",
+    "scene_state_metadata.json": "226ac93233abcc5f6669d3a713ee6d21315c0002031797ac7a81e78006bb19ce"
+  },
+  "assumptions": [
+    "Synthetic 5 cm cube, 0.1 kg mass and sliding friction 1.0 are test assumptions, not measured object properties.",
+    "Table, initial pose, camera, lighting, secondary friction coefficients and solver/contact settings are engineering defaults.",
+    "Settling and calibration tolerances are software checks, not validated scientific thresholds.",
+    "This hand-free scene preparation does not execute HUG, grasp trials, training or prediction and makes no physical grasp claims."
+  ],
+  "camera": {
+    "T_world_camera_semantics": "camera-to-world rigid transform",
+    "actual_target_m": [
+      -2.881914745204408e-14,
+      -2.880023405707891e-14,
+      0.02478448909354364
+    ],
+    "camera_convention": "x right, y down, z forward",
+    "far_m": 2.0,
+    "height": 224,
+    "near_m": 0.01,
+    "position_m": [
+      0.25,
+      -0.35,
+      0.35
+    ],
+    "projected_target_uv": [
+      111.49999999999999,
+      111.49999999999999
+    ],
+    "target": "settled_object_center",
+    "vertical_fov_degrees": 45.0,
+    "width": 224,
+    "world_up": [
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "depth_encoding": {
+    "depth_encoding_checked": true,
+    "maximum_quantization_error_m": 0.0004998579025268235
+  },
+  "geometry_checks": {
+    "cube": {
+      "maximum_analytical_depth_error_m": 7.1130778885875046e-06,
+      "maximum_mujoco_ray_depth_error_m": 7.1130778885875046e-06,
+      "maximum_raw_camera_reprojection_error_pixels": 7.105427357601002e-14,
+      "sample_count": 128
+    },
+    "table": {
+      "maximum_analytical_depth_error_m": 1.024815205230567e-05,
+      "maximum_mujoco_ray_depth_error_m": 1.0248152052527715e-05,
+      "maximum_raw_camera_reprojection_error_pixels": 7.652779469160725e-14,
+      "sample_count": 128
+    }
+  },
+  "object_pixels": 1080,
+  "observation_preflight_passed": true,
+  "physics": {
+    "body_count": 2,
+    "contacts": [
+      {
+        "dimension": 3,
+        "distance_m": -0.00010775545322817999,
+        "friction": [
+          1.0,
+          1.0,
+          0.005,
+          0.0001,
+          0.0001
+        ]
+      },
+      {
+        "dimension": 3,
+        "distance_m": -0.00010775545322817991,
+        "friction": [
+          1.0,
+          1.0,
+          0.005,
+          0.0001,
+          0.0001
+        ]
+      },
+      {
+        "dimension": 3,
+        "distance_m": -0.00010775545322817788,
+        "friction": [
+          1.0,
+          1.0,
+          0.005,
+          0.0001,
+          0.0001
+        ]
+      },
+      {
+        "dimension": 3,
+        "distance_m": -0.0001077554532281778,
+        "friction": [
+          1.0,
+          1.0,
+          0.005,
+          0.0001,
+          0.0001
+        ]
+      }
+    ],
+    "cube_bottom_support_gap_m": -0.00021551090645636345,
+    "cube_dimensions_m": [
+      0.05,
+      0.05,
+      0.05
+    ],
+    "cube_inertia_kg_m2": [
+      4.166666666666668e-05,
+      4.166666666666668e-05,
+      4.166666666666668e-05
+    ],
+    "cube_mass_kg": 0.1,
+    "cube_orientation_wxyz": [
+      1.0,
+      4.217974238029176e-17,
+      1.538188675663544e-18,
+      8.877685753054052e-27
+    ],
+    "cube_position_m": [
+      -2.881914745204408e-14,
+      -2.880023405707891e-14,
+      0.02478448909354364
+    ],
+    "geometry_count": 2,
+    "geometry_friction": {
+      "cube": [
+        1.0,
+        0.005,
+        0.0001
+      ],
+      "table": [
+        1.0,
+        0.005,
+        0.0001
+      ]
+    },
+    "gravity_m_s2": [
+      0.0,
+      0.0,
+      -9.81
+    ],
+    "no_hand_or_actuators": true,
+    "table_dimensions_m": [
+      1.0,
+      1.0,
+      0.05
+    ],
+    "table_top_z_m": 0.0,
+    "timestep_s": 0.002
+  },
+  "reload": {
+    "maximum_depth_error_m": 0.0,
+    "maximum_integration_state_error": 0.0,
+    "maximum_rgb_channel_error": 0,
+    "reload_method": "standalone scene.xml + mjSTATE_INTEGRATION state + mj_forward",
+    "segmentation_identical": true
+  },
+  "runtime": {
+    "mujoco_version": "3.3.7",
+    "numpy_version": "2.2.6",
+    "platform": "macOS-15.6-arm64-arm-64bit"
+  },
+  "scene_preparation_checks_passed": true,
+  "schema_version": 1,
+  "scope": {
+    "grasp_trials_executed": false,
+    "hand_present": false,
+    "hug_executed": false,
+    "physical_grasp_tested": false,
+    "prediction_executed": false,
+    "scientific_thresholds_validated": false,
+    "training_executed": false
+  },
+  "selection_uv": [
+    111,
+    111
+  ],
+  "settling": {
+    "accepted": true,
+    "continuous_table_contact": true,
+    "maximum_angular_speed_rad_s": 1.8522035831722595e-13,
+    "maximum_linear_speed_m_s": 0.0009829078268718278,
+    "orientation_diameter_bound_rad": 2.6190153397718438e-14,
+    "physics_steps": 727,
+    "position_box_diagonal_m": 6.928427397680931e-05,
+    "sample_count": 500,
+    "sample_span_s": 0.998,
+    "simulation_time_s": 1.454000000000001,
+    "velocity_at_capture_m_s_rad_s": [
+      -9.533140286010799e-19,
+      2.3271244737787237e-17,
+      9.295350640413403e-10,
+      -9.055287090663902e-16,
+      -5.181396635209203e-17,
+      -4.7931709612950446e-32
+    ],
+    "velocity_policy": "initial velocity declared; no post-step state or velocity edits"
+  }
+}

@@ -3641,5 +3641,31 @@ Scientific scope remains authored-asset validation: 120 primary slots = 13 compl
 - **Next check:** The user approved a 5 cm cube, 100 g mass, sliding friction
   1.0, gravity and passive settling, plus a 224 by 224 camera at
   (0.25, -0.35, 0.35) m with 45 degree vertical field of view. These are explicit
-  setup assumptions. Implement and test this scene preparation step. Keep the source observation, simulator scene and calibration
+  setup assumptions. Implement and test this scene preparation step. Keep the
+  source observation, simulator scene and calibration
   explicitly bound; simulation consistency does not establish physical fidelity.
+
+### 2026-10-28 — Implement and verify the approved synthetic cube scene
+
+- **Previous plan:** Build Phase 1 Part 1 after the user's approval of the known
+  object and camera specification. Older scene capture depends on a hand runner.
+- **Evidence:** The new hand-free implementation at `35ccb7ff62059ce024b89d48a9f21f1c4dbc80ab` passes 32 scene
+  tests plus 9 existing observation-preflight tests. The saved run independently
+  verifies compiled dimensions/mass/inertia, naturally settled state, camera
+  projection, analytical and engine-ray depth, image encoding and full-state
+  scene reload. The maximum table-depth error is 10.25 micrometers under the
+  declared 20 micrometer engineering tolerance; cube depth error is 7.12
+  micrometers. Reloaded state/RGB/depth/segmentation match exactly on the recorded
+  runtime. The [receipt](../research_artifacts/phase1_scene_preparation_2026-10-28_v1/receipt.json) pins the source/config/report.
+- **Choice:** Keep the approved 5 cm, 100 g cube and angled camera as a synthetic
+  fixture. Save editable XML, complete integration state, RGB, metric/mm depth,
+  mask, camera calibration and explicit settings. Preserve the measured settled
+  object pose and velocities; do not force zero velocity or reposition contact.
+- **Implementation status:** Implemented and executed only for this scene-prep
+  fixture. The cube settled in 727 steps (1.454 s). Compliant contact yields about
+  0.216 mm support-plane penetration, recorded explicitly. macOS reports missing
+  ARB_clip_control; measured depth still passes the independent tolerance. No
+  real-image reconstruction, hand mapping, grasp outcome or predictor result is
+  inferred. Earlier scientific protocol versions and results are unchanged.
+- **Next check:** Inspect the rendered scene and exported inputs with the user,
+  then agree on Part 2's HUG input/proposal-generation choices before implementation.
