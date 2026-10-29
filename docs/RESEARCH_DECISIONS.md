@@ -3669,3 +3669,33 @@ Scientific scope remains authored-asset validation: 120 primary slots = 13 compl
   inferred. Earlier scientific protocol versions and results are unchanged.
 - **Next check:** Inspect the rendered scene and exported inputs with the user,
   then agree on Part 2's HUG input/proposal-generation choices before implementation.
+
+### 2026-10-29 — Execute the approved Phase 1 HUG/MANOSim/Wuji demo
+
+- **Previous plan and approval:** The user approved three fresh fixed-seed HUG
+  proposals, the pinned official Wuji Hand 2.1 right model, bounded retargeting,
+  native force-limited fingers and an ideal wrist fixture. Success requires
+  5 cm lift throughout a one-second hold. This is a new engineering demo, not
+  a revision of prior scientific protocols or manuscript results.
+- **Evidence:** Source `ff50778f9b10db1411972805c6b857e757920cc7` ran the single
+  orchestration command against the unchanged approved cube capture. All three
+  genuine HUG proposals passed independent MANO source reconstruction and
+  MANOSim static joint-anchor/orientation checks. All three physical trials
+  completed: zero successes, three lift/hold failures, zero invalid cases.
+  Independent readback verified source/input bindings and recomputed all
+  2,500 physics steps per trial. Maximum lifts were 0.059, 0.206 and 0.237 mm,
+  well below the declared 50 mm criterion. The focused suite passed 55 tests.
+  The [evidence receipt](../research_artifacts/phase1_pipeline_demo_2026-10-29_v1/receipt.json)
+  binds the copied reports, summaries and robot videos.
+- **Choice and implementation:** Keep every fixed seed and genuine failure.
+  Preserve the original object state, dimensions, mass, inertia and friction.
+  Record full physics traces and sampled contacts; invalid mappings retain null
+  outcomes. Native validation runs without integration. Wuji uses approximate
+  anatomical landmark fitting, its original joint and motor force limits, and
+  an explicitly simulated wrist fixture rather than a robot arm.
+- **Limits and next work:** Pipeline completion is not grasp success. Static
+  source reconstruction does not establish physical robot mapping/contact
+  fidelity. Seed 0 target-pose penetration is 3.43 mm and remains diagnostic;
+  no collision-free qualification is claimed. Diagnose retargeted contacts and
+  closure/control, qualify the fixed execution setup and collect varied scenes
+  with both outcomes before predictor training. No training or manuscript edits.

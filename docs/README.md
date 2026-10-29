@@ -2,6 +2,7 @@
 
 ## Run and reproduce
 
+- [Phase 1 end-to-end demo and meeting walkthrough](PHASE1_END_TO_END.md)
 - [Phase 1, Part 1: known-object scene preparation](PHASE1_SCENE_PREPARATION.md)
 - [Unified multi-provider evaluation command](GRASP_EVAL_CLI.md)
 - [Pinned DexGraspNet replay](DEXGRASPNET_REPLAY.md)

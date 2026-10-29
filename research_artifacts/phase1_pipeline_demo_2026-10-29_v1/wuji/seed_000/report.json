@@ -1,0 +1,291 @@
+{
+  "asset_commit": "5c4dfa16917355d073e2e1d7e3d03897b6cf9508",
+  "assets_sha256": {
+    "meshes/r_index_finger_distal.STL": "e853df255f8d3cb1fcdb6c11ef09d91c14e70881efc193980782ad0f0a5f0d53",
+    "meshes/r_index_finger_middle.STL": "9ba4bd6449d5c60255c1bbe1cdf3ec1bd7f9f0413f45f9ee20ca1e97165b5a93",
+    "meshes/r_index_finger_proximal.STL": "d07ffb4a0f107d53837b068ee3aafd30b58a2775271beabc26911ac8d4288ef3",
+    "meshes/r_index_finger_proximal_abd.STL": "373722f52678f818a311d7c5a4ec6ac711038cfbf36536c082325f9315853cb5",
+    "meshes/r_middle_finger_distal.STL": "e853df255f8d3cb1fcdb6c11ef09d91c14e70881efc193980782ad0f0a5f0d53",
+    "meshes/r_middle_finger_middle.STL": "5f88e7c641888fdc7fbae7c3b613b691b8ae4fc35af473b2daf40bead9198178",
+    "meshes/r_middle_finger_proximal.STL": "039bee058e2e24fa083c77c7512d30782aecced1654897c6b9fd7b3b68866f6c",
+    "meshes/r_middle_finger_proximal_abd.STL": "91e3f149f9cabc198b903881661db428fa17860af7f79b5f0a4e8ff555616d6e",
+    "meshes/r_mount.STL": "817b1b03c622494e81b1957470a4b1096eb571ca5d135acd912427d6e43de732",
+    "meshes/r_pinky_distal.STL": "a50c686d4ade61f892832cf3af6d7f3132713a18a7f1e0d4f53ea58deea0533b",
+    "meshes/r_pinky_middle.STL": "609cc6cef5df1bd4a92ec8a889c670643a45f8fc559d124622b96ebc77f76122",
+    "meshes/r_pinky_proximal.STL": "c88defaf8c670dc4a12a489e653ee4732a79a32780046dbe3fe6d98d1a686680",
+    "meshes/r_pinky_proximal_abd.STL": "0d9493bc1a62162c89a1be7673d8d91ebc9f20383847d66e46ac35a3645f9701",
+    "meshes/r_ring_finger_distal.STL": "e853df255f8d3cb1fcdb6c11ef09d91c14e70881efc193980782ad0f0a5f0d53",
+    "meshes/r_ring_finger_middle.STL": "6fbcf92b159a2d9e3b097f459ac5df73577cda5ca2b62020284de287f49323e4",
+    "meshes/r_ring_finger_proximal.STL": "da1870bfe85621550c6081c944b91e4dafc7721a73f46be6a77f0c15dd0b214a",
+    "meshes/r_ring_finger_proximal_abd.STL": "df3787ff168f4c0fa21c77296fe34418240e8c8d357c1ede99c96cf2f89d32f0",
+    "meshes/r_thumb_distal.STL": "f57f246a820aac32a693e86f3dd418912ccc37cc434ac5db841270c095f6a135",
+    "meshes/r_thumb_middle.STL": "a04ebd10f24534121672721011c95d26a0c8f734ee65481c49b962fd0b573ea7",
+    "meshes/r_thumb_proximal.STL": "e3e9e7c1266c6d3e38287b074e38162bf508626de14d54e995e40e1d56d7247e",
+    "meshes/r_thumb_proximal_abd.STL": "2aaafd9ba420bf2b40d2e262f8328ba4937e647021a0ea188aa3620bde0d135a",
+    "meshes/r_wrist.STL": "ece3f36af8ed61079d0061dd9d9b11e5eae76ce9640287d0975c1522f8731fc6",
+    "right.xml": "01bb56ab5144545b5cd9e9202381e7859f4e78a28dfe57132f67a31d753aeabd"
+  },
+  "collision_scope": "active native MuJoCo collision pairs after source exclusions; diagnostic only, not exact source surface-fidelity acceptance",
+  "config": {
+    "approach_height_m": 0.12,
+    "approach_s": 1.5,
+    "close_s": 1.0,
+    "hold_s": 1.0,
+    "lift_command_m": 0.1,
+    "lift_s": 1.5,
+    "maximum_mean_tip_error_m": 0.05,
+    "maximum_tip_error_m": 0.08,
+    "penetration_allowance_m": 0.003,
+    "retarget_max_nfev": 90,
+    "root_rotation_bound_rad": 0.9,
+    "root_translation_bound_m": 0.08,
+    "success_lift_m": 0.05,
+    "video_fps": 20,
+    "video_height": 480,
+    "video_width": 480
+  },
+  "contact_policy": "approved cube-scene geom friction/contact defaults also apply to native hand collision geoms; native collision geometry and assembly exclusions unchanged",
+  "correspondence": "MANO21: wrist; each proximal/middle/distal origin and native fingertip site",
+  "elapsed_s": 0.06296274997293949,
+  "exact_source_fidelity_claimed": false,
+  "final_pose_contact_diagnostics": {
+    "hand_object": {
+      "contact_count": 2,
+      "maximum_penetration_m": 0.0034263773371739146,
+      "minimum_signed_contact_distance_m": -0.0034263773371739146
+    },
+    "hand_self": {
+      "contact_count": 0,
+      "maximum_penetration_m": 0.0,
+      "minimum_signed_contact_distance_m": null
+    },
+    "hand_table": {
+      "contact_count": 0,
+      "maximum_penetration_m": 0.0,
+      "minimum_signed_contact_distance_m": null
+    }
+  },
+  "frame_method": "literal camera-to-world landmarks; proper rigid anatomical initialization; bounded root+joint fit; no Shadow rotation",
+  "function_evaluations": 17,
+  "ideal_wrist_fixture": true,
+  "initial_cube_velocity_m_s_rad_s": [
+    -9.533140286010799e-19,
+    2.3271244737787237e-17,
+    9.295350640413403e-10,
+    -9.055287090663902e-16,
+    -5.181396635209203e-17,
+    -4.7931709612950446e-32
+  ],
+  "joint_limits_rad": [
+    [
+      -1.187,
+      1.291
+    ],
+    [
+      -1.484,
+      0.698
+    ],
+    [
+      -1.047,
+      1.57
+    ],
+    [
+      -1.047,
+      1.57
+    ],
+    [
+      -1.047,
+      1.57
+    ],
+    [
+      -0.698,
+      0.698
+    ],
+    [
+      -1.047,
+      2.094
+    ],
+    [
+      -1.047,
+      1.57
+    ],
+    [
+      -1.047,
+      1.57
+    ],
+    [
+      -0.698,
+      0.698
+    ],
+    [
+      -1.047,
+      2.094
+    ],
+    [
+      -1.047,
+      1.57
+    ],
+    [
+      -1.047,
+      1.57
+    ],
+    [
+      -0.698,
+      0.698
+    ],
+    [
+      -1.047,
+      2.094
+    ],
+    [
+      -1.047,
+      1.57
+    ],
+    [
+      -1.047,
+      1.57
+    ],
+    [
+      -0.698,
+      0.698
+    ],
+    [
+      -1.047,
+      2.094
+    ],
+    [
+      -1.047,
+      1.57
+    ]
+  ],
+  "joint_limits_satisfied": true,
+  "joint_names": [
+    "r_thumb_cmc_flex",
+    "r_thumb_cmc_abd",
+    "r_thumb_mcp",
+    "r_thumb_ip",
+    "r_index_finger_mcp_flex",
+    "r_index_finger_mcp_abd",
+    "r_index_finger_pip",
+    "r_index_finger_dip",
+    "r_middle_finger_mcp_flex",
+    "r_middle_finger_mcp_abd",
+    "r_middle_finger_pip",
+    "r_middle_finger_dip",
+    "r_ring_finger_mcp_flex",
+    "r_ring_finger_mcp_abd",
+    "r_ring_finger_pip",
+    "r_ring_finger_dip",
+    "r_pinky_mcp_flex",
+    "r_pinky_mcp_abd",
+    "r_pinky_pip",
+    "r_pinky_dip"
+  ],
+  "joint_positions_rad": [
+    0.7663735356360349,
+    -0.6393006050671226,
+    0.6152435462814457,
+    -0.06221193610132778,
+    0.27731295247922416,
+    -0.133218962740539,
+    1.0421329406525681,
+    0.052335198327164385,
+    0.44131508997548996,
+    -0.138998472084215,
+    0.5960322947774784,
+    0.3215360374977418,
+    0.3580808143555112,
+    -0.20444496468778772,
+    0.7831675962646835,
+    -0.10402856103002436,
+    0.2550360791956647,
+    -0.24881852076861105,
+    1.309237652739762,
+    -1.046999899606525
+  ],
+  "landmark_errors_m": [
+    0.01812614937299417,
+    0.0146634073219577,
+    0.0067470463737636386,
+    0.00854909797687115,
+    0.002195852000726473,
+    0.010263999330302233,
+    0.009097054371894038,
+    0.0035010266383781494,
+    0.0008138485418747639,
+    0.014429805215848747,
+    0.003834443104771501,
+    0.00561179764479099,
+    0.0013936327891225886,
+    0.01348084297414436,
+    0.008518233935149958,
+    0.0034767553763245507,
+    0.0004768506662177042,
+    0.0154218709697316,
+    0.013435127816148277,
+    0.007587672157878556,
+    0.0016536128182498503
+  ],
+  "maximum_tip_error_m": 0.002195852000726473,
+  "mean_tip_error_m": 0.001306759363238276,
+  "native_actuator_force_limits_preserved": true,
+  "native_mount_to_wrist_preserved": true,
+  "optimizer_message": "`gtol` termination condition is satisfied.",
+  "optimizer_status": 1,
+  "optimizer_success": true,
+  "proposal_sha256": "df252f687a29004932e11f0869c2d20f247123277f2ed520f0dcbe5afa31a09d",
+  "root_mount_orientation_wxyz": [
+    -0.3153946943956809,
+    0.27629394240902966,
+    -0.464139870928377,
+    0.7802320323786509
+  ],
+  "root_mount_position_world_m": [
+    0.09084991983147696,
+    -0.039905770522700654,
+    0.14756634426352505
+  ],
+  "root_rotation_change_rotvec_rad": [
+    0.08539214197730029,
+    -0.052645046056273834,
+    -0.06444297575561335
+  ],
+  "root_translation_change_from_rigid_initialization_m": [
+    -0.0013127405075104431,
+    -0.010872510218472946,
+    0.0035823473341208556
+  ],
+  "scene_contact_override": {
+    "condim": 3,
+    "friction": [
+      1.0,
+      0.005,
+      0.0001
+    ],
+    "gap_m": 0.0,
+    "margin_m": 0.0,
+    "priority": 0,
+    "solimp": [
+      0.9,
+      0.95,
+      0.001,
+      0.5,
+      2.0
+    ],
+    "solmix": 1.0,
+    "solref": [
+      0.02,
+      1.0
+    ]
+  },
+  "scene_xml_sha256": "bfb464a18c52db3e78528390215cf1e65811f571c65bfb9426d654abab1984b8",
+  "source_global_physics_overridden_by_approved_scene": true,
+  "source_scale": 1.0,
+  "tip_errors_m": [
+    0.002195852000726473,
+    0.0008138485418747639,
+    0.0013936327891225886,
+    0.0004768506662177042,
+    0.0016536128182498503
+  ]
+}

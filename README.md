@@ -54,6 +54,7 @@ provider runs do not yet record every state/action field required by that model.
 
 ## Documentation and results
 
+- [Phase 1 end-to-end demo and meeting walkthrough](docs/PHASE1_END_TO_END.md)
 - [Phase 1 scene-preparation walkthrough](docs/PHASE1_SCENE_PREPARATION.md)
 - [Documentation index](docs/README.md)
 - [Research protocol](docs/HUG_MONITOR_RESEARCH_PLAN.md)
