@@ -1,5 +1,7 @@
 # Parallel grasp-generator validation and paper handoff
 
+> **Current workflow, 28 October 2026:** Use `phase1-scene-preparation` for Phase 1 and `project-work` for ongoing work. Follow [the contributor workflow](WORKING_BRANCH.md); this dated document preserves earlier scope, branch identities and source paths.
+
 14 October 2026. The user authorizes three provider-specific chats to work in
 parallel, while the main chat coordinates HUG, shared dependencies and the paper.
 This supersedes earlier recommendations to finish HUG before inspecting another
@@ -15,13 +17,13 @@ opening prompt:
 - [DexGrasp Anything](parallel_validation/DEXGRASP_ANYTHING_VALIDATION_HANDOFF.md)
 - [UniDexGrasp](parallel_validation/UNIDEXGRASP_VALIDATION_HANDOFF.md)
 
-Run `git worktree list` and use the existing checkout holding
-`codex/project-work`. It is currently:
+For the provider work described here, run `git worktree list` and use the existing checkout holding
+`project-work`. Its existing path is:
 
 `/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction`
 
 Use the current branch contents, not a reset to the commit recorded in a
-historical report. Do not create branches, checkouts or PRs. Preserve ignored
+historical report. Follow the current branch policy in [WORKING_BRANCH.md](WORKING_BRANCH.md); do not create additional branches, checkouts or PRs. Preserve ignored
 assets/outputs, `MUJOCO_LOG.TXT`, `docs/GRASP_FAILURE_NEXT_STEPS.md` and the existing
 paper path. The main checkout at `/Users/nilakarthikesan/grasp-failure-prediction`
 contains runtime assets but is on `main`; do not edit project source there.

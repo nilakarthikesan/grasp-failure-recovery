@@ -9,7 +9,7 @@ statements below are not current instructions.
 
 # Paper progress: evaluating simulation diversity for grasp failure warnings
 
-**Working branch: `codex/project-work`.** The earlier milestone branches were
+**Working branch: `project-work`.** The earlier milestone branches were
 consolidated through [PR 19](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/19),
 which is merged into `main`. Later diagnostics and paper preparation continue on
 this one working branch; they are not automatically part of `main`. Historical PR links below preserve the
@@ -283,7 +283,7 @@ physical generalization.
 [Step 5 dataset and grouped splits (#14)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/14),
 and [Step 6 trained baselines and results (#15)](https://github.com/nilakarthikesan/grasp-failure-recovery/pull/15).
 These were originally stacked draft PRs. Source is now consolidated on
-`codex/project-work`; their historical links do not mean those changes have
+`project-work`; their historical links do not mean those changes have
 automatically merged into `main`.
 
 ## Literature findings → implementation decisions

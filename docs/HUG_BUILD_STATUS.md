@@ -1,6 +1,8 @@
 # HUG-only build and workshop status — 15 October 2026
 
-Work remains on `codex/project-work` in its existing checkout. Historical
+> **Current workflow, 28 October 2026:** Use `phase1-scene-preparation` for Phase 1 and `project-work` for ongoing work. Follow [the contributor workflow](WORKING_BRANCH.md); this dated document preserves earlier scope, branch identities and source paths.
+
+At this recorded snapshot, work used `project-work`. Historical
 protocols/results and dirty other-generator work remain preserved. HUG is the
 only active generator. Shadow is the execution candidate; native MANO remains
 static. [Result ledger](RESULTS_LOG.md), [mapping gate](HUG_MAPPING_VALIDATION.md)

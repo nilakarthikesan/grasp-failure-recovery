@@ -1,6 +1,6 @@
 # One fresh HUG evaluation through grasp-eval
 
-Completed 13 October 2026, at source snapshot `e1abfc3` on `codex/project-work`.
+Completed 13 October 2026, at source snapshot `e1abfc3` on `project-work`.
 The user authorized one HUG evaluation after separately deferring ContactGen
 and UniDexGrasp evaluation generation.
 

@@ -1,8 +1,10 @@
 # HUG-only system build — 15 October 2026
 
+> **Current workflow, 28 October 2026:** Use `phase1-scene-preparation` for Phase 1 and `project-work` for ongoing work. Follow [the contributor workflow](WORKING_BRANCH.md); this dated document preserves earlier scope, branch identities and source paths.
+
 The user assigns the manuscript outside this repository. Build work must not
-edit `docs/paper` or maintain manuscript progress. Continue on the existing
-`codex/project-work` checkout; preserve unrelated dirty work and old experiments.
+edit `docs/paper` or maintain manuscript progress. For the build work described here, use the existing
+`project-work` checkout; preserve unrelated dirty work and old experiments.
 
 ## Current target: native MANO in MANOSim
 

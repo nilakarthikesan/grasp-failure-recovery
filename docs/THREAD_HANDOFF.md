@@ -1,5 +1,7 @@
 # New-thread handoff: grasp failure project
 
+> **Current workflow, 28 October 2026:** Use `phase1-scene-preparation` for Phase 1 and `project-work` for ongoing work. Follow [the contributor workflow](WORKING_BRANCH.md); this dated document preserves earlier scope, branch identities and source paths.
+
 > **Latest scope, 15 October 2026:** Continue from [the HUG-only mapping and prediction handoff](HUG_ONLY_MAPPING_AND_PREDICTION_HANDOFF.md). HUG is the sole generator for the next study; complete mapping qualification before evaluation/data/model work. The native MANO comparison remains a static candidate alongside the current Shadow baseline. Other-generator history below is preserved, not the new chat's work plan.
 
 > **Current HUG status, 15 October 2026:** [Native MANO static comparison](HUG_NATIVE_MANO_COMPARISON.md) now passes native skeleton import and improves fidelity on all 32 saved grasps. Complete collision/dynamic validation remains open. The prior Shadow static-input acceptance and strict native-surface failures remain unchanged. Read the latest continuation below. No new eval data.
@@ -20,7 +22,9 @@ state rather than assuming these branch references have not changed.
 ## Working location and collaboration
 
 - Repository: <https://github.com/nilakarthikesan/grasp-failure-recovery>.
-- Continue on **`codex/project-work`**, using its existing checkout:
+- Ongoing project work uses **`project-work`**; current Phase 1 work uses
+  **`phase1-scene-preparation`** per [the contributor workflow](WORKING_BRANCH.md).
+  The existing ongoing-project checkout is:
   `/Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction`.
 - `/Users/nilakarthikesan/grasp-failure-prediction` is the original checkout,
   on local main at `c95dd8d`; it also holds most raw recordings and assets.
@@ -437,7 +441,7 @@ with fingertip constraints and reliable native-relative direction terms,
 followed by the unchanged audit. Do not tune acceptance to these development
 cases. No current evidence proves strict preservation globally impossible or
 approximate predictor adequacy. Preserve the current paper path and existing
-untracked/ignored files; continue on codex/project-work.
+untracked/ignored files; continue on project-work.
 
 
 ## 14 October 2026 — Fingertip/direction code checkpoint; HUG fits still running
@@ -504,7 +508,7 @@ paper. [Start here](PARALLEL_GENERATOR_VALIDATION_HANDOFF.md). Each provider fil
 contains a copy-paste prompt, exact file ownership, status/blockers and paper
 update procedure. User-owned chats have not been created automatically.
 
-The manuscript remains docs/paper/working_draft.tex in the codex/project-work
+The manuscript remains docs/paper/working_draft.tex in the project-work
 checkout. Abstract/introduction and mapping subsections now reflect the accepted
 multi-generator failure-prediction direction. Historical HUG numbers remain
 exact; mixed-source training/generalization results remain unexecuted. Compile
@@ -554,7 +558,7 @@ A separate same 7-cell/8-box radial study, independently replayed at 90 digits w
 
 Keep all V1/V2/V3 history: fused-forearm body lookup stop after in-memory C; named-joint-order stop after C export; then reviewed source-chain/named-permutation corrections and exact C bytes. Production, source proposals, hand/object assets and frozen acceptance are unchanged. Six new experimental robot retargets are saved; zero fresh native HUG proposals, physics/eval data/labels or training.
 
-The asynchronous user question asks which failure label is intended: executed common-Shadow retarget (recommended for one robot across generators, requiring a declared per-grasp placement policy and distortion reporting), or native MANO hand failure (separate native-hand simulator path). Await the answer before dependent implementation; do not infer approval from elapsed time. Preserve the current paper and other-provider dirty files on codex/project-work; no new branch/PR.
+The asynchronous user question asks which failure label is intended: executed common-Shadow retarget (recommended for one robot across generators, requiring a declared per-grasp placement policy and distortion reporting), or native MANO hand failure (separate native-hand simulator path). Await the answer before dependent implementation; do not infer approval from elapsed time. Preserve the current paper and other-provider dirty files on project-work; no new branch/PR.
 
 
 <!-- hug-free-palm-2026-10-15-v1 -->
@@ -585,7 +589,7 @@ Read [HUG_EXPOSED_GEOMETRY_AUDIT.md](HUG_EXPOSED_GEOMETRY_AUDIT.md). Six saved c
 
 The current evidence manifest binds exact native reconstruction and nominal-pose/FK checks for 32 saved sources separately from six compiled-scene checks. All 32 are development evidence across four geometries. The declared executed Shadow target does not require native MANO outcome equivalence or a universal morphology allowance merely to define its outcome. It still needs disclosed distortion and later empirical prediction/mapper-confounding evidence; no blanket readiness certificate, practical threshold or retrospective PASS is issued.
 
-Next proposed work: freeze continuous object-relative measurements and a finite candidate objective around actual surviving exposed-region differences, then compare fixed baseline/candidate across saved development inputs with unchanged individual fingertip/domain guards. Do not repeat unchanged broad optimization, treat missing evidence as repair or silently replace the old scientific contract. No new inference, eval episodes, labels or training remains the active restriction. User approval to commit/publish the owned work on codex/project-work persists; no new branch/PR or repeated publication permission is needed. Preserve other-provider work and the open canonical paper path.
+Next proposed work: freeze continuous object-relative measurements and a finite candidate objective around actual surviving exposed-region differences, then compare fixed baseline/candidate across saved development inputs with unchanged individual fingertip/domain guards. Do not repeat unchanged broad optimization, treat missing evidence as repair or silently replace the old scientific contract. No new inference, eval episodes, labels or training remains the active restriction. User approval to commit/publish the owned work on project-work persists; no new branch/PR or repeated publication permission is needed. Preserve other-provider work and the open canonical paper path.
 
 <!-- hug-mapping-process-repair-2026-10-15-v1 -->
 
@@ -595,7 +599,7 @@ Read [HUG_MAPPING_PROCESS_REPAIR.md](HUG_MAPPING_PROCESS_REPAIR.md). Production 
 
 Experimental 30D placement adds independent root rotation with verified zero-rotation identity/Jacobians. Two finite pilots remain negative; a real search/selection mismatch was fixed by making previously passing proximity/orientation and necessary eligibility guidance hard constraints. Endpoints remain infeasible at 25 iterations. The final 21-step maximum dyadic check selects λ=1/16 for both cases 20/28, preserves original fingertip caps/passing/eligible rows, and improves worst normalized severity 9.283423→9.104737 and 8.002982→7.573550. No failed row becomesPASS;12/13 and22/1 proximity/orientation failures remain. Both new poses are experimental, not production/global/full-grid validation. Nine historical strictFAILs remain unchanged.
 
-Next engineering work is feasible protected step acceptance inside the object-aware fitter, followed by unchanged independent full-field/uncertainty checks for genuinely eligible replacements. Do not repeat unmodified 25-iteration broad fits, claim impossibility from iteration limits, loosen criteria or generate eval data. Keep Shadow, all original caps and the selected executed-Shadow label target. No inference, integration, labels or training occurred. A contemplated endpoint projection was canceled unexecuted; an explicitly frozen old loader insulated the experiment from concurrent shared-source edits. All versions/results/reviews are archived under research_artifacts/hug_mapping_process_repair_2026-10-15_v1. Preserve other-provider work and the open paper path. Commit/publish authorization remains active on codex/project-work; no new branch/PR.
+Next engineering work is feasible protected step acceptance inside the object-aware fitter, followed by unchanged independent full-field/uncertainty checks for genuinely eligible replacements. Do not repeat unmodified 25-iteration broad fits, claim impossibility from iteration limits, loosen criteria or generate eval data. Keep Shadow, all original caps and the selected executed-Shadow label target. No inference, integration, labels or training occurred. A contemplated endpoint projection was canceled unexecuted; an explicitly frozen old loader insulated the experiment from concurrent shared-source edits. All versions/results/reviews are archived under research_artifacts/hug_mapping_process_repair_2026-10-15_v1. Preserve other-provider work and the open paper path. Commit/publish authorization remains active on project-work; no new branch/PR.
 
 ## Latest continuation — 2026-10-15: scoped HUG simulator-input acceptance
 
@@ -603,7 +607,7 @@ Read [HUG_MAPPING_ACCEPTANCE_REPAIR.md](HUG_MAPPING_ACCEPTANCE_REPAIR.md) before
 
 This accepts the declared retargeted-Shadow input representation on these saved commands. It does **not** accept strict native MANO surface preservation, fresh retargeter profiles, dynamic tracking or prediction generalization. The old evaluator could not issue full positive certification; genuine native counterexamples remain on current geometry. Do not keep optimizing solely until that frozen implementation says PASS. Keep its original criteria/results.
 
-The new feasible-step and eligibility-guidance fit improves existing20/28 while preserving original tip guards, but both candidates retain definite surface counterexamples and are not promoted. The current witness replay covers365 retained records across six original and two experimental poses; it is not a full-grid or held-out study. The retargeter default stays historical. Future data must identify actual Shadow execution and preserve native/retargeter/command/geometry/executor provenance. No eval collection, native inference, new proposals, physics integration or training ran. Continue on `codex/project-work` and preserve other-provider work.
+The new feasible-step and eligibility-guidance fit improves existing20/28 while preserving original tip guards, but both candidates retain definite surface counterexamples and are not promoted. The current witness replay covers365 retained records across six original and two experimental poses; it is not a full-grid or held-out study. The retargeter default stays historical. Future data must identify actual Shadow execution and preserve native/retargeter/command/geometry/executor provenance. No eval collection, native inference, new proposals, physics integration or training ran. Continue on `project-work` and preserve other-provider work.
 
 
 <!-- hug-native-mano-comparison-2026-10-15-v1 -->
@@ -613,4 +617,4 @@ Read [HUG_NATIVE_MANO_COMPARISON.md](HUG_NATIVE_MANO_COMPARISON.md). The new `ev
 
 The entire versioned evidence is under `research_artifacts/hug_native_mano_comparison_2026-10-15_v1/`. All scalar cases completed before a final summary serialization failure; recovery aggregated saved values without rerunning geometry, and both source versions/logs are preserved. Independent FK review and 33 manufactured controls pass. No new inference, proposals, fits, physics, eval data/labels or training. Do not run this diagnostic as an outcome-producing simulator: contact is disabled and physical parameters/controllers are unvalidated.
 
-Next proposed work is exposed-boundary/direction/uncertainty checking of the native collision approximation using existing grasps. Keep numerical coordinate correctness separate from anatomical fidelity and eventual task adequacy. Native hands for some generators would confound hand with generator unless the study accounts for embodiment. The user asked for this native comparison, not an automatic replacement of the common-Shadow dataset design. Continue on `codex/project-work`, preserve concurrent providers and the open paper, and retain existing commit/publish authorization.
+Next proposed work is exposed-boundary/direction/uncertainty checking of the native collision approximation using existing grasps. Keep numerical coordinate correctness separate from anatomical fidelity and eventual task adequacy. Native hands for some generators would confound hand with generator unless the study accounts for embodiment. The user asked for this native comparison, not an automatic replacement of the common-Shadow dataset design. Continue on `project-work`, preserve concurrent providers and the open paper, and retain existing commit/publish authorization.

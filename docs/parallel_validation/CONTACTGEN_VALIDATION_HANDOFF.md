@@ -1,6 +1,8 @@
 # ContactGen mapping-validation thread handoff
 
-Prepared 14 October 2026 from `codex/project-work` at `0db42ca`. This is a
+> **Current workflow, 28 October 2026:** Use `phase1-scene-preparation` for Phase 1 and `project-work` for ongoing work. Follow [the contributor workflow](../WORKING_BRANCH.md); this dated document preserves earlier scope, branch identities and source paths.
+
+Prepared 14 October 2026 from `project-work` at `0db42ca`. This is a
 parallel work assignment, not completed ContactGen validation.
 
 ## Copy into the new thread
@@ -8,7 +10,7 @@ parallel work assignment, not completed ContactGen validation.
 ```text
 Read docs/PARALLEL_GENERATOR_VALIDATION_HANDOFF.md and
 docs/parallel_validation/CONTACTGEN_VALIDATION_HANDOFF.md in the existing
-codex/project-work checkout. Use git worktree list to locate that checkout;
+project-work checkout for the provider work described here. Use git worktree list to locate that checkout;
 currently it is /Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction.
 Own ContactGen's mapping audit, provider-specific fixes, evidence and the
 contactgen subsection of docs/paper/working_draft.tex. Work in parallel with

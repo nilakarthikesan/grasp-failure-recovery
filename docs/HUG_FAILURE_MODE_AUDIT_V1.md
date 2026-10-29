@@ -1,5 +1,7 @@
 # HUG recorded failure-family audit v1
 
+> **Current workflow, 28 October 2026:** Use `phase1-scene-preparation` for Phase 1 and `project-work` for ongoing work. Follow [the contributor workflow](WORKING_BRANCH.md); this dated document preserves earlier scope, branch identities and source paths.
+
 Prepared 15 October 2026. This is a separate, label-defined audit of the new
 recorded cohort. It does not revise the frozen five-model category comparison,
 the historical v2 datasets, their splits, or their results. Implementation and
@@ -98,7 +100,7 @@ For the current cohort, the intended inputs are:
 - `research_artifacts/hug_build_collection_2026-10-15_v2/study_attempt_scenario_binding.json`
 - `research_artifacts/hug_build_model_comparison_2026-10-15_v1/models/report.json`
 
-Run from the canonical `codex/project-work` checkout. The original virtualenv
+For this audit, run from the existing `project-work` checkout located with `git worktree list`. The original virtualenv
 requires its existing Pydantic dependency directory after base NumPy/MuJoCo have
 loaded; no installation or environment modification is needed. A shell helper
 can supply that import order:

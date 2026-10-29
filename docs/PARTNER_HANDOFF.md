@@ -7,7 +7,10 @@ Use [the completed experiment summary](PAPER_PROGRESS.md),
 [the working paper](paper/working_draft.tex). They separate measured results
 from comparisons that remain unexecuted in the saved evidence.
 
-Active development is on `codex/project-work`. It combines our diagnostics and
+Shared development is on `project-work`. The user explicitly authorized
+`phase1-scene-preparation` in an isolated checkout for Phase 1.
+Use `git worktree list` to locate the intended branch. The shared branch
+combines our diagnostics and
 curated documentation with Enoch's merged provider work from main through
 `b503c2f` (PRs 21 through 24). The old local main checkout remains separate.
 
@@ -15,7 +18,7 @@ From an existing clean clone:
 
 ```bash
 git fetch origin
-git switch codex/project-work
+git switch project-work
 ```
 
 On Nila's machine, use `git worktree list` to locate the existing checkout

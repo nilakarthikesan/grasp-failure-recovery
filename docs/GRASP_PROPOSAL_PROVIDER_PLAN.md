@@ -1,10 +1,12 @@
 # Interchangeable grasp-proposal provider plan
 
+> **Current workflow, 28 October 2026:** Use `phase1-scene-preparation` for Phase 1 and `project-work` for ongoing work. Follow [the contributor workflow](WORKING_BRANCH.md); this dated document preserves earlier scope, branch identities and source paths.
+
 **Status:** Core provider boundary implemented; provider-specific GPU integrations remain future work
 
 **Date:** 12 October 2026
 
-**Implementation branch:** `codex/project-work`
+**Historical implementation branch:** `project-work`
 
 ## Objective
 

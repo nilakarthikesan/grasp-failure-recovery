@@ -1,6 +1,8 @@
 # HUG only mapping and prediction handoff
 
-Prepared 15 October 2026 for a new Codex chat. Evidence includes the DGA decision at `1370e18`, the native HUG reference at `74ae888`, and the collision-bound arithmetic repair at `a23db18` on `codex/project-work`; inspect current HEAD before continuing. This document records the user's latest scope decision and distinguishes completed results from proposed work. It does not report a new experiment.
+> **Current workflow, 28 October 2026:** Use `phase1-scene-preparation` for Phase 1 and `project-work` for ongoing work. Follow [the contributor workflow](WORKING_BRANCH.md); this dated document preserves earlier scope, branch identities and source paths.
+
+Prepared 15 October 2026 for a new development chat. Evidence includes the DGA decision at `1370e18`, the native HUG reference at `74ae888`, and the collision-bound arithmetic repair at `a23db18` on `project-work`; inspect current HEAD before continuing. This document records the user's latest scope decision and distinguishes completed results from proposed work. It does not report a new experiment.
 
 ## User objective and latest decision
 
@@ -14,7 +16,7 @@ The current chat's task is to prepare this handoff. It has not started the later
 
 ## Working directory and preservation rules
 
-Use the user's single ongoing branch, `codex/project-work`. Run `git worktree list` first. Its current canonical checkout is:
+Use `project-work` for the ongoing HUG work described here. Current Phase 1 scene preparation uses `phase1-scene-preparation`; see [the contributor workflow](WORKING_BRANCH.md). Run `git worktree list` first. The ongoing-project checkout is:
 
 ```text
 /Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction
@@ -26,7 +28,7 @@ The original checkout below is on `main` and contains important ignored runtime 
 /Users/nilakarthikesan/grasp-failure-prediction
 ```
 
-Do not create another branch, worktree or PR for each step. Do not reset, clean, overwrite dirty work, move the existing paper, or delete ignored assets. Follow `.cursor/rules/project-workflow.mdc` and applicable AGENTS instructions. Append dated evidence-backed decisions to `docs/RESEARCH_DECISIONS.md`; keep `docs/PAPER_PROGRESS.md` and the existing paper consistent. Compile the existing paper with the desktop compiler after source edits.
+Follow current branch policy in `docs/WORKING_BRANCH.md`; do not create additional branches, worktrees or PRs for each step. Do not reset, clean, overwrite dirty work, move the existing paper, or delete ignored assets. Follow `.cursor/rules/project-workflow.mdc` and applicable AGENTS instructions. Append dated evidence-backed decisions to `docs/RESEARCH_DECISIONS.md`; keep `docs/PAPER_PROGRESS.md` and the existing paper consistent. Compile the existing paper with the desktop compiler after source edits.
 
 Canonical paper:
 
@@ -209,7 +211,7 @@ No defensible deadline exists for eliminating every anatomical difference. The u
 
 ## Code and test map
 
-Paths in this table are relative to the canonical `codex/project-work` checkout above.
+Paths in this table are relative to the ongoing `project-work` checkout above.
 
 | Responsibility | Current files |
 | --- | --- |
@@ -235,7 +237,7 @@ For historical source details, read `docs/HUG_MAPPING_PROCESS_REPAIR.md`, `docs/
 ```text
 Read /Users/nilakarthikesan/.codex/worktrees/partner-simulation-review/grasp-failure-prediction/docs/HUG_ONLY_MAPPING_AND_PREDICTION_HANDOFF.md and follow its evidence links.
 
-We are focusing only on HUG as our grasp generator. Continue on codex/project-work in its existing worktree, preserving dirty files, assets, historical results and the open paper path. Shadow is the current execution default; native MANO has been added as a static diagnostic candidate and must remain part of the accuracy investigation.
+We are focusing only on HUG as our grasp generator. For the HUG work described here, continue on project-work in its existing worktree, preserving dirty files, assets, historical results and the open paper path. Shadow is the current execution default; native MANO has been added as a static diagnostic candidate and must remain part of the accuracy investigation.
 
 First close the HUG mapping/static-validation gaps using the existing 32 saved grasps. Start from the native MANO versus Shadow comparison and diagnose exposed collision surfaces, directions and sampling uncertainty. Distinguish correct coordinate import, anatomical approximation and physical execution. Explain which hand/mapping route you propose to qualify; do not silently change the default, weaken criteria, or promote experimental profiles. Exact MANO-to-Shadow surface equality is not required for a claim limited to actual Shadow outcomes, but distortion must remain visible.
 

@@ -173,7 +173,7 @@ made it hard for the user to identify the current project. Some demo and
 literature files also remained outside the latest experiment branch.
 
 **Implemented source decision:** consolidate the histories and unique files on
-`codex/project-work`. Preserve historical designs and the optional container
+`project-work`. Preserve historical designs and the optional container
 runtime with clear status notes. Keep scientific v2 and v3 records distinct;
 this is source organization, not new model training or a changed experiment.
 The integrated suite passed 373 tests with 32 optional skips, and the frozen
@@ -641,7 +641,7 @@ remain proposals about future training benefits. No new model fit, threshold
 change or simulation result is introduced by this documentation revision.
 The [protocol](../research_artifacts/wrist_comparison_plan_v1/protocol.json)
 and [progress record](archive/PAPER_PROGRESS_HISTORY_2026-10-12.md#accepted-paper-question-and-evidence-gates-12-october)
-define the next evidence required. Source remains on `codex/project-work`;
+define the next evidence required. Source remains on `project-work`;
 PR 19 is merged into `main`, but later working branch changes are not merged
 by documenting them.
 
@@ -1154,7 +1154,7 @@ protocol should be reconciled with this record and supporting artifacts.
   and fail closed for unsupported source models. Register DexGraspNet as disabled
   `dataset_replay` with the missing evidence stated explicitly. Do not invent a
   transform or describe the project-authored synthetic fixture as DexGraspNet.
-- **Implementation status:** Implemented on `codex/multi-provider-translation`.
+- **Implementation status:** Implemented on `multi-provider-translation`.
   Provider classification and license status appear in resolved results;
   pre-rollout rejections carry a null task label; seeded object-frame point
   clouds and manifests are content-addressed. The environment, controller,
@@ -1216,7 +1216,7 @@ objects and initial conditions, followed by grouped, held-out outcome analysis.
 - **Choice:** Add `grasp-eval` with `validate`, `run`, `status`, `resume`, and
   `view` subcommands over `grasp_eval_experiment_v1`. One experiment file maps
   provider requests and proposal sample indexes to controlled physical cases.
-- **Implementation status:** Implemented on `codex/project-work`. Completed
+- **Implementation status:** Implemented on `project-work`. Completed
   cases are immutable during resume; incomplete stage directories are retained
   before retry. Existing low-level commands remain available for debugging.
 - **Next check:** Run a small multi-provider experiment and confirm that resume,
@@ -1254,7 +1254,7 @@ and pinned DexGraspNet replay are implemented. Fresh DexGrasp Anything inference
 remains a GPU-worker handoff rather than a completed integration.
 
 **Source integration:** merge that main snapshot into the existing
-`codex/project-work` branch, preserving the curated README and both decision
+`project-work` branch, preserving the curated README and both decision
 histories. The only merge conflicts are documentation. Partner implementation
 files are incorporated without modifying them; existing models, datasets,
 labels and corrected v3/v4 diagnostics retain their original provenance.
@@ -2218,7 +2218,7 @@ Implemented and measured: full 30D joint/palm-translation/root-rotation search w
 
 The final fixed dyadic segment check selects 1/16 steps for both saved endpoints, satisfies all 10 original tip caps and preserves all previously passing/eligible retained rows. Worst normalized severity 9.283423→9.104737 and 8.002982→7.573550; no failed row becomes a pass. Remaining proximity/orientation failures 12/13 and22/1 prevent sign-off. Original historical nine strict FAILs are unchanged; no new full grids are asserted. A proposed four-endpoint projection was canceled before execution. A shared loader edit was isolated through an explicit historical-module overlay, preserving concurrent work and protocol boundaries.
 
-Choice/next check: retain Shadow, original scientific criteria and historical default. Implement feasible protected step acceptance inside the object-aware solver rather than interpreting finite optimizer stopping as infeasibility or accepting altered thresholds. The bounded step improvement is development evidence, not a general algorithm or untouched-object validation. Native/Shadow outcome equivalence is not claimed. No inference, physics integration, eval episodes/labels or training. Evidence and scope: [HUG_MAPPING_PROCESS_REPAIR.md](HUG_MAPPING_PROCESS_REPAIR.md), [archived protocols/results/reviews](../research_artifacts/hug_mapping_process_repair_2026-10-15_v1/). User authorization to commit/publish on codex/project-work persists.
+Choice/next check: retain Shadow, original scientific criteria and historical default. Implement feasible protected step acceptance inside the object-aware solver rather than interpreting finite optimizer stopping as infeasibility or accepting altered thresholds. The bounded step improvement is development evidence, not a general algorithm or untouched-object validation. Native/Shadow outcome equivalence is not claimed. No inference, physics integration, eval episodes/labels or training. Evidence and scope: [HUG_MAPPING_PROCESS_REPAIR.md](HUG_MAPPING_PROCESS_REPAIR.md), [archived protocols/results/reviews](../research_artifacts/hug_mapping_process_repair_2026-10-15_v1/). User authorization to commit/publish on project-work persists.
 
 <!-- dga-acceptance-feasibility-2026-10-15-v2 -->
 ## 15 October 2026 — DGA exact feasibility obstruction and unchanged-angle failures
@@ -3611,3 +3611,35 @@ Submitted and verified in OpenReview: **Auditing Native Grasp Transfer Before Le
 The existing `docs/paper/working_draft.tex` compiled in the desktop editor. Exported PDF has four body pages plus one references page; all pages were rendered and visually reviewed, and PDF text/metadata contain no author identities or local paths. The final PDF and source hashes are in `research_artifacts/native_submission_2026-10-16/submission_receipt.json`. Form title/abstract match the saved manuscript.
 
 Scientific scope remains authored-asset validation: 120 primary slots = 13 completed failures + 107 null quarantines; all 15 matched timestep slots quarantine. Eleven pre-lift histories are eligible, all future failures; no scientific native predictor was trained. Task-level timestep convergence and physical RGBD calibration remain unestablished. V4 is an unexecuted draft, not a result.
+
+### 2026-10-28 — Approve isolated Phase 1 scene work and descriptive project names
+
+- **Previous plan:** Shared development used one ongoing branch. The new
+  discussion separates scene preparation, HUG proposal reconstruction, robot
+  retargeting and execution before any prediction training.
+- **Evidence:** The user explicitly selected a known-object MuJoCo scene and a
+  separate isolated Phase 1 checkout. A read-only inspection found existing
+  RGB-D/calibration and scene-binding helpers, but the old capture orchestration
+  includes a Shadow hand. The user then requested removal of assistant-specific
+  names throughout project naming. GitHub reported no open pull requests before
+  the five branch renames; the rename responses preserved all five commit IDs.
+- **Choice:** Use `project-work` for shared development and
+  `phase1-scene-preparation` for the authorized Phase 1 work. The other renamed
+  branches are `dexgraspnet-replay`, `grasp-eval-providers`,
+  `multi-provider-foundation` and `remove-container-smoke`. Use descriptive
+  project names without assistant or vendor prefixes.
+- **Implementation status:** Branch names and current workflow documentation are
+  updated. The isolated checkout starts from `e1a90be`. No scene-generation
+  implementation, rendering, grasp trial, training or manuscript change is
+  reported by this entry. The user also approved historical label/tag renaming.
+  All 17 local and remote recovery tags were renamed with identical commit IDs.
+  Automatic approval review rejected changing hash-bound experiment files. The
+  safer implementation leaves evidence bytes intact and records label aliases
+  and their original Git blobs in a separate naming receipt. Current docs and
+  recovery-reference labels are updated; historical validators remain valid for
+  their unchanged evidence bytes.
+- **Next check:** The user approved a 5 cm cube, 100 g mass, sliding friction
+  1.0, gravity and passive settling, plus a 224 by 224 camera at
+  (0.25, -0.35, 0.35) m with 45 degree vertical field of view. These are explicit
+  setup assumptions. Implement and test this scene preparation step. Keep the source observation, simulator scene and calibration
+  explicitly bound; simulation consistency does not establish physical fidelity.

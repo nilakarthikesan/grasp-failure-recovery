@@ -61,8 +61,9 @@ provider runs do not yet record every state/action field required by that model.
 - [Partner handoff](docs/PARTNER_HANDOFF.md)
 - [Recorded noise demo](docs/demos/grasp-noise/README.md)
 
-Active development uses
-[`codex/project-work`](https://github.com/nilakarthikesan/grasp-failure-recovery/tree/codex/project-work).
+Shared development uses
+[`project-work`](https://github.com/nilakarthikesan/grasp-failure-recovery/tree/project-work).
+The current Phase 1 work uses `phase1-scene-preparation` in an isolated checkout.
 See [the contributor workflow](docs/WORKING_BRANCH.md) for checkout instructions.
 
 ## Attribution and license

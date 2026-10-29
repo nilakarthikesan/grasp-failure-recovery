@@ -1,6 +1,6 @@
 # Grasp generator mapping fidelity audit
 
-Audited 14 October 2026 against `codex/project-work` at `7b14f26`.
+Audited 14 October 2026 against `project-work` at `7b14f26`.
 This is a static source, transform and forward-kinematics audit. It reuses the
 saved HUG cube output and synthetic joint configurations; it contains no new
 generator inference, physics rollout, task labels, evaluation collection or

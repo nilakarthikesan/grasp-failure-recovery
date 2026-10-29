@@ -18,8 +18,8 @@ We are building a model that warns when a robot grasp is likely to fail. Step 1 
 
 The dataset inspection and cube pilot were checked on 9 October 2026; this
 walkthrough was prepared on 10 October 2026. The cube illustration uses Enoch's
-`codex/hug-proposal-execution-v1` at `843fcfe` and an additional local collector
-on `codex/noisy-rollout-pilot`. Those implementations are separate from this
+`hug-proposal-execution-v1` at `843fcfe` and an additional local collector
+on `noisy-rollout-pilot`. Those implementations are separate from this
 documentation PR and are not all present on main.
 
 ## The two models have different jobs

@@ -34,7 +34,7 @@ Both episodes ask the robot to **put the carrot on the plate**:
    source reports final task failure. An unsuccessful acquisition attempt is
    distinct from an irreversible failure: a retry could have succeeded.
 
-These are Codex visual observations, not independently reviewed event labels
+These are AI-assisted visual observations, not independently reviewed event labels
 or contact-sensor measurements. Initial carrot pose and location differ, so
 the pair cannot isolate wrist effects. Each video has 50 frames at 5 fps; its
 ten seconds of encoded playback are not verified physical execution time.

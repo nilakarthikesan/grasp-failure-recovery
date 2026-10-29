@@ -1,6 +1,6 @@
 # Restored A40 development runtime
 
-14 October 2026, America/New_York. The original pod 8ibam2z5n6ea5r still failed its authorized start with insufficient free GPUs on its host. It remains stopped and preserved. A single replacement A40, 10fvywuiko09rk (codex-grasp-validation-a40-20261014), is running in CA-MTL-1 Secure Cloud at the observed $0.59/hour rate, funded by the existing account balance. The live catalog showed Medium stock before creation. Running compute continues billing until stopped; both retained pod disks also bill.
+14 October 2026, America/New_York. The original pod 8ibam2z5n6ea5r still failed its authorized start with insufficient free GPUs on its host. It remains stopped and preserved. A single replacement A40, 10fvywuiko09rk (grasp-validation-a40-20261014), is running in CA-MTL-1 Secure Cloud at the observed $0.59/hour rate, funded by the existing account balance. The live catalog showed Medium stock before creation. Running compute continues billing until stopped; both retained pod disks also bill.
 
 The exact image, read from the original pod, is pytorch/pytorch@sha256:9bfcfa72b6b244c1fbfa24864eec97fb29cfafc065999e9a9ba913fa1e690a02 (the PyTorch 1.11/CUDA 11.3 development image). The new shape is one A40, 30 GB container disk, 20 GB /workspace volume and TCP 22 only. No network volume or additional replacement was created.
 

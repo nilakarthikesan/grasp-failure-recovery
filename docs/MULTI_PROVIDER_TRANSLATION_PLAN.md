@@ -1,8 +1,10 @@
 # Multi-Provider Grasp Translation Plan
 
+> **Current workflow, 28 October 2026:** Use `phase1-scene-preparation` for Phase 1 and `project-work` for ongoing work. Follow [the contributor workflow](WORKING_BRANCH.md); this dated document preserves earlier scope, branch identities and source paths.
+
 **Status:** Milestones 1 through 3 implemented locally; fresh GPU inference remains gated
 **Date:** 12 October 2026; revised 13 October 2026
-**Implementation branch:** `codex/multi-provider-translation`
+**Historical implementation branch:** `multi-provider-translation`
 
 ## Implementation audit — 13 October 2026
 
@@ -108,7 +110,7 @@ formats and model dependencies remain outside the common evaluator.
 
 ## 3. Current implemented foundation
 
-The `codex/project-work` branch already contains the provider-neutral foundation.
+The `project-work` branch already contains the provider-neutral foundation.
 This is completed infrastructure, not proposed work:
 
 - `grasp_proposal_v1`, `proposal_request_v1`, `eval_case_v2` and
@@ -692,7 +694,7 @@ The main agent should proceed in this order:
 10. Design the pooled prediction dataset only after the rollout records pass
     provenance, grouping and outcome-quality checks.
 
-Each material milestone should be its own commit on `codex/project-work`. Update
+For this provider plan, each material milestone should be its own commit on `project-work`. Update
 `docs/RESEARCH_DECISIONS.md` with implemented evidence, rejected assumptions and
 the next check. Do not describe planned integrations as completed.
 
