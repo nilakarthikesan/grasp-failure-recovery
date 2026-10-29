@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "purpose": "synthetic_scene_preparation_only",
+  "assumptions": [
+    "Synthetic 5 cm cube, 0.1 kg mass and sliding friction 1.0 are test assumptions, not measured object properties.",
+    "Table, initial pose, camera, lighting, secondary friction coefficients and solver/contact settings are engineering defaults.",
+    "Settling and calibration tolerances are software checks, not validated scientific thresholds.",
+    "This hand-free scene preparation does not execute HUG, grasp trials, training or prediction and makes no physical grasp claims."
+  ],
+  "simulator": {
+    "timestep_s": 0.002,
+    "gravity_m_s2": [0.0, 0.0, -9.81],
+    "integrator": "implicitfast",
+    "solver": "Newton",
+    "iterations": 100,
+    "tolerance": 1e-10,
+    "cone": "elliptic",
+    "impratio": 1.0
+  },
+  "contact": {
+    "friction": [1.0, 0.005, 0.0001],
+    "condim": 3,
+    "solref": [0.02, 1.0],
+    "solimp": [0.9, 0.95, 0.001, 0.5, 2.0],
+    "margin_m": 0.0,
+    "gap_m": 0.0,
+    "priority": 0,
+    "solmix": 1.0
+  },
+  "object": {
+    "shape": "cube",
+    "dimensions_m": [0.05, 0.05, 0.05],
+    "mass_kg": 0.1,
+    "initial_position_m": [0.0, 0.0, 0.08],
+    "initial_orientation_wxyz": [1.0, 0.0, 0.0, 0.0],
+    "initial_velocity_m_s_rad_s": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "rgba": [0.85, 0.25, 0.10, 1.0]
+  },
+  "table": {
+    "center_m": [0.0, 0.0, -0.025],
+    "dimensions_m": [1.0, 1.0, 0.05],
+    "rgba": [0.58, 0.61, 0.64, 1.0]
+  },
+  "camera": {
+    "position_m": [0.25, -0.35, 0.35],
+    "target": "settled_object_center",
+    "world_up": [0.0, 0.0, 1.0],
+    "width": 224,
+    "height": 224,
+    "vertical_fov_degrees": 45.0,
+    "near_m": 0.01,
+    "far_m": 2.0
+  },
+  "lighting": {
+    "position_m": [0.0, -1.0, 2.0],
+    "direction": [0.0, 0.0, -1.0],
+    "ambient": [0.3, 0.3, 0.3],
+    "diffuse": [0.7, 0.7, 0.7],
+    "specular": [0.1, 0.1, 0.1],
+    "cast_shadow": false,
+    "headlight_active": false,
+    "offscreen_samples": 0
+  },
+  "settling": {
+    "window_samples": 500,
+    "maximum_steps": 2500,
+    "maximum_position_box_diagonal_m": 0.0001,
+    "maximum_orientation_diameter_bound_rad": 0.002,
+    "maximum_linear_speed_m_s": 0.001,
+    "maximum_angular_speed_rad_s": 0.01,
+    "maximum_support_penetration_m": 0.001
+  },
+  "validation": {
+    "interior_erosion_pixels": 2,
+    "maximum_sample_pixels_per_geometry": 128,
+    "maximum_depth_error_m": 0.00002,
+    "maximum_reprojection_error_pixels": 1e-8,
+    "maximum_reload_state_error": 1e-12,
+    "maximum_reload_depth_error_m": 1e-7,
+    "maximum_reload_rgb_channel_error": 0
+  }
+}
